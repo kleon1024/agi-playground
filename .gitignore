@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+.venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Data / runs artifacts
+*.bin
+*.pt
+*.safetensors
+data/raw/
+wandb/
+.trackio/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
