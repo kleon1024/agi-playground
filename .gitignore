@@ -17,3 +17,6 @@ wandb/
 .DS_Store
 .idea/
 .vscode/
+
+# internal workflow artifacts
+docs/superpowers/plans/

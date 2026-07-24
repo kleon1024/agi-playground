@@ -11,7 +11,7 @@ nanochat, Sebastian Raschka's books, and microgpt teach pretraining well and sto
 there; RL courses cover one algorithm as a capstone assignment; inference is usually
 "go read the vLLM source"; and agent harness engineering — loop design, tool schemas,
 context management, sandboxing, sub-agents, harness-aware evals — is barely taught
-anywhere. A 2026-07 research pass across curricula, pretraining, post-training/RL, and
+anywhere. A 2026-07 research pass across curricula, pretraining+data, post-training/RL, and
 infra/harness landscapes (see [`research/`](research/)) confirmed the gap and shaped
 this repo's scope.
 
@@ -95,7 +95,9 @@ claims a result it hasn't reproduced.
 Two compute lanes, documented as content in [`infra/`](infra/), not just a setup
 footnote:
 
-- **Local — RTX 4090, 24GB.** Reached via Tailscale SSH into WSL2. Fits every
+- **Local — RTX 4090, 24GB.** Reached via Tailscale SSH into WSL2 (setup
+  documented, smoke-test verification pending — see
+  [`infra/local-4090.md`](infra/local-4090.md)). Fits every
   `core/` toy, GPT-2-class pretraining, ≤8B LoRA SFT, GRPO on 0.5-3B models,
   datatrove data shards, and all inference/harness/eval labs.
 - **Cloud — Modal.** Used for 2-4 GPU parallelism labs (FSDP2/TP/PP), 7B+
@@ -110,8 +112,9 @@ optional alternative.
 Current milestone: **M0 — Scaffold**.
 
 - **M0 — Scaffold (now):** repo structure, README manifesto + curriculum map,
-  license, CI, `infra/` lane setup verified (SSH into WSL2 + smoke CUDA run; Modal
-  hello-GPU), `research/` published.
+  license, CI, `research/` published, `infra/` lanes documented — Modal hello-GPU
+  verified; the 4090/WSL2 smoke test is pending (host offline at last check, see
+  [`infra/local-4090.md`](infra/local-4090.md)).
 - **M1 — Speedrun v0:** the eight stages above, in order, each landing its seed
   lesson(s) in the corresponding track.
 - **M2 — Post-training + RL deepened:** DPO-family loss diffs, RM training,
