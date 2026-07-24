@@ -1,5 +1,6 @@
 ---
-status: unverified
+status: verified
+verified: 2026-07-24
 ---
 
 # Cloud lane — Modal
@@ -8,10 +9,18 @@ Modal is the second compute lane: reach for it only when a lesson genuinely
 needs more than the local RTX 4090 can offer. Everything else in the
 curriculum stays on [`local-4090.md`](local-4090.md).
 
-> **Status: unverified.** The pattern below is the intended setup. No
-> command output in this document has been recorded from a real run yet —
-> that happens in a follow-up verification task, after which this notice
-> and the frontmatter above are updated.
+> **Status: verified 2026-07-24.** The `hello_gpu.py` below was run as-is
+> with `modal run hello_gpu.py` on an A10 (Modal substituted `A10` for the
+> requested `A10G` class). Output:
+>
+> ```
+> NVIDIA A10 | capability (8, 6)
+> ```
+>
+> Wall clock ≈2 minutes including the one-time image build (torch install);
+> the warm GPU portion was seconds. Compute cost: on the order of a cent —
+> A10 is ~$1.10/hr billed per-second. Per the cost-printing rule, real
+> lessons must report their exact dollar cost from the Modal dashboard.
 
 ## When to use Modal
 

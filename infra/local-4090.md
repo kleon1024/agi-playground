@@ -15,9 +15,11 @@ document is written so that any reader with a consumer GPU and a Windows
 box can reproduce the topology.
 
 > **Status: unverified.** The steps below are the intended setup. No
-> command output in this document has been recorded from a real run yet —
-> that happens in a follow-up verification task, after which this notice
-> and the frontmatter above are updated.
+> command output in this document has been recorded from a real run yet.
+> Verification attempted 2026-07-24: Tailscale connected from the dev box,
+> but the Windows/WSL2 machine was offline in the tailnet (last seen 94
+> days prior), so the SSH + CUDA smoke test could not run. This notice and
+> the frontmatter flip to `verified` once the smoke test output is recorded.
 
 ## Target topology
 
