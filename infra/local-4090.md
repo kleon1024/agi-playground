@@ -1,5 +1,6 @@
 ---
-status: unverified
+status: verified
+verified: 2026-07-24
 ---
 
 # Local lane — RTX 4090 via Tailscale + WSL2
@@ -14,12 +15,9 @@ The remote-dev setup itself is teachable content, not a footnote: this
 document is written so that any reader with a consumer GPU and a Windows
 box can reproduce the topology.
 
-> **Status: unverified.** The steps below are the intended setup. No
-> command output in this document has been recorded from a real run yet.
-> Verification attempted 2026-07-24: Tailscale connected from the dev box,
-> but the Windows/WSL2 machine was offline in the tailnet (last seen 94
-> days prior), so the SSH + CUDA smoke test could not run. This notice and
-> the frontmatter flip to `verified` once the smoke test output is recorded.
+> **Status: verified 2026-07-24.** The full path — Mac → Tailscale → WSL2 →
+> CUDA → PyTorch — was exercised end-to-end over SSH. Recorded output is in
+> [Verification record](#verification-record) below.
 
 ## Target topology
 
@@ -44,15 +42,27 @@ NVIDIA driver stack (see pitfalls below).
       Windows host, sign both into the same tailnet. Confirm the Windows
       host shows up in `tailscale status` from the Mac and resolves via
       its tailnet hostname (e.g. `windows-4090`) or 100.x Tailscale IP.
-- [ ] **SSH reachability into WSL2.** Either:
-  - Run `sshd` inside WSL2 Ubuntu directly, and configure a Windows
-    `netsh interface portproxy` rule that forwards a Windows port (e.g.
-    2222) to the WSL2 VM's internal IP and port 22, since WSL2's networking
-    is NAT'd behind Windows by default; or
-  - Use **Tailscale SSH** (enable it in the Tailscale admin console and via
-    `tailscale up --ssh` on the box actually running `sshd`), which
-    sidesteps manual port forwarding by handling auth and routing at the
-    Tailscale layer.
+- [ ] **SSH reachability into WSL2.** Pick one of three approaches:
+  - **Tailscale inside WSL2 (simplest, and what the verification run used).**
+    Install Tailscale in the WSL2 Ubuntu instance itself and join the tailnet
+    from there, so WSL2 is its own tailnet node with its own 100.x address.
+    Run `sshd` inside WSL2 and connect straight to that address — no Windows
+    port forwarding involved at all. If WSL2 has no systemd, start the daemon
+    in userspace-networking mode
+    (`tailscaled --tun=userspace-networking`), which still accepts inbound
+    connections by proxying them to local ports.
+  - **Tailscale on Windows + portproxy.** Join the tailnet on the Windows
+    host, run `sshd` inside WSL2, and add a `netsh interface portproxy` rule
+    forwarding a Windows port (e.g. 2222) to the WSL2 VM's internal IP on
+    port 22, since WSL2 networking is NAT'd behind Windows by default.
+    **Caveat:** the WSL2 VM's internal IP is dynamic and typically changes on
+    every reboot, so a static portproxy rule silently breaks after a restart —
+    script the rule's re-creation at boot, or prefer the first approach.
+  - **Tailscale SSH** (`tailscale up --ssh`, plus an SSH rule in the tailnet
+    ACL). This is an *alternative* to running a traditional `sshd`, not a
+    layer on top of one: `tailscaled` itself terminates the SSH session and
+    handles authentication via tailnet identity, so there are no host keys or
+    `authorized_keys` to manage.
 - [ ] **Key-based auth.** Generate an SSH key pair on the Mac, add the
       public key to WSL2 Ubuntu's `~/.ssh/authorized_keys`, and disable
       password auth once key auth is confirmed working.
@@ -74,6 +84,31 @@ NVIDIA driver stack (see pitfalls below).
       This confirms the GPU is visible end-to-end: Windows driver → WSL2
       GPU passthrough → CUDA → PyTorch. Recording this output for real is
       the acceptance bar for flipping this doc's `status` to verified.
+
+## Verification record
+
+Run 2026-07-24 from a macOS dev box over Tailscale SSH into WSL2 Ubuntu
+(kernel `6.6.87.2-microsoft-standard-WSL2`), environment created with
+`uv venv --python 3.12` + `uv pip install torch`:
+
+```
+$ /usr/lib/wsl/lib/nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv,noheader
+NVIDIA GeForce RTX 4090, 24564 MiB, 591.86
+
+$ .venv/bin/python smoke.py
+torch 2.13.0+cu130
+cuda available: True
+device: NVIDIA GeForce RTX 4090
+capability: (8, 9)
+vram_gb: 25.8
+bf16 matmul TFLOP/s: 138.8
+```
+
+The last line is a 4096×4096 bf16 matmul loop (50 iterations, synchronized).
+At ~139 TFLOP/s it lands near the expected fraction of the card's dense bf16
+peak — a useful one-line regression check that the lane is not silently
+running degraded (thermal throttling, a driver regression, or CPU-bound
+dispatch would all show up here as a large drop).
 
 ## VS Code / CLI remote-dev notes
 
@@ -109,3 +144,18 @@ NVIDIA driver stack (see pitfalls below).
   Keep the repo, datasets, and checkpoints inside the WSL2 Linux
   filesystem (e.g. under `~/`), and use `/mnt/c` only for occasional
   interchange with Windows-side tools.
+- **`nvidia-smi` is not on the non-interactive SSH `PATH`.** The WSL2 GPU
+  tooling lives in `/usr/lib/wsl/lib`, which login shells add to `PATH` but
+  a non-interactive `ssh host "nvidia-smi ..."` command does not inherit.
+  The bare command then fails with `command not found` even though the GPU
+  is perfectly healthy — an easy false alarm when scripting remote checks.
+  Use the absolute path `/usr/lib/wsl/lib/nvidia-smi`, or wrap remote
+  commands in `bash -lc "..."` to get a login shell. PyTorch is unaffected:
+  it loads `libcuda.so` from that directory through the linker
+  configuration, not through `PATH`.
+- **A bare `torch` install has no NumPy.** Installing only `torch` produces
+  a working CUDA stack that still prints
+  `UserWarning: Failed to initialize NumPy` on first tensor conversion.
+  Harmless for pure-GPU work, but install `numpy` alongside `torch` to keep
+  the warning out of run logs, since noisy logs make real failures easier to
+  miss.

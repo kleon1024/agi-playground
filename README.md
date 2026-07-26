@@ -96,7 +96,7 @@ Two compute lanes, documented as content in [`infra/`](infra/), not just a setup
 footnote:
 
 - **Local — RTX 4090, 24GB.** Reached via Tailscale SSH into WSL2 (setup
-  documented, smoke-test verification pending — see
+  documented and verified end-to-end — see
   [`infra/local-4090.md`](infra/local-4090.md)). Fits every
   `core/` toy, GPT-2-class pretraining, ≤8B LoRA SFT, GRPO on 0.5-3B models,
   datatrove data shards, and all inference/harness/eval labs.
@@ -111,10 +111,9 @@ optional alternative.
 
 Current milestone: **M0 — Scaffold**.
 
-- **M0 — Scaffold (now):** repo structure, README manifesto + curriculum map,
-  license, CI, `research/` published, `infra/` lanes documented — Modal hello-GPU
-  verified; the 4090/WSL2 smoke test is pending (host offline at last check, see
-  [`infra/local-4090.md`](infra/local-4090.md)).
+- **M0 — Scaffold (done):** repo structure, README manifesto + curriculum map,
+  license, CI, `research/` published, and both `infra/` lanes verified with
+  recorded output — Modal hello-GPU and the 4090/WSL2 CUDA smoke test.
 - **M1 — Speedrun v0:** the eight stages above, in order, each landing its seed
   lesson(s) in the corresponding track.
 - **M2 — Post-training + RL deepened:** DPO-family loss diffs, RM training,
