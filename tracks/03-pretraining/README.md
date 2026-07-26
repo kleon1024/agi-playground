@@ -25,7 +25,7 @@ without destroying what it already learned.
   verified on held-out text.
 - A modern GPT-class decoder — RMSNorm, RoPE, GQA, SwiGLU — assembled from
   `01-foundations`' mechanics into the specific architecture that speedrun
-  stage [`02-pretrain`](../../speedrun/02-pretrain/) trains: ~120M
+  stage [`02-pretrain`](../../speedrun/02-pretrain/) trains: ~88M
   parameters, sized against a real token budget rather than picked
   arbitrarily.
 - A training loop with the engineering that separates "the math is right"

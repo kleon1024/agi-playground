@@ -46,7 +46,7 @@ lesson breaks, the speedrun breaks.
 |---|---|---|---|
 | [00 · corpus](speedrun/00-corpus/) | Cleaned English shard from Common Crawl/FineWeb via datatrove; dedup + quality-filter stats | datatrove | ✅ [built](speedrun/00-corpus/runs/) |
 | [01 · tokenizer](speedrun/01-tokenizer/) | Own BPE tokenizer, minbpe-style, trained on the shard | minbpe | 🚧 planned |
-| [02 · pretrain](speedrun/02-pretrain/) | ~120M-class decoder (RMSNorm/RoPE/SwiGLU), bf16, grad-accum; loss curve published | nanoGPT / nanochat | 🚧 planned |
+| [02 · pretrain](speedrun/02-pretrain/) | ~88M decoder (RMSNorm/RoPE/SwiGLU/GQA), bf16, grad-accum; loss curve published | nanoGPT / nanochat | 🚧 planned |
 | [03 · sft](speedrun/03-sft/) | Chat template + loss masking on a small open instruct set; before/after samples | TRL | 🚧 planned |
 | [04 · rl](speedrun/04-rl/) | GRPO on a verifiable task with LoRA; reward curve | TRL GRPOTrainer / TinyZero | 🚧 planned |
 | [05 · serve](speedrun/05-serve/) | Minimal engine: KV cache → paged blocks → continuous batching; benchmarked vs. naive generate | nano-vLLM | 🚧 planned |

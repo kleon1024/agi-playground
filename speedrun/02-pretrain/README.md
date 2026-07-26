@@ -11,7 +11,7 @@ corpus, entirely on the single-GPU lane.
 
 ## Deliverable
 
-A ~120M-parameter-class decoder (RMSNorm, RoPE, SwiGLU), trained bf16 with
+An ~88M-parameter decoder (RMSNorm, RoPE, SwiGLU, GQA), trained bf16 with
 gradient accumulation, hours-scale wall-clock, with a published loss curve.
 
 ## Anchor project
