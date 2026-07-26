@@ -94,6 +94,25 @@ turn) is a real harness capability, not just a model trick: the harness has
 to decide whether to dispatch them concurrently and how to reconcile
 partial failures across the batch.
 
+### MCP: standardizing tool integration, with the host as gatekeeper
+
+Before MCP (Model Context Protocol), every harness wired up tool integrations
+bespoke — a different adapter per model provider, per tool, per project. MCP
+standardizes this into three primitives exposed by a **server**: **tools**
+(callable functions, the direct analog of the schemas above), **resources**
+(addressable read-only data the client can fetch without a full tool-call
+round-trip, e.g. a file or a database row), and **prompts** (reusable prompt
+templates the server offers, parameterized by the client). A **host**
+application mediates between the model and any number of these servers,
+which is the protocol's actual security contract: the host is the
+gatekeeper deciding which servers a session may talk to and what a given
+server is allowed to see or do, not the model and not the server itself.
+This reframes tool integration as a distribution problem — write a server
+once, and any MCP-compatible host can use it — rather than changing what a
+tool call fundamentally is; the loop, schema-validation, and dispatch logic
+this track builds in `02` apply whether the tool arrived via a bespoke
+integration or an MCP server.
+
 ### Code-as-action and the agent-computer interface
 
 Rather than one atomic tool call per operation, a **code agent** writes and
@@ -176,6 +195,21 @@ similarity's approximate recall/precision trade-off; RAG earns its place
 where content genuinely isn't addressable by exact search (large unstructured
 corpora, semantic rather than lexical queries).
 
+The eager/JIT split is a real, contested architectural choice among
+production coding agents, not just a spectrum both ends of which are
+equally valid in practice. Cursor's original design leans eager: it builds
+and maintains an embedding-based index of the whole codebase upfront, so
+retrieval at query time is a similarity search against a structure that
+already exists. Claude Code leans JIT: no persistent index — the agent
+issues grep/glob/read-file calls against the live filesystem on demand,
+trading upfront indexing cost (and the staleness risk of an index that
+drifts from the code as it changes) for exact, always-current results at
+the cost of more tool round-trips per task. Neither is strictly better; the
+index approach amortizes cost across many queries against a slow-changing
+codebase, while the JIT approach never goes stale and needs no maintenance
+step, which matters more in a codebase that changes turn by turn during the
+same session the agent is working in.
+
 As a session grows, **context compaction** keeps it bounded: naive
 truncation (drop the oldest, cheapest, loses information irrecoverably), a
 sliding window (same trade-off with a fixed size), or recursive summarization
@@ -209,7 +243,17 @@ irreversible ones (delete, force-push, payment, send-email), hard-deny a
 blocklist regardless of confirmation. The core design tension is that too
 much confirmation friction gets rubber-stamped by a bored human — defeating
 the entire purpose — while too little leaves real risk unmitigated; the fix
-is making confirmation *rate* track actual risk, not raw action count.
+is making confirmation *rate* track actual risk, not raw action count. A
+cheap, general-purpose way to lower that risk-per-action in the first place
+— specifically for file-editing harnesses — is **git-as-undo**: commit (or
+otherwise checkpoint) before letting the agent make a batch of changes, so a
+bad edit is a `git revert` away rather than an unrecoverable mistake. This
+doesn't replace risk-tiered confirmation (a destructive action against an
+external system — a sent email, a production deploy — has no git to revert
+it with), but for the common case of local file edits it turns "should I
+confirm this?" into a lower-stakes question, because the cost of being
+wrong just dropped.
+
 Sandboxing tiers repeat the isolation/latency trade-off from code agents
 above, applied to the whole harness's action surface. **Prompt injection** is
 the harness-specific threat class: untrusted content the agent reads — a web
@@ -217,13 +261,20 @@ page, a file, a tool's returned data — can contain instructions that hijack
 the agent's next action. **Indirect injection** (the malicious instruction
 arrives via data being processed, not the user's own prompt) is the
 dangerous case, because it breaks the harness's usual assumption that only
-the user's own text needs scrutiny. Defense is layered, not a single fix:
-privilege separation (never let content read from an untrusted source
-directly trigger a high-privilege action without a checkpoint), treating any
-web/tool output as first-class untrusted data in prompt construction rather
-than plain concatenated context, and audit logging every tool call (actor,
-action, arguments, result, risk tier) — both for forensics and because
-"we can reconstruct exactly what the agent did" is itself a safety property.
+the user's own text needs scrutiny, and it is, honestly, not a solved
+problem: AgentDojo (2024), a benchmark built specifically to measure this,
+reported indirect prompt-injection attacks succeeding against a large
+majority of the agent/defense combinations it tested at the time — a
+2024-era figure against 2024-era defenses, not a current production number,
+but the qualitative point has not been overturned since: no purely
+prompt-level defense reliably closes this off. Defense is layered, not a
+single fix: privilege separation (never let content read from an untrusted
+source directly trigger a high-privilege action without a checkpoint),
+treating any web/tool output as first-class untrusted data in prompt
+construction rather than plain concatenated context, and audit logging
+every tool call (actor, action, arguments, result, risk tier) — both for
+forensics and because "we can reconstruct exactly what the agent did" is
+itself a safety property.
 
 ### Sub-agents: isolation, depth limits, and why delegation actually helps
 
@@ -233,15 +284,21 @@ inheriting the parent's full history, and only its final result — not its
 full transcript — returns to the parent. This isolation is what makes
 delegation useful at all: a sub-agent researching one narrow question doesn't
 drag the parent's unrelated conversation along, and its noisy intermediate
-tool calls don't pollute the parent's context on return. Sub-agents spawning
-further sub-agents need a hard **depth limit**, both for cost control (each
-level multiplies token spend) and because coordination and error-compounding
-failure modes get worse, not better, with more indirection. Modern harnesses
-run many sub-agents concurrently — tens to hundreds per session in some 2026
-write-ups — which only works because each has an isolated context and a
-narrow, well-specified task: this is an engineering property of the harness's
-concurrency and result-aggregation logic, not a property of the underlying
-model.
+tool calls don't pollute the parent's context on return. The same
+capability-based least-privilege principle from the permission model above
+applies directly to delegation: a sub-agent should receive only the scoped
+capabilities its specific delegated task needs (read this directory, call
+this one tool), not a copy of the parent's full permission set — a
+narrowly-scoped sub-agent is both safer and, in practice, more reliable,
+because it can't wander into actions unrelated to the one thing it was
+asked to do. Sub-agents spawning further sub-agents need a hard **depth
+limit**, both for cost control (each level multiplies token spend) and
+because coordination and error-compounding failure modes get worse, not
+better, with more indirection. Modern harnesses run many sub-agents
+concurrently — tens to hundreds per session in some 2026 write-ups — which
+only works because each has an isolated context and a narrow, well-specified
+task: this is an engineering property of the harness's concurrency and
+result-aggregation logic, not a property of the underlying model.
 
 ### Harness design as the independent variable
 
@@ -339,11 +396,13 @@ methodology applies directly to whatever harness you build here).
   on.
 - Sierra Research, τ²-bench (2026) — dual-control, policy-adherence
   evaluation, the template `06-harness-aware-evaluation` follows.
-- Model Context Protocol specification — a standardized tool/resource/prompt
-  interop layer (the "USB for agent tools" framing); relevant to
-  `02-tool-schemas-and-calling` even without a dedicated lesson, since it
-  changes how tool integration is distributed rather than what a tool call
-  fundamentally is.
+- Model Context Protocol specification — the tools/resources/prompts
+  primitive split and host-as-gatekeeper security model this track's `02`
+  lesson maps bespoke tool integration onto.
+- Debenedetti et al., *AgentDojo* (2024) — the indirect-prompt-injection
+  benchmark behind this track's "not a solved problem" framing in `04`; a
+  2024-era measurement against 2024-era defenses, cited for its qualitative
+  conclusion, not as a current attack-success rate.
 
 ## Hardware reality
 
@@ -361,7 +420,8 @@ session the same disciplined way this repo tracks GPU dollar cost on Modal.
    framework, including the hallucinated-observation failure mode and its
    fix.
 2. `02-tool-schemas-and-calling` — defining and dispatching 2–3 tools, schema
-   validation, malformed-call recovery, parallel tool calls.
+   validation, malformed-call recovery, parallel tool calls, and how MCP
+   standardizes the same integration across hosts and servers.
 3. `03-context-window-management` — eager vs. just-in-time loading,
    retrieval as one JIT mechanism, compaction and summarization strategies as
    the session grows.
