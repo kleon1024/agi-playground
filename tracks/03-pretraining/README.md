@@ -319,6 +319,10 @@ set. None of these fully solve forgetting; the practical target is usually
 `01-bpe-tokenizer-from-scratch` is the seed lesson for speedrun stage
 [`01-tokenizer`](../../speedrun/01-tokenizer/). `02-gpt-architecture` and
 `03-training-loop` are the seed lessons for speedrun stage
-[`02-pretrain`](../../speedrun/02-pretrain/). Both stages currently have no
-verified run — the only verified run in this repo so far is the corpus
-pipeline in [`speedrun/00-corpus/`](../../speedrun/00-corpus/).
+[`02-pretrain`](../../speedrun/02-pretrain/). Neither speedrun stage has a
+verified run yet. The two recorded runs in the repo today are the corpus
+pipeline in [`speedrun/00-corpus/`](../../speedrun/00-corpus/) and the
+character-level training loop in
+[`tracks/01-foundations/01-first-training-loop/`](../01-foundations/01-first-training-loop/),
+which is worth running first — it is this track's architecture at 10.75M
+parameters, and its failure mode is precisely the one stage 00 exists to fix.
