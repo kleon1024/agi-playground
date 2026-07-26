@@ -1,0 +1,72 @@
+# Mission 01 — Language model agent
+#
+# The first vertical slice: prove the language-model chain runs end to end,
+# from raw web text to an agent that acts, on one 24GB GPU.
+#
+# This mission is deliberately the least business-shaped of the missions
+# planned, because its real job is to establish that the platform layers
+# compose at all. Later missions (personalized discovery, multimodal content
+# intelligence) carry stronger outcome claims precisely because they can reuse
+# what this one proves.
+
+stakeholder: >
+  An engineer who needs to own a language-model system end to end — not just
+  call an API — and must be able to explain and change any layer of it.
+
+job: >
+  Go from raw text to a working, serveable, tool-using agent, understanding
+  every stage well enough to debug and modify it.
+
+decision: >
+  At each stage, which implementation and which trade-off — vocabulary size,
+  model shape, token budget, serving strategy, harness design — and on what
+  evidence.
+
+baseline: >
+  Calling a hosted frontier model API. Zero build cost, strong quality, no
+  understanding of or control over any layer, and per-token cost forever.
+  This mission does not beat that baseline on output quality and does not
+  claim to.
+
+primary_metric: >
+  End-to-end completion: all eight stages run from a documented command and
+  produce their declared artifact, with the model trained here serving real
+  requests through the engine built here, driven by the harness built here.
+
+guardrails:
+  - Every published number traces to a runs/ entry
+  - No stage may substitute a downloaded artifact for one this mission builds,
+    except the corpus, where the substitution is documented and argued
+  - Each core/ implementation stays readable and dependency-light
+
+latency_budget: >
+  Not a constraint for this mission; the serving stage measures and reports
+  latency rather than targeting a threshold. Later missions inherit real budgets.
+
+cost_budget: >
+  Local lane, $0 marginal. Any Modal usage prints its dollar cost into runs/.
+  Total GPU wall-clock is reported per stage.
+
+capabilities:
+  - act-coordinate      # the agent harness, stage 06
+
+acceptance:
+  - All eight stages complete with a runs/ entry each
+  - The pretrained model is served by the engine built in stage 05
+  - The agent in stage 06 drives that served model, not a hosted API
+  - Stage 07 reports evaluation with the harness disclosed
+  - Total wall-clock and cost documented end to end
+  - A newcomer can reproduce the chain from repo docs alone
+
+proves: >
+  That the language-model chain — corpus, tokenizer, pretraining, adaptation,
+  serving, harness, evaluation — composes into one working system on a single
+  consumer GPU, and that the platform layers are real rather than notional.
+
+does_not_prove: >
+  Nothing about business outcome. This mission has no stakeholder metric, no
+  live users, and no baseline it beats on quality — a hosted frontier model
+  will outperform its output on essentially every task. It also does not prove
+  the platform generalizes beyond text: that claim belongs to the second
+  mission, which must reuse these platform layers for a different decision
+  loop to earn it.

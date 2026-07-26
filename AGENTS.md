@@ -4,29 +4,38 @@ Working notes for AI agents and human contributors. Read this before editing.
 
 ## What this repo is
 
-A curriculum you learn by building: data → pretraining → post-training → RL →
-inference → evals → agent harnesses. Every topic pairs a readable from-scratch
-implementation with the production tool it mirrors, and nothing claims a result
-it has not actually produced.
+Build AI systems from infrastructure to measurable outcomes. Five layers:
+business goal → mission → capabilities → platform → infrastructure. A
+capability proves a hammer works; a mission proves a problem got solved.
 
 ## Layout
 
 ```
-speedrun/     the flagship pipeline, stages 00-07 — the repo's integration test
-tracks/       01-08, the systematic curriculum; each holds lessons
-infra/        compute lanes (local GPU via Tailscale/WSL2, and Modal)
-research/     the landscape research the curriculum's scope is argued from
+foundations/   mathematics and mechanism, bound to no product
+platform/      data, training, adaptation, serving, evaluation, safety
+capabilities/  composable hammers — admitted only when two missions need them
+missions/      infrastructure through to business outcome
+infra/         compute lanes (local GPU via Tailscale/WSL2, and Modal)
+research/      the landscape evidence behind every technical choice
+standards/     the contracts everything else must satisfy — read these first
 ```
 
-## The one invariant
+## The two invariants
 
-**A published number must be traceable to a `runs/` entry.**
+**Every capability claim is backed by a run.**
+**Every mission is backed by a measurable outcome.**
 
 Every lesson is `README.md` + `core/` + `prod/` + `runs/`. `core/` is
 from-scratch and dependency-light; `prod/` does the same job with the real
 tool; `runs/` records the exact command, hardware, wall-clock, cost, and
 metrics. A lesson without a `runs/` entry stays `status: draft` in its
 frontmatter and shows as draft in the README tables.
+
+Missions additionally need a `mission.yaml` written **before** building —
+declaring stakeholder, job, decision, baseline, primary metric, guardrails,
+budgets, and acceptance. Business outcomes cannot be executed, so they are
+proven against declared reproducible proxies, and every mission must state what
+it does *not* prove. Full rules in [`standards/`](standards/).
 
 If you cannot run it, do not write the number. Estimates, plausible figures,
 and "typical" results are all failures here. External published results are

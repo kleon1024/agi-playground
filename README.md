@@ -1,144 +1,143 @@
 # agi-playground
 
-Learn the full modern AI stack by building it: data → pretraining → post-training →
-RL → inference → evals → agent harnesses. Readable from-scratch cores, production-tool
-lanes, and real, verified runs — most of it on a single 24GB GPU.
+**Build AI systems from infrastructure to measurable outcomes.**
 
-## Why this exists
+从基础设施出发，组合泛 AI 能力，交付可衡量的业务结果。
 
-No existing resource spans the full stack with equal depth. From-scratch repos like
-nanochat, Sebastian Raschka's books, and microgpt teach pretraining well and stop
-there; RL courses cover one algorithm as a capstone assignment; inference is usually
-"go read the vLLM source"; and agent harness engineering — loop design, tool schemas,
-context management, sandboxing, sub-agents, harness-aware evals — is barely taught
-anywhere. A 2026-07 research pass across curricula, pretraining+data, post-training/RL, and
-infra/harness landscapes (see [`research/`](research/)) confirmed the gap and shaped
-this repo's scope.
+Most AI curricula teach how a model is made. That is a pipeline —
+`data → pretrain → post-train → RL → inference → agent` — and it explains one
+artifact well. It cannot express who a system serves, what decision it makes on
+their behalf, or whether it worked, which is why it has no natural place for
+recommendation, ranking, realtime voice, generative media, or embodied agents.
+Those are not more model types. They are different decision loops.
 
-The white space this repo targets: data pipelines and annotation as a first-class
-module (not "assume the corpus is already clean"); RL post-training taught
-progressively — reward models → the DPO family → GRPO/RLVR → agentic multi-turn RL —
-instead of one unscaffolded jump; inference infra as an exercise-driven subject
-instead of a source-reading assignment; and agent harness engineering treated as its
-own discipline, not an afterthought bolted onto a model demo.
+This repo teaches the durable skill instead: **given a problem, identify the
+decision loop, choose the AI capabilities that serve it, build the system, and
+prove the outcome.**
 
-The pedagogy, validated across all four research surveys, is **read the toy, then map
-to the real thing**: every topic pairs a minimal, fully readable implementation with
-the production system it mirrors, then tells you when to reach for which.
+## The five layers
 
-| Toy | Production |
+```mermaid
+flowchart LR
+    A["Business goal<br/>value, revenue, cost, risk"] --> B["Mission<br/>end-to-end product system"]
+    B --> C["Capabilities<br/>understand, retrieve, generate,<br/>decide, act, learn"]
+    C --> D["Platform<br/>data, training, adaptation,<br/>serving, evaluation, safety"]
+    D --> E["Infrastructure<br/>compute, storage, network, observability"]
+    B --> F["Outcome telemetry"]
+    F --> D
+```
+
+A **capability** proves a hammer works. A **mission** proves a problem got
+solved. That difference is the point of the repo.
+
+## The two invariants
+
+> **Every capability claim is backed by a run.**
+> **Every mission is backed by a measurable outcome.**
+
+Technical numbers trace to a `runs/` entry naming the command, hardware,
+wall-clock and cost. Outcome claims trace to a declared baseline, an outcome,
+and guardrails.
+
+Because business outcomes cannot be executed on a GPU — this repo has no live
+users — missions prove them against **declared, reproducible proxies** (offline
+replay, simulated users, public benchmark against a stated baseline), and every
+mission must state what it does *not* establish. One fabricated number would
+cost more credibility than every verified one earns. See
+[`standards/`](standards/).
+
+## Missions
+
+| Mission | Decision loop | Status |
+|---|---|---|
+| [01 · language-model agent](missions/01-language-model-agent/) | Raw text → tokenizer → pretrain → adapt → serve → act, on one 24GB GPU | 🔨 in progress — [contract](missions/01-language-model-agent/mission.yaml) |
+
+Mission 01 is the first vertical slice. Its job is to prove the platform layers
+compose at all, and its contract says plainly that it beats no business
+baseline — a hosted frontier model will outperform its output on nearly every
+task. Later missions (personalized discovery, multimodal content intelligence)
+carry real outcome claims, and must earn them by *reusing* these platform layers
+for a different decision loop.
+
+Missions are added deliberately. Mission 01 finishes before mission 02 starts.
+
+## Repository
+
+```
+foundations/   mathematics and mechanism, bound to no product
+platform/      the lifecycle that turns models into reliable capabilities
+capabilities/  composable hammers, admitted only when two missions need them
+missions/      infrastructure through to business outcome
+infra/         local, cloud, and distributed runtime
+research/      the landscape evidence behind every technical choice
+standards/     the contracts lessons, capabilities, and missions must satisfy
+```
+
+### foundations
+
+| Lesson | Status |
 |---|---|
-| minbpe | HF tokenizers |
-| nanoGPT | torchtitan / OLMo-core |
-| TRL toy GRPO | verl |
-| nano-vLLM | vLLM |
-| mini-swe-agent | Claude Code / OpenHands |
-| Trackio | wandb |
+| [First training loop](foundations/01-first-training-loop/) — the smallest complete pretraining loop, and why its failure is a *data* failure | ✅ verified |
 
-## The speedrun
+### platform
 
-The flagship path: raw text in, your own chat agent out, in eight stages, every stage
-genuinely running on one 24GB GPU. Each stage is a from-scratch core wired to the
-next — the speedrun is the integration test for the tracks below. If a track's core
-lesson breaks, the speedrun breaks.
+| Layer | Scope | Status |
+|---|---|---|
+| [data](platform/data/) | Pipelines, dedup, filtering, annotation, synthetic data | ✅ seeded by [mission 01 · corpus](missions/01-language-model-agent/00-corpus/) |
+| [training](platform/training/) | Tokenizers, architecture, training loop, scaling laws | 🚧 draft |
+| [adaptation · post-training](platform/adaptation/post-training/) | SFT, LoRA/PEFT, reward models, DPO family, distillation, merging | 🚧 draft |
+| [adaptation · RL](platform/adaptation/reinforcement-learning/) | PPO grounding → GRPO/GSPO/DAPO → RLVR → agentic RL | 🚧 draft |
+| [serving](platform/serving/) | KV cache, paged attention, batching, speculative decoding, quantization; training infra | 🚧 draft |
+| [evaluation & observability](platform/evaluation-observability/) | Static and agentic evals, contamination, harness disclosure | 🚧 draft |
+| [safety & governance](platform/safety-governance/) | Enforcing the guardrails missions declare | 🚧 draft |
 
-| Stage | Deliverable | Anchor | Status |
-|---|---|---|---|
-| [00 · corpus](speedrun/00-corpus/) | Cleaned English shard from Common Crawl/FineWeb via datatrove; dedup + quality-filter stats | datatrove | ✅ [built](speedrun/00-corpus/runs/) |
-| [01 · tokenizer](speedrun/01-tokenizer/) | Own BPE tokenizer, minbpe-style, trained on the shard | minbpe | 🚧 planned |
-| [02 · pretrain](speedrun/02-pretrain/) | ~88M decoder (RMSNorm/RoPE/SwiGLU/GQA), bf16, grad-accum; loss curve published | nanoGPT / nanochat | 🚧 planned |
-| [03 · sft](speedrun/03-sft/) | Chat template + loss masking on a small open instruct set; before/after samples | TRL | 🚧 planned |
-| [04 · rl](speedrun/04-rl/) | GRPO on a verifiable task with LoRA; reward curve | TRL GRPOTrainer / TinyZero | 🚧 planned |
-| [05 · serve](speedrun/05-serve/) | Minimal engine: KV cache → paged blocks → continuous batching; benchmarked vs. naive generate | nano-vLLM | 🚧 planned |
-| [06 · agent](speedrun/06-agent/) | Minimal harness: loop, 2-3 tools, context window management, sandboxed execution | mini-swe-agent | 🚧 planned |
-| [07 · eval](speedrun/07-eval/) | Perplexity + small task suite + harness-disclosed agent eval; one honest report | lm-eval, inspect-ai | 🚧 planned |
+### capabilities
 
-Success looks like one documented command per stage, end-to-end wall-clock and cost,
-and a final report a newcomer can reproduce.
+| Capability | Scope | Status |
+|---|---|---|
+| [act-coordinate](capabilities/act-coordinate/) | Harness engineering: loop, tools, context management, sandboxing, sub-agents | 🚧 draft |
 
-## Curriculum map
-
-Tracks are numbered for reading order but each is self-contained enough to enter
-directly — every track states its own prerequisites. Every track has a written
-guide; `🚧 draft` means its lessons are not yet built and run. A track is only
-marked otherwise once it contains a lesson with a recorded run behind it.
-
-| # | Track | Scope | Status |
-|---|---|---|---|
-| 01 | [Foundations](tracks/01-foundations/) | Tensors → autograd → attention → transformer | ✅ [1 lesson verified](tracks/01-foundations/01-first-training-loop/) |
-| 02 | [Data](tracks/02-data/) | Pipelines, dedup/filtering, annotation, synthetic data | ✅ [seeded by speedrun 00](speedrun/00-corpus/) |
-| 03 | [Pretraining](tracks/03-pretraining/) | Tokenizers, architectures, training loop, scaling laws | 🚧 draft |
-| 04 | [Post-training](tracks/04-post-training/) | SFT, LoRA/PEFT, reward models, DPO family, distillation, merging | 🚧 draft |
-| 05 | [RL](tracks/05-rl/) | PPO grounding → GRPO/GSPO/DAPO → RLVR → agentic RL + environments | 🚧 draft |
-| 06 | [Inference](tracks/06-inference/) | KV cache → paged attention → batching → spec decode → quantization; training infra (FSDP2, profiling) | 🚧 draft |
-| 07 | [Evals](tracks/07-evals/) | lm-eval-harness, inspect-ai, agent/harness-aware evals | 🚧 draft |
-| 08 | [Agents](tracks/08-agents/) | Harness engineering: loop, tools, context management, sandboxing, multi-agent | 🚧 draft |
+`capabilities/` holds exactly one entry on purpose. Perception, retrieval,
+generation, ranking, and continual learning are named in the architecture
+because the structure needs somewhere to put them — not because they are
+half-built. A capability is admitted only when **two** missions need it, it has
+an I/O contract, it is objectively evaluable, it maps toy → production, and it
+runs on an existing compute lane. An empty folder is a promise; this repo
+prefers to owe nothing.
 
 ## How lessons work
 
-Every lesson is a directory with the same anatomy:
-
 ```
-tracks/05-rl/03-grpo/
-├── README.md    # intuition → math → implementation walk-through → production notes → exercises
-├── core/        # from-scratch: pure PyTorch + stdlib, minimal deps, heavily commented
-├── prod/        # the same thing with real tools (TRL/verl/vLLM/...), config included
-└── runs/        # verified run logs: exact command, config, hardware, wall-clock, cost, metrics
+<lesson>/
+├── README.md   # intuition → mechanism → walkthrough → production notes → exercises
+├── core/       # from-scratch: minimal dependencies, written to be read
+├── prod/       # the same job with the real tool, config included
+└── runs/       # command, hardware, wall-clock, cost, metrics
 ```
 
-`core/` teaches mechanics, `prod/` teaches practice — both must actually run. The
-honesty rule: a lesson without a verified run in `runs/` is marked `status: draft`
-in its README frontmatter and shows as draft in the tables above. Nothing here
-claims a result it has not reproduced, and every number published in a lesson is
-traceable to a `runs/` entry naming the command, hardware, and wall-clock that
-produced it.
+`core/` teaches mechanism, `prod/` teaches practice — both must run. The
+pedagogy is **read the toy, then map to the real thing**: minbpe ↔ HF
+tokenizers, nanoGPT ↔ torchtitan, TRL GRPO ↔ verl, nano-vLLM ↔ vLLM,
+mini-swe-agent ↔ Claude Code, Trackio ↔ wandb.
+
+A lesson without a `runs/` entry stays `status: draft` and shows as draft above.
 
 ## Hardware
 
-Two compute lanes, documented as content in [`infra/`](infra/), not just a setup
-footnote:
+Two lanes, documented as content in [`infra/`](infra/), both verified with
+recorded output:
 
-- **Local — RTX 4090, 24GB.** Reached via Tailscale SSH into WSL2 (setup
-  documented and verified end-to-end — see
-  [`infra/local-4090.md`](infra/local-4090.md)). Fits every
-  `core/` toy, GPT-2-class pretraining, ≤8B LoRA SFT, GRPO on 0.5-3B models,
-  datatrove data shards, and all inference/harness/eval labs.
-- **Cloud — Modal.** Used for 2-4 GPU parallelism labs (FSDP2/TP/PP), 7B+
-  full-parameter work, GPU-scale dedup, and RL rollout concurrency. Every Modal
-  lesson prints its dollar cost in `runs/`.
-
-Tracking is Trackio (local-first, source readable in one sitting) with wandb as an
-optional alternative.
-
-## Status & roadmap
-
-Current milestone: **M1 — Speedrun v0**.
-
-- **M0 — Scaffold (done):** repo structure, README manifesto + curriculum map,
-  license, CI, `research/` published, written guides for all eight tracks, and
-  both `infra/` lanes verified with recorded output — Modal hello-GPU and the
-  4090/WSL2 CUDA smoke test.
-- **M1 — Speedrun v0 (in progress):** the eight stages above, in order, each
-  landing its seed lesson(s) in the corresponding track. Stage 00 (corpus) is
-  built and recorded; stage 01 (tokenizer) is next.
-- **M2 — Post-training + RL deepened:** DPO-family loss diffs, RM training,
-  rejection sampling, distillation, merging; Tulu-3/R1 recipe walkthroughs.
-- **M3 — Data track deepened:** FineWeb-style pipeline lab, quality classifiers,
-  Argilla+distilabel annotation loop, preference-data + RLVR rubric design.
-- **M4 — Inference + infra deepened:** speculative decoding, quantization,
-  disaggregation concepts; FSDP2 + profiling labs; Modal multi-GPU parallelism lab.
-- **M5 — Agents + evals deepened:** harness patterns (context compaction,
-  sub-agents, sandboxing), τ²-bench-style environment design, harness-disclosed
-  evaluation methodology.
-
-Milestones ship sequentially; within a milestone, lessons land as they're verified.
+- **Local** — a 24GB card reached over Tailscale SSH into WSL2. Covers every
+  `core/` implementation, GPT-2-class pretraining, ≤8B LoRA, GRPO on 0.5–3B,
+  data pipelines, and all serving, harness, and eval work.
+- **Cloud — Modal** — multi-GPU parallelism, 7B+ full-parameter work,
+  GPU-scale dedup, rollout concurrency. Every Modal run prints its dollar cost.
 
 ## Research
 
-[`research/`](research/) holds the published landscape research and positioning
-behind this curriculum — the four-survey pass (curricula, pretraining+data,
-post-training+RL, infra+harness) that identified the gap this repo fills. It's kept
-as a standing credibility artifact and updated periodically as the field moves.
+[`research/`](research/) holds the landscape survey the curriculum's scope is
+argued from — what exists, what it covers, and the gaps this repo targets. Kept
+as a standing artifact and updated as the field moves.
 
 ## License
 
