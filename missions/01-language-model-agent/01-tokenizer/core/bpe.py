@@ -56,11 +56,39 @@ def word_counts(texts, max_docs: int | None = None) -> Counter[bytes]:
     return counts
 
 
-def train_bpe(counts: Counter[bytes], vocab_size: int, verbose: bool = True):
+def _apply_merge(ids: list[int], pair: tuple[int, int], new_id: int) -> list[int]:
+    """Replace every occurrence of `pair` in `ids` with `new_id`."""
+    if len(ids) < 2:
+        return ids
+    out, i = [], 0
+    while i < len(ids):
+        if i < len(ids) - 1 and (ids[i], ids[i + 1]) == pair:
+            out.append(new_id)
+            i += 2
+        else:
+            out.append(ids[i])
+            i += 1
+    return out
+
+
+def train_bpe(
+    counts: Counter[bytes],
+    vocab_size: int,
+    verbose: bool = True,
+    checkpoint: Path | None = None,
+    checkpoint_every: int = 500,
+):
     """Learn merges until the vocabulary reaches `vocab_size`.
 
     Returns (merges, vocab) where merges maps (a, b) -> new_id in learned order
     and vocab maps id -> bytes.
+
+    Pass `checkpoint` to make the run resumable. This is not premature caution:
+    training a 16k vocabulary in pure Python takes hours, and anything that
+    interrupts it — a laptop sleeping, an SSH session dropping, a machine
+    leaving the network — otherwise costs the entire run. Checkpointing turns a
+    two-hour loss into a two-minute one, and the merge list is small enough that
+    saving it is free relative to the cost of not having it.
     """
     assert vocab_size >= 256, "vocabulary must at least cover the 256 byte values"
 
@@ -70,8 +98,22 @@ def train_bpe(counts: Counter[bytes], vocab_size: int, verbose: bool = True):
     ]
     vocab: dict[int, bytes] = {i: bytes([i]) for i in range(256)}
     merges: dict[tuple[int, int], int] = {}
+    start_id = 256
 
-    for new_id in range(256, vocab_size):
+    if checkpoint and checkpoint.exists():
+        saved = json.loads(checkpoint.read_text())
+        for a, b, i in saved["merges"]:
+            merges[(a, b)] = i
+            vocab[i] = vocab[a] + vocab[b]
+        start_id = 256 + len(merges)
+        # Replay the learned merges onto the word state so training resumes
+        # from exactly where it stopped.
+        for (a, b), new_id in sorted(merges.items(), key=lambda kv: kv[1]):
+            words = [(_apply_merge(ids, (a, b), new_id), freq) for ids, freq in words]
+        if verbose:
+            print(f"resumed from {checkpoint}: {len(merges):,} merges", flush=True)
+
+    for new_id in range(start_id, vocab_size):
         # Count adjacent pairs, weighted by how often the word occurs.
         pairs: Counter[tuple[int, int]] = Counter()
         for ids, freq in words:
@@ -87,23 +129,15 @@ def train_bpe(counts: Counter[bytes], vocab_size: int, verbose: bool = True):
             break
 
         # Apply the merge everywhere it appears.
-        merged: list[tuple[list[int], int]] = []
-        for ids, freq in words:
-            if len(ids) >= 2:
-                out, i = [], 0
-                while i < len(ids):
-                    if i < len(ids) - 1 and (ids[i], ids[i + 1]) == best:
-                        out.append(new_id)
-                        i += 2
-                    else:
-                        out.append(ids[i])
-                        i += 1
-                ids = out
-            merged.append((ids, freq))
-        words = merged
+        words = [(_apply_merge(ids, best, new_id), freq) for ids, freq in words]
 
         merges[best] = new_id
         vocab[new_id] = vocab[best[0]] + vocab[best[1]]
+
+        if checkpoint and (new_id - 255) % checkpoint_every == 0:
+            checkpoint.write_text(
+                json.dumps({"merges": [[a, b, i] for (a, b), i in merges.items()]})
+            )
 
         if verbose and (new_id % 1000 == 0 or new_id < 260):
             token = vocab[new_id]
@@ -222,7 +256,7 @@ def cmd_train(args) -> None:
     )
 
     print(f"training BPE to vocab_size={args.vocab_size} ...", flush=True)
-    merges, vocab = train_bpe(counts, args.vocab_size)
+    merges, vocab = train_bpe(counts, args.vocab_size, checkpoint=args.checkpoint)
     tok = Tokenizer(merges, vocab)
     tok.save(args.out)
     print(f"saved {args.out}  [{time.time() - t0:.1f}s total]")
@@ -259,6 +293,12 @@ def main() -> None:
     tr.add_argument("--vocab-size", type=int, default=16384)
     tr.add_argument("--docs", type=int, default=50_000)
     tr.add_argument("--out", type=Path, default=Path("tokenizer.json"))
+    tr.add_argument(
+        "--checkpoint",
+        type=Path,
+        default=None,
+        help="save merges periodically here and resume from it if present",
+    )
     tr.set_defaults(func=cmd_train)
 
     te = sub.add_parser("test")
