@@ -23,7 +23,7 @@ This matches our locked decision: from-scratch core + production lane, both veri
 
 ## Canonical anchors per track
 
-| Track | Teach-from (toy) | Production reference | 4090-feasible? |
+| Track | Teach-from (toy) | Production reference | Single-GPU (24GB)? |
 |---|---|---|---|
 | Tokenizer | minbpe | HF tokenizers, tiktoken, SentencePiece | yes |
 | Pretraining | nanoGPT → nanochat spine, modded-nanoGPT speedrun | torchtitan, nanotron, OLMo-core, Megatron (read-only) | GPT-2 124M–350M class |

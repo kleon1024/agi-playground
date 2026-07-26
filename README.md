@@ -2,7 +2,7 @@
 
 Learn the full modern AI stack by building it: data → pretraining → post-training →
 RL → inference → evals → agent harnesses. Readable from-scratch cores, production-tool
-lanes, and real, verified runs — most of it on a single RTX 4090.
+lanes, and real, verified runs — most of it on a single 24GB GPU.
 
 ## Why this exists
 
@@ -38,7 +38,7 @@ the production system it mirrors, then tells you when to reach for which.
 ## The speedrun
 
 The flagship path: raw text in, your own chat agent out, in eight stages, every stage
-genuinely running on one RTX 4090. Each stage is a from-scratch core wired to the
+genuinely running on one 24GB GPU. Each stage is a from-scratch core wired to the
 next — the speedrun is the integration test for the tracks below. If a track's core
 lesson breaks, the speedrun breaks.
 

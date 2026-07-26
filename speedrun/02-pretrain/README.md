@@ -7,7 +7,7 @@ status: draft
 ## Goal
 
 Train a small GPT-class decoder from scratch on the tokenized speedrun
-corpus, entirely on the 4090 lane.
+corpus, entirely on the single-GPU lane.
 
 ## Deliverable
 
@@ -26,5 +26,5 @@ toy/production mapping). Seed lessons: `tracks/03-pretraining/README.md`,
 No verified run yet — depends on `00-corpus` and `01-tokenizer` landing
 first. When trained, its `runs/` entry must show: the exact training command
 and config (architecture dims, batch size, grad-accum steps, learning-rate
-schedule), hardware (4090, WSL2), wall-clock time, and a Trackio-exported loss
+schedule), hardware, wall-clock time, and a Trackio-exported loss
 curve — not a single final-loss number.

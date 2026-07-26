@@ -13,5 +13,5 @@ rows, plus the "Key 2025-2026 shifts" notes on RLVR/GRPO/GSPO/DAPO status.
 | verifiers (an "environment = reward function" framing) | prime-rl + Environments Hub, SkyRL | Agentic/multi-turn RL is the field's current frontier, per the synthesis — this is intentionally the last lesson in the track. verifiers keeps the toy small enough to read; prime-rl/Environments Hub and SkyRL are the two production ecosystems worth knowing, one community-hub-centric and one more infra-focused. |
 
 **Single-vendor-rot note:** both rows name multiple independent production
-projects. GRPO+LoRA is comfortable at 0.5-3B on the 4090 lane; larger rollout
+projects. GRPO+LoRA is comfortable at 0.5-3B on the single-GPU lane; larger rollout
 concurrency for agentic RL moves to the Modal lane.

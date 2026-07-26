@@ -2,13 +2,13 @@
 status: draft
 ---
 
-# Speedrun — raw text to your own chat agent, on one 4090
+# Speedrun — raw text to your own chat agent, on one GPU
 
 ## What this is
 
 The flagship integration path of agi-playground: starting from raw crawl text
 and ending with a served, agent-wrapped, self-trained model, entirely on a
-single RTX 4090. Every stage genuinely runs on that hardware — nothing here is
+single 24GB GPU. Every stage genuinely runs on that hardware — nothing here is
 a claim about frontier-scale results, and nothing ships without a verified
 run recorded in that stage's `runs/` directory (see the design doc, §5, for
 the lesson/run anatomy).

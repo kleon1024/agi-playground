@@ -27,7 +27,7 @@ speedrun's published shard directly).
 3. `03-training-loop` — bf16 mixed precision, gradient accumulation,
    checkpointing, an hours-scale run with a published loss curve.
 4. `04-scaling-laws-and-ablations` — reading loss curves, model/data/compute
-   trade-offs, small ablations at 4090 scale.
+   trade-offs, small ablations at single-GPU scale.
 5. `05-mapping-to-production-trainers` — reading torchtitan/nanotron/OLMo-core
    configs against the from-scratch training loop.
 
