@@ -48,7 +48,13 @@ from torch.nn import functional as F
 
 @dataclass
 class Config:
-    vocab_size: int = 16384
+    # 16,384 BPE tokens + 1 document separator = 16,385, rounded up to the next
+    # multiple of 128. Padding the vocabulary to a multiple of 64/128 lets the
+    # output projection use tensor cores on a clean tile boundary; the unused
+    # rows cost a rounding error in parameters and can measurably speed up the
+    # largest matmul in the model. nanoGPT famously found the same win padding
+    # GPT-2's 50,257 to 50,304.
+    vocab_size: int = 16512
     n_layer: int = 12
     n_head: int = 12
     n_kv_head: int = 4      # < n_head enables GQA; == n_head is standard MHA
