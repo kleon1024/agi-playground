@@ -26,16 +26,16 @@ quality and does not claim to.
 
 ## Stage table
 
-| Stage | Deliverable | Anchor | Track |
-|---|---|---|---|
-| `00-corpus` | ~1-2GB cleaned English shard from Common Crawl/FineWeb via datatrove; dedup + quality filter stats published | datatrove | `02-data` |
-| `01-tokenizer` | own BPE (minbpe-style), ~8-16k vocab, trained on the shard | minbpe | `03-pretraining` |
-| `02-pretrain` | ~120M-class decoder (RMSNorm/RoPE/SwiGLU), bf16, grad-accum; hours-scale run; loss curve published | nanoGPT/nanochat | `03-pretraining` (built on `01-foundations`) |
-| `03-sft` | chat template + loss masking; small open instruct set; before/after samples | TRL | `04-post-training` |
-| `04-rl` | GRPO on a verifiable task (e.g. arithmetic/countdown) with LoRA; reward curve | TRL GRPOTrainer / TinyZero | `05-rl` |
-| `05-serve` | minimal engine: KV cache → paged blocks → continuous batching; benchmarked vs naive generate | nano-vLLM | `06-inference` |
-| `06-agent` | minimal harness (~mini-swe-agent scale): loop, 2-3 tools, context window mgmt, sandboxed exec | mini-swe-agent | `08-agents` |
-| `07-eval` | perplexity + small task suite + harness-disclosed agent eval; one honest report | lm-eval, inspect-ai | `07-evals` |
+| Stage | Deliverable | Anchor | Layer | Status |
+|---|---|---|---|---|
+| [`00-corpus`](00-corpus/) | cleaned English shard from Common Crawl via a from-scratch pipeline, compared against datatrove's FineWeb recipe | datatrove | `platform/data` | ✅ built |
+| [`01-tokenizer`](01-tokenizer/) | own byte-level BPE, 16,384 vocab, 4.50 chars/token; naive vs indexed 71x; export verified id-identical | minbpe | `platform/training` | ✅ built |
+| [`02-pretrain`](02-pretrain/) | 88M decoder (RMSNorm/RoPE/SwiGLU/GQA), bf16, grad-accum; loss curve published | nanoGPT/nanochat | `platform/training` | 🔨 loop verified, awaiting GPU |
+| `03-sft` | chat template + loss masking; small open instruct set; before/after samples | TRL | `platform/adaptation` | 🚧 planned |
+| `04-rl` | GRPO on a verifiable task with LoRA; reward curve | TRL GRPOTrainer / TinyZero | `platform/adaptation` | 🚧 planned |
+| `05-serve` | minimal engine: KV cache → paged blocks → continuous batching; benchmarked vs naive generate | nano-vLLM | `platform/serving` | 🚧 planned |
+| `06-agent` | minimal harness: loop, 2-3 tools, context window management, sandboxed execution | mini-swe-agent | `capabilities/act-coordinate` | 🚧 planned |
+| `07-eval` | perplexity + small task suite + harness-disclosed agent eval; one honest report | lm-eval, inspect-ai | `platform/evaluation-observability` | 🚧 planned |
 
 ## Success criterion
 

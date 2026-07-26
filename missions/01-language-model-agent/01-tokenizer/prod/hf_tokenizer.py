@@ -21,8 +21,14 @@ Run:  python hf_tokenizer.py compare <corpus-dir> --vocab-size 16384 --docs 1000
 from __future__ import annotations
 
 import argparse
+import sys
 import time
 from pathlib import Path
+
+# The from-scratch trainer lives one directory over. Importing it rather than
+# duplicating it is the point: this script must export exactly the merges that
+# implementation learned.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "core"))
 
 import bpe as core  # our from-scratch implementation
 from tokenizers import Regex, Tokenizer, decoders, models, pre_tokenizers, trainers
