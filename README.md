@@ -42,16 +42,16 @@ genuinely running on one 24GB GPU. Each stage is a from-scratch core wired to th
 next — the speedrun is the integration test for the tracks below. If a track's core
 lesson breaks, the speedrun breaks.
 
-| Stage | Deliverable | Anchor |
-|---|---|---|
-| [00 · corpus](speedrun/00-corpus/) | Cleaned English shard from Common Crawl/FineWeb via datatrove; dedup + quality-filter stats | datatrove |
-| [01 · tokenizer](speedrun/01-tokenizer/) | Own BPE tokenizer, minbpe-style, trained on the shard | minbpe |
-| [02 · pretrain](speedrun/02-pretrain/) | ~120M-class decoder (RMSNorm/RoPE/SwiGLU), bf16, grad-accum; loss curve published | nanoGPT / nanochat |
-| [03 · sft](speedrun/03-sft/) | Chat template + loss masking on a small open instruct set; before/after samples | TRL |
-| [04 · rl](speedrun/04-rl/) | GRPO on a verifiable task with LoRA; reward curve | TRL GRPOTrainer / TinyZero |
-| [05 · serve](speedrun/05-serve/) | Minimal engine: KV cache → paged blocks → continuous batching; benchmarked vs. naive generate | nano-vLLM |
-| [06 · agent](speedrun/06-agent/) | Minimal harness: loop, 2-3 tools, context window management, sandboxed execution | mini-swe-agent |
-| [07 · eval](speedrun/07-eval/) | Perplexity + small task suite + harness-disclosed agent eval; one honest report | lm-eval, inspect-ai |
+| Stage | Deliverable | Anchor | Status |
+|---|---|---|---|
+| [00 · corpus](speedrun/00-corpus/) | Cleaned English shard from Common Crawl/FineWeb via datatrove; dedup + quality-filter stats | datatrove | ✅ [built](speedrun/00-corpus/runs/) |
+| [01 · tokenizer](speedrun/01-tokenizer/) | Own BPE tokenizer, minbpe-style, trained on the shard | minbpe | 🚧 planned |
+| [02 · pretrain](speedrun/02-pretrain/) | ~120M-class decoder (RMSNorm/RoPE/SwiGLU), bf16, grad-accum; loss curve published | nanoGPT / nanochat | 🚧 planned |
+| [03 · sft](speedrun/03-sft/) | Chat template + loss masking on a small open instruct set; before/after samples | TRL | 🚧 planned |
+| [04 · rl](speedrun/04-rl/) | GRPO on a verifiable task with LoRA; reward curve | TRL GRPOTrainer / TinyZero | 🚧 planned |
+| [05 · serve](speedrun/05-serve/) | Minimal engine: KV cache → paged blocks → continuous batching; benchmarked vs. naive generate | nano-vLLM | 🚧 planned |
+| [06 · agent](speedrun/06-agent/) | Minimal harness: loop, 2-3 tools, context window management, sandboxed execution | mini-swe-agent | 🚧 planned |
+| [07 · eval](speedrun/07-eval/) | Perplexity + small task suite + harness-disclosed agent eval; one honest report | lm-eval, inspect-ai | 🚧 planned |
 
 Success looks like one documented command per stage, end-to-end wall-clock and cost,
 and a final report a newcomer can reproduce.
@@ -59,13 +59,14 @@ and a final report a newcomer can reproduce.
 ## Curriculum map
 
 Tracks are numbered for reading order but each is self-contained enough to enter
-directly — every track states its own prerequisites. All tracks are `🚧 draft` at
-this milestone (M0): scaffolding is up, no verified runs have landed yet.
+directly — every track states its own prerequisites. Every track has a written
+guide; `🚧 draft` means its lessons are not yet built and run. A track is only
+marked otherwise once it contains a lesson with a recorded run behind it.
 
 | # | Track | Scope | Status |
 |---|---|---|---|
-| 01 | [Foundations](tracks/01-foundations/) | Tensors → autograd → attention → transformer | 🚧 draft |
-| 02 | [Data](tracks/02-data/) | Pipelines, dedup/filtering, annotation, synthetic data | 🚧 draft |
+| 01 | [Foundations](tracks/01-foundations/) | Tensors → autograd → attention → transformer | ✅ [1 lesson verified](tracks/01-foundations/01-first-training-loop/) |
+| 02 | [Data](tracks/02-data/) | Pipelines, dedup/filtering, annotation, synthetic data | ✅ [seeded by speedrun 00](speedrun/00-corpus/) |
 | 03 | [Pretraining](tracks/03-pretraining/) | Tokenizers, architectures, training loop, scaling laws | 🚧 draft |
 | 04 | [Post-training](tracks/04-post-training/) | SFT, LoRA/PEFT, reward models, DPO family, distillation, merging | 🚧 draft |
 | 05 | [RL](tracks/05-rl/) | PPO grounding → GRPO/GSPO/DAPO → RLVR → agentic RL + environments | 🚧 draft |
@@ -86,9 +87,11 @@ tracks/05-rl/03-grpo/
 ```
 
 `core/` teaches mechanics, `prod/` teaches practice — both must actually run. The
-honesty rule: a lesson without a verified run in `runs/` is marked `status: draft` in
-its README frontmatter and excluded from the curriculum map above. Nothing here
-claims a result it hasn't reproduced.
+honesty rule: a lesson without a verified run in `runs/` is marked `status: draft`
+in its README frontmatter and shows as draft in the tables above. Nothing here
+claims a result it has not reproduced, and every number published in a lesson is
+traceable to a `runs/` entry naming the command, hardware, and wall-clock that
+produced it.
 
 ## Hardware
 
@@ -109,13 +112,15 @@ optional alternative.
 
 ## Status & roadmap
 
-Current milestone: **M0 — Scaffold**.
+Current milestone: **M1 — Speedrun v0**.
 
 - **M0 — Scaffold (done):** repo structure, README manifesto + curriculum map,
-  license, CI, `research/` published, and both `infra/` lanes verified with
-  recorded output — Modal hello-GPU and the 4090/WSL2 CUDA smoke test.
-- **M1 — Speedrun v0:** the eight stages above, in order, each landing its seed
-  lesson(s) in the corresponding track.
+  license, CI, `research/` published, written guides for all eight tracks, and
+  both `infra/` lanes verified with recorded output — Modal hello-GPU and the
+  4090/WSL2 CUDA smoke test.
+- **M1 — Speedrun v0 (in progress):** the eight stages above, in order, each
+  landing its seed lesson(s) in the corresponding track. Stage 00 (corpus) is
+  built and recorded; stage 01 (tokenizer) is next.
 - **M2 — Post-training + RL deepened:** DPO-family loss diffs, RM training,
   rejection sampling, distillation, merging; Tulu-3/R1 recipe walkthroughs.
 - **M3 — Data track deepened:** FineWeb-style pipeline lab, quality classifiers,
