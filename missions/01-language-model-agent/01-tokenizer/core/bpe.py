@@ -27,10 +27,11 @@ from __future__ import annotations
 
 import argparse
 import gzip
+import heapq
 import json
 import re
 import time
-from collections import Counter
+from collections import Counter, defaultdict
 from itertools import pairwise
 from pathlib import Path
 
@@ -69,6 +70,128 @@ def _apply_merge(ids: list[int], pair: tuple[int, int], new_id: int) -> list[int
             out.append(ids[i])
             i += 1
     return out
+
+
+def train_bpe_indexed(
+    counts: Counter[bytes],
+    vocab_size: int,
+    verbose: bool = True,
+    checkpoint: Path | None = None,
+    checkpoint_every: int = 500,
+):
+    """The same algorithm, with an index. This is the one you should use.
+
+    `train_bpe` below recounts every pair in every word on every merge, which is
+    O(vocab_size x corpus) and is why a 16k vocabulary takes hours. But a merge
+    changes only the words that actually contain the merged pair — typically a
+    tiny fraction of the corpus. So:
+
+    * keep a running count of every pair, and
+    * keep an index from each pair to the set of words containing it.
+
+    Then a merge touches only the indexed words: subtract their old pair
+    contributions, apply the merge, add the new ones back. The cost per merge
+    drops from "the whole corpus" to "the words that changed".
+
+    Selecting the most frequent pair uses a lazy heap: pushing on every count
+    change would be expensive, so stale entries are left in place and discarded
+    when popped if they disagree with the authoritative count. This is the same
+    trick production priority queues use to avoid decrease-key.
+    """
+    assert vocab_size >= 256, "vocabulary must at least cover the 256 byte values"
+
+    words: list[list[int]] = []
+    freqs: list[int] = []
+    for word, freq in counts.items():
+        words.append(list(word))
+        freqs.append(freq)
+
+    vocab: dict[int, bytes] = {i: bytes([i]) for i in range(256)}
+    merges: dict[tuple[int, int], int] = {}
+    start_id = 256
+
+    if checkpoint and checkpoint.exists():
+        saved = json.loads(checkpoint.read_text())
+        for a, b, i in saved["merges"]:
+            merges[(a, b)] = i
+            vocab[i] = vocab[a] + vocab[b]
+        start_id = 256 + len(merges)
+        for (a, b), new_id in sorted(merges.items(), key=lambda kv: kv[1]):
+            words = [_apply_merge(w, (a, b), new_id) for w in words]
+        if verbose:
+            print(f"resumed from {checkpoint}: {len(merges):,} merges", flush=True)
+
+    pair_counts: Counter[tuple[int, int]] = Counter()
+    pair_words: dict[tuple[int, int], set[int]] = defaultdict(set)
+
+    def index_word(i: int, sign: int) -> None:
+        """Add (sign=+1) or remove (sign=-1) word i's pair contributions."""
+        w, f = words[i], freqs[i]
+        for pair in pairwise(w):
+            pair_counts[pair] += sign * f
+            if sign > 0:
+                pair_words[pair].add(i)
+
+    for i in range(len(words)):
+        index_word(i, +1)
+
+    heap = [(-c, p) for p, c in pair_counts.items() if c > 0]
+    heapq.heapify(heap)
+
+    for new_id in range(start_id, vocab_size):
+        # Pop until the heap's top agrees with the authoritative count.
+        best = None
+        while heap:
+            neg, pair = heapq.heappop(heap)
+            if pair_counts.get(pair, 0) == -neg and -neg >= 2:
+                best = pair
+                break
+        if best is None:
+            if verbose:
+                print(f"corpus exhausted at vocab size {new_id}", flush=True)
+            break
+
+        best_count = pair_counts[best]
+        affected = [i for i in pair_words[best] if _has_pair(words[i], best)]
+
+        touched: set[tuple[int, int]] = set()
+        for i in affected:
+            for pair in pairwise(words[i]):
+                touched.add(pair)
+            index_word(i, -1)
+            words[i] = _apply_merge(words[i], best, new_id)
+            index_word(i, +1)
+            for pair in pairwise(words[i]):
+                touched.add(pair)
+
+        del pair_counts[best]
+        pair_words.pop(best, None)
+        for pair in touched:
+            c = pair_counts.get(pair, 0)
+            if c > 0:
+                heapq.heappush(heap, (-c, pair))
+
+        merges[best] = new_id
+        vocab[new_id] = vocab[best[0]] + vocab[best[1]]
+
+        if checkpoint and (new_id - 255) % checkpoint_every == 0:
+            checkpoint.write_text(
+                json.dumps({"merges": [[a, b, i] for (a, b), i in merges.items()]})
+            )
+
+        if verbose and (new_id % 1000 == 0 or new_id < 260):
+            shown = vocab[new_id].decode("utf-8", errors="replace")
+            print(
+                f"  merge {new_id:>6}  {best[0]:>6},{best[1]:>6} -> {shown!r}  "
+                f"(x{best_count:,})",
+                flush=True,
+            )
+
+    return merges, vocab
+
+
+def _has_pair(ids: list[int], pair: tuple[int, int]) -> bool:
+    return any(p == pair for p in pairwise(ids))
 
 
 def train_bpe(
@@ -124,7 +247,10 @@ def train_bpe(
                 print(f"corpus exhausted at vocab size {new_id}")
             break
 
-        best, best_count = pairs.most_common(1)[0]
+        # Break ties by pair ordering, not by insertion order, so the result
+        # is deterministic and comparable against train_bpe_indexed.
+        best = min(pairs.items(), key=lambda kv: (-kv[1], kv[0]))[0]
+        best_count = pairs[best]
         if best_count < 2:  # nothing left worth merging
             break
 
@@ -256,7 +382,8 @@ def cmd_train(args) -> None:
     )
 
     print(f"training BPE to vocab_size={args.vocab_size} ...", flush=True)
-    merges, vocab = train_bpe(counts, args.vocab_size, checkpoint=args.checkpoint)
+    trainer = train_bpe if args.naive else train_bpe_indexed
+    merges, vocab = trainer(counts, args.vocab_size, checkpoint=args.checkpoint)
     tok = Tokenizer(merges, vocab)
     tok.save(args.out)
     print(f"saved {args.out}  [{time.time() - t0:.1f}s total]")
@@ -293,6 +420,11 @@ def main() -> None:
     tr.add_argument("--vocab-size", type=int, default=16384)
     tr.add_argument("--docs", type=int, default=50_000)
     tr.add_argument("--out", type=Path, default=Path("tokenizer.json"))
+    tr.add_argument(
+        "--naive",
+        action="store_true",
+        help="use the unindexed reference implementation (much slower)",
+    )
     tr.add_argument(
         "--checkpoint",
         type=Path,
