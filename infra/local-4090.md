@@ -126,6 +126,32 @@ dispatch would all show up here as a large drop).
 
 ## Common WSL2 pitfalls
 
+- **Nothing you start by hand survives a WSL restart.** This is the one that
+  will actually cost you hours. WSL2 ships without systemd, so a `tailscaled`
+  or `sshd` you launched manually has no supervisor: restarting WSL — or
+  Windows sleeping, which suspends WSL with it — kills both, permanently. The
+  machine then sits in a state that looks like a network fault from the far
+  end: the tailnet still lists the peer, but `tx` climbs while `rx` stays
+  frozen, because packets go out and nothing answers. Restarting WSL again does
+  not fix it; restarting WSL is what caused it.
+
+  Make it persistent instead of restarting it by hand:
+
+  ```bash
+  printf '[boot]\nsystemd=true\n' | sudo tee -a /etc/wsl.conf
+  # from Windows PowerShell:
+  wsl --shutdown
+  # reopen WSL, then:
+  sudo systemctl enable --now tailscaled ssh
+  ```
+
+  Diagnose it from the client side with `tailscale status`: a peer that is
+  registered but unreachable shows `offline, last seen <n> ago` with a rising
+  `tx` and a static `rx`. That pattern means the daemon is gone, not that the
+  network is broken. Check the *whole* peer list too — if the node re-registered
+  under a different hostname you will be pinging a stale address.
+
+
 - **GPU driver passthrough is Windows-side.** The NVIDIA driver is
   installed on Windows, not inside WSL2 — WSL2 uses that host driver via
   a special passthrough path. Do not install a separate Linux NVIDIA
