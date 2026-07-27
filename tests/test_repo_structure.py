@@ -19,7 +19,7 @@ PLATFORM = [
 
 CAPABILITIES = ["act-coordinate"]
 
-MISSIONS = ["01-language-model-agent"]
+MISSIONS = ["01-language-model-agent", "02-personalized-discovery"]
 
 MISSION_01_STAGES = [
     "00-corpus",

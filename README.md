@@ -51,13 +51,21 @@ cost more credibility than every verified one earns. See
 | Mission | Decision loop | Status |
 |---|---|---|
 | [01 · language-model agent](missions/01-language-model-agent/) | Raw text → tokenizer → pretrain → adapt → serve → act, on one 24GB GPU | 🔨 in progress — [contract](missions/01-language-model-agent/mission.yaml) |
+| [02 · personalized discovery](missions/02-personalized-discovery/) | Recommendation, search, and ads as one decision loop: intent → retrieve → rank → allocate → feedback | 📋 contract written — [contract](missions/02-personalized-discovery/mission.yaml) |
 
 Mission 01 is the first vertical slice. Its job is to prove the platform layers
 compose at all, and its contract says plainly that it beats no business
 baseline — a hosted frontier model will outperform its output on nearly every
-task. Later missions (personalized discovery, multimodal content intelligence)
-carry real outcome claims, and must earn them by *reusing* these platform layers
-for a different decision loop.
+task.
+
+Mission 02 is the test of the architecture itself. Ranking is a genuinely
+different decision loop — different objective, different failure modes, no text
+output — so if the platform layers are real rather than a relabelled LLM
+pipeline, it should reuse them. It is also the first mission with a business
+outcome, and therefore the first bound by the full outcome-proof discipline:
+offline replay, two baselines including un-personalized popularity, guardrails
+on coverage and diversity, and an explicit statement that no claim about live
+user behaviour is supported.
 
 Missions are added deliberately. Mission 01 finishes before mission 02 starts.
 

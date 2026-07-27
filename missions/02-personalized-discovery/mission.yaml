@@ -1,0 +1,95 @@
+# Mission 02 — Personalized discovery (recommendation, search, ads)
+#
+# The first mission with a real business outcome, and therefore the first one
+# that has to take the outcome-proof rules in standards/mission-contract.md
+# seriously rather than declaring them not applicable.
+#
+# It is also the mission that tests the architecture's central claim: that the
+# platform layers built for mission 01 are genuinely reusable for a different
+# decision loop. Recommendation is not "a language model applied to items" —
+# the decision, the objective, and the failure modes are all different.
+
+stakeholder: >
+  Two parties with non-identical interests, which is the defining feature of
+  this problem and the reason a single metric is dangerous:
+  (a) a user trying to find something worth their time;
+  (b) the platform that must remain economically viable, including advertisers
+  whose paid placements compete with organic results for the same attention.
+
+job: >
+  Find something the user is glad they saw, faster than they would have found
+  it themselves — across all three surfaces this mission covers: recommendation
+  (no query), search (explicit query), and ads (paid placement inside both).
+
+decision: >
+  Given a user, a context, and optionally a query, decide which items to show
+  and in what order — and, for ads, whether to show a paid item at all and at
+  what position, given that every ad displaces an organic result.
+
+baseline: >
+  Two, and the mission must beat both:
+  (1) global popularity ranking — the un-personalized control that is
+      embarrassingly strong and that many published "wins" fail to beat;
+  (2) an item-item collaborative-filtering baseline.
+  Popularity is the honest floor: a system that cannot beat "show everyone the
+  same popular items" has not demonstrated personalization at all.
+
+primary_metric: >
+  nDCG@10 on held-out interactions in an offline replay, against the same
+  candidate set for every arm. Reported with mean and standard deviation across
+  at least 5 seeds; a single-seed number is not a result.
+
+guardrails:
+  - Catalogue coverage must not fall below the popularity baseline's — a system
+    that improves accuracy by recommending only head items has traded the
+    catalogue for the metric
+  - Intra-list diversity must not regress more than 10% against baseline
+  - Cold-start users (fewer than 5 interactions) must not degrade below the
+    popularity baseline; personalization must not be a tax on new users
+  - Ad load must be held fixed across arms when comparing organic quality, so
+    that revenue changes cannot be smuggled in as relevance improvements
+  - No demographic attribute may be used as a ranking feature
+
+latency_budget: >
+  p50 under 100ms and p95 under 300ms for retrieval plus ranking over the full
+  catalogue, measured on the local lane. This is a real constraint, not
+  decoration: it is what forces the two-stage retrieve-then-rank architecture
+  rather than scoring every item with the expensive model.
+
+cost_budget: >
+  Under $0.001 per served request including embedding and ranking compute,
+  amortized. Measured, not estimated.
+
+capabilities:
+  - retrieve-ground     # candidate generation over the catalogue
+  - rank-decide         # scoring, ordering, and the ads auction
+  # act-coordinate is deliberately NOT used here. The temptation to make this
+  # "an agent that recommends" should be resisted until a mission needs it.
+
+acceptance:
+  - Beats BOTH baselines on nDCG@10 by more than the seed-to-seed variance
+  - No guardrail regresses past its stated threshold
+  - Latency and cost measured on real runs and inside budget
+  - The ads auction is evaluated separately for advertiser value AND user cost,
+    never as a single blended number
+  - Failure cases catalogued: which users and which queries got worse
+  - Every number traceable to a runs/ entry
+
+proves: >
+  That the platform layers generalize past text generation — the same data,
+  training, serving, and evaluation machinery serving a ranking decision loop —
+  and that two capabilities (retrieve-ground, rank-decide) can be composed and
+  reused rather than rebuilt per mission.
+
+does_not_prove: >
+  Nothing about live user behaviour. This is offline replay on logged
+  interactions, and logged data is confounded by the policy that produced it:
+  users could only interact with what the original system chose to show them,
+  so an offline win can evaporate or invert online. It cannot measure novelty
+  value, long-term retention, or whether a recommendation was regretted after
+  the click. It does not establish revenue impact — the ads component is scored
+  on simulated auctions with declared bid distributions, not real advertiser
+  behaviour. Any claim stronger than "better ranking of held-out interactions
+  under a fixed candidate set" is unsupported by this mission, and the
+  appropriate next step for a real deployment is an interleaving experiment or
+  an A/B test, neither of which this repository can run.
