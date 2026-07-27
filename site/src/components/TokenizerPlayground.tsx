@@ -11,6 +11,7 @@
  * learned" teaches far less than seeing 'catastrophe' collapse from eleven
  * byte tokens into one, and seeing a misspelling refuse to.
  */
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import React, { useEffect, useMemo, useState } from 'react';
 
 type Merges = Map<string, { rank: number; id: number }>;
@@ -111,6 +112,7 @@ const PALETTE = [
 ];
 
 export default function TokenizerPlayground(): React.ReactElement {
+  const dataUrl = useBaseUrl('/data/tokenizer.json');
   const [tok, setTok] = useState<Tokenizer | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [text, setText] = useState(
@@ -119,7 +121,7 @@ export default function TokenizerPlayground(): React.ReactElement {
   const [showTrace, setShowTrace] = useState(false);
 
   useEffect(() => {
-    fetch('/data/tokenizer.json')
+    fetch(dataUrl)
       .then((r) => r.json())
       .then((raw: { merges: [number, number, number][] }) => {
         const merges: Merges = new Map();
@@ -132,7 +134,7 @@ export default function TokenizerPlayground(): React.ReactElement {
         setTok({ merges, vocab });
       })
       .catch((e) => setError(String(e)));
-  }, []);
+  }, [dataUrl]);
 
   const result = useMemo(
     () => (tok ? encode(text, tok) : null),
