@@ -1,0 +1,9 @@
+.venv
+.superpowers
+site/node_modules
+site/build
+site/docs
+/data
+*.warc.gz
+*.parquet
+*.bin

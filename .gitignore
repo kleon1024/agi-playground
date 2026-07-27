@@ -25,3 +25,4 @@ docs/superpowers/plans/
 site/node_modules/
 site/build/
 site/.docusaurus/
+.vercel
