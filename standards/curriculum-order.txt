@@ -20,7 +20,9 @@
 foundations
 platform/data
 platform/training
+platform/adaptation/mid-training
 platform/adaptation/post-training
+platform/adaptation/distillation
 platform/adaptation/reinforcement-learning
 platform/serving
 platform/evaluation-observability

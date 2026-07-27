@@ -221,10 +221,12 @@ loss curve written from memory is not evidence.
 
 ## Next
 
-The output is a base model that predicts continuations. It does not yet know
-that a user message should receive an assistant answer. Continue to
-[post-training](../adaptation/post-training/) to define that behavioral
-contract.
+The output is a base model that predicts continuations over general text. It has
+never made a tool call, and its context window is as short as the one it trained
+on. Continue to [mid-training](../adaptation/mid-training/), which keeps this
+same next-token objective but changes the documents, then to
+[post-training](../adaptation/post-training/) to define the behavioral contract
+that turns continuations into assistant answers.
 
 Primary references: Sennrich et al. (BPE), Kaplan et al. and Hoffmann et al.
 (scaling laws), Touvron et al. (LLaMA), Gururangan et al. (continued

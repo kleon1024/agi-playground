@@ -17,7 +17,10 @@ preference pair -> preference optimization
 teacher trajectory -> distillation
 ```
 
-Each contract changes which tokens produce loss and what that loss means.
+Each contract changes which tokens produce loss and what that loss means. All
+three assume the base model already has the behavior somewhere in its
+distribution; installing a behavior it has never produced is
+[mid-training](../mid-training/)'s job, not this chapter's.
 
 ## 1. Define the assistant turn
 
@@ -158,6 +161,10 @@ Do not assume a longer rationale is a better target. Verify answer correctness,
 faithfulness where measurable, and whether the target format will exist at
 deployment time.
 
+What the teacher exposes decides what you can copy, and that turns out to
+constrain the student's tokenizer rather than only its weights.
+[Distillation](../distillation/) takes that question on its own terms.
+
 ## 7. Merge only when the compatibility assumption holds
 
 Model merging treats a fine-tune as a task vector:
@@ -196,7 +203,8 @@ establish broad instruction-following quality, safety, or preference alignment.
 ## Next
 
 The output is an assistant policy shaped by demonstrations or fixed
-preferences. Continue to
+preferences. Continue to [distillation](../distillation/) when a stronger model
+can supply the targets, or to
 [reinforcement learning](../reinforcement-learning/) when the policy must
 generate new attempts, receive a reward, and update from its own behavior.
 

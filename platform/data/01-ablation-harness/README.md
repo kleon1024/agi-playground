@@ -1,0 +1,188 @@
+---
+status: draft
+---
+
+# Does this data help?
+
+**Question:** you have a candidate change to the training mixture from the
+previous chapter — a new source, a re-weighted domain, a synthetic
+supplement. Does it make the model better, and how many runs are you allowed
+to run before you are entitled to answer either way?
+
+[Data](../) produced a versioned corpus and an explicit set of mixture
+weights. It could not tell you whether those weights were the right ones.
+That question needs a comparison: train the same model twice, once on the
+current mixture and once with the candidate substituted in, and read the
+difference. This chapter is about what has to be true of that comparison
+before the difference means anything.
+
+## 1. Fix everything except the mixture
+
+An ablation is only informative if exactly one thing moved. Fix the
+architecture, the parameter count, the token budget, the evaluation set, and
+the set of random seeds before looking at a single result. Vary only the data
+mixture between arms. Everything else — including which seeds you will use —
+is a decision made in advance, not selected after seeing which one looks
+better.
+
+This is also why the comparison runs on a small proxy model rather than the
+model you actually intend to ship. Frontier labs cannot afford to test a data
+decision at full training scale — a single full run can cost more than the
+decision is worth. The proxy exists to make the comparison cheap enough to
+repeat, on the assumption that a mixture's relative effect transfers from the
+proxy scale to the target scale. That assumption is not free, and section 4
+is about where it breaks.
+
+## 2. One run per arm is not a weak result — it is no result
+
+Train once on the baseline mixture, once on the candidate, and the run that
+happens to score higher provides no basis for a decision. At the parameter
+and token counts affordable for a proxy comparison, the score any single run
+produces already varies with nothing but its random seed — initialization,
+data shuffling order, and any other stochastic choice held fixed everywhere
+else. That run-to-run spread frequently exceeds the size of the effect a data
+change is expected to produce. A single pair of runs cannot separate "the
+mixture helped" from "this seed happened to land well."
+
+The quantity worth reporting is therefore not the raw score difference. It is
+that difference measured against the spread you would see from seed noise
+alone, holding the mixture fixed. Predict, before moving the control, whether
+adding seeds will make a fixed apparent gap look more real or make it
+dissolve.
+
+<!-- interactive: SeedVariance -->
+
+A harness that always returns a winner has not solved this problem; it has
+hidden it. "Not detectable at this scale" must be a result the harness can
+actually return, printed with the same confidence as a clear win. A tool that
+cannot say "we don't know yet" will manufacture an answer out of noise every
+time the true effect is small — which, for most data decisions, it is.
+
+## 3. What makes the multi-seed comparison affordable
+
+A single proxy run being cheap is not sufficient; a multi-seed comparison
+across two arms needs to be cheap too, or nobody will run enough seeds to
+trust the answer. State the inputs and the arithmetic is recoverable by
+anyone reading this, not a number to take on faith.
+
+Suppose one proxy training run takes *R* minutes on a 24GB card, you compare
+*M* mixtures, and you commit to *S* seeds per arm before looking at results.
+Total wall-clock is *M x S x R* minutes if runs are serial. With *M* = 2,
+*S* = 8, and *R* = 20 minutes, that is 320 minutes serial — about five hours —
+and the runs are independent of each other, so they parallelize across
+whatever workers are available: on four workers at once, the same comparison
+finishes in roughly 80 minutes. That is the arithmetic that turns "we cannot
+afford to test this" into "this fits in an afternoon." Recompute it with your
+own *R* before committing to a seed count; do not adopt someone else's *S* as
+a fixed rule.
+
+## 4. Confound one: a mixture that wins small can lose large
+
+A proxy model has less capacity than the model the decision is actually for.
+Curated, low-noise data tends to help a small model disproportionately,
+because the model has little spare capacity to absorb noisy examples and
+benefits more from every example being clean. A larger model can absorb — and
+sometimes benefit from — noisier or more diverse data that a small model
+cannot yet use well. A mixture ranking measured at proxy scale can therefore
+invert at target scale: the winner at one size is not guaranteed to be the
+winner at the other.
+
+The mitigation is not a better proxy; it is a second data point. Run the
+comparison at two model sizes and trust only the conclusions where the
+ranking agrees at both. A ranking that flips between sizes is telling you the
+proxy comparison does not transfer for this particular mixture, not telling
+you which one is correct.
+
+## 5. Confound two: synthetic data can be evidence about a teacher, not a method
+
+If the candidate mixture is text generated by a strong model, an observed
+improvement may be measuring the teacher's ability, not the value of the
+generation method under test — the "improvement" is just distillation of a
+better model into a worse one, filtered through your pipeline. The control is
+generating comparison data with a model of comparable size and capability, so
+the difference is attributable to the method rather than to which teacher
+produced the underlying text.
+
+Synthetic data raises a second, independent risk: the generating model may
+already have been exposed to the benchmark you are about to score against.
+The held-out evaluation set must be built independently of the generator —
+collected before the generator existed, or drawn from a source the generator
+provably never saw — or a contaminated win looks identical to a real one.
+
+These two failure modes point to a broader rule. Synthetic data generation
+works where verification is cheaper than generation: code either runs and
+passes its tests or it does not, arithmetic has a checkable answer, a proof
+either type-checks or it does not. It fails where no such cheap verifier
+exists, because the filter that is supposed to separate good synthetic
+examples from bad ones is then just the generating model's own judgment,
+applied to its own output.
+
+## 6. What this chapter does not prove
+
+Nothing above establishes that any particular mixture change is a good idea.
+No ablation has been run against this repository's own corpus or model; the
+harness below demonstrates the mechanics — seed handling, interval
+arithmetic, the "not detectable" verdict — on a synthetic task built for that
+purpose, not on the dataset from [Data](../). A live result needs a fixed
+proxy architecture, a committed seed count, and both confounds above checked
+before the comparison is trusted at target scale.
+
+## Run the harness
+
+[`core/ablation.py`](core/ablation.py) is a from-scratch, paired multi-seed
+A/B harness with no dependencies beyond the standard library. It trains a
+tiny bigram character model on two synthetic mixtures — a "reference" domain
+that resembles the fixed held-out evaluation, and a "general" domain that
+does not — under a run of seeds, and prints the mean difference, the 95%
+interval on that difference, and an explicit verdict:
+
+```bash
+python core/ablation.py --sweep 1,2,4,8,16,32,64
+```
+
+At one seed it refuses to report an interval at all. As the seed count rises,
+watch the verdict for the default mixtures cross from "not detectable" to a
+declared winner, and note the seed count at which that happens.
+
+Read that crossover for what it is. The two default mixtures and the training
+length were **chosen by search** until the effect was small enough to stay
+invisible at a handful of seeds and large enough to emerge by a few dozen — a
+demonstration tuned to put the crossover on screen, not a natural constant of
+this model. Say so out loud, because a chapter arguing that a harness which
+cannot report "not detectable" will manufacture wins has no business quietly
+manufacturing one. Move `--mixture-a` and `--mixture-b` closer together and the
+crossover retreats past any seed count you can afford; move them apart and it
+arrives at the first pair. The seed count you need is a property of the effect
+you are chasing, which is exactly why it cannot be fixed in advance by
+convention.
+
+[`prod/torch_ablation.py`](prod/torch_ablation.py) runs the identical design
+against a real gradient-trained model and a proper Welch's t-test in place of
+the counting model and the normal-approximation interval — the same
+question, answered with the tools an actual proxy-scale ablation would use.
+
+## Check your mental model
+
+1. Why must the seed set be fixed in advance rather than chosen after seeing
+   which seeds produce the preferred result?
+2. What does "not detectable at this scale" mean as a reported outcome, and
+   why is a harness that never returns it untrustworthy?
+3. Given a stated per-run time and a seed count, how do you compute the
+   wall-clock cost of a two-arm comparison?
+4. Why can a mixture that wins on a small proxy model lose on a larger one?
+5. Why does a teacher-generated dataset's improvement require a
+   comparably-sized control before it can be attributed to the method?
+
+## Next
+
+A mixture decision that survives this harness is still an untrained bet until
+it is spent on a real training run. Continue to
+[training](../../training/) to see what a token budget and a model size
+commit you to, or to
+[evaluation and observability](../../evaluation-observability/) for the
+seed-variance and harness-disclosure machinery this chapter assumed.
+
+Primary references: DoReMi, DataComp-LM, Chinchilla-style scaling-law
+methodology, the Phi / "Textbooks Are All You Need" line of synthetic-data
+work, Self-Instruct and Alpaca, and benchmark-contamination studies such as
+Sainz et al. (2023).
