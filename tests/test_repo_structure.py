@@ -49,7 +49,11 @@ PLATFORM = [
 
 CAPABILITIES = ["act-coordinate"]
 
-MISSIONS = ["01-language-model-agent", "02-personalized-discovery"]
+MISSIONS = [
+    "01-language-model-agent",
+    "02-personalized-discovery",
+    "03-quantitative-research",
+]
 
 MISSION_01_STAGES = [
     "00-corpus",

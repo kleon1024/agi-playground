@@ -63,6 +63,7 @@ cost more credibility than every verified one earns. See
 |---|---|---|
 | [01 · language-model agent](missions/01-language-model-agent/) | Raw text → tokenizer → pretrain → adapt → serve → act, on one 24GB GPU | In progress — [contract](missions/01-language-model-agent/mission.yaml) |
 | [02 · personalized discovery](missions/02-personalized-discovery/) | Recommendation, search, and ads as one decision loop: intent → retrieve → rank → allocate → feedback | Contract written — [contract](missions/02-personalized-discovery/mission.yaml) |
+| [03 · quantitative research](missions/03-quantitative-research/) | Point-in-time data → signal → portfolio → validation → capacity, where the adversary is your own search | Contract written — [contract](missions/03-quantitative-research/mission.yaml) |
 
 Mission 01 is the first vertical slice. Its job is to prove the platform layers
 compose at all, and its contract says plainly that it beats no business
@@ -77,6 +78,14 @@ outcome, and therefore the first bound by the full outcome-proof discipline:
 offline replay, two baselines including un-personalized popularity, guardrails
 on coverage and diversity, and an explicit statement that no claim about live
 user behaviour is supported.
+
+Mission 03 exists to attack a different failure mode. In missions 01 and 02 a
+bad model produces visibly bad output; in quantitative research a bad model
+produces a beautiful backtest, because the search that found it is the same
+process that overfits it. The mission is therefore built around making that
+search auditable — a machine-written log of every variant tried, purged and
+embargoed validation folds, and a deflated Sharpe ratio treated as a guardrail
+rather than a score.
 
 Missions are added deliberately. Mission 01 finishes before mission 02 starts.
 
@@ -104,7 +113,9 @@ standards/     the contracts lessons, capabilities, and missions must satisfy
 |---|---|---|
 | [data](platform/data/) | Pipelines, dedup, filtering, annotation, synthetic data | Seeded by [mission 01 · corpus](missions/01-language-model-agent/00-corpus/) |
 | [training](platform/training/) | Tokenizers, architecture, training loop, scaling laws | Draft |
-| [adaptation · post-training](platform/adaptation/post-training/) | SFT, LoRA/PEFT, reward models, DPO family, distillation, merging | Draft |
+| [adaptation · mid-training](platform/adaptation/mid-training/) | The stage between pretraining and SFT: agentic and tool-use priors at pretraining scale, long-context extension, observation masking | Draft |
+| [adaptation · post-training](platform/adaptation/post-training/) | SFT, LoRA/PEFT, reward models, DPO family, merging | Draft |
+| [adaptation · distillation](platform/adaptation/distillation/) | Sequence-, logit-, and feature-level copying; the top-k storage format; why a shared tokenizer is not optional | Draft |
 | [adaptation · RL](platform/adaptation/reinforcement-learning/) | PPO grounding → GRPO/GSPO/DAPO → RLVR → agentic RL | Draft |
 | [serving](platform/serving/) | KV cache, paged attention, batching, speculative decoding, quantization; training infra | Draft |
 | [evaluation & observability](platform/evaluation-observability/) | Static and agentic evals, contamination, harness disclosure | Draft |
