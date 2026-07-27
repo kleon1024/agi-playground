@@ -267,6 +267,13 @@ def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int]:
     body = escape_mdx(body)
     body = fix_admonition_titles(body)
 
+    # The meta description is what a search result shows under the title, so it
+    # has to come from the prose. Take it before widget imports are prepended:
+    # an import statement is longer than the 40-character floor and starts with
+    # no skipped prefix, so every interactive page otherwise advertised
+    # "import KVCacheGrowth from '@site/src/components/KVCacheGrowth';".
+    desc = description_from(body).replace('"', "'")
+
     widgets = sorted(set(INTERACTIVE_RE.findall(body)))
     if widgets:
         body = INTERACTIVE_RE.sub(lambda m: f"<{m.group(1)} />", body)
@@ -286,7 +293,6 @@ def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int]:
         position = override_pos if override_pos is not None else order_from(src)
     title = numbered(title, src)
 
-    desc = description_from(body).replace('"', "'")
     lines = ["---", f'title: "{title}"']
     if desc:
         lines.append(f'description: "{desc}"')
