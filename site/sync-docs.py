@@ -43,8 +43,11 @@ LINK_RE = re.compile(r"(!?)\[([^\]]*)\]\(([^)]+)\)")
 # A lesson opts into an interactive widget with an HTML comment, which GitHub
 # renders as nothing and the site turns into a live component. That keeps the
 # repository markdown the single source without it having to know about React.
-INTERACTIVE_RE = re.compile(r"^<!--\s*interactive:\s*(\w+)\s*-->\s*$", re.M)
-FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.S)
+INTERACTIVE_RE = re.compile(
+    r"^<!--\s*interactive:\s*(\w+)\s*-->\s*$",
+    re.MULTILINE,
+)
+FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 
 TITLE_OVERRIDES = {
     "foundations": "Foundations",
@@ -59,7 +62,7 @@ TITLE_OVERRIDES = {
 
 def title_from(path: Path, body: str) -> str:
     """Prefer the document's own H1; fall back to a tidied directory name."""
-    m = re.search(r"^#\s+(.+)$", body, re.M)
+    m = re.search(r"^#\s+(.+)$", body, re.MULTILINE)
     if m:
         return m.group(1).strip().replace("`", "")
     name = path.parent.name if path.name == "README.md" else path.stem
@@ -111,7 +114,7 @@ def fix_admonition_titles(text: str) -> str:
         r"^:::(tip|note|info|warning|danger|caution)[ \t]+(?!\[)(.+?)[ \t]*$",
         lambda m: f":::{m.group(1)}[{m.group(2)}]",
         text,
-        flags=re.M,
+        flags=re.MULTILINE,
     )
 
 
@@ -125,7 +128,7 @@ def escape_mdx(text: str) -> str:
     out, in_fence = [], False
     for line in text.split("\n"):
         stripped = line.lstrip()
-        if stripped.startswith("```") or stripped.startswith("~~~"):
+        if stripped.startswith(("```", "~~~")):
             in_fence = not in_fence
             out.append(line)
             continue
@@ -190,7 +193,7 @@ def convert(src: Path, dest: Path, position: int | None) -> None:
     # Docusaurus needs the H1 removed when a title is supplied, or the page
     # shows it twice.
     title = meta.get("title") or title_from(src, body)
-    body = re.sub(r"^#\s+.+\n", "", body, count=1, flags=re.M)
+    body = re.sub(r"^#\s+.+\n", "", body, count=1, flags=re.MULTILINE)
 
     desc = description_from(body).replace('"', "'")
     lines = ["---", f'title: "{title}"']
