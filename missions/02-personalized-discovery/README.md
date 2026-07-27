@@ -11,9 +11,8 @@ platform earns.
 Recommendation, search, and advertising are one mission, not three, because
 they are the same decision loop with different inputs. Recommendation ranks
 with no query. Search ranks with one. Ads insert a paid item into either, and
-the interesting problem is that **every ad displaces an organic result** — so
-the three cannot be optimized independently without one quietly cannibalizing
-the others.
+**every ad displaces an organic result** — so the three cannot be optimized
+independently without one quietly cannibalizing the others.
 
 Read [`mission.yaml`](mission.yaml) first, especially `does_not_prove`.
 
@@ -22,109 +21,166 @@ Read [`mission.yaml`](mission.yaml) first, especially `does_not_prove`.
 Mission 01 proved the platform layers compose. It did not prove they
 *generalize*, because everything in it was a language model producing text.
 
-This mission is the test of the architecture's central claim. If
-`platform/data`, `platform/training`, `platform/serving`, and
-`platform/evaluation-observability` are real layers rather than a relabelled
-LLM pipeline, then a completely different decision loop should reuse them.
-Ranking is the sharpest available test: the objective is not next-token
-likelihood, the model is not necessarily a transformer, and the failure modes
-are ones text generation never has.
+This mission is the test of the architecture's central claim. Ranking is a
+genuinely different decision loop: the objective is not next-token likelihood,
+the model is usually not a transformer, and the failure modes — feedback loops,
+popularity collapse, position bias — are ones text generation never has. If
+`platform/` is a real set of layers rather than a relabelled LLM pipeline, this
+should reuse it.
 
-It is also where the repo stops being about models and starts being about
-decisions. A language model is judged on its output. A ranker is judged on
-what a user did next — which nobody can observe offline, which is exactly why
-this mission's honesty constraints are stricter than mission 01's.
+## The funnel, and why it has this shape
 
-## The decision loop
+A production discovery system is a cascade of progressively more expensive
+models over progressively smaller candidate sets. That structure is not
+tradition; it is forced by arithmetic. Scoring ten million items with a good
+model inside 100ms is impossible, so each stage buys the next one a smaller
+problem.
 
+```mermaid
+flowchart TB
+    A["User + context (+ query)"] --> B["Content understanding<br/>VLM labels, embeddings, taxonomy"]
+    A --> C["Multi-queue recall<br/>~10M → ~1000"]
+    B -.item features.-> C
+    C --> D["Pre-rank 粗排<br/>~1000 → ~100"]
+    D --> E["Fine-rank 精排<br/>~100 → ~20, multi-objective"]
+    E --> F["Value tree<br/>combine objectives into one score"]
+    F --> G["Mixing / re-rank<br/>slate assembly, diversity, ads"]
+    G --> H["Rule engine<br/>business constraints, blocks, boosts"]
+    H --> I["Serve + explain"]
+    I --> J["Feedback logging"]
+    J -.tomorrow's training data.-> C
 ```
-user + context (+ query)
-  → understand intent          # what are they actually looking for
-  → retrieve candidates        # ~1000 from a catalogue of millions, fast
-  → rank                       # expensive model, small candidate set
-  → allocate paid placement    # auction, competing with organic for slots
-  → present + explain
-  → collect feedback           # which becomes tomorrow's training data
-```
 
-Two structural facts drive everything:
+Each stage exists for a reason worth stating precisely:
 
-**The latency budget forces the architecture.** Scoring every item in the
-catalogue with a good model is impossible inside 100ms, so the system must be
-two-stage: cheap retrieval that is allowed to be approximate, then expensive
-ranking over the survivors. Almost every design decision downstream is a
-consequence of that split — including that a great ranker cannot rescue a
-candidate set that never contained the right item.
+**Content understanding** turns raw items into features. This is where a VLM
+earns its place: a video or product image carries information no interaction
+log contains, and for cold items it is the *only* signal available. A newly
+uploaded item has no clicks, so its embedding must come from its content or it
+cannot be retrieved at all.
 
-**The feedback loop trains the next model.** The system's own choices become
-the data the next version learns from, so a bias introduced today is amplified
-tomorrow. This is why the guardrails include catalogue coverage: a model that
-learns to recommend only head items produces logs containing only head items,
-and the next model cannot learn anything else.
+**Multi-queue recall** is plural on purpose. A single retrieval method has a
+single blind spot, and the blind spots differ: a two-tower embedding model is
+good at semantic similarity and bad at exact-match queries; lexical search is
+the reverse; item-to-item covers "more like what you just engaged with";
+freshness and business queues cover what statistics cannot. Production systems
+run these in parallel and union the results, because recall is the one thing
+downstream stages cannot repair — **a perfect ranker cannot rank an item that
+was never retrieved.**
 
-## What makes this hard to prove, and what we do about it
+**Pre-rank (粗排)** exists because the gap between "cheap enough for 10M items"
+and "good enough to rank 20" is too wide to bridge in one model. It cuts ~1000
+to ~100 with a model perhaps a hundredth the cost of the fine-ranker. Its
+failure mode is subtle and worth a lesson of its own: if pre-rank and fine-rank
+disagree systematically, pre-rank is silently deciding the result, and the
+expensive model is decorative.
 
-Mission 01 could claim "the stages ran". This mission wants to claim "users
-found things faster", and that claim cannot be made here. There are no users.
+**Fine-rank (精排)** predicts several things at once — click, conversion, dwell
+time, completion, satisfaction — because no single one of them is what you
+actually want. This is where the heavy model goes.
 
-So the outcome is proven by **offline replay** — rank held-out interactions
-and measure whether the true item ranks higher — with three limitations stated
-up front rather than buried:
+**The value tree (价值树)** is the step most tutorials omit and most production
+arguments are about. Fine-rank produces a vector of predictions; ranking needs
+a scalar. How you collapse them *is* the product strategy, expressed as
+arithmetic: weights, multiplicative versus additive combination, calibration so
+that a predicted 0.3 means 0.3, and explicit trade rates between user value and
+revenue. Changing one weight changes what the platform is for.
 
-1. **Logged data is confounded by the policy that produced it.** Users could
-   only click what the previous system showed them. An offline win can vanish
-   or reverse online. This is the central methodological problem of the field,
-   not a caveat we invented.
-2. **It cannot see what was never shown.** Novelty and discovery value are
-   invisible to replay by construction.
-3. **The ads component is simulated.** Bids come from a declared distribution,
-   not real advertisers, so it can test auction mechanics and user cost but
-   says nothing about revenue.
+**Mixing / re-rank** assembles the actual slate. Ranking items independently
+and taking the top-K is wrong, because the value of a slate is not the sum of
+its items: ten near-identical items score well individually and are a bad page.
+This is a combinatorial problem over permutations, which is where beam search
+and its relatives come in — and where paid placement is finally interleaved,
+since an ad's cost is the organic item it displaced.
 
-The honest response is not to avoid the claim but to bound it: this mission
-establishes *better ranking of held-out interactions under a fixed candidate
-set*, and names the interleaving or A/B experiment that would be required to
-say more.
+**The rule engine** carries everything that is a business fact rather than a
+learned preference: legal blocks, regional availability, safety filters,
+editorial boosts, per-creator caps. It must be separate from the models, because
+these change on a policy timescale rather than a training timescale, and
+because "why was this shown" needs an auditable answer.
 
-**And it must beat popularity.** Un-personalized global popularity is a
-famously strong baseline that a great many published recommender results fail
-to clear. Any system here that cannot beat "show everyone the same popular
-items" has not demonstrated personalization, whatever its nDCG looks like in
-isolation.
+## Start mini, then scale
+
+The system above is a description of the destination. Building it in that order
+would produce nothing testable for weeks, so the mission goes end-to-end small
+first and deepens each stage afterwards:
+
+**v0 — the whole funnel, deliberately crude.** Popularity recall, no pre-rank,
+a linear fine-ranker on a handful of features, a single-objective value
+function, top-K with a diversity penalty, one hard rule. On a catalogue small
+enough to score exhaustively, so every approximation can be measured against
+ground truth. This produces the baselines and the harness everything later is
+compared against.
+
+**v1 — deepen the stages that matter most, measured one at a time.** Two-tower
+recall with real recall@1000 numbers, a genuine pre-rank with agreement
+analysis against fine-rank, multi-objective fine-rank, the value tree with
+calibration, beam-search slate assembly, the ads auction.
+
+**v2 — scale.** Catalogue large enough that exhaustive scoring is impossible and
+approximate nearest-neighbour search becomes mandatory, distributed training,
+and serving inside the latency budget.
+
+Each version must beat the previous one on the declared metric, or the added
+complexity is not paid for. That rule is the entire defence against building an
+impressive system that ranks worse than popularity.
 
 ## Stages
 
 | Stage | Deliverable | Layer | Status |
 |---|---|---|---|
-| `00-interactions` | A public interaction dataset, cleaned and split by time — never randomly, since a random split leaks the future | `platform/data` | 🚧 planned |
-| `01-retrieval` | Two-tower embedding retrieval + a BM25-style lexical arm for search; recall@1000 against an exhaustive scan | `capabilities/retrieve-ground` | 🚧 planned |
-| `02-ranking` | A ranker over retrieved candidates; nDCG@10 vs both baselines, with seed variance | `capabilities/rank-decide` | 🚧 planned |
-| `03-ads-auction` | Second-price auction with a quality score; advertiser value and user cost reported separately | `capabilities/rank-decide` | 🚧 planned |
-| `04-serving` | Two-stage serving inside the latency budget, measured | `platform/serving` | 🚧 planned |
-| `05-report` | Outcome report against baselines and guardrails, with failure cases | `platform/evaluation-observability` | 🚧 planned |
+| `00-interactions` | Public interaction dataset, cleaned, split **by time** — a random split leaks the future | `platform/data` | 🚧 planned |
+| `01-content-understanding` | VLM labelling of items into taxonomy + embeddings; cold-item coverage measured | `capabilities/perceive-understand` | 🚧 planned |
+| `02-recall` | Multi-queue: two-tower, lexical, i2i, fresh; union and dedup; recall@1000 vs exhaustive | `capabilities/retrieve-ground` | 🚧 planned |
+| `03-pre-rank` | Lightweight scorer, 1000→100, with pre-rank/fine-rank agreement analysis | `capabilities/rank-decide` | 🚧 planned |
+| `04-fine-rank` | Multi-objective model: click, dwell, completion, satisfaction | `capabilities/rank-decide` | 🚧 planned |
+| `05-value-tree` | Objective combination, calibration, explicit user-value/revenue trade rates | `capabilities/rank-decide` | 🚧 planned |
+| `06-mixing` | Slate assembly by beam search; diversity; ad interleaving with displacement cost | `capabilities/rank-decide` | 🚧 planned |
+| `07-rule-engine` | Declarative constraints, auditable decisions, policy-timescale changes | `platform/safety-governance` | 🚧 planned |
+| `08-serving` | Two-stage serving inside p95 300ms; ANN index; measured | `platform/serving` | 🚧 planned |
+| `09-report` | Outcome vs both baselines and all guardrails, with failure cases | `platform/evaluation-observability` | 🚧 planned |
 
-## What this reuses, and what it adds
+## What makes this hard to prove
 
-Reused from mission 01 without modification is the point of the exercise:
-the data pipeline discipline from
-[`platform/data`](../../platform/data/), the training-loop engineering from
+Mission 01 could claim "the stages ran". This mission wants to claim "users
+found things faster", and that claim cannot be made here. There are no users.
+
+The outcome is proven by **offline replay** — rank held-out interactions,
+measure whether the true item ranks higher — with three limits stated up front
+rather than buried:
+
+1. **Logged data is confounded by the policy that produced it.** Users could
+   only click what the previous system showed them. An offline win can vanish or
+   invert online. This is the central methodological problem of the field.
+2. **It cannot see what was never shown.** Novelty and discovery value are
+   invisible to replay by construction.
+3. **The ads component is simulated.** Bids come from a declared distribution,
+   so it tests auction mechanics and user cost, not revenue.
+
+**And it must beat popularity.** Un-personalized global popularity is a
+famously strong baseline that many published recommender results fail to clear.
+A system that cannot beat "show everyone the same popular items" has not
+demonstrated personalization, whatever its nDCG looks like in isolation.
+
+## What this reuses
+
+Reuse is the point of the exercise: the data discipline from
+[`platform/data`](../../platform/data/), the training engineering from
 [`platform/training`](../../platform/training/) — gradient accumulation, mixed
 precision, resumable checkpoints — the serving concerns from
 [`platform/serving`](../../platform/serving/), and the evaluation discipline
 from [`platform/evaluation-observability`](../../platform/evaluation-observability/),
-which is where harness disclosure and seed variance already live.
+where harness disclosure and seed variance already live.
 
-What is new is two capabilities, and they are admitted under the gate in
-[`standards/mission-contract.md`](../../standards/mission-contract.md) —
-`retrieve-ground` and `rank-decide` both have clear input/output contracts, are
-independently evaluable, map toy → production, and run on the local lane.
-Neither is admitted to `capabilities/` until a **second** mission needs it;
-until then they live inside this mission.
+New capabilities live inside this mission until a **second** mission needs them,
+per the gate in [`standards/mission-contract.md`](../../standards/mission-contract.md).
+`perceive-understand` is the likely first graduate, since multimodal content
+intelligence would reuse it directly.
 
 ## Sequencing
 
 Mission 01 finishes before this one starts building. That ordering is
-deliberate: this mission's entire value is demonstrating that the platform
-layers are reusable, and that claim is worthless if those layers are still
-being built. What exists now is the contract and the design — which is exactly
-what [`mission.yaml`](mission.yaml) requires before any code is written.
+deliberate: this mission's value is demonstrating the platform layers are
+reusable, and that claim is worthless while those layers are still being built.
+What exists now is the contract and the architecture — which is exactly what
+[`mission.yaml`](mission.yaml) requires before any code is written.
