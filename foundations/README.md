@@ -61,6 +61,8 @@ back to 1 before softmax sees it. This is the kind of design decision this
 track cares about: not "attention divides by root-d_k" but the failure mode
 that forces it to.
 
+<!-- interactive: SoftmaxScaling -->
+
 The causal mask (setting future positions to $-\infty$ before softmax) is
 what makes this usable for language modeling at all — it's the difference
 between "attention" and "a model that has memorized the answer by looking at

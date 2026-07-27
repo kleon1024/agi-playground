@@ -1,0 +1,12 @@
+/* Long display equations must scroll inside their own container rather than
+   forcing the page to scroll sideways — the failure is only visible on a
+   phone, which is where a good share of readers arrive. */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5rem 0;
+}
+.katex-display > .katex {
+  text-align: left;
+  white-space: nowrap;
+}

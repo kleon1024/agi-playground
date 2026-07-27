@@ -39,6 +39,11 @@ SECTIONS = [
 
 CODE_SUFFIXES = (".py", ".yaml", ".yml", ".json", ".toml", ".sh", ".txt")
 LINK_RE = re.compile(r"(!?)\[([^\]]*)\]\(([^)]+)\)")
+
+# A lesson opts into an interactive widget with an HTML comment, which GitHub
+# renders as nothing and the site turns into a live component. That keeps the
+# repository markdown the single source without it having to know about React.
+INTERACTIVE_RE = re.compile(r"^<!--\s*interactive:\s*(\w+)\s*-->\s*$", re.M)
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.S)
 
 TITLE_OVERRIDES = {
@@ -132,6 +137,15 @@ def convert(src: Path, dest: Path, position: int | None) -> None:
     body = rewrite_links(body, src_rel)
     body = escape_mdx(body)
 
+    widgets = sorted(set(INTERACTIVE_RE.findall(body)))
+    if widgets:
+        body = INTERACTIVE_RE.sub(lambda m: f"<{m.group(1)} />", body)
+        imports = "\n".join(
+            f"import {w} from '@site/src/components/{w}';" for w in widgets
+        )
+        body = f"\n{imports}\n{body}"
+        dest = dest.with_suffix(".mdx")
+
     # Docusaurus needs the H1 removed when a title is supplied, or the page
     # shows it twice.
     title = meta.get("title") or title_from(src, body)
@@ -151,6 +165,7 @@ def convert(src: Path, dest: Path, position: int | None) -> None:
 
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text("\n".join(lines) + body)
+    return widgets
 
 
 def main() -> None:

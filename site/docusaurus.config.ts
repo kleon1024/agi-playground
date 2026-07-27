@@ -8,6 +8,19 @@ import rehypeKatex from 'rehype-katex';
 
 const config: Config = {
   markdown: { mermaid: true },
+
+  // KaTeX renders each formula twice — visual HTML plus MathML for screen
+  // readers — and relies on its stylesheet to hide the MathML layer. Without
+  // this, every equation appears twice: once typeset, once as mangled text.
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css',
+      type: 'text/css',
+      integrity:
+        'sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+',
+      crossorigin: 'anonymous',
+    },
+  ],
   themes: ['@docusaurus/theme-mermaid'],
   title: 'agi-playground',
   tagline: 'Build AI systems from infrastructure to measurable outcomes',
