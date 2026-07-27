@@ -120,6 +120,8 @@ exactly `1.0` at BF16 precision but is representable at FP32, so the
 optimizer step happens in FP32 even though the forward/backward pass runs in
 BF16.
 
+<!-- interactive: PrecisionFormats -->
+
 **Gradient accumulation** exists because the batch size you want and the
 batch size that fits in 24GB of VRAM are different numbers. Running several
 micro-batches, dividing each micro-batch's loss by the accumulation count
@@ -129,6 +131,8 @@ at the larger batch size directly — the division is what keeps the effective
 gradient magnitude (and therefore the effective learning rate) correct;
 skipping it silently multiplies your learning rate by the accumulation
 count.
+
+<!-- interactive: GradientAccumulation -->
 
 **Warmup + cosine decay** isn't cosmetic scheduling. Adam's first and second
 moment estimates start at zero, so early gradient steps are systematically
@@ -144,6 +148,8 @@ recipe. Weight decay is applied selectively too: 2D weight matrices get it
 (it constrains their spectral norm), but 1D parameters — biases, norm gains —
 don't, because penalizing them toward zero doesn't regularize anything
 meaningful.
+
+<!-- interactive: LRSchedule -->
 
 ### Scaling laws: what they actually claim, and where they stop applying
 

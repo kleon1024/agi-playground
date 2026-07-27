@@ -66,6 +66,8 @@ fine-tuning, not the model itself, is low-rank: a 125M-parameter model's
 fine-tuning trajectory can be captured in a subspace of a few hundred
 dimensions and still recover ~90% of full fine-tune performance.
 
+<!-- interactive: LoRARank -->
+
 The parameterization:
 
 ```
@@ -143,6 +145,8 @@ this reward expression into Bradley-Terry, the intractable partition function
 `Z(x)` cancels in the reward *difference*. The result is a loss you can
 compute with two forward passes and no reward model, no rollouts, and no RL
 loop:
+
+<!-- interactive: DPOLossFamily -->
 
 ```
 L_DPO = −E[log σ(β·(h_w − h_l))],   h = log π_θ(y|x) − log π_ref(y|x)

@@ -81,6 +81,8 @@ each other even when memory is technically free between them). Production
 systems reported 60–80% of KV cache memory wasted this way before
 PagedAttention.
 
+<!-- interactive: PagedAttention -->
+
 PagedAttention (Kwon et al., 2023 — vLLM's foundational idea) applies the
 fix operating systems solved decades ago: allocate KV cache in small
 fixed-size **blocks** (e.g. 16 tokens), keep them non-contiguous in physical
@@ -112,6 +114,8 @@ continuous batching drives large throughput gains over static batching; Orca
 reported up to 36x throughput improvement over contemporary dynamic-batching
 systems from this scheduling change alone.
 
+<!-- interactive: ContinuousBatching -->
+
 ### Speculative decoding: draft, verify, and why acceptance rate is everything
 
 Decode is memory-bandwidth-bound, which means verifying several candidate
@@ -121,6 +125,8 @@ exploits this: a small, fast **draft model** proposes `K` tokens
 autoregressively, then the large **target model** verifies all `K+1`
 positions (the `K` proposed plus one genuinely new token) in a single parallel
 forward pass.
+
+<!-- interactive: SpeculativeDecoding -->
 
 Verification uses **modified rejection sampling**, not a naive accept/reject
 on quality: each drafted token `x` is accepted with probability

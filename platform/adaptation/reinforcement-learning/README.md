@@ -87,6 +87,8 @@ GRPO's (Shao et al., 2024, DeepSeekMath) core move: instead of training a
 critic to estimate `V(s)`, sample a *group* of `G` responses to the same
 prompt and use the group's own statistics as the baseline:
 
+<!-- interactive: GRPOAdvantage -->
+
 ```
 Â_i = (r_i − mean(r_1,...,r_G)) / std(r_1,...,r_G)
 ```
