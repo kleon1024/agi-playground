@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 04 — Post-training
+# Post-training
 
 **Question:** how do we turn a continuation model into an assistant without
 erasing useful capability or teaching it to imitate the wrong part of a

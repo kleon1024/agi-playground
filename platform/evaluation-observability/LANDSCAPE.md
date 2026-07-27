@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 07 — Evals: Landscape
+# Evals: Landscape
 
 Source: `research/synthesis.md` anchor table, "Evals" row, and the "Harness
 disclosure matters" note under key 2025-2026 shifts.

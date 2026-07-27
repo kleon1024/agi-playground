@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 08 — Agents: Landscape
+# Agents: Landscape
 
 Source: `research/synthesis.md` anchor table, "Agent harness" row.
 

@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 02 — Data
+# Data
 
 **Question:** how does a raw crawl become a training corpus without silently
 changing what the model is being trained to learn?

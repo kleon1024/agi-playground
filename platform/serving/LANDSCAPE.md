@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 06 — Inference: Landscape
+# Inference: Landscape
 
 Source: `research/synthesis.md` anchor table, "Inference" and "Training
 infra" rows.

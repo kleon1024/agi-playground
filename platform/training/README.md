@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 03 — Pretraining
+# Pretraining
 
 **Question:** given a fixed corpus and compute budget, which choices make a
 next-token model learn reliably instead of wasting tokens, memory, or optimizer

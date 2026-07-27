@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 02 — Data: Landscape
+# Data: Landscape
 
 Source: `research/synthesis.md` anchor table, "Data pipeline" and
 "Annotation/synthetic" rows.

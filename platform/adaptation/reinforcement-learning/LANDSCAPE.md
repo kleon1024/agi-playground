@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 05 — RL: Landscape
+# RL: Landscape
 
 Source: `research/synthesis.md` anchor table, "GRPO/RLVR" and "Agentic RL"
 rows, plus the "Key 2025-2026 shifts" notes on RLVR/GRPO/GSPO/DAPO status.

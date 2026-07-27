@@ -63,6 +63,43 @@ TITLE_OVERRIDES = {
     "research": "Research",
 }
 
+# Directories that hold supporting material rather than a lesson. Without these
+# the sidebar shows a bare lowercase "runs" or "prod" beside real chapters.
+# The positions push them below the lesson content they support.
+DIR_OVERRIDES = {
+    "runs": ("Evidence", 80),
+    "core": ("Core implementation", 95),
+    "prod": ("Production notes", 96),
+}
+
+# Reference tables sit beside the lesson they annotate. Their H1s repeat the
+# chapter name ("03 — Pretraining: Landscape"), which reads as a second chapter
+# in the sidebar, so the nav label is shortened and pushed after the evidence.
+FILE_OVERRIDES = {"LANDSCAPE.md": ("Landscape", 90)}
+
+# Chapter order comes from one file, never from the headings. See the comment
+# at the top of that file for why. Sub-lessons inside a chapter still sort by
+# their directory's numeric prefix (`01-distributed`), which is stable because
+# it is also the URL.
+ORDER_FILE = ROOT / "standards" / "curriculum-order.txt"
+DIR_NUM_RE = re.compile(r"^(\d+)[-_]")
+DEFAULT_POSITION = 50
+
+
+def load_chapter_order() -> dict[str, int]:
+    """Read the curriculum spine into `path -> 1-based position`."""
+    if not ORDER_FILE.exists():
+        return {}
+    order: dict[str, int] = {}
+    for line in ORDER_FILE.read_text().splitlines():
+        line = line.split("#", 1)[0].strip()
+        if line:
+            order[line] = len(order) + 1
+    return order
+
+
+CHAPTER_ORDER = load_chapter_order()
+
 
 def title_from(path: Path, body: str) -> str:
     """Prefer the document's own H1; fall back to a tidied directory name."""
@@ -71,6 +108,48 @@ def title_from(path: Path, body: str) -> str:
         return m.group(1).strip().replace("`", "")
     name = path.parent.name if path.name == "README.md" else path.stem
     return name.replace("-", " ").replace("_", " ").title()
+
+
+def chapter_of(path: Path) -> int | None:
+    """The curriculum position of the chapter a file belongs to, if any."""
+    rel = path.relative_to(ROOT) if path.is_absolute() else path
+    for parent in [rel, *rel.parents]:
+        position = CHAPTER_ORDER.get(parent.as_posix())
+        if position is not None:
+            return position
+    return None
+
+
+def order_from(path: Path) -> int:
+    """Sidebar position for one page.
+
+    A chapter takes its number from the curriculum spine. Anything below a
+    chapter sorts by its directory's numeric prefix, which is stable because
+    renaming it is a real URL change rather than a silent renumbering.
+    """
+    rel = path.relative_to(ROOT) if path.is_absolute() else path
+    if rel.name == "README.md":
+        position = CHAPTER_ORDER.get(rel.parent.as_posix())
+        if position is not None:
+            return position
+    name = rel.parent.name if rel.name == "README.md" else rel.stem
+    m = DIR_NUM_RE.match(name)
+    if m:
+        return int(m.group(1))
+    return DEFAULT_POSITION
+
+
+def numbered(title: str, path: Path) -> str:
+    """Compose the displayed title: the chapter number plus the heading.
+
+    The number is generated here so that no heading has to carry it, which is
+    what makes inserting a chapter a one-line change.
+    """
+    rel = path.relative_to(ROOT) if path.is_absolute() else path
+    if rel.name != "README.md":
+        return title
+    position = CHAPTER_ORDER.get(rel.parent.as_posix())
+    return f"{position:02d} — {title}" if position else title
 
 
 def rewrite_links(text: str, src_rel: Path) -> str:
@@ -171,7 +250,7 @@ def description_from(body: str) -> str:
     return ""
 
 
-def convert(src: Path, dest: Path, position: int | None) -> None:
+def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int]:
     body = src.read_text()
     src_rel = src.relative_to(ROOT)
 
@@ -202,14 +281,20 @@ def convert(src: Path, dest: Path, position: int | None) -> None:
     title = meta.get("title") or title_from(src, body)
     body = re.sub(r"^#\s+.+\n", "", body, count=1, flags=re.MULTILINE)
 
+    label, override_pos = FILE_OVERRIDES.get(src.name, (None, None))
+    if position is None:
+        position = override_pos if override_pos is not None else order_from(src)
+    title = numbered(title, src)
+
     desc = description_from(body).replace('"', "'")
     lines = ["---", f'title: "{title}"']
     if desc:
         lines.append(f'description: "{desc}"')
-    if position is not None:
-        lines.append(f"sidebar_position: {position}")
+    lines.append(f"sidebar_position: {position}")
     status = meta.get("status")
-    if status:
+    if label:
+        lines.append(f'sidebar_label: "{label}"')
+    elif status:
         # Surface build status in the sidebar rather than hiding it in prose.
         suffix = " — verified" if status == "verified" else ""
         lines.append(f'sidebar_label: "{title}{suffix}"')
@@ -222,7 +307,38 @@ def convert(src: Path, dest: Path, position: int | None) -> None:
 
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text("\n".join(lines) + body)
-    return widgets
+    return title, position
+
+
+def write_category_files(section: str, dir_meta: dict[Path, tuple[str, int]]) -> None:
+    """Give every generated directory an explicit sidebar label and position.
+
+    Without a `_category_.json`, Docusaurus labels a category with its raw
+    directory name and sorts it alphabetically — which is how a curriculum
+    numbered 02, 03, 04, 06, 07 came to display in the order 02, 07, 06, 03
+    with a lowercase "adaptation" in the middle of it.
+    """
+    for path in sorted((OUT / section).rglob("*")):
+        if not path.is_dir():
+            continue
+        rel = path.relative_to(OUT)
+        name = path.name
+        if name in DIR_OVERRIDES:
+            label, position = DIR_OVERRIDES[name]
+        elif rel in dir_meta:
+            label, position = dir_meta[rel]
+        else:
+            # An intermediate directory with no lesson of its own, such as
+            # `platform/adaptation/`. Name it from the directory and sort it
+            # with the chapters it contains.
+            label = name.replace("-", " ").replace("_", " ").capitalize()
+            nested = [
+                pos for child, (_, pos) in dir_meta.items()
+                if child.is_relative_to(rel)
+            ]
+            position = min(nested) if nested else DEFAULT_POSITION
+        payload = f'{{"label": "{label}", "position": {position}}}\n'
+        (path / "_category_.json").write_text(payload)
 
 
 def main() -> None:
@@ -244,22 +360,35 @@ def main() -> None:
         (OUT / section / "_category_.json").write_text(
             f'{{"label": "{TITLE_OVERRIDES[section]}", "position": {base_pos}}}\n'
         )
+        # A directory becomes a sidebar category. Remember what each one is
+        # called and where it sorts, so the category can be labelled from the
+        # lesson's own H1 instead of its directory name.
+        dir_meta: dict[Path, tuple[str, int]] = {}
+        for src in sorted(src_dir.rglob("*.md")):
+            rel = src.relative_to(ROOT)
+            dest_rel = rel.with_name("index.md") if src.name == "README.md" else rel
+            title, position = convert(src, OUT / dest_rel, None)
+            if src.name == "README.md" and rel.parent != Path(section):
+                dir_meta[rel.parent] = (title, position)
+            count += 1
+
         # Section roots are linked to as directories (e.g. ../../platform/) but
         # have no README of their own, so give them a landing page.
         if not (src_dir / "README.md").exists():
             children = sorted(
-                d.name for d in src_dir.iterdir()
+                (dir_meta.get(Path(section) / d.name, (d.name, DEFAULT_POSITION)), d.name)
+                for d in src_dir.iterdir()
                 if d.is_dir() and (d / "README.md").exists()
             )
-            listing = "\n".join(f"- [{c.replace('-', ' ')}]({c}/)" for c in children)
+            listing = "\n".join(
+                f"- [{meta[0]}]({name}/)" for meta, name in sorted(children)
+            )
             (OUT / section / "index.md").write_text(
                 f'---\ntitle: "{TITLE_OVERRIDES[section]}"\n---\n\n{listing}\n'
             )
-        for src in sorted(src_dir.rglob("*.md")):
-            rel = src.relative_to(ROOT)
-            dest_rel = rel.with_name("index.md") if src.name == "README.md" else rel
-            convert(src, OUT / dest_rel, None)
-            count += 1
+
+        write_category_files(section, dir_meta)
+
         # Images and charts referenced by those pages.
         for img in sorted(src_dir.rglob("*.png")):
             rel = img.relative_to(ROOT)

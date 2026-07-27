@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 08 — Agent systems
+# Agent systems
 
 **Question:** what must the software around a language model own before the
 model can take useful actions safely and repeatably?

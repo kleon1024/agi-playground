@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 07 — Evaluation and observability
+# Evaluation and observability
 
 **Question:** what evidence is sufficient to replace the current system with a
 candidate, and which part of that evidence belongs to the model, the harness,

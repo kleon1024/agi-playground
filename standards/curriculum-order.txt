@@ -1,0 +1,27 @@
+# The curriculum spine: the one place chapter order lives.
+#
+# Chapter numbers used to be typed into each heading ("# 03 — Pretraining").
+# That made every insertion an O(n) edit: adding one chapter between 03 and 04
+# meant renumbering eight headings across two files each, plus any prose that
+# referred to them, and nothing failed if you missed one. The table of contents
+# drifted from the content silently.
+#
+# Now the order is this file and nothing else. Headings carry the chapter name
+# only; `site/sync-docs.py` reads the position from here and composes the
+# displayed title and sidebar label. Inserting a chapter is one line, and every
+# chapter after it renumbers itself.
+#
+# One path per line, in reading order, relative to the repository root. Each
+# must be a directory containing a README.md. Comments and blank lines ignored.
+# `tests/test_sync_docs.py` fails if a listed path is missing, if a chapter
+# directory is absent from this file, or if a heading starts carrying its own
+# number again.
+
+foundations
+platform/data
+platform/training
+platform/adaptation/post-training
+platform/adaptation/reinforcement-learning
+platform/serving
+platform/evaluation-observability
+capabilities/act-coordinate

@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 04 — Post-training: Landscape
+# Post-training: Landscape
 
 Source: `research/synthesis.md` anchor table, "SFT/PEFT" and "RM/DPO family"
 rows.

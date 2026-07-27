@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 05 — Reinforcement learning
+# Reinforcement learning
 
 **Question:** how can a language-model policy improve from generated attempts
 without collapsing onto reward shortcuts or moving too far from the assistant

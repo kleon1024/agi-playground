@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 01 — Foundations: Landscape
+# Foundations: Landscape
 
 `research/synthesis.md`'s anchor table doesn't carry a dedicated row for this
 track — it's prerequisite math/mechanics, not a toy-vs-production pairing tied

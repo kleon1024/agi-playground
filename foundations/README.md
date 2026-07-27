@@ -4,7 +4,7 @@ status: draft
 
 > **[Read this online](https://rehearse.maestro.onl/playground/foundations)**.
 
-# 01 — Foundations
+# Foundations
 
 **Question:** how does one token retrieve useful context, transform it, and
 still leave a stable path for learning through dozens of layers?

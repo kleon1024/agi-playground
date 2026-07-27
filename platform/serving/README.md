@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# 06 — Serving
+# Serving
 
 **Question:** how does a checkpoint become a responsive service when every
 request has a different prompt length, output length, and memory footprint?
