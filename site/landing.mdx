@@ -4,6 +4,8 @@ title: Build AI systems
 slug: /
 ---
 
+import TokenizerPlayground from '@site/src/components/TokenizerPlayground';
+
 # Build AI systems from infrastructure to measurable outcomes
 
 从基础设施出发，组合泛 AI 能力，交付可衡量的业务结果。
@@ -26,7 +28,7 @@ flowchart LR
     F --> D
 ```
 
-:::tip The two invariants
+:::tip[The two invariants]
 **Every capability claim is backed by a run. Every mission is backed by a
 measurable outcome.**
 
@@ -41,11 +43,10 @@ against declared, reproducible proxies — and every mission states what it does
 Everything here is built, not described. Below is the actual 16,384-token
 vocabulary from mission 01, running in your browser — type anything.
 
-import TokenizerPlayground from '@site/src/components/TokenizerPlayground';
 
 <TokenizerPlayground />
 
-:::note Why this matters
+:::note[Why this matters]
 Compression is the number that counts. At roughly 4.5 characters per token, text
 costs 4.5× fewer positions than character-level encoding — and context length,
 attention cost, and training compute all scale with token count. That is a 4.5×

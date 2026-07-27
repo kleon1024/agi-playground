@@ -60,12 +60,12 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           routeBasePath: '/',
           numberPrefixParser: false,
+          admonitions: true,
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          // Lessons live in the curriculum repo, not here — the sync step
+          // copies them in, so "edit this page" must point at the source.
+          editUrl: 'https://github.com/kleon1024/agi-playground/edit/main/',
         },
         blog: false,
         theme: {

@@ -99,6 +99,22 @@ def rewrite_links(text: str, src_rel: Path) -> str:
     return LINK_RE.sub(repl, text)
 
 
+def fix_admonition_titles(text: str) -> str:
+    """Rewrite `:::note Title` to `:::note[Title]`.
+
+    MDX 3 uses directive-label syntax for admonition titles. The older
+    `:::note Title` form does not error — it silently degrades to a literal
+    paragraph reading ":::note Title", which is easy to miss in review and
+    looks broken to every reader.
+    """
+    return re.sub(
+        r"^:::(tip|note|info|warning|danger|caution)[ \t]+(?!\[)(.+?)[ \t]*$",
+        lambda m: f":::{m.group(1)}[{m.group(2)}]",
+        text,
+        flags=re.M,
+    )
+
+
 def escape_mdx(text: str) -> str:
     """Escape characters MDX would read as JSX, outside code fences.
 
@@ -160,6 +176,7 @@ def convert(src: Path, dest: Path, position: int | None) -> None:
 
     body = rewrite_links(body, src_rel)
     body = escape_mdx(body)
+    body = fix_admonition_titles(body)
 
     widgets = sorted(set(INTERACTIVE_RE.findall(body)))
     if widgets:
@@ -187,7 +204,9 @@ def convert(src: Path, dest: Path, position: int | None) -> None:
         lines.append(f'sidebar_label: "{title}{" ✅" if status == "verified" else ""}"')
     lines.append("---")
     lines.append("")
-    lines.append(f"> Source: [`{src_rel.as_posix()}`]({REPO}/{src_rel.as_posix()})")
+    # A bare filename means nothing to a reader on the web. Link the source
+    # instead of naming it.
+    lines.append(f"[View source on GitHub]({REPO}/{src_rel.as_posix()})")
     lines.append("")
 
     dest.parent.mkdir(parents=True, exist_ok=True)
