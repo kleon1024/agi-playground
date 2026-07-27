@@ -46,6 +46,24 @@ declared path actually executed.
 | [`06-agent`](06-agent/) | bounded tool loop, grounding rule, context policy, and sandbox | implementation present; run pending |
 | [`07-eval`](07-eval/) | disclosed harness, static and agentic tasks, variance, and failure cases | implementation present; run pending |
 
+## The stage this mission deliberately skips
+
+Between pretraining and SFT the platform describes a third training stage,
+[mid-training](../../platform/adaptation/mid-training/), where a base model
+first sees tool calls and long contexts. This mission has no such stage, and the
+reason is a constraint rather than an oversight: mid-training installs behavior
+by exposure at pretraining scale, and a base this small trained on this much
+text has no capacity for the exposure to land in. Running it here would produce
+a clean loss curve and teach the reader something false.
+
+The same constraint decides where reinforcement learning can honestly be taught.
+Group-relative policy optimization normalizes advantage within a group of
+rollouts, so a base that never solves the task returns an advantage of zero for
+every sample and therefore no gradient at all. Reinforcement learning sharpens
+behavior a model already produces sometimes; it cannot install behavior that is
+absent. Stage 04 is built and readable for that reason, and its run record will
+state which base it used.
+
 ## What composes across the stages
 
 The tokenizer is frozen before pretraining. Changing it later changes token IDs
