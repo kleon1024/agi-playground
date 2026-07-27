@@ -1,5 +1,6 @@
 ---
 status: draft
+base: scratch
 ---
 
 # Distillation

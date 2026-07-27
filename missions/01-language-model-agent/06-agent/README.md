@@ -1,5 +1,6 @@
 ---
 status: draft
+base: none
 ---
 
 # Stage 06 — Agent (harness)

@@ -47,6 +47,44 @@ Frontmatter carries `status:`, and it is not decoration:
 
 A lesson is promoted to `verified` by running it, not by finishing the prose.
 
+## Base
+
+Any lesson that trains, adapts, serves, or evaluates a model declares which
+weights its claims rest on. The field is required in the frontmatter of every
+lesson under `foundations/`, `platform/`, and
+`missions/01-language-model-agent/`:
+
+- `base: scratch` — **Track A.** Weights this repository produced, tracing back
+  to a random initialization here. Nothing published was downloaded.
+- `base: external:<model-id>` — **Track B.** A published checkpoint, named
+  exactly as it is distributed, e.g. `external:Qwen/Qwen3-0.6B-Base`.
+- `base: none` — the lesson trains and evaluates no model at all. A corpus
+  lesson, a tokenizer lesson, or a harness whose recorded run uses a scripted
+  backend.
+
+The field describes the model being trained or measured. A teacher, a judge,
+or a reference model is named in the prose, not here — `distillation` trains a
+Track A student against an external teacher and declares `scratch`.
+
+### Why this is a required field and not a note
+
+Track A exists because building the thing from random initialization is the
+only way to learn what the thing is. Track B exists because Track A's 88M
+model cannot do most of what the later stages are about, and pretending
+otherwise produces lessons that teach something false while logging clean
+curves.
+
+The sharpest case is RL. GRPO normalizes advantage within a rollout group: the
+advantage of each sample is its reward minus the group mean, divided by the
+group standard deviation. If every rollout in the group fails, every reward is
+identical, the standard deviation is zero, and the advantage is zero for every
+sample — so the gradient is zero and the update is a no-op. A base model with
+a zero pass rate on the task therefore cannot be improved by GRPO, and the
+loss curve will look perfectly reasonable while nothing happens. An RL lesson
+that does not say which base it ran on cannot be checked for this, which is
+why the declaration is machine-enforced in `tests/test_repo_structure.py`
+rather than left to the author's memory.
+
 ## Rules that came from getting it wrong
 
 Each of these is here because it was violated first:

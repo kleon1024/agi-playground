@@ -1,5 +1,6 @@
 ---
 status: draft
+base: scratch
 ---
 
 # Stage 03 — Supervised fine-tuning

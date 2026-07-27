@@ -1,5 +1,6 @@
 ---
 status: verified
+base: scratch
 verified: 2026-07-27
 ---
 

@@ -1,5 +1,6 @@
 ---
 status: draft
+base: scratch
 ---
 
 # Architecture ablations: the budget you hold equal

@@ -1,5 +1,6 @@
 ---
 status: draft
+base: none
 ---
 
 # Stage 00 — Corpus

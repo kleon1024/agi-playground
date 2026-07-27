@@ -1,4 +1,5 @@
 import os
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -93,6 +94,38 @@ def test_mission_01_stages_exist():
     for name in MISSION_01_STAGES:
         readme = ROOT / "missions" / "01-language-model-agent" / name / "README.md"
         assert readme.is_file(), f"missing {readme}"
+
+
+# Trees where a lesson trains, adapts, serves, or evaluates a model, and must
+# therefore say which weights its claims rest on. Mission 02 and 03 stages are
+# recommender and quantitative work with no language-model base, so the
+# declaration would be noise there rather than a check.
+BASE_DECLARING_TREES = ["foundations", "platform", "missions/01-language-model-agent"]
+BASE_PATTERN = re.compile(r"^base: (scratch|none|external:\S+)$", re.MULTILINE)
+
+
+def _lesson_readmes(tree: str):
+    """A lesson is a directory holding both a README and a `core/`."""
+    for readme in sorted((ROOT / tree).rglob("README.md")):
+        if (readme.parent / "core").is_dir():
+            yield readme
+
+
+def test_every_lesson_declares_its_base_model():
+    """Track A (from-scratch) and Track B (published checkpoint) are not
+    interchangeable, and the difference is invisible in a loss curve. See the
+    GRPO zero-advantage argument in standards/lesson-and-run-contract.md.
+    """
+    missing = []
+    for tree in BASE_DECLARING_TREES:
+        for readme in _lesson_readmes(tree):
+            head = readme.read_text().split("\n---\n", 1)[0]
+            if not BASE_PATTERN.search(head):
+                missing.append(readme.relative_to(ROOT).as_posix())
+    assert not missing, (
+        "every lesson must declare `base: scratch`, `base: none`, or "
+        "`base: external:<model-id>` in its frontmatter:\n" + "\n".join(missing)
+    )
 
 
 def test_top_level_docs_exist():

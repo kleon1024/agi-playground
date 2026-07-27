@@ -311,6 +311,17 @@ def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int]:
     lines.append(f"[View source on GitHub]({REPO}/{src_rel.as_posix()})")
     lines.append("")
 
+    # Which weights a lesson's claims rest on changes how you read every number
+    # on the page, and it is invisible in a loss curve. `none` is omitted: a
+    # corpus or tokenizer lesson has no model to attribute anything to.
+    base = meta.get("base")
+    if base == "scratch":
+        lines.append("**Base model:** trained from scratch in this repository.")
+        lines.append("")
+    elif isinstance(base, str) and base.startswith("external:"):
+        lines.append(f"**Base model:** the published checkpoint `{base[len('external:') :]}`.")
+        lines.append("")
+
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text("\n".join(lines) + body)
     return title, position
