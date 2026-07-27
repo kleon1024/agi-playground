@@ -7,22 +7,24 @@ interface Stage {
 }
 
 export default function DataCurationFunnel(): React.ReactElement {
-  const [languageKeep, setLanguageKeep] = useState(73);
-  const [qualityKeep, setQualityKeep] = useState(70);
+  const [languageKeep, setLanguageKeep] = useState(40);
+  const [qualityKeep, setQualityKeep] = useState(66);
   const [dedupKeep, setDedupKeep] = useState(95);
   const input = 40000;
+  const extracted = 36420;
 
   const stages = useMemo<Stage[]>(() => {
-    const language = Math.round(input * languageKeep / 100);
+    const language = Math.round(extracted * languageKeep / 100);
     const quality = Math.round(language * qualityKeep / 100);
     const dedup = Math.round(quality * dedupKeep / 100);
     return [
       { label: 'Raw crawl', count: input, note: 'The acquisition boundary' },
+      { label: 'Extract text', count: extracted, note: '91% produced non-empty text' },
       { label: 'Language', count: language, note: `${100 - languageKeep}% rejected` },
       { label: 'Quality', count: quality, note: `${100 - qualityKeep}% of survivors rejected` },
       { label: 'Deduplicate', count: dedup, note: `${100 - dedupKeep}% of survivors rejected` },
     ];
-  }, [languageKeep, qualityKeep, dedupKeep]);
+  }, [extracted, languageKeep, qualityKeep, dedupKeep]);
 
   const final = stages[stages.length - 1].count;
 
@@ -39,7 +41,7 @@ export default function DataCurationFunnel(): React.ReactElement {
       <div className="lab-controls lab-controls--three">
         <label>
           <span>Language keep <strong>{languageKeep}%</strong></span>
-          <input type="range" min={40} max={100} value={languageKeep} onChange={(event) => setLanguageKeep(Number(event.target.value))} />
+          <input type="range" min={20} max={100} value={languageKeep} onChange={(event) => setLanguageKeep(Number(event.target.value))} />
         </label>
         <label>
           <span>Quality keep <strong>{qualityKeep}%</strong></span>
@@ -68,9 +70,11 @@ export default function DataCurationFunnel(): React.ReactElement {
       </div>
 
       <p>
-        The gates multiply; they do not add. A strict upstream filter shrinks
-        every downstream opportunity, so “keep more documents” is not a quality
-        objective. Each rejection gate needs its own sampled false-positive audit.
+        The defaults round the measured local retention rates and land close to
+        the run's 9,184 survivors. The gates multiply; they do not add. A strict
+        upstream filter shrinks every downstream opportunity, so “keep more
+        documents” is not a quality objective. Each rejection gate needs its own
+        sampled false-positive audit.
       </p>
     </div>
   );

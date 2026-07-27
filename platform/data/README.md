@@ -4,311 +4,206 @@ status: draft
 
 # 02 — Data
 
-## Why this track exists
+**Question:** how does a raw crawl become a training corpus without silently
+changing what the model is being trained to learn?
 
-Every from-scratch LLM tutorial you can find — nanochat, Sebastian Raschka's
-books, microgpt — starts from a corpus that's already clean: Tiny Shakespeare,
-WikiText, a pre-filtered slice of something bigger. That choice quietly skips
-the step that determines whether the resulting model is any good. The
-research pass behind this repo (`research/synthesis.md`) checked this across
-four independent surveys and found the same gap every time: nobody treats
-data acquisition, filtering, deduplication, and annotation as a taught
-subject with the same rigor as attention or optimizers. It's treated as
-somebody else's problem, solved upstream, before the tutorial begins.
+We will follow one concrete artifact: 40,000 HTML responses from Common Crawl.
+The published run processed the same input through a readable local pipeline
+and a DataTrove FineWeb-style recipe. The local path kept 9,184 documents;
+the stricter production recipe kept 5,513. The difference, not the larger
+number, is the lesson.
 
-This track is the fix. You build the corpus instead of downloading it,
-and you build the label instead of trusting one. Concretely: web-scale
-curation and the funnel model of cleaning, deduplication theory (not just
-"run MinHash," but why MinHash/LSH work and what the band/row tradeoff
-costs you), quality filtering (heuristics vs. trained classifiers), data
-mixtures and curriculum design, human annotation workflows, synthetic data
-generation, preference-data collection for post-training, RLVR rubric
-design, and the QA/versioning/contamination discipline that keeps a corpus
-honest over time.
+The output of this chapter is not “clean text.” It is a versioned dataset with
+a manifest, stage-level rejection reasons, sampled false-positive audits, and
+a contamination policy.
 
-## What you build
+## 1. Define eligibility before quality
 
-Two direct ties to the speedrun, one indirect:
+A crawl contains redirects, binary responses, extraction failures, many
+languages, navigation fragments, duplicated templates, and useful prose. The
+first question is not whether a page is “good.” It is whether the page is even
+eligible for this corpus.
 
-- **Speedrun stage [00 — corpus](../../missions/01-language-model-agent/00-corpus/)** is this
-  track's flagship, and it's already built — read it before anything else
-  here. It's a from-scratch WARC-to-clean-shard pipeline (~330 lines: WARC
-  reading, text extraction, language ID, Gopher quality rules, C4 line
-  filtering, MinHash dedup) run side-by-side against the published
-  `datatrove` FineWeb recipe on identical input. The measured funnel: our
-  pipeline kept 9,184 of 40,000 documents (23.0%); datatrove kept 5,513
-  (13.8%) on the same input — see
-  [`runs/2026-07-26-core-vs-datatrove.md`](../../missions/01-language-model-agent/00-corpus/runs/2026-07-26-core-vs-datatrove.md).
-  Lessons `01-corpus-acquisition` and `02-cleaning-and-quality-filtering`
-  below are that stage's seed lessons.
-- **Speedrun stage [03 — sft](../../missions/01-language-model-agent/03-sft/)** consumes this
-  track's later lessons: the chat-template dataset and loss-masking setup
-  need instruction data built or curated with the same QA discipline taught
-  in `06-data-qa-and-versioning`, and any preference pairs feeding stage 04's
-  RL come from `04-annotation-with-argilla` / `05-synthetic-data-with-distilabel`.
-- Everything past stage 00 in this track (annotation, preference data, RLVR
-  rubrics, data mixtures) is deepened at milestone **M3**, per the roadmap
-  in the top-level README — stage 00 ships first because the speedrun needs
-  it immediately; the rest of the track fills in around it.
+The measured local funnel started as follows:
 
-## The conceptual spine
+```text
+20,000 HTML responses
+18,210 non-empty extractions
+ 7,348 English documents
+```
 
-### 1. The funnel model of cleaning
+Language filtering removed more documents than all local quality heuristics
+combined. That means “an English corpus” is already a major distribution
+choice. A model trained on the survivors cannot represent languages that the
+eligibility gate removed, regardless of later model scale.
 
-Cleaning a crawl is not one filter, it's a funnel, and the shape of that
-funnel is the actual lesson. Stage 00's measured run is the reference case:
-language ID removed more documents (10,862 of 40,000) than every quality
-heuristic combined — "cleaning web data" is numerically mostly "choosing a
-language." No single Gopher rule (length, mean word length, symbol ratios)
-removes much on its own; they're jointly decisive. And the datatrove
-comparison is the point that heuristics alone plateau: `GopherRepetitionFilter`
-and `FineWebQualityFilter` — two filter families the from-scratch pipeline
-never implements — account for datatrove's entire stricter-by-40% gap.
-Repetition detection is a distinct failure mode from length/symbol
-heuristics, and it's exactly the kind of thing that teaches a model to loop.
+For every eligibility rule, record:
 
-Change the three retention gates below before moving on. The goal is not to
-maximize the final count; it is to see why every gate needs a separate quality
-audit rather than one aggregate “documents kept” metric.
+- the rule and its version;
+- documents accepted and rejected;
+- a sample of false positives and false negatives;
+- the policy reason for the rule.
+
+Without these records, a smaller final corpus cannot be distinguished from a
+broken extractor.
+
+## 2. Separate extraction failure from content failure
+
+HTML-to-text extraction owns layout interpretation. Quality filtering owns the
+resulting text. Combining them hides the source of loss.
+
+In the local run, 1,790 responses became empty during extraction. In the
+DataTrove comparison, Trafilatura consumed 85% of total runtime. These are
+system facts with different owners:
+
+```text
+empty output -> extraction correctness
+slow output  -> extraction performance
+bad prose    -> downstream quality policy
+```
+
+A replacement extractor is acceptable only if it preserves or improves the
+measured text yield and sampled quality, not merely if it runs faster.
+
+## 3. Remove failure modes, not documents
+
+Quality rules should name the behavior they are preventing:
+
+- extreme mean word length catches corrupted or concatenated text;
+- symbol and hash ratios catch navigation or markup residue;
+- line-level C4 rules remove boilerplate fragments;
+- repetition filters catch loops and templated spam.
+
+The local pipeline kept 6,349 documents after Gopher-style rules and 4,856
+after line filtering on the first WARC file. DataTrove was stricter because it
+also used repetition and FineWeb quality filters. Calling one pipeline “better”
+from survivor count alone would be invalid. The missing evidence is downstream
+quality and a review of rejected examples.
+
+This is why every gate needs its own rejection sample. Aggregate corpus size
+cannot tell you which useful data was discarded.
+
+## 4. Deduplicate after normalization
+
+Exact hashing catches byte-identical copies. Web duplication is usually near
+duplication: a shared article with a different header, timestamp, or navigation
+block. The readable pipeline uses MinHash signatures over text shingles and
+locality-sensitive hashing to avoid comparing every pair.
+
+For two sets $A$ and $B$, MinHash preserves Jaccard similarity in expectation:
+
+$$
+P[h_{\min}(A)=h_{\min}(B)] = \frac{|A\cap B|}{|A\cup B|}
+$$
+
+LSH groups the signature into bands. More bands increase recall and false
+positives; more rows per band increase precision and false negatives. The
+threshold is therefore a corpus-policy decision, not an implementation detail.
+
+The first measured shard removed 264 near duplicates from 4,856 candidates.
+That high keep rate does not prove duplicates are solved at web scale: the
+local run only compared documents within a small bounded sample.
+
+## 5. See how the gates compound
+
+The next control uses rounded retention rates from the measured local funnel.
+Change one gate at a time. Before moving the slider, predict whether a
+ten-point change upstream or downstream will remove more final documents.
 
 <!-- interactive: DataCurationFunnel -->
 
-### 2. Deduplication theory: why MinHash/LSH, and the band/row tradeoff
+The gates multiply. A strict eligibility choice reduces the population every
+later quality rule can inspect. Therefore a single “documents kept” KPI is not
+a quality objective. The release needs stage-level yield plus false-rejection
+audits.
 
-Exact dedup (hash the document, drop collisions) catches copies; it misses
-the far larger population of *near*-duplicates — the same article synced
-across ten mirrors with a byline changed. MinHash approximates Jaccard
-similarity between two documents' n-gram sets cheaply: hash each n-gram with
-many independent hash functions, keep the minimum per function, and the
-fraction of matching minimums across two documents' signatures is an
-unbiased estimator of their Jaccard similarity. That turns an O(n²) exact
-set-intersection problem into a signature comparison.
+## 6. Choose the training distribution explicitly
 
-LSH (locality-sensitive hashing) makes that comparison scale: split each
-document's MinHash signature into `b` bands of `r` hashes each. Two
-documents become *candidate* duplicates if any single band matches exactly
-across both — so instead of comparing every pair of documents, you only
-compare pairs that collide in at least one band bucket. The tradeoff is
-explicit and derivable: the probability that two documents with true
-Jaccard similarity `s` are flagged as candidates is `1 - (1 - s^r)^b`, and
-the threshold where that curve is steepest is approximately `(1/b)^(1/r)`.
-More bands (fixed total hashes) means smaller `r` per band, which raises
-recall (catches weaker near-duplicates) at the cost of more false-positive
-candidate pairs to verify. Stage 00's `MinHashDeduper` (64 permutations, 16
-bands) is a concrete instance of this tradeoff — its exercises ask you to
-move the band count and watch the near-duplicate count and the implied
-threshold both move.
+After cleaning, a corpus is still a mixture of domains, languages, sources,
+and quality bands. Sampling proportional to raw token count lets the largest
+source dominate. Fixed source weights preserve smaller domains but can repeat
+them enough to cause overfitting.
 
-The honest caveat, also from the stage 00 run: deduplicating 20,000
-documents against each other found few near-duplicates (5% of the pre-dedup
-set). That's not evidence dedup barely matters — it's an artifact of the
-comparison window. Web repetition lives *between* crawl shards, not mostly
-within a single small one, which is exactly why production dedup (datatrove,
-NeMo Curator) runs as a distributed multi-stage job over the full corpus
-rather than a single-pass filter.
+Represent the mixture as named, versioned weights:
 
-### 3. Quality filtering: heuristics vs. classifiers
+```text
+general web    0.55
+code           0.20
+reference      0.15
+target domain  0.10
+```
 
-Gopher-style rules (length bounds, alpha ratio, mean word length, bullet/
-ellipsis ratios) are cheap, auditable, and individually weak — you saw this
-in stage 00's funnel. The FineWeb-Edu approach (Penedo et al., 2024)
-replaces "did this document pass ten hand-written rules" with "does a small
-trained classifier think this document has high educational value": sample
-documents, have an LLM judge educational value on a 0–5 scale, train a
-lightweight classifier (originally BERT-scale) to predict that judgment,
-then score the full corpus and threshold. The published result — FineWeb-Edu
-(~9% of FineWeb's tokens) outperforming full FineWeb on downstream
-benchmarks — is the strongest evidence in this space that a *smaller,
-better* corpus beats a larger unfiltered one, and it's the reason this
-track's classifier-based lesson exists. Language-ID heuristics and trained
-classifiers agree in aggregate more than you'd expect (stage 00's stop-word
-heuristic and a fastText classifier land within three points of each other)
-but disagree on *which* documents — short text, code, and lists are where
-the disagreement concentrates, which is why a heuristic is fine to *teach*
-with and wrong to *ship*.
+These numbers are an example, not a recommendation. The invariant is that
+weights, token counts, and repetition rates are visible. A downstream model
+change is uninterpretable if the mixture changed silently at the same time.
 
-### 4. Data mixtures and curriculum
+Curriculum scheduling changes those weights during training. Use it only when
+the schedule answers a hypothesis such as “high-quality reference text late in
+training improves factuality without erasing broad coverage.” Otherwise it is
+another uncontrolled variable.
 
-Not all tokens are equal, and the mixture of sources — web, code, books,
-academic text, math, dialogue — measurably changes what a model is good at.
-Code data is the standard example of a mixture decision with outsized
-effect: it doesn't just teach code, it improves general reasoning benchmarks,
-which is why LLaMA 3 raised its code share well above what "we need a coding
-model" alone would justify. Fixed mixture ratios are a starting point, not
-an answer — DoReMi (Xie et al., 2023) trains a small proxy model to learn
-mixture weights automatically, tracking each domain's "excess loss" (how
-much worse the proxy does on that domain versus a reference model trained
-on a uniform mixture) and upweighting domains where excess loss is high.
-Reported gains over hand-tuned mixtures are consistently positive but
-modest (low single-digit points on downstream averages) — worth knowing
-because it sets expectations: mixture search is a real lever, not a magic one.
+## 7. Treat labels as another data product
 
-Curriculum learning and data annealing are the temporal version of the same
-idea: switching to a higher-quality data mixture in the final ~5–15% of
-training, with the learning rate already decaying, is a documented and
-reproducible technique (Llama 2/3 report annealing gains in the low single
-digits on benchmark averages). Strict easy-to-hard sample ordering across
-an entire pretraining run is a much shakier claim — several ablations find
-random shuffling competitive once the dataset is large enough, so this
-track treats "annealing at the end" as the validated technique and
-"difficulty-ordered curricula throughout" as an open question worth an
-exercise, not a recipe worth following blindly.
+Supervised fine-tuning, preference optimization, and verifiable-reward RL each
+need a different contract:
 
-### 5. Annotation workflows and preference-data collection
+| Stage | Required record | Main failure |
+|---|---|---|
+| SFT | prompt, assistant response, template | prompt leakage or inconsistent style |
+| Preference | prompt, chosen, rejected, rubric | annotator disagreement or position bias |
+| RLVR | prompt, generated answer, deterministic verifier | rewarding a shortcut instead of the task |
 
-Human annotation for preference data (the `(prompt, chosen, rejected)`
-pairs DPO-family methods train on) is a pipeline in its own right: collect
-prompts stratified by task type and difficulty, generate K candidate
-responses at varied temperature, get ≥2 annotators to rank or pairwise-
-compare them, and measure Inter-Annotator Agreement (Cohen's κ) to catch a
-bad annotation guide before it poisons the dataset — κ above 0.6 is usable,
-below 0.4 means the rubric needs rework, and RLHF preference labeling
-typically lands around κ ≈ 0.7–0.8 for clear-cut comparisons and
-κ ≈ 0.4–0.6 for subtle ones. Argilla (human review UI, Hub-integrated) and
-distilabel (LLM-as-annotator pipelines: self-instruct, UltraFeedback-style
-generation, DPO pair synthesis) are the tools this track teaches directly —
-this is one of the few places in the curriculum where "toy" and
-"production" collapse into the same tool, because reimplementing an
-annotation UI from scratch teaches far less than using the real one at
-small scale (see `LANDSCAPE.md`).
+An annotation workflow needs written rubrics, calibration examples, agreement
+measurement, adjudication, and provenance. Synthetic data needs the same
+contract plus generator version, judge version, and filters. “Generated by a
+strong model” is not a quality guarantee.
 
-LLM-as-judge annotation is cheaper by roughly two orders of magnitude than
-human labeling (\$0.01–\$0.05/pair via API vs. \$0.50–\$2/pair for crowdworkers)
-but carries known, well-characterized biases: position bias (favoring
-whichever response appears first — mitigated by scoring both orderings and
-discarding disagreements), length/verbosity bias (favoring longer or more
-list-formatted answers regardless of quality), and self-enhancement bias
-(a judge favoring outputs from its own model family). Multi-judge voting
-(3–5 independent judges, majority or weighted vote) is the standard
-mitigation when a single judge's biases can't be fully prompted away.
+## 8. Release a dataset, not a folder
 
-### 6. RLVR rubric design
+A releasable dataset contains:
 
-Verifiable-reward RL (RLVR) replaces a learned reward model with a rule:
-does the final answer match, does the code pass its tests, does the output
-satisfy a checkable format. That sounds like it removes data engineering
-from the loop — it doesn't; it relocates it. Designing the rubric *is* the
-data-engineering problem now: what counts as a match (exact string vs.
-normalized numeric answer vs. semantic equivalence), how partial credit is
-scored, what to do about a policy that games the rubric's letter while
-violating its spirit (reward hacking), and how tasks are selected so the
-verifier is actually reliable at scale. A sloppy rubric is exactly as
-damaging as a sloppy preference-annotation guide — it just fails silently,
-because there's no human in the loop to notice the drift.
+1. source and consent scope;
+2. extractor and filter versions;
+3. stage counts and rejection reasons;
+4. content hashes and a stable dataset version;
+5. train, validation, and test split policy;
+6. contamination checks against every evaluation set;
+7. sampled QA results and known gaps.
 
-### 7. Data QA, versioning, and contamination
+Split by time or source when random splitting would leak near-duplicate or
+future content across partitions. Contamination checks must run before model
+training, because removing leaked data after seeing evaluation results no longer
+restores an unbiased estimate.
 
-A corpus that isn't versioned isn't reproducible, and a corpus that isn't
-checked against your eval sets isn't trustworthy. QA here means: schema and
-encoding checks, distributional monitoring (token length, language mix,
-duplicate rate over time) so a pipeline regression is caught before a
-training run burns compute on it, and — critically — decontamination:
-n-gram overlap checks between your training corpus and every benchmark
-you'll report a number against. This is the same discipline `07-evals`
-covers from the benchmark side; here it's the training-data side of the
-same problem, and the two must be checked together or neither claim means
-anything.
+## Run the working example
 
-### Beyond text: multimodal data, briefly
+The complete executable path is
+[Mission 01, stage 00](../../missions/01-language-model-agent/00-corpus/).
+It contains:
 
-This repo doesn't currently carry a dedicated vision-language track, but
-the same theory generalizes directly, and it's worth knowing the shape of
-that generalization even without a full lesson: image-text pair filtering
-uses CLIP-score thresholding (cosine similarity between CLIP image and text
-embeddings) in place of a text quality classifier — LAION-derived pipelines
-commonly threshold around 0.28, which keeps roughly 30–40% of raw pairs —
-and image deduplication uses perceptual hashing (pHash/dHash: downsample,
-transform, threshold) or CLIP-embedding nearest-neighbor search in place of
-MinHash. DataComp's published filtering ablations (Gadre et al., 2023) are
-the multimodal analog of the FineWeb quality-filtering story: filtering
-LAION down to ~25% by pairing CLIP-score with image- and text-quality
-filters more than 10x'd downstream ImageNet zero-shot accuracy versus no
-filtering at all. If this repo grows a VLM track later, this is where its
-data lesson would begin.
+- a readable WARC-to-shard pipeline;
+- the DataTrove comparison recipe;
+- the exact commands and stage counts;
+- the limitations of the bounded local run.
 
-## Planned lessons
+The comparison establishes that both pipelines execute and that their policies
+produce different funnels. It does not establish which corpus trains the
+better model. That question requires a controlled pretraining comparison.
 
-1. `01-corpus-acquisition` — pulling raw shards from Common Crawl/FineWeb-style
-   sources; WARC format, HTML extraction. Seeds speedrun stage 00.
-2. `02-cleaning-and-quality-filtering` — Gopher/C4-style heuristic filters,
-   and the classifier-based alternative (FineWeb-Edu methodology). Seeds
-   speedrun stage 00.
-3. `03-dedup-at-scale` — exact hashing, MinHash + LSH (banding, the
-   `(1/b)^(1/r)` threshold derivation), suffix-array substring dedup, and
-   why small-scale dedup measurements understate full-corpus dedup.
-4. `04-data-mixtures-and-curriculum` — mixture design, DoReMi-style
-   automatic mixture weighting, data annealing, and the evidence for and
-   against strict difficulty-ordered curricula.
-5. `05-annotation-with-argilla` — human-in-the-loop labeling, annotation
-   guide design, Inter-Annotator Agreement, preference-pair collection
-   (pairwise/ranking/pointwise formats and their tradeoffs).
-6. `06-synthetic-data-with-distilabel` — LLM-as-annotator pipelines,
-   LLM-as-judge bias mitigation, rejection sampling for preference pairs,
-   and RLVR rubric design.
-7. `07-data-qa-and-versioning` — dataset QA checks, distributional
-   monitoring, versioning discipline, and contamination/decontamination
-   against eval sets.
+## Check your mental model
 
-## Common misconceptions
-
-- **"More data is always better."** Repeated data has sharply diminishing
-  value (Hernandez et al., 2022, find seeing a sample 4 times is worth
-  roughly 3x a fresh sample; well beyond that the model starts overfitting
-  to the repeats), and FineWeb-Edu's ~9%-of-tokens subset outperforming the
-  full corpus is direct evidence that a smaller, better-filtered corpus can
-  beat a larger unfiltered one.
-- **"Heuristic filters are basically as good as classifiers."** They agree
-  in aggregate more often than you'd expect, but disagree systematically on
-  short text, code, and lists — and heuristics are structurally blind to
-  whole failure classes (repetition) that a purpose-built filter catches.
-  Stage 00's measured 40% permissiveness gap versus datatrove is the
-  concrete evidence, not a hypothetical.
-- **"Small-scale dedup numbers predict full-corpus dedup rates."** Stage
-  00's near-duplicate rate (5%) was measured by comparing 20,000 documents
-  against each other; cross-shard repetition — which is most of what
-  production dedup removes — is invisible at that scale. Underestimating
-  dedup by comparing too small a corpus is the standard reason distributed
-  multi-stage dedup jobs exist at all.
-- **"LLM-as-judge is a neutral, objective proxy for human preference."**
-  It carries reproducible, well-documented biases (position, length,
-  self-enhancement) that require explicit countermeasures — swapped-order
-  scoring, length control, multi-judge voting — not just a well-worded prompt.
-- **"RLVR removes the data-engineering problem."** It moves it into rubric
-  design. A reward function a policy can game silently is exactly as
-  damaging as a low-agreement annotation guide, and it fails without the
-  visibility a human annotator would have flagged.
-
-## Prerequisites
-
-None required to start. `01-foundations` is not a hard dependency for the
-pipeline lessons (dedup/filtering/annotation don't need autograd or
-attention), but the synthetic-data and RLVR-rubric lessons that use a model
-in the loop assume a checkpoint from `03-pretraining` or an off-the-shelf
-API model.
-
-## Key papers
-
-- Penedo et al., *"The FineWeb Datasets"* (2024) — the classifier-based
-  quality-filtering recipe this track teaches from; FineWeb-Edu's smaller,
-  higher-quality subset beating the full corpus is the central data point
-  for "quality over quantity."
-- Xie et al., *"DoReMi: Optimizing Data Mixtures via Small Proxy Models"*
-  (2023) — automatic mixture-weight learning; the reference for treating
-  data mixture as an optimization problem instead of a hand-tuned constant.
-- Hernandez et al., *"Scaling Data-Constrained Language Models"* (2022) —
-  quantifies the diminishing (and eventually negative) value of repeated
-  training data.
-- Gadre et al., *"DataComp: In Search of the Next Generation of Multimodal
-  Datasets"* (2023) — the multimodal analog of the FineWeb story; published
-  ablations isolating exactly which filters buy which downstream accuracy.
-- Rafailov et al., *"Direct Preference Optimization"* (2023) — defines the
-  `(prompt, chosen, rejected)` format this track's annotation and synthetic-
-  data lessons produce data for.
-- Lambert et al., *"Tulu 3"* report (2024) — a fully documented SFT → DPO →
-  RLVR recipe, including preference-data construction and verifiable-reward
-  task design, worth reading end-to-end alongside this track.
+1. Why is language filtering an eligibility decision rather than a quality
+   score?
+2. Which evidence distinguishes a strict filter from a broken extractor?
+3. Why can a lower dedup threshold improve recall while harming precision?
+4. Why are final corpus size and downstream model quality not interchangeable?
+5. What must remain fixed to attribute a model change to the data mixture?
 
 ## Next
 
-Read [speedrun stage 00 — corpus](../../missions/01-language-model-agent/00-corpus/) first if you
-haven't — it's this track's working flagship, not a placeholder.
+The output is a tokenizable, versioned corpus. Continue to
+[pretraining](../training/), where vocabulary, model size, optimizer state, and
+token budget must be chosen against that artifact.
+
+Primary references: Common Crawl, FineWeb, DataTrove, Lee et al. on deduplication,
+Gopher data filtering, Dolma, DataComp-LM, DPO, and Tulu 3.

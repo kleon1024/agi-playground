@@ -7,12 +7,14 @@ never drift from the source. Nothing under `site/docs/` is hand-edited, and it
 is git-ignored to make that impossible to forget.
 
 The mirroring preserves directory structure and renames `README.md` to
-`index.md`, which means the relative links already written for GitHub keep
-resolving on the site without rewriting — `../../platform/training/` points at
-the same place in both trees. Only two things need translating:
+`index.md`. Source links remain relative for GitHub, while generated-page links
+are rewritten to absolute site routes because Docusaurus resolves a directory
+index from its parent route when `trailingSlash` is disabled. Three things need
+translating:
 
 * links to source files (`.py`, `.yaml`, `.json`), which have no page on the
   site, become links to the file on GitHub;
+* links to lessons and other markdown pages become `/playground/...` routes;
 * images are copied alongside their page.
 """
 
@@ -25,6 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(__file__).resolve().parent / "docs"
 REPO = "https://github.com/kleon1024/agi-playground/blob/main"
+BASE_URL = "/playground"
 
 # Directories mirrored into the site, in sidebar order.
 SECTIONS = [
@@ -38,6 +41,7 @@ SECTIONS = [
 ]
 
 CODE_SUFFIXES = (".py", ".yaml", ".yml", ".json", ".toml", ".sh", ".txt")
+ASSET_SUFFIXES = (".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp")
 LINK_RE = re.compile(r"(!?)\[([^\]]*)\]\(([^)]+)\)")
 
 # A lesson opts into an interactive widget with an HTML comment, which GitHub
@@ -70,7 +74,7 @@ def title_from(path: Path, body: str) -> str:
 
 
 def rewrite_links(text: str, src_rel: Path) -> str:
-    """Point code links at GitHub; leave page links alone."""
+    """Point source files at GitHub and lesson links at their public routes."""
 
     def repl(m: re.Match) -> str:
         bang, label, target = m.groups()
@@ -84,20 +88,23 @@ def rewrite_links(text: str, src_rel: Path) -> str:
             return m.group(0)
         if bang:  # image — resolved by the copy step below
             return m.group(0)
-        if target.endswith(CODE_SUFFIXES):
-            resolved = (src_rel.parent / target).resolve().relative_to(ROOT)
+        if target.endswith(CODE_SUFFIXES + ASSET_SUFFIXES):
+            resolved = (ROOT / src_rel.parent / target).resolve().relative_to(ROOT)
             return f"[{label}]({REPO}/{resolved.as_posix()}{anchor})"
-        # `README.md` is `index.md` on the site, so a link that names the file
-        # explicitly must drop it or it 404s.
-        if target.endswith("README.md"):
-            target = target[: -len("README.md")] or "./"
-            return f"[{label}]({target}{anchor})"
         # A bare `runs/` directory has no page — only the files inside it do.
         # Point those at GitHub, where the directory listing exists.
         if target.rstrip("/").endswith("runs"):
-            resolved = (src_rel.parent / target).resolve().relative_to(ROOT)
+            resolved = (ROOT / src_rel.parent / target).resolve().relative_to(ROOT)
             return f"[{label}]({REPO.replace('/blob/', '/tree/')}/{resolved.as_posix()}{anchor})"
-        return m.group(0)
+        resolved = (ROOT / src_rel.parent / target).resolve().relative_to(ROOT)
+        if resolved.name == "README.md":
+            resolved = resolved.parent
+        elif resolved.suffix == ".md":
+            resolved = resolved.with_suffix("")
+        route = BASE_URL
+        if resolved.as_posix() not in ("", "."):
+            route += f"/{resolved.as_posix()}"
+        return f"[{label}]({route}{anchor})"
 
     return LINK_RE.sub(repl, text)
 

@@ -2,283 +2,204 @@
 status: draft
 ---
 
-# 05 — RL
+# 05 — Reinforcement learning
 
-**Goal:** take a model that already follows instructions and has a notion of
-preference (`04-post-training`) and optimize it against a *reward signal*
-through actual generation-and-update cycles — not a fixed offline dataset.
+**Question:** how can a language-model policy improve from generated attempts
+without collapsing onto reward shortcuts or moving too far from the assistant
+we already trust?
 
-**Why this track is a flagship, not a capstone.** Every other full-stack
-teaching repo we surveyed (CS336 included) treats RL post-training as one
-assignment at the end: implement PPO once, move on. That's the wrong shape
-for what the field actually looks like in 2026. RL post-training is a
-progression — PPO's mechanics, then why GRPO deleted an entire model to get
-comparable results, then GSPO and DAPO as documented fixes to specific GRPO
-failure modes, then RLVR as the umbrella paradigm all of them serve, then
-multi-turn agentic RL as the frontier where the "environment" itself becomes
-the object of design. This track teaches it as a progression because that's
-how the field's own literature is structured, and no other single-GPU
-curriculum walks it end to end.
+The loop is:
 
-## What you build
-
-The seed lesson, `02-grpo`, is speedrun [stage 04](../../../missions/01-language-model-agent/04-rl/): GRPO
-with LoRA on a verifiable task (arithmetic or a Countdown-style number game),
-with the reward curve published as the run's evidence. `01-ppo-grounding`
-exists so that GRPO's simplification actually reads as a simplification —
-you have to see the four-model PPO loop to appreciate what GRPO removes.
-Everything from `03-gspo-dapo-diffs` onward is deeper track content: the
-speedrun proves the core loop works, the track explains why the field moved
-past the naive version of it.
-
-## Conceptual spine
-
-### PPO, for grounding
-
-RLHF's RL step is: state = the token sequence generated so far, action =
-next token, policy = the LLM itself, reward = a scalar from a reward model
-applied at (usually) the end of the sequence. Vanilla policy gradient
-(REINFORCE) on this setup has high variance and no protection against
-destructively large updates. PPO's answer has three parts, and all three
-matter:
-
-**Advantage over raw return.** `A(s,a) = Q(s,a) − V(s)` — how much better this
-action was than the state's average — is lower variance than the raw return
-because it subtracts a baseline. In practice this is computed via GAE
-(Generalized Advantage Estimation): define the TD-error
-`δ_t = r_t + γV(s_{t+1}) − V(s_t)`, then
-
-```
-A_t^GAE = Σ_{l=0}^{T-t} (γλ)^l · δ_{t+l}
+```text
+prompt -> sample responses -> score outcomes
+       -> estimate relative advantage -> update policy
+       -> sample again
 ```
 
-with `γ=1.0` in LLM RL (no discounting across a single response) and `λ≈0.95`
-trading off bias and variance: `λ=0` is a one-step TD estimate (low variance,
-high bias — fully trusts the critic), `λ=1` is Monte Carlo return minus
-baseline (zero bias, high variance).
+Unlike offline preference optimization, the policy changes the data it will see
+next. Reward design, exploration, and stability are now one system.
 
-**Clipping instead of a KL trust region.** TRPO constrains the policy update
-with a hard KL bound, which needs second-order optimization. PPO's
-first-order approximation: let `r_t(θ) = π_θ(a_t|s_t)/π_θ_old(a_t|s_t)`, and
-optimize
+## 1. Ground the problem in policy gradient
 
-```
-L^CLIP = E[min(r_t·A_t, clip(r_t, 1−ε, 1+ε)·A_t)]
-```
+For language-model RL:
 
-with `ε=0.2` the usual choice. The `min` makes this a *pessimistic* bound: for
-a good action (`A>0`) the objective stops improving once the ratio exceeds
-`1+ε`, removing the incentive to keep pushing probability mass in that
-direction within one update.
+- state is the prompt plus tokens generated so far;
+- action is the next token;
+- policy is the language model;
+- return is derived from the completed response or trajectory.
 
-**A KL penalty against the reference model**, added directly to the reward
-signal (`r_modified = r_RM − β·KL(π_θ‖π_ref)`), because without it the policy
-drifts arbitrarily far from the SFT model chasing reward-model score — the
-first concrete instance of reward hacking this track covers.
+REINFORCE increases log-probability of sampled actions in proportion to their
+return, but raw return has high variance. Subtracting a baseline produces an
+advantage: how much better this action was than the expected outcome.
 
-The cost of all this: PPO's actor-critic setup needs **four models in
-memory simultaneously** — actor, critic, frozen reference, frozen reward
-model — which for a 7B model in fp16 is close to 56GB before activations,
-squarely a multi-GPU problem even before you account for generation.
+PPO learns that baseline with a critic and limits update size with a clipped
+probability ratio:
 
-### Why GRPO dropped the critic
+$$
+L^{\text{clip}}
+=
+\mathbb{E}
+\left[
+\min\left(
+r_tA_t,
+\operatorname{clip}(r_t,1-\epsilon,1+\epsilon)A_t
+\right)
+\right]
+$$
 
-GRPO's (Shao et al., 2024, DeepSeekMath) core move: instead of training a
-critic to estimate `V(s)`, sample a *group* of `G` responses to the same
-prompt and use the group's own statistics as the baseline:
+A separate reference policy supplies a KL penalty so reward improvement does
+not erase the SFT policy. The price is a complex loop with actor, critic,
+reference model, and often a reward model.
+
+## 2. Replace the learned critic with a sampled baseline
+
+GRPO samples a group of responses to the same prompt and standardizes reward
+within that group:
+
+$$
+\hat A_i
+=
+\frac{r_i-\operatorname{mean}(r_1,\ldots,r_G)}
+{\operatorname{std}(r_1,\ldots,r_G)}
+$$
+
+Change the response rewards below. Watch the advantage change relative to the
+group rather than the absolute reward scale.
 
 <!-- interactive: GRPOAdvantage -->
 
+If every response receives the same reward, every advantage is zero and the
+prompt produces no learning signal. This is the first operational requirement
+for the task distribution: prompts must allow meaningful variation within a
+sampled group.
+
+GRPO removes the learned critic, not the need for:
+
+- an old-policy ratio;
+- a bounded update;
+- a reference or equivalent drift control;
+- correct token-level masking;
+- enough distinct samples per prompt.
+
+## 3. Know which estimator you are changing
+
+RL acronyms are useful only when tied to a failure:
+
+| Method | Main change | Failure it targets |
+|---|---|---|
+| PPO | learned critic and clipped ratio | high-variance destructive updates |
+| GRPO | group-relative baseline | critic memory and training cost |
+| GSPO | sequence-level probability ratio | token-ratio instability for sequence rewards |
+| DAPO | sampling, clipping, and length-handling changes | low diversity and biased long responses |
+
+Do not select a method from its publication date. Identify whether the
+observed failure comes from reward sparsity, advantage estimation, importance
+ratios, clipping, length bias, or data generation.
+
+## 4. Make reward verify the intended behavior
+
+RL with verifiable rewards works when a deterministic procedure can score the
+outcome: an exact numeric answer, a program that passes tests, a proof checked
+by a verifier, or a tool task with explicit success state.
+
+The verifier defines the task the policy actually optimizes. If a math reward
+checks only the final string, the policy may discover formatting shortcuts. If
+a coding reward uses weak tests, the policy learns the test gaps.
+
+For every reward, publish:
+
+1. the accepted output grammar;
+2. the verifier implementation and version;
+3. positive and adversarial examples;
+4. reward distribution by prompt slice;
+5. manual audits of high-reward failures.
+
+Reward-model scores can supplement a verifier, but they do not become ground
+truth by being continuous.
+
+## 5. Treat generation as part of training
+
+RL data is produced online. Temperature, top-p, maximum length, stop rules,
+group size, and rollout concurrency control which trajectories enter the
+update.
+
+Too little diversity gives identical rewards and zero advantage. Too much
+diversity spends compute on invalid trajectories. Truncation can make a correct
+reasoning path appear wrong or reward a short guess over a nearly complete
+solution.
+
+Log rollout policy separately from optimizer configuration. A reward curve
+cannot be interpreted if the sampling policy changed silently.
+
+## 6. Extend the environment for agents
+
+A single-turn answer has one terminal reward. An agent trajectory includes tool
+selection, arguments, observations, retries, and a final answer. The
+environment must now own:
+
+- tool contracts and deterministic state transitions;
+- which observations are visible;
+- invalid-action handling;
+- episode termination;
+- task success and policy-adherence rewards.
+
+Credit assignment becomes harder because a successful final state can contain
+bad intermediate actions. Record the full trajectory and score both outcome
+and process guardrails.
+
+An environment is a software product, not a prompt list. Version it and test it
+before attributing a policy change to the RL algorithm.
+
+## 7. Detect reward hacking before celebrating reward
+
+Monitor a set of signals that can disagree:
+
+```text
+training reward
+held-out verifier success
+response length and format
+KL from reference
+diversity within each group
+manual high-reward failure rate
+baseline capability regressions
 ```
-Â_i = (r_i − mean(r_1,...,r_G)) / std(r_1,...,r_G)
-```
 
-Everything else — the clipped surrogate, the KL penalty — carries over
-unchanged from PPO; the only substitution is `Â_i` for the GAE advantage.
-This removes an entire model's worth of memory (down to three: actor,
-reference, reward source) at the cost of `G`x more generation per update step
-— you're trading training-time memory for inference-time compute, which is
-exactly the trade a 24GB card with a fast inference backend (vLLM) can afford
-to make. `G` is typically 8–64; DeepSeek's own choice was 64. A degenerate
-case worth knowing before you hit it: if every response in a group gets the
-same reward, `std=0` and the advantage is `0/0` — handled by skipping the
-group or adding an epsilon, and it happens more often than you'd expect on
-easy prompts.
+Rising training reward with flat held-out success is not progress. It is
+evidence that the policy found a feature of the training reward that does not
+transfer.
 
-### GSPO and DAPO, as diffs against this GRPO baseline
+Stop conditions belong in the run contract: maximum KL, regression tolerance,
+invalid-output rate, and a manual-audit threshold.
 
-Both are best understood as targeted fixes to specific things GRPO gets
-wrong at scale, not new algorithms:
+## Run the vertical slice
 
-- **GSPO** (Qwen team) computes the importance ratio at the *sequence* level
-  rather than per-token. GRPO's token-level ratio, aggregated over a long
-  generated sequence with a MoE policy, accumulates enough variance to
-  destabilize training; GSPO's fix is to normalize once per sequence instead.
-- **DAPO** (ByteDance/Tsinghua) changes three things at once: "clip-higher"
-  (an asymmetric clip range that gives good-but-improving responses more room
-  to increase in probability than the symmetric `ε` allows), dynamic sampling
-  (skip prompts whose group is all-correct or all-incorrect, since they
-  contribute a zero-variance, zero-gradient batch), and overlong-response
-  reward shaping (penalize truncated generations directly rather than letting
-  them silently poison the reward signal).
+[Mission 01, RL](../../../missions/01-language-model-agent/04-rl/) applies
+group-relative optimization to a small verifiable task. The minimum convincing
+evidence is:
 
-Reading these as diffs — same GRPO skeleton, one or two lines changed — is
-deliberate: the field did not reinvent RL for LLMs twice, it patched specific
-failure modes as they surfaced at larger scale.
+- reward and verifier success on held-out prompts;
+- comparison with the pre-RL policy;
+- KL or another drift measurement;
+- inspected high-reward failures;
+- exact rollout and optimizer configuration.
 
-### RLVR: the umbrella, not a fourth algorithm
+The run does not establish that the resulting policy is broadly better or safe
+outside the verifier's domain.
 
-**Reinforcement Learning from Verifiable Rewards** is not another item in the
-PPO/GRPO/GSPO/DAPO list — it's the paradigm shift underneath all of them once
-the reward stops coming from a learned reward model and starts coming from a
-programmatic verifier: does this code pass the test suite, does this
-arithmetic answer match the ground truth, does this proof check. This is why
-GRPO and math/code tasks are so tightly associated — a rule-based reward
-sidesteps reward-model noise and reward-hacking risk almost entirely, at the
-cost of only working where a verifier exists. DeepSeek-R1, Qwen3, and Tulu
-3's RL stage all use RLVR as the substrate; GRPO (or GSPO, or DAPO) is simply
-which optimizer they run on top of it. DeepSeek-R1-Zero — RLVR applied
-directly to a base model with *no* SFT stage at all — is the sharpest
-demonstration: reasoning behavior (self-verification, "wait, let me
-reconsider") emerged from reward signal alone, though DeepSeek's own
-production recipe adds a cold-start SFT stage back in because it makes
-training more stable and the resulting format more legible.
+## Check your mental model
 
-Rejection sampling (generate many, keep the verifier-approved ones, SFT on
-the winners — DeepSeek-R1's stage 3) is the lighter-weight sibling of a full
-RLVR loop: no policy-gradient machinery, no clipping, no KL penalty, just
-filtering plus ordinary SFT. It's worth teaching as the bridge between
-`04-post-training` and this track, because it makes the RL loop's *marginal*
-contribution over "generate, filter, fine-tune" visible.
-
-### Multi-turn agentic RL and environments as packages
-
-The frontier this track ends on: RL where a single "action" isn't one
-response but a multi-turn trajectory involving tool calls, environment
-observations, and a terminal (possibly delayed) reward — SWE-bench-style code
-repair, browser tasks, math with a calculator. The organizing idea from
-PrimeIntellect's `verifiers` library and Environments Hub (`prime env
-install`) is **environment as installable package**: a reward function plus
-the interaction protocol around it, versioned and shared like a library
-dependency rather than hand-rolled per project. `prime-rl` trains against
-these asynchronously at large scale; SkyRL (NovaSky/Berkeley) is the other
-major open ecosystem, oriented around long-horizon terminal/SWE agents and
-integrated with Harbor. This is deliberately the last lesson: it's where
-reward design *is* environment design, and where the harness-engineering
-concerns of `08-agents` and the RL concerns of this track meet directly.
-
-## Reward hacking and training instability, honestly
-
-RL post-training breaks in a small number of recurring ways, and pretending
-otherwise would undercut the entire "verified runs only" premise of this
-repo:
-
-- **Reward hacking is the default failure mode, not an edge case.** A policy
-  optimizing against an imperfect reward signal will find the signal's
-  blind spots faster than you'll notice them: length inflation (RM prefers
-  longer answers, so responses balloon), format gaming (unearned markdown
-  headers and bullet points because the RM associates them with quality),
-  sycophancy (agreeing with the user regardless of correctness), and
-  repetition of reward-correlated keywords. Gao et al. (2023)'s scaling-law
-  finding is the quantitative version: true quality follows an inverted-U in
-  KL divergence from the reference — `Gold_score ≈ a·√KL − b·KL` — so there
-  is a real optimum past which more RL training makes the *measured* reward
-  go up while actual quality goes down.
-- **KL divergence is the primary instability knob, in both directions.** Too
-  small a KL penalty and the policy hacks the reward; too large and it barely
-  moves. Adaptive KL controllers (target a specific KL, scale `β` up or down
-  based on the gap) are the standard fix over a fixed coefficient.
-- **Alignment tax is real and asymmetric.** RLHF/RLVR training reliably
-  improves instruction-following and safety metrics while measurably eroding
-  unrelated capabilities (math, code, long-context comprehension in some
-  reports) unless pretraining-distribution data is deliberately mixed back in
-  during the RL stage.
-- **Verifiable rewards are not immune to hacking, just harder to hack.** A
-  rule-based math or code reward is much less gameable than a learned RM, but
-  "overlong reward shaping" in DAPO and dynamic sampling in the same paper
-  exist precisely because RLVR setups still have exploitable edges (e.g.
-  truncated-but-plausible-looking generations).
-
-## Common misconceptions
-
-1. **"GRPO is a new RL algorithm."** It's PPO with the critic's baseline
-   replaced by group statistics — the clipped surrogate and KL penalty are
-   unchanged. The novelty is the removal, not a new update rule.
-2. **"RLVR means no reward model is ever involved."** RLVR means the reward
-   is *verifiable* (rule-based or programmatic); production recipes often
-   combine RLVR on verifiable tasks with a learned reward model for
-   open-ended, non-verifiable ones in the same training run.
-3. **"DPO is just a cheaper GRPO."** DPO is offline (fixed dataset, no
-   generation during training); GRPO is online (fresh rollouts every step
-   against the current policy). This is a difference in kind, not just cost —
-   it's why GRPO can explore and DPO cannot.
-4. **"A higher reward curve means a better model."** Only up to the point
-   where reward-model overoptimization sets in; reward going up and quality
-   going down simultaneously is the expected shape of an unmitigated RLHF/RLVR
-   run past its optimum, not an anomaly.
-5. **"Multi-turn agentic RL is just GRPO with more steps."** The reward is
-   usually terminal and sparse across an entire multi-turn trajectory (did
-   the PR merge, did the task complete), the environment has state that
-   persists across turns, and credit assignment across the whole trajectory
-   is an open problem — process reward models and step-level credit
-   assignment (see `04-post-training`'s reward model lesson, and PRM-style
-   dense-reward ideas) are the active research response, not a solved
-   extension of single-turn GRPO.
-
-## Prerequisites
-
-`04-post-training` (reward models and the DPO family establish the
-preference-optimization context RL extends) and `03-pretraining` (a base or
-SFT'd checkpoint to apply RL to).
-
-## Key papers
-
-- Schulman et al., *Proximal Policy Optimization Algorithms* (2017) — the
-  clip objective this track's PPO lesson implements from scratch.
-- Shao et al., *DeepSeekMath: Pushing the Limits of Mathematical Reasoning*
-  (2024) — GRPO's original formulation.
-- DeepSeek-AI, *DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via
-  Reinforcement Learning* (2025) — the four-stage recipe and the "aha
-  moment" evidence for RL-emergent reasoning.
-- Qwen Team, GSPO technical report — sequence-level importance ratios as the
-  MoE-scale stability fix.
-- ByteDance/Tsinghua, *DAPO: An Open-Source LLM Reinforcement Learning System
-  at Scale* — clip-higher, dynamic sampling, overlong-reward shaping.
-- Gao, Schulman, Hilton, *Scaling Laws for Reward Model Overoptimization*
-  (2023) — the quantitative account of why more RL isn't always better.
-- PrimeIntellect, `verifiers` and Environments Hub docs — "environment as
-  installable package" for agentic RL.
-
-## Hardware reality
-
-GRPO with LoRA on 0.5–3B models is comfortably feasible on one 24GB card;
-Unsloth's FP8 GRPO path has been reported to fit Qwen3-1.7B training in ~5GB,
-leaving headroom for larger batch or group sizes. PPO's four-model memory
-footprint makes even LoRA-scale full RLHF tight on a single 24GB card without
-aggressive offloading — this track's `01-ppo-grounding` lesson runs at a
-scale chosen to demonstrate the mechanics, not production scale. Full-parameter
-RL on 7B+ models, multi-node asynchronous RL (OpenRLHF/verl/prime-rl
-territory), and agentic multi-turn RL with real tool/browser environments
-where rollout concurrency dominates cost all move to the Modal lane.
-
-## Planned lessons
-
-1. `01-ppo-grounding` — PPO mechanics from scratch: GAE, the clipped
-   objective, KL penalty, why it's the historical baseline and what it costs.
-2. `02-grpo` — group-relative policy optimization, the current default
-   algorithm for LLM RL. Speedrun stage 04's seed lesson.
-3. `03-gspo-dapo-diffs` — GSPO and DAPO as documented diffs against the GRPO
-   baseline implemented in lesson 2.
-4. `04-rlvr` — reinforcement learning from verifiable rewards as the umbrella
-   paradigm; rubric and reward-function design for math/code tasks.
-5. `05-rejection-sampling` — rejection sampling + SFT as a lighter alternative
-   to a full RL loop (the DeepSeek-R1 recipe's stage 3).
-6. `06-agentic-rl-environments` — multi-turn agentic RL, environment design as
-   reward-function design (the frontier capstone).
+1. Why does equal reward within a group create no GRPO learning signal?
+2. Which part of PPO does GRPO remove, and which safeguards remain?
+3. Why is the rollout sampler part of the optimization algorithm?
+4. How can a correct verifier still reward the wrong behavior?
+5. Which evidence separates reward improvement from general capability?
 
 ## Next
 
-[Track 06 — Inference](../../serving/): the GRPO loop above needs fast
-rollout generation to be tractable at all — the KV cache and batching
-mechanics that make that possible are taught there, and reused directly by
-speedrun stage 05.
+The output is a policy checkpoint and the environment that trained it.
+Continue to [serving](../../serving/) to expose that policy under a latency and
+memory contract, then evaluate the complete system rather than the checkpoint
+alone.
+
+Primary references: PPO, DeepSeekMath and GRPO, GSPO, DAPO, RLVR work, and
+agent-environment evaluation literature.

@@ -2,251 +2,192 @@
 status: draft
 ---
 
-# 07 — Evals
+# 07 — Evaluation and observability
 
-## Why this track exists
+**Question:** what evidence is sufficient to replace the current system with a
+candidate, and which part of that evidence belongs to the model, the harness,
+or the serving configuration?
 
-"My model scores 68% on benchmark X" is a claim that has quietly become
-harder to interpret every year, and this track exists to teach the specific
-reasons why, not just the tools that produce the number. Static-benchmark
-evaluation (perplexity, task suites, multiple-choice accuracy) is
-well-understood and this track covers it, but the harder, less-served
-problem — flagged consistently across the four research surveys behind
-this repo — is agentic evaluation: once you're scoring a model *plus a
-harness* (a loop, a tool set, a context-management strategy) acting in an
-environment over many turns, the harness is not a footnote to the result,
-it is an independent variable in it. A 2026 paper made this the title of
-its argument: *"Stop Comparing LLM Agents Without Disclosing the Harness."*
-This track takes that seriously as its organizing idea, alongside the
-adjacent, equally under-taught problems of benchmark contamination,
-LLM-as-judge bias, and the statistical noise that makes small-sample eval
-comparisons look more decisive than they are.
+Begin with a decision, not a benchmark:
 
-## What you build
+```text
+candidate change
+  -> stated hypothesis
+  -> evaluation unit and slices
+  -> repeated measurement
+  -> guardrail check
+  -> ship, reject, or investigate
+```
 
-**Speedrun stage [07 — eval](../../missions/01-language-model-agent/07-eval/)** is this track's
-integration point: the final report across every prior speedrun stage —
-perplexity on the pretrained checkpoint, a small task suite via lm-eval-
-harness, and a harness-disclosed evaluation of the stage 06 agent — is
-lesson `06-building-an-eval-report` below, run against the speedrun's own
-model and harness rather than a third-party one. This is also the stage
-that makes the rest of the speedrun honest: if you can't produce a real,
-reproducible number for a stage, the speedrun's own rule (see the top-level
-README's "How lessons work") says that stage doesn't get to claim a result.
-This track deepens starting at milestone **M5**, per the roadmap, alongside
-`08-agents` — the two tracks share the harness-disclosure argument, from
-opposite sides (this track scores the harness; that one designs it).
+The output is a decision record another reviewer can reproduce.
 
-## The conceptual spine
+## 1. Name the unit being evaluated
 
-### 1. Static benchmarks vs. agentic evals — a real distinction, not a scale difference
+A model checkpoint, decoding configuration, prompt, tool set, retry policy, and
+environment can all change the result. “Model A beat Model B” is meaningful
+only if every other relevant variable is fixed or disclosed.
 
-A static benchmark scores one forward pass (or one greedy/sampled
-completion) against a fixed answer: perplexity on held-out text, accuracy
-on a multiple-choice task, pass@k on a coding problem. The evaluation
-target is the model. An agentic eval scores a *trajectory* — a sequence of
-observe→act→observe steps through an environment, where intermediate steps
-matter, multiple paths can be correct, and the environment's state, not
-just the final output, determines success. The evaluation target is
-model-plus-harness, and that's not a minor footnote: the same underlying
-model wrapped in two different harnesses (different tool schemas, different
-retry logic, different context-window management) can produce meaningfully
-different scores on the identical benchmark. This track treats the two
-regimes as needing genuinely different methodology, not the same accuracy
-computation run on harder tasks.
+For a static task, the unit may be:
 
-### 2. The two reference frameworks: lm-eval-harness and inspect-ai
+```text
+checkpoint + prompt template + decoding parameters
+```
 
-**lm-evaluation-harness** (EleutherAI) is the standard for static/non-
-agentic benchmarks: task definitions are declarative (a YAML/Python spec
-naming the dataset, the prompt template, the scoring function — exact
-match, log-likelihood comparison for multiple choice, or a custom metric),
-which is what makes it possible to add a new benchmark without touching the
-harness's execution engine. **inspect-ai** (UK AISI) generalizes this
-pattern to agentic and tool-using evaluation: a task is a `dataset` + a
-`solver` (the thing that can loop, call tools, manage multi-turn state) +
-a `scorer`, and every run produces a full transcript log — every model
-call, every tool call, every intermediate score — not just a final number.
-That transcript is what makes harness-disclosed reporting possible in
-practice: you can't disclose what you didn't record. This track teaches
-both directly, at small scale (a handful of tasks, one model, one harness
-configuration) rather than reimplementing either — unlike most of this
-curriculum's tracks, there's no from-scratch/production split here, because
-both frameworks *are* the production tooling, and reimplementing an eval
-harness from scratch teaches far less than running the real one correctly
-(see `LANDSCAPE.md`).
+For an agent task, it is larger:
 
-### 3. Contamination: why SWE-bench Verified is distrusted and SWE-bench Pro exists
+```text
+checkpoint + harness + tools + permissions + environment + budget
+```
 
-SWE-bench (Jimenez et al., 2024) — real GitHub issues paired with the PR
-that fixed them, scored by whether a generated patch makes the associated
-test suite pass — became the closest thing coding agents have to a gold-
-standard benchmark. SWE-bench Verified, a human-filtered 500-issue subset
-meant to remove ambiguous or under-specified issues, became the number
-everyone quoted. The problem that has since surfaced: the underlying
-repositories and their fix PRs are public GitHub content, and models
-trained on post-cutoff web/code data have plausibly seen the *answers*, not
-just the *questions* — contamination that a fixed, published benchmark
-cannot self-correct for once it's been in enough training corpora. SWE-bench
-Pro is the documented response: a successor built from private or otherwise
-undisclosed repositories specifically so the fix isn't sitting in anyone's
-training set. The general lesson generalizes past this one benchmark pair:
-any benchmark built from public, static content has a shelf life, and
-"widely cited" is not the same claim as "uncontaminated."
+Store that unit as versioned configuration. Otherwise a score change cannot be
+attributed.
 
-### 4. Harness disclosure: the independent variable nobody reports
+## 2. Choose tasks that represent the decision
 
-The 2026 argument this track is named after is straightforward once stated:
-an agent benchmark score is a function of (model, tool set, system prompt,
-loop/retry design, context-management strategy, sampling parameters,
-environment version) — and most published comparisons report only the
-first. Two papers claiming "Model A beats Model B on Benchmark X" using
-different scaffolds are not making a comparable claim, even if the
-benchmark name is identical. GAIA (general assistant tasks, exact-match
-scored) is explicitly flagged in the literature as harness-sensitive for
-exactly this reason — its own authors note scaffold matters enough that
-cross-paper score comparisons need the scaffold controlled for, not just
-the model. This track's practical response, taught in
-`05-harness-disclosed-agent-evals`, is a reporting discipline: pin and
-publish the tool schemas, the loop structure, the context-window policy,
-and the retry/timeout limits alongside every agentic eval number — treating
-the harness as a first-class part of the experimental setup, the way you'd
-disclose hyperparameters for a training run.
+Static benchmarks score a fixed input and output. Agentic evaluations execute a
+trajectory with state, tools, retries, and termination. The difference is not
+simply difficulty; it is where behavior can diverge.
 
-### 5. LLM-as-judge: known, reproducible failure modes
+Use static tasks for bounded capabilities such as classification, math, or
+code generation with deterministic tests. Use environments when the product
+depends on choosing actions over time.
 
-Wherever an open-ended answer needs scoring — alignment evals (MT-Bench,
-AlpacaEval-style pairwise comparison), preference-data labeling, agentic
-trajectory grading — an LLM judge is standing in for the human evaluator
-that doesn't scale, and it inherits well-characterized biases rather than
-neutral judgment: **position bias** (favoring whichever response is shown
-first — mitigated by scoring both orderings and discarding disagreements),
-**length/verbosity bias** (favoring longer or more elaborately formatted
-answers independent of quality — AlpacaEval 2.0's length-controlled win
-rate is a direct, quantified correction for this), **self-enhancement
-bias** (a judge favoring outputs from its own model family — mitigated by
-using a different model as judge than as generator), and **format bias**
-(favoring markdown-structured answers over equally correct prose). None of
-these are solved by a better-worded judge prompt alone; they require
-structural countermeasures — swapped-order scoring, length control,
-cross-model judging, multi-judge voting — and this track teaches the
-detection protocol (hold out ~100 human-labeled gold examples, measure
-judge-human agreement, inspect the disagreement pattern for exactly these
-signatures) as a required step before trusting a judge pipeline's output.
+Every evaluation set needs:
 
-### 6. Statistical significance and variance across seeds
+- target population and exclusion criteria;
+- task source and collection date;
+- expected output or verifier;
+- important slices;
+- contamination policy;
+- failure taxonomy.
 
-A single eval run on a few hundred samples produces a point estimate with a
-confidence interval wide enough to make most reported leaderboard
-differences statistically meaningless: 300 samples at a 50% success rate
-carries a 95% bootstrap CI of roughly ±5.7 points, meaning two agents
-separated by 4 points on that benchmark are not distinguishable from noise
-without a larger sample or a paired comparison. Agentic evals compound this
-with genuine run-to-run variance beyond sampling — nonzero temperature,
-environment nondeterminism, and multi-turn compounding of small per-step
-differences all mean the same agent scored twice can land in different
-places. The practical discipline this track teaches: bootstrap confidence
-intervals as a default reporting artifact (not an optional appendix), and
-where possible, multiple seeds/rollouts per task with variance reported
-alongside the mean — a single number without either is not a claim you can
-compare against anyone else's single number.
+A large public benchmark may be less decision-relevant than a smaller reviewed
+set from the actual workflow.
 
-Change the task count below and watch twelve repeat estimates converge. This is
-the sampling-noise baseline you must understand before attributing a small score
-gap to a model or harness change.
+## 3. Treat the harness as an independent variable
+
+Tool descriptions, context selection, retries, timeout, stop rules, and
+permission prompts can change agent success more than a small model upgrade.
+Record them in the result.
+
+For each episode, log:
+
+```text
+task and environment version
+model and prompt version
+tool calls and observations
+token, time, and cost budget
+termination reason
+outcome score
+policy and safety violations
+```
+
+Task success without policy adherence is not a complete result. A system that
+finishes by violating the action boundary fails the product decision.
+
+## 4. Prevent the evaluation set from entering training
+
+Contamination can occur through pretraining data, fine-tuning examples,
+retrieval corpora, prompt exemplars, or manual debugging on the test set.
+
+Use layered checks:
+
+- exact and normalized hashes;
+- near-duplicate search;
+- source and timestamp separation;
+- private held-out tasks;
+- a record of every test item inspected during development.
+
+No detector proves absence of contamination. The objective is to reduce risk
+and disclose what was checked.
+
+## 5. Use judges only where their errors are measured
+
+An LLM judge is useful when exact matching misses semantic quality, but it can
+prefer longer answers, its own style, confident tone, or a response presented
+first.
+
+Calibrate a judge against reviewed human labels. Randomize answer order, hide
+model identity, test rubric variants, and report agreement by slice. If a
+deterministic verifier exists, prefer it for correctness and use the judge for
+dimensions the verifier cannot observe.
+
+Judge score is another model output. It is not ground truth.
+
+## 6. Quantify uncertainty before comparing close scores
+
+An observed success rate is an estimate from a finite sample. With a small
+evaluation set, the same underlying system can produce visibly different
+rates across repeated samples.
+
+Change sample size and successes below. Watch the interval narrow with more
+evidence, not with a more confident narrative.
 
 <!-- interactive: EvaluationUncertainty -->
 
-### 7. τ²-bench-style policy-adherence environments
+Report the estimate with an interval and the number of tasks. For paired
+candidate-versus-baseline comparisons, preserve task pairing and inspect the
+disagreements: tasks only the candidate wins, and tasks only the baseline wins.
 
-Most agent benchmarks score task completion — did the agent get the right
-final state. τ-bench and its successor τ²-bench (Sierra Research) add a
-dimension most benchmarks skip: **policy adherence** as an independent
-pass/fail criterion, not just an implicit part of "did it work." A telecom-
-support agent that resolves a customer's issue by violating a stated policy
-(refunding outside policy limits, sharing account data without verification)
-has failed the environment even though the task outcome looks successful.
-τ²-bench's dual-control design (both the simulated user and the agent can
-invoke tools) further stresses realistic multi-turn tool-use dynamics that
-single-actor benchmarks don't exercise at all. This is the template this
-track uses for "environment + policy" as its own evaluation design pattern,
-distinct from simple task-success scoring, and it's directly relevant to
-any agent harness (see `08-agents`) meant to operate under real-world
-constraints rather than a sandboxed task-completion game.
+Seeds matter when generation or environments are stochastic. Repeat enough to
+estimate variance, and define the evidence threshold before seeing the result.
 
-## Planned lessons
+## 7. Convert failures into owned actions
 
-1. `01-perplexity-and-lm-eval-harness` — standard language-model
-   evaluation: perplexity computation and task-suite scoring via
-   lm-eval-harness.
-2. `02-task-suites-with-inspect-ai` — structured, transcript-logged eval
-   design with inspect-ai; tasks, solvers, scorers.
-3. `03-llm-as-judge-and-alignment-evals` — MT-Bench/AlpacaEval-style
-   pairwise and absolute scoring, the standard bias catalogue (position,
-   length, self-enhancement, format), and detection/mitigation protocol.
-4. `04-statistical-significance-and-variance` — bootstrap confidence
-   intervals, sample-size effects on distinguishability, and variance
-   across seeds/rollouts in agentic evals.
-5. `05-harness-disclosed-agent-evals` — why agent benchmark comparisons
-   must disclose harness design (tools, loop, context management) as an
-   independent variable; contamination case study (SWE-bench Verified vs.
-   SWE-bench Pro); τ²-bench-style policy-adherence environment design.
-6. `06-building-an-eval-report` — assembling an honest, reproducible eval
-   report spanning perplexity, task suite, and harness-disclosed agent
-   eval. Seeds speedrun stage 07.
+Aggregate scores are release signals; failure records are engineering inputs.
+Use a taxonomy that maps to an owner:
 
-## Common misconceptions
+| Failure | Likely owner |
+|---|---|
+| wrong knowledge or reasoning | model, data, or retrieval |
+| correct plan, malformed tool call | harness schema or model |
+| correct action, stale observation | environment or tool |
+| timeout after repeated work | loop policy or serving |
+| successful outcome, forbidden action | permission policy |
+| inconsistent result across seeds | sampling or environment variance |
 
-- **"A benchmark score is a property of the model."** For agentic
-  benchmarks it's a property of the model *and* the harness jointly — the
-  same model under two scaffolds can post materially different numbers on
-  the identical benchmark, which is precisely the argument this track is
-  named after.
-- **"SWE-bench Verified is still the reliable number to quote."** Its
-  public, static nature makes it contamination-prone in a way its
-  human-filtering pass doesn't fix; SWE-bench Pro exists specifically
-  because the field needed a benchmark whose answers aren't already
-  circulating in training corpora.
-- **"An LLM judge is a neutral proxy for human preference."** It carries
-  the same reproducible bias catalogue as human-annotation pipelines
-  (position, length, self-enhancement, format) and needs the same
-  structural countermeasures, not a better prompt.
-- **"A single eval run is the answer."** Without a confidence interval or
-  multi-seed variance, a reported score is a point estimate whose precision
-  is usually much lower than the leaderboard-style ranking implies —
-  300-sample benchmarks routinely carry ±5-6 point 95% CIs.
-- **"Task completion is the whole evaluation."** Policy adherence (did the
-  agent stay within stated constraints while completing the task) is a
-  separate, and sometimes contradictory, axis — τ²-bench's dual-control,
-  policy-scored design exists because task-success-only scoring misses
-  exactly this failure mode.
+Store representative traces with the classification. A pie chart without
+examples cannot guide a fix.
 
-## Prerequisites
+## 8. Make the release decision explicit
 
-None strictly required to start — evals can run against any checkpoint or
-agent. In practice this track is most useful once you have a model from
-`03-pretraining` (or later) and/or an agent harness from `08-agents` to
-evaluate against.
+A candidate ships only if:
 
-## Key papers
+1. the primary outcome clears its predeclared evidence bar;
+2. every hard guardrail remains within limit;
+3. important slices do not hide a material regression;
+4. latency and cost fit the service budget;
+5. failures have an owner and acceptable residual risk.
 
-- Zheng et al., *"Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena"*
-  (2023) — the original catalogue of LLM-judge biases and the ELO-based
-  Arena methodology; the reference point for lesson 3.
-- Jimenez et al., *"SWE-bench: Can Language Models Resolve Real-World
-  GitHub Issues?"* (ICLR 2024) — the benchmark whose contamination story
-  motivates lesson 5's case study.
-- *"Stop Comparing LLM Agents Without Disclosing the Harness"* (2026) —
-  the paper this track's central argument is drawn from; required reading
-  before lesson 5.
-- Sierra Research, *τ²-bench* (2026) — dual-control, policy-adherence-scored
-  multi-turn tool-use evaluation; the template for lesson 5's environment-
-  design exercise.
-- Mialon et al., *"GAIA: A Benchmark for General AI Assistants"* (2023) —
-  general-assistant task evaluation with an explicit, literature-noted
-  harness-sensitivity caveat.
+If the result is mixed, state which additional evidence would change the
+decision. “Run more tests” is not sufficient; name the slice, sample size, or
+failure mechanism.
+
+## Run the vertical slice
+
+[Mission 01, evaluation](../../missions/01-language-model-agent/07-eval/)
+collects stage-level model and harness evidence. It should compare the base,
+SFT, RL, served, and agent-wrapped artifacts without attributing a harness
+change to model weights.
+
+The published record can establish behavior on its declared tasks. It cannot
+claim broad capability or production impact beyond that task population.
+
+## Check your mental model
+
+1. What is the actual evaluation unit for an agent?
+2. Why can a higher score be unattributable?
+3. Which contamination paths exist after pretraining?
+4. When is an LLM judge appropriate?
+5. What evidence is missing from a score without an interval or failure slices?
 
 ## Next
 
-Read [speedrun stage 07 — eval](../../missions/01-language-model-agent/07-eval/) once the earlier
-speedrun stages exist — this track's final lesson is that stage's report.
+Evaluation closes one build loop and starts the next. Continue to
+[agent systems](../../capabilities/act-coordinate/) to see how the harness
+changes the unit under test, or return to the subsystem that owns the dominant
+failure.
+
+Primary references: lm-evaluation-harness, Inspect, SWE-bench methodology,
+AgentDojo, policy-adherence environments, and standard binomial and paired-test
+methods.
