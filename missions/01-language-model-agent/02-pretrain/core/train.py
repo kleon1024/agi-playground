@@ -51,10 +51,14 @@ def get_batch(data: np.memmap, batch: int, block: int, device: str):
     ix = torch.randint(len(data) - block - 1, (batch,))
     x = torch.stack([torch.from_numpy(data[i : i + block].astype(np.int64)) for i in ix])
     y = torch.stack([torch.from_numpy(data[i + 1 : i + block + 1].astype(np.int64)) for i in ix])
-    return (
-        x.pin_memory().to(device, non_blocking=True),
-        y.pin_memory().to(device, non_blocking=True),
-    )
+    if device.startswith("cuda"):
+        # Pinned (page-locked) host memory lets the copy to GPU overlap with
+        # compute. It is CUDA-specific: requesting it on CPU or MPS fails.
+        return (
+            x.pin_memory().to(device, non_blocking=True),
+            y.pin_memory().to(device, non_blocking=True),
+        )
+    return x.to(device), y.to(device)
 
 
 def lr_at(step: int, warmup: int, total: int, peak: float, floor_ratio: float = 0.1) -> float:
@@ -79,6 +83,31 @@ def evaluate(model, data, batch, block, device, iters, autocast) -> float:
     return losses.mean().item()
 
 
+def save_checkpoint(path, model, opt, cfg, step, history, tokens_seen) -> None:
+    """Everything needed to continue, not just to inspect.
+
+    Weights alone are not a resumable state: Adam's moment estimates carry the
+    optimizer's accumulated knowledge of the loss surface, and restarting
+    without them re-introduces exactly the bias that warmup exists to avoid.
+    Long runs on machines that sleep are the normal case, not the exception.
+    """
+    tmp = path.with_suffix(".tmp")
+    torch.save(
+        {
+            "model": model.state_dict(),
+            "optimizer": opt.state_dict(),
+            "config": vars(cfg),
+            "step": step,
+            "history": history,
+            "tokens_seen": tokens_seen,
+        },
+        tmp,
+    )
+    # Atomic replace: a checkpoint half-written when the machine dies is worse
+    # than no checkpoint, because it looks resumable.
+    tmp.replace(path)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", type=Path, default=Path("data/tokens"))
@@ -95,6 +124,8 @@ def main() -> None:
     ap.add_argument("--checkpoint-every", type=int, default=2000)
     ap.add_argument("--compile", action="store_true")
     ap.add_argument("--device", default="cuda")
+    ap.add_argument("--resume", action="store_true",
+                    help="continue from ckpt.pt in --out if it exists")
     args = ap.parse_args()
 
     torch.manual_seed(1337)
@@ -154,8 +185,23 @@ def main() -> None:
     history: list[dict] = []
     t0 = time.time()
     tokens_seen = 0
+    start_step = 0
 
-    for step in range(total_steps + 1):
+    ckpt_path = args.out / "ckpt.pt"
+    if args.resume and ckpt_path.exists():
+        ckpt = torch.load(ckpt_path, map_location=args.device, weights_only=False)
+        raw_model.load_state_dict(ckpt["model"])
+        opt.load_state_dict(ckpt["optimizer"])
+        start_step = ckpt["step"]
+        history = ckpt.get("history", [])
+        tokens_seen = ckpt.get("tokens_seen", 0)
+        print(
+            f"resumed from {ckpt_path}: step {start_step:,}, "
+            f"{tokens_seen / 1e9:.2f}B tokens already seen",
+            flush=True,
+        )
+
+    for step in range(start_step, total_steps + 1):
         lr = lr_at(step, args.warmup, total_steps, args.lr)
         for g in opt.param_groups:
             g["lr"] = lr
@@ -183,11 +229,8 @@ def main() -> None:
             )
 
         if step > 0 and step % args.checkpoint_every == 0:
-            torch.save(
-                {"model": raw_model.state_dict(), "config": vars(cfg),
-                 "step": step, "history": history},
-                args.out / "ckpt.pt",
-            )
+            save_checkpoint(args.out / "ckpt.pt", raw_model, opt, cfg, step,
+                            history, tokens_seen)
 
         if step == total_steps:
             break
@@ -205,11 +248,8 @@ def main() -> None:
         opt.step()
         tokens_seen += tokens_per_step
 
-    torch.save(
-        {"model": raw_model.state_dict(), "config": vars(cfg),
-         "step": total_steps, "history": history},
-        args.out / "ckpt.pt",
-    )
+    save_checkpoint(args.out / "ckpt.pt", raw_model, opt, cfg, total_steps,
+                    history, tokens_seen)
     print(f"\ndone in {(time.time() - t0) / 3600:.2f}h -> {args.out / 'ckpt.pt'}", flush=True)
     print(f"peak VRAM: {torch.cuda.max_memory_allocated() / 1e9:.2f} GB", flush=True)
 
