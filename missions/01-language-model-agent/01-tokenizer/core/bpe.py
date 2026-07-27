@@ -435,7 +435,7 @@ def main() -> None:
 
     te = sub.add_parser("test")
     te.add_argument("tokenizer", type=Path)
-    te.add_argument("--text", default="Hello, world. Bytes survive: café 🚀 1234567")
+    te.add_argument("--text", default="Hello, world. Bytes survive: café 1234567")
     te.set_defaults(func=cmd_test)
 
     args = ap.parse_args()

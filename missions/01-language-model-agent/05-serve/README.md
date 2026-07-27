@@ -113,6 +113,11 @@ sequences a serving system can hold at once — the weights are fixed and
 comparatively small (this model is ~88M parameters, well under 200MB even in
 fp32); the cache is what grows with every request and every token.
 
+Change batch size and context length below before reading the architectural
+fixes. This is the memory pressure GQA, paging, and scheduling must absorb.
+
+<!-- interactive: KVCacheGrowth -->
+
 ### Why GQA shrinks it 3x
 
 `n_head=12` but `n_kv_head=4` — this model was built with grouped-query
@@ -166,6 +171,12 @@ gather directly into the attention computation instead of materializing a
 copy, which is real performance left on the table here in exchange for a much
 shorter implementation.
 
+Add several requests below and compare contiguous reservation with block
+allocation. The important observation is not only higher utilization: freed
+blocks become reusable by an unrelated request immediately.
+
+<!-- interactive: PagedAttention -->
+
 ## Continuous batching: a scheduling change, not a bigger batch
 
 Static batching waits for a fixed group of requests, runs the whole batch
@@ -180,6 +191,12 @@ whatever waiting requests current free blocks allow, one step runs for every
 currently running request, and anything that just finished is evicted and
 its blocks returned before the function returns. The batch's *composition* —
 not any fixed size parameter — is what changes on every call.
+
+Watch the same requests under static and iteration-level scheduling. No model
+or batch-capacity parameter changes; only the admission decision moves from the
+end of a batch to every forward pass.
+
+<!-- interactive: ContinuousBatching -->
 
 The engine here loops over admitted requests one at a time in Python; a
 production engine fuses that loop into one batched kernel call over ragged

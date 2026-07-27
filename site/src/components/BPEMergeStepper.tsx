@@ -85,7 +85,7 @@ export default function BPEMergeStepper(): React.ReactElement {
           }}
           style={{ padding: '0.3rem 0.8rem', borderRadius: 6, cursor: 'pointer' }}
         >
-          {playing ? '⏸ pause' : '▶ watch it learn'}
+          {playing ? 'Pause' : 'Watch it learn'}
         </button>
         <input
           type="range"

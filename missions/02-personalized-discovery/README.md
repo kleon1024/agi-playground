@@ -36,20 +36,7 @@ tradition; it is forced by arithmetic. Scoring ten million items with a good
 model inside 100ms is impossible, so each stage buys the next one a smaller
 problem.
 
-```mermaid
-flowchart TB
-    A["User + context (+ query)"] --> B["Content understanding<br/>VLM labels, embeddings, taxonomy"]
-    A --> C["Multi-queue recall<br/>~10M → ~1000"]
-    B -.item features.-> C
-    C --> D["Pre-rank<br/>~1000 → ~100"]
-    D --> E["Fine-rank<br/>~100 → ~20, multi-objective"]
-    E --> F["Value tree<br/>combine objectives into one score"]
-    F --> G["Mixing / re-rank<br/>slate assembly, diversity, ads"]
-    G --> H["Rule engine<br/>business constraints, blocks, boosts"]
-    H --> I["Serve + explain"]
-    I --> J["Feedback logging"]
-    J -.tomorrow's training data.-> C
-```
+<!-- interactive: RecommendationFunnel -->
 
 Each stage exists for a reason worth stating precisely:
 
@@ -129,16 +116,16 @@ impressive system that ranks worse than popularity.
 
 | Stage | Deliverable | Layer | Status |
 |---|---|---|---|
-| `00-interactions` | Public interaction dataset, cleaned, split **by time** — a random split leaks the future | `platform/data` | 🚧 planned |
-| `01-content-understanding` | VLM labelling of items into taxonomy + embeddings; cold-item coverage measured | `capabilities/perceive-understand` | 🚧 planned |
-| `02-recall` | Multi-queue: two-tower, lexical, i2i, fresh; union and dedup; recall@1000 vs exhaustive | `capabilities/retrieve-ground` | 🚧 planned |
-| `03-pre-rank` | Lightweight scorer, 1000→100, with pre-rank/fine-rank agreement analysis | `capabilities/rank-decide` | 🚧 planned |
-| `04-fine-rank` | Multi-objective model: click, dwell, completion, satisfaction | `capabilities/rank-decide` | 🚧 planned |
-| `05-value-tree` | Objective combination, calibration, explicit user-value/revenue trade rates | `capabilities/rank-decide` | 🚧 planned |
-| `06-mixing` | Slate assembly by beam search; diversity; ad interleaving with displacement cost | `capabilities/rank-decide` | 🚧 planned |
-| `07-rule-engine` | Declarative constraints, auditable decisions, policy-timescale changes | `platform/safety-governance` | 🚧 planned |
-| `08-serving` | Two-stage serving inside p95 300ms; ANN index; measured | `platform/serving` | 🚧 planned |
-| `09-report` | Outcome vs both baselines and all guardrails, with failure cases | `platform/evaluation-observability` | 🚧 planned |
+| `00-interactions` | Public interaction dataset, cleaned, split **by time** — a random split leaks the future | `platform/data` | Planned |
+| `01-content-understanding` | VLM labelling of items into taxonomy + embeddings; cold-item coverage measured | `capabilities/perceive-understand` | Planned |
+| `02-recall` | Multi-queue: two-tower, lexical, i2i, fresh; union and dedup; recall@1000 vs exhaustive | `capabilities/retrieve-ground` | Planned |
+| `03-pre-rank` | Lightweight scorer, 1000→100, with pre-rank/fine-rank agreement analysis | `capabilities/rank-decide` | Planned |
+| `04-fine-rank` | Multi-objective model: click, dwell, completion, satisfaction | `capabilities/rank-decide` | Planned |
+| `05-value-tree` | Objective combination, calibration, explicit user-value/revenue trade rates | `capabilities/rank-decide` | Planned |
+| `06-mixing` | Slate assembly by beam search; diversity; ad interleaving with displacement cost | `capabilities/rank-decide` | Planned |
+| `07-rule-engine` | Declarative constraints, auditable decisions, policy-timescale changes | `platform/safety-governance` | Planned |
+| `08-serving` | Two-stage serving inside p95 300ms; ANN index; measured | `platform/serving` | Planned |
+| `09-report` | Outcome vs both baselines and all guardrails, with failure cases | `platform/evaluation-observability` | Planned |
 
 ## What makes this hard to prove
 

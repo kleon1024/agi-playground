@@ -204,7 +204,8 @@ def convert(src: Path, dest: Path, position: int | None) -> None:
     status = meta.get("status")
     if status:
         # Surface build status in the sidebar rather than hiding it in prose.
-        lines.append(f'sidebar_label: "{title}{" ✅" if status == "verified" else ""}"')
+        suffix = " — verified" if status == "verified" else ""
+        lines.append(f'sidebar_label: "{title}{suffix}"')
     lines.append("---")
     lines.append("")
     # A bare filename means nothing to a reader on the web. Link the source

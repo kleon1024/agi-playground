@@ -15,4 +15,6 @@ npm run build
 ```
 
 `prestart` and `prebuild` run the sync step automatically. The shared visual
-contract lives in `src/css/brand.css` and `src/css/widgets.css`.
+contract lives in `src/css/brand.css`; teaching surfaces, process diagrams, and
+causal labs live in `src/css/widgets.css`, `src/css/diagrams.css`, and
+`src/css/labs.css`. New system flows use `ProcessDiagram`, not Mermaid.

@@ -95,6 +95,11 @@ it hits the length limit instead.
 `core/sft.py`'s `render_and_mask` builds exactly this, turn by turn, for every
 row of the dataset; read it before reading anything else in this lesson.
 
+Toggle prompt supervision below and compare what the optimizer is being asked
+to reproduce. The token sequence stays fixed; only the loss boundary changes.
+
+<!-- interactive: AssistantLossMask -->
+
 ## Packing, and the limit of reusing a frozen model
 
 A curated instruct set is short and length-variable — no_robots (below)

@@ -208,7 +208,7 @@ export default function ContinuousBatching(): React.ReactElement {
           onClick={() => setPlaying((p) => !p)}
           style={{ padding: '0.25rem 0.7rem', borderRadius: 6, cursor: 'pointer' }}
         >
-          {playing ? '⏸ pause' : '▶ play'}
+          {playing ? 'Pause' : 'Play'}
         </button>
         <span style={{ fontSize: 'var(--type-sm)', opacity: 0.7 }}>
           iteration {currentT + 1} / {steps}

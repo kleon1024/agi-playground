@@ -130,7 +130,7 @@ export default function SpeculativeDecoding(): React.ReactElement {
           onClick={() => setPlaying((p) => !p)}
           style={{ padding: '0.25rem 0.7rem', borderRadius: 6, cursor: 'pointer' }}
         >
-          {playing ? '⏸ pause' : '▶ play'}
+          {playing ? 'Pause' : 'Play'}
         </button>
       </div>
 
@@ -156,10 +156,10 @@ export default function SpeculativeDecoding(): React.ReactElement {
             border = 'none';
             if (i < accepted) {
               background = 'var(--brand-chart-positive-fill)';
-              label = '✓';
+            label = 'accept';
             } else {
               background = 'var(--ifm-color-emphasis-300)';
-              label = '✗';
+            label = 'reject';
               opacity = 0.5;
             }
           }

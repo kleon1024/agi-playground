@@ -67,6 +67,12 @@ never implements — account for datatrove's entire stricter-by-40% gap.
 Repetition detection is a distinct failure mode from length/symbol
 heuristics, and it's exactly the kind of thing that teaches a model to loop.
 
+Change the three retention gates below before moving on. The goal is not to
+maximize the final count; it is to see why every gate needs a separate quality
+audit rather than one aggregate “documents kept” metric.
+
+<!-- interactive: DataCurationFunnel -->
+
 ### 2. Deduplication theory: why MinHash/LSH, and the band/row tradeoff
 
 Exact dedup (hash the document, drop collisions) catches copies; it misses

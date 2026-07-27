@@ -17,18 +17,7 @@ evidence about engineering, not evidence about model quality.
 
 ## The system you are building
 
-```mermaid
-flowchart LR
-    A["Clean documents"] --> B["Frozen BPE tokenizer"]
-    B --> C["uint16 token stream"]
-    C --> D["Random context windows"]
-    D --> E["88.2M decoder"]
-    E --> F["Next-token loss"]
-    F --> G["AdamW update"]
-    G --> E
-    E --> H["Validation loss"]
-    E --> I["Resumable checkpoint"]
-```
+<!-- interactive: PretrainingLoop -->
 
 The output is not just a weight file. A useful training artifact includes the
 model configuration, optimizer moments, current step, tokens seen, evaluation

@@ -23,17 +23,7 @@ actually measures.
 
 This mission makes those dependencies visible:
 
-```mermaid
-flowchart LR
-    A["Corpus"] --> B["Tokenizer"]
-    B --> C["Base model"]
-    C --> D["Chat model"]
-    D --> E["RL policy"]
-    E --> F["Serving engine"]
-    F --> G["Agent harness"]
-    G --> H["Evaluation report"]
-    H -.failure evidence.-> A
-```
+<!-- interactive: LanguageModelPipeline -->
 
 The mission contract is [`mission.yaml`](mission.yaml). Read its
 `does_not_prove` section before treating the pipeline as a product claim.

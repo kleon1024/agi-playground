@@ -37,6 +37,7 @@ function embed(token: string, dim: number): number[] {
 export default function AttentionPattern(): React.ReactElement {
   const [text, setText] = useState('the cat sat on the mat because it was warm');
   const [scaled, setScaled] = useState(true);
+  const [activeQuery, setActiveQuery] = useState(0);
   const [dim] = useState(32);
 
   const { tokens, weights } = useMemo(() => {
@@ -62,9 +63,11 @@ export default function AttentionPattern(): React.ReactElement {
   }, [text, scaled, dim]);
 
   const cell = Math.max(18, Math.min(34, Math.floor(420 / Math.max(tokens.length, 1))));
+  const queryIndex = Math.min(activeQuery, Math.max(tokens.length - 1, 0));
+  const focusWeights = weights[queryIndex] ?? [];
 
   return (
-    <div className="learning-widget">
+    <div className="learning-widget attention-widget">
       <input
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -82,7 +85,7 @@ export default function AttentionPattern(): React.ReactElement {
         divide by √d<sub>k</sub>
       </label>
 
-      <div style={{ overflowX: 'auto' }}>
+      <div className="attention-pattern__matrix">
         <table style={{ borderCollapse: 'collapse', fontSize: 'var(--type-xs)' }}>
           <tbody>
             {weights.map((row, i) => (
@@ -117,6 +120,36 @@ export default function AttentionPattern(): React.ReactElement {
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <div className="attention-pattern__focus">
+        <label>
+          <span>
+            Query position <strong>{queryIndex + 1}</strong> — {tokens[queryIndex] ?? 'empty'}
+          </span>
+          <input
+            type="range"
+            min={0}
+            max={Math.max(tokens.length - 1, 0)}
+            value={queryIndex}
+            onChange={(event) => setActiveQuery(Number(event.target.value))}
+            aria-label="Query token position"
+          />
+        </label>
+        <div className="attention-pattern__bars" aria-label="Attention weights for selected query">
+          {focusWeights.slice(0, queryIndex + 1).map((weight, index) => (
+            <div className="attention-pattern__bar-row" key={`${tokens[index]}-${index}`}>
+              <span>{tokens[index]}</span>
+              <span className="attention-pattern__bar-track">
+                <span
+                  className="attention-pattern__bar-fill"
+                  style={{ transform: `scaleX(${weight})` }}
+                />
+              </span>
+              <strong>{weight.toFixed(2)}</strong>
+            </div>
+          ))}
+        </div>
       </div>
 
       <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.6rem' }}>

@@ -54,6 +54,26 @@ in `runs/` — never in CI.
 ## Conventions
 
 - **English** for all published content.
+- **Human-readable tutorials have one causal spine.** Open with the concrete
+  question the learner will answer and the prerequisite they need. Move through
+  one running example in this order: problem, mental model, mechanism,
+  manipulation, observed consequence, evidence boundary, and next question.
+  Each section must consume an output or resolve a question from the preceding
+  section. Define jargon at first use, prefer plain sentences and concrete
+  nouns, and keep one main idea per paragraph. Headings name learner decisions
+  or questions; they do not merely label implementation modules.
+- **Progressive disclosure protects the narrative.** Put the minimum explanation
+  required to reason about the example in the main path. Move derivations,
+  production alternatives, and implementation detail after the learner has the
+  mental model they depend on. Split a chapter only when the learner is making
+  a different decision, not to satisfy an arbitrary length target.
+- **Components are teaching instruments.** Introduce an interactive only after
+  its variable, outcome, and prediction are clear in prose. It must let the
+  learner change one causal variable, make the consequence legible without
+  guessing, and return that consequence to the next paragraph. Decorative
+  dashboards, unexplained controls, autoplay-only demonstrations, and
+  components that duplicate prose are defects. Every component needs a useful
+  static reading order and keyboard-accessible controls.
 - **One teaching surface.** Interactive explanations use the shared
   `learning-widget` contract in `site/src/css/widgets.css`; component-local
   colors, type scales, button systems, and mobile breakpoints are defects.
@@ -63,10 +83,27 @@ in `runs/` — never in CI.
   allocation, accumulation, and verification; do not add decorative motion.
   Every animation has manual control when timing matters and respects reduced
   motion.
+- **Interaction follows the lesson.** Frame one question, explain the minimum
+  mechanism, let the learner change one causal variable, state the observed
+  consequence, then hand that consequence to the next section. One interactive
+  owns one cognitive task; if its controls cannot confirm or falsify a mental
+  model, keep the explanation as prose.
+- **Diagrams are navigable explanations.** System flows use the shared
+  `ProcessDiagram` grammar: clickable stages, explicit ownership and handoff,
+  vertical mobile adaptation, and no horizontal-scroll dependency. Do not add
+  new Mermaid diagrams.
+- **The landing page routes, chapters teach.** Mechanism-specific demos live in
+  the chapter that establishes their prerequisites and consumes their output.
+  The landing page only explains the curriculum model and sends the learner to
+  a coherent starting path.
 - **A lesson is a complete decision path, not a stub.** State the mechanism,
   why it exists, its failure boundary, the executable path, and what the
   evidence does not prove. Split a lesson only when two chapters have distinct
   learning outcomes; do not split or pad to hit a line count.
+- **No emoji.** Do not use emoji in published prose, navigation, status labels,
+  controls, code examples, commit messages, or project instructions. Use words,
+  semantic HTML, and the shared icon system when an icon is necessary. The
+  repository test suite enforces this across authored text and source files.
 - **Hardware-neutral in curriculum prose.** Write "a 24GB card" or "the local
   lane", not a specific GPU model. Naming real hardware is for `infra/` docs and
   `runs/` records, which describe machines that actually ran something.

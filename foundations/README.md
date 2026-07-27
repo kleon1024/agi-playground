@@ -65,6 +65,11 @@ that forces it to.
 
 <!-- interactive: SoftmaxScaling -->
 
+Keep the scaling term on for the next view. The first component isolates why
+the denominator is necessary; the attention map now applies the same operation
+inside a causal sequence. On a phone, move the query-position control and watch
+which past tokens remain reachable. On a wider screen, inspect the whole matrix.
+
 <!-- interactive: AttentionPattern -->
 
 The causal mask (setting future positions to $-\infty$ before softmax) is

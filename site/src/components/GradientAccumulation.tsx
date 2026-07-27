@@ -89,7 +89,7 @@ export default function GradientAccumulation(): React.ReactElement {
             onClick={() => setPlaying((p) => !p)}
             style={{ padding: '0.2rem 0.6rem', borderRadius: 6, cursor: 'pointer' }}
           >
-            {playing ? '⏸ pause' : '▶ play'}
+            {playing ? 'Pause' : 'Play'}
           </button>
         </div>
       </div>
@@ -139,7 +139,7 @@ export default function GradientAccumulation(): React.ReactElement {
             transition: 'background 150ms, transform 150ms',
           }}
         >
-          {isFiring ? '⚡' : ''}
+          {isFiring ? 'Step' : ''}
         </div>
         <span style={{ fontSize: 'var(--type-sm)', opacity: 0.7, marginLeft: '0.4rem' }}>
           optimizer steps fired: <strong>{optimizerStepsFired}</strong>

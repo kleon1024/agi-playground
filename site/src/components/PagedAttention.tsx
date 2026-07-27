@@ -175,7 +175,7 @@ export default function PagedAttention(): React.ReactElement {
           + add request
         </button>
         <button onClick={() => setPlaying((p) => !p)} style={{ padding: '0.25rem 0.7rem', borderRadius: 6, cursor: 'pointer' }}>
-          {playing ? '⏸ pause' : '▶ play'}
+          {playing ? 'Pause' : 'Play'}
         </button>
         <button onClick={reset} style={{ padding: '0.25rem 0.7rem', borderRadius: 6, cursor: 'pointer' }}>
           reset
@@ -188,7 +188,7 @@ export default function PagedAttention(): React.ReactElement {
               #{r.id}
               <button onClick={() => finish(r.id)} title="finish early (simulated EOS / cancel)"
                       style={{ border: 'none', background: 'none', cursor: 'pointer', padding: 0, fontSize: 'var(--type-xs)', opacity: 0.7 }}>
-                ✕
+                Remove
               </button>
             </span>
           ))}

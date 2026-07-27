@@ -61,8 +61,8 @@ cost more credibility than every verified one earns. See
 
 | Mission | Decision loop | Status |
 |---|---|---|
-| [01 · language-model agent](missions/01-language-model-agent/) | Raw text → tokenizer → pretrain → adapt → serve → act, on one 24GB GPU | 🔨 in progress — [contract](missions/01-language-model-agent/mission.yaml) |
-| [02 · personalized discovery](missions/02-personalized-discovery/) | Recommendation, search, and ads as one decision loop: intent → retrieve → rank → allocate → feedback | 📋 contract written — [contract](missions/02-personalized-discovery/mission.yaml) |
+| [01 · language-model agent](missions/01-language-model-agent/) | Raw text → tokenizer → pretrain → adapt → serve → act, on one 24GB GPU | In progress — [contract](missions/01-language-model-agent/mission.yaml) |
+| [02 · personalized discovery](missions/02-personalized-discovery/) | Recommendation, search, and ads as one decision loop: intent → retrieve → rank → allocate → feedback | Contract written — [contract](missions/02-personalized-discovery/mission.yaml) |
 
 Mission 01 is the first vertical slice. Its job is to prove the platform layers
 compose at all, and its contract says plainly that it beats no business
@@ -96,25 +96,25 @@ standards/     the contracts lessons, capabilities, and missions must satisfy
 
 | Lesson | Status |
 |---|---|
-| [First training loop](foundations/01-first-training-loop/) — the smallest complete pretraining loop, and why its failure is a *data* failure | ✅ verified |
+| [First training loop](foundations/01-first-training-loop/) — the smallest complete pretraining loop, and why its failure is a *data* failure | Verified |
 
 ### platform
 
 | Layer | Scope | Status |
 |---|---|---|
-| [data](platform/data/) | Pipelines, dedup, filtering, annotation, synthetic data | ✅ seeded by [mission 01 · corpus](missions/01-language-model-agent/00-corpus/) |
-| [training](platform/training/) | Tokenizers, architecture, training loop, scaling laws | 🚧 draft |
-| [adaptation · post-training](platform/adaptation/post-training/) | SFT, LoRA/PEFT, reward models, DPO family, distillation, merging | 🚧 draft |
-| [adaptation · RL](platform/adaptation/reinforcement-learning/) | PPO grounding → GRPO/GSPO/DAPO → RLVR → agentic RL | 🚧 draft |
-| [serving](platform/serving/) | KV cache, paged attention, batching, speculative decoding, quantization; training infra | 🚧 draft |
-| [evaluation & observability](platform/evaluation-observability/) | Static and agentic evals, contamination, harness disclosure | 🚧 draft |
-| [safety & governance](platform/safety-governance/) | Enforcing the guardrails missions declare | 🚧 draft |
+| [data](platform/data/) | Pipelines, dedup, filtering, annotation, synthetic data | Seeded by [mission 01 · corpus](missions/01-language-model-agent/00-corpus/) |
+| [training](platform/training/) | Tokenizers, architecture, training loop, scaling laws | Draft |
+| [adaptation · post-training](platform/adaptation/post-training/) | SFT, LoRA/PEFT, reward models, DPO family, distillation, merging | Draft |
+| [adaptation · RL](platform/adaptation/reinforcement-learning/) | PPO grounding → GRPO/GSPO/DAPO → RLVR → agentic RL | Draft |
+| [serving](platform/serving/) | KV cache, paged attention, batching, speculative decoding, quantization; training infra | Draft |
+| [evaluation & observability](platform/evaluation-observability/) | Static and agentic evals, contamination, harness disclosure | Draft |
+| [safety & governance](platform/safety-governance/) | Enforcing the guardrails missions declare | Draft |
 
 ### capabilities
 
 | Capability | Scope | Status |
 |---|---|---|
-| [act-coordinate](capabilities/act-coordinate/) | Harness engineering: loop, tools, context management, sandboxing, sub-agents | 🚧 draft |
+| [act-coordinate](capabilities/act-coordinate/) | Harness engineering: loop, tools, context management, sandboxing, sub-agents | Draft |
 
 `capabilities/` holds exactly one entry on purpose. Perception, retrieval,
 generation, ranking, and continual learning are named in the architecture

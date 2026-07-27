@@ -92,6 +92,12 @@ A smarter model does not fix this on its own — it's a harness discipline, not
 a model capability, and it has to be enforced in the harness regardless of
 how good the model gets.
 
+Step through the boundary once before reading the tool implementation. The
+component distinguishes model-generated proposal from harness-generated
+observation; collapsing those two states destroys grounding.
+
+<!-- interactive: AgentLoopSimulator -->
+
 ## Tool schemas: descriptions are load-bearing
 
 Each tool in `build_tools` declares a `description` the model actually reads

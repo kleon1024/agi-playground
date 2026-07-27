@@ -151,6 +151,12 @@ where possible, multiple seeds/rollouts per task with variance reported
 alongside the mean — a single number without either is not a claim you can
 compare against anyone else's single number.
 
+Change the task count below and watch twelve repeat estimates converge. This is
+the sampling-noise baseline you must understand before attributing a small score
+gap to a model or harness change.
+
+<!-- interactive: EvaluationUncertainty -->
+
 ### 7. τ²-bench-style policy-adherence environments
 
 Most agent benchmarks score task completion — did the agent get the right

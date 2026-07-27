@@ -55,6 +55,12 @@ running inside a badly designed harness underperforms a weaker model in a
 well-designed one. This track builds each of the five decisions once, by
 hand, in that order.
 
+Run one grounded trajectory before reading the implementation patterns. Move
+through the states and identify the exact boundary where the model must stop
+generating and the harness must take control.
+
+<!-- interactive: AgentLoopSimulator -->
+
 ## Conceptual spine
 
 ### The agent loop: ReAct and why interleaving beats either extreme

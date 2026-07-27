@@ -5,7 +5,7 @@ slug: /
 hide_title: true
 ---
 
-import TokenizerPlayground from '@site/src/components/TokenizerPlayground';
+import CurriculumMap from '@site/src/components/CurriculumMap';
 
 <section className="playground-hero">
   <div className="playground-hero__eyebrow">Executable AI systems curriculum</div>
@@ -21,15 +21,7 @@ import TokenizerPlayground from '@site/src/components/TokenizerPlayground';
   </div>
 </section>
 
-```mermaid
-flowchart LR
-    A["Business goal"] --> B["Mission<br/>end-to-end system"]
-    B --> C["Capabilities<br/>understand, retrieve,<br/>generate, decide, act"]
-    C --> D["Platform<br/>data, training, adaptation,<br/>serving, evaluation, safety"]
-    D --> E["Infrastructure"]
-    B --> F["Outcome telemetry"]
-    F --> D
-```
+<CurriculumMap />
 
 :::tip[The two invariants]
 **Every capability claim is backed by a run. Every mission is backed by a
@@ -41,26 +33,13 @@ against declared, reproducible proxies — and every mission states what it does
 *not* establish.
 :::
 
-## Try it: the tokenizer we trained
-
-Everything here is built, not described. Below is the actual 16,384-token
-vocabulary from mission 01, running in your browser — type anything.
-
-
-<TokenizerPlayground />
-
-:::note[Why this matters]
-Compression is the number that counts. At roughly 4.5 characters per token, text
-costs 4.5× fewer positions than character-level encoding — and context length,
-attention cost, and training compute all scale with token count. That is a 4.5×
-discount on all three, bought once.
-:::
-
 ## Where to start
 
-- **[The repository](https://github.com/kleon1024/agi-playground)** — all source,
-  all run records
-- **Foundations** — the smallest complete training loop, and why its failure is a
-  *data* failure
-- **Missions** — end-to-end systems with contracts stating what they prove and
-  what they do not
+- **[Understand the machinery](foundations/)** — derive attention and the
+  transformer block before treating them as library calls.
+- **[Build the language-model mission](missions/01-language-model-agent/)** —
+  follow one artifact from corpus to evaluation.
+- **[Build the discovery mission](missions/02-personalized-discovery/)** —
+  apply the same system discipline to recommendation, search, and ads.
+- **[Inspect the evidence](https://github.com/kleon1024/agi-playground)** —
+  every runnable claim links to source and a run record.

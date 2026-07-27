@@ -76,7 +76,7 @@ export default function KVCacheGrowth(): React.ReactElement {
         </label>
         <button onClick={() => setPlaying((p) => !p)}
                 style={{ padding: '0.25rem 0.7rem', borderRadius: 6, cursor: 'pointer' }}>
-          {playing ? '⏸ pause' : '▶ grow context'}
+          {playing ? 'Pause' : 'Grow context'}
         </button>
         <label style={{ cursor: 'pointer' }}>
           <input type="checkbox" checked={gqa} onChange={(e) => setGqa(e.target.checked)} /> GQA ÷4

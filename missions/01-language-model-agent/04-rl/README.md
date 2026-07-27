@@ -113,6 +113,12 @@ identically every time, both produce exactly this. A degenerate group
 contributes zero gradient signal; skipping it is standard practice, not a
 bug being papered over.
 
+Change the rewards below before moving to the policy update. The useful
+quantity is not the absolute reward; it is each completion's standardized
+position inside its own prompt group.
+
+<!-- interactive: GRPOAdvantage -->
+
 ## Verifiable rewards: what "no reward model" buys you
 
 RLHF's reward comes from a learned reward model trained on human

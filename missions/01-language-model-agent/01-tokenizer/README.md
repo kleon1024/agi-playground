@@ -54,6 +54,16 @@ same text costs 4.5× fewer positions than the character-level tokenizer in
 length, attention cost, and training compute all scale with token count, so
 this is a 4.5× discount on all three, bought once.
 
+First inspect the artifact the next stage will consume. Type text below to see
+the trained 16,384-token vocabulary turn it into stable IDs and measure its
+compression. Then use the merge stepper to see how that vocabulary was learned.
+
+<!-- interactive: TokenizerPlayground -->
+
+The artifact view tells you what the finished vocabulary does, but not how it
+was produced. Now reduce the merge count, advance it slowly, and identify the
+point where recurring byte pairs become reusable language fragments.
+
 <!-- interactive: BPEMergeStepper -->
 
 ### The index is worth 71×

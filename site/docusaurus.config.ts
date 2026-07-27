@@ -7,8 +7,6 @@ import rehypeKatex from 'rehype-katex';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  markdown: { mermaid: true },
-
   // KaTeX renders each formula twice — visual HTML plus MathML for screen
   // readers — and relies on its stylesheet to hide the MathML layer. Without
   // this, every equation appears twice: once typeset, once as mangled text.
@@ -21,7 +19,6 @@ const config: Config = {
       crossorigin: 'anonymous',
     },
   ],
-  themes: ['@docusaurus/theme-mermaid'],
   title: 'Rehearse Playground',
   tagline: 'Build AI systems from infrastructure to measurable outcomes',
   favicon: 'img/rehearse-mark.svg',
@@ -76,31 +73,6 @@ const config: Config = {
   ],
 
   themeConfig: {
-    mermaid: {
-      theme: {light: 'base', dark: 'base'},
-      options: {
-        fontFamily: "'Inter', ui-sans-serif, system-ui, sans-serif",
-        fontSize: 14,
-        flowchart: {curve: 'basis', padding: 18, nodeSpacing: 44, rankSpacing: 52, useMaxWidth: true},
-        sequence: {useMaxWidth: true, actorMargin: 60},
-        themeVariables: {
-          primaryColor: '#e7ebff',
-          primaryTextColor: '#171b19',
-          primaryBorderColor: '#2457f5',
-          lineColor: '#52605a',
-          secondaryColor: '#e5f5ea',
-          tertiaryColor: '#ffffff',
-          mainBkg: '#f7f8f4',
-          nodeBorder: '#d9ddd7',
-          clusterBkg: '#fffdf8',
-          clusterBorder: '#d9ddd7',
-          edgeLabelBackground: '#ffffff',
-          titleColor: '#171b19',
-          fontSize: '14px',
-        },
-      },
-    },
-
     colorMode: {
       defaultMode: 'light',
       disableSwitch: true,

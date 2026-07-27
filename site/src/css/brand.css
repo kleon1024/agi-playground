@@ -342,14 +342,6 @@ table th {
     line-height: var(--leading-base);
   }
 
-  .docusaurus-mermaid-container {
-    text-align: left;
-  }
-
-  .docusaurus-mermaid-container svg {
-    width: 42rem;
-    max-width: none;
-  }
 }
 
 .footer--dark {
@@ -362,16 +354,4 @@ table th {
 :focus-visible {
   outline: 3px solid color-mix(in srgb, var(--rehearse-action) 45%, transparent);
   outline-offset: 2px;
-}
-
-/* Diagrams: centred, scrollable on a phone, part of the page. */
-.docusaurus-mermaid-container {
-  overflow-x: auto;
-  padding: 1.25rem 0;
-  text-align: center;
-}
-
-.docusaurus-mermaid-container svg {
-  max-width: 100%;
-  height: auto;
 }

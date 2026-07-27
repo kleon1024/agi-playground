@@ -89,8 +89,10 @@ and — most importantly — **interactivity**. A reader who can type a sentence
 watch this repository's own tokenizer merge it, step by step, learns BPE in a
 way no static code listing achieves.
 
-That is the bar: interactive tutorials, abundant diagrams and illustrations,
-rich markdown extensions, and a theme worth looking at.
+That is the bar: a coherent question → mechanism → manipulation → consequence
+loop. Interactions are used when changing one variable can confirm a mental
+model; diagrams are used when ownership and handoff are the lesson. More
+components is not the goal.
 
 **Video and social attach to the curriculum identity**, not to a product. Each
 video points at the lesson it covers; each lesson can point back. That loop
@@ -106,7 +108,10 @@ a seam.
 `@theme inline` block. `site/src/css/brand.css` mirrors its named palette,
 typography scale, and component semantics. `site/src/css/widgets.css` owns the
 shared interactive-teaching surface so individual demonstrations do not invent
-their own control or responsive rules.
+their own control or responsive rules. `site/src/css/diagrams.css` owns the
+clickable process grammar that replaces Mermaid, and `site/src/css/labs.css`
+owns the small causal labs. All three adapt vertically on a phone instead of
+requiring horizontal scrolling.
 
 Two things about that file are easy to get wrong, and both cost me time:
 

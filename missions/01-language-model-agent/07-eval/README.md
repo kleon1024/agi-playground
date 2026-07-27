@@ -160,6 +160,11 @@ happened to sample) and mean ± std over `--seeds` real sampled rollouts for
 does on repeated attempts at the *same* instance). A report with neither is
 a number this stage's tooling will not produce.
 
+Change the task count below and decide when a four-point difference becomes
+meaningful. The repeated bars hold the system fixed and vary only the sample.
+
+<!-- interactive: EvaluationUncertainty -->
+
 ## The harness-disclosure argument, operationalized
 
 The lesson from `platform/evaluation-observability` this stage exists to
