@@ -20,3 +20,8 @@ wandb/
 
 # internal workflow artifacts
 docs/superpowers/plans/
+
+# docs site
+site/node_modules/
+site/build/
+site/.docusaurus/
