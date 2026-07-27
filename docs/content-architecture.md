@@ -96,6 +96,33 @@ rich markdown extensions, and a theme worth looking at.
 video points at the lesson it covers; each lesson can point back. That loop
 compounds; scattered promotion does not.
 
+## Design system
+
+The playground mirrors the product's tokens rather than inventing its own, so
+a reader crossing from `rehearse.maestro.onl` into `/playground` does not feel
+a seam.
+
+**Source of truth is `rehearse/src/app/globals.css`** — a Tailwind v4
+`@theme inline` block. `site/src/css/brand.css` mirrors it, deliberately in the
+same `oklch()` notation rather than in the hex those tokens compile to, so the
+two can be compared by eye and drift is visible.
+
+Two things about that file are easy to get wrong, and both cost me time:
+
+* **The `--color-*` entries are not dead.** They look unreferenced because
+  nothing calls `var(--color-primary)`, but Tailwind v4 turns them into utility
+  classes — `bg-primary`, `text-muted-foreground`, `border-border` — used
+  hundreds of times. Deleting them on a "no `var()` usage" search would break
+  the site.
+* **Typography is two faces, not one.** Inter for body, Poppins for headings,
+  applied through `@apply font-heading` on h1–h4. The compiled CSS references
+  Next's generated font variables, so grepping the live stylesheet for
+  "Poppins" finds nothing and suggests, wrongly, that it is unused.
+
+There is no automatic check that the mirror stays in sync. That is the honest
+cost of two separate deployments, and it is cheaper than coupling the builds so
+that a lesson typo can fail a product release.
+
 ## Practical notes
 
 - **Repository metadata is discovery surface.** Topics, description, and
