@@ -54,6 +54,19 @@ in `runs/` — never in CI.
 ## Conventions
 
 - **English** for all published content.
+- **One teaching surface.** Interactive explanations use the shared
+  `learning-widget` contract in `site/src/css/widgets.css`; component-local
+  colors, type scales, button systems, and mobile breakpoints are defects.
+  Explanatory text and controls are at least 15px, semantic metadata is at least
+  13px, and every widget must fit a 390px viewport without page overflow.
+- **Motion explains state.** Animate causal transitions such as scheduling,
+  allocation, accumulation, and verification; do not add decorative motion.
+  Every animation has manual control when timing matters and respects reduced
+  motion.
+- **A lesson is a complete decision path, not a stub.** State the mechanism,
+  why it exists, its failure boundary, the executable path, and what the
+  evidence does not prove. Split a lesson only when two chapters have distinct
+  learning outcomes; do not split or pad to hit a line count.
 - **Hardware-neutral in curriculum prose.** Write "a 24GB card" or "the local
   lane", not a specific GPU model. Naming real hardware is for `infra/` docs and
   `runs/` records, which describe machines that actually ran something.

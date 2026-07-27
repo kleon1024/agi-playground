@@ -1,0 +1,183 @@
+/*
+ * Shared contract for every executable explanation in the curriculum.
+ *
+ * Widgets are teaching surfaces, not miniature applications. They share one
+ * frame, one control language, and one readable type floor so the mechanism
+ * stays primary and the component never becomes a page-within-a-page.
+ */
+.learning-widget {
+  container-type: inline-size;
+  margin: 2rem 0;
+  padding: clamp(1rem, 3cqi, 1.5rem);
+  border: 1px solid var(--rehearse-rule);
+  border-radius: 0;
+  background: var(--rehearse-surface);
+  color: var(--rehearse-ink);
+  font-size: var(--type-sm);
+  line-height: var(--leading-sm);
+  overflow: clip;
+}
+
+.lora-widget {
+  --lora-visual: 8.75rem;
+}
+
+.learning-widget > :first-child {
+  margin-top: 0;
+}
+
+.learning-widget > :last-child {
+  margin-bottom: 0;
+}
+
+.learning-widget > p:last-child {
+  margin-top: 1.25rem !important;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rehearse-rule);
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-sm) !important;
+  line-height: var(--leading-sm);
+  opacity: 1 !important;
+}
+
+.learning-widget label {
+  min-width: 0;
+  color: var(--rehearse-ink);
+  font-size: var(--type-sm) !important;
+  line-height: var(--leading-sm);
+}
+
+.learning-widget button,
+.learning-widget input,
+.learning-widget select,
+.learning-widget textarea {
+  font: inherit;
+}
+
+.learning-widget button {
+  align-self: flex-start;
+  min-height: 2.5rem;
+  border: 1px solid var(--rehearse-ink);
+  border-radius: 0.25rem !important;
+  background: var(--rehearse-warm-white);
+  color: var(--rehearse-ink);
+  padding: 0.45rem 0.8rem !important;
+  font-size: var(--type-sm) !important;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.learning-widget button:hover {
+  border-color: var(--rehearse-action);
+  background: var(--rehearse-action-soft);
+  color: var(--rehearse-action-strong);
+}
+
+.learning-widget button:active {
+  transform: translateY(1px);
+}
+
+.learning-widget button:disabled {
+  border-color: var(--rehearse-rule);
+  background: var(--rehearse-paper);
+  color: var(--rehearse-copy-muted);
+  cursor: not-allowed;
+}
+
+.learning-widget input:not([type='range']):not([type='checkbox']),
+.learning-widget select,
+.learning-widget textarea {
+  min-height: 2.75rem;
+  max-width: 100%;
+  border: 1px solid var(--rehearse-input) !important;
+  border-radius: 0.25rem !important;
+  background: var(--rehearse-warm-white) !important;
+  color: var(--rehearse-ink) !important;
+  padding: 0.55rem 0.7rem !important;
+  font-size: var(--type-sm) !important;
+  line-height: var(--leading-sm);
+}
+
+.learning-widget select {
+  padding-right: 2rem !important;
+}
+
+.learning-widget textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+.learning-widget input[type='range'] {
+  width: min(100%, 17rem) !important;
+  min-width: 8rem !important;
+  max-width: 100% !important;
+  accent-color: var(--rehearse-action);
+  cursor: ew-resize;
+}
+
+.learning-widget input[type='checkbox'] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--rehearse-action);
+}
+
+.learning-widget svg,
+.learning-widget canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.learning-widget table {
+  max-width: 100%;
+  font-size: var(--type-xs) !important;
+}
+
+.learning-widget code {
+  font-size: 0.88em;
+}
+
+.learning-widget [style*='min-width: 300px'],
+.learning-widget [style*='min-width: 280px'] {
+  min-width: min(100%, 18rem) !important;
+}
+
+@container (max-width: 34rem) {
+  .learning-widget {
+    padding: 1rem;
+  }
+
+  .learning-widget label {
+    align-items: flex-start !important;
+    flex-direction: column;
+    gap: 0.35rem !important;
+  }
+
+  .learning-widget label > span {
+    min-width: 0 !important;
+  }
+
+  .learning-widget button {
+    min-height: 2.75rem;
+  }
+
+  .lora-widget .lora-matrix-comparison {
+    --lora-visual: 6.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learning-widget *,
+  .learning-widget *::before,
+  .learning-widget *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -24,7 +24,7 @@ const config: Config = {
   themes: ['@docusaurus/theme-mermaid'],
   title: 'Rehearse Playground',
   tagline: 'Build AI systems from infrastructure to measurable outcomes',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/rehearse-mark.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -101,8 +101,6 @@ const config: Config = {
       },
     },
 
-    // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
     colorMode: {
       defaultMode: 'light',
       disableSwitch: true,

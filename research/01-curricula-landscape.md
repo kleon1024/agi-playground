@@ -7,7 +7,7 @@
 - **nn-zero-to-hero** — YouTube + repo series (micrograd → makemore → GPT). Pure from-scratch code pedagogy: build autograd, then a bigram model, then a Transformer, in raw PyTorch. Covers pretraining fundamentals and backprop intuition only. No data engineering, no RLHF/RL, no infra, no agents.
 - **LLM101n** — an announced 17-chapter "build a Storyteller LLM" undergraduate curriculum spanning Python/C/CUDA. Largely stalled/incomplete as a standalone repo; its planned scope (tokenizer → pretrain → finetune → deploy) was effectively superseded and partially delivered by nanochat, which Karpathy calls its "capstone."
 - **nanoGPT** — now explicitly deprecated by its own author in 2026 in favor of nanochat; covered pretraining only (single GPU/multi-GPU speedrun training), no chat/instruction-tuning, no RL, no serving.
-- **nanochat** ("the best ChatGPT that $100 can buy") — the current flagship: a single, readable, ~8,000-line full-stack pipeline covering tokenizer training, pretraining, midtraining, SFT, and a chat web UI, runnable end-to-end on rented 8xH100s. It popularized a "speedrun" leaderboard (sub-3-hour GPT-2-grade runs by 2026) as a community benchmark. Notably light on RL post-training depth, near-absent on data curation/annotation methodology (uses off-the-shelf datasets), and no serving/inference-infra story beyond a toy web UI — no batching, quantization, or multi-node serving.
+- **nanochat** ("the best ChatGPT that \$100 can buy") — the current flagship: a single, readable, ~8,000-line full-stack pipeline covering tokenizer training, pretraining, midtraining, SFT, and a chat web UI, runnable end-to-end on rented 8xH100s. It popularized a "speedrun" leaderboard (sub-3-hour GPT-2-grade runs by 2026) as a community benchmark. Notably light on RL post-training depth, near-absent on data curation/annotation methodology (uses off-the-shelf datasets), and no serving/inference-infra story beyond a toy web UI — no batching, quantization, or multi-node serving.
 - **microgpt** (Feb 2026) — a further distillation: a single 200-line, dependency-free file implementing a custom autograd engine plus a tiny GPT, explicitly framed as "everything else is just efficiency." Purely a pedagogical minimalism artifact; zero coverage of scaling, data, RL, or infra by design.
 
 ## 2. Stanford CS336 — Language Modeling from Scratch
@@ -35,7 +35,7 @@ MIT's **6.5940 (TinyML and Efficient Deep Learning Computing)**, covering quanti
 
 ## 7. Notable 2025-2026 research-adjacent "education by codebase"
 
-**TinyZero** (minimal DeepSeek-R1-Zero reproduction on countdown/multiplication tasks, ~$30, built on **verl**) and **verl** itself (ByteDance's now-de-facto open GRPO/agentic-RL training backbone) function as de facto RL-post-training curricula by example, alongside newer research repos (Tree-GRPO, Open-AgentRL) that are more research artifacts than teaching material — dense, less annotated, assuming strong prior background.
+**TinyZero** (minimal DeepSeek-R1-Zero reproduction on countdown/multiplication tasks, ~\$30, built on **verl**) and **verl** itself (ByteDance's now-de-facto open GRPO/agentic-RL training backbone) function as de facto RL-post-training curricula by example, alongside newer research repos (Tree-GRPO, Open-AgentRL) that are more research artifacts than teaching material — dense, less annotated, assuming strong prior background.
 
 ## Gap Analysis: What a Differentiated 2026 Zero-to-Mastery Repo Needs
 

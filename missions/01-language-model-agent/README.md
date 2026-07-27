@@ -2,52 +2,105 @@
 status: draft
 ---
 
-# Speedrun — raw text to your own chat agent, on one GPU
+# Mission 01 — Raw text to a tool-using model
 
-## What this is
+Build one complete language-model system on a single 24GB GPU: clean raw text,
+train a tokenizer, pretrain a decoder, adapt its behavior, serve it, place it
+inside a controlled agent loop, and evaluate the resulting system.
 
-The flagship integration path of agi-playground: starting from raw crawl text
-and ending with a served, agent-wrapped, self-trained model, entirely on a
-single 24GB GPU. Every stage genuinely runs on that hardware — nothing here is
-a claim about frontier-scale results, and nothing ships without a verified
-run recorded in that stage's `runs/` directory (see the design doc, §5, for
-the lesson/run anatomy).
+This is the integration test for the repository. Each stage owns one artifact
+and consumes the previous stage's output. The chain is only complete when the
+model trained here is served by the engine built here and driven by the harness
+built here.
 
-This mission is the integration test for the platform: every stage composes the
-from-scratch cores taught in [`platform/`](../../platform/) and
-[`capabilities/`](../../capabilities/). If a platform lesson's core breaks, this
-mission breaks. Each stage below names the layer it draws on and the production
-anchor its `prod/` lane mirrors.
+## Why this mission exists
 
-Its contract is [`mission.yaml`](mission.yaml), and it is worth reading before
-the stages — particularly `does_not_prove`. This mission establishes that the
-layers compose on one GPU. It does not beat a hosted frontier model on output
-quality and does not claim to.
+It is easy to understand each layer in isolation and still fail to build a
+system. Tokenizer choices change sequence length; sequence length changes
+training and serving cost; architecture choices change the KV cache; the
+serving API constrains the harness; the harness changes what the evaluation
+actually measures.
 
-## Stage table
+This mission makes those dependencies visible:
 
-| Stage | Deliverable | Anchor | Layer | Status |
-|---|---|---|---|---|
-| [`00-corpus`](00-corpus/) | cleaned English shard from Common Crawl via a from-scratch pipeline, compared against datatrove's FineWeb recipe | datatrove | `platform/data` | ✅ built |
-| [`01-tokenizer`](01-tokenizer/) | own byte-level BPE, 16,384 vocab, 4.50 chars/token; naive vs indexed 71x; export verified id-identical | minbpe | `platform/training` | ✅ built |
-| [`02-pretrain`](02-pretrain/) | 88M decoder (RMSNorm/RoPE/SwiGLU/GQA), bf16, grad-accum; loss curve published | nanoGPT/nanochat | `platform/training` | 🔨 loop verified, awaiting GPU |
-| `03-sft` | chat template + loss masking; small open instruct set; before/after samples | TRL | `platform/adaptation` | 🚧 planned |
-| `04-rl` | GRPO on a verifiable task with LoRA; reward curve | TRL GRPOTrainer / TinyZero | `platform/adaptation` | 🚧 planned |
-| `05-serve` | minimal engine: KV cache → paged blocks → continuous batching; benchmarked vs naive generate | nano-vLLM | `platform/serving` | 🚧 planned |
-| `06-agent` | minimal harness: loop, 2-3 tools, context window management, sandboxed execution | mini-swe-agent | `capabilities/act-coordinate` | 🚧 planned |
-| `07-eval` | perplexity + small task suite + harness-disclosed agent eval; one honest report | lm-eval, inspect-ai | `platform/evaluation-observability` | 🚧 planned |
+```mermaid
+flowchart LR
+    A["Corpus"] --> B["Tokenizer"]
+    B --> C["Base model"]
+    C --> D["Chat model"]
+    D --> E["RL policy"]
+    E --> F["Serving engine"]
+    F --> G["Agent harness"]
+    G --> H["Evaluation report"]
+    H -.failure evidence.-> A
+```
 
-## Success criterion
+The mission contract is [`mission.yaml`](mission.yaml). Read its
+`does_not_prove` section before treating the pipeline as a product claim.
 
-One command per stage. Wall-clock time and dollar cost documented end-to-end.
-A final report a newcomer can reproduce by following only these docs — no
-verified-run claim without the run to back it.
+## The stage contract
 
-## How to use this
+Every stage has one input, one deliverable, one verification boundary, and one
+next consumer. A stage may have working code while remaining `draft`: code
+demonstrates an implementation, while a run record demonstrates that the
+declared path actually executed.
 
-Run the stages in order — each depends on the previous stage's output
-(shard → tokenizer → base model → chat model → RL'd model → served model →
-agent → eval report). Each stage's `README.md` states its own goal,
-deliverable, anchor project, and what its `runs/` entry must show once it's
-executed and verified. None of these stages are executed yet; every stage
-below is `status: draft` until it has a verified run.
+| Stage | Deliverable | Current evidence |
+|---|---|---|
+| [`00-corpus`](00-corpus/) | cleaned English shard and a comparison between the readable and production pipelines | verified run |
+| [`01-tokenizer`](01-tokenizer/) | byte-level BPE vocabulary, fast export, and round-trip parity | verified run |
+| [`02-pretrain`](02-pretrain/) | 88.2M decoder, token data path, optimizer loop, and resumable checkpoint | loop mechanics verified; full run pending |
+| [`03-sft`](03-sft/) | chat template, assistant-only loss, and before/after behavior | implementation present; run pending |
+| [`04-rl`](04-rl/) | GRPO updates against a verifiable reward | implementation present; run pending |
+| [`05-serve`](05-serve/) | KV-cache decoding, paged allocation, and continuous batching | implementation present; run pending |
+| [`06-agent`](06-agent/) | bounded tool loop, grounding rule, context policy, and sandbox | implementation present; run pending |
+| [`07-eval`](07-eval/) | disclosed harness, static and agentic tasks, variance, and failure cases | implementation present; run pending |
+
+## What composes across the stages
+
+The tokenizer is frozen before pretraining. Changing it later changes token IDs
+and invalidates the embedding table. The pretraining checkpoint fixes the model
+shape that SFT and RL must load. Adaptation changes weights, not the serving
+protocol. The serving engine exposes generation to the harness, while the
+harness owns tools, permissions, and stop conditions. Evaluation records both
+model behavior and harness configuration because either can cause a failure.
+
+Those ownership boundaries prevent a common debugging mistake: changing the
+model when the bug is in the prompt loop, or changing the harness when the
+checkpoint and tokenizer do not match.
+
+## Definition of done
+
+Completion requires more than eight scripts that start:
+
+- every stage has an exact command and a run record;
+- every published number traces to that record;
+- the tokenizer, checkpoint, and serving configuration are identity-compatible;
+- the agent calls the locally served model rather than a hosted replacement;
+- checkpoint and evaluation artifacts can be reproduced from repository docs;
+- total wall-clock and cost are reported;
+- the final report names failure cases and the limits of its evidence.
+
+The mission remains `draft` until all conditions are true.
+
+## What this mission proves
+
+When complete, it will prove that the language-model chain composes on the
+declared hardware and that an engineer can inspect and replace each layer.
+That is a systems claim, not a quality claim.
+
+It will not prove that a small self-trained model beats a hosted frontier model,
+that the agent creates business value, or that the same platform generalizes to
+non-text decisions. Mission 02 exists to test that last claim with personalized
+discovery, where the objective, data, serving path, and failure modes are
+different.
+
+## How to use the mission
+
+Follow the stages in order when reproducing the complete path. When learning one
+mechanism, enter through the relevant platform lesson and return here to see
+which upstream and downstream contracts it affects.
+
+Start with [stage 00](00-corpus/) if you want the full build. Start with
+[stage 02](02-pretrain/) if your immediate goal is to understand how data,
+architecture, optimization, and checkpoints become one training system.

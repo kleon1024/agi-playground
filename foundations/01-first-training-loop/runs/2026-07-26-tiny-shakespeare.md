@@ -4,7 +4,7 @@
 **Hardware:** NVIDIA GeForce RTX 4090 (24GB, driver 591.86), WSL2 Ubuntu,
 kernel 6.6.87.2-microsoft-standard-WSL2, reached over Tailscale SSH.
 **Software:** Python 3.12, torch 2.13.0+cu130, uv-managed venv.
-**Cost:** $0 (local lane). 34.2 seconds of GPU time.
+**Cost:** \$0 (local lane). 34.2 seconds of GPU time.
 
 ## Command
 

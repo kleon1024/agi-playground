@@ -1,43 +1,18 @@
-# Website
+# Rehearse Playground site
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+The Docusaurus site renders the repository curriculum at
+`/playground`. Source lessons remain in the repository root; `sync-docs.py`
+copies them into the ignored `site/docs/` build directory and converts
+`<!-- interactive: ComponentName -->` markers into React imports.
 
-## Installation
+Use the repository sources for content changes. Do not edit `site/docs/`.
 
 ```bash
 npm install
-```
-
-**Note**: feel free to use the package manager of your choice.
-
-## Local Development
-
-```bash
 npm run start
-```
-
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-## Build
-
-```bash
+npm run typecheck
 npm run build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-## Deployment
-
-Using SSH:
-
-```bash
-USE_SSH=true npm run deploy
-```
-
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> npm run deploy
-```
-
-If you are using GitHub Pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+`prestart` and `prebuild` run the sync step automatically. The shared visual
+contract lives in `src/css/brand.css` and `src/css/widgets.css`.

@@ -80,7 +80,7 @@ export default function DPOLossFamily(): React.ReactElement {
   );
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <div
         style={{
           display: 'flex',
@@ -132,16 +132,16 @@ export default function DPOLossFamily(): React.ReactElement {
           stroke="var(--ifm-color-emphasis-300)"
           strokeDasharray="3,3"
         />
-        <text x={PAD_L - 6} y={PAD_T + 4} fontSize={9} textAnchor="end" fill="var(--ifm-font-color-base)" opacity={0.6}>
+        <text x={PAD_L - 6} y={PAD_T + 4} fontSize={13} textAnchor="end" fill="var(--ifm-font-color-base)" opacity={0.6}>
           {Y_MAX}
         </text>
-        <text x={PAD_L - 6} y={H - PAD_B} fontSize={9} textAnchor="end" fill="var(--ifm-font-color-base)" opacity={0.6}>
+        <text x={PAD_L - 6} y={H - PAD_B} fontSize={13} textAnchor="end" fill="var(--ifm-font-color-base)" opacity={0.6}>
           0
         </text>
-        <text x={xToPx(0)} y={H - PAD_B + 12} fontSize={9} textAnchor="middle" fill="var(--ifm-font-color-base)" opacity={0.6}>
+        <text x={xToPx(0)} y={H - PAD_B + 12} fontSize={13} textAnchor="middle" fill="var(--ifm-font-color-base)" opacity={0.6}>
           h=0
         </text>
-        <text x={W - PAD_R} y={H - PAD_B + 12} fontSize={9} textAnchor="end" fill="var(--ifm-font-color-base)" opacity={0.6}>
+        <text x={W - PAD_R} y={H - PAD_B + 12} fontSize={13} textAnchor="end" fill="var(--ifm-font-color-base)" opacity={0.6}>
           margin h →
         </text>
 
@@ -150,7 +150,7 @@ export default function DPOLossFamily(): React.ReactElement {
         <path d={paths.simpo} fill="none" stroke={AMBER} strokeWidth={2} />
       </svg>
 
-      <div style={{ display: 'grid', gap: '0.35rem', fontSize: '0.8rem', marginTop: '0.6rem' }}>
+      <div style={{ display: 'grid', gap: '0.35rem', fontSize: 'var(--type-sm)', marginTop: '0.6rem' }}>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           <span style={{ width: 10, height: 10, borderRadius: 5, background: TEAL, display: 'inline-block' }} />
           DPO: L(h) = −log σ(β·h)
@@ -165,7 +165,7 @@ export default function DPOLossFamily(): React.ReactElement {
         </div>
       </div>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.9rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.9rem' }}>
         h is the implicit margin between the preferred and dispreferred
         completion — for DPO and IPO that is β times a log-probability ratio
         difference against a frozen reference model; SimPO computes the same

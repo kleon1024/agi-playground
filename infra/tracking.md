@@ -61,7 +61,7 @@ exactly what was run, on what hardware, and what it produced:
 - **Config:** `configs/gpt2-124m.yaml` (124M params, RMSNorm/RoPE/SwiGLU, bf16, grad_accum=8)
 - **Hardware:** local RTX 4090 (24GB)
 - **Wall-clock:** 6h 42m
-- **Cost:** $0 (local hardware)
+- **Cost:** \$0 (local hardware)
 - **Metrics:** final train loss 3.12, val loss 3.24; loss curve: `trackio://agi-playground/02-pretrain/run-2026-07-24`
 ```
 

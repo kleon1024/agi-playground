@@ -3,7 +3,7 @@
 **Date:** 2026-07-26
 **Hardware:** AMD/Intel x86_64, 16 cores, 15GB RAM, WSL2 Ubuntu (kernel
 6.6.87.2-microsoft-standard-WSL2). CPU-only; the GPU is idle for this stage.
-**Cost:** $0 (local lane).
+**Cost:** \$0 (local lane).
 
 ## Input
 

@@ -53,7 +53,7 @@ export default function KVCacheGrowth(): React.ReactElement {
   const H80 = 80; // a large accelerator, for a sense of scale
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '0.9rem' }}>
         <select
           value={model}
@@ -83,7 +83,7 @@ export default function KVCacheGrowth(): React.ReactElement {
         </label>
       </div>
 
-      <div style={{ display: 'flex', height: 42, borderRadius: 6, overflow: 'hidden', fontSize: '0.75rem' }}>
+      <div style={{ display: 'flex', height: 42, borderRadius: 6, overflow: 'hidden', fontSize: 'var(--type-xs)' }}>
         <div style={{ width: `${weightPct}%`, background: 'var(--brand-chart-action-fill)', color: 'var(--rehearse-ink)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       transition: 'width 300ms ease-out' }}>
@@ -96,7 +96,7 @@ export default function KVCacheGrowth(): React.ReactElement {
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '1.4rem', fontSize: '0.85rem', marginTop: '0.7rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '1.4rem', fontSize: 'var(--type-sm)', marginTop: '0.7rem', flexWrap: 'wrap' }}>
         <span>cache / weights <strong>{ratio.toFixed(2)}×</strong></span>
         <span>total <strong>{total.toFixed(1)} GB</strong></span>
         {gqa && <span style={{ opacity: 0.8 }}>full MHA would be {mhaGB.toFixed(1)} GB</span>}
@@ -107,7 +107,7 @@ export default function KVCacheGrowth(): React.ReactElement {
         </span>
       </div>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.7rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.7rem' }}>
         Weights are a fixed cost; the cache grows with batch × context. Push
         either up and the red bar takes over — at which point buying a bigger
         model is not your problem, and paging, eviction, or grouped-query

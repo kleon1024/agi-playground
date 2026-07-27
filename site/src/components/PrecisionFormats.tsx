@@ -19,7 +19,7 @@ import React, { useMemo, useState } from 'react';
 const SIGN_COLOR = 'var(--brand-chart-signal)';
 const EXP_COLOR = 'var(--brand-chart-action-fill)';
 const MANT_COLOR = 'var(--brand-chart-positive-fill)';
-const WARN_COLOR = 'var(--brand-chart-danger-fill)';
+const WARN_COLOR = 'var(--brand-chart-danger)';
 
 function floatToFp32Bits(v: number): number {
   const buf = new ArrayBuffer(4);
@@ -108,9 +108,8 @@ interface Segment {
   label: string;
 }
 function Bar({ segments }: { segments: Segment[] }): React.ReactElement {
-  const total = segments.reduce((a, s) => a + s.widthBits, 0);
   return (
-    <div style={{ display: 'flex', width: '100%', height: 22, borderRadius: 4, overflow: 'hidden' }}>
+    <div style={{ display: 'flex', width: '100%', minHeight: 32, borderRadius: 4, overflow: 'hidden' }}>
       {segments.map((s, i) => (
         <div
           key={i}
@@ -120,7 +119,7 @@ function Bar({ segments }: { segments: Segment[] }): React.ReactElement {
             flexBasis: 0,
             background: s.color,
             color: 'var(--rehearse-ink)',
-            fontSize: total > 20 ? '0.55rem' : '0.65rem',
+            fontSize: 'var(--type-xs)',
             fontFamily: 'var(--ifm-font-family-monospace)',
             display: 'flex',
             alignItems: 'center',
@@ -190,7 +189,7 @@ export default function PrecisionFormats(): React.ReactElement {
   const demoFp16 = fp16BitsToValue(fp32BitsToFp16Bits(floatToFp32Bits(demoInput)));
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', alignItems: 'center', marginBottom: '0.8rem' }}>
         <input
           value={inputText}
@@ -201,21 +200,21 @@ export default function PrecisionFormats(): React.ReactElement {
             border: '1px solid var(--ifm-color-emphasis-300)',
             background: 'var(--ifm-background-surface-color)',
             color: 'var(--ifm-font-color-base)',
-            fontFamily: 'var(--ifm-font-family-monospace)', fontSize: '0.9rem',
+            fontFamily: 'var(--ifm-font-family-monospace)', fontSize: 'var(--type-sm)',
           }}
         />
         {PRESETS.map((p) => (
           <button
             key={p}
             onClick={() => setInputText(String(p))}
-            style={{ padding: '0.25rem 0.6rem', borderRadius: 6, cursor: 'pointer', fontSize: '0.8rem' }}
+            style={{ padding: '0.25rem 0.6rem', borderRadius: 6, cursor: 'pointer', fontSize: 'var(--type-sm)' }}
           >
             {p}
           </button>
         ))}
       </div>
 
-      <div style={{ display: 'flex', gap: '1.2rem', fontSize: '0.75rem', marginBottom: '0.6rem', opacity: 0.75 }}>
+      <div style={{ display: 'flex', gap: '1.2rem', fontSize: 'var(--type-xs)', marginBottom: '0.6rem', opacity: 0.75 }}>
         <span><span style={{ display: 'inline-block', width: 10, height: 10, background: SIGN_COLOR, borderRadius: 2, marginRight: 4 }} />sign</span>
         <span><span style={{ display: 'inline-block', width: 10, height: 10, background: EXP_COLOR, borderRadius: 2, marginRight: 4 }} />exponent</span>
         <span><span style={{ display: 'inline-block', width: 10, height: 10, background: MANT_COLOR, borderRadius: 2, marginRight: 4 }} />mantissa</span>
@@ -223,32 +222,32 @@ export default function PrecisionFormats(): React.ReactElement {
 
       <div style={{ display: 'grid', gap: '0.7rem' }}>
         <div>
-          <div style={{ fontSize: '0.8rem', marginBottom: 3 }}>
+          <div style={{ fontSize: 'var(--type-sm)', marginBottom: 3 }}>
             <strong>fp32</strong> <span style={{ opacity: 0.6 }}>— 32 bits (1 / 8 / 23)</span>
           </div>
           <Bar segments={fp32.segments} />
-          <div style={{ fontSize: '0.78rem', marginTop: 3, opacity: 0.85 }}>
+          <div style={{ fontSize: 'var(--type-sm)', marginTop: 3, opacity: 0.85 }}>
             stores <strong>{fmtVal(fp32.value)}</strong> — {fmtError(fp32.value, value)}
           </div>
         </div>
 
         <div>
-          <div style={{ fontSize: '0.8rem', marginBottom: 3 }}>
+          <div style={{ fontSize: 'var(--type-sm)', marginBottom: 3 }}>
             <strong>fp16</strong> <span style={{ opacity: 0.6 }}>— 16 bits (1 / 5 / 10)</span>
           </div>
           <Bar segments={fp16.segments} />
-          <div style={{ fontSize: '0.78rem', marginTop: 3, color: fp16.overflow ? WARN_COLOR : 'inherit', opacity: fp16.overflow ? 1 : 0.85 }}>
+          <div style={{ fontSize: 'var(--type-sm)', marginTop: 3, color: fp16.overflow ? WARN_COLOR : 'inherit', opacity: fp16.overflow ? 1 : 0.85 }}>
             stores <strong>{fmtVal(fp16.value)}</strong> — {fmtError(fp16.value, value)}
             {fp16.overflow && ' — magnitude exceeds 65504, this is why fp16 training needs loss scaling'}
           </div>
         </div>
 
         <div>
-          <div style={{ fontSize: '0.8rem', marginBottom: 3 }}>
+          <div style={{ fontSize: 'var(--type-sm)', marginBottom: 3 }}>
             <strong>bf16</strong> <span style={{ opacity: 0.6 }}>— 16 bits (1 / 8 / 7)</span>
           </div>
           <Bar segments={bf16.segments} />
-          <div style={{ fontSize: '0.78rem', marginTop: 3, opacity: 0.85 }}>
+          <div style={{ fontSize: 'var(--type-sm)', marginTop: 3, opacity: 0.85 }}>
             stores <strong>{fmtVal(bf16.value)}</strong> — {fmtError(bf16.value, value)}
           </div>
         </div>
@@ -260,7 +259,7 @@ export default function PrecisionFormats(): React.ReactElement {
           padding: '0.7rem 0.9rem',
           borderRadius: 8,
           background: 'var(--ifm-color-emphasis-100)',
-          fontSize: '0.82rem',
+          fontSize: 'var(--type-sm)',
         }}
       >
         <strong>why fp32 master weights exist:</strong> compute 1.0 + 1e-7 in each format.
@@ -275,7 +274,7 @@ export default function PrecisionFormats(): React.ReactElement {
         </div>
       </div>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.75rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.75rem' }}>
         Type a value like <code>100000</code> above and watch fp16 overflow to
         Infinity while bf16, borrowing fp32&apos;s 8-bit exponent, represents it
         fine (with a coarser mantissa than fp32, but no overflow). Now look at

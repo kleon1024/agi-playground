@@ -45,6 +45,7 @@ interface SlotSnap {
 interface Frame {
   slots: (SlotSnap | null)[];
   util: number;
+  completed: number;
 }
 
 type Mode = 'static' | 'continuous';
@@ -56,6 +57,7 @@ function simulate(mode: Mode, iterations: number): Frame[] {
   const arrived: Req[] = [];
   const slotArr: (SlotSnap | null)[] = new Array(SLOTS).fill(null);
   const frames: Frame[] = [];
+  const completed = new Set<number>();
 
   const admitOne = (slotIndex: number) => {
     const next = arrived.shift();
@@ -85,17 +87,21 @@ function simulate(mode: Mode, iterations: number): Frame[] {
 
     const snapshot = slotArr.map((s) => (s ? { ...s } : null));
     const running = snapshot.filter((s) => s && s.remaining > 0).length;
-    frames.push({ slots: snapshot, util: (running / SLOTS) * 100 });
-
     for (let s = 0; s < SLOTS; s++) {
       const cur = slotArr[s];
       if (cur && cur.remaining > 0) {
         cur.remaining -= 1;
+        if (cur.remaining <= 0) completed.add(cur.id);
         // Continuous frees the slot the instant it's done; static leaves the
         // finished sequence sitting there (remaining=0) as a held, idle slot.
         if (mode === 'continuous' && cur.remaining <= 0) slotArr[s] = null;
       }
     }
+    frames.push({
+      slots: snapshot,
+      util: (running / SLOTS) * 100,
+      completed: completed.size,
+    });
   }
   return frames;
 }
@@ -123,11 +129,11 @@ function Panel({
 
   return (
     <div style={{ flex: 1, minWidth: 280 }}>
-      <div style={{ fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.4rem' }}>{title}</div>
+      <div style={{ fontSize: 'var(--type-sm)', fontWeight: 600, marginBottom: '0.4rem' }}>{title}</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 3, overflowX: 'auto' }}>
         {Array.from({ length: SLOTS }).map((_, slotIdx) => (
-          <div key={slotIdx} style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-            <span style={{ width: 38, flexShrink: 0, fontSize: '0.6rem', opacity: 0.6 }}>
+          <div key={slotIdx} style={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+            <span style={{ width: 38, flexShrink: 0, fontSize: 'var(--type-xs)', opacity: 0.6 }}>
               slot {slotIdx + 1}
             </span>
             {frames.map((f, t) => {
@@ -140,7 +146,7 @@ function Panel({
                   key={t}
                   title={cell ? `req #${cell.id}${running ? '' : ' — finished, slot still held'}` : 'empty'}
                   style={{
-                    width: 20,
+                    width: 18,
                     height: 20,
                     flexShrink: 0,
                     borderRadius: 3,
@@ -154,7 +160,7 @@ function Panel({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.55rem',
+                    fontSize: 'var(--type-xs)',
                     color: 'var(--rehearse-ink)',
                     opacity: revealed ? 1 : 0.15,
                     transition: 'background 150ms, opacity 150ms',
@@ -167,8 +173,9 @@ function Panel({
           </div>
         ))}
       </div>
-      <div style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>
-        GPU utilization now <strong>{frames[currentT].util.toFixed(0)}%</strong> · average so far{' '}
+      <div style={{ fontSize: 'var(--type-sm)', marginTop: '0.5rem' }}>
+        completed <strong>{frames[currentT].completed}/{REQUESTS.length}</strong> · GPU utilization now{' '}
+        <strong>{frames[currentT].util.toFixed(0)}%</strong> · average so far{' '}
         <strong>{avg.toFixed(0)}%</strong>
       </div>
     </div>
@@ -195,7 +202,7 @@ export default function ContinuousBatching(): React.ReactElement {
   }, [playing, steps]);
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '0.9rem' }}>
         <button
           onClick={() => setPlaying((p) => !p)}
@@ -203,7 +210,7 @@ export default function ContinuousBatching(): React.ReactElement {
         >
           {playing ? '⏸ pause' : '▶ play'}
         </button>
-        <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>
+        <span style={{ fontSize: 'var(--type-sm)', opacity: 0.7 }}>
           iteration {currentT + 1} / {steps}
         </span>
       </div>
@@ -213,7 +220,7 @@ export default function ContinuousBatching(): React.ReactElement {
         <Panel title="continuous batching" frames={continuous} currentT={currentT} />
       </div>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.9rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.9rem' }}>
         Same six requests, same six slots, same GPU. In static batching (top),
         request 3 finishes after two iterations but its slot stays{' '}
         <span style={{ color: 'var(--brand-chart-warning)' }}>amber</span> — reserved and idle —

@@ -1,6 +1,6 @@
 """A modern decoder-only transformer: RMSNorm, RoPE, SwiGLU, GQA.
 
-[Track 01's first training loop](../../../tracks/01-foundations/01-first-training-loop/)
+[The first training loop](../../../../foundations/01-first-training-loop/)
 built a GPT-2-shaped model: LayerNorm, learned position embeddings, a GELU
 MLP. This file is the same skeleton with every one of those choices replaced by
 what the field settled on afterwards. Read them as four independent arguments,
@@ -31,7 +31,8 @@ can be ablated on its own:
    key/value head is what makes the KV cache enormous at serving time. Grouped
    query attention shares one KV head across a group of query heads, shrinking
    the cache by exactly the group ratio. This is a *pretraining* decision made
-   to buy *inference* headroom — see [track 06](../../../tracks/06-inference/).
+   to buy *inference* headroom — see the
+   [serving platform](../../../../platform/serving/).
 
 Run `python model.py` to print the parameter budget without training anything.
 """

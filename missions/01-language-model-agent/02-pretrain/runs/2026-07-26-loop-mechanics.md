@@ -6,7 +6,7 @@ needed to size the real run. The real run waits on stage 01's tokenizer.
 
 **Date:** 2026-07-26
 **Hardware:** RTX 4090 24GB (driver 591.86), WSL2, torch 2.13.0+cu130.
-**Cost:** $0 (local lane). ~40 seconds of GPU time.
+**Cost:** \$0 (local lane). ~40 seconds of GPU time.
 
 ## What was run
 

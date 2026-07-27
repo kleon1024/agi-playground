@@ -19,7 +19,7 @@ curriculum stays on [`local-4090.md`](local-4090.md).
 >
 > Wall clock ≈2 minutes including the one-time image build (torch install);
 > the warm GPU portion was seconds. Compute cost: on the order of a cent —
-> A10 is ~$1.10/hr billed per-second. Per the cost-printing rule, real
+> A10 is ~\$1.10/hr billed per-second. Per the cost-printing rule, real
 > lessons must report their exact dollar cost from the Modal dashboard.
 
 ## When to use Modal

@@ -88,7 +88,7 @@ export default function SpeculativeDecoding(): React.ReactElement {
   const runningAvg = roundsCompleted > 0 ? totalTokens / roundsCompleted : 0;
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <div style={{ display: 'flex', gap: '1.4rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
         <label style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           α <strong>{alpha.toFixed(2)}</strong>
@@ -134,7 +134,7 @@ export default function SpeculativeDecoding(): React.ReactElement {
         </button>
       </div>
 
-      <div style={{ fontSize: '0.75rem', opacity: 0.7, marginBottom: '0.4rem' }}>
+      <div style={{ fontSize: 'var(--type-xs)', opacity: 0.7, marginBottom: '0.4rem' }}>
         round {round + 1} · {phase === 'drafting' ? 'draft model proposing…' : phase === 'verifying' ? 'target model verifying…' : 'resolved'}
       </div>
 
@@ -176,7 +176,7 @@ export default function SpeculativeDecoding(): React.ReactElement {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '0.7rem',
+                fontSize: 'var(--type-xs)',
                 color: 'var(--rehearse-ink)',
                 transition: 'background 150ms, opacity 150ms',
               }}
@@ -196,7 +196,7 @@ export default function SpeculativeDecoding(): React.ReactElement {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '0.6rem',
+              fontSize: 'var(--type-xs)',
               color: 'var(--rehearse-ink)',
               marginLeft: 6,
             }}
@@ -206,7 +206,7 @@ export default function SpeculativeDecoding(): React.ReactElement {
         )}
       </div>
 
-      <div style={{ display: 'flex', gap: '1.4rem', fontSize: '0.85rem', marginTop: '0.9rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '1.4rem', fontSize: 'var(--type-sm)', marginTop: '0.9rem', flexWrap: 'wrap' }}>
         <span>
           expected tokens/round <strong>{expectedTokens.toFixed(2)}</strong>
         </span>
@@ -224,7 +224,7 @@ export default function SpeculativeDecoding(): React.ReactElement {
         </span>
       </div>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.75rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.75rem' }}>
         Watch the simulated average drift toward the closed-form expectation
         (1 − α<sup>K+1</sup>) / (1 − α) as rounds accumulate — that convergence
         is the point: nothing here is approximate. Modified rejection sampling

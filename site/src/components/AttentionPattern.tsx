@@ -64,7 +64,7 @@ export default function AttentionPattern(): React.ReactElement {
   const cell = Math.max(18, Math.min(34, Math.floor(420 / Math.max(tokens.length, 1))));
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <input
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -74,16 +74,16 @@ export default function AttentionPattern(): React.ReactElement {
           border: '1px solid var(--ifm-color-emphasis-300)',
           background: 'var(--ifm-background-surface-color)',
           color: 'var(--ifm-font-color-base)',
-          fontFamily: 'var(--ifm-font-family-monospace)', fontSize: '0.9rem',
+          fontFamily: 'var(--ifm-font-family-monospace)', fontSize: 'var(--type-sm)',
         }}
       />
-      <label style={{ display: 'inline-block', margin: '0.6rem 0', cursor: 'pointer', fontSize: '0.85rem' }}>
+      <label style={{ display: 'inline-block', margin: '0.6rem 0', cursor: 'pointer', fontSize: 'var(--type-sm)' }}>
         <input type="checkbox" checked={scaled} onChange={(e) => setScaled(e.target.checked)} />{' '}
         divide by √d<sub>k</sub>
       </label>
 
       <div style={{ overflowX: 'auto' }}>
-        <table style={{ borderCollapse: 'collapse', fontSize: '0.65rem' }}>
+        <table style={{ borderCollapse: 'collapse', fontSize: 'var(--type-xs)' }}>
           <tbody>
             {weights.map((row, i) => (
               <tr key={i}>
@@ -98,7 +98,7 @@ export default function AttentionPattern(): React.ReactElement {
                       width: cell, height: cell,
                       background: j > i
                         ? 'transparent'
-                        : `rgba(94, 234, 212, ${Math.min(w * 1.6, 1)})`,
+                        : `color-mix(in srgb, var(--brand-chart-action) ${Math.min(w * 160, 100)}%, var(--rehearse-surface))`,
                       border: '1px solid var(--ifm-color-emphasis-200)',
                       transition: 'background 160ms',
                     }}
@@ -110,7 +110,7 @@ export default function AttentionPattern(): React.ReactElement {
               <td />
               {tokens.map((t, j) => (
                 <td key={j} style={{
-                  fontSize: '0.55rem', opacity: 0.6, verticalAlign: 'top',
+                  fontSize: 'var(--type-xs)', opacity: 0.6, verticalAlign: 'top',
                   writingMode: 'vertical-rl', height: 54, paddingTop: 3,
                 }}>{t}</td>
               ))}
@@ -119,7 +119,7 @@ export default function AttentionPattern(): React.ReactElement {
         </table>
       </div>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.6rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.6rem' }}>
         Rows are queries, columns are keys. The blank upper triangle is the
         causal mask — position <em>i</em> cannot see position <em>j &gt; i</em>,
         which is what lets one forward pass supply a training signal at every

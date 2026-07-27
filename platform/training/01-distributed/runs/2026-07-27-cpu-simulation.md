@@ -3,7 +3,7 @@
 **Date:** 2026-07-27
 **Hardware:** Apple Silicon MacBook Pro, CPU only. **No GPU was used or needed.**
 **Software:** Python 3.12, torch 2.x, `gloo` backend.
-**Cost:** $0.
+**Cost:** \$0.
 
 The point of this run is that it required no cluster. Four real processes doing
 real collective operations demonstrate every mechanic that matters; multiple

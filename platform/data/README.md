@@ -167,7 +167,7 @@ annotation UI from scratch teaches far less than using the real one at
 small scale (see `LANDSCAPE.md`).
 
 LLM-as-judge annotation is cheaper by roughly two orders of magnitude than
-human labeling ($0.01–0.05/pair via API vs. $0.5–2/pair for crowdworkers)
+human labeling (\$0.01–\$0.05/pair via API vs. \$0.50–\$2/pair for crowdworkers)
 but carries known, well-characterized biases: position bias (favoring
 whichever response appears first — mitigated by scoring both orderings and
 discarding disagreements), length/verbosity bias (favoring longer or more

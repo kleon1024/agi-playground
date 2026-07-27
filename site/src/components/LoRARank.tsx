@@ -43,7 +43,7 @@ function fmtCount(x: number): string {
   return `${Math.round(x)}`;
 }
 
-const VISUAL = 140; // px side representing the full d×d square
+const VISUAL = 140; // reference size used to preserve the rank ratio
 const GRID_ROWS = 5;
 const GRID_COLS = 12;
 
@@ -75,7 +75,7 @@ export default function LoRARank(): React.ReactElement {
   const aMax = Math.max(...aInit.map((x) => Math.abs(x)));
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget lora-widget">
       <div
         style={{
           display: 'flex',
@@ -133,7 +133,7 @@ export default function LoRARank(): React.ReactElement {
         style={{
           display: 'flex',
           gap: '1.4rem',
-          fontSize: '0.85rem',
+          fontSize: 'var(--type-sm)',
           flexWrap: 'wrap',
           marginBottom: '1rem',
         }}
@@ -146,63 +146,66 @@ export default function LoRARank(): React.ReactElement {
         <span>scale α/r = <strong>{scale.toFixed(2)}</strong></span>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.4rem', flexWrap: 'wrap' }}>
+      <div
+        className="lora-matrix-comparison"
+        style={{ display: 'flex', alignItems: 'center', gap: '1.4rem', flexWrap: 'wrap' }}
+      >
         <div style={{ textAlign: 'center' }}>
           <div
             style={{
-              width: VISUAL,
-              height: VISUAL,
+              width: 'var(--lora-visual)',
+              height: 'var(--lora-visual)',
               background: 'var(--brand-chart-action-fill)',
               borderRadius: 4,
               opacity: 0.85,
             }}
           />
-          <div style={{ fontSize: '0.7rem', opacity: 0.7, marginTop: 4 }}>
+          <div style={{ fontSize: 'var(--type-xs)', opacity: 0.7, marginTop: 4 }}>
             W — {d}×{d}
           </div>
         </div>
 
-        <span style={{ fontSize: '1.3rem', opacity: 0.6 }}>vs</span>
+        <span style={{ fontSize: 'var(--type-xl)', opacity: 0.6 }}>vs</span>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <div style={{ textAlign: 'center' }}>
             <div
               style={{
                 width: bWidth,
-                height: VISUAL,
+                height: 'var(--lora-visual)',
                 background: 'var(--brand-chart-positive-fill)',
                 borderRadius: 3,
               }}
             />
-            <div style={{ fontSize: '0.7rem', opacity: 0.7, marginTop: 4 }}>
+            <div style={{ fontSize: 'var(--type-xs)', opacity: 0.7, marginTop: 4 }}>
               B — {d}×{rClamped}
             </div>
           </div>
-          <span style={{ fontSize: '1.1rem', opacity: 0.6 }}>×</span>
+          <span style={{ fontSize: 'var(--type-lg)', opacity: 0.6 }}>×</span>
           <div style={{ textAlign: 'center' }}>
             <div
               style={{
-                width: VISUAL,
+                width: 'var(--lora-visual)',
                 height: aHeight,
                 background: 'var(--brand-chart-danger-fill)',
                 borderRadius: 3,
               }}
             />
-            <div style={{ fontSize: '0.7rem', opacity: 0.7, marginTop: 4 }}>
+            <div style={{ fontSize: 'var(--type-xs)', opacity: 0.7, marginTop: 4 }}>
               A — {rClamped}×{d}
             </div>
           </div>
-          <span style={{ fontSize: '1.1rem', opacity: 0.6 }}>=</span>
+          <span style={{ fontSize: 'var(--type-lg)', opacity: 0.6 }}>=</span>
           <div style={{ textAlign: 'center' }}>
             <div
               style={{
-                width: VISUAL,
-                height: VISUAL,
+                width: 'var(--lora-visual)',
+                height: 'var(--lora-visual)',
                 border: '2px dashed var(--ifm-color-emphasis-400)',
                 borderRadius: 4,
               }}
             />
-            <div style={{ fontSize: '0.7rem', opacity: 0.7, marginTop: 4 }}>
+            <div style={{ fontSize: 'var(--type-xs)', opacity: 0.7, marginTop: 4 }}>
               ΔW — rank ≤ {rClamped}
             </div>
           </div>
@@ -219,7 +222,7 @@ export default function LoRARank(): React.ReactElement {
         }}
       >
         <div>
-          <div style={{ fontSize: '0.75rem', opacity: 0.7, marginBottom: 4 }}>
+          <div style={{ fontSize: 'var(--type-xs)', opacity: 0.7, marginBottom: 4 }}>
             B at step 0 — every entry exactly 0
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: `repeat(${GRID_COLS}, 10px)`, gap: 2 }}>
@@ -237,7 +240,7 @@ export default function LoRARank(): React.ReactElement {
           </div>
         </div>
         <div>
-          <div style={{ fontSize: '0.75rem', opacity: 0.7, marginBottom: 4 }}>
+          <div style={{ fontSize: 'var(--type-xs)', opacity: 0.7, marginBottom: 4 }}>
             A at step 0 — small random normal
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: `repeat(${GRID_COLS}, 10px)`, gap: 2 }}>
@@ -249,8 +252,8 @@ export default function LoRARank(): React.ReactElement {
                   height: 10,
                   borderRadius: 2,
                   background: v >= 0
-                    ? `rgba(94, 234, 212, ${Math.min(Math.abs(v) / aMax, 1).toFixed(2)})`
-                    : `rgba(252, 165, 165, ${Math.min(Math.abs(v) / aMax, 1).toFixed(2)})`,
+                    ? `color-mix(in srgb, var(--brand-chart-positive) ${(Math.min(Math.abs(v) / aMax, 1) * 100).toFixed(0)}%, var(--rehearse-surface))`
+                    : `color-mix(in srgb, var(--brand-chart-danger) ${(Math.min(Math.abs(v) / aMax, 1) * 100).toFixed(0)}%, var(--rehearse-surface))`,
                 }}
               />
             ))}
@@ -258,7 +261,7 @@ export default function LoRARank(): React.ReactElement {
         </div>
       </div>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '1rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '1rem' }}>
         Because B is zero, B·A is the zero matrix regardless of what A
         contains — the adapter starts as an exact no-op and the frozen base
         model is unchanged at step 0; only as training pushes B away from zero

@@ -41,8 +41,8 @@ flowchart TB
     A["User + context (+ query)"] --> B["Content understanding<br/>VLM labels, embeddings, taxonomy"]
     A --> C["Multi-queue recall<br/>~10M → ~1000"]
     B -.item features.-> C
-    C --> D["Pre-rank 粗排<br/>~1000 → ~100"]
-    D --> E["Fine-rank 精排<br/>~100 → ~20, multi-objective"]
+    C --> D["Pre-rank<br/>~1000 → ~100"]
+    D --> E["Fine-rank<br/>~100 → ~20, multi-objective"]
     E --> F["Value tree<br/>combine objectives into one score"]
     F --> G["Mixing / re-rank<br/>slate assembly, diversity, ads"]
     G --> H["Rule engine<br/>business constraints, blocks, boosts"]
@@ -68,18 +68,18 @@ run these in parallel and union the results, because recall is the one thing
 downstream stages cannot repair — **a perfect ranker cannot rank an item that
 was never retrieved.**
 
-**Pre-rank (粗排)** exists because the gap between "cheap enough for 10M items"
+**Pre-rank** exists because the gap between "cheap enough for 10M items"
 and "good enough to rank 20" is too wide to bridge in one model. It cuts ~1000
 to ~100 with a model perhaps a hundredth the cost of the fine-ranker. Its
 failure mode is subtle and worth a lesson of its own: if pre-rank and fine-rank
 disagree systematically, pre-rank is silently deciding the result, and the
 expensive model is decorative.
 
-**Fine-rank (精排)** predicts several things at once — click, conversion, dwell
+**Fine-rank** predicts several things at once — click, conversion, dwell
 time, completion, satisfaction — because no single one of them is what you
 actually want. This is where the heavy model goes.
 
-**The value tree (价值树)** is the step most tutorials omit and most production
+**The value tree** is the step most tutorials omit and most production
 arguments are about. Fine-rank produces a vector of predictions; ranking needs
 a scalar. How you collapse them *is* the product strategy, expressed as
 arithmetic: weights, multiplicative versus additive combination, calibration so

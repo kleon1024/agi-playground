@@ -76,7 +76,7 @@ export default function BPEMergeStepper(): React.ReactElement {
   if (!data || !view) return <p>Loading the merge list…</p>;
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
         <button
           onClick={() => {
@@ -125,7 +125,7 @@ export default function BPEMergeStepper(): React.ReactElement {
               padding: '3px 7px',
               borderRadius: 4,
               fontFamily: 'var(--ifm-font-family-monospace)',
-              fontSize: '0.85rem',
+              fontSize: 'var(--type-sm)',
               whiteSpace: 'pre',
               animation: 'none',
             }}
@@ -135,7 +135,7 @@ export default function BPEMergeStepper(): React.ReactElement {
         ))}
       </div>
 
-      <div style={{ display: 'flex', gap: '1.4rem', fontSize: '0.85rem', marginTop: '0.7rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '1.4rem', fontSize: 'var(--type-sm)', marginTop: '0.7rem', flexWrap: 'wrap' }}>
         <span>mean token length <strong>{view.avg.toFixed(2)}</strong> chars</span>
         <span style={{ opacity: 0.75 }}>
           {view.upto <= 200
@@ -146,7 +146,7 @@ export default function BPEMergeStepper(): React.ReactElement {
         </span>
       </div>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.7rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.7rem' }}>
         These are the actual merges learned by this repository&apos;s tokenizer,
         in the order they were learned. Nothing linguistic was supplied — word
         shapes emerge because frequently adjacent bytes get merged, over and

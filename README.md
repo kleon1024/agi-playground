@@ -4,8 +4,6 @@
 
 <p align="center"><strong>Build AI systems from infrastructure to measurable outcomes.</strong></p>
 
-<p align="center">从基础设施出发，组合泛 AI 能力，交付可衡量的业务结果。</p>
-
 <p align="center">
   <strong><a href="https://rehearse.maestro.onl/playground">Read the tutorials online →</a></strong><br/>
   <sub>diagrams, rendered mathematics, and interactive demos — including a live tokenizer running the vocabulary trained here</sub>

@@ -168,7 +168,7 @@ export default function PagedAttention(): React.ReactElement {
   paged.admitted.forEach((r) => r.blocks.forEach((b) => { blockOwner[b] = r; }));
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap' }}>
         <button onClick={addRequest} disabled={nextId >= MAX_REQUESTS}
                 style={{ padding: '0.25rem 0.7rem', borderRadius: 6, cursor: nextId >= MAX_REQUESTS ? 'default' : 'pointer' }}>
@@ -182,12 +182,12 @@ export default function PagedAttention(): React.ReactElement {
         </button>
         <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
           {roster.map((r) => (
-            <span key={r.id} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '0.7rem',
+            <span key={r.id} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 'var(--type-xs)',
                                        padding: '0.1rem 0.4rem', borderRadius: 999, background: 'var(--ifm-color-emphasis-100)' }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: r.color, display: 'inline-block' }} />
               #{r.id}
               <button onClick={() => finish(r.id)} title="finish early (simulated EOS / cancel)"
-                      style={{ border: 'none', background: 'none', cursor: 'pointer', padding: 0, fontSize: '0.7rem', opacity: 0.7 }}>
+                      style={{ border: 'none', background: 'none', cursor: 'pointer', padding: 0, fontSize: 'var(--type-xs)', opacity: 0.7 }}>
                 ✕
               </button>
             </span>
@@ -197,7 +197,7 @@ export default function PagedAttention(): React.ReactElement {
 
       <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, minWidth: 300 }}>
-          <div style={{ fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.4rem' }}>
+          <div style={{ fontSize: 'var(--type-sm)', fontWeight: 600, marginBottom: '0.4rem' }}>
             contiguous pre-allocation (reserves max_seq_len)
           </div>
           <div style={{ display: 'flex', height: 26, borderRadius: 5, overflow: 'hidden', width: TOTAL_CAPACITY * unit }}>
@@ -210,7 +210,7 @@ export default function PagedAttention(): React.ReactElement {
             ))}
             <div style={{ flex: 1, background: 'var(--ifm-color-emphasis-200)' }} />
           </div>
-          <div style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>
+          <div style={{ fontSize: 'var(--type-sm)', marginTop: '0.5rem' }}>
             utilization <strong>{contigUtil.toFixed(0)}%</strong> · reserved {contigReserved}/{TOTAL_CAPACITY}
             {contig.waiting.length > 0 && (
               <span style={{ color: 'var(--brand-chart-danger)' }}> · {contig.waiting.length} waiting, no contiguous room</span>
@@ -219,7 +219,7 @@ export default function PagedAttention(): React.ReactElement {
         </div>
 
         <div style={{ flex: 1, minWidth: 300 }}>
-          <div style={{ fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.4rem' }}>
+          <div style={{ fontSize: 'var(--type-sm)', fontWeight: 600, marginBottom: '0.4rem' }}>
             paged (block size {BLOCK_SIZE}, on demand)
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 3, width: TOTAL_CAPACITY * unit }}>
@@ -230,7 +230,7 @@ export default function PagedAttention(): React.ReactElement {
                             transition: 'background 200ms' }} />
             ))}
           </div>
-          <div style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>
+          <div style={{ fontSize: 'var(--type-sm)', marginTop: '0.5rem' }}>
             utilization <strong>{pagedUtil.toFixed(0)}%</strong> · {TOTAL_BLOCKS - paged.freeBlocks.length}/{TOTAL_BLOCKS} blocks used
             {paged.waiting.length > 0 && (
               <span style={{ color: 'var(--brand-chart-danger)' }}> · {paged.waiting.length} waiting, no free block</span>
@@ -239,7 +239,7 @@ export default function PagedAttention(): React.ReactElement {
         </div>
       </div>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.9rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.9rem' }}>
         Add a handful of requests: contiguous pre-allocation fills its bar
         with pale, wasted padding for every request that finishes well short
         of its reserved max_seq_len, and eventually refuses new requests

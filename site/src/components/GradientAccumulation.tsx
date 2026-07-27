@@ -66,7 +66,7 @@ export default function GradientAccumulation(): React.ReactElement {
   }, [microBatchSize, accumSteps, bugOn]);
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <div style={{ display: 'grid', gap: '0.6rem', marginBottom: '1rem' }}>
         <label style={{ display: 'flex', gap: '0.7rem', alignItems: 'center' }}>
           <span style={{ minWidth: '10rem' }}>micro-batch size <strong>{microBatchSize}</strong></span>
@@ -101,7 +101,9 @@ export default function GradientAccumulation(): React.ReactElement {
           flexWrap: 'wrap',
           padding: '0.8rem',
           borderRadius: 8,
-          background: isFiring ? (bugOn ? 'rgba(252, 165, 165, 0.15)' : 'rgba(94, 234, 212, 0.12)') : 'transparent',
+          background: isFiring
+            ? (bugOn ? 'var(--brand-chart-danger-fill)' : 'var(--brand-chart-positive-fill)')
+            : 'transparent',
           transition: 'background 150ms',
           minHeight: 46,
           alignItems: 'center',
@@ -120,7 +122,7 @@ export default function GradientAccumulation(): React.ReactElement {
             }}
           />
         ))}
-        <span style={{ marginLeft: '0.6rem', fontSize: '1.3rem' }}>→</span>
+        <span style={{ marginLeft: '0.6rem', fontSize: 'var(--type-xl)' }}>→</span>
         <div
           title="optimizer step"
           style={{
@@ -130,7 +132,7 @@ export default function GradientAccumulation(): React.ReactElement {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '1.1rem',
+            fontSize: 'var(--type-lg)',
             background: isFiring ? (bugOn ? 'var(--brand-chart-danger-fill)' : 'var(--brand-chart-action-fill)') : 'var(--ifm-color-emphasis-200)',
             color: isFiring ? 'var(--rehearse-ink)' : 'inherit',
             transform: isFiring ? 'scale(1.12)' : 'scale(1)',
@@ -139,18 +141,18 @@ export default function GradientAccumulation(): React.ReactElement {
         >
           {isFiring ? '⚡' : ''}
         </div>
-        <span style={{ fontSize: '0.8rem', opacity: 0.7, marginLeft: '0.4rem' }}>
+        <span style={{ fontSize: 'var(--type-sm)', opacity: 0.7, marginLeft: '0.4rem' }}>
           optimizer steps fired: <strong>{optimizerStepsFired}</strong>
         </span>
       </div>
 
-      <div style={{ display: 'flex', gap: '1.4rem', fontSize: '0.85rem', marginTop: '0.8rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '1.4rem', fontSize: 'var(--type-sm)', marginTop: '0.8rem', flexWrap: 'wrap' }}>
         <span>tokens / micro-batch <strong>{fmtTokens(tokensPerMicroBatch)}</strong></span>
         <span>tokens / optimizer step <strong>{fmtTokens(tokensPerOptimizerStep)}</strong></span>
         <span>effective batch size <strong>{effectiveBatchSize}</strong> sequences</span>
       </div>
 
-      <div style={{ marginTop: '0.6rem', fontSize: '0.85rem' }}>
+      <div style={{ marginTop: '0.6rem', fontSize: 'var(--type-sm)' }}>
         {bugOn ? (
           <span style={{ color: 'var(--brand-chart-danger)' }}>
             loss summed, not averaged, over {accumSteps} micro-batches → gradient is{' '}
@@ -167,7 +169,7 @@ export default function GradientAccumulation(): React.ReactElement {
         )}
       </div>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.75rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.75rem' }}>
         Every micro-batch above fills one slot in the accumulator; when it's
         full the optimizer fires once and clears. That's transparent to the
         model — <em>if</em> each micro-batch's loss was scaled down first. Flip

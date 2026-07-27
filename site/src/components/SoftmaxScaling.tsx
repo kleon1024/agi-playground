@@ -64,7 +64,7 @@ export default function SoftmaxScaling(): React.ReactElement {
   const maxEntropy = Math.log(KEYS);
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <div
         style={{
           display: 'flex',
@@ -110,7 +110,7 @@ export default function SoftmaxScaling(): React.ReactElement {
                 transition: 'height 120ms ease-out, background 120ms',
               }}
             />
-            <div style={{ fontSize: '0.65rem', opacity: 0.65, marginTop: 3 }}>
+            <div style={{ fontSize: 'var(--type-xs)', opacity: 0.65, marginTop: 3 }}>
               {scores[i].toFixed(1)}
             </div>
           </div>
@@ -121,7 +121,7 @@ export default function SoftmaxScaling(): React.ReactElement {
         style={{
           display: 'flex',
           gap: '1.5rem',
-          fontSize: '0.85rem',
+          fontSize: 'var(--type-sm)',
           marginTop: '0.75rem',
           flexWrap: 'wrap',
         }}
@@ -139,7 +139,7 @@ export default function SoftmaxScaling(): React.ReactElement {
         </span>
       </div>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.75rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.75rem' }}>
         Eight keys, one query, entries drawn as unit Gaussians. Raise d
         <sub>k</sub> with scaling <strong>off</strong> and the distribution
         collapses onto a single position — softmax of scores spread ±√d

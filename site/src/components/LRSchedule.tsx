@@ -90,7 +90,7 @@ export default function LRSchedule(): React.ReactElement {
   const hoverLR = hoverStep === null ? null : lrAt(hoverStep, params);
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <div style={{ display: 'grid', gap: '0.6rem', marginBottom: '1rem' }}>
         <label style={{ display: 'flex', gap: '0.7rem', alignItems: 'center' }}>
           <span style={{ minWidth: '9rem' }}>total steps <strong>{totalSteps.toLocaleString()}</strong></span>
@@ -133,14 +133,14 @@ export default function LRSchedule(): React.ReactElement {
         {/* axes */}
         <line x1={PAD_L} y1={PAD_T} x2={PAD_L} y2={VB_H - PAD_B} stroke="var(--ifm-color-emphasis-400)" />
         <line x1={PAD_L} y1={VB_H - PAD_B} x2={VB_W - PAD_R} y2={VB_H - PAD_B} stroke="var(--ifm-color-emphasis-400)" />
-        <text x={PAD_L - 6} y={PAD_T + 4} textAnchor="end" fontSize={9} fill="var(--ifm-font-color-base)" opacity={0.7}>
+        <text x={PAD_L - 6} y={PAD_T + 4} textAnchor="end" fontSize={13} fill="var(--ifm-font-color-base)" opacity={0.7}>
           {fmtLR(peakLR)}
         </text>
-        <text x={PAD_L - 6} y={VB_H - PAD_B} textAnchor="end" fontSize={9} fill="var(--ifm-font-color-base)" opacity={0.7}>
+        <text x={PAD_L - 6} y={VB_H - PAD_B} textAnchor="end" fontSize={13} fill="var(--ifm-font-color-base)" opacity={0.7}>
           0
         </text>
-        <text x={PAD_L} y={VB_H - 8} fontSize={9} fill="var(--ifm-font-color-base)" opacity={0.7}>0</text>
-        <text x={VB_W - PAD_R} y={VB_H - 8} textAnchor="end" fontSize={9} fill="var(--ifm-font-color-base)" opacity={0.7}>
+        <text x={PAD_L} y={VB_H - 8} fontSize={13} fill="var(--ifm-font-color-base)" opacity={0.7}>0</text>
+        <text x={VB_W - PAD_R} y={VB_H - 8} textAnchor="end" fontSize={13} fill="var(--ifm-font-color-base)" opacity={0.7}>
           {totalSteps.toLocaleString()}
         </text>
 
@@ -151,7 +151,7 @@ export default function LRSchedule(): React.ReactElement {
               x1={xScale(warmup)} y1={PAD_T} x2={xScale(warmup)} y2={VB_H - PAD_B}
               stroke="var(--brand-chart-warning)" strokeWidth={1} strokeDasharray="4 3"
             />
-            <text x={xScale(warmup) + 4} y={PAD_T + 10} fontSize={9} fill="var(--brand-chart-warning)">
+            <text x={xScale(warmup) + 4} y={PAD_T + 10} fontSize={13} fill="var(--brand-chart-warning)">
               warmup ends
             </text>
           </>
@@ -172,7 +172,7 @@ export default function LRSchedule(): React.ReactElement {
         )}
       </svg>
 
-      <div style={{ display: 'flex', gap: '1.4rem', fontSize: '0.85rem', flexWrap: 'wrap', minHeight: '1.2rem' }}>
+      <div style={{ display: 'flex', gap: '1.4rem', fontSize: 'var(--type-sm)', flexWrap: 'wrap', minHeight: '1.2rem' }}>
         {hoverStep !== null && hoverLR !== null ? (
           <span>
             step <strong>{Math.round(hoverStep).toLocaleString()}</strong> → lr <strong>{fmtLR(hoverLR)}</strong>
@@ -182,7 +182,7 @@ export default function LRSchedule(): React.ReactElement {
         )}
       </div>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.75rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.75rem' }}>
         With warmup on, the LR ramps linearly to peak over the marked region —
         by the time it arrives, Adam&apos;s bias-corrected moment estimates have
         seen enough gradients to be trustworthy. Flip <strong>no warmup</strong>{' '}

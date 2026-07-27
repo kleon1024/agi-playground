@@ -60,7 +60,7 @@ export default function ChinchillaBudget(): React.ReactElement {
   const tExp = Math.log10(tokens);
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <div style={{ display: 'grid', gap: '0.7rem', marginBottom: '1rem' }}>
         <label style={{ display: 'flex', gap: '0.7rem', alignItems: 'center' }}>
           <span style={{ minWidth: '9rem' }}>parameters <strong>{fmt(params, '')}</strong></span>
@@ -81,14 +81,14 @@ export default function ChinchillaBudget(): React.ReactElement {
         <div style={{ flex: 1, background: 'var(--ifm-color-emphasis-200)' }} />
       </div>
 
-      <div style={{ display: 'flex', gap: '1.4rem', flexWrap: 'wrap', fontSize: '0.85rem' }}>
+      <div style={{ display: 'flex', gap: '1.4rem', flexWrap: 'wrap', fontSize: 'var(--type-sm)' }}>
         <span>compute <strong>{(flops / 1e21).toFixed(2)}×10²¹ FLOPs</strong></span>
         <span>≈ <strong>{gpuDays < 1 ? `${(gpuDays * 24).toFixed(1)} GPU-hours` : `${gpuDays.toFixed(1)} GPU-days`}</strong></span>
         <span>tokens/param <strong>{ratio.toFixed(1)}×</strong> optimal</span>
       </div>
-      <p style={{ color: tone, fontSize: '0.85rem', margin: '0.5rem 0 0' }}>{verdict}</p>
+      <p style={{ color: tone, fontSize: 'var(--type-sm)', margin: '0.5rem 0 0' }}>{verdict}</p>
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.7rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.7rem' }}>
         Compute-optimal for {fmt(params, 'parameters')} is about{' '}
         {fmt(optimalTokens, 'tokens')}. Slide left and the model is starved;
         slide right and you are deliberately overspending on training to make

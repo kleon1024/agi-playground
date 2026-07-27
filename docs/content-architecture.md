@@ -21,7 +21,7 @@ protect that.
 | Property | Subject | Audience |
 |---|---|---|
 | `agi-playground` (this repo) | Building AI systems: data, training, RL, serving, agents, ranking | Engineers who want to build and understand the stack |
-| `rehearse.maestro.onl` | Interview preparation for AI-era roles, across functions | People being examined on that stack, or on adjacent work |
+| `rehearse.maestro.onl` | AI Engineer and MLE interview preparation | Engineers being examined on that stack |
 | `maestro.onl` | The studio | Anyone evaluating who built these |
 
 **The curriculum and Rehearse share an audience.** Someone learning how GRPO
@@ -103,9 +103,10 @@ a reader crossing from `rehearse.maestro.onl` into `/playground` does not feel
 a seam.
 
 **Source of truth is `rehearse/src/app/globals.css`** — a Tailwind v4
-`@theme inline` block. `site/src/css/brand.css` mirrors it, deliberately in the
-same `oklch()` notation rather than in the hex those tokens compile to, so the
-two can be compared by eye and drift is visible.
+`@theme inline` block. `site/src/css/brand.css` mirrors its named palette,
+typography scale, and component semantics. `site/src/css/widgets.css` owns the
+shared interactive-teaching surface so individual demonstrations do not invent
+their own control or responsive rules.
 
 Two things about that file are easy to get wrong, and both cost me time:
 
@@ -119,9 +120,9 @@ Two things about that file are easy to get wrong, and both cost me time:
   Next's generated font variables, so grepping the live stylesheet for
   "Poppins" finds nothing and suggests, wrongly, that it is unused.
 
-There is no automatic check that the mirror stays in sync. That is the honest
-cost of two separate deployments, and it is cheaper than coupling the builds so
-that a lesson typo can fail a product release.
+The deployments remain independent. Visual acceptance compares the shared
+header, palette, typography, border language, and responsive behavior on both
+sites; a lesson release does not block the interview product.
 
 ## Practical notes
 

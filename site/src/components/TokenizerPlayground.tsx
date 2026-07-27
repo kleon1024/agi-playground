@@ -148,7 +148,7 @@ export default function TokenizerPlayground(): React.ReactElement {
   const ratio = result.tokens.length ? chars / result.tokens.length : 0;
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
+    <div className="learning-widget">
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -158,7 +158,7 @@ export default function TokenizerPlayground(): React.ReactElement {
           width: '100%',
           padding: '0.75rem',
           fontFamily: 'var(--ifm-font-family-monospace)',
-          fontSize: '0.95rem',
+          fontSize: 'var(--type-base)',
           borderRadius: 8,
           border: '1px solid var(--ifm-color-emphasis-300)',
           background: 'var(--ifm-background-surface-color)',
@@ -172,7 +172,7 @@ export default function TokenizerPlayground(): React.ReactElement {
           display: 'flex',
           gap: '1.5rem',
           margin: '0.75rem 0',
-          fontSize: '0.85rem',
+          fontSize: 'var(--type-sm)',
           flexWrap: 'wrap',
         }}
       >
@@ -210,7 +210,7 @@ export default function TokenizerPlayground(): React.ReactElement {
               padding: '2px 5px',
               borderRadius: 4,
               fontFamily: 'var(--ifm-font-family-monospace)',
-              fontSize: '0.85rem',
+              fontSize: 'var(--type-sm)',
               whiteSpace: 'pre',
             }}
           >
@@ -220,7 +220,7 @@ export default function TokenizerPlayground(): React.ReactElement {
       </div>
 
       {showTrace && result.traced.length > 0 && (
-        <div style={{ marginTop: '1rem', fontSize: '0.85rem' }}>
+        <div style={{ marginTop: '1rem', fontSize: 'var(--type-sm)' }}>
           <p style={{ marginBottom: '0.5rem' }}>
             Merges applied to <code>{result.tracedPiece}</code>, in the order
             they were learned during training:
@@ -236,7 +236,7 @@ export default function TokenizerPlayground(): React.ReactElement {
         </div>
       )}
 
-      <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.75rem' }}>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.75rem' }}>
         Running the actual 16,384-token vocabulary trained in{' '}
         <a href="https://github.com/kleon1024/agi-playground/tree/main/missions/01-language-model-agent/01-tokenizer">
           mission 01 stage 01
