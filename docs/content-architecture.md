@@ -1,101 +1,117 @@
 # Content and distribution architecture
 
-How this repository relates to the other Maestro properties, and why it is
-arranged this way rather than cross-linked to whatever else we own.
+How this repository relates to the other Maestro properties, and why.
 
 ## The principle
 
-**One property, one topic.** Search engines evaluate topical authority at the
-site level, and audiences do the same thing informally. A domain that ranks for
-"AI speech coaching" and a domain that ranks for "GRPO implementation" are
-building two different reputations, and merging them costs both.
+**Link where it serves the reader; do not link where it does not.** Search
+engines evaluate topical authority at the site level, and audiences do the same
+thing informally. Two properties should reference each other when a reader of
+one genuinely wants the other — and not otherwise, because a link that does not
+serve the reader is worth little and costs the receiving site's topical clarity.
 
-This matters more than it sounds, because the instinct to cross-link everything
-you own is strong and usually wrong. A backlink from a topically unrelated
-domain carries little weight, confuses the receiving site's subject, and sends
-visitors who will not convert.
+The model worth copying is Karpathy's, and its mechanism is often misread. His
+reach does not come from link-building. It comes from repository, video, and
+social presence forming **one coherent identity around one subject**, sustained
+for years. Topical consistency is the engine. What follows is arranged to
+protect that.
 
-The model worth copying here is Karpathy's, and the mechanism is often
-misread. His reach does not come from link-building between properties. It
-comes from repository, video, and social presence forming **one coherent
-identity around one subject**, sustained over years. Topical consistency is the
-engine. Anything that dilutes it works against the very thing being imitated.
+## The properties
+
+| Property | Subject | Audience |
+|---|---|---|
+| `agi-playground` (this repo) | Building AI systems: data, training, RL, serving, agents, ranking | Engineers who want to build and understand the stack |
+| `rehearse.maestro.onl` | Interview preparation for AI-era roles, across functions | People being examined on that stack, or on adjacent work |
+| `maestro.onl` | The studio | Anyone evaluating who built these |
+
+**The curriculum and Rehearse share an audience.** Someone learning how GRPO
+works, or why a KV cache dominates serving memory, is very often someone who
+will be asked about it in an interview. Someone preparing for an AI-role
+interview frequently discovers they do not actually understand the systems
+well enough and needs somewhere to learn them properly.
+
+That is a real relationship, not a manufactured one — which is precisely what
+makes linking the two defensible. This repository's material even originated in
+interview preparation: the private corpus it was rewritten from is annotated
+throughout with interview questions.
 
 ## The shape
 
 ```mermaid
 flowchart TB
-    M["maestro.onl<br/>studio hub — who we are, what we have built"]
+    M["maestro.onl<br/>studio — who built this"]
     G["github.com/kleon1024/agi-playground<br/>curriculum, source of truth"]
-    D["docs site (planned)<br/>rendered curriculum, own subdomain"]
-    R["rehearse.maestro.onl<br/>product — AI speech coaching"]
-    RC["Rehearse content hub<br/>interviews, pitches, communication"]
+    D["docs site<br/>rendered curriculum, interactive"]
+    R["rehearse.maestro.onl<br/>interview preparation, AI-era roles"]
     Y["YouTube / X<br/>curriculum identity"]
 
     G <--> D
+    D <--> R
     M --> G
     M --> R
-    R --> RC
-    R --> M
     G --> M
-    D --> M
-    Y <--> G
-    Y --> D
+    R --> M
+    Y <--> D
+    Y --> G
 ```
 
-Links that belong:
+Links that earn their place:
 
-| From | To | Why it is legitimate |
+| From | To | What the reader gets |
 |---|---|---|
-| repo | maestro.onl | Attribution. Who built this. |
-| docs site | repo | The code behind the prose. |
-| repo | docs site | The prose behind the code. |
-| maestro.onl | repo, Rehearse | Portfolio. A studio listing its work. |
-| Rehearse | maestro.onl | Parent brand. |
-| YouTube / X | repo, docs | The identity these belong to. |
+| docs site | Rehearse | "You are learning this to be examined on it — practise that here." |
+| Rehearse | docs site | "You were asked about KV caches and could not answer — learn it properly here." |
+| repo ↔ docs site | | Source behind the prose; prose behind the source. |
+| repo, docs, Rehearse | maestro.onl | Attribution. |
+| maestro.onl | repo, Rehearse | Portfolio. |
+| YouTube / X | docs, repo | The identity the videos belong to. |
 
-Links that do **not** belong:
+The rule that keeps this honest: **each cross-link must name what the reader
+gains.** A link that can only be justified by "we own both" is the kind that
+dilutes topical clarity and converts nobody. If a lesson cannot say why a
+reader would want Rehearse at that exact moment, it should not link to it.
 
-| From | To | Why not |
-|---|---|---|
-| Rehearse | curriculum | Different subject. Dilutes Rehearse's topical authority, sends non-converting traffic, and the backlink is nearly worthless in the other direction. |
-| curriculum | Rehearse | Same problem, mirrored. A reader here wants the next lesson, not a speech-coaching product. |
+Concretely, that means the link belongs on lessons whose subject is
+interview-shaped — the conceptual explanations, the "common misconceptions"
+sections — and not scattered into every page footer.
 
-If Rehearse needs content-driven growth, it needs **its own** content hub on
-its own subject — interview preparation, pitch structure, communication under
-pressure. That content is topically aligned, converts, and compounds. A
-curriculum backlink does none of those things.
-
-## Where the curriculum's content lives
+## Where the curriculum lives
 
 The repository is the source of truth. Everything else renders or references
-it, and nothing forks it — two divergent copies of a lesson is the failure mode
-to avoid, and it is the same argument that produced a single canonical copy of
-the governance rules elsewhere in this organisation.
+it; nothing forks it. Two divergent copies of a lesson is the failure mode to
+avoid, and it is the same argument that produced a single canonical copy of the
+governance rules elsewhere in this organisation.
 
-**Now:** GitHub renders the curriculum acceptably. The README carries the
-argument, and every lesson is readable in place.
+**The docs site is not a nicety.** GitHub renders markdown adequately, but the
+material here needs more than adequate: heavy mathematics (attention, GRPO
+advantages, scaling laws), many diagrams, code that benefits from annotation,
+and — most importantly — **interactivity**. A reader who can type a sentence and
+watch this repository's own tokenizer merge it, step by step, learns BPE in a
+way no static code listing achieves.
 
-**Next:** a docs site on its own subdomain, generated from the same markdown, so
-the curriculum has a home that is not inside a code host — better typography,
-search, and a canonical URL per lesson that can be linked from a video
-description or a post. It must be generated from this repository, never
-maintained separately.
+That is the bar: interactive tutorials, abundant diagrams and illustrations,
+rich markdown extensions, and a theme worth looking at.
 
-**Later:** video and social. These attach to the curriculum identity, not to a
-product. Each video points at the lesson it covers; each lesson can point back.
-That is the loop that compounds.
+**Video and social attach to the curriculum identity**, not to a product. Each
+video points at the lesson it covers; each lesson can point back. That loop
+compounds; scattered promotion does not.
 
 ## Practical notes
 
 - **Repository metadata is discovery surface.** Topics, description, and
-  homepage are how GitHub search and external aggregators classify a project;
-  they are set, and should be kept accurate as scope grows.
-- **The README is the landing page.** For most visitors it is the only page
-  they will read. It has to make the argument, not list the contents.
-- **A canonical URL per lesson** is what makes external linking possible at
-  all. Until the docs site exists, deep links point at repository paths.
-- **Free, but structured.** Free content earns attention only when it is
-  organised well enough to return to. The mission and lesson contracts in
-  [`standards/`](../standards/) exist partly for this reason: they make the
-  content navigable and comparable rather than a pile of posts.
+  homepage are how GitHub search and aggregators classify a project. Keep them
+  accurate as scope grows.
+- **The README is the landing page.** For most visitors it is the only page they
+  read. It must make the argument, not list contents.
+- **A canonical URL per lesson** is what makes external linking possible at all —
+  from a video description, a post, or Rehearse.
+- **Free, but structured.** Free content earns attention only when organised
+  well enough to return to. The contracts in [`standards/`](../standards/) exist
+  partly for this: they make lessons navigable and comparable rather than a pile
+  of posts.
+
+## A note on scope
+
+Rehearse's own positioning and content are owned by its repository, not this
+one. What is recorded here is only the contract between them: what each links
+to, and why a reader would follow it.
