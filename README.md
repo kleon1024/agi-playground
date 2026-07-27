@@ -1,8 +1,16 @@
-# agi-playground
+<p align="center"><img src=".github/maestro-logo.png" width="120" /></p>
 
-**Build AI systems from infrastructure to measurable outcomes.**
+<h1 align="center">agi-playground</h1>
 
-从基础设施出发，组合泛 AI 能力，交付可衡量的业务结果。
+<p align="center"><strong>Build AI systems from infrastructure to measurable outcomes.</strong></p>
+
+<p align="center">从基础设施出发，组合泛 AI 能力，交付可衡量的业务结果。</p>
+
+<p align="center">
+  <a href="https://github.com/kleon1024/agi-playground/actions"><img src="https://github.com/kleon1024/agi-playground/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
+  <img src="https://img.shields.io/badge/python-3.12-blue.svg" alt="Python 3.12" />
+</p>
 
 Most AI curricula teach how a model is made. That is a pipeline —
 `data → pretrain → post-train → RL → inference → agent` — and it explains one
@@ -150,3 +158,7 @@ as a standing artifact and updated as the field moves.
 ## License
 
 MIT.
+
+---
+
+<p align="center">Built by <a href="https://maestro.onl">Maestro</a> — Singapore AI product studio.</p>
