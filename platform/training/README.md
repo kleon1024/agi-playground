@@ -165,6 +165,8 @@ have chosen. Chinchilla (70B params, 1.4T tokens) beat Gopher (280B params,
 300B tokens) empirically, confirming the correction: GPT-3-scale models of
 that era were substantially under-trained relative to their parameter count.
 
+<!-- interactive: ChinchillaBudget -->
+
 **This is where most people stop reading the scaling-laws story, and it's
 the wrong place to stop.** Chinchilla optimizes *training* compute; it says
 nothing about inference cost, and inference is not a one-time expense —

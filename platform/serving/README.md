@@ -54,6 +54,8 @@ and cached K/V out of HBM rather than doing arithmetic. This is the
 architectural reason speculative decoding (below) works at all — there's
 idle compute capacity during decode waiting to be used.
 
+<!-- interactive: KVCacheGrowth -->
+
 The cache isn't free. Per-token memory for one layer is
 `2 (K and V) × num_kv_heads × head_dim × dtype_bytes`; multiply by
 `num_layers × sequence_length × batch_size` for the total. A 7B-class model

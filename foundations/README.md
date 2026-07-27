@@ -65,6 +65,8 @@ that forces it to.
 
 <!-- interactive: SoftmaxScaling -->
 
+<!-- interactive: AttentionPattern -->
+
 The causal mask (setting future positions to $-\infty$ before softmax) is
 what makes this usable for language modeling at all — it's the difference
 between "attention" and "a model that has memorized the answer by looking at
