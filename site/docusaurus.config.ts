@@ -112,7 +112,7 @@ const config: Config = {
       title: 'Rehearse',
       logo: {
         alt: 'Rehearse',
-        src: 'img/logo.svg',
+        src: 'img/rehearse-mark.svg',
         href: 'https://rehearse.maestro.onl',
         target: '_self',
       },
