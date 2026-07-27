@@ -54,6 +54,8 @@ same text costs 4.5× fewer positions than the character-level tokenizer in
 length, attention cost, and training compute all scale with token count, so
 this is a 4.5× discount on all three, bought once.
 
+<!-- interactive: BPEMergeStepper -->
+
 ### The index is worth 71×
 
 Same corpus, same vocabulary target, same tie-breaking:
