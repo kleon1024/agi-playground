@@ -116,12 +116,12 @@ impressive system that ranks worse than popularity.
 
 | Stage | Deliverable | Layer | Status |
 |---|---|---|---|
-| `00-interactions` | Public interaction dataset, cleaned, split **by time** — a random split leaks the future | `platform/data` | Planned |
+| [`00-interactions`](00-interactions/) | Public interaction dataset, cleaned, split **by time** — a random split leaks the future | `platform/data` | implementation present; run pending |
 | `01-content-understanding` | VLM labelling of items into taxonomy + embeddings; cold-item coverage measured | `capabilities/perceive-understand` | Planned |
-| `02-recall` | Multi-queue: two-tower, lexical, i2i, fresh; union and dedup; recall@1000 vs exhaustive | `capabilities/retrieve-ground` | Planned |
-| `03-pre-rank` | Lightweight scorer, 1000→100, with pre-rank/fine-rank agreement analysis | `capabilities/rank-decide` | Planned |
-| `04-fine-rank` | Multi-objective model: click, dwell, completion, satisfaction | `capabilities/rank-decide` | Planned |
-| `05-value-tree` | Objective combination, calibration, explicit user-value/revenue trade rates | `capabilities/rank-decide` | Planned |
+| [`02-recall`](02-recall/) | Multi-queue: two-tower, lexical, i2i, fresh; union and dedup; recall@1000 vs exhaustive | `capabilities/retrieve-ground` | implementation present; run pending |
+| [`03-pre-rank`](03-pre-rank/) | Lightweight scorer, 1000→100, with pre-rank/fine-rank agreement analysis | `capabilities/rank-decide` | implementation present; run pending |
+| [`04-fine-rank`](04-fine-rank/) | Multi-objective model: click, dwell, completion, satisfaction | `capabilities/rank-decide` | implementation present; run pending |
+| [`05-value-tree`](05-value-tree/) | Objective combination, calibration, explicit user-value/revenue trade rates | `capabilities/rank-decide` | implementation present; run pending |
 | `06-mixing` | Slate assembly by beam search; diversity; ad interleaving with displacement cost | `capabilities/rank-decide` | Planned |
 | `07-rule-engine` | Declarative constraints, auditable decisions, policy-timescale changes | `platform/safety-governance` | Planned |
 | `08-serving` | Two-stage serving inside p95 300ms; ANN index; measured | `platform/serving` | Planned |
