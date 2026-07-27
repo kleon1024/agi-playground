@@ -1,0 +1,135 @@
+/* Align the playground with rehearse.maestro.onl.
+ *
+ * The curriculum is served as a subfolder of that site, so moving between them
+ * should not feel like crossing a seam. Every value below was read from the
+ * live stylesheet rather than from the repo — the app has moved to Tailwind v4
+ * hex tokens, and the older oklch/shadcn values still sitting in globals.css
+ * are stale.
+ *
+ * Live tokens:
+ *   light  background #fff     primary #171717  card #fff     border #e5e5e5
+ *   dark   background #0a0a0a  primary #e5e5e5  card #171717  border #ffffff1a
+ *   accent #f5f5f5 / #262626   type: Inter, no separate heading face
+ *
+ * Docusaurus themes through --ifm-*, so the work is mapping those tokens on.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Near-black primary, matching the product's #171717. */
+  --ifm-color-primary: #171717;
+  --ifm-color-primary-dark: #141414;
+  --ifm-color-primary-darker: #111111;
+  --ifm-color-primary-darkest: #0a0a0a;
+  --ifm-color-primary-light: #2b2b2b;
+  --ifm-color-primary-lighter: #383838;
+  --ifm-color-primary-lightest: #525252;
+
+  --ifm-background-color: #ffffff;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-font-color-base: #0a0a0a;
+  --ifm-heading-color: #171717;
+  --ifm-color-emphasis-100: #fafafa;
+  --ifm-color-emphasis-200: #f5f5f5;
+  --ifm-color-emphasis-300: #e5e5e5;
+  --ifm-toc-border-color: #e5e5e5;
+  --ifm-code-background: #f5f5f5;
+
+  /* One typeface, as the product uses. */
+  --ifm-font-family-base: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --ifm-heading-font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --ifm-font-family-monospace: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --ifm-global-radius: 0.625rem;
+  --ifm-code-border-radius: 0.375rem;
+  --ifm-code-font-size: 88%;
+  --ifm-line-height-base: 1.7;
+  --ifm-heading-font-weight: 600;
+  --ifm-navbar-background-color: #ffffff;
+  --ifm-navbar-shadow: 0 1px 0 #e5e5e5;
+
+  /* Diagram palette, deliberately low-chroma so a figure reads as part of the
+     page rather than as clip-art dropped into it. */
+  --brand-diagram-fill: #f5f5f5;
+  --brand-diagram-border: #e5e5e5;
+  --brand-diagram-line: #a3a3a3;
+  --brand-diagram-text: #171717;
+  --brand-accent: #4a9d9c;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #e5e5e5;
+  --ifm-color-primary-dark: #d4d4d4;
+  --ifm-color-primary-darker: #c4c4c4;
+  --ifm-color-primary-darkest: #a3a3a3;
+  --ifm-color-primary-light: #efefef;
+  --ifm-color-primary-lighter: #f5f5f5;
+  --ifm-color-primary-lightest: #ffffff;
+
+  --ifm-background-color: #0a0a0a;
+  --ifm-background-surface-color: #171717;
+  --ifm-font-color-base: #fafafa;
+  --ifm-heading-color: #ffffff;
+  --ifm-color-emphasis-100: #141414;
+  --ifm-color-emphasis-200: #262626;
+  --ifm-color-emphasis-300: #ffffff1a;
+  --ifm-toc-border-color: #ffffff1a;
+  --ifm-code-background: #171717;
+  --ifm-navbar-background-color: #0a0a0a;
+  --ifm-navbar-shadow: 0 1px 0 #ffffff1a;
+
+  --brand-diagram-fill: #171717;
+  --brand-diagram-border: #ffffff1a;
+  --brand-diagram-line: #525252;
+  --brand-diagram-text: #fafafa;
+}
+
+h1, h2, h3, h4, h5, h6,
+.navbar__title {
+  font-family: var(--ifm-heading-font-family);
+  letter-spacing: -0.018em;
+}
+
+h1 { font-size: 2.1rem; font-weight: 700; }
+h2 { font-size: 1.5rem; margin-top: 2.6rem; }
+h3 { font-size: 1.17rem; margin-top: 2rem; }
+
+/* Flat surfaces with hairline borders, matching the product's chrome rather
+   than Infima's heavier default cards. */
+.card,
+.theme-admonition,
+.theme-code-block {
+  border-radius: var(--ifm-global-radius);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  box-shadow: none;
+}
+
+.theme-admonition { padding: 1rem 1.1rem; }
+
+table {
+  border-radius: var(--ifm-global-radius);
+  overflow: hidden;
+  font-size: 0.92rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+}
+
+table th {
+  background: var(--ifm-color-emphasis-200);
+  font-weight: 600;
+}
+
+.markdown > p,
+.markdown li { line-height: 1.75; }
+
+/* Diagrams: centred, scrollable on a phone, and visually part of the page. */
+.docusaurus-mermaid-container {
+  overflow-x: auto;
+  padding: 1.25rem 0;
+  text-align: center;
+}
+
+.docusaurus-mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+}

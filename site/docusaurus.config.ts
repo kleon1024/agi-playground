@@ -76,6 +76,31 @@ const config: Config = {
   ],
 
   themeConfig: {
+    mermaid: {
+      theme: {light: 'base', dark: 'base'},
+      options: {
+        fontFamily: "'Inter', ui-sans-serif, system-ui, sans-serif",
+        fontSize: 14,
+        flowchart: {curve: 'basis', padding: 18, nodeSpacing: 44, rankSpacing: 52, useMaxWidth: true},
+        sequence: {useMaxWidth: true, actorMargin: 60},
+        themeVariables: {
+          primaryColor: '#f5f5f5',
+          primaryTextColor: '#171717',
+          primaryBorderColor: '#e5e5e5',
+          lineColor: '#a3a3a3',
+          secondaryColor: '#fafafa',
+          tertiaryColor: '#ffffff',
+          mainBkg: '#f5f5f5',
+          nodeBorder: '#e5e5e5',
+          clusterBkg: '#fafafa',
+          clusterBorder: '#e5e5e5',
+          edgeLabelBackground: '#ffffff',
+          titleColor: '#171717',
+          fontSize: '14px',
+        },
+      },
+    },
+
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     colorMode: {
