@@ -51,9 +51,31 @@ uv run pytest -q       # must pass
 Tests are CPU-only structural checks. GPU work is verified by hand and recorded
 in `runs/` — never in CI.
 
+For any tutorial, navigation, component, or site change, also run:
+
+```bash
+cd site
+npm run sync
+npm run typecheck
+npm run build
+```
+
+The site build must complete without broken-link or broken-anchor warnings.
+
 ## Conventions
 
 - **English** for all published content.
+- **A tutorial update must change the tutorial.** New components, CSS, diagrams,
+  navigation, or build plumbing do not count as a tutorial rewrite. Before and
+  after acceptance must compare the learner-visible outline, opening question,
+  running example, causal transitions, and evidence boundary. If the prose and
+  reading order are materially unchanged, report the work as a UI or component
+  update, not as a tutorial update.
+- **The first viewport establishes the learning contract.** It must show the
+  central question, the concrete artifact or example the chapter follows, and
+  what the learner will be able to decide or explain. Do not open with repository
+  history, survey commentary, a generic "why this track exists" section, a list
+  of planned lessons, or implementation taxonomy.
 - **Human-readable tutorials have one causal spine.** Open with the concrete
   question the learner will answer and the prerequisite they need. Move through
   one running example in this order: problem, mental model, mechanism,
@@ -67,6 +89,12 @@ in `runs/` — never in CI.
   production alternatives, and implementation detail after the learner has the
   mental model they depend on. Split a chapter only when the learner is making
   a different decision, not to satisfy an arbitrary length target.
+- **Keep the main path bounded.** A main tutorial should normally take 10–20
+  minutes to read and use roughly 800–1,500 words of core prose. Above 1,600
+  words, split a distinct learning outcome or move reference material out of the
+  causal path. Below 700 words, verify that mechanism, failure boundary,
+  executable path, evidence limit, and learner check are still complete. Word
+  count is a diagnostic, not permission to pad or cut required reasoning.
 - **Components are teaching instruments.** Introduce an interactive only after
   its variable, outcome, and prediction are clear in prose. It must let the
   learner change one causal variable, make the consequence legible without
@@ -74,6 +102,11 @@ in `runs/` — never in CI.
   dashboards, unexplained controls, autoplay-only demonstrations, and
   components that duplicate prose are defects. Every component needs a useful
   static reading order and keyboard-accessible controls.
+- **Interactive numbers obey the evidence contract.** A component that depicts
+  a recorded run defaults to that run's measured values and links or names the
+  evidence boundary. Rounded or hypothetical values must be labeled as such.
+  Never place an illustrative number beside a measured narrative in a way that
+  makes them appear to be the same result.
 - **One teaching surface.** Interactive explanations use the shared
   `learning-widget` contract in `site/src/css/widgets.css`; component-local
   colors, type scales, button systems, and mobile breakpoints are defects.
@@ -100,6 +133,18 @@ in `runs/` — never in CI.
   why it exists, its failure boundary, the executable path, and what the
   evidence does not prove. Split a lesson only when two chapters have distinct
   learning outcomes; do not split or pad to hit a line count.
+- **Tutorial acceptance is reader-visible and route-complete.** For every
+  changed tutorial, verify the actual generated route, first heading sequence,
+  interactive state change, and next-step link. Check the full page and every
+  widget at 390px with no horizontal overflow, controls at least 44px high, and
+  no browser warnings or errors. Link generation must preserve `/playground`
+  and pass the Docusaurus broken-link and broken-anchor checks.
+- **Online claims require production evidence.** Do not say a tutorial is
+  updated or live from a local build, commit, or deployment job alone. Confirm
+  the deployed SHA, successful CI and deployment, then read the production
+  page's opening question and section order and exercise at least one changed
+  interaction. A successful build with unchanged learner-visible content is
+  not acceptance.
 - **No emoji.** Do not use emoji in published prose, navigation, status labels,
   controls, code examples, commit messages, or project instructions. Use words,
   semantic HTML, and the shared icon system when an icon is necessary. The
