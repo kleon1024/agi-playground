@@ -121,6 +121,30 @@ def escape_mdx(text: str) -> str:
     return "\n".join(out)
 
 
+def description_from(body: str) -> str:
+    """First real sentence of prose, for the meta description.
+
+    This is what search results display under the title, so it should read as a
+    summary rather than as whatever markup happened to come first. Headings,
+    blockquotes, code fences, tables and images are skipped.
+    """
+    skip_prefixes = ("#", ">", "```", "|", "---", "!", "<", ":::", "*", "-")
+    for para in re.split(r"\n\s*\n", body):
+        line = " ".join(para.split())
+        if not line or line.startswith(skip_prefixes):
+            continue
+        # Strip inline markup that would look wrong in a search snippet.
+        line = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", line)
+        line = re.sub(r"[*_`$]", "", line)
+        if len(line) < 40:
+            continue
+        if len(line) > 155:
+            cut = line[:155].rsplit(" ", 1)[0]
+            return cut + "…"
+        return line
+    return ""
+
+
 def convert(src: Path, dest: Path, position: int | None) -> None:
     body = src.read_text()
     src_rel = src.relative_to(ROOT)
@@ -151,7 +175,10 @@ def convert(src: Path, dest: Path, position: int | None) -> None:
     title = meta.get("title") or title_from(src, body)
     body = re.sub(r"^#\s+.+\n", "", body, count=1, flags=re.M)
 
+    desc = description_from(body).replace('"', "'")
     lines = ["---", f'title: "{title}"']
+    if desc:
+        lines.append(f'description: "{desc}"')
     if position is not None:
         lines.append(f"sidebar_position: {position}")
     status = meta.get("status")

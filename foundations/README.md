@@ -2,6 +2,8 @@
 status: draft
 ---
 
+> **[Read this online](https://rehearse.maestro.onl/playground/foundations)** — drag d_k and watch softmax saturate without the scaling term.
+
 # 01 — Foundations
 
 Every later track in this curriculum treats a transformer as a given — you

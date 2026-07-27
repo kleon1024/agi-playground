@@ -3,6 +3,8 @@ status: verified
 verified: 2026-07-26
 ---
 
+> **[Read this online](https://rehearse.maestro.onl/playground/missions/01-language-model-agent/01-tokenizer)** — type text into the tokenizer and watch these merges fire in order.
+
 # Stage 01 — Tokenizer
 
 **Goal:** turn the corpus into integers, using a vocabulary you trained

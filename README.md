@@ -7,6 +7,11 @@
 <p align="center">从基础设施出发，组合泛 AI 能力，交付可衡量的业务结果。</p>
 
 <p align="center">
+  <strong><a href="https://rehearse.maestro.onl/playground">Read the tutorials online →</a></strong><br/>
+  <sub>diagrams, rendered mathematics, and interactive demos — including a live tokenizer running the vocabulary trained here</sub>
+</p>
+
+<p align="center">
   <a href="https://github.com/kleon1024/agi-playground/actions"><img src="https://github.com/kleon1024/agi-playground/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
   <img src="https://img.shields.io/badge/python-3.12-blue.svg" alt="Python 3.12" />
