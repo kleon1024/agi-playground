@@ -146,7 +146,7 @@ export default function GRPOAdvantage(): React.ReactElement {
                   maxWidth: 34,
                   height: Math.max(h, 2),
                   top: a >= 0 ? `calc(50% - ${Math.max(h, 2)}px)` : '50%',
-                  background: a >= 0 ? '#5eead4' : '#fca5a5',
+                  background: a >= 0 ? 'var(--brand-chart-positive-fill)' : 'var(--brand-chart-danger-fill)',
                   borderRadius: 3,
                   transition: 'height 150ms, top 150ms, background 150ms',
                 }}
@@ -172,7 +172,7 @@ export default function GRPOAdvantage(): React.ReactElement {
         <span>std(r) <strong>{std.toFixed(3)}</strong></span>
         <span>A<sub>i</sub> = (r<sub>i</sub> − mean) / (std + ε)</span>
       </div>
-      <p style={{ color: collapsed ? '#fbbf24' : 'inherit', fontSize: '0.85rem', marginTop: '0.4rem' }}>
+      <p style={{ color: collapsed ? 'var(--brand-chart-warning)' : 'inherit', fontSize: '0.85rem', marginTop: '0.4rem' }}>
         {collapsed
           ? 'σ ≈ 0 — every advantage collapses to zero. This group teaches the model nothing, which is exactly what happens on prompts every sampled completion gets equally right or equally wrong.'
           : 'a real spread of advantages — the group has something to teach the policy'}

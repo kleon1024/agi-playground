@@ -107,8 +107,8 @@ function encode(text: string, tok: Tokenizer) {
 }
 
 const PALETTE = [
-  '#5eead4', '#f0abfc', '#fbbf24', '#93c5fd',
-  '#fca5a5', '#c4b5fd', '#86efac', '#fdba74',
+  'var(--brand-chart-positive-fill)', 'var(--brand-chart-danger-fill)', 'var(--brand-chart-warning-fill)', 'var(--brand-chart-action-fill)',
+  'var(--brand-chart-danger-fill)', 'var(--brand-chart-signal)', 'var(--brand-chart-positive-fill)', 'var(--brand-chart-warning-fill)',
 ];
 
 export default function TokenizerPlayground(): React.ReactElement {
@@ -206,7 +206,7 @@ export default function TokenizerPlayground(): React.ReactElement {
             title={`id ${t.id}`}
             style={{
               background: PALETTE[i % PALETTE.length],
-              color: '#111318',
+              color: 'var(--rehearse-ink)',
               padding: '2px 5px',
               borderRadius: 4,
               fontFamily: 'var(--ifm-font-family-monospace)',

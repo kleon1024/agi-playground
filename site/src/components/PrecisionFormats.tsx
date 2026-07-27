@@ -16,10 +16,10 @@
  */
 import React, { useMemo, useState } from 'react';
 
-const SIGN_COLOR = '#c4b5fd';
-const EXP_COLOR = '#93c5fd';
-const MANT_COLOR = '#5eead4';
-const WARN_COLOR = '#fca5a5';
+const SIGN_COLOR = 'var(--brand-chart-signal)';
+const EXP_COLOR = 'var(--brand-chart-action-fill)';
+const MANT_COLOR = 'var(--brand-chart-positive-fill)';
+const WARN_COLOR = 'var(--brand-chart-danger-fill)';
 
 function floatToFp32Bits(v: number): number {
   const buf = new ArrayBuffer(4);
@@ -119,7 +119,7 @@ function Bar({ segments }: { segments: Segment[] }): React.ReactElement {
             flexGrow: s.widthBits,
             flexBasis: 0,
             background: s.color,
-            color: '#111318',
+            color: 'var(--rehearse-ink)',
             fontSize: total > 20 ? '0.55rem' : '0.65rem',
             fontFamily: 'var(--ifm-font-family-monospace)',
             display: 'flex',

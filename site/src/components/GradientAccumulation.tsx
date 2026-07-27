@@ -115,7 +115,7 @@ export default function GradientAccumulation(): React.ReactElement {
               width: 28,
               height: 28,
               borderRadius: 5,
-              background: i < filledCount || isFiring ? '#5eead4' : 'var(--ifm-color-emphasis-200)',
+              background: i < filledCount || isFiring ? 'var(--brand-chart-positive-fill)' : 'var(--ifm-color-emphasis-200)',
               transition: 'background 150ms',
             }}
           />
@@ -131,8 +131,8 @@ export default function GradientAccumulation(): React.ReactElement {
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: '1.1rem',
-            background: isFiring ? (bugOn ? '#fca5a5' : '#93c5fd') : 'var(--ifm-color-emphasis-200)',
-            color: isFiring ? '#111318' : 'inherit',
+            background: isFiring ? (bugOn ? 'var(--brand-chart-danger-fill)' : 'var(--brand-chart-action-fill)') : 'var(--ifm-color-emphasis-200)',
+            color: isFiring ? 'var(--rehearse-ink)' : 'inherit',
             transform: isFiring ? 'scale(1.12)' : 'scale(1)',
             transition: 'background 150ms, transform 150ms',
           }}
@@ -152,7 +152,7 @@ export default function GradientAccumulation(): React.ReactElement {
 
       <div style={{ marginTop: '0.6rem', fontSize: '0.85rem' }}>
         {bugOn ? (
-          <span style={{ color: '#fca5a5' }}>
+          <span style={{ color: 'var(--brand-chart-danger)' }}>
             loss summed, not averaged, over {accumSteps} micro-batches → gradient is{' '}
             <strong>{accumSteps}×</strong> too large → as if LR were{' '}
             <strong>{effectiveLR.toExponential(2)}</strong> instead of the configured{' '}

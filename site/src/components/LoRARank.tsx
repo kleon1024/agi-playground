@@ -140,7 +140,7 @@ export default function LoRARank(): React.ReactElement {
       >
         <span>full fine-tune <strong>{fmtCount(fullParams)}</strong> params</span>
         <span>LoRA <strong>{fmtCount(loraParams)}</strong> params</span>
-        <span style={{ color: ratio >= 1 ? '#5eead4' : '#fca5a5' }}>
+        <span style={{ color: ratio >= 1 ? 'var(--brand-chart-positive)' : 'var(--brand-chart-danger)' }}>
           {ratio >= 1 ? `${ratio.toFixed(1)}× smaller` : `${(1 / ratio).toFixed(1)}× LARGER — r too high to save anything`}
         </span>
         <span>scale α/r = <strong>{scale.toFixed(2)}</strong></span>
@@ -152,7 +152,7 @@ export default function LoRARank(): React.ReactElement {
             style={{
               width: VISUAL,
               height: VISUAL,
-              background: '#93c5fd',
+              background: 'var(--brand-chart-action-fill)',
               borderRadius: 4,
               opacity: 0.85,
             }}
@@ -170,7 +170,7 @@ export default function LoRARank(): React.ReactElement {
               style={{
                 width: bWidth,
                 height: VISUAL,
-                background: '#5eead4',
+                background: 'var(--brand-chart-positive-fill)',
                 borderRadius: 3,
               }}
             />
@@ -184,7 +184,7 @@ export default function LoRARank(): React.ReactElement {
               style={{
                 width: VISUAL,
                 height: aHeight,
-                background: '#f0abfc',
+                background: 'var(--brand-chart-danger-fill)',
                 borderRadius: 3,
               }}
             />

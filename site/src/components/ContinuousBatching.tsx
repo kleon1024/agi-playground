@@ -145,9 +145,9 @@ function Panel({
                     flexShrink: 0,
                     borderRadius: 3,
                     background: running
-                      ? '#5eead4'
+                      ? 'var(--brand-chart-positive-fill)'
                       : idle
-                        ? '#fbbf24'
+                        ? 'var(--brand-chart-warning-fill)'
                         : 'var(--ifm-color-emphasis-200)',
                     outline: t === currentT ? '2px solid var(--ifm-font-color-base)' : 'none',
                     outlineOffset: -1,
@@ -155,7 +155,7 @@ function Panel({
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: '0.55rem',
-                    color: '#111318',
+                    color: 'var(--rehearse-ink)',
                     opacity: revealed ? 1 : 0.15,
                     transition: 'background 150ms, opacity 150ms',
                   }}
@@ -216,10 +216,10 @@ export default function ContinuousBatching(): React.ReactElement {
       <p style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.9rem' }}>
         Same six requests, same six slots, same GPU. In static batching (top),
         request 3 finishes after two iterations but its slot stays{' '}
-        <span style={{ color: '#fbbf24' }}>amber</span> — reserved and idle —
+        <span style={{ color: 'var(--brand-chart-warning)' }}>amber</span> — reserved and idle —
         until request 4, the slowest in that batch, finally finishes. In
         continuous batching (bottom) that slot goes{' '}
-        <span style={{ color: '#5eead4' }}>teal</span> again on the very next
+        <span style={{ color: 'var(--brand-chart-positive)' }}>green</span> again on the very next
         iteration, handed to whichever request is next in line. Continuous
         batching is not a bigger batch size — it is the scheduler deciding
         per forward pass instead of per batch, which is what turns idle,

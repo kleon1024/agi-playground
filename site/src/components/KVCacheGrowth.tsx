@@ -84,13 +84,13 @@ export default function KVCacheGrowth(): React.ReactElement {
       </div>
 
       <div style={{ display: 'flex', height: 42, borderRadius: 6, overflow: 'hidden', fontSize: '0.75rem' }}>
-        <div style={{ width: `${weightPct}%`, background: '#93c5fd', color: '#111318',
+        <div style={{ width: `${weightPct}%`, background: 'var(--brand-chart-action-fill)', color: 'var(--rehearse-ink)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       transition: 'width 300ms ease-out' }}>
           {weightPct > 12 ? `weights ${m.weightsGB.toFixed(1)} GB` : ''}
         </div>
-        <div style={{ width: `${100 - weightPct}%`, background: ratio > 1 ? '#fca5a5' : '#5eead4',
-                      color: '#111318', display: 'flex', alignItems: 'center',
+        <div style={{ width: `${100 - weightPct}%`, background: ratio > 1 ? 'var(--brand-chart-danger-fill)' : 'var(--brand-chart-positive-fill)',
+                      color: 'var(--rehearse-ink)', display: 'flex', alignItems: 'center',
                       justifyContent: 'center', transition: 'width 300ms ease-out, background 300ms' }}>
           {100 - weightPct > 12 ? `KV cache ${cacheGB.toFixed(1)} GB` : ''}
         </div>
@@ -100,7 +100,7 @@ export default function KVCacheGrowth(): React.ReactElement {
         <span>cache / weights <strong>{ratio.toFixed(2)}×</strong></span>
         <span>total <strong>{total.toFixed(1)} GB</strong></span>
         {gqa && <span style={{ opacity: 0.8 }}>full MHA would be {mhaGB.toFixed(1)} GB</span>}
-        <span style={{ color: total > H80 ? '#ef4444' : 'inherit' }}>
+        <span style={{ color: total > H80 ? 'var(--brand-chart-danger)' : 'inherit' }}>
           {total > H80
             ? `exceeds an ${H80} GB accelerator — requests must be evicted or refused`
             : `fits in ${H80} GB`}

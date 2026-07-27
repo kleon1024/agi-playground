@@ -145,17 +145,17 @@ export default function SpeculativeDecoding(): React.ReactElement {
           let label = '';
           let opacity = 1;
           if (phase === 'drafting' && i < revealedDraft) {
-            background = '#c4b5fd';
+            background = 'var(--brand-chart-signal)';
             border = 'none';
             label = 'D';
           } else if (phase === 'verifying') {
-            background = '#c4b5fd';
+            background = 'var(--brand-chart-signal)';
             border = 'none';
             label = 'D';
           } else if (phase === 'resolved') {
             border = 'none';
             if (i < accepted) {
-              background = '#5eead4';
+              background = 'var(--brand-chart-positive-fill)';
               label = '✓';
             } else {
               background = 'var(--ifm-color-emphasis-300)';
@@ -177,7 +177,7 @@ export default function SpeculativeDecoding(): React.ReactElement {
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '0.7rem',
-                color: '#111318',
+                color: 'var(--rehearse-ink)',
                 transition: 'background 150ms, opacity 150ms',
               }}
             >
@@ -192,12 +192,12 @@ export default function SpeculativeDecoding(): React.ReactElement {
               width: 28,
               height: 28,
               borderRadius: 5,
-              background: '#fbbf24',
+              background: 'var(--brand-chart-warning-fill)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '0.6rem',
-              color: '#111318',
+              color: 'var(--rehearse-ink)',
               marginLeft: 6,
             }}
           >

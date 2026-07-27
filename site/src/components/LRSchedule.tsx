@@ -149,16 +149,16 @@ export default function LRSchedule(): React.ReactElement {
           <>
             <line
               x1={xScale(warmup)} y1={PAD_T} x2={xScale(warmup)} y2={VB_H - PAD_B}
-              stroke="#fbbf24" strokeWidth={1} strokeDasharray="4 3"
+              stroke="var(--brand-chart-warning)" strokeWidth={1} strokeDasharray="4 3"
             />
-            <text x={xScale(warmup) + 4} y={PAD_T + 10} fontSize={9} fill="#fbbf24">
+            <text x={xScale(warmup) + 4} y={PAD_T + 10} fontSize={9} fill="var(--brand-chart-warning)">
               warmup ends
             </text>
           </>
         )}
 
         {/* the schedule curve */}
-        <path d={path} fill="none" stroke={noWarmup ? '#fca5a5' : '#5eead4'} strokeWidth={2} />
+        <path d={path} fill="none" stroke={noWarmup ? 'var(--brand-chart-danger)' : 'var(--brand-chart-positive)'} strokeWidth={2} />
 
         {/* hover readout */}
         {hoverStep !== null && hoverLR !== null && (
@@ -167,7 +167,7 @@ export default function LRSchedule(): React.ReactElement {
               x1={xScale(hoverStep)} y1={PAD_T} x2={xScale(hoverStep)} y2={VB_H - PAD_B}
               stroke="var(--ifm-color-emphasis-500)" strokeWidth={1}
             />
-            <circle cx={xScale(hoverStep)} cy={yScale(hoverLR)} r={3.5} fill="#f0abfc" />
+            <circle cx={xScale(hoverStep)} cy={yScale(hoverLR)} r={3.5} fill="var(--brand-chart-danger)" />
           </>
         )}
       </svg>

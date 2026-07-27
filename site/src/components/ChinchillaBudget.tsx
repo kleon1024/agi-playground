@@ -34,16 +34,16 @@ export default function ChinchillaBudget(): React.ReactElement {
     let t: string;
     if (r < 0.5) {
       v = 'undertrained — this model has capacity it never learned to use';
-      t = '#fbbf24';
+      t = 'var(--brand-chart-warning)';
     } else if (r < 1.5) {
       v = 'near compute-optimal — Chinchilla territory';
-      t = '#5eead4';
+      t = 'var(--brand-chart-positive)';
     } else if (r < 6) {
       v = 'over-trained on purpose — paying training compute for cheaper inference';
-      t = '#93c5fd';
+      t = 'var(--brand-chart-action)';
     } else {
       v = 'heavily over-trained — the modern deployment-optimal regime';
-      t = '#c4b5fd';
+      t = 'var(--brand-chart-signal)';
     }
     return {
       flops: c,

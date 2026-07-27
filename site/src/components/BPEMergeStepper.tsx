@@ -120,8 +120,8 @@ export default function BPEMergeStepper(): React.ReactElement {
           <span
             key={`${idx}-${i}`}
             style={{
-              background: '#5eead4',
-              color: '#111318',
+              background: 'var(--brand-chart-positive-fill)',
+              color: 'var(--rehearse-ink)',
               padding: '3px 7px',
               borderRadius: 4,
               fontFamily: 'var(--ifm-font-family-monospace)',

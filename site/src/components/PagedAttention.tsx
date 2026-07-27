@@ -23,7 +23,7 @@ const TOTAL_BLOCKS = TOTAL_CAPACITY / BLOCK_SIZE;
 const TICK_MS = 550;
 const MAX_REQUESTS = 16;
 
-const COLORS = ['#5eead4', '#f0abfc', '#fbbf24', '#93c5fd', '#fca5a5', '#c4b5fd'];
+const COLORS = ['var(--brand-chart-positive-fill)', 'var(--brand-chart-danger-fill)', 'var(--brand-chart-warning-fill)', 'var(--brand-chart-action-fill)', 'var(--brand-chart-danger-fill)', 'var(--brand-chart-signal)'];
 const TEMPLATES = [
   { maxLen: 32, finishLen: 10 },
   { maxLen: 32, finishLen: 27 },
@@ -213,7 +213,7 @@ export default function PagedAttention(): React.ReactElement {
           <div style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>
             utilization <strong>{contigUtil.toFixed(0)}%</strong> · reserved {contigReserved}/{TOTAL_CAPACITY}
             {contig.waiting.length > 0 && (
-              <span style={{ color: '#fca5a5' }}> · {contig.waiting.length} waiting, no contiguous room</span>
+              <span style={{ color: 'var(--brand-chart-danger)' }}> · {contig.waiting.length} waiting, no contiguous room</span>
             )}
           </div>
         </div>
@@ -233,7 +233,7 @@ export default function PagedAttention(): React.ReactElement {
           <div style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>
             utilization <strong>{pagedUtil.toFixed(0)}%</strong> · {TOTAL_BLOCKS - paged.freeBlocks.length}/{TOTAL_BLOCKS} blocks used
             {paged.waiting.length > 0 && (
-              <span style={{ color: '#fca5a5' }}> · {paged.waiting.length} waiting, no free block</span>
+              <span style={{ color: 'var(--brand-chart-danger)' }}> · {paged.waiting.length} waiting, no free block</span>
             )}
           </div>
         </div>

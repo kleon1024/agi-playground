@@ -105,7 +105,7 @@ export default function SoftmaxScaling(): React.ReactElement {
               title={`score ${scores[i].toFixed(2)} → p ${p.toFixed(4)}`}
               style={{
                 height: `${Math.max(p * 130, 1.5)}px`,
-                background: p > 0.9 ? '#fca5a5' : '#5eead4',
+                background: p > 0.9 ? 'var(--brand-chart-danger-fill)' : 'var(--brand-chart-positive-fill)',
                 borderRadius: '3px 3px 0 0',
                 transition: 'height 120ms ease-out, background 120ms',
               }}
@@ -132,7 +132,7 @@ export default function SoftmaxScaling(): React.ReactElement {
         <span>
           entropy <strong>{entropy.toFixed(2)}</strong> / {maxEntropy.toFixed(2)}
         </span>
-        <span style={{ color: maxProb > 0.9 ? '#ef4444' : 'inherit' }}>
+        <span style={{ color: maxProb > 0.9 ? 'var(--brand-chart-danger)' : 'inherit' }}>
           {maxProb > 0.9
             ? 'saturated — one position takes everything, gradients vanish elsewhere'
             : 'a genuine distribution over positions'}

@@ -23,9 +23,9 @@
  */
 import React, { useMemo, useState } from 'react';
 
-const TEAL = '#5eead4';
-const PINK = '#f0abfc';
-const AMBER = '#fbbf24';
+const TEAL = 'var(--brand-chart-positive-fill)';
+const PINK = 'var(--brand-chart-danger-fill)';
+const AMBER = 'var(--brand-chart-warning-fill)';
 
 const X_MIN = -4;
 const X_MAX = 4;
