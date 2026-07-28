@@ -113,26 +113,52 @@ token: **2.93x the storage, 1.64x the compute.** Both are reported because a
 later quality claim means something different under each, exactly as
 [architecture ablations](../02-architecture-ablations/) argues.
 
-Measured wall-clock is worse than either number suggests. Continuing to train
-the upcycled model ran at **16.6k tokens per second**, against the 161k the
-dense parent reached during pretraining. That is roughly ten times slower for
-1.64x the arithmetic. The gap is not the architecture — it is that `core/`
-dispatches experts with a Python loop rather than a grouped kernel, the same
-distinction [serving](../../../missions/01-language-model-agent/05-serve/why-concurrency-pays/)
+Measured wall-clock is worse than either number suggests. Over 200M tokens the
+upcycled model sustained **55,069 tokens per second** against the dense model's
+**106,369** on the same data in the same script: 1.93x slower for 1.64x the
+arithmetic. The gap is not the architecture — it is that `core/` dispatches
+experts with a Python loop rather than a grouped kernel, the same distinction
+[serving](../../../missions/01-language-model-agent/05-serve/why-concurrency-pays/)
 had to draw between a scheduling policy and a fused kernel.
 
-## The thing that surprised the first run
+## Both arms get worse before either gets better
 
-Continuing to train the upcycled model made it *worse* before it made it
-better. Over the first 4M tokens at `lr=1e-4`, validation loss went 3.0847 →
-3.1178 → 3.1044.
+Continuing to train the upcycled model made it *worse* first — and so did
+continuing to train the dense parent. At `lr=1e-4` both rose from 3.0576 to a
+peak near 3.1445 at 53M tokens, then fell steadily for the remaining 147M
+without either one getting back to where it started.
 
 This is not the surgery failing. The parent finished a cosine schedule at
 nearly zero learning rate, sitting in a minimum. Raising the rate to 1e-4 kicks
 it back out, and the model has to re-descend before it can make progress the
-old one could not. Any continued-training comparison shorter than that recovery
-is measuring the disruption, not the architecture — which is why the run below
-is budgeted at 2e8 tokens and not at the four minutes it took to see this.
+old one could not. The effect is large enough to swamp everything else in the
+run, and it hits both arms equally — which is precisely why the comparison is
+run as a pair rather than as one arm against a remembered number.
+
+## Does the extra capacity pay for itself?
+
+With the disruption applying to both arms identically, the difference between
+them is readable:
+
+| Tokens | dense continue | upcycled MoE | difference |
+|---:|---:|---:|---:|
+| 0 | 3.0576 | 3.0576 | 0.0000 |
+| 32.8M | 3.1364 | 3.1362 | -0.0002 |
+| 131.1M | 3.1145 | 3.1084 | -0.0061 |
+| 200.0M | 3.0939 | **3.0851** | **-0.0088** |
+
+The upcycled arm is *behind* for the first 32.8M tokens, crosses over, and then
+pulls away monotonically for the remaining 167M with no sign of flattening.
+That shape is what replication predicts. At step 0 the four experts are
+identical, so the extra 170M parameters compute nothing the dense model did not
+already compute; they begin to pay only once the experts have diverged into
+different functions, and that takes tokens. **An experiment stopped at 30M
+tokens would have reported the opposite result with a straight face.**
+
+Under an equal *wall-clock* budget the ranking reopens: the MoE arm took 1.93x
+as long, so the dense arm would get 1.93x the data, and it was still improving
+when the run ended. Full curve and evidence boundary in
+[`runs/`](runs/2026-07-28-continue-training.md).
 
 ## Reproduce it
 
@@ -149,18 +175,20 @@ model class — only a correct reading of what each tensor means.
 
 ## What this chapter establishes and what it does not
 
-Established, and recorded in
-[`runs/`](runs/2026-07-28-upcycle-88m.md): the surgery preserves the function
-exactly, under a stated precondition, with a test that would have caught the
-mistakes.
+Established, and recorded in [`runs/`](runs/2026-07-28-upcycle-88m.md): the
+surgery preserves the function exactly, under a stated precondition, with a
+test that would have caught the mistakes. Established in the
+[continued-training run](runs/2026-07-28-continue-training.md), at an equal
+token budget: the upcycled model ends 0.0088 nats ahead of the dense
+continuation.
 
-Not established: **that the upcycled model is better.** The honest comparison is
-not against an untrained model but against spending the same GPU-hours
-continuing to train the parent, because that is the alternative actually
-available. `core/continue_training.py` runs both arms on identical batches in
-identical order; the result is not yet in `runs/` and no claim is made here
-until it is. Also untested: whether 4 experts at top-2 is a good shape — it was
-chosen to make the identity check clean, not because it was tuned.
+Not established: **that it is ahead under any other budget.** At equal
+wall-clock the dense arm gets nearly twice the data and the question is open.
+Not established either: **that 0.0088 survives replication.** One seed per arm
+cannot bound run-to-run variance; what carries the result is the monotone shape
+of the gap across 25 consecutive evaluations, not the endpoint. And still
+untested: whether 4 experts at top-2 is a good shape — it was chosen to make
+the identity check exact, not because it was tuned.
 
 ## Check your mental model
 
@@ -172,8 +200,11 @@ chosen to make the identity check clean, not because it was tuned.
    conclude from an upcycled loss of 4.2, and what from a loss of 3.0501?
 4. The router's gradient is zero at step 0. Why does that not make the router
    permanently untrainable?
-5. Storage went up 2.93x and compute 1.64x, but throughput fell about tenfold.
-   Which of those three numbers is a property of the architecture?
+5. Storage went up 2.93x and compute 1.64x, but sustained throughput fell only
+   1.93x. Which of those numbers is a property of the architecture, and which
+   of the kernel?
+6. The upcycled arm was behind at 30M tokens and ahead at 200M. What does that
+   say about the shortest continued-training comparison worth running?
 
 ## Next
 
