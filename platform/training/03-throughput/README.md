@@ -156,7 +156,13 @@ measures the leftovers as much as the change.
 
 ## Next
 
-[Architecture ablations](../02-architecture-ablations/) asks the question this
+Take the five flags back to
+[stage 02 of the language-model system](../../../missions/01-language-model-agent/02-pretrain/),
+which is where they turn a ten-hour run into a five-hour one against a real
+corpus. That is what this chapter exists to hand back.
+
+If instead you are still choosing the model rather than running it,
+[architecture ablations](../02-architecture-ablations/) asks the question this
 chapter deliberately refuses: not how fast a configuration runs, but whether it
 produces a better model — and what "equal budget" has to mean before that
 question has an answer.

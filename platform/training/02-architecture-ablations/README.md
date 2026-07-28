@@ -154,10 +154,18 @@ needs, and what evidence a ranking would need before it is trustworthy.
 
 ## Next
 
-GQA's payoff is invisible on this chapter's CPU-scale ladder — the parameter
-delta is the only thing a training-time comparison can see. Continue to
-[serving](../../serving/) for the KV-cache-per-token arithmetic that GQA was
-built to change.
+What this chapter hands back to
+[stage 02 of the language-model system](../../../missions/01-language-model-agent/02-pretrain/)
+is not a winning architecture. It is the habit of stating the budget before
+stating the ranking — without which "we chose RMSNorm" is a preference rather
+than a result.
+
+Two loose ends lead elsewhere. GQA's payoff is invisible on a training-time
+ladder, because the parameter delta is all such a comparison can see; the
+KV-cache-per-token arithmetic it was actually built to change is in
+[serving](../../serving/). And if the ladder makes you want a different
+feed-forward after the checkpoint already exists,
+[upcycling](../05-upcycling/) is how to get one without retraining.
 
 Primary references: Zhang & Sennrich, "Root Mean Square Layer Normalization"
 (2019); Su et al., "RoFormer" (2021); Shazeer, "GLU Variants Improve

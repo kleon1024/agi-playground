@@ -156,7 +156,12 @@ demonstrates that nothing here needs a custom model — only custom training.
 
 ## Next
 
-[Architecture ablations](../02-architecture-ablations/) is where a result like
-this one gets its budget definition, and
+This chapter hands nothing back to a mission stage yet, and that is the honest
+statement of its position: it is an open question kept beside the curriculum
+rather than a decision any mission currently makes. It becomes a detour worth
+taking only if the run below produces a separation.
+
+Meanwhile, [architecture ablations](../02-architecture-ablations/) is where a
+result like this one gets its budget definition, and
 [the throughput ladder](../03-throughput/) is where the extra forward passes
 this method needs turn into wall-clock you can measure.

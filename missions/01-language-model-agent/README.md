@@ -1,6 +1,6 @@
 ---
 status: draft
-label: Language-model agent
+label: Language-model system
 ---
 
 # Raw text to a tool-using model
@@ -53,6 +53,33 @@ declared path actually executed.
 | [`05-serve`](05-serve/) | KV-cache decoding, paged allocation, and continuous batching | **verified** — the KV cache buys 1.08-1.22x, and concurrency buys nothing until the kernel is fused |
 | [`06-agent`](06-agent/) | bounded tool loop, grounding rule, context policy, and sandbox | implementation present; run pending |
 | [`07-eval`](07-eval/) | disclosed harness, static and agentic tasks, variance, and failure cases | implementation present; run pending |
+
+## Where the mission leaves the path, and what comes back
+
+This mission is the path. Foundations, capabilities, and platform are libraries
+it reaches into, and it reaches into them at a specific stage for a specific
+decision — never as reading you do first. Each detour below returns something
+the next stage consumes, which is the test for whether the detour was worth
+taking.
+
+| At this stage | You need to decide | So read | And bring back |
+|---|---|---|---|
+| before 02 | what a decoder block is doing at all | [foundations](../../foundations/) | the forward and backward path of one block |
+| 00 | which documents to keep, and whether the filter is defensible | [platform / data](../../platform/data/) | a versioned dataset with rejection reasons |
+| 02 | whether an architecture choice is worth its cost | [architecture ablations](../../platform/training/02-architecture-ablations/) | a ranking, and the budget definition it holds |
+| 02 | why a run will take ten hours, and whether it should | [the throughput ladder](../../platform/training/03-throughput/) | tokens per second, MFU, and what to change |
+| after 02 | whether to keep the checkpoint or retrain a new shape | [upcycling](../../platform/training/05-upcycling/) | a converted checkpoint that starts at the parent's loss |
+| 03 | whether teacher data beats human data | [distillation](../../platform/adaptation/distillation/) | a target format and its tokenizer constraint |
+| 04 | whether this base can be improved by RL at all | [reinforcement learning](../../platform/adaptation/reinforcement-learning/) | the condition under which the gradient is non-zero |
+| 05 | what the model is doing between tokens | [platform / serving](../../platform/serving/) | the cost model for a request |
+| 06 | how a tool loop stays bounded | [act and coordinate](../../capabilities/act-coordinate/) | a permission and stop-condition contract |
+| 07 | what a number from a harness is worth | [evaluation and observability](../../platform/evaluation-observability/) | variance, and the disclosure a result needs |
+
+Two chapters are deliberately not on this list.
+[Mid-training](../../platform/adaptation/mid-training/) is skipped for the
+reason below. [Latent reasoning](../../platform/training/04-latent-reasoning/)
+is an open question rather than a decision this mission makes, and it is
+labelled draft until a run says otherwise.
 
 ## The stage this mission deliberately skips
 
@@ -113,10 +140,15 @@ different.
 
 ## How to use the mission
 
-Follow the stages in order when reproducing the complete path. When learning one
-mechanism, enter through the relevant platform lesson and return here to see
-which upstream and downstream contracts it affects.
+Follow the stages in order. When a stage poses a decision you cannot make yet,
+take the detour the table above names, then come back with the artifact it
+returns — that is the only reading order this repository has.
 
 Start with [stage 00](00-corpus/) if you want the full build. Start with
 [stage 02](02-pretrain/) if your immediate goal is to understand how data,
 architecture, optimization, and checkpoints become one training system.
+
+Do not read the platform section front to back. It is arranged by lifecycle
+stage so it can be indexed, not so it can be studied in order, and reading it
+that way produces an inventory of mechanisms with no decision attached to any
+of them.

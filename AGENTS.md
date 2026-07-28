@@ -4,21 +4,67 @@ Working notes for AI agents and human contributors. Read this before editing.
 
 ## What this repo is
 
-Build AI systems from infrastructure to measurable outcomes. Five layers:
-business goal → mission → capabilities → platform → infrastructure. A
-capability proves a hammer works; a mission proves a problem got solved.
+Build AI systems from infrastructure to measurable outcomes. **Missions are the
+only curriculum spine.** A learner starts with a stakeholder problem and stays
+on that mission until it links to a mechanism or engineering reference needed
+for the next decision. Foundations, capabilities, and platform are support
+libraries, not parallel tracks and not prerequisites to read front to back.
+
+The ownership model is business goal → mission → capabilities/platform →
+infrastructure, but this is not the reading order. A capability proves a
+reusable hammer works; a mission proves a problem got solved.
 
 ## Layout
 
 ```
-foundations/   mathematics and mechanism, bound to no product
-platform/      data, training, adaptation, serving, evaluation, safety
-capabilities/  composable hammers — admitted only when two missions need them
-missions/      infrastructure through to business outcome
-infra/         compute lanes (local GPU via Tailscale/WSL2, and Modal)
-research/      the landscape evidence behind every technical choice
-standards/     the contracts everything else must satisfy — read these first
+missions/      primary reader paths: stakeholder problem through measured outcome
+foundations/   scoped prerequisite mathematics and mechanisms, bound to no product
+capabilities/  reusable decision primitives, admitted only after two missions use them
+platform/      cross-mission lifecycle reference: data, training, serving, evaluation, safety
+infra/         runtime and compute-lane runbooks
+standards/     evidence and contribution contracts; contributors read these first
+research/      dated landscape evidence behind technical choices
 ```
+
+## Curriculum ownership
+
+The landing page, Start here page, and sidebar route readers to Missions before
+support libraries. A mission introduces one concrete artifact and links to a
+foundation, capability, or platform chapter only at the point where that
+chapter is required. The linked chapter must return an artifact, decision, or
+diagnostic that the next mission stage consumes.
+
+- **Mission owns the outcome.** It owns the stakeholder, job, decision,
+  baseline, concrete artifact chain, integration handoffs, budgets, proxy,
+  result, and evidence boundary.
+- **Foundation owns prerequisite mechanism.** It explains product-independent
+  mathematics or mechanics needed to reason about the next decision. Scope the
+  name honestly: attention, decoders, and a first language-model training loop
+  are language-model foundations, not universal AGI prerequisites.
+- **Capability owns a reused decision primitive.** Extract it only after at
+  least two missions use the same input/output contract and objective. Until
+  then it remains local to the first mission. Reuse of a noun or technique is
+  not enough.
+- **Platform owns lifecycle execution.** It explains cross-mission contracts
+  and tradeoffs for data, training, adaptation, serving, evaluation,
+  observability, and safety. It does not own stakeholder outcomes or form a
+  mandatory linear course.
+- **Infrastructure owns where work runs.** Standards and research explain how
+  claims are governed and why choices were made; they are contributor and
+  reference surfaces, not the learner's opening path.
+
+Use the central-question test when content overlaps. If a chapter's central
+question, inputs, outputs, and acceptance remain the same in a second mission,
+move the reusable explanation to Capability or Platform and keep only the
+mission-specific choice, handoff, and evidence in the Mission. Do not duplicate
+the same tutorial under Mission and Platform.
+
+Do not call any foundations → platform → capabilities sequence the global
+curriculum spine. Such ordering may organize a scoped reference collection, but
+it must not determine the homepage, sidebar, prerequisites, or learner path.
+The language-model mission is labeled **Language-model system** in reader-facing
+navigation; an agent is one stage of that system, not the scope of the
+playground.
 
 ## The two invariants
 
@@ -125,10 +171,11 @@ The site build must complete without broken-link or broken-anchor warnings.
   `ProcessDiagram` grammar: clickable stages, explicit ownership and handoff,
   vertical mobile adaptation, and no horizontal-scroll dependency. Do not add
   new Mermaid diagrams.
-- **The landing page routes, chapters teach.** Mechanism-specific demos live in
-  the chapter that establishes their prerequisites and consumes their output.
-  The landing page only explains the curriculum model and sends the learner to
-  a coherent starting path.
+- **The landing page routes to missions; chapters teach.** Mechanism-specific
+  demos live in the chapter that establishes their prerequisites and consumes
+  their output. The landing page explains the mission-first curriculum model
+  and sends the learner to a concrete mission, never to a carousel of abstract
+  layers or a foundations/platform reading sequence.
 - **A lesson is a complete decision path, not a stub.** State the mechanism,
   why it exists, its failure boundary, the executable path, and what the
   evidence does not prove. Split a lesson only when two chapters have distinct

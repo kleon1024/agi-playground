@@ -31,13 +31,19 @@ REPO = "https://github.com/kleon1024/agi-playground/blob/main"
 BASE_URL = "/playground"
 
 # Directories mirrored into the site, in sidebar order.
+#
+# Missions come first because they are the only reader path. Everything below
+# them is a support library a mission links into at the point where a decision
+# needs it, not a track to be read front to back — so the sidebar must not
+# present foundations, platform, and capabilities as a sequence leading up to a
+# mission. Contributor surfaces sort last.
 SECTIONS = [
-    ("foundations", 20),
-    ("platform", 30),
+    ("missions", 20),
+    ("foundations", 30),
     ("capabilities", 40),
-    ("missions", 50),
-    ("standards", 60),
-    ("infra", 70),
+    ("platform", 50),
+    ("infra", 60),
+    ("standards", 70),
     ("research", 80),
 ]
 
@@ -62,6 +68,59 @@ TITLE_OVERRIDES = {
     "standards": "Standards",
     "infra": "Infrastructure",
     "research": "Research",
+}
+
+# A section root used to render as a bare bullet list, which told a reader
+# arriving from a mission link nothing about what they had walked into or when
+# to walk back out. Each section owns a different kind of claim, and saying so
+# is what keeps these from reading as four parallel courses.
+SECTION_INTROS = {
+    "missions": (
+        "**Missions are the reader path.** A mission starts with a stakeholder "
+        "problem, carries one concrete artifact through every stage, and ends "
+        "at a measured outcome with its evidence boundary stated. It links out "
+        "to a foundation, capability, or platform chapter only where a decision "
+        "needs one, and that chapter hands back something the next stage uses.\n\n"
+        "Start here. Everything below this section exists to be linked into."
+    ),
+    "foundations": (
+        "**Prerequisite mechanism, bound to no product.** These chapters explain "
+        "mathematics and mechanics you need in order to reason about a decision "
+        "a mission is about to make. They are scoped to language models, not to "
+        "intelligence in general, and they are not a course to read front to "
+        "back — arrive from the mission stage that sent you, and return to it."
+    ),
+    "capabilities": (
+        "**Reusable decision primitives.** A capability is admitted only after "
+        "at least two missions need the same input/output contract and the same "
+        "objective. Until then the explanation stays local to the first mission "
+        "that needed it, because reuse of a technique is not reuse of a "
+        "decision. Every capability claim is backed by a run."
+    ),
+    "platform": (
+        "**Cross-mission lifecycle reference.** Data, training, adaptation, "
+        "serving, evaluation, and safety — the contracts and tradeoffs that "
+        "recur no matter which mission you are running. Platform owns execution, "
+        "never a stakeholder outcome, and these chapters are reference material "
+        "rather than a linear sequence. Each one is entered from a mission "
+        "decision and returns an artifact, a measurement, or a diagnostic."
+    ),
+    "infra": (
+        "**Where the work runs.** Runbooks for the two compute lanes this "
+        "repository uses, including verified setup paths and the failure modes "
+        "worth knowing before you hit them. Naming specific hardware belongs "
+        "here and in run records, not in curriculum prose."
+    ),
+    "standards": (
+        "**Contributor surface, not a learner path.** The contracts every lesson, "
+        "run record, and mission must satisfy before its numbers mean anything. "
+        "Read these before contributing; skip them if you are here to learn."
+    ),
+    "research": (
+        "**Dated landscape evidence.** Why the technical choices elsewhere in "
+        "this repository were made, with external results attributed and dated. "
+        "Reference material, consulted from a decision rather than read through."
+    ),
 }
 
 # Directories that hold supporting material rather than a lesson. Without these
@@ -490,8 +549,10 @@ def main() -> None:
             # manifest assigns, and fall back to the title for ties.
             children.sort(key=lambda entry: (entry[0][1], entry[0][0]))
             listing = "\n".join(f"- [{meta[0]}]({name}/)" for meta, name in children)
+            intro = SECTION_INTROS.get(section, "")
+            body = f"{intro}\n\n{listing}" if intro else listing
             (OUT / section / "index.md").write_text(
-                f'---\ntitle: "{TITLE_OVERRIDES[section]}"\n---\n\n{listing}\n'
+                f'---\ntitle: "{TITLE_OVERRIDES[section]}"\n---\n\n{body}\n'
             )
 
         write_category_files(section, dir_meta)

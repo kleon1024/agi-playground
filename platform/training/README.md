@@ -1,13 +1,19 @@
 ---
 status: draft
-label: Pretraining
+label: Training
 ---
 
-# Pretraining
+# What makes a training run worth the compute it spends?
 
 **Question:** given a fixed corpus and compute budget, which choices make a
 next-token model learn reliably instead of wasting tokens, memory, or optimizer
 steps?
+
+You are most likely here from
+[stage 02 of the language-model system](../../missions/01-language-model-agent/02-pretrain/),
+which is where these decisions are actually made against a real corpus. This
+chapter is the reference behind them, not a course preceding them: read the
+section that answers the question in front of you and go back.
 
 You arrive with two artifacts:
 
@@ -208,14 +214,16 @@ connects the tokenizer, decoder, optimizer, and checkpoints. The
 [first training loop](../../foundations/01-first-training-loop/) is the
 CPU-scale prerequisite when the full run is not yet available.
 
-Four sub-lessons take one question each further than the vertical slice can:
-[distributed training](01-distributed/) for when the model stops fitting on one
-card, [architecture ablations](02-architecture-ablations/) for whether a design
-choice actually helped, [throughput](03-throughput/) for whether the run is
-using the card it is already on — measured at 14.69x between the slowest and
-fastest configuration of an identical model — and
-[latent reasoning](04-latent-reasoning/) for what happens when a model's own
-hidden state, rather than a token it had to choose, becomes its next input.
+Five sub-lessons take one question each further than the vertical slice can.
+Each is entered from a decision, not read in order:
+
+| Read this | When you need to decide | It returns |
+|---|---|---|
+| [distributed training](01-distributed/) | the model no longer fits one card | a sharding strategy and its communication cost |
+| [architecture ablations](02-architecture-ablations/) | whether a design choice actually helped | a ranking, and the budget definition holding it up |
+| [throughput](03-throughput/) | whether the run uses the card it is already on | 14.69x between the slowest and fastest configuration of an identical model |
+| [upcycling](05-upcycling/) | whether a trained checkpoint can become a different architecture | a converted checkpoint that starts at its parent's loss |
+| [latent reasoning](04-latent-reasoning/) | nothing yet — an open question, kept honest | a stated hypothesis awaiting a run |
 
 A valid run record includes exact command, configuration, data version,
 hardware, wall-clock, cost, token count, checkpoints, and metrics. A plausible

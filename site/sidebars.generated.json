@@ -6,206 +6,6 @@
   },
   {
     "type": "category",
-    "label": "Foundations",
-    "link": {
-      "type": "doc",
-      "id": "foundations/index"
-    },
-    "items": [
-      {
-        "type": "doc",
-        "id": "foundations/01-first-training-loop/index",
-        "label": "First training loop \u00b7 verified"
-      },
-      {
-        "type": "doc",
-        "id": "foundations/LANDSCAPE",
-        "label": "Landscape"
-      }
-    ]
-  },
-  {
-    "type": "category",
-    "label": "Platform",
-    "link": {
-      "type": "doc",
-      "id": "platform/index"
-    },
-    "items": [
-      {
-        "type": "category",
-        "label": "Data",
-        "link": {
-          "type": "doc",
-          "id": "platform/data/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "platform/data/01-ablation-harness/index",
-            "label": "Ablation harness"
-          },
-          {
-            "type": "doc",
-            "id": "platform/data/LANDSCAPE",
-            "label": "Landscape"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Pretraining",
-        "link": {
-          "type": "doc",
-          "id": "platform/training/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "platform/training/01-distributed/index",
-            "label": "Distributed training \u00b7 verified"
-          },
-          {
-            "type": "doc",
-            "id": "platform/training/02-architecture-ablations/index",
-            "label": "Architecture ablations"
-          },
-          {
-            "type": "doc",
-            "id": "platform/training/03-throughput/index",
-            "label": "Throughput \u00b7 verified"
-          },
-          {
-            "type": "doc",
-            "id": "platform/training/04-latent-reasoning/index",
-            "label": "Latent reasoning"
-          },
-          {
-            "type": "doc",
-            "id": "platform/training/LANDSCAPE",
-            "label": "Landscape"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Adaptation",
-        "link": {
-          "type": "doc",
-          "id": "platform/adaptation/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "platform/adaptation/mid-training/index",
-            "label": "Mid-training"
-          },
-          {
-            "type": "category",
-            "label": "Post-training",
-            "link": {
-              "type": "doc",
-              "id": "platform/adaptation/post-training/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "platform/adaptation/post-training/LANDSCAPE",
-                "label": "Landscape"
-              }
-            ]
-          },
-          {
-            "type": "doc",
-            "id": "platform/adaptation/distillation/index",
-            "label": "Distillation"
-          },
-          {
-            "type": "category",
-            "label": "Reinforcement learning",
-            "link": {
-              "type": "doc",
-              "id": "platform/adaptation/reinforcement-learning/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "platform/adaptation/reinforcement-learning/LANDSCAPE",
-                "label": "Landscape"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Serving",
-        "link": {
-          "type": "doc",
-          "id": "platform/serving/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "platform/serving/LANDSCAPE",
-            "label": "Landscape"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Evaluation",
-        "link": {
-          "type": "doc",
-          "id": "platform/evaluation-observability/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "platform/evaluation-observability/LANDSCAPE",
-            "label": "Landscape"
-          }
-        ]
-      },
-      {
-        "type": "doc",
-        "id": "platform/safety-governance/index",
-        "label": "Safety and governance"
-      }
-    ]
-  },
-  {
-    "type": "category",
-    "label": "Capabilities",
-    "link": {
-      "type": "doc",
-      "id": "capabilities/index"
-    },
-    "items": [
-      {
-        "type": "category",
-        "label": "Agent systems",
-        "link": {
-          "type": "doc",
-          "id": "capabilities/act-coordinate/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "capabilities/act-coordinate/01-multi-agent/index",
-            "label": "Multi-agent"
-          },
-          {
-            "type": "doc",
-            "id": "capabilities/act-coordinate/LANDSCAPE",
-            "label": "Landscape"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "type": "category",
     "label": "Missions",
     "link": {
       "type": "doc",
@@ -214,7 +14,7 @@
     "items": [
       {
         "type": "category",
-        "label": "Language-model agent",
+        "label": "Language-model system",
         "link": {
           "type": "doc",
           "id": "missions/01-language-model-agent/index"
@@ -386,21 +186,206 @@
   },
   {
     "type": "category",
-    "label": "Standards",
+    "label": "Foundations",
     "link": {
       "type": "doc",
-      "id": "standards/index"
+      "id": "foundations/index"
     },
     "items": [
       {
         "type": "doc",
-        "id": "standards/lesson-and-run-contract",
-        "label": "Lesson and run contract"
+        "id": "foundations/01-first-training-loop/index",
+        "label": "First training loop \u00b7 verified"
       },
       {
         "type": "doc",
-        "id": "standards/mission-contract",
-        "label": "Mission contract"
+        "id": "foundations/LANDSCAPE",
+        "label": "Landscape"
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Capabilities",
+    "link": {
+      "type": "doc",
+      "id": "capabilities/index"
+    },
+    "items": [
+      {
+        "type": "category",
+        "label": "Agent systems",
+        "link": {
+          "type": "doc",
+          "id": "capabilities/act-coordinate/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "capabilities/act-coordinate/01-multi-agent/index",
+            "label": "Multi-agent"
+          },
+          {
+            "type": "doc",
+            "id": "capabilities/act-coordinate/LANDSCAPE",
+            "label": "Landscape"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Platform",
+    "link": {
+      "type": "doc",
+      "id": "platform/index"
+    },
+    "items": [
+      {
+        "type": "category",
+        "label": "Data",
+        "link": {
+          "type": "doc",
+          "id": "platform/data/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "platform/data/01-ablation-harness/index",
+            "label": "Ablation harness"
+          },
+          {
+            "type": "doc",
+            "id": "platform/data/LANDSCAPE",
+            "label": "Landscape"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Training",
+        "link": {
+          "type": "doc",
+          "id": "platform/training/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "platform/training/01-distributed/index",
+            "label": "Distributed training \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "platform/training/02-architecture-ablations/index",
+            "label": "Architecture ablations"
+          },
+          {
+            "type": "doc",
+            "id": "platform/training/03-throughput/index",
+            "label": "Throughput \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "platform/training/04-latent-reasoning/index",
+            "label": "Latent reasoning"
+          },
+          {
+            "type": "doc",
+            "id": "platform/training/05-upcycling/index",
+            "label": "Upcycling \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "platform/training/LANDSCAPE",
+            "label": "Landscape"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Adaptation",
+        "link": {
+          "type": "doc",
+          "id": "platform/adaptation/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "platform/adaptation/mid-training/index",
+            "label": "Mid-training"
+          },
+          {
+            "type": "category",
+            "label": "Post-training",
+            "link": {
+              "type": "doc",
+              "id": "platform/adaptation/post-training/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "platform/adaptation/post-training/LANDSCAPE",
+                "label": "Landscape"
+              }
+            ]
+          },
+          {
+            "type": "doc",
+            "id": "platform/adaptation/distillation/index",
+            "label": "Distillation"
+          },
+          {
+            "type": "category",
+            "label": "Reinforcement learning",
+            "link": {
+              "type": "doc",
+              "id": "platform/adaptation/reinforcement-learning/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "platform/adaptation/reinforcement-learning/LANDSCAPE",
+                "label": "Landscape"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Serving",
+        "link": {
+          "type": "doc",
+          "id": "platform/serving/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "platform/serving/LANDSCAPE",
+            "label": "Landscape"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Evaluation",
+        "link": {
+          "type": "doc",
+          "id": "platform/evaluation-observability/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "platform/evaluation-observability/LANDSCAPE",
+            "label": "Landscape"
+          }
+        ]
+      },
+      {
+        "type": "doc",
+        "id": "platform/safety-governance/index",
+        "label": "Safety and governance"
       }
     ]
   },
@@ -426,6 +411,26 @@
         "type": "doc",
         "id": "infra/tracking",
         "label": "Tracking"
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Standards",
+    "link": {
+      "type": "doc",
+      "id": "standards/index"
+    },
+    "items": [
+      {
+        "type": "doc",
+        "id": "standards/lesson-and-run-contract",
+        "label": "Lesson and run contract"
+      },
+      {
+        "type": "doc",
+        "id": "standards/mission-contract",
+        "label": "Mission contract"
       }
     ]
   },
