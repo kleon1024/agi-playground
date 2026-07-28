@@ -5,166 +5,141 @@ base: scratch
 label: Pretraining
 ---
 
-# What decides whether this run is training correctly?
+# What are you actually training?
 
 **Question:** you have 3.16B tokens from [stage 00](../00-corpus/) and a
-16,512-token vocabulary from [stage 01](../01-tokenizer/). Starting the run is
-one command. It will take about five hours. What can you check in the first
-minute that tells you the next five hours are not wasted?
+16,512-token vocabulary from [stage 01](../01-tokenizer/). What is the thing
+you are about to spend five hours changing, and what is it being changed
+toward?
 
-The artifact this stage produces is a checkpoint plus the history that makes it
-believable: a configuration, optimizer moments, tokens seen, and a validation
-curve. Everything below is about the small number of checks that separate a run
-that is training from a run that is merely running.
+**Say the purpose out loud first, because the result invites the wrong
+conclusion.** The model this stage produces writes fluent English and is wrong
+about nearly everything. It will not beat a hosted model at any task. That is
+the expected outcome at 88M parameters, and it is not the point. The point is
+that every mechanism downstream — loss masking in [SFT](../03-sft/), the KV
+cache in [serving](../05-serve/), the capacity argument that decides where
+[reinforcement learning](../../../platform/adaptation/reinforcement-learning/)
+can honestly be taught — becomes something you can run and falsify instead of
+something you read about. A model small enough to train in an afternoon is the
+only one where that is true.
 
-<!-- interactive: PretrainingLoop -->
+This chapter is the mechanism: what the data is, what the network does to it,
+and what "wrong" means numerically. The next one,
+[verifying the run](verifying-the-run/), is how you know a five-hour job is
+working while it runs.
 
-## The check you can make at step one
+## The data is 3.01B tokens of one specific thing
 
-A randomly initialized model knows nothing about the next token, so the best it
-can do is spread probability evenly across the vocabulary. Its cross-entropy
-loss is therefore the log of the vocabulary size: `ln(16,512) = 9.712` nats. Any
-model that has not yet learned anything must start there.
+Not "text". Four shards of FineWeb-Edu's `sample/10BT` — **2,916,000
+documents, 3.01B tokens, 8.1GB** — which is Common Crawl already filtered by an
+educational-quality classifier. Stage 00 built the equivalent pipeline by hand
+and measured what its filters keep: of 20,000 raw HTML responses, 91% yield
+extractable text, 36.7% survive English detection, 31.7% survive Gopher quality
+rules, 24.3% survive C4's line filter, and 23.0% survive deduplication.
 
-Predict what it means if step 0 comes out well *below* that line before you look
-at the number.
+That last number is the one to hold on to. **Roughly four fifths of the raw
+crawl is discarded before training sees any of it**, and the model that comes
+out of this chapter is a model of what survived — encyclopedic, expository,
+mostly grammatical prose. It has never seen a conversation, a tool call, or a
+code review, which is exactly why stages 03 onward exist.
 
-<!-- interactive: InitLossCheck -->
+[`core/prepare_data.py`](core/prepare_data.py) turns those documents into two
+flat files of `uint16` token IDs. Three decisions there are load-bearing:
 
-Far below means the model is seeing the answer — a label-shifting bug, a mask
-that lets attention read the token it is predicting, a validation file that
-overlaps training. Far above means initialization or the loss reduction is
-wrong. This run measured **9.8697**, sitting 0.158 above the uniform line, which
-is the small excess expected when weights are random rather than exactly uniform
-in effect.
+- **Validation is written before training.** They are separate memory-mapped
+  files, so a training window cannot reach into held-out data — not by
+  convention, but because the bytes are not in the same file.
+- **A reserved separator sits between documents.** Without it the model learns
+  that the last sentence of one page predicts the first sentence of an
+  unrelated one.
+- **`uint16`, not `int32`.** A 16,512-token vocabulary fits in 16 bits, which
+  halves storage and memory traffic at no cost. This is why stage 01's
+  vocabulary size was a serving decision as well as a linguistic one.
 
-That one number costs one forward pass and rules out most of the ways a
-pretraining run can be silently broken. Nothing else in this chapter is
-available so early or so cheaply.
+## From token IDs to a guess about the next token
 
-## What you are actually training
+A token ID is an integer with no meaning. The first thing the network does is
+look it up in a table of 16,512 rows of 768 numbers, and from that point on the
+token *is* those 768 numbers — a position on a residual stream that every
+layer reads from and writes back into.
 
-The check above says the wiring is right. This is what the wiring holds: one
-block, repeated twelve times, with a residual stream running down the left at a
-constant width of 768.
-
-Follow one token down that stream. Each half of the block reads a normalized
-*copy* of the stream, computes, and adds its result back — the stream itself is
-never overwritten. That is the property to watch, because it is what leaves an
-unobstructed path from the loss back to layer 1, and it is the reason depth can
-be added without redesigning anything else.
+Follow one token down that stream. Each half of a block reads a normalised
+*copy* of the stream, computes, and adds its result back; the stream itself is
+never overwritten. That is the property to watch, because it leaves an
+unobstructed path from the loss back to layer 1, and it is why depth can be
+added without redesigning anything else.
 
 <!-- interactive: ModelArchitecture -->
 
-Then move the key/value head count and watch two numbers move in opposite
+Attention is the only place in the block where positions see each other;
+SwiGLU transforms each position on its own and holds more than twice the
+parameters. After twelve such blocks and a final norm, the same embedding table
+is used in reverse — tied weights — to turn 768 numbers back into a score for
+every one of the 16,512 tokens. That vector of scores is the model's entire
+output. Everything else is arithmetic on it.
+
+Move the key/value head count and watch two numbers move in opposite
 directions. Dropping from 12 KV heads to 4 costs 9,437,184 parameters of
-attention capacity — and divides the KV cache by three, from 36,864 to 12,288
+attention capacity and divides the KV cache by three, from 36,864 to 12,288
 bytes per token. That trade is paid once at training time and collected on
 every request for the life of the model, which is why
 [serving](../../../platform/serving/) cares about it more than training does.
 
-Note where the parameters actually sit: the feed-forward block holds more than
-twice what attention does. That is the usual shape, and it is why
-mixture-of-experts designs attack the feed-forward block rather than attention.
+## What "wrong" means
 
-## What the budget commits you to
+Scores are not probabilities. Softmax turns the 16,512 scores into a
+distribution, and the objective asks one thing of it: put probability on the
+token that actually comes next.
 
-The token budget is the second decision that cannot be fixed later. This run
-spent 3.0B tokens on 88,197,888 parameters — roughly 34 tokens per parameter,
-against the Chinchilla-optimal ratio of about 20. It is deliberately
-over-trained: the compute-optimal ratio minimizes loss for a *training* budget,
-while a model you intend to serve is better spent past that point, because
-inference cost depends on parameters and not on how long you trained them.
+$$
+\mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N} \log p_\theta(x_{i+1} \mid x_{\le i})
+$$
 
-3.0B tokens do not fit in 24GB, so the optimizer step is assembled from pieces.
-A micro-batch of 16 sequences of 1,024 tokens is what fits; eight of those
-accumulate into one optimizer step of 131,072 tokens.
+Three things in that expression carry the whole training loop. The target at
+position $i$ is the input at position $i+1$ — **the sequence shifted left by
+one** — so one forward pass supplies a target at every position simultaneously,
+which is what makes pretraining efficient enough to be possible at all. The
+$\log$ makes confident mistakes expensive without bound. And the mean over
+$N$ positions is what turns 131,072 tokens of disagreement into the single
+scalar the optimizer can differentiate.
 
-<!-- interactive: GradientAccumulation -->
+Predict, before you move anything: if the loss is 3.0984, how often is the
+model right?
 
-Dividing each micro-batch loss by the accumulation count is part of the
-algorithm, not bookkeeping. Omit it and the gradient is scaled by eight, which
-is identical to multiplying the learning rate by eight — a silent change to the
-optimization problem that no log line reports.
+<!-- interactive: NextTokenObjective -->
 
-## Whether the hardware is doing the work
+The conversion is the part worth remembering. A loss of 3.0689 nats means the
+model puts about **4.65%** of its probability on the token that actually comes
+next — one in 21.5. That is an enormous improvement over one in 16,512, and it
+is nowhere near understanding the sentence.
 
-The loop is correct and the budget is set; the run still takes as long as the
-hardware is used well. Model-FLOPs utilization is the fraction of the card's
-theoretical throughput that the run actually converts into training.
+## Why the starting loss is not zero and not arbitrary
 
-<!-- interactive: MFUBreakdown -->
+A model that knows nothing can do no better than spread probability evenly.
+Its loss is therefore the log of the vocabulary size:
+$\ln(16{,}512) = 9.712$ nats. Every correctly initialised run must start
+there — which makes the first number the training loop prints a complete test
+of whether the labels, the mask, and the data splits are wired correctly.
 
-The first measurement on this configuration was 85.5k tokens/second at 33.3%
-MFU, which projected to roughly 9.8 hours. Enabling `torch.compile` moved it to
-165.6k tokens/second and 64.5% — a **1.76x** speedup, and a finished run in
-**4.98 hours**. The gap was not arithmetic; it was memory-bound elementwise work
-and kernel-launch overhead that fusion removes.
+This run measured **9.8697**, sitting 0.158 above the uniform line, the small
+excess expected when weights are random rather than exactly uniform in effect.
+Far *below* the line would mean the model is seeing the answer.
 
-The lesson generalizes past this flag: a wall-clock estimate inherited from a
-differently-configured run is a guess wearing a number.
+That single number costs one forward pass, and it is where the next chapter
+starts.
 
-## What five hours actually bought
+## What this chapter does not establish
 
-A validation curve is only evidence if the held-out tokens were never
-optimized, so [`core/prepare_data.py`](core/prepare_data.py) writes the
-validation file *before* the training file and the loop memory-maps them
-separately — a training window cannot reach into validation data because it is
-not in the same file. The writer also inserts a reserved document separator;
-without it the model would learn that the last sentence of one page predicts
-the first sentence of an unrelated one. Both files are `uint16`, which this
-16,512-token vocabulary fits in, halving storage and memory traffic against
-`int32` at no cost.
-
-![Validation loss over 22,888 steps](runs/loss.svg)
-
-Loss fell from 9.8697 to a best of **3.0689** at step 21,000, a validation
-perplexity of 21.5. It then rose to 3.0984 by step 22,500 — the final 6.5% of
-the budget went the wrong way, while the learning rate was still decaying toward
-its floor.
-
-<!-- interactive: LRSchedule -->
-
-Three explanations fit: the model is beginning to overfit as it approaches one
-full epoch over the corpus (0.95 at the end); the cosine floor is too high to
-settle; or it is evaluation noise, since each point samples the validation set
-rather than consuming it. **This run cannot distinguish them**, because it is one
-run. Separating them needs the paired multi-seed comparison in
-[the data-ablation harness](../../../platform/data/01-ablation-harness/).
-
-Reported at both numbers rather than the better one, and the saved checkpoint is
-the final one, not the best-scoring one.
-
-## Fluent, and useless
-
-The most important output of this stage is not the curve. Sampled from the
-final checkpoint:
-
-> **The capital of France is** the city of Monaco, which is the largest city in
-> the Mediterranean.
-
-> **Photosynthesis is the process by which** the sun shines on the Earth, or in
-> the atmosphere, to provide oxygen for a person to breathe.
-
-Grammatical, confident, and wrong. The model learned English morphology,
-syntax, register, and the shape of an encyclopedia paragraph. It did not learn
-that photosynthesis is performed by plants or that Monaco is not in France, and
-at 88M parameters over 3.0B tokens it was never going to.
-
-This is the correct result, and it is the reason a falling loss curve is not a
-claim about a working model. Fluency is cheap; grounding is not.
-
-## What this run does not establish
-
-That any of the architecture choices are good ones. There is one arm, one seed,
-and no comparison — so nothing here says RMSNorm beat LayerNorm, or that
-grouped-query attention cost nothing. Those are separate experiments with a
-stated budget definition, in
-[architecture ablations](../../../platform/training/02-architecture-ablations/).
-
-Full command, hardware, software versions, generations, and the two monitoring
-mistakes worth avoiding are in
-[`runs/2026-07-28-pretrain-3b.md`](runs/2026-07-28-pretrain-3b.md).
+- **That any architecture choice here is a good one.** RMSNorm, RoPE, SwiGLU,
+  and grouped-query attention are stated, not compared. One run with one seed
+  cannot rank them; [architecture ablations](../../../platform/training/02-architecture-ablations/)
+  is where that question is answered with a stated budget definition.
+- **That the model knows anything.** A falling loss measures next-token
+  agreement with held-out web text, not truth. The next chapter shows what
+  3.0689 looks like when you read it.
+- **That this data mixture is right.** No alternative mixture was trained.
+  [The ablation harness](../../../platform/data/01-ablation-harness/) exists
+  because answering that needs paired runs across seeds, not one run.
 
 ## Reproduce it
 
@@ -172,30 +147,30 @@ mistakes worth avoiding are in
 cd missions/01-language-model-agent/02-pretrain/core
 python model.py                                    # parameter and KV-cache budget, no training
 python prepare_data.py <parquet-dir> <tokenizer.json> --out-dir data/tokens
-python train.py --data data/tokens --out ckpt --tokens 3.0e9 --compile
 ```
 
 [`prod/train_prod.py`](prod/train_prod.py) runs the same configuration through
 HuggingFace `Trainer` and `LlamaForCausalLM`. The two agree at exactly
-88,197,888 parameters, because the four choices in `core/model.py` are Llama's
-architecture written out longhand.
+88,197,888 parameters, because the four choices in
+[`core/model.py`](core/model.py) are Llama's architecture written out longhand.
 
 ## Check your mental model
 
-1. Why is `ln(vocab_size)` the loss a correctly initialized model must start at,
-   and what does a step-0 loss of 5 imply?
-2. Why does omitting the division by the accumulation count change the learning
-   rate rather than just the logged loss?
-3. This run used 34 tokens per parameter against a compute-optimal 20. Why is
-   over-training the right call for a model you intend to serve?
-4. Validation loss rose over the last 1,500 steps. Name the three explanations
-   and say what evidence would separate them.
-5. The model writes fluent English and states that Monaco is the capital of
-   France. Which of those two facts is surprising at this scale?
+1. Roughly four fifths of the raw crawl is discarded before training. Name two
+   filters that do that work and what each one is protecting against.
+2. Why does the loss use the sequence shifted left by one rather than a
+   separate label file?
+3. A validation loss of 3.0689 corresponds to what probability on the correct
+   token? Why is perplexity a friendlier way to say the same thing?
+4. Why must a correctly initialised model start at `ln(vocab_size)`, and what
+   does a step-0 loss of 5 imply?
+5. The KV cache shrinks with the key/value head count and the parameter count
+   barely moves. Why is that trade decided at training time rather than at
+   serving time?
 
 ## Next
 
-[Stage 03](../03-sft/) changes the learning target. Instead of predicting every
-corpus token, it teaches this base model to follow a conversation template,
-masking the loss outside the assistant's response — the first step in turning a
-fluent text predictor into something that answers.
+[Verifying the run](verifying-the-run/) takes the same configuration and asks
+the operational question: five hours is a long time to be wrong, so what can
+you check in the first minute, and what does the finished curve actually
+license you to say?

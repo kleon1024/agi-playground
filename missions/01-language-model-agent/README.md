@@ -16,6 +16,13 @@ built here.
 
 ## Why this mission exists
 
+**What this mission proves is a systems claim, not a quality claim**, and it is
+worth saying before you spend the compute rather than after. The model at the
+end of this chain writes fluent English and is wrong about nearly everything; a
+hosted frontier model beats it on essentially every task. What the chain
+establishes is that the layers are real and compose — and that every mechanism
+in them is something you can run, break, and measure on hardware you own.
+
 It is easy to understand each layer in isolation and still fail to build a
 system. Tokenizer choices change sequence length; sequence length changes
 training and serving cost; architecture choices change the KV cache; the
@@ -40,7 +47,7 @@ declared path actually executed.
 |---|---|---|
 | [`00-corpus`](00-corpus/) | cleaned English shard and a comparison between the readable and production pipelines | verified run |
 | [`01-tokenizer`](01-tokenizer/) | byte-level BPE vocabulary, fast export, and round-trip parity | verified run |
-| [`02-pretrain`](02-pretrain/) | 88.2M decoder, token data path, optimizer loop, and resumable checkpoint | **verified** — 3.0B tokens in 4.98h, best val loss 3.0689 |
+| [`02-pretrain`](02-pretrain/) | 88.2M decoder, token data path, the training objective, and a resumable checkpoint | **verified** — 3.0B tokens in 4.98h, best val loss 3.0689 |
 | [`03-sft`](03-sft/) | chat template, assistant-only loss, and before/after behavior | **verified** — 9,500 conversations in 92.5s, best val loss 2.7828 |
 | [`04-rl`](04-rl/) | GRPO updates against a verifiable reward | implementation present; run pending |
 | [`05-serve`](05-serve/) | KV-cache decoding, paged allocation, and continuous batching | implementation present; run pending |

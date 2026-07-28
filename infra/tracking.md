@@ -55,15 +55,23 @@ exactly what was run, on what hardware, and what it produced:
 ### Filled example
 
 ```markdown
-# Run: 02-pretrain seed run
+# Run: 02-pretrain, 3.0B tokens
 
-- **Command:** `uv run python train.py --config configs/gpt2-124m.yaml --steps 20000`
-- **Config:** `configs/gpt2-124m.yaml` (124M params, RMSNorm/RoPE/SwiGLU, bf16, grad_accum=8)
-- **Hardware:** local RTX 4090 (24GB)
-- **Wall-clock:** 6h 42m
+- **Command:** `python train.py --data data/tokens --out ckpt --tokens 3.0e9 --compile`
+- **Config:** 88,197,888 params (12 layers, d=768, 12 Q heads / 4 KV heads,
+  SwiGLU d_ff=2048, RMSNorm, RoPE), bf16, micro-batch 16 x grad_accum 8
+- **Hardware:** local RTX 4090 (24GB), WSL2, driver 591.86
+- **Wall-clock:** 4.98h
 - **Cost:** \$0 (local hardware)
-- **Metrics:** final train loss 3.12, val loss 3.24; loss curve: `trackio://agi-playground/02-pretrain/run-2026-07-24`
+- **Metrics:** best val loss 3.0689 at step 21,000, final 3.0984; 167.2k tok/s,
+  65.1% MFU, 9.05GB peak; curve in `runs/2026-07-28-pretrain-3b.md`
 ```
+
+Those are the real numbers from
+`missions/01-language-model-agent/02-pretrain/runs/2026-07-28-pretrain-3b.md`,
+and the example uses them for the same reason the rest of the repository does:
+an illustration that is indistinguishable from a record should not contain
+figures nobody measured.
 
 A `run.md` missing any of these fields is incomplete — treat it the same
 as a missing run for the purposes of a lesson's `status: draft`/verified

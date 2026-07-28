@@ -251,10 +251,13 @@ python prod/lm_eval.py --ckpt ../02-pretrain/ckpt/ckpt.pt \
     --out lm_eval_report.json
 ```
 
-No checkpoint has been trained yet — `02-pretrain` is still awaiting GPU time
-— so none of the above has been run for real, and this README reports no
-perplexity, accuracy, or agent score. That is deliberate: publishing a number
-before it exists is exactly the failure mode this stage argues against.
+[Stage 02](../02-pretrain/) has landed a checkpoint and
+[stage 03](../03-sft/) has fine-tuned it, so the commands above now have
+something to point at — but none of them has been run, and this README
+therefore still reports no perplexity, accuracy, or agent score. That is
+deliberate: publishing a number before it exists is exactly the failure mode
+this stage argues against, and having a checkpoint available makes the
+temptation stronger rather than weaker.
 
 ## Exercises
 

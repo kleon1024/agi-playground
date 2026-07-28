@@ -216,9 +216,19 @@
             "label": "Tokenizer \u00b7 verified"
           },
           {
-            "type": "doc",
-            "id": "missions/01-language-model-agent/02-pretrain/index",
-            "label": "Pretraining \u00b7 verified"
+            "type": "category",
+            "label": "Pretraining \u00b7 verified",
+            "link": {
+              "type": "doc",
+              "id": "missions/01-language-model-agent/02-pretrain/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/02-pretrain/verifying-the-run/index",
+                "label": "Verifying the run \u00b7 verified"
+              }
+            ]
           },
           {
             "type": "doc",

@@ -211,6 +211,75 @@
   line-height: var(--leading-sm);
 }
 
+/* Input row above, target row below, so the one-position shift the objective
+   depends on is a thing you can see rather than a sentence you have to trust. */
+.objective-strip {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.35rem;
+  margin: 1rem 0 0.5rem;
+  padding-bottom: 0.35rem;
+  overscroll-behavior-inline: contain;
+}
+
+.objective-strip__column {
+  display: grid;
+  flex: 0 0 auto;
+  justify-items: center;
+  gap: 0.15rem;
+}
+
+.objective-strip__cell {
+  border: 1px solid var(--rehearse-rule);
+  background: var(--rehearse-paper);
+  padding: 0.3rem 0.45rem;
+  font-size: var(--type-xs);
+  white-space: nowrap;
+}
+
+.objective-strip__cell[data-role='target'] {
+  border-color: var(--rehearse-action);
+  background: var(--rehearse-action-soft);
+  color: var(--rehearse-action-strong);
+}
+
+.objective-strip__arrow {
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-xs);
+  line-height: 1;
+}
+
+.learning-widget .objective-note {
+  margin: 0 0 1rem;
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-xs);
+  line-height: var(--leading-sm);
+}
+
+.objective-readout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.objective-readout > div {
+  border-left: 3px solid var(--rehearse-action);
+  padding-left: 0.7rem;
+}
+
+.objective-readout span {
+  display: block;
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-xs);
+  line-height: var(--leading-sm);
+}
+
+.objective-readout strong {
+  font-size: var(--type-md, 1.0625rem);
+  font-variant-numeric: tabular-nums;
+}
+
 .learning-widget svg,
 .learning-widget canvas {
   max-width: 100%;
