@@ -249,10 +249,15 @@
   line-height: 1;
 }
 
+/* This carries explanation ("Against the baseline: 14.69x the throughput of
+   fp32 eager..."), not metadata, so it sits at the 15px explanatory floor
+   rather than the 13px one. It was set to --type-xs because it reads as an
+   aside; a browser check at 390px is what caught that an aside a reader has to
+   understand is still prose. */
 .learning-widget .objective-note {
   margin: 0 0 1rem;
   color: var(--rehearse-copy-muted);
-  font-size: var(--type-xs);
+  font-size: var(--type-sm);
   line-height: var(--leading-sm);
 }
 
@@ -476,8 +481,10 @@
   );
 }
 
+/* Tells the reader how to read the bars, so it is explanatory prose at 15px,
+   not a caption. */
 .upcycle-legend {
   color: var(--rehearse-copy-muted);
-  font-size: var(--type-xs);
+  font-size: var(--type-sm);
   line-height: var(--leading-sm);
 }
