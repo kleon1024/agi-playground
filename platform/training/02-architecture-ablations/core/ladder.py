@@ -41,10 +41,11 @@ from model import (
     d_ff_for,
     depth_width_arms,
     gqa_arms,
+    moe_arms,
     real_params,
 )
 
-RUNGS = ("norm", "position", "activation", "gqa", "depth-width")
+RUNGS = ("norm", "position", "activation", "gqa", "depth-width", "moe")
 
 
 def build_arms(rung: str, control: VariantConfig) -> dict[str, VariantConfig]:
@@ -66,6 +67,8 @@ def build_arms(rung: str, control: VariantConfig) -> dict[str, VariantConfig]:
         return gqa_arms(control)
     if rung == "depth-width":
         return depth_width_arms(control, range(64, 1025, 8))
+    if rung == "moe":
+        return moe_arms(control)
     raise ValueError(f"unknown rung {rung!r}; choose from {RUNGS}")
 
 

@@ -1,5 +1,10 @@
 [
   {
+    "type": "doc",
+    "id": "index",
+    "label": "Start here"
+  },
+  {
     "type": "category",
     "label": "Foundations",
     "link": {

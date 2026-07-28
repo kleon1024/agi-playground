@@ -104,9 +104,45 @@ def analytic_params(cfg: VariantConfig) -> int:
     """
     emb = cfg.vocab_size * cfg.d_model
     attn = cfg.d_model * (cfg.n_head + 2 * cfg.n_kv_head) * cfg.d_head + cfg.d_model**2
-    mlp = 3 * cfg.d_model * cfg.d_ff if cfg.activation == "swiglu" else 2 * cfg.d_model * cfg.d_ff
+    mlp = ffn_params(cfg)["total"]
     learned_pos = cfg.block_size * cfg.d_model if cfg.pos_scheme == "learned" else 0
     return emb + cfg.n_layer * (attn + mlp) + learned_pos
+
+
+def ffn_params(cfg: VariantConfig) -> dict[str, int]:
+    """One block's feed-forward parameters, split into total and active.
+
+    For a dense block these are the same number. For an MoE block they are
+    not, and the gap is the entire reason the arm exists: total parameters
+    decide how much the model can store, active parameters decide what a token
+    costs to compute. Any comparison that quotes one without the other is
+    reporting half a result.
+    """
+    per_matrix = 3 if cfg.activation == "swiglu" else 2
+    if cfg.ffn == "dense":
+        n = per_matrix * cfg.d_model * cfg.d_ff
+        return {"total": n, "active": n}
+    expert = per_matrix * cfg.d_model * cfg.expert_width
+    router = cfg.d_model * cfg.n_routed_expert
+    return {
+        "total": (cfg.n_routed_expert + cfg.n_shared_expert) * expert + router,
+        "active": (cfg.n_active_expert + cfg.n_shared_expert) * expert + router,
+    }
+
+
+def active_params(cfg: VariantConfig) -> int:
+    """Parameters a single token actually passes through.
+
+    Equal to `analytic_params` for a dense model. For MoE it is smaller, and it
+    is the number that predicts training and inference FLOPs.
+    """
+    attn = cfg.d_model * (cfg.n_head + 2 * cfg.n_kv_head) * cfg.d_head + cfg.d_model**2
+    learned_pos = cfg.block_size * cfg.d_model if cfg.pos_scheme == "learned" else 0
+    return (
+        cfg.vocab_size * cfg.d_model
+        + cfg.n_layer * (attn + ffn_params(cfg)["active"])
+        + learned_pos
+    )
 
 
 def real_params(cfg: VariantConfig) -> int:
@@ -345,6 +381,46 @@ def gqa_arms(control: VariantConfig) -> dict[str, VariantConfig]:
     }
 
 
+def moe_arms(control: VariantConfig) -> dict[str, VariantConfig]:
+    """Dense against MoE under both budget definitions, because they disagree.
+
+    A mixture-of-experts block has two parameter counts, and which one you hold
+    equal decides the answer before the run starts:
+
+    - **`moe-equal-active`** sizes each expert so a token passes through the
+      same number of parameters as the dense arm. Compute per token matches;
+      total parameters do not, by roughly the expert count. This is the arm
+      that asks "for the same FLOPs, does extra stored capacity help?" — the
+      question MoE was invented to answer yes to at scale.
+    - **`moe-equal-total`** sizes each expert so the block holds the same
+      parameters as the dense arm in total. Now storage matches and a token
+      passes through roughly `(n_active + n_shared) / (n_routed + n_shared)` of
+      them, so the MoE arm is *cheaper* per token. This asks the opposite
+      question: "for the same memory, how much compute can routing save?"
+
+    Reporting one of these as "MoE beat dense" without saying which is the
+    single most common way this comparison is misread. The ladder refuses to
+    let you: both arms are returned together.
+
+    Expert widths are rounded to a multiple of 8, so the miss against the
+    target is reported rather than hidden — the same discipline
+    `depth_width_arms` applies.
+    """
+    def round8(x: float) -> int:
+        return max(8, round(x / 8) * 8)
+
+    routed, shared, active = control.n_routed_expert, control.n_shared_expert, control.n_active_expert
+    return {
+        "dense": replace(control, ffn="dense"),
+        "moe-equal-active": replace(
+            control, ffn="moe", expert_d_ff=round8(control.d_ff / (active + shared))
+        ),
+        "moe-equal-total": replace(
+            control, ffn="moe", expert_d_ff=round8(control.d_ff / (routed + shared))
+        ),
+    }
+
+
 def depth_width_arms(control: VariantConfig, candidate_widths: range) -> dict[str, VariantConfig]:
     """Depth/width pairs matched to the control's parameter count.
 
@@ -389,6 +465,18 @@ if __name__ == "__main__":
     for name, cfg in gqa_arms(control).items():
         print(f"{name:<5} real params {real_params(cfg):,}")
     print()
+
+    print("-- rung: moe (two budget definitions, which disagree) --")
+    arms = moe_arms(control)
+    base_total, base_active = analytic_params(arms["dense"]), active_params(arms["dense"])
+    for name, cfg in arms.items():
+        total, act = analytic_params(cfg), active_params(cfg)
+        print(f"{name:<18} expert_d_ff={cfg.expert_width:<5} "
+              f"total {total:>10,} ({total / base_total - 1:+6.1%})  "
+              f"active {act:>10,} ({act / base_active - 1:+6.1%})")
+    print("both counts are analytic (norm weights omitted) so the two columns "
+          "are comparable;\nthe percentage misses are expert widths rounded to "
+          "a multiple of 8, reported rather than hidden.\n")
 
     print("-- rung: depth-width (matched to control's parameter count) --")
     for name, cfg in depth_width_arms(control, range(64, 1025, 8)).items():

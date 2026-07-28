@@ -390,7 +390,10 @@ def build_sidebar() -> list:
             "_position": position,
         }
 
-    top = []
+    # The landing page is a doc like any other, and without it here Docusaurus
+    # renders `/` with no sidebar at all — a reader who arrives at the front
+    # door gets four inline links and no way to see the curriculum.
+    top = [{"type": "doc", "id": "index", "label": "Start here"}]
     for section, base_pos in SECTIONS:
         directory = OUT / section
         if not directory.is_dir():
@@ -399,7 +402,7 @@ def build_sidebar() -> list:
         entry["label"] = TITLE_OVERRIDES[section]
         entry["_position"] = base_pos
         top.append(entry)
-    top.sort(key=lambda entry: entry["_position"])
+    top[1:] = sorted(top[1:], key=lambda entry: entry["_position"])
     return [{k: v for k, v in entry.items() if k != "_position"} for entry in top]
 
 

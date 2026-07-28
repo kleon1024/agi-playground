@@ -219,7 +219,7 @@ export default function ProcessDiagram({
           ))}
         </span>
         <span className="process-diagram__conduit-target widget-swap">
-          <span data-shown={!flowing && !atEnd}>not yet released</span>
+          <span data-shown={!flowing && !atEnd}>not handed off yet</span>
           <span data-shown={!flowing && atEnd}>end of the chain</span>
           {steps.slice(1).map((step, index) => (
             <span key={`to-${step.id}`} data-shown={flowing && index === active}>
