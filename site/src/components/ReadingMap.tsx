@@ -61,7 +61,7 @@ const BUILD_PATH: Step[] = [
       {
         href: '/playground/platform/training/02-architecture-ablations/',
         label: 'Architecture ablations',
-        returns: 'a ranking, and the budget definition holding it up',
+        returns: 'a 0.0901-nat win that vanishes when you change what is held equal',
       },
       {
         href: '/playground/platform/training/05-upcycling/',

@@ -220,7 +220,7 @@ Each is entered from a decision, not read in order:
 | Read this | When you need to decide | It returns |
 |---|---|---|
 | [distributed training](01-distributed/) | the model no longer fits one card | a sharding strategy and its communication cost |
-| [architecture ablations](02-architecture-ablations/) | whether a design choice actually helped | a ranking, and the budget definition holding it up |
+| [architecture ablations](02-architecture-ablations/) | whether a design choice actually helped | a 0.0901-nat win that vanishes when the held-equal budget changes |
 | [throughput](03-throughput/) | whether the run uses the card it is already on | 14.69x between the slowest and fastest configuration of an identical model |
 | [upcycling](05-upcycling/) | whether a trained checkpoint can become a different architecture | a converted checkpoint that starts at its parent's loss |
 | [latent reasoning](04-latent-reasoning/) | nothing yet — an open question, kept honest | a stated hypothesis awaiting a run |

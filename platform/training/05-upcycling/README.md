@@ -40,10 +40,11 @@ respect it — quite a lot, as it turns out.
 
 ## The surgery: one feed-forward becomes four experts
 
-The change is to the feed-forward block. The dense model has one; the
-mixture-of-experts variant from
-[architecture ablations](../02-architecture-ablations/) has four routed
-experts and picks two per token. Attention, norms, and embeddings are untouched.
+The change is to the feed-forward block. The dense model has one; this chapter
+reuses the mixture-of-experts block from
+[architecture ablations](../02-architecture-ablations/) and configures it with
+four routed experts, picking two per token. Attention, norms, and embeddings
+are untouched.
 
 `core/upcycle.py` maps the parent's tensors into the new layout:
 
@@ -183,7 +184,9 @@ changing the architecture is no longer all-or-nothing, and the precondition for
 keeping the weights is a shared tokenizer and a shared `d_model` rather than a
 similar-looking design.
 
-[Architecture ablations](../02-architecture-ablations/) trains the same MoE
-shape from scratch, which is the control this chapter's continued-training run
-needs. [The throughput ladder](../03-throughput/) is where the expert-dispatch
-gap above turns into a number you can attribute to a kernel.
+[Architecture ablations](../02-architecture-ablations/) trains that same block
+from scratch against a dense control, and reports the result this chapter
+cannot: at 33M parameters, matched on active parameters, the mixture wins by
+0.0901 nats — and matched on total parameters, it does not win at all.
+[The throughput ladder](../03-throughput/) is where the expert-dispatch gap
+above turns into a number you can attribute to a kernel.

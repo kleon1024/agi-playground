@@ -66,7 +66,7 @@ taking.
 |---|---|---|---|
 | before 02 | what a decoder block is doing at all | [foundations](../../foundations/) | the forward and backward path of one block |
 | 00 | which documents to keep, and whether the filter is defensible | [platform / data](../../platform/data/) | a versioned dataset with rejection reasons |
-| 02 | whether an architecture choice is worth its cost | [architecture ablations](../../platform/training/02-architecture-ablations/) | a ranking, and the budget definition it holds |
+| 02 | whether an architecture choice is worth its cost | [architecture ablations](../../platform/training/02-architecture-ablations/) | a 0.0901-nat win that vanishes when the held-equal budget changes |
 | 02 | why a run will take ten hours, and whether it should | [the throughput ladder](../../platform/training/03-throughput/) | tokens per second, MFU, and what to change |
 | after 02 | whether to keep the checkpoint or retrain a new shape | [upcycling](../../platform/training/05-upcycling/) | a converted checkpoint that starts at the parent's loss |
 | 03 | whether teacher data beats human data | [distillation](../../platform/adaptation/distillation/) | a target format and its tokenizer constraint |
