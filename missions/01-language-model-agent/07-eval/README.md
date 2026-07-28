@@ -3,7 +3,7 @@ status: draft
 base: scratch
 ---
 
-# Stage 07 — Eval
+# How would you know if any of this worked?
 
 **Goal:** produce one honest evaluation report for everything this speedrun
 built, and make the report format itself refuse the claims it cannot support.

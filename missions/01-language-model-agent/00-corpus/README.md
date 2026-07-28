@@ -3,7 +3,7 @@ status: draft
 base: none
 ---
 
-# Stage 00 — Corpus
+# What has to be true of text before you train on it?
 
 **Goal:** turn raw Common Crawl into clean, deduplicated English text, and
 understand every filter that made it clean.

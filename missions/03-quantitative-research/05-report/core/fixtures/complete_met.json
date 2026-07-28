@@ -1,0 +1,38 @@
+{
+  "_disclosure": "Synthetic, hand-authored fixture. No backtest produced these numbers; they exist to exercise the MET branch of report.py's verdict logic against a complete artifact. Do not read these next to a real runs/ entry as though they were the same kind of number.",
+  "baselines": {
+    "buy_and_hold": {
+      "sharpe_net_folds": [0.25, 0.30, 0.20, 0.28, 0.22],
+      "max_drawdown": {"depth": 0.14, "start": "2020-02-19", "trough": "2020-03-23", "end": "2020-08-10"}
+    },
+    "momentum_12_1": {
+      "sharpe_net_folds": [0.55, 0.60, 0.50, 0.58, 0.52]
+    }
+  },
+  "candidate": {
+    "sharpe_net_folds": [0.95, 1.10, 0.85, 1.05, 1.00],
+    "sharpe_gross_folds": [1.05, 1.20, 0.95, 1.15, 1.10],
+    "deflated_sharpe": 0.42,
+    "deflated_sharpe_significance": 0.97,
+    "n_variants_searched": 14,
+    "max_drawdown": {"depth": 0.18, "start": "2020-02-24", "trough": "2020-03-20", "end": "2020-09-02"},
+    "max_position_pct_of_adv": 0.032,
+    "point_in_time_violations": 0,
+    "universe_survivorship_bias_free": true
+  },
+  "cost": {
+    "data_and_compute_usd_per_fold": 4.10,
+    "modeled_txn_cost_bps": 8.5,
+    "modeled_impact_participation_rate": 0.08
+  },
+  "latency": {
+    "p50_ms": 420,
+    "p95_ms": 900
+  },
+  "regimes": [
+    {"name": "2013-2017 low-volatility uptrend", "start": "2013-01-01", "end": "2017-12-31", "candidate_sharpe": 1.62, "momentum_sharpe": 0.95, "buy_hold_sharpe": 0.70},
+    {"name": "2018-2019 range-bound", "start": "2018-01-01", "end": "2019-12-31", "candidate_sharpe": 0.88, "momentum_sharpe": 0.30, "buy_hold_sharpe": 0.10},
+    {"name": "2020 volatility shock", "start": "2020-01-01", "end": "2020-12-31", "candidate_sharpe": -0.41, "momentum_sharpe": 0.05, "buy_hold_sharpe": -0.20},
+    {"name": "2021-2024 higher-rate regime", "start": "2021-01-01", "end": "2024-12-31", "candidate_sharpe": 1.05, "momentum_sharpe": 0.70, "buy_hold_sharpe": 0.30}
+  ]
+}

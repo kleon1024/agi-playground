@@ -3,7 +3,7 @@ status: draft
 base: none
 ---
 
-# Stage 06 — Agent (harness)
+# What turns a model into something that acts?
 
 **Goal:** build a minimal agent harness from scratch — the loop, tool
 schemas, sandboxed execution, context management, and a permission model —

@@ -149,7 +149,14 @@ def numbered(title: str, path: Path) -> str:
     if rel.name != "README.md":
         return title
     position = CHAPTER_ORDER.get(rel.parent.as_posix())
-    return f"{position:02d} — {title}" if position else title
+    if position is None:
+        # Mission stages are not in the curriculum spine — their order is the
+        # numeric prefix on the directory, which is also the URL. Generating
+        # the number from it keeps headings free of one, so inserting a stage
+        # stays a rename rather than an edit to every heading below it.
+        m = DIR_NUM_RE.match(rel.parent.name)
+        position = int(m.group(1)) if m else None
+    return f"{position:02d} — {title}" if position is not None else title
 
 
 def rewrite_links(text: str, src_rel: Path) -> str:

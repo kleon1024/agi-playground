@@ -127,7 +127,7 @@ does_not_prove: >
   and a relationship a strategy exploits tends to erode once enough capital
   trades on it — the opposite failure mode from mission 02's confounded logged
   data, but just as fatal to any claim of durability. The market-impact model
-  is a declared linear participation-rate assumption, not a measurement of how
+  is a declared square-root participation assumption, not a measurement of how
   the market would actually have responded to this strategy's own order flow;
   a strategy that clears this guardrail could still move the market more than
   modeled once it traded real size. The strategy space searched in this

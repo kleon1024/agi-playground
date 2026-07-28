@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# Stage 05 — The value tree
+# How do you trade user value against revenue on purpose?
 
 **Goal:** turn each item's vector of calibrated predictions — click,
 completion, satisfaction, dwell — into the single number a slate is actually

@@ -3,7 +3,7 @@ status: draft
 base: scratch
 ---
 
-# Stage 04 — RL (GRPO)
+# How do you improve a model with no correct answer to copy?
 
 **Goal:** take a policy and optimize it against a *reward signal* through
 actual generation-and-update cycles — sample completions, score them, push

@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# Stage 02 — Recall
+# How do you find candidates without scoring everything?
 
 **Goal:** generate a candidate set from a full catalogue using several cheap
 retrieval methods running in parallel, and show — on a catalogue small enough

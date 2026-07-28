@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# Stage 00 — Market data
+# What did you actually know on the decision date?
 
 **Goal:** turn two free, public market data feeds into a panel that answers
 one question honestly for every row: *what was actually knowable on this

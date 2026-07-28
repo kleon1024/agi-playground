@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# Stage 00 — Interactions
+# What does a click actually tell you?
 
 **Goal:** turn a logged interaction dataset into a train/test split that does
 not lie about how well a model will do, and establish the popularity baseline

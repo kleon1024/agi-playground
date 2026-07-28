@@ -3,7 +3,7 @@ status: draft
 base: scratch
 ---
 
-# Stage 03 — Supervised fine-tuning
+# How does a text predictor learn to answer?
 
 **Goal:** turn stage 02's base model — a next-token predictor over web
 documents, with no notion of "answer the question" — into a model that

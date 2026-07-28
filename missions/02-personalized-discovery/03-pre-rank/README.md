@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# Stage 03 — Pre-rank
+# What can you afford to score, and what must you drop?
 
 **Goal:** cut a candidate set from about a thousand items to about a hundred,
 cheaply enough that the expensive fine-ranker in the next stage never has to

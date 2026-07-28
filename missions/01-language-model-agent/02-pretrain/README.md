@@ -3,7 +3,7 @@ status: draft
 base: scratch
 ---
 
-# Stage 02 — Pretrain
+# What decides whether this run is training correctly?
 
 This stage turns the cleaned corpus and trained tokenizer from stages 00 and 01
 into a decoder that can predict the next token. The model is intentionally

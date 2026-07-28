@@ -1,0 +1,38 @@
+{
+  "_disclosure": "Synthetic, hand-authored fixture. No backtest produced these numbers; they exist to exercise report.py's guardrail-veto path: the primary-metric numbers alone look identical to a pass, and the point of this fixture is that they must not be read that way. Do not read these next to a real runs/ entry as though they were the same kind of number.",
+  "baselines": {
+    "buy_and_hold": {
+      "sharpe_net_folds": [0.25, 0.30, 0.20, 0.28, 0.22],
+      "max_drawdown": {"depth": 0.14, "start": "2020-02-19", "trough": "2020-03-23", "end": "2020-08-10"}
+    },
+    "momentum_12_1": {
+      "sharpe_net_folds": [0.55, 0.60, 0.50, 0.58, 0.52]
+    }
+  },
+  "candidate": {
+    "sharpe_net_folds": [1.00, 1.15, 0.90, 1.08, 1.12],
+    "sharpe_gross_folds": [1.12, 1.28, 1.02, 1.20, 1.24],
+    "deflated_sharpe": -0.08,
+    "deflated_sharpe_significance": 0.62,
+    "n_variants_searched": 340,
+    "max_drawdown": {"depth": 0.17, "start": "2020-02-24", "trough": "2020-03-20", "end": "2020-08-28"},
+    "max_position_pct_of_adv": 0.029,
+    "point_in_time_violations": 0,
+    "universe_survivorship_bias_free": true
+  },
+  "cost": {
+    "data_and_compute_usd_per_fold": 4.30,
+    "modeled_txn_cost_bps": 8.5,
+    "modeled_impact_participation_rate": 0.08
+  },
+  "latency": {
+    "p50_ms": 440,
+    "p95_ms": 950
+  },
+  "regimes": [
+    {"name": "2013-2017 low-volatility uptrend", "start": "2013-01-01", "end": "2017-12-31", "candidate_sharpe": 1.80, "momentum_sharpe": 0.95, "buy_hold_sharpe": 0.70},
+    {"name": "2018-2019 range-bound", "start": "2018-01-01", "end": "2019-12-31", "candidate_sharpe": 1.05, "momentum_sharpe": 0.30, "buy_hold_sharpe": 0.10},
+    {"name": "2020 volatility shock", "start": "2020-01-01", "end": "2020-12-31", "candidate_sharpe": -0.55, "momentum_sharpe": 0.05, "buy_hold_sharpe": -0.20},
+    {"name": "2021-2024 higher-rate regime", "start": "2021-01-01", "end": "2024-12-31", "candidate_sharpe": 1.30, "momentum_sharpe": 0.70, "buy_hold_sharpe": 0.30}
+  ]
+}

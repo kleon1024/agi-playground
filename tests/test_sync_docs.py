@@ -79,7 +79,10 @@ def test_headings_do_not_carry_their_own_chapter_number():
             first = next(
                 (ln for ln in path.read_text().splitlines() if ln.startswith("# ")), ""
             )
-            if re.match(r"^# \d+ [—–-] ", first):
+            # `# Stage 08 — Serving` is the same defect as `# 03 — Pretraining`
+            # wearing a word in front of it, and it slipped past the first
+            # version of this pattern.
+            if re.match(r"^# (?:stage|chapter|part|lesson|step)?\s*\d+\s*[—–:-]\s", first, re.IGNORECASE):
                 offenders.append(f"{path.relative_to(ROOT)}: {first}")
     assert not offenders, (
         "these headings hard-code a chapter number; the number is generated from "

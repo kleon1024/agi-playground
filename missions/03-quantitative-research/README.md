@@ -114,11 +114,11 @@ on top of it.
 | Stage | Deliverable | Layer | Status |
 |---|---|---|---|
 | [`00-market-data`](00-market-data/) | Point-in-time, corporate-action-adjusted, survivorship-bias-aware public market data panel | `platform/data` | Implementation present; run pending |
-| `01-signal-research` | Candidate signal construction from point-in-time-only inputs, with a disclosed search log of every variant tried | new capability, mission-local | Planned |
-| `02-cross-sectional-rank` | Rank the universe by signal and size target weights | `capabilities/rank-decide` | Planned |
-| `03-walk-forward-validation` | Purged, embargoed cross-validation folds; deflated Sharpe against the disclosed search log | `platform/evaluation-observability` | Planned |
-| `04-cost-and-capacity` | Transaction-cost and market-impact model; capacity-constrained position sizing | `platform/evaluation-observability` | Planned |
-| `05-report` | Outcome versus both baselines and every guardrail, with regime-level failure cases | `platform/evaluation-observability` | Planned |
+| [`01-signal-research`](01-signal-research/) | Candidate signal construction from point-in-time-only inputs, with a disclosed search log of every variant tried | new capability, mission-local | verified local run; mission outcome pending |
+| [`02-cross-sectional-rank`](02-cross-sectional-rank/) | Rank the universe by signal and size target weights | `capabilities/rank-decide` | verified local run; mission outcome pending |
+| [`03-walk-forward-validation`](03-walk-forward-validation/) | Purged, embargoed cross-validation folds; deflated Sharpe against the disclosed search log | `platform/evaluation-observability` | verified local run; mission outcome pending |
+| [`04-cost-and-capacity`](04-cost-and-capacity/) | Transaction-cost and market-impact model; capacity-constrained position sizing | `platform/evaluation-observability` | verified local run with assumed costs; mission outcome pending |
+| [`05-report`](05-report/) | Outcome versus both baselines and every guardrail, with regime-level failure cases | `platform/evaluation-observability` | verified evaluator run; outcome cannot determine |
 
 ## What this reuses
 

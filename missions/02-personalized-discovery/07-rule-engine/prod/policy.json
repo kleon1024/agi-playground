@@ -1,0 +1,27 @@
+{
+  "per_creator_cap": 2,
+  "rules": [
+    {
+      "rule_id": "regional_block",
+      "kind": "block",
+      "priority": 0,
+      "condition": "!(region in item.licensed_regions)",
+      "reason": "not licensed in {region}"
+    },
+    {
+      "rule_id": "safety_block",
+      "kind": "block",
+      "priority": 1,
+      "condition": "item.safety_flag == true",
+      "reason": "flagged unsafe for this surface"
+    },
+    {
+      "rule_id": "editorial_boost",
+      "kind": "boost",
+      "priority": 10,
+      "condition": "item.is_editorial_partner == true",
+      "param": 0.08,
+      "reason": "editorial partner boost (+{param:.2f})"
+    }
+  ]
+}

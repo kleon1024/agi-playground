@@ -3,7 +3,7 @@ status: draft
 base: scratch
 ---
 
-# Stage 05 — Serve
+# What makes generation fast enough to use?
 
 **Goal:** take the checkpoint the earlier stages produced and make it fast to
 talk to — built by hand, in three layers, so each layer's win is something you

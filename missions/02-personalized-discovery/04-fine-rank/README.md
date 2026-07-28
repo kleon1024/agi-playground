@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# Stage 04 — Fine-rank
+# Which objective are you actually ranking by?
 
 **Goal:** predict click, completion, satisfaction, and dwell for the roughly
 hundred candidates pre-rank kept — as calibrated probabilities, because the
