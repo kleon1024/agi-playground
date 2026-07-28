@@ -157,6 +157,10 @@ def bench(model_dir: Path, prompt_len: int, max_new_tokens: int, counts: list[in
     - **EOS.** `ignore_eos=True` forces every request to emit exactly
       `max_new_tokens`, matching the core engine's unconditional loop. Without
       it, an early stop would shorten a request and inflate tokens/second.
+    - **The tokenizer.** Prompts go in as token ids and results come out as
+      token ids, exactly as in `core/engine.py`. `skip_tokenizer_init=True`
+      keeps detokenization out of the measured interval so both tables are
+      timing the same work.
 
     `eager` selects whether CUDA graphs are allowed. Running the sweep both
     ways separates two things that are easy to conflate: batching many
@@ -173,6 +177,7 @@ def bench(model_dir: Path, prompt_len: int, max_new_tokens: int, counts: list[in
         model=str(model_dir),
         dtype="bfloat16",
         enable_prefix_caching=False,
+        skip_tokenizer_init=True,
         enforce_eager=eager,
         gpu_memory_utilization=0.6,
         max_model_len=prompt_len + max_new_tokens + 8,

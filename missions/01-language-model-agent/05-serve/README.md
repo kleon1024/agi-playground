@@ -5,50 +5,33 @@ base: scratch
 label: Serving
 ---
 
-# What makes generation fast enough to use?
+# What is the model actually doing between tokens?
 
-**Goal:** take the checkpoint the earlier stages produced and make it fast to
-talk to — built by hand, in three layers, so each layer's win is something you
-can measure rather than take on faith.
+**Question:** you have a trained checkpoint and a loop that calls it. Generating
+one token takes a few milliseconds and the model is 88M parameters, which is
+nothing. So where is the time going, and which of the things you could change
+would actually move it?
 
-Training spends compute once. Serving spends it every single time someone
-sends a prompt, for as long as the model is deployed — which is why a serving
-engine that is 3x slower than it needs to be is a permanent 3x tax, not a
-one-time cost. The three ideas in this lesson — a KV cache, paged memory for
-that cache, and a scheduler that rebalances it every step — are the entire
-reason a modern serving stack looks nothing like `model.generate()` in a loop.
+Training spends compute once. Serving spends it on every prompt for as long as
+the model is deployed, so an engine that is 3x slower than it needs to be is a
+permanent 3x tax rather than a one-time cost. This chapter follows one decode
+step down to the hardware and rebuilds it twice: once to stop recomputing what
+it already knows, and once to stop reserving memory it will not use. The next
+chapter asks the question those two cannot answer — why serving sixteen
+requests should not cost sixteen times as much as serving one.
 
-## What you build
+The running example is `core/engine.py`, which contains the same model served
+three ways so each can be timed against the one before it: `generate_naive`
+feeds the whole sequence through the model every step, `KVCacheEngine` keeps
+what it already computed, and `ContinuousBatchingEngine` holds that cache in
+pages. None of them touches
+[`02-pretrain/core/model.py`](../02-pretrain/core/model.py) — its `forward()`
+has no cache argument and never gets one, because that would thread `past_kv`
+through every training call site for a capability training never uses. The
+engine reimplements the block loop against the trained model's own
+`nn.Linear`, `RMSNorm`, and `SwiGLU` submodules instead.
 
-`core/engine.py` — three engines, each built directly on the one before, so
-each can be benchmarked against its predecessor:
-
-1. **Naive generation** (`generate_naive`) — feed the whole sequence so far
-   through the model at every step. Correct, and it recomputes every prior
-   token's key/value projections on every new token.
-2. **KV cache** (`KVCacheEngine`) — one sequence, one preallocated buffer per
-   layer. Compute K/V for the prompt once, then for each new token only.
-3. **Paged blocks + continuous batching** (`ContinuousBatchingEngine`) — the
-   cache lives in fixed-size physical blocks addressed through a per-sequence
-   block table, allocated on demand and freed on completion, wrapped in a
-   scheduler that admits and evicts requests between every forward pass.
-
-None of this touches [`02-pretrain/core/model.py`](../02-pretrain/core/model.py).
-Its `forward()` has no cache argument and never gets one — that would mean
-threading `past_kv` through every training call site for a capability
-training never uses. Instead `engine.py` re-implements the block loop and the
-attention math with a cache, calling straight into the trained model's own
-`nn.Linear`/`RMSNorm`/`SwiGLU` submodules for every weight, and never calling
-`Transformer.forward()` once a cache is in play. Comments in the file mark
-exactly where and why.
-
-`prod/vllm_serve.py` — converts the same checkpoint into a HuggingFace
-`LlamaForCausalLM` checkpoint (our architecture is, module for module, a
-Llama decoder — see the file's docstring for why the RoPE convention needs no
-permutation trick) and serves it with vLLM, with comments on everything vLLM
-adds beyond the toy engine.
-
-## Why decode is memory-bandwidth-bound, not compute-bound
+## Why is a decode step slow when the arithmetic is trivial?
 
 A single decode step is a matrix-vector product against every weight matrix
 in the model: one query, projected through a `(d_in, d_out)` weight, once per
@@ -64,24 +47,22 @@ AI = FLOPs / bytes ≈ (2 * B * d_in * d_out) / (d_in * d_out * bytes_per_elemen
    = 2B / bytes_per_element
 ```
 
-The `d_in`/`d_out` terms cancel — the result depends only on batch size and
-precision. At bf16 (2 bytes/element), `AI ≈ B`. A GPU has its own ridge
-point — the AI at which compute and bandwidth finish at the same time — set
-by its own FLOPs-per-second-to-bytes-per-second ratio: an A100 (2020), for
-instance, offers roughly 312 TFLOP/s bf16 against roughly 2 TB/s of HBM2e
-bandwidth, a ridge point near **156 FLOPs/byte**. Decoding one token for one
-request (`B=1`) sits at `AI≈1` — two orders of magnitude below that ridge.
-The GPU spends nearly all of its time streaming weights out of HBM and almost
-none of it computing; **prefill**, by contrast, processes the whole prompt as
-one large matmul (`B` = prompt length), pushing `AI` up near or past the
-ridge, which is why prefill is compute-bound while decode is not.
+The `d_in`/`d_out` terms cancel: the answer depends only on batch size and
+precision. At bf16 that is `AI ≈ B`. Every accelerator has a **ridge point**,
+the intensity at which compute and bandwidth finish together, set by its own
+FLOPs-to-bytes ratio — for a datacentre card of the last few years, on the
+order of 150 FLOPs per byte. Decoding one token for one request sits at
+`AI ≈ 1`, two orders of magnitude below it. **Prefill** is the opposite: it
+processes the whole prompt as one large matmul, so `B` is the prompt length and
+the intensity lands near the ridge. Prefill is compute-bound; decode is not,
+and no amount of faster arithmetic will change that.
 
-This is the architectural reason continuous batching (below) is the single
-biggest throughput lever available: it does not reduce the bytes moved per
-weight read, but it multiplies how much compute is extracted per byte moved,
-by increasing the effective `B` the GPU sees on every forward pass. A batch
-of 64 concurrent decode steps has `AI≈64` — still memory-bound on most
-accelerators, but 64x further from idle than one request decoding alone.
+So the card is not computing; it is streaming weights. Two consequences follow,
+and the rest of this chapter is the first one. **Do less streaming per token**
+— which is what a cache and then paging are for. The second consequence,
+**share each stream across more requests**, is what the next chapter is about:
+a batch of 64 concurrent decode steps has `AI≈64`, still memory-bound but 64x
+further from idle than one request alone.
 
 ## The KV cache: linear work instead of quadratic, and what it costs
 
@@ -136,10 +117,8 @@ full context (1024):   36,864 x 1,024                ≈ 36.0 MiB per sequence
 
 Exactly 3x, matching `n_head / n_kv_head`. At 64 concurrent full-context
 sequences that is 768 MiB versus 2.25 GiB — the difference between the cache
-fitting comfortably alongside the weights on a single card and needing to
-turn requests away sooner. GQA is a pretraining-time architecture decision
-that exists entirely to buy inference-time headroom; see `model.py`'s own
-docstring for the training-side half of that story.
+fitting alongside the weights on one card and turning requests away. GQA is a
+pretraining-time decision that exists entirely to buy inference-time headroom.
 
 ## Paging: KV cache as OS-style virtual memory
 
@@ -163,16 +142,13 @@ marked `done`). Waste drops from most of the reservation to a few percent —
 at most one partially-used block per sequence, not one entire
 maximum-length reservation.
 
-The same indirection buys two things this lesson doesn't implement but is
-worth knowing: **copy-on-write**, where two sequences sharing a prefix (e.g.
-parallel samples, beam search) point at the same physical blocks until they
-diverge; and **prefix caching**, where blocks are hashed by content so a
-repeated system prompt across many requests skips recomputing its KV
-entirely. `PagedKVCache.read` in `core/engine.py` gathers a sequence's blocks
-into a contiguous tensor for readability — production kernels fuse that
-gather directly into the attention computation instead of materializing a
-copy, which is real performance left on the table here in exchange for a much
-shorter implementation.
+The same indirection buys two things this lesson does not implement:
+**copy-on-write**, where sequences sharing a prefix point at the same physical
+blocks until they diverge, and **prefix caching**, where blocks are hashed by
+content so a repeated system prompt skips recomputing its KV entirely.
+`PagedKVCache.read` also gathers a sequence's blocks into a contiguous tensor
+for readability, where a production kernel fuses that gather into the attention
+computation — real performance traded for a much shorter implementation.
 
 Add several requests below and compare contiguous reservation with block
 allocation. The important observation is not only higher utilization: freed
@@ -180,115 +156,74 @@ blocks become reusable by an unrelated request immediately.
 
 <!-- interactive: PagedAttention -->
 
-## Continuous batching: a scheduling change, not a bigger batch
+## What these two mechanisms bought
 
-Static batching waits for a fixed group of requests, runs the whole batch
-until every sequence in it finishes, and only then admits new ones — so a
-short request that finishes early sits idle, holding its slot, while the
-batch waits on whatever request is longest. **Continuous batching**
-(Orca's "iteration-level scheduling") instead makes the admit/evict decision
-*every forward pass*: the moment a sequence finishes, its slot and its blocks
-free up, and a waiting request can be admitted into the very next iteration.
-`ContinuousBatchingEngine.step()` is exactly this: `_admit()` pulls in
-whatever waiting requests current free blocks allow, one step runs for every
-currently running request, and anything that just finished is evicted and
-its blocks returned before the function returns. The batch's *composition* —
-not any fixed size parameter — is what changes on every call.
+Measured on the stage-03 chat checkpoint, one request, greedy decoding:
 
-Watch the same requests under static and iteration-level scheduling. No model
-or batch-capacity parameter changes; only the admission decision moves from the
-end of a batch to every forward pass.
+| New tokens | 32 | 64 | 128 | 256 | 512 |
+|---|---:|---:|---:|---:|---:|
+| Naive, tok/s | 99.6 | 120.3 | 123.7 | 123.1 | 130.8 |
+| KV cache, tok/s | 121.2 | 144.2 | 134.7 | 145.1 | 140.7 |
+| Speedup | 1.22x | 1.20x | 1.09x | 1.18x | 1.08x |
 
-<!-- interactive: ContinuousBatching -->
+**The speedup does not grow with sequence length, and that is the finding.**
+Recomputing the whole prefix every step is quadratic, so the gap should widen
+as generation gets longer. It does not. Both engines sit near a flat 120-145
+tokens/second no matter how much work the naive one is redoing.
 
-The engine here loops over admitted requests one at a time in Python; a
-production engine fuses that loop into one batched kernel call over ragged
-sequence lengths (the fused paged-attention kernels `prod/vllm_serve.py`
-gets access to by switching engines). The scheduling logic — what gets
-admitted, what gets evicted, when — is identical either way; only how the
-resulting batch is executed on the GPU differs.
+That is the signature of a *fixed per-step cost* swamping everything else. At
+88M parameters and a batch of one, a decode step is a few dozen small kernel
+launches over weights that must be read from memory whatever the sequence
+length; the attention arithmetic the cache eliminates is small against it until
+sequences run far past 512 tokens. Stage 02 measured the same effect from the
+training side, where `torch.compile` bought 1.76x by fusing memory-bound work
+and removing launch overhead.
 
-That difference is the whole game, and it is measurable. Run this engine at
-1, 2, 4, 8 and 16 concurrent requests and aggregate throughput does not move:
+Memory does behave as predicted: past 256 new tokens the naive path's peak
+exceeds the cached one, because it re-materialises activations for the whole
+sequence every step while the cache holds only keys and values. Full sweep in
+[`runs/2026-07-28-engine-bench.md`](runs/2026-07-28-engine-bench.md).
 
-| Concurrent requests | 1 | 2 | 4 | 8 | 16 |
-|---|---|---|---|---|---|
-| Aggregate tokens/second | 118.8 | 121.4 | 120.9 | 121.0 | 124.5 |
-| Wall-clock | 1.08s | 2.11s | 4.24s | 8.46s | 16.45s |
+Hold on to the flat number. It is the premise of the next chapter.
 
-Sixteen requests take 15.3x as long as one. **Concurrency buys nothing here** —
-and that is not a defect in the scheduler, which is admitting, evicting, and
-freeing exactly as designed. The throughput win of batching comes from one
-kernel serving many sequences and amortising a fixed per-step cost across all
-of them. A per-request Python loop has nothing to amortise.
+## What this chapter does not establish
 
-So continuous batching is two separable things: a **scheduling policy** and a
-**fused kernel**. This lesson implements and can teach the first. The second is
-what makes the first pay, and it is the reason vLLM exists rather than a
-detail of how it is written.
+- **That the KV cache is not worth it.** It establishes that its benefit is
+  invisible below roughly 512 generated tokens at batch 1 on this hardware. The
+  asymptotics are real; this scale does not reach them.
+- **Anything about latency percentiles.** Every measurement here is aggregate
+  throughput on a synthetic prompt. No time-to-first-token, no inter-token
+  distribution, no behaviour under load.
+- **Anything about quality.** Greedy decoding of `range(64)` produces token
+  sequences, not answers.
 
-## Reproducing
+## Reproduce it
 
 ```bash
-# from missions/01-language-model-agent/05-serve/core
-
-# benchmark all three engines against a checkpoint (falls back to a random-init
-# model of the same shape if --checkpoint is omitted, so this runs with no GPU
-# and no trained weights at all — useful for confirming the code path works)
-python engine.py bench --checkpoint ../../02-pretrain/ckpt/ckpt.pt \
-    --device cuda --prompt-len 128 --max-new-tokens 128 --num-requests 16
-
-# generate from a prompt (already-tokenized ids) with the KV cache engine alone
-python engine.py generate --checkpoint ../../02-pretrain/ckpt/ckpt.pt \
-    --prompt-ids 3 7 1 9 2 --max-new-tokens 32
-
-# from ../prod: convert the checkpoint to HF Llama format, then serve with vLLM
-python vllm_serve.py convert ../../02-pretrain/ckpt/ckpt.pt ./hf-checkpoint
-python vllm_serve.py serve ./hf-checkpoint --prompt "Once upon a time"
-# or, the real production entrypoint:
-vllm serve ./hf-checkpoint --port 8000
+cd missions/01-language-model-agent/05-serve/core
+python engine.py bench --checkpoint ../../03-sft/ckpt/ckpt.pt \
+    --device cuda --prompt-len 64 --max-new-tokens 128
 ```
 
-All three engines were checked for exact agreement — naive, KV-cached, and
-paged+continuous-batched all produce identical greedy token sequences on a
-random-init model of this architecture, including under deliberately tight
-block budgets that force the scheduler to admit and evict mid-run — and the
-HF conversion was verified to produce bit-identical logits (`0.0` max
-absolute difference) against `model.py`'s own forward pass. Measured
-throughput, memory, and the two sweeps behind the tables above are in
-[`runs/2026-07-28-engine-bench.md`](runs/2026-07-28-engine-bench.md);
-`prod/vllm_serve.py` has not been benchmarked on the same checkpoint, so the
-claim that a fused kernel would change the concurrency result is attribution
-rather than evidence. The benchmark is built to
-produce exactly the naive-vs-KV-cache-vs-paged comparison this lesson
-describes.
+Omitting `--checkpoint` falls back to a random-init model of the same shape, so
+the code path runs with no GPU and no trained weights at all.
 
-## Exercises
+## Check your mental model
 
-1. **Watch the crossover.** At `--prompt-len 8 --max-new-tokens 8`, the KV
-   cache barely matters — the quadratic term hasn't grown yet. Sweep
-   `--max-new-tokens` up (64, 256, 1024) and find where naive generation's
-   wall-clock stops looking linear.
-2. **Break the block budget on purpose.** Pass a `num_blocks` to
-   `ContinuousBatchingEngine` too small to admit every submitted request at
-   once, and print `engine.waiting` each step. Confirm requests queue and
-   drain rather than crash, and that finished requests' blocks are reused by
-   the ones behind them.
-3. **Measure the paging tax.** `PagedKVCache.read` materializes a contiguous
-   copy every attention call; time how much of `paged+continuous`'s total
-   wall-clock that gather accounts for versus the matmuls themselves.
-4. **Recompute the GQA table for a checkpoint you actually trained**, not the
-   default `Config()`, if your run changed `n_kv_head` or `n_layer` — the
-   formula in this README is general; the numbers in it are this model's
-   defaults specifically.
-5. **Convert and diff.** Run `vllm_serve.py convert`, then load the result
-   with `transformers.LlamaForCausalLM.from_pretrained` directly (no vLLM
-   needed) and compare its logits against `model.py`'s own forward pass on
-   the same input ids — confirm the `0.0` diff this README claims, on your
-   own checkpoint.
+1. A decode step is a matrix-vector product against every weight in the model.
+   Why does that make it memory-bound rather than compute-bound, and what
+   changes when the batch grows?
+2. The KV cache turns quadratic work into linear work, and bought 1.08x at 512
+   tokens. Reconcile those two statements.
+3. Dropping from 12 KV heads to 4 divides the cache by three. Why is that
+   decided during training rather than at serving time?
+4. Paging fixes two distinct kinds of waste. Name both, and say which one a
+   larger block size makes worse.
 
 ## Next
 
-[Stage 06 — agent](../06-agent/): once the model can be queried fast, it can
-be queried repeatedly inside a loop — the next stage wraps this serving layer
-in tool use and multi-step reasoning.
+[Why concurrency should be free](why-concurrency-pays/) takes the flat
+120-145 tokens/second above and asks what happens when sixteen people send a
+prompt at the same time. The answer this engine gives is wrong, in a way that
+is worth 89x.
+

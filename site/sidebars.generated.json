@@ -241,9 +241,19 @@
             "label": "RL (GRPO)"
           },
           {
-            "type": "doc",
-            "id": "missions/01-language-model-agent/05-serve/index",
-            "label": "Serving \u00b7 verified"
+            "type": "category",
+            "label": "Serving \u00b7 verified",
+            "link": {
+              "type": "doc",
+              "id": "missions/01-language-model-agent/05-serve/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/05-serve/why-concurrency-pays/index",
+                "label": "Why concurrency pays \u00b7 verified"
+              }
+            ]
           },
           {
             "type": "doc",
