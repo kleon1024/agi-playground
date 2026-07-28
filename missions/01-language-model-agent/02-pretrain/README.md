@@ -41,6 +41,25 @@ That one number costs one forward pass and rules out most of the ways a
 pretraining run can be silently broken. Nothing else in this chapter is
 available so early or so cheaply.
 
+## What you are actually training
+
+The check above says the wiring is right. This is what the wiring holds: one
+block, repeated twelve times, with a residual stream running through it at a
+constant width of 768.
+
+<!-- interactive: ModelArchitecture -->
+
+Move the key/value head count and watch two numbers move in opposite
+directions. Dropping from 12 KV heads to 4 costs 9,437,184 parameters of
+attention capacity — and divides the KV cache by three, from 36,864 to 12,288
+bytes per token. That trade is paid once at training time and collected on
+every request for the life of the model, which is why
+[serving](../../../platform/serving/) cares about it more than training does.
+
+Note where the parameters actually sit: the feed-forward block holds more than
+twice what attention does. That is the usual shape, and it is why
+mixture-of-experts designs attack the feed-forward block rather than attention.
+
 ## What the budget commits you to
 
 The token budget is the second decision that cannot be fixed later. This run
