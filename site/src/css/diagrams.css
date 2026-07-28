@@ -41,6 +41,7 @@
 }
 
 .process-diagram__track {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(var(--process-step-count), minmax(0, 1fr));
   margin: 0;
@@ -48,12 +49,43 @@
   list-style: none;
 }
 
+/* The artifact itself, riding the wire between two stage centres. Its position
+   is measured, so the same element travels rightwards on a wide screen and
+   downwards on a narrow one. */
+.process-diagram__packet {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 0.85rem;
+  height: 0.85rem;
+  margin-top: -0.425rem;
+  margin-left: -0.425rem;
+  border-radius: 50%;
+  background: var(--rehearse-action);
+  box-shadow: 0 0 0 0.3rem color-mix(in srgb, var(--rehearse-action) 22%, transparent);
+  pointer-events: none;
+  transition:
+    width 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    height 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Parked on a stage rather than crossing between two. */
+.process-diagram__packet[data-flowing='false'] {
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-top: -0.275rem;
+  margin-left: -0.275rem;
+  box-shadow: none;
+}
+
 .process-diagram__step {
   position: relative;
   min-width: 0;
 }
 
-.process-diagram__step:not(:last-child)::after {
+.process-diagram__step:not(:last-of-type)::after {
   position: absolute;
   z-index: 2;
   top: 2.25rem;
@@ -65,6 +97,12 @@
   content: '';
   pointer-events: none;
   transform: rotate(45deg);
+  transition: border-color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* A connector is live only while it is carrying something. */
+.process-diagram__step[data-flowing='true'] {
+  --process-line: var(--rehearse-action);
 }
 
 .process-diagram .process-diagram__node {
@@ -79,7 +117,7 @@
   text-align: left;
 }
 
-.process-diagram__step:last-child .process-diagram__node {
+.process-diagram__step:last-of-type .process-diagram__node {
   border-right: 0;
 }
 
@@ -102,6 +140,60 @@
   font-size: var(--type-xs);
   font-weight: 600;
   line-height: var(--leading-xs);
+}
+
+/* What is on the wire right now, named. The bar is the same clock that drives
+   the packet, so the reader can tell motion from a static highlight. */
+.process-diagram__conduit {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem 0.85rem;
+  border-top: 1px solid var(--rehearse-rule);
+  background: var(--rehearse-paper);
+  padding: 0.85rem 1.5rem;
+  font-size: var(--type-sm);
+  line-height: var(--leading-sm);
+}
+
+.process-diagram__conduit-label {
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.process-diagram__conduit-artifact {
+  min-width: 0;
+  color: var(--rehearse-ink);
+  font-weight: 600;
+}
+
+.process-diagram__conduit[data-flowing='true'] .process-diagram__conduit-artifact {
+  color: var(--rehearse-action-strong);
+}
+
+.process-diagram__conduit-bar {
+  display: block;
+  grid-column: 1 / -1;
+  height: 0.25rem;
+  overflow: hidden;
+  background: var(--rehearse-rule);
+}
+
+.process-diagram__conduit-bar > i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--rehearse-action);
+  transform-origin: left center;
+}
+
+.process-diagram__conduit-target {
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-xs);
+  text-align: right;
 }
 
 .process-diagram__explanation {
@@ -155,7 +247,7 @@
     grid-template-columns: 1fr;
   }
 
-  .process-diagram__step:not(:last-child)::after {
+  .process-diagram__step:not(:last-of-type)::after {
     top: auto;
     right: auto;
     bottom: -0.3rem;
@@ -183,6 +275,16 @@
 
   .process-diagram__index {
     margin: 0;
+  }
+
+  .process-diagram__conduit {
+    grid-template-columns: auto minmax(0, 1fr);
+    padding: 0.85rem 1rem;
+  }
+
+  .process-diagram__conduit-target {
+    grid-column: 1 / -1;
+    text-align: left;
   }
 
   .process-diagram__explanation {

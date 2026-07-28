@@ -45,12 +45,18 @@ available so early or so cheaply.
 ## What you are actually training
 
 The check above says the wiring is right. This is what the wiring holds: one
-block, repeated twelve times, with a residual stream running through it at a
+block, repeated twelve times, with a residual stream running down the left at a
 constant width of 768.
+
+Follow one token down that stream. Each half of the block reads a normalized
+*copy* of the stream, computes, and adds its result back — the stream itself is
+never overwritten. That is the property to watch, because it is what leaves an
+unobstructed path from the loss back to layer 1, and it is the reason depth can
+be added without redesigning anything else.
 
 <!-- interactive: ModelArchitecture -->
 
-Move the key/value head count and watch two numbers move in opposite
+Then move the key/value head count and watch two numbers move in opposite
 directions. Dropping from 12 KV heads to 4 costs 9,437,184 parameters of
 attention capacity — and divides the KV cache by three, from 36,864 to 12,288
 bytes per token. That trade is paid once at training time and collected on

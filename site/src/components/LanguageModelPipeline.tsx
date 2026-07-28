@@ -2,13 +2,13 @@ import React from 'react';
 import ProcessDiagram, { type ProcessStep } from './ProcessDiagram';
 
 const STEPS: ProcessStep[] = [
-  { id: 'corpus', label: 'Corpus', owns: 'Text quality, provenance, and splits.', handoff: 'A versioned training shard.' },
-  { id: 'tokenizer', label: 'Tokenizer', owns: 'The reversible text-to-ID contract.', handoff: 'Stable token IDs and vocabulary.' },
-  { id: 'pretrain', label: 'Base model', owns: 'Next-token representations and checkpoint shape.', handoff: 'A loadable base checkpoint.' },
-  { id: 'adapt', label: 'Adapt', owns: 'Instruction behavior and preference objectives.', handoff: 'A policy with explicit behavior changes.' },
-  { id: 'serve', label: 'Serve', owns: 'Generation latency, memory, and request scheduling.', handoff: 'A bounded generation API.' },
-  { id: 'agent', label: 'Harness', owns: 'Tools, permissions, context, and stop conditions.', handoff: 'Observable trajectories.' },
-  { id: 'eval', label: 'Evaluate', owns: 'Tasks, variance, failures, and claim limits.', handoff: 'Evidence that revises the corpus or system.' },
+  { id: 'corpus', carries: 'a versioned training shard', label: 'Corpus', owns: 'Text quality, provenance, and splits.', handoff: 'A versioned training shard.' },
+  { id: 'tokenizer', carries: 'a frozen vocabulary and token IDs', label: 'Tokenizer', owns: 'The reversible text-to-ID contract.', handoff: 'Stable token IDs and vocabulary.' },
+  { id: 'pretrain', carries: 'a base checkpoint', label: 'Base model', owns: 'Next-token representations and checkpoint shape.', handoff: 'A loadable base checkpoint.' },
+  { id: 'adapt', carries: 'an instruction-following policy', label: 'Adapt', owns: 'Instruction behavior and preference objectives.', handoff: 'A policy with explicit behavior changes.' },
+  { id: 'serve', carries: 'a generation API', label: 'Serve', owns: 'Generation latency, memory, and request scheduling.', handoff: 'A bounded generation API.' },
+  { id: 'agent', carries: 'tool-call trajectories', label: 'Harness', owns: 'Tools, permissions, context, and stop conditions.', handoff: 'Observable trajectories.' },
+  { id: 'eval', carries: 'evidence that revises the corpus', label: 'Evaluate', owns: 'Tasks, variance, failures, and claim limits.', handoff: 'Evidence that revises the corpus or system.' },
 ];
 
 export default function LanguageModelPipeline(): React.ReactElement {

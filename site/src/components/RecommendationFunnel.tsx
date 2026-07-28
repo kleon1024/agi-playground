@@ -2,13 +2,13 @@ import React from 'react';
 import ProcessDiagram, { type ProcessStep } from './ProcessDiagram';
 
 const STEPS: ProcessStep[] = [
-  { id: 'context', label: 'Context', owns: 'User, query, session, market, and eligibility.', handoff: 'A request-level decision context.' },
-  { id: 'recall', label: 'Recall', owns: 'Coverage across semantic, lexical, graph, and fresh queues.', handoff: 'About one thousand eligible candidates.' },
-  { id: 'prerank', label: 'Pre-rank', owns: 'Cheap removal without losing the fine-ranker winners.', handoff: 'About one hundred candidates.' },
-  { id: 'rank', label: 'Fine-rank', owns: 'Calibrated click, consumption, satisfaction, and risk estimates.', handoff: 'A prediction vector per item.' },
-  { id: 'value', label: 'Value tree', owns: 'Explicit trade rates between user value, safety, and revenue.', handoff: 'One comparable utility score.' },
-  { id: 'slate', label: 'Slate', owns: 'Diversity, ads displacement, creator caps, and hard rules.', handoff: 'The actual ordered page.' },
-  { id: 'feedback', label: 'Feedback', owns: 'Exposure, action, dwell, negative feedback, and attribution.', handoff: 'Training evidence with policy bias disclosed.' },
+  { id: 'context', carries: 'a decision context', label: 'Context', owns: 'User, query, session, market, and eligibility.', handoff: 'A request-level decision context.' },
+  { id: 'recall', carries: 'about 1,000 candidates', label: 'Recall', owns: 'Coverage across semantic, lexical, graph, and fresh queues.', handoff: 'About one thousand eligible candidates.' },
+  { id: 'prerank', carries: 'about 100 candidates', label: 'Pre-rank', owns: 'Cheap removal without losing the fine-ranker winners.', handoff: 'About one hundred candidates.' },
+  { id: 'rank', carries: 'a prediction vector per item', label: 'Fine-rank', owns: 'Calibrated click, consumption, satisfaction, and risk estimates.', handoff: 'A prediction vector per item.' },
+  { id: 'value', carries: 'one utility score per item', label: 'Value tree', owns: 'Explicit trade rates between user value, safety, and revenue.', handoff: 'One comparable utility score.' },
+  { id: 'slate', carries: 'the ordered page', label: 'Slate', owns: 'Diversity, ads displacement, creator caps, and hard rules.', handoff: 'The actual ordered page.' },
+  { id: 'feedback', carries: 'logged exposure and actions', label: 'Feedback', owns: 'Exposure, action, dwell, negative feedback, and attribution.', handoff: 'Training evidence with policy bias disclosed.' },
 ];
 
 export default function RecommendationFunnel(): React.ReactElement {

@@ -2,12 +2,12 @@ import React from 'react';
 import ProcessDiagram, { type ProcessStep } from './ProcessDiagram';
 
 const STEPS: ProcessStep[] = [
-  { id: 'batch', label: 'Batch', owns: 'Token IDs, targets, masks, and sequence shape.', handoff: 'A deterministic model input.' },
-  { id: 'forward', label: 'Forward', owns: 'Logits under the current parameters.', handoff: 'Per-token prediction scores.' },
-  { id: 'loss', label: 'Loss', owns: 'How wrong the next-token predictions are.', handoff: 'One scalar objective.' },
-  { id: 'backward', label: 'Backward', owns: 'Credit assignment through every parameter path.', handoff: 'Accumulated gradients.' },
-  { id: 'update', label: 'Update', owns: 'Optimizer state, clipping, and learning rate.', handoff: 'A new parameter state.' },
-  { id: 'checkpoint', label: 'Checkpoint', owns: 'Weights, optimizer, scheduler, and exact resume step.', handoff: 'A reproducible continuation point.' },
+  { id: 'batch', carries: 'token IDs, targets, and masks', label: 'Batch', owns: 'Token IDs, targets, masks, and sequence shape.', handoff: 'A deterministic model input.' },
+  { id: 'forward', carries: 'logits', label: 'Forward', owns: 'Logits under the current parameters.', handoff: 'Per-token prediction scores.' },
+  { id: 'loss', carries: 'one scalar', label: 'Loss', owns: 'How wrong the next-token predictions are.', handoff: 'One scalar objective.' },
+  { id: 'backward', carries: 'gradients', label: 'Backward', owns: 'Credit assignment through every parameter path.', handoff: 'Accumulated gradients.' },
+  { id: 'update', carries: 'new parameters', label: 'Update', owns: 'Optimizer state, clipping, and learning rate.', handoff: 'A new parameter state.' },
+  { id: 'checkpoint', carries: 'a resume point', label: 'Checkpoint', owns: 'Weights, optimizer, scheduler, and exact resume step.', handoff: 'A reproducible continuation point.' },
 ];
 
 export default function PretrainingLoop(): React.ReactElement {
