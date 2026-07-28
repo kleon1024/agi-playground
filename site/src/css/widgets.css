@@ -162,6 +162,36 @@
   margin: 1rem 0;
 }
 
+/*
+ * Text that changes while an animation runs must not resize its own box. A
+ * caption that is one line for "Attention mixes information across positions"
+ * and three for the next phase moves everything below it on every transition,
+ * which is exactly the reading experience motion is supposed to improve.
+ *
+ * Every variant is rendered into the same grid cell, so the box is always as
+ * large as its longest variant and only the current one is visible. The cost is
+ * some hidden markup; the benefit is that the geometry is decided at layout
+ * time and never again.
+ */
+.widget-swap {
+  display: grid;
+}
+
+.widget-swap > * {
+  grid-area: 1 / 1;
+  margin: 0;
+}
+
+.widget-swap > [data-shown='false'] {
+  visibility: hidden;
+}
+
+.widget-controls button {
+  min-width: 4.75rem;
+  justify-content: center;
+  text-align: center;
+}
+
 .widget-controls__status {
   color: var(--rehearse-copy-muted);
   font-size: var(--type-xs);

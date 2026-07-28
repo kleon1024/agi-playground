@@ -60,10 +60,7 @@ export default function ProcessDiagram({
   const transitRef = useRef(0);
   const dwellRef = useRef(DWELL_MS);
 
-  const current = steps[active];
-  const nextStep = steps[active + 1];
-  const flowing = transit > 0 && Boolean(nextStep);
-  const artifact = current.carries ?? current.handoff;
+  const flowing = transit > 0 && Boolean(steps[active + 1]);
 
   const goTo = useCallback((index: number) => {
     activeRef.current = index;
@@ -201,15 +198,34 @@ export default function ProcessDiagram({
         )}
       </ol>
 
+      {/* Every state this strip can show is laid out at once and all but one
+          hidden, so the strip is sized by its longest wording and the diagram
+          above it never moves as the artifact travels. */}
       <div className="process-diagram__conduit" data-flowing={flowing}>
-        <span className="process-diagram__conduit-label">
-          {flowing ? 'In transit' : 'Held by'}
+        <span className="process-diagram__conduit-label widget-swap">
+          <span data-shown={!flowing}>Held by</span>
+          <span data-shown={flowing}>In transit</span>
         </span>
-        <span className="process-diagram__conduit-artifact">
-          {flowing ? artifact : current.label}
+        <span className="process-diagram__conduit-artifact widget-swap">
+          {steps.map((step, index) => (
+            <span key={`held-${step.id}`} data-shown={!flowing && index === active}>
+              {step.label}
+            </span>
+          ))}
+          {steps.map((step, index) => (
+            <span key={`carrying-${step.id}`} data-shown={flowing && index === active}>
+              {step.carries ?? step.handoff}
+            </span>
+          ))}
         </span>
-        <span className="process-diagram__conduit-target">
-          {flowing ? `to ${nextStep.label}` : atEnd ? 'end of the chain' : 'not yet released'}
+        <span className="process-diagram__conduit-target widget-swap">
+          <span data-shown={!flowing && !atEnd}>not yet released</span>
+          <span data-shown={!flowing && atEnd}>end of the chain</span>
+          {steps.slice(1).map((step, index) => (
+            <span key={`to-${step.id}`} data-shown={flowing && index === active}>
+              to {step.label}
+            </span>
+          ))}
         </span>
         <span className="process-diagram__conduit-bar">
           <i style={{ transform: `scaleX(${flowing ? transit : 0})` }} />
@@ -218,12 +234,36 @@ export default function ProcessDiagram({
 
       <div className="process-diagram__explanation" aria-live="polite">
         <div>
-          <span>{current.label} owns</span>
-          <strong>{current.owns}</strong>
+          <span className="process-diagram__explanation-label widget-swap">
+            {steps.map((step, index) => (
+              <span key={step.id} data-shown={index === active}>
+                {step.label} owns
+              </span>
+            ))}
+          </span>
+          <strong className="process-diagram__explanation-body widget-swap">
+            {steps.map((step, index) => (
+              <span key={step.id} data-shown={index === active}>
+                {step.owns}
+              </span>
+            ))}
+          </strong>
         </div>
         <div>
-          <span>{nextStep ? `Hands off to ${nextStep.label}` : 'Hands off'}</span>
-          <strong>{current.handoff}</strong>
+          <span className="process-diagram__explanation-label widget-swap">
+            {steps.map((step, index) => (
+              <span key={step.id} data-shown={index === active}>
+                {steps[index + 1] ? `Hands off to ${steps[index + 1].label}` : 'Hands off'}
+              </span>
+            ))}
+          </span>
+          <strong className="process-diagram__explanation-body widget-swap">
+            {steps.map((step, index) => (
+              <span key={step.id} data-shown={index === active}>
+                {step.handoff}
+              </span>
+            ))}
+          </strong>
         </div>
       </div>
 

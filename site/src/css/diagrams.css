@@ -213,7 +213,7 @@
   border-left: 1px solid color-mix(in srgb, var(--rehearse-surface) 22%, transparent);
 }
 
-.process-diagram__explanation span {
+.process-diagram__explanation-label {
   display: block;
   margin-bottom: 0.3rem;
   color: var(--rehearse-signal);
@@ -224,7 +224,7 @@
   text-transform: uppercase;
 }
 
-.process-diagram__explanation strong {
+.process-diagram__explanation-body {
   font-weight: 500;
 }
 

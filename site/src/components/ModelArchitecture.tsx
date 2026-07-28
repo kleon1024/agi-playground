@@ -325,9 +325,15 @@ export default function ModelArchitecture(): React.ReactElement {
         <circle cx="26" cy={streamY} r="11" fill={action} opacity="0.2" />
       </svg>
 
-      <p className="widget-caption" aria-live="polite">
-        {step.caption}
-      </p>
+      {/* Every caption occupies the same cell, so the box is sized once by the
+          longest one and the drawing above it never moves. */}
+      <div className="widget-caption widget-swap" aria-live="polite">
+        {PHASES.map((phaseStep, index) => (
+          <p key={phaseStep.id} data-shown={index === phase} aria-hidden={index !== phase}>
+            {phaseStep.caption}
+          </p>
+        ))}
+      </div>
 
       <p>
         Per layer: attention <strong>{b.attention.toLocaleString()}</strong> parameters, with{' '}
