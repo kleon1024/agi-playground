@@ -229,8 +229,16 @@ export default function ContinuousBatching(): React.ReactElement {
         <span style={{ color: 'var(--brand-chart-positive)' }}>green</span> again on the very next
         iteration, handed to whichever request is next in line. Continuous
         batching is not a bigger batch size — it is the scheduler deciding
-        per forward pass instead of per batch, which is what turns idle,
-        reserved capacity into throughput.
+        per forward pass instead of per batch.
+      </p>
+      <p>
+        What this diagram shows is the scheduling policy, and that is all it
+        shows. Reclaiming the slot only becomes throughput if the freed
+        capacity is folded into the <em>same</em> forward pass as its
+        neighbours. This lesson&rsquo;s engine schedules exactly as drawn and
+        still measures flat aggregate throughput from 1 to 16 concurrent
+        requests, because it issues one forward pass per request. The policy
+        and the fused kernel are separable, and only the pair pays.
       </p>
     </div>
   );

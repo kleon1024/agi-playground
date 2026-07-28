@@ -1,6 +1,8 @@
 ---
-status: draft
+status: verified
+verified: 2026-07-28
 base: scratch
+label: Serving
 ---
 
 # What makes generation fast enough to use?
@@ -206,6 +208,25 @@ gets access to by switching engines). The scheduling logic — what gets
 admitted, what gets evicted, when — is identical either way; only how the
 resulting batch is executed on the GPU differs.
 
+That difference is the whole game, and it is measurable. Run this engine at
+1, 2, 4, 8 and 16 concurrent requests and aggregate throughput does not move:
+
+| Concurrent requests | 1 | 2 | 4 | 8 | 16 |
+|---|---|---|---|---|---|
+| Aggregate tokens/second | 118.8 | 121.4 | 120.9 | 121.0 | 124.5 |
+| Wall-clock | 1.08s | 2.11s | 4.24s | 8.46s | 16.45s |
+
+Sixteen requests take 15.3x as long as one. **Concurrency buys nothing here** —
+and that is not a defect in the scheduler, which is admitting, evicting, and
+freeing exactly as designed. The throughput win of batching comes from one
+kernel serving many sequences and amortising a fixed per-step cost across all
+of them. A per-request Python loop has nothing to amortise.
+
+So continuous batching is two separable things: a **scheduling policy** and a
+**fused kernel**. This lesson implements and can teach the first. The second is
+what makes the first pay, and it is the reason vLLM exists rather than a
+detail of how it is written.
+
 ## Reproducing
 
 ```bash
@@ -233,11 +254,12 @@ paged+continuous-batched all produce identical greedy token sequences on a
 random-init model of this architecture, including under deliberately tight
 block budgets that force the scheduler to admit and evict mid-run — and the
 HF conversion was verified to produce bit-identical logits (`0.0` max
-absolute difference) against `model.py`'s own forward pass. No throughput,
-latency, or memory numbers are published here: this repo has no GPU
-available, and printing numbers this lesson cannot measure would violate the
-run contract (`../../../standards/lesson-and-run-contract.md`). Run the
-`bench` command above on a GPU to produce them; the benchmark is built to
+absolute difference) against `model.py`'s own forward pass. Measured
+throughput, memory, and the two sweeps behind the tables above are in
+[`runs/2026-07-28-engine-bench.md`](runs/2026-07-28-engine-bench.md);
+`prod/vllm_serve.py` has not been benchmarked on the same checkpoint, so the
+claim that a fused kernel would change the concurrency result is attribution
+rather than evidence. The benchmark is built to
 produce exactly the naive-vs-KV-cache-vs-paged comparison this lesson
 describes.
 
