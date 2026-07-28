@@ -237,17 +237,32 @@ body {
   border-inline-start-width: 3px;
 }
 
+/* `overflow: hidden` here used to be a corner-rounding trick, and it silently
+   ate content. Docusaurus renders a markdown table as `display: block`, so on a
+   narrow screen a table wider than the column was clipped rather than scrolled
+   — the fourth column of the tokenizer comparison simply did not exist on a
+   390px phone, with no scrollbar to suggest anything was missing.
+   Scrolling wins over rounded corners. */
 table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
   border-radius: var(--ifm-global-radius);
-  overflow: hidden;
   font-size: var(--type-sm);
   border: 1px solid var(--ifm-color-emphasis-300);
+  /* Keeps the scroll affordance visible on macOS, where overlay scrollbars
+     hide until touched and a scrollable table looks identical to a clipped
+     one. */
+  scrollbar-width: thin;
 }
 
 table th {
   background: var(--ifm-color-emphasis-200);
   font-family: var(--ifm-heading-font-family);
   font-weight: 600;
+  /* A header cell must not wrap to two lines just because the viewport is
+     narrow; that is what the horizontal scroll is for. */
+  white-space: nowrap;
 }
 
 .markdown > p,

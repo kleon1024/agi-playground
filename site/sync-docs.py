@@ -251,12 +251,31 @@ def fix_admonition_titles(text: str) -> str:
     )
 
 
+# An inline code span, so its contents can be stepped over the way a fenced
+# block is. Longest-run-first, because ``a `b` c`` is one span, not three.
+INLINE_CODE_RE = re.compile(r"(`+)(?:(?!\1).)*\1")
+
+
 def escape_mdx(text: str) -> str:
-    """Escape characters MDX would read as JSX, outside code fences.
+    """Escape characters MDX would read as JSX, outside code.
 
     MDX 3 treats `<` as the start of a JSX tag, so prose like "under <1,000
-    lines" or "<UNK>" fails to compile. Inside fenced code blocks these must be
-    left exactly as written, so fences are stepped over rather than rewritten.
+    lines" fails to compile. Two places must be left exactly as written: fenced
+    blocks, and **inline code spans**.
+
+    A `<` followed by a letter is left alone on purpose, because it is
+    genuinely ambiguous — `<Widget />` in a lesson is a component the page means
+    to render. Anything tag-shaped that must appear literally goes in backticks.
+
+    Inline code is the one that bit. MDX does not parse JSX inside a code span,
+    so `<|im_start|>` in backticks compiles fine and needs no escaping — but
+    escaping it anyway does not round-trip. Markdown renders a code span's
+    contents literally, entities included, so `&lt;|im_start|>` reached the
+    published page as those exact eight characters. The chat-template section of
+    the SFT lesson shipped reading `&lt;|im_start|>user` for a week, which is
+    both wrong and, in a chapter arguing that the template is a learned
+    convention rather than magic syntax, wrong in the most confusing possible
+    place.
     """
     out, in_fence = [], False
     for line in text.split("\n"):
@@ -268,8 +287,15 @@ def escape_mdx(text: str) -> str:
         if in_fence:
             out.append(line)
             continue
-        # A `<` that is not opening a tag or a closing tag is literal text.
-        out.append(re.sub(r"<(?![a-zA-Z/!])", "&lt;", line))
+        # A `<` that is not opening a tag or a closing tag is literal text —
+        # but only outside inline code, which MDX already leaves alone.
+        pieces, cursor = [], 0
+        for span in INLINE_CODE_RE.finditer(line):
+            pieces.append(re.sub(r"<(?![a-zA-Z/!])", "&lt;", line[cursor:span.start()]))
+            pieces.append(span.group(0))
+            cursor = span.end()
+        pieces.append(re.sub(r"<(?![a-zA-Z/!])", "&lt;", line[cursor:]))
+        out.append("".join(pieces))
     return "\n".join(out)
 
 

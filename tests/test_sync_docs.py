@@ -199,3 +199,50 @@ def test_every_published_page_is_reachable_from_the_sidebar():
     assert not missing, "published but unreachable from the sidebar:\n  " + "\n  ".join(
         missing
     )
+
+
+def test_angle_brackets_survive_inline_code_verbatim():
+    """MDX does not parse JSX inside a code span, so `<` there needs no escape.
+
+    Escaping it anyway does not round-trip: markdown renders a code span's
+    contents literally, entities included, so the reader sees the eight
+    characters `&lt;` instead of a `<`. The SFT lesson's chat template shipped
+    that way — in the chapter arguing the template is a learned convention
+    rather than magic syntax, which is the worst possible place for it.
+    """
+    prose = "The bytes `<|im_start|>` mark a turn, and <1,000 lines is prose."
+
+    escaped = SYNC_DOCS.escape_mdx(prose)
+
+    assert "`<|im_start|>`" in escaped, "inline code must be left alone"
+    assert "&lt;1,000" in escaped, "bare prose still needs escaping"
+    assert "&lt;|im_start|" not in escaped
+
+
+def test_fenced_and_inline_code_are_both_stepped_over():
+    document = (
+        "prose with <1,000 lines in it\n"
+        "```python\n"
+        "if a < b:  # a fence is untouched\n"
+        "```\n"
+        "trailing `a < b` span and a bare < here"
+    )
+
+    escaped = SYNC_DOCS.escape_mdx(document)
+
+    assert "&lt;1,000" in escaped
+    assert "if a < b:" in escaped
+    assert "`a < b`" in escaped
+    assert "a bare &lt; here" in escaped
+
+
+def test_a_tag_shaped_token_in_prose_is_left_for_mdx_to_read_as_jsx():
+    """`<` followed by a letter is deliberately not escaped.
+
+    It is genuinely ambiguous — `<Widget />` in a lesson is a component the page
+    means to render. The rule is therefore that a tag-shaped token in prose is
+    treated as a tag, and anything that must appear literally goes in backticks.
+    Documented because the escaping docstring used to claim `<UNK>` was covered
+    here, and it never was.
+    """
+    assert SYNC_DOCS.escape_mdx("a bare <UNK> token") == "a bare <UNK> token"
