@@ -58,6 +58,11 @@ raise the micro-batch.
 takes **≈9.8 hours** — an overnight run. `--compile` should reduce that; the
 real run will report what it actually achieved rather than a projection.
 
+> **Superseded.** The real run enabled `--compile` and sustained 165.6k tok/s
+> at 64.5% MFU, finishing in **4.98 hours**. The 9.8-hour figure above was
+> 1.76x pessimistic because it was projected from this uncompiled measurement.
+> See [`2026-07-28-pretrain-3b.md`](2026-07-28-pretrain-3b.md).
+
 ## What it does not establish
 
 Nothing about model quality. The tokenizer here has a 1,024-token vocabulary
@@ -67,7 +72,8 @@ from this run are not comparable to the real one.
 
 ## Notes
 
-- The `--compile` path is untested as of this run.
+- The `--compile` path was untested as of this run. It was exercised by the
+  [3.0B-token run](2026-07-28-pretrain-3b.md) and is worth 1.76x here.
 - MFU assumes 165 TFLOP/s bf16 dense for the card. The figure is a ratio against
   that constant; a different card needs `peak_flops` adjusted in `train.py`.
 - Padding the vocabulary to 16,512 costs a slightly larger embedding than the

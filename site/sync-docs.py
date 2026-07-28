@@ -413,8 +413,13 @@ def main() -> None:
 
         write_category_files(section, dir_meta)
 
-        # Images and charts referenced by those pages.
-        for img in sorted(src_dir.rglob("*.png")):
+        # Images and charts referenced by those pages. This walks the same
+        # ASSET_SUFFIXES the link rewriter honours: hardcoding ".png" here
+        # meant an SVG chart passed every local check and then failed the
+        # Docusaurus build on an unresolvable image.
+        for img in sorted(src_dir.rglob("*")):
+            if img.suffix.lower() not in ASSET_SUFFIXES:
+                continue
             rel = img.relative_to(ROOT)
             (OUT / rel).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(img, OUT / rel)

@@ -97,7 +97,7 @@ At $k{=}16$: $4 \times 16 = 64$ extra bytes per token. At $k{=}8$ that is 32
 bytes; at $k{=}64$, 256. Recompute it for whatever $k$ a real run uses — the
 formula, not the number, is the fact worth keeping. `uint16` is large enough
 for an index here for the same reason [the pretraining token
-files](../../../missions/01-language-model-agent/02-pretrain/README.md#data-contract-tokenize-once-train-many-times)
+files](../../../missions/01-language-model-agent/02-pretrain/core/prepare_data.py)
 use it: this vocabulary has fewer than 65,536 entries, so a 2-byte index loses
 nothing a 4-byte one would have kept.
 

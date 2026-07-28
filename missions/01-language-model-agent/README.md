@@ -39,7 +39,7 @@ declared path actually executed.
 |---|---|---|
 | [`00-corpus`](00-corpus/) | cleaned English shard and a comparison between the readable and production pipelines | verified run |
 | [`01-tokenizer`](01-tokenizer/) | byte-level BPE vocabulary, fast export, and round-trip parity | verified run |
-| [`02-pretrain`](02-pretrain/) | 88.2M decoder, token data path, optimizer loop, and resumable checkpoint | loop mechanics verified; full run pending |
+| [`02-pretrain`](02-pretrain/) | 88.2M decoder, token data path, optimizer loop, and resumable checkpoint | **verified** — 3.0B tokens in 4.98h, best val loss 3.0689 |
 | [`03-sft`](03-sft/) | chat template, assistant-only loss, and before/after behavior | implementation present; run pending |
 | [`04-rl`](04-rl/) | GRPO updates against a verifiable reward | implementation present; run pending |
 | [`05-serve`](05-serve/) | KV-cache decoding, paged allocation, and continuous batching | implementation present; run pending |
