@@ -323,8 +323,15 @@ def description_from(body: str) -> str:
     return ""
 
 
+# A few READMEs open with a "Read this online" callout, which is useful on
+# GitHub — where the interactive widgets are invisible — and absurd on the site
+# it points at, where it renders as a link to the page you are already reading.
+# Stripped from the generated page and left in the repository file.
+READ_ONLINE_RE = re.compile(r"^>\s*\*\*\[Read this online\].*?(?:\n(?!\n).*)*\n+", re.MULTILINE)
+
+
 def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int, str]:
-    body = src.read_text()
+    body = READ_ONLINE_RE.sub("", src.read_text())
     src_rel = src.relative_to(ROOT)
 
     existing = FRONTMATTER_RE.match(body)
@@ -377,14 +384,12 @@ def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int, str]
     lines.append(f'sidebar_label: "{nav_label}"')
     lines.append("---")
     lines.append("")
-    # A bare filename means nothing to a reader on the web. Link the source
-    # instead of naming it.
-    lines.append(f"[View source on GitHub]({REPO}/{src_rel.as_posix()})")
-    lines.append("")
 
     # Which weights a lesson's claims rest on changes how you read every number
-    # on the page, and it is invisible in a loss curve. `none` is omitted: a
-    # corpus or tokenizer lesson has no model to attribute anything to.
+    # on the page, and it is invisible in a loss curve. This stays at the top
+    # because it conditions how the rest of the page is read. `none` is
+    # omitted: a corpus or tokenizer lesson has no model to attribute anything
+    # to.
     base = meta.get("base")
     if base == "scratch":
         lines.append("**Base model:** trained from scratch in this repository.")
@@ -393,8 +398,14 @@ def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int, str]
         lines.append(f"**Base model:** the published checkpoint `{base[len('external:') :]}`.")
         lines.append("")
 
+    # The source link goes last. It used to sit above the first paragraph,
+    # where the first thing a learner met was an invitation to leave — and the
+    # opening viewport is supposed to establish the learning contract, not
+    # offer an exit. A reader who wants the source wants it after reading.
+    footer = f"\n\n---\n\n[View source on GitHub]({REPO}/{src_rel.as_posix()})\n"
+
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_text("\n".join(lines) + body)
+    dest.write_text("\n".join(lines) + body.rstrip("\n") + footer)
     return title, position, nav_label
 
 

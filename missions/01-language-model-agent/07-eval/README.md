@@ -231,3 +231,21 @@ every metric, the `caveats` block this stage's tooling attaches
 automatically. A report missing any of these isn't a smaller version of a
 passing report — it's a different, weaker claim wearing the same percentage
 sign.
+
+## Next
+
+This is the last stage. The mission is complete when every stage above has a
+run record and this one produces a report that satisfies the criteria just
+listed — not before, which is why several stages are still `draft`.
+
+Two directions from here, and they are different kinds of work:
+
+- **[Why believe the number?](why-believe-the-number/)** — the companion to
+  this chapter, and the one to read before quoting anything produced here.
+  Contamination, judge bias, and differences smaller than the noise all
+  survive every check on this page.
+- **[Mission 02 — personalized discovery](../../02-personalized-discovery/)** —
+  a different decision loop entirely. This mission proved the language-model
+  layers compose; it proved nothing about whether they generalize when the
+  objective, data, and failure modes change. That claim has to be re-earned,
+  which is what mission 02 exists to attempt.

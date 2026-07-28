@@ -167,16 +167,100 @@ Exact commands, hardware, and wall-clock are in [`runs/`](runs/).
 
 ## Check your mental model
 
-1. Byte-level BPE has no `<UNK>`. What happens instead when it meets an emoji,
-   and why is that "expensive but not impossible"?
-2. You double the vocabulary and chars/token barely improves. Which side of the
-   trade got worse, and by how much?
-3. The naive and indexed trainers must produce identical merge lists. What would
-   you conclude from a run where they were 99% identical?
-4. Why does tie-breaking by pair ordering matter, when either rule is
-   self-consistent?
-5. A model trained on this vocabulary converges badly. Name one tokenizer-side
-   cause and the check from this chapter that would have caught it.
+Answer each before opening it.
+
+**1. Byte-level BPE has no `<UNK>`. What happens instead when it meets an emoji,
+and why is that "expensive but not impossible"?**
+
+<details>
+<summary>Answer</summary>
+
+The emoji decomposes into the byte tokens that spell it in UTF-8 — usually four
+of them, none of which the vocabulary merged because emoji were too rare in
+FineWeb-Edu to become frequent pairs. So it costs four positions instead of one.
+
+That is the whole difference between expensive and impossible. A word-level
+tokenizer maps it to `<UNK>`, and every distinct unknown becomes the *same*
+token, so the model cannot tell two of them apart no matter how much data you
+give it. Here the model sees the actual bytes, and can in principle learn from
+them; it is simply paying more context to do so.
+
+</details>
+
+**2. You double the vocabulary and chars/token barely improves. Which side of the
+trade got worse, and by how much?**
+
+<details>
+<summary>Answer</summary>
+
+The parameter side, and it worsened in proportion — doubling the vocabulary
+doubles both the embedding table and the tied output projection, which at
+`d_model = 768` is `2 x 16,384 x 768` growing to `2 x 32,768 x 768`.
+
+The compression side gained almost nothing, because you are past the knee the
+merge stepper shows: the remaining merges are rare whole words that appear in a
+small fraction of documents. You also made every one of those new tokens rarer,
+so each gets fewer training examples. Paying twice for less.
+
+</details>
+
+**3. The naive and indexed trainers must produce identical merge lists. What
+would you conclude from a run where they were 99% identical?**
+
+<details>
+<summary>Answer</summary>
+
+That there is a bug, and that the 1% is where it lives — not that the result is
+"close enough". The two implementations compute the same function by
+construction; the index is only a bookkeeping trick for finding the same
+most-frequent pair faster.
+
+The most likely cause is tie-breaking. When two pairs have equal counts, the
+heap and the linear scan can reach them in different orders, and one divergent
+merge changes every subsequent count. That is why a 99% match is worse news
+than it sounds: the lists agree on the frequent merges nobody was worried about
+and disagree exactly where the ordering rule is doing work.
+
+</details>
+
+**4. Why does tie-breaking by pair ordering matter, when either rule is
+self-consistent?**
+
+<details>
+<summary>Answer</summary>
+
+Because self-consistency is not enough to make two implementations comparable.
+Insertion order depends on how the data structure happened to enumerate the
+corpus, which differs between the naive scan and the indexed heap; pair
+ordering depends only on the pair itself, so both implementations reach the
+same answer.
+
+The point is diagnostic. With a deterministic rule, a difference between the
+two runs means a bug. Without it, a difference might mean a bug or might mean
+nothing, and you have destroyed your ability to tell — which is the same reason
+seeds are fixed everywhere else in this repository.
+
+</details>
+
+**5. A model trained on this vocabulary converges badly. Name one tokenizer-side
+cause and the check from this chapter that would have caught it.**
+
+<details>
+<summary>Answer</summary>
+
+The likeliest cause is a diverging export: the corpus was encoded with the Rust
+encoder while the vocabulary was learned by the Python one, and a mismatch in
+merge ordering or whitespace pre-tokenization means the ids in `train.bin` do
+not mean what the tokenizer says they mean. The model is then learning a
+consistent but scrambled language, which produces a loss curve that falls
+slowly and never gets good.
+
+The export check catches it: 60 documents, 60,978 tokens, zero mismatches. A
+second candidate is a vocabulary-size mismatch — the model configured with
+16,384 rows when the corpus contains a separator id of 16,384 — which surfaces
+as an index error or a dead embedding row rather than as slow convergence.
+
+</details>
 
 ## Next
 

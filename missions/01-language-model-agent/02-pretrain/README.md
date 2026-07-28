@@ -170,7 +170,11 @@ HuggingFace `Trainer` and `LlamaForCausalLM`. The two agree at exactly
 
 ## Next
 
-[Verifying the run](verifying-the-run/) takes the same configuration and asks
-the operational question: five hours is a long time to be wrong, so what can
-you check in the first minute, and what does the finished curve actually
-license you to say?
+**Continue the mission at [stage 03 — SFT](../03-sft/)**, which takes this
+checkpoint and teaches it to answer rather than continue.
+
+Before you launch the run, though, one companion chapter is worth the ten
+minutes: [verifying the run](verifying-the-run/) takes this exact configuration
+and asks the operational question — five hours is a long time to be wrong, so
+what can you check in the first minute, and what does the finished curve
+actually license you to say?

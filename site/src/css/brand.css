@@ -361,9 +361,13 @@ table th {
   margin: 1.25rem 0 2.5rem;
 }
 
+/* One column, not two. This is an ordered eight-stage path, and a two-up grid
+   made it read left, right, down, left — which is precisely the "links jump
+   around with no logic" complaint. A sequence gets a single column so that
+   reading order and build order are the same movement down the page. */
 .reading-map__spine {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   margin: 0;
   padding: 0;
   border-top: 1px solid var(--rehearse-rule);
@@ -376,18 +380,50 @@ table th {
   border-bottom: 1px solid var(--rehearse-rule);
 }
 
-.reading-map__step:nth-child(odd) {
-  border-right: 1px solid var(--rehearse-rule);
-}
-
 .reading-map__step a {
   display: grid;
-  min-height: 7.5rem;
   grid-template-columns: 2.5rem minmax(0, 1fr);
   gap: 0.75rem;
   padding: 1rem;
   color: var(--rehearse-copy-muted);
   text-decoration: none;
+}
+
+/* Side-trips hang beneath their stage, indented past the stage number so they
+   read as belonging to it rather than as steps of their own. A reader going
+   straight down the numbers can skip every one of these and lose nothing. */
+.reading-map__branches {
+  margin: 0 0 0.9rem;
+  padding: 0 1rem 0 4.25rem;
+  list-style: none;
+}
+
+.reading-map__branch {
+  margin: 0 0 0.3rem !important;
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-xs);
+  line-height: var(--leading-sm);
+}
+
+.reading-map__branch a {
+  display: inline;
+  min-height: 0;
+  padding: 0;
+  color: var(--rehearse-action-strong);
+}
+
+.reading-map__branch[data-kind='detour'] a::before {
+  content: '\2197\00a0';
+}
+
+.reading-map__branch[data-kind='companion'] a::before {
+  content: '\21b3\00a0';
+}
+
+@media (max-width: 600px) {
+  .reading-map__branches {
+    padding-left: 1rem;
+  }
 }
 
 .reading-map__step a:hover {
@@ -588,4 +624,43 @@ table th {
 :focus-visible {
   outline: 3px solid color-mix(in srgb, var(--rehearse-action) 45%, transparent);
   outline-offset: 2px;
+}
+
+/* Answers to the end-of-chapter questions, collapsed so the question is a
+   prompt to think rather than a line to read past on the way to the answer. */
+.markdown details {
+  margin: 0.5rem 0 1.5rem;
+  border-left: 3px solid var(--rehearse-rule);
+  padding: 0 0 0 1rem;
+}
+
+.markdown details[open] {
+  border-left-color: var(--rehearse-action);
+}
+
+.markdown details > summary {
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+  color: var(--rehearse-action-strong);
+  font-size: var(--type-sm);
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.markdown details > summary::-webkit-details-marker { display: none; }
+
+.markdown details > summary::before {
+  content: '\25b8';
+  margin-right: 0.5rem;
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.markdown details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.markdown details > :not(summary) {
+  font-size: var(--type-sm);
 }

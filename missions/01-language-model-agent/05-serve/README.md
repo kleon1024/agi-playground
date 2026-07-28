@@ -222,8 +222,12 @@ the code path runs with no GPU and no trained weights at all.
 
 ## Next
 
-[Why concurrency should be free](why-concurrency-pays/) takes the flat
-120-145 tokens/second above and asks what happens when sixteen people send a
-prompt at the same time. The answer this engine gives is wrong, in a way that
-is worth 89x.
+**Continue the mission at [stage 06 — agent](../06-agent/)**, which wraps this
+serving layer in a tool loop.
+
+First, though: [why concurrency should be free](why-concurrency-pays/) takes
+the flat 120-145 tokens/second above and asks what happens when sixteen people
+send a prompt at the same time. The answer this engine gives is wrong, in a way
+that is worth 89x — and stage 06 issues one request per step, so the cost model
+it inherits comes from that chapter rather than this one.
 
