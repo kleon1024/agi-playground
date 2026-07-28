@@ -4,12 +4,19 @@ status: draft
 
 > **[Read this online](https://rehearse.maestro.onl/playground/foundations)**.
 
-# Foundations
+# How does one token find the context it needs?
 
-**Question:** how does one token retrieve useful context, transform it, and
-still leave a stable path for learning through dozens of layers?
+And transform it, and still leave a stable path for learning through dozens of
+layers?
 
-Start here if `Q`, `K`, `V`, residual streams, or normalization still feel
+These are **language-model foundations**, not prerequisites for intelligence in
+general. Attention, decoder blocks, and a first training loop are what you need
+to reason about the next decision in
+[the language-model system](../missions/01-language-model-agent/) — nothing
+here claims to be the base of a broader pyramid, and nothing here has to be
+read before you start a mission.
+
+Come here if `Q`, `K`, `V`, residual streams, or normalization still feel
 like names to memorize. We will follow one token through one decoder block.
 At the end, the block will no longer be a black box:
 

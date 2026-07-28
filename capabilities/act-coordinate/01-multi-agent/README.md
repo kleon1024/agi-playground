@@ -3,10 +3,9 @@ status: draft
 label: Multi-agent
 ---
 
-# Multi-agent systems
+# One agent is stuck. Would a second one help?
 
-**Question:** one agent is stuck. Would a second one help, and how would you
-know it was not just twice the cost?
+And how would you know it was not simply twice the cost?
 
 [Agent systems](../README.md) built one bounded loop: observe, decide,
 propose, validate, execute, record, decide again. Everything in that loop

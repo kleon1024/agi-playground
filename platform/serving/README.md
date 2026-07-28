@@ -2,10 +2,15 @@
 status: draft
 ---
 
-# Serving
+# How does a checkpoint become a responsive service?
 
-**Question:** how does a checkpoint become a responsive service when every
-request has a different prompt length, output length, and memory footprint?
+Every request arrives with a different prompt length, output length, and memory
+footprint, and they all share one card.
+
+[Stage 05 of the language-model system](../../missions/01-language-model-agent/05-serve/)
+sends you here for the cost model of a single request. Take that back; the
+measured numbers, and what batching is worth against a fused kernel, are
+already there.
 
 Follow one request:
 

@@ -3,10 +3,14 @@ status: draft
 label: Safety and governance
 ---
 
-# Safety and governance
+# How does a guardrail become something that actually stops you?
 
-**Question:** how does a declared guardrail become an enforceable boundary
-rather than a sentence in a design document?
+Rather than a sentence in a design document that no code reads.
+
+Every `mission.yaml` in this repository declares guardrails. This chapter is
+what has to exist for those declarations to be worth writing down, and missions
+arrive here at the point where a guardrail must be enforced rather than
+promised.
 
 Safety is a system property. A model may produce an acceptable sentence while
 the surrounding system exposes private data, applies the decision to the wrong

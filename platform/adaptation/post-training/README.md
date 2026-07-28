@@ -3,11 +3,15 @@ status: draft
 label: Post-training
 ---
 
-# Post-training
+# How does a continuation model become an assistant?
 
-**Question:** how do we turn a continuation model into an assistant without
-erasing useful capability or teaching it to imitate the wrong part of a
-conversation?
+And how does it get there without erasing useful capability or learning to
+imitate the wrong part of a conversation?
+
+[Stage 03 of the language-model system](../../../missions/01-language-model-agent/03-sft/)
+sends you here with a base checkpoint and a behavior problem. Take back the
+supervision contract — what is masked, what is scored, and what the template
+guarantees — and run it there against real conversations.
 
 We will follow one prompt through three increasingly strong supervision
 contracts:

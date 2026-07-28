@@ -2,11 +2,16 @@
 status: draft
 ---
 
-# Reinforcement learning
+# How does a model improve with no answer to copy?
 
-**Question:** how can a language-model policy improve from generated attempts
-without collapsing onto reward shortcuts or moving too far from the assistant
-we already trust?
+Only a signal about whether it succeeded. How can a policy improve from its own
+attempts without collapsing onto reward shortcuts or drifting away from the
+assistant we already trust?
+
+[Stage 04 of the language-model system](../../../missions/01-language-model-agent/04-rl/)
+arrives here needing one thing before it spends any compute: the condition
+under which the gradient is non-zero at all. Take that back — it decides
+whether the stage is worth running on a given base.
 
 The loop is:
 

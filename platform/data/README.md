@@ -2,10 +2,14 @@
 status: draft
 ---
 
-# Data
+# How does a raw crawl become a corpus you can defend?
 
-**Question:** how does a raw crawl become a training corpus without silently
-changing what the model is being trained to learn?
+Precisely: without silently changing what the model is being trained to learn.
+
+You are most likely here from
+[stage 00 of the language-model system](../../missions/01-language-model-agent/00-corpus/),
+which needs a filter it can justify to someone who asks why a document was
+dropped. Take back the manifest and the rejection reasons; leave the rest here.
 
 We will follow one concrete artifact: 40,000 HTML responses from Common Crawl.
 The published run processed the same input through a readable local pipeline

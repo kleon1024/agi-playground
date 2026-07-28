@@ -125,10 +125,15 @@ on top of it.
 The point-in-time discipline in stage 00 is the same discipline
 [`platform/data`](../../platform/data/) already teaches for training corpora:
 know exactly what was knowable when, and do not let anything later leak
-backward. Cross-sectional ranking and position sizing reuse
-[`rank-decide`](../../capabilities/), the same capability mission 02 opened for
-recommendation and ads — a third domain composing the same scoring-and-decide
-contract is exactly the reuse claim this repository is trying to earn.
+backward. Cross-sectional ranking and position sizing use the same
+scoring-and-decide contract mission 02 built for recommendation and ads. That
+contract has **not** been extracted into
+[`capabilities/`](../../capabilities/) and should not be until this mission's
+stages run: the promotion gate in
+[`standards/mission-contract.md`](../../standards/mission-contract.md) asks for
+two missions sharing an input/output contract *and* an objective, and a rank
+here maximizes risk-adjusted return where a rank there maximized engagement.
+Naming the shared noun is not evidence that the decision is shared.
 Walk-forward evaluation, harness disclosure, and variance reporting extend
 [`platform/evaluation-observability`](../../platform/evaluation-observability/),
 which already insists on seed variance and disclosed harnesses before mission

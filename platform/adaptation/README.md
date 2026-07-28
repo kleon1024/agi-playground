@@ -1,4 +1,4 @@
-# Adaptation
+# What closes the gap between predicting text and answering a person?
 
 A pretrained base model predicts the next token in a document. Nothing about
 that objective makes it answer a question, call a tool, refuse a request, or
@@ -7,7 +7,12 @@ technique that closes that gap, and it is four chapters rather than one because
 the techniques operate at different scales, on different data, for different
 reasons.
 
-Read them in this order. Each consumes what the previous one leaves behind.
+Missions enter here at the point where a base model exists and its behavior is
+wrong — [stage 03 of the language-model system](../../missions/01-language-model-agent/03-sft/)
+is the usual arrival. Which chapter you need depends on what is missing, so
+read the question column and take the one that matches, not the whole sequence.
+Read in order only if you are building the full pipeline; each chapter then
+consumes what the previous one leaves behind.
 
 | Chapter | The question it answers |
 |---|---|

@@ -4,10 +4,16 @@ base: none
 label: Mid-training
 ---
 
-# Mid-training
+# Where does a base model learn to call a tool?
 
-**Question:** your base model has never made a tool call. Where does that
-behavior come from — and why isn't the answer supervised fine-tuning?
+Your base model has never made one. So where does that behavior come from —
+and why isn't the answer supervised fine-tuning?
+
+No mission in this repository runs this stage, and
+[the language-model system says why](../../../missions/01-language-model-agent/):
+an 88M base has no capacity for exposure at this scale to land in. You are here
+to understand a stage you will read about in other people's model cards, and to
+recognise when a project has skipped it and is asking SFT to do its job.
 
 The three contracts read as one pipeline:
 

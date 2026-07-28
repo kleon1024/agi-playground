@@ -3,10 +3,15 @@ status: draft
 base: scratch
 ---
 
-# Distillation
+# What can you actually copy from a better model?
 
-**Question:** you can afford to *generate* from a good model but not to
-*train* one. What exactly can you copy from it, and what silently fails?
+You can afford to *generate* from a good model but not to *train* one. So what
+exactly transfers — and what silently fails?
+
+[Stage 03 of the language-model system](../../../missions/01-language-model-agent/03-sft/)
+arrives here when the question becomes where its supervision should come from.
+Take back the target format and the tokenizer constraint; both decide what the
+stage can and cannot buy.
 
 We will follow one question — "What is the capital of France?" — through
 three widening views of a teacher model's output:

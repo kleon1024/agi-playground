@@ -3,10 +3,17 @@ status: draft
 label: Agent systems
 ---
 
-# Agent systems
+# What must the software around a model own before it can act?
 
-**Question:** what must the software around a language model own before the
-model can take useful actions safely and repeatably?
+Safely, repeatably, and without the model being the thing you trust to stop.
+
+This is a capability rather than a platform chapter because two missions need
+the same contract:
+[the language-model system's agent harness](../../missions/01-language-model-agent/06-agent/)
+and [personalized discovery's rule engine](../../missions/02-personalized-discovery/07-rule-engine/)
+both need tools, permissions, and stop conditions with the same inputs and the
+same objective. Take back the loop contract; leave the mission-specific tools
+where they belong.
 
 An agent is not “a model with a long prompt.” It is a loop with explicit state,
 tools, validation, permissions, and termination:

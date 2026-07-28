@@ -3,11 +3,16 @@ status: draft
 label: Evaluation
 ---
 
-# Evaluation and observability
+# What evidence justifies replacing what you already run?
 
-**Question:** what evidence is sufficient to replace the current system with a
-candidate, and which part of that evidence belongs to the model, the harness,
-or the serving configuration?
+And when the candidate wins, which part of that evidence belongs to the model,
+which to the harness, and which to the serving configuration?
+
+Every mission ends here: [language-model system stage 07](../../missions/01-language-model-agent/07-eval/),
+[discovery stage 09](../../missions/02-personalized-discovery/09-report/), and
+[quantitative research stage 05](../../missions/03-quantitative-research/05-report/)
+all need the same thing — variance, and the disclosure a result has to carry
+before it means anything. Take that back to whichever one sent you.
 
 Begin with a decision, not a benchmark:
 
