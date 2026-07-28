@@ -104,8 +104,8 @@ def main() -> None:
         "(see module docstring for why this isn't our own checkpoint)",
     )
     ap.add_argument("--dataset", default="HuggingFaceH4/no_robots")
-    ap.add_argument("--train-split", default="train_sft")
-    ap.add_argument("--eval-split", default="test_sft")
+    ap.add_argument("--train-split", default="train")
+    ap.add_argument("--eval-split", default="test")
     ap.add_argument("--out", type=Path, default=Path("ckpt-trl"))
     ap.add_argument("--epochs", type=int, default=3)
     ap.add_argument("--batch", type=int, default=8)
