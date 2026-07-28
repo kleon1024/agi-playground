@@ -627,40 +627,56 @@ table th {
 }
 
 /* Answers to the end-of-chapter questions, collapsed so the question is a
-   prompt to think rather than a line to read past on the way to the answer. */
-.markdown details {
-  margin: 0.5rem 0 1.5rem;
-  border-left: 3px solid var(--rehearse-rule);
+   prompt to think rather than a line to read past on the way to the answer.
+ *
+ * Docusaurus renders <details> through its own Details component, which
+ * already supplies a container, a background, and a disclosure arrow. Adding a
+ * border and a second ::before arrow on top produced two arrows inside a blue
+ * box. So this restyles that component rather than decorating it: the site
+ * palette, a single rule down the left edge, and Docusaurus's own arrow left
+ * exactly where it is.
+ */
+.markdown details.alert {
+  --ifm-alert-background-color: transparent;
+  --ifm-alert-background-color-highlight: transparent;
+  --ifm-alert-border-color: var(--rehearse-rule);
+  --ifm-alert-foreground-color: var(--rehearse-ink);
+  margin: 0.4rem 0 1.75rem;
+  border-width: 0 0 0 2px;
+  border-radius: 0;
+  box-shadow: none;
   padding: 0 0 0 1rem;
 }
 
-.markdown details[open] {
-  border-left-color: var(--rehearse-action);
+.markdown details.alert[open] {
+  --ifm-alert-border-color: var(--rehearse-action);
 }
 
-.markdown details > summary {
+.markdown details.alert > summary {
   min-height: 2.75rem;
   display: flex;
   align-items: center;
-  color: var(--rehearse-action-strong);
+  color: var(--rehearse-copy-muted);
   font-size: var(--type-sm);
   font-weight: 600;
-  cursor: pointer;
-  list-style: none;
 }
 
-.markdown details > summary::-webkit-details-marker { display: none; }
-
-.markdown details > summary::before {
-  content: '\25b8';
-  margin-right: 0.5rem;
-  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+.markdown details.alert[open] > summary {
+  color: var(--rehearse-action-strong);
 }
 
-.markdown details[open] > summary::before {
-  transform: rotate(90deg);
+.markdown details.alert > summary:hover {
+  color: var(--rehearse-action-strong);
 }
 
-.markdown details > :not(summary) {
+/* The component's collapsible region carries the answer prose. Keep it at the
+   explanatory floor rather than inheriting the alert's smaller type. */
+.markdown details.alert > div p,
+.markdown details.alert > div li {
   font-size: var(--type-sm);
+  line-height: var(--leading-sm);
+}
+
+.markdown details.alert > div > *:last-child {
+  margin-bottom: 0;
 }
