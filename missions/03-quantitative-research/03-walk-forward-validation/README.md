@@ -1,6 +1,7 @@
 ---
 status: verified
 verified: 2026-07-27
+label: Walk-forward validation
 ---
 
 # What Sharpe would survive an honest split?

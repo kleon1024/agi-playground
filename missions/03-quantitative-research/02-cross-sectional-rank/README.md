@@ -1,6 +1,7 @@
 ---
 status: verified
 verified: 2026-07-27
+label: Cross-sectional rank
 ---
 
 # What turns a score into a portfolio?

@@ -1,6 +1,7 @@
 ---
 status: draft
 base: none
+label: Mid-training
 ---
 
 # Mid-training

@@ -2,6 +2,7 @@
 status: verified
 verified: 2026-07-28
 base: scratch
+label: Pretraining
 ---
 
 # What decides whether this run is training correctly?

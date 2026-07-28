@@ -1,5 +1,6 @@
 ---
 status: draft
+label: Agent systems
 ---
 
 # Agent systems

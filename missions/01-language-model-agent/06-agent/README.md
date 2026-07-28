@@ -1,6 +1,7 @@
 ---
 status: draft
 base: none
+label: Agent harness
 ---
 
 # What turns a model into something that acts?

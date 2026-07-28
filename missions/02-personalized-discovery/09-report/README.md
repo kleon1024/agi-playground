@@ -2,6 +2,7 @@
 status: verified
 verified: 2026-07-27
 base: none
+label: Outcome report
 ---
 
 # Did the mission earn the right to claim anything?

@@ -1,6 +1,7 @@
 ---
 status: draft
 base: scratch
+label: RL (GRPO)
 ---
 
 # How do you improve a model with no correct answer to copy?

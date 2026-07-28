@@ -2,6 +2,7 @@
 status: verified
 base: scratch
 verified: 2026-07-27
+label: Distributed training
 ---
 
 # Distributed training, without a cluster

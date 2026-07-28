@@ -1,5 +1,6 @@
 ---
 status: draft
+label: Pre-rank
 ---
 
 # What can you afford to score, and what must you drop?

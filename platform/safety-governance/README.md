@@ -1,5 +1,6 @@
 ---
 status: draft
+label: Safety and governance
 ---
 
 # Safety and governance

@@ -1,0 +1,307 @@
+[
+  {
+    "type": "category",
+    "label": "Foundations",
+    "link": {
+      "type": "doc",
+      "id": "foundations/index"
+    },
+    "items": [
+      {
+        "type": "doc",
+        "id": "foundations/01-first-training-loop/index",
+        "label": "First training loop \u00b7 verified"
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Platform",
+    "link": {
+      "type": "doc",
+      "id": "platform/index"
+    },
+    "items": [
+      {
+        "type": "category",
+        "label": "Data",
+        "link": {
+          "type": "doc",
+          "id": "platform/data/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "platform/data/01-ablation-harness/index",
+            "label": "Ablation harness"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Pretraining",
+        "link": {
+          "type": "doc",
+          "id": "platform/training/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "platform/training/01-distributed/index",
+            "label": "Distributed training \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "platform/training/02-architecture-ablations/index",
+            "label": "Architecture ablations"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Adaptation",
+        "link": {
+          "type": "doc",
+          "id": "platform/adaptation/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "platform/adaptation/mid-training/index",
+            "label": "Mid-training"
+          },
+          {
+            "type": "doc",
+            "id": "platform/adaptation/post-training/index",
+            "label": "Post-training"
+          },
+          {
+            "type": "doc",
+            "id": "platform/adaptation/distillation/index",
+            "label": "Distillation"
+          },
+          {
+            "type": "doc",
+            "id": "platform/adaptation/reinforcement-learning/index",
+            "label": "Reinforcement learning"
+          }
+        ]
+      },
+      {
+        "type": "doc",
+        "id": "platform/serving/index",
+        "label": "Serving"
+      },
+      {
+        "type": "doc",
+        "id": "platform/evaluation-observability/index",
+        "label": "Evaluation"
+      },
+      {
+        "type": "doc",
+        "id": "platform/safety-governance/index",
+        "label": "Safety and governance"
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Capabilities",
+    "link": {
+      "type": "doc",
+      "id": "capabilities/index"
+    },
+    "items": [
+      {
+        "type": "category",
+        "label": "Agent systems",
+        "link": {
+          "type": "doc",
+          "id": "capabilities/act-coordinate/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "capabilities/act-coordinate/01-multi-agent/index",
+            "label": "Multi-agent"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Missions",
+    "link": {
+      "type": "doc",
+      "id": "missions/index"
+    },
+    "items": [
+      {
+        "type": "category",
+        "label": "Language-model agent",
+        "link": {
+          "type": "doc",
+          "id": "missions/01-language-model-agent/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "missions/01-language-model-agent/00-corpus/index",
+            "label": "Corpus"
+          },
+          {
+            "type": "doc",
+            "id": "missions/01-language-model-agent/01-tokenizer/index",
+            "label": "Tokenizer \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/01-language-model-agent/02-pretrain/index",
+            "label": "Pretraining \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/01-language-model-agent/03-sft/index",
+            "label": "SFT"
+          },
+          {
+            "type": "doc",
+            "id": "missions/01-language-model-agent/04-rl/index",
+            "label": "RL (GRPO)"
+          },
+          {
+            "type": "doc",
+            "id": "missions/01-language-model-agent/05-serve/index",
+            "label": "Serve"
+          },
+          {
+            "type": "doc",
+            "id": "missions/01-language-model-agent/06-agent/index",
+            "label": "Agent harness"
+          },
+          {
+            "type": "doc",
+            "id": "missions/01-language-model-agent/07-eval/index",
+            "label": "Eval"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Personalized discovery",
+        "link": {
+          "type": "doc",
+          "id": "missions/02-personalized-discovery/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "missions/02-personalized-discovery/00-interactions/index",
+            "label": "Interactions"
+          },
+          {
+            "type": "doc",
+            "id": "missions/02-personalized-discovery/01-content-understanding/index",
+            "label": "Content understanding \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/02-personalized-discovery/02-recall/index",
+            "label": "Recall"
+          },
+          {
+            "type": "doc",
+            "id": "missions/02-personalized-discovery/03-pre-rank/index",
+            "label": "Pre-rank"
+          },
+          {
+            "type": "doc",
+            "id": "missions/02-personalized-discovery/04-fine-rank/index",
+            "label": "Fine-rank"
+          },
+          {
+            "type": "doc",
+            "id": "missions/02-personalized-discovery/05-value-tree/index",
+            "label": "Value tree"
+          },
+          {
+            "type": "doc",
+            "id": "missions/02-personalized-discovery/06-mixing/index",
+            "label": "Mixing \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/02-personalized-discovery/07-rule-engine/index",
+            "label": "Rule engine \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/02-personalized-discovery/08-serving/index",
+            "label": "Serving \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/02-personalized-discovery/09-report/index",
+            "label": "Outcome report \u00b7 verified"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Quantitative research",
+        "link": {
+          "type": "doc",
+          "id": "missions/03-quantitative-research/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "missions/03-quantitative-research/00-market-data/index",
+            "label": "Market data"
+          },
+          {
+            "type": "doc",
+            "id": "missions/03-quantitative-research/01-signal-research/index",
+            "label": "Signal research \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/03-quantitative-research/02-cross-sectional-rank/index",
+            "label": "Cross-sectional rank \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/03-quantitative-research/03-walk-forward-validation/index",
+            "label": "Walk-forward validation \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/03-quantitative-research/04-cost-and-capacity/index",
+            "label": "Cost and capacity \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/03-quantitative-research/05-report/index",
+            "label": "Outcome report \u00b7 verified"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "doc",
+    "id": "standards/index",
+    "label": "Standards"
+  },
+  {
+    "type": "doc",
+    "id": "infra/index",
+    "label": "Infrastructure"
+  },
+  {
+    "type": "doc",
+    "id": "research/index",
+    "label": "Research"
+  }
+]

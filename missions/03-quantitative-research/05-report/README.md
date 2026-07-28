@@ -1,6 +1,7 @@
 ---
 status: verified
 verified: 2026-07-27
+label: Outcome report
 ---
 
 # Can this mission claim anything at all?

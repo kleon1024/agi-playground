@@ -1,6 +1,7 @@
 ---
 status: verified
 verified: 2026-07-27
+label: Cost and capacity
 ---
 
 # How much can the paper return actually carry?

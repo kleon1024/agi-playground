@@ -1,5 +1,6 @@
 ---
 status: draft
+label: Fine-rank
 ---
 
 # Which objective are you actually ranking by?

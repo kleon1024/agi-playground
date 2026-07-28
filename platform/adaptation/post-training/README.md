@@ -1,5 +1,6 @@
 ---
 status: draft
+label: Post-training
 ---
 
 # Post-training

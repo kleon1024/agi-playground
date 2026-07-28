@@ -1,5 +1,6 @@
 ---
 status: draft
+label: Multi-agent
 ---
 
 # Multi-agent systems

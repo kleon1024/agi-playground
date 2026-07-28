@@ -1,5 +1,6 @@
 ---
 status: draft
+label: Evaluation
 ---
 
 # Evaluation and observability

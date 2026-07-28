@@ -20,6 +20,7 @@ translating:
 
 from __future__ import annotations
 
+import json
 import re
 import shutil
 from pathlib import Path
@@ -237,7 +238,7 @@ def description_from(body: str) -> str:
     return ""
 
 
-def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int]:
+def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int, str]:
     body = src.read_text()
     src_rel = src.relative_to(ROOT)
 
@@ -284,12 +285,11 @@ def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int]:
         lines.append(f'description: "{desc}"')
     lines.append(f"sidebar_position: {position}")
     status = meta.get("status")
-    if label:
-        lines.append(f'sidebar_label: "{label}"')
-    elif status:
-        # Surface build status in the sidebar rather than hiding it in prose.
-        suffix = " — verified" if status == "verified" else ""
-        lines.append(f'sidebar_label: "{title}{suffix}"')
+    nav_label = label or short_label(src, meta)
+    if status == "verified" and src.name == "README.md":
+        # Build status belongs where a reader chooses what to read next.
+        nav_label = f"{nav_label} \u00b7 verified"
+    lines.append(f'sidebar_label: "{nav_label}"')
     lines.append("---")
     lines.append("")
     # A bare filename means nothing to a reader on the web. Link the source
@@ -310,7 +310,77 @@ def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int]:
 
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text("\n".join(lines) + body)
-    return title, position
+    return title, position, nav_label
+
+
+def short_label(path: Path, meta: dict[str, str]) -> str:
+    """The nav label, which is not the page title.
+
+    A chapter heading is a question the reader is about to answer — "What has
+    to be true of text before you train on it?" — and that is right on the
+    page and unusable in a sidebar, where eight of them wrap to two lines each
+    and become a wall. The label is a short noun; `label:` in the frontmatter
+    overrides the tidied directory name when that name is a poor one.
+    """
+    if meta.get("label"):
+        return meta["label"]
+    name = path.parent.name if path.name == "README.md" else path.stem
+    name = DIR_NUM_RE.sub("", name).replace("-", " ").replace("_", " ").strip()
+    return name[:1].upper() + name[1:] if name else "Overview"
+
+
+# Supporting material: real pages, reachable from the prose that cites them,
+# but not nodes in the curriculum. Leaving them in produced a sidebar that read
+# "Evidence, Evidence, Evidence" between chapters.
+UNLISTED_DIRS = {"runs", "core", "prod"}
+
+
+def build_sidebar() -> list:
+    """Generate the sidebar explicitly instead of letting Docusaurus infer it.
+
+    Autogeneration walks every directory, so every `runs/`, `core/` and `prod/`
+    folder became a nav category. Building it here means the tree contains
+    chapters and nothing else.
+    """
+
+    def node(directory: Path):
+        rel = directory.relative_to(OUT)
+        children = []
+        for child in sorted(directory.iterdir()):
+            if not child.is_dir() or child.name in UNLISTED_DIRS:
+                continue
+            if not (child / "index.md").exists() and not (child / "index.mdx").exists():
+                continue
+            children.append(node(child))
+        children.sort(key=lambda entry: entry["_position"])
+        doc_id = f"{rel.as_posix()}/index"
+        label = SIDEBAR_LABELS.get(rel.as_posix(), rel.name)
+        position = SIDEBAR_POSITIONS.get(rel.as_posix(), DEFAULT_POSITION)
+        if not children:
+            return {"type": "doc", "id": doc_id, "label": label, "_position": position}
+        return {
+            "type": "category",
+            "label": label,
+            "link": {"type": "doc", "id": doc_id},
+            "items": [{k: v for k, v in c.items() if k != "_position"} for c in children],
+            "_position": position,
+        }
+
+    top = []
+    for section, base_pos in SECTIONS:
+        directory = OUT / section
+        if not directory.is_dir():
+            continue
+        entry = node(directory)
+        entry["label"] = TITLE_OVERRIDES[section]
+        entry["_position"] = base_pos
+        top.append(entry)
+    top.sort(key=lambda entry: entry["_position"])
+    return [{k: v for k, v in entry.items() if k != "_position"} for entry in top]
+
+
+SIDEBAR_LABELS: dict[str, str] = {}
+SIDEBAR_POSITIONS: dict[str, int] = {}
 
 
 def write_category_files(section: str, dir_meta: dict[Path, tuple[str, int]]) -> None:
@@ -370,7 +440,11 @@ def main() -> None:
         for src in sorted(src_dir.rglob("*.md")):
             rel = src.relative_to(ROOT)
             dest_rel = rel.with_name("index.md") if src.name == "README.md" else rel
-            title, position = convert(src, OUT / dest_rel, None)
+            title, position, nav_label = convert(src, OUT / dest_rel, None)
+            if src.name == "README.md":
+                key = dest_rel.parent.as_posix()
+                SIDEBAR_LABELS[key] = nav_label
+                SIDEBAR_POSITIONS[key] = position
             if src.name == "README.md" and rel.parent != Path(section):
                 dir_meta[rel.parent] = (title, position)
             count += 1
@@ -405,6 +479,11 @@ def main() -> None:
             rel = img.relative_to(ROOT)
             (OUT / rel).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(img, OUT / rel)
+
+    sidebar = build_sidebar()
+    (Path(__file__).resolve().parent / "sidebars.generated.json").write_text(
+        json.dumps(sidebar, indent=2) + "\n"
+    )
 
     print(f"synced {count} pages from the repository into {OUT.relative_to(ROOT)}")
 

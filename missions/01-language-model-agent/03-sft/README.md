@@ -1,6 +1,7 @@
 ---
 status: draft
 base: scratch
+label: SFT
 ---
 
 # How does a text predictor learn to answer?

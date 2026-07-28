@@ -1,5 +1,6 @@
 ---
 status: draft
+label: Language-model agent
 ---
 
 # Raw text to a tool-using model
