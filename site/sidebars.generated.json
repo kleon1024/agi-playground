@@ -77,6 +77,11 @@
           },
           {
             "type": "doc",
+            "id": "platform/training/04-latent-reasoning/index",
+            "label": "Latent reasoning"
+          },
+          {
+            "type": "doc",
             "id": "platform/training/LANDSCAPE",
             "label": "Landscape"
           }
