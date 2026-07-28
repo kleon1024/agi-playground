@@ -4,7 +4,6 @@ type MapLink = {
   href: string;
   label: string;
   note: string;
-  status?: 'verified' | 'draft';
 };
 
 const BUILD_PATH: MapLink[] = [
@@ -12,61 +11,51 @@ const BUILD_PATH: MapLink[] = [
     href: '/playground/foundations/',
     label: 'Mechanism',
     note: 'Follow one token through attention, residual updates, and logits.',
-    status: 'draft',
   },
   {
     href: '/playground/foundations/01-first-training-loop/',
     label: 'First training loop',
     note: 'Make the forward pass, loss, gradients, and update visible.',
-    status: 'verified',
   },
   {
     href: '/playground/missions/01-language-model-agent/00-corpus/',
     label: 'Corpus',
     note: 'Turn raw web text into a training-ready shard.',
-    status: 'draft',
   },
   {
     href: '/playground/missions/01-language-model-agent/01-tokenizer/',
     label: 'Tokenizer',
     note: 'Build the vocabulary that fixes every later token ID.',
-    status: 'verified',
   },
   {
     href: '/playground/missions/01-language-model-agent/02-pretrain/',
     label: 'Pretrain',
     note: 'Train the decoder and produce a resumable checkpoint.',
-    status: 'verified',
   },
   {
     href: '/playground/missions/01-language-model-agent/03-sft/',
     label: 'SFT',
     note: 'Teach the checkpoint to answer with assistant-only loss.',
-    status: 'verified',
   },
   {
     href: '/playground/missions/01-language-model-agent/04-rl/',
     label: 'RL',
     note: 'Improve behavior only where a verifiable reward exists.',
-    status: 'draft',
   },
   {
     href: '/playground/missions/01-language-model-agent/05-serve/',
     label: 'Serve',
     note: 'Measure decoding, cache use, batching, and concurrency.',
-    status: 'verified',
   },
   {
     href: '/playground/missions/01-language-model-agent/06-agent/',
     label: 'Agent',
     note: 'Put the model inside a bounded tool loop.',
-    status: 'draft',
   },
   {
     href: '/playground/missions/01-language-model-agent/07-eval/',
     label: 'Evaluate',
     note: 'Decide what the complete system earned the right to claim.',
-    status: 'draft',
   },
 ];
 
@@ -127,9 +116,6 @@ export function BuildPath(): React.ReactElement {
               <span className="reading-map__step-copy">
                 <span className="reading-map__step-heading">
                   <strong>{step.label}</strong>
-                  <span className={`reading-map__status reading-map__status--${step.status}`}>
-                    {step.status}
-                  </span>
                 </span>
                 <span>{step.note}</span>
               </span>

@@ -407,24 +407,6 @@ table th {
   font-size: var(--type-lg);
 }
 
-.reading-map__status {
-  padding: 0.08rem 0.4rem;
-  font-size: var(--type-xs);
-  font-weight: 700;
-  line-height: 1.4;
-  text-transform: uppercase;
-}
-
-.reading-map__status--verified {
-  background: var(--rehearse-success-soft);
-  color: var(--rehearse-success);
-}
-
-.reading-map__status--draft {
-  background: var(--rehearse-caution-soft);
-  color: var(--rehearse-caution-strong);
-}
-
 .mission-branches {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
