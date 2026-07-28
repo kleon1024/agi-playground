@@ -5,41 +5,65 @@ slug: /
 hide_title: true
 ---
 
-import CurriculumMap from '@site/src/components/CurriculumMap';
+import {
+  BuildPath,
+  DecisionPaths,
+  ReferenceLayers,
+} from '@site/src/components/ReadingMap';
 
 <section className="playground-hero">
-  <div className="playground-hero__eyebrow">Executable AI systems curriculum</div>
-  <h1>Build AI systems from infrastructure to measurable outcomes</h1>
+  <div className="playground-hero__eyebrow">From scratch, then production, always measured</div>
+  <h1>Build one AI system all the way through</h1>
   <div className="playground-hero__copy">
-    Most AI curricula explain how one model is made. They do not show who a
-    system serves, which decision it owns, or how to prove that it worked.
+    Start with raw text. Build the tokenizer, train and adapt the model, serve
+    it, place it inside a tool loop, and evaluate the complete system.
   </div>
   <div className="playground-hero__copy">
-    Learn the durable skill instead: <strong>identify the decision loop, choose
-    the capabilities that serve it, build the system, and prove the
-    outcome.</strong>
+    Then reuse the same engineering discipline for recommendation and
+    quantitative research. You will learn <strong>where each failure belongs
+    and what evidence is required before making a claim.</strong>
+  </div>
+  <div className="playground-hero__actions">
+    <a className="playground-hero__primary" href="/playground/foundations/01-first-training-loop/">
+      Start with the first training loop
+    </a>
+    <a className="playground-hero__secondary" href="#the-complete-build-path">
+      See the reading map
+    </a>
   </div>
 </section>
 
-<CurriculumMap />
+## The complete build path
 
-:::tip[The two invariants]
+Follow one artifact from raw text to a decision about the finished system.
+Each chapter consumes the previous chapter's output. The status tells you
+whether its declared run has been recorded, not whether code merely exists.
+
+<BuildPath />
+
+## Then test a different decision loop
+
+The language-model path proves that the layers compose. These missions ask
+whether the architecture still works when the model, objective, data, and
+failure modes change.
+
+<DecisionPaths />
+
+## Use the layers as references
+
+Do not read the repository tree from top to bottom. Stay on a mission until
+you need a deeper mechanism, then enter the relevant layer and return with the
+answer.
+
+<ReferenceLayers />
+
+## Know what the evidence proves
+
 **Every capability claim is backed by a run. Every mission is backed by a
-measurable outcome.**
+measurable outcome.** A verified label means the exact command, hardware,
+wall-clock, cost, and metrics are recorded. A draft may contain working code,
+but its declared path is not yet evidenced.
 
-Technical numbers trace to a run record naming the command, hardware, wall-clock
-and cost. Business outcomes cannot be executed on a GPU, so missions prove them
-against declared, reproducible proxies — and every mission states what it does
-*not* establish.
-:::
-
-## Where to start
-
-- **[Understand the machinery](foundations/)** — derive attention and the
-  transformer block before treating them as library calls.
-- **[Build the language-model mission](missions/01-language-model-agent/)** —
-  follow one artifact from corpus to evaluation.
-- **[Build the discovery mission](missions/02-personalized-discovery/)** —
-  apply the same system discipline to recommendation, search, and ads.
-- **[Inspect the evidence](https://github.com/kleon1024/agi-playground)** —
-  every runnable claim links to source and a run record.
+Business outcomes cannot be executed on a GPU. Missions therefore declare a
+reproducible proxy, guardrails, and what the result does *not* establish before
+the build begins.
