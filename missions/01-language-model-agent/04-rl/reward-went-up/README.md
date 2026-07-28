@@ -1,0 +1,147 @@
+---
+status: draft
+base: scratch
+label: The reward went up
+---
+
+# The reward went up. Did the model get better?
+
+[The previous chapter](../) built GRPO against a verifiable reward: sample a
+group, score each completion, normalize the advantage within the group, update.
+Run it and the reward curve climbs. That curve is real — the scorer is not
+lying, and the policy really is getting more of what you asked for.
+
+This chapter is about the gap between *what you asked for* and *what you
+wanted*, which in reinforcement learning is not a philosophical remark but the
+default outcome. You need the loss function and the reward from the previous
+chapter; you leave knowing which knob holds the policy back, why the reward you
+had to design is the same reward that gets exploited, and what a rising curve
+does not tell you.
+
+## The leash: what the KL term is actually for
+
+`grpo_loss` adds `kl_beta * kl` to the per-token loss, where `kl` is a k3
+estimate of `KL(pi_theta || pi_ref)` against a frozen reference policy cloned
+at the start of training.
+
+Delete that term and nothing in the loss says "stay near where you started."
+The policy is then free to drift arbitrarily far chasing reward, and it will —
+settling on degenerate token sequences that slip past a regex edge case rather
+than doing arithmetic. The reference policy is the only thing in the objective
+that remembers what the model was before optimization began.
+
+`beta` is the field's primary instability knob, and it fails in both
+directions:
+
+| `beta` | Failure |
+|---|---|
+| too small | the policy hacks the reward faster than the leash tightens |
+| too large | every gradient step is cancelled by the divergence penalty and the policy barely moves |
+
+There is no value that is safe for all of training, which is why production
+recipes use adaptive KL controllers — target a specific KL value and scale
+`beta` against the gap — rather than the fixed coefficient this lesson uses for
+readability.
+
+## The reward you had to design is the reward that gets exploited
+
+Why not reward correctness alone and skip the format reward? Because a 0/1
+correctness signal gives a cold-start policy almost no gradient. Early in
+training the policy essentially never emits a parseable `<answer>N</answer>`,
+so every completion scores exactly 0, every group is degenerate — identical
+scores mean identical advantages mean no gradient — and `rollout_and_score`
+discards all of them. Nothing happens, forever.
+
+The format reward's partial-credit ladder exists to give the policy something
+to climb before it can possibly get the arithmetic right: 1.0 for well-formed
+`<think>`/`<answer>` tags, 0.5 for both tags present but malformed, 0.2 for
+one, 0.0 for neither.
+
+And that ladder is exactly what gets farmed. **Any reward shaped to make
+partial progress visible is, by construction, also a reward partially
+satisfiable without doing the real task.** This is not a defect in this
+lesson's reward function. DeepSeek-R1's paper reports navigating the identical
+tension for the identical cold-start reason, resolving it the same way: weight
+correctness so it dominates.
+
+Which is why `compute_reward` puts `format_weight` at 0.2 and
+`correctness_weight` at 1.0, and why the ordering is the load-bearing part
+rather than the specific values.
+
+## Three hacks to watch for in this exact task
+
+- **Format-only optimization.** The format reward pays 0.2–1.0 regardless of
+  whether the answer is right. A policy that finds well-formed tags easier than
+  arithmetic will farm it with a plausible but wrong answer, whenever the
+  correctness signal is too weak relative to it.
+- **Regex-edge exploitation.** `_ANSWER_RE` matches the *first*
+  `<answer>N</answer>` in the text. A policy could learn to emit several answer
+  tags and bet that one matches — a toy-scale instance of what motivates DAPO's
+  overlong-response reward shaping. Real RLVR setups need explicit handling for
+  plausible-looking cheating, not just a correctness check.
+- **Length and verbosity drift.** Nothing penalizes a needlessly long `<think>`
+  block. At scale this is the same phenomenon as RLHF's documented length bias,
+  arriving through a different door: an unconstrained action space rather than
+  a biased scorer.
+
+## The measured reward and the thing you wanted diverge on purpose
+
+Gao, Schulman, and Hilton (*Scaling Laws for Reward Model Overoptimization*,
+2023) give the quantitative version. True quality follows an inverted U in KL
+divergence from the reference policy, approximately
+
+```text
+gold_score  ≈  a·sqrt(KL)  −  b·KL
+```
+
+so there is a real optimum past which **the measured reward keeps climbing
+while actual quality falls**. Before that point, moving away from the reference
+policy buys you genuine improvement. After it, you are buying the scorer's
+blind spots.
+
+The practical consequence is that a rising reward curve is not evidence of
+anything on its own. You need the KL divergence plotted beside it, and a held-
+out check that does not use the training reward — otherwise the instrument
+measuring success is the same instrument being optimized against.
+
+Reward hacking is the default outcome of unmitigated reinforcement learning,
+not an edge case that careful reward design avoids.
+
+## What this chapter does not establish
+
+No run is recorded here, so none of the three hacks is claimed to have been
+observed in this repository — they are the failure modes the reward function's
+shape makes available, named in advance so they are recognizable. The
+inverted-U result is external, attributed, and measured on reward *models*
+rather than on the verifiable rewards this stage uses; the mechanism
+transfers, the specific coefficients do not.
+
+## Exercises
+
+1. **Remove the leash.** Set `kl_beta` to 0 and train. Plot reward and a
+   held-out correctness check on the same axes, and identify the step where
+   they separate.
+2. **Invert the weights.** Set `format_weight` above `correctness_weight` and
+   describe the completions after a few hundred steps before you look at them.
+3. **Close the regex edge.** Change `_ANSWER_RE` to require exactly one
+   `<answer>` tag and reject completions with more. What new hack does that
+   make available?
+
+## Check your mental model
+
+1. Why does a correctness-only reward produce no gradient at all early in
+   training, rather than merely a weak one?
+2. The format reward exists to solve cold start and is the thing that gets
+   farmed. Is that a design mistake, and what would replace it?
+3. Reward is rising and KL is rising. Which of those two tells you the model is
+   improving, and what third measurement settles it?
+4. What does the frozen reference policy contribute to the objective that no
+   term computed from the current policy could?
+5. Under what circumstance would you accept a lower measured reward as the
+   better result?
+
+## Next
+
+Return to [stage 04](../) to run it, then [stage 05](../../05-serve/) serves
+whatever policy comes out — where the cost of those longer `<think>` blocks
+stops being a training-time curiosity and becomes tokens somebody waits for.

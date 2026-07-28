@@ -141,72 +141,19 @@ math/code tasks are so tightly associated: a rule-based reward only works
 where a verifier exists, but where one does, it sidesteps almost the entire
 reward-hacking-against-a-learned-model problem.
 
-## The KL penalty: a leash, not a suggestion
+## The reward is going up. Is that good?
 
-`grpo_loss` adds `kl_beta * kl` to the per-token loss, where `kl` is a k3
-estimate of `KL(pi_theta || pi_ref)` against the frozen reference policy
-cloned at the start of training. Delete this term and the policy is free
-to drift arbitrarily far chasing reward — nothing in the loss says "and
-also stay close to where you started," so it could settle on degenerate
-token sequences that happen to slip past a regex edge case rather than
-actual arithmetic. `beta` too small under-regularizes (the policy hacks the
-reward faster than training tightens the leash); too large barely lets the
-policy move (every gradient step gets cancelled by the divergence penalty).
-This is the field's primary instability knob in both directions, which is
-why production recipes use adaptive KL controllers — target a specific KL
-value, scale `beta` against the gap — rather than the fixed coefficient
-used here for readability.
+The loss above has one more term this chapter has not justified: a KL penalty
+against a frozen copy of the policy you started with. It is there because a
+policy optimizing an imperfect reward finds that reward's blind spots before
+you notice them, and the format reward this task needs in order to start
+learning at all is the same reward that gets farmed once it has.
 
-## Reward hacking, concretely
-
-A policy optimizing an imperfect reward signal finds that signal's blind
-spots before you notice them. In this exact task, watch for:
-
-- **Format-only optimization.** The format reward alone is 0.2-1.0 for
-  producing `<think>...</think><answer>N</answer>`, regardless of whether
-  `N` is right. A policy that finds well-formed tags easier than actual
-  arithmetic will farm the format reward with a plausible but wrong answer
-  if the correctness signal is too weak relative to it — exactly why
-  `format_weight` (0.2) sits well below `correctness_weight` (1.0) in
-  `compute_reward`, not the other way around.
-- **Regex-edge exploitation.** `_ANSWER_RE` matches the *first*
-  `<answer>N</answer>` in the text. A policy could learn to emit multiple
-  answer tags, betting one matches, if that pattern were ever rewarded over
-  a single honest attempt — a toy-scale instance of DAPO's
-  "overlong-response reward shaping" motivation: real RLVR setups need
-  explicit handling for plausible-looking-but-cheating completions, not
-  just a correctness check.
-- **Length/verbosity drift.** Nothing here penalizes a needlessly long
-  `<think>` block. At larger scale this is the same mechanism behind RLHF's
-  documented length bias, just with a different root cause — an
-  unconstrained action space, not a biased scorer.
-
-Gao, Schulman, and Hilton's scaling-law finding (*Scaling Laws for Reward
-Model Overoptimization*, 2023) is the quantitative version of all of this:
-true quality follows an inverted U in KL divergence from the reference
-policy — `Gold_score ≈ a·sqrt(KL) − b·KL` — so there is a real optimum past
-which the *measured* reward keeps climbing while actual quality falls.
-Reward hacking is the default outcome of unmitigated RL, not an edge case.
-
-## The format reward: why it's needed, how it gets gamed
-
-Why not just reward correctness and skip the format reward entirely?
-Because a 0/1 correctness-only signal gives a cold-start policy almost no
-gradient on the way to getting there — early in training a random-init
-policy essentially never emits a parseable `<answer>N</answer>` at all,
-every completion scores exactly 0, every group is degenerate, and
-`rollout_and_score` skips all of them. The format reward's partial-credit
-ladder (`format_reward`: 1.0 well-formed, 0.5 both tags present but
-malformed, 0.2 one tag, 0.0 neither) exists to give the policy something to
-climb *before* it can possibly get the arithmetic right.
-
-That same ladder is what the "format-only optimization" hack above
-exploits: any reward shaped to make partial progress visible is, by
-construction, also a reward partially satisfiable without doing the real
-task. That is not specific to this lesson's reward function — DeepSeek-R1's
-own paper reports navigating the identical tension, for the identical
-cold-start reason, with correctness weighted to dominate for the identical
-reason this lesson's is.
+[The reward went up. Did the model get better?](reward-went-up/) takes that
+apart: what the leash is for and how it fails in both directions, why a
+partial-credit reward is exploitable by construction, three hacks specific to
+this task, and the published result that measured reward and true quality
+diverge past a knowable point rather than at some pathological extreme.
 
 ## Reproducing
 
@@ -247,26 +194,21 @@ locally.
 1. **Watch a group go non-degenerate.** Log how many groups get skipped
    (`groups_used` in the history JSON) over the first 50 steps. Cold-start
    policies skip almost everything at first — find roughly where that stops.
-2. **Break the KL leash on purpose.** Set `--kl-beta 0.0` and compare the
-   reward curve to a normal run. Does reward climb faster? Does the output
-   still look like language, or degenerate into something that merely
-   satisfies the regex?
-3. **Reward-hack the format.** Set `--kl-beta 0.0` and drop
-   `correctness_weight` toward `format_weight` in `compute_reward`. Confirm
-   reward rises while `mean_correctness` does not — that gap *is* reward
-   hacking, made visible.
-4. **Vary the group size.** Run `--group-size 4` versus `--group-size 32`.
+2. **Vary the group size.** Run `--group-size 4` versus `--group-size 32`.
    Group size trades inference compute for advantage-estimate variance —
    does a larger group give a visibly smoother reward curve at the same
    step count?
-5. **Feel the clip do nothing, then something.** At `--inner-epochs 1` the
+3. **Feel the clip do nothing, then something.** At `--inner-epochs 1` the
    ratio never leaves 1.0, so `clip` is provably a no-op (log
    `ratio.min()`/`ratio.max()` in `grpo_loss` to confirm). At what
    `--inner-epochs` count does the ratio actually leave `[1-eps, 1+eps]`?
 
 ## Next
 
-[Stage 05 — serve](../05-serve/): this lesson's rollout loop recomputes
+[The reward went up. Did the model get better?](reward-went-up/) covers the KL
+leash and the reward hacking this chapter set aside; read it before trusting a
+reward curve. After that,
+[stage 05 — serve](../05-serve/): this lesson's rollout loop recomputes
 attention over the whole sequence at every generated token, which is the
 first thing a real GRPO loop fixes — the KV cache and batched-decoding
 mechanics that make group rollouts fast are taught there, and this

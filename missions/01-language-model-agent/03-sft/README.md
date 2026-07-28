@@ -104,69 +104,19 @@ to reproduce. The token sequence stays fixed; only the loss boundary changes.
 
 <!-- interactive: AssistantLossMask -->
 
-## Packing, and the limit of reusing a frozen model
+## It answers now. What did that cost?
 
-A curated instruct set is short and length-variable — no_robots (below)
-averages a few hundred tokens per example against a 1024-token block. Padding
-every example out to the block size individually spends most of a batch's
-forward pass on tokens that carry no signal. Packing instead concatenates
-several short examples back-to-back into one sequence, closing a block only
-once the next example no longer fits it, so a large majority of positions in
-every block hold a real token from some conversation.
+The mechanism is cheap: a template and a mask. The costs are not visible in the
+loss curve, and there are three worth knowing before you trust the result.
+Packing makes this stage finish in ninety seconds by putting unrelated
+conversations in one sequence, which has a consequence. The learning rate has
+to fall roughly thirtyfold, and the reason is not numerical stability. And one
+class of complaint about a fine-tuned model cannot be fixed with better data at
+all.
 
-Packing has one correctness subtlety production trainers handle and this
-lesson's `core/` cannot: once two unrelated conversations share a sequence,
-a plain causal mask lets late tokens in conversation B attend to all of
-conversation A, which is unrelated context. TRL and torchtune fix this with a
-block-diagonal attention mask — each packed example gets causal attention
-*only within itself*. `core/sft.py` reuses stage 02's `Attention.forward`
-unmodified, which always calls `scaled_dot_product_attention(...,
-is_causal=True)` over the whole sequence, so building a custom mask would
-mean editing a file this stage is scoped not to touch. The lesson disclosed,
-not hidden: packing here gets a small, documented attention leak; loss masking
-is unaffected because it depends only on `labels`, never on attention, so the
-model is never taught to predict the wrong token — it just occasionally
-spends a little attention capacity on an irrelevant neighboring conversation.
-`prod/trl_sft.py` runs the same recipe through `SFTConfig(packing=True)`,
-which does not have this limitation, and its header comment says exactly why.
-
-## Catastrophic forgetting, and why the learning rate drops ~30x
-
-Stage 02 pretrained from a random initialization, so a large learning rate
-early on is safe — there is nothing yet to disturb. SFT starts from a model
-that already computes something useful, and the fine-tuning objective can
-easily out-compete that: a peak LR anywhere near pretraining's (`6e-4` here)
-applied to a converged model does not adjust it, it re-randomizes large
-swaths of it before the objective has a chance to specialize gently.
-`core/sft.py` defaults to `2e-5` — roughly 30x lower — for exactly this
-reason, and runs a short warmup (30 steps, versus pretraining's 500) because
-there are far fewer total steps to warm up across in the first place. This is
-also why SFT trains for a handful of *epochs* over a small dataset rather than
-a fraction of one epoch over a token budget: with roughly 10,000 examples
-instead of billions of tokens, "run once" would barely move the model, and
-"run for many epochs at a pretraining-scale LR" is precisely how you get
-catastrophic forgetting — visible as fluent, grammatical text that has lost
-whatever the base model previously knew.
-
-## What SFT cannot fix
-
-Restated plainly, because it is easy to lose sight of once a model starts
-producing fluent chat-shaped output:
-
-- **No new knowledge.** If it wasn't in the pretraining corpus, formatting the
-  question as a chat turn does not put it there.
-- **No ground truth.** SFT imitates the *style* of the training examples, not
-  their correctness. A confidently-worded wrong answer in the training set
-  teaches the model to be confidently wrong.
-- **No preference signal.** SFT has one response per prompt to imitate; it has
-  no way to express "this reply is better than that one." That comparison is
-  what `05-rl` — RM training and the DPO family — is for.
-- **Fixed at training time.** It does not compress well by ability alone: a
-  small model given LIMA-quality data still has a small model's capacity.
-  Zhou et al. (2023)'s ~1,000-example result (the "Superficial Alignment
-  Hypothesis": pretraining already contains almost all the knowledge, SFT
-  mostly teaches format and style) is an argument for curation over volume,
-  not evidence that curation substitutes for scale.
+[What did that cost?](what-it-costs/) takes those in turn, including the
+attention leak this lesson's `core/` accepts on purpose and what its blast
+radius actually is.
 
 ## What it actually did
 
@@ -265,7 +215,9 @@ Rust encoder for speed on a real dataset, the same substitution stage 02's
 
 ## Next
 
-[Stage 04 — RL](../04-rl/): GRPO on a verifiable task, starting from this
+[What did that cost?](what-it-costs/) covers packing's attention leak, the
+thirtyfold learning-rate drop, and the four limits better data does not move.
+Then [stage 04 — RL](../04-rl/): GRPO on a verifiable task, starting from this
 stage's chat-tuned checkpoint. Everything here that stopped at imitating a
 fixed dataset is the on-ramp — RL replaces "imitate this response" with
 "prefer whichever response of several actually verifies as correct."

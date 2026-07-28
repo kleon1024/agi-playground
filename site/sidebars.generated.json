@@ -46,14 +46,34 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/01-language-model-agent/03-sft/index",
-            "label": "SFT \u00b7 verified"
+            "type": "category",
+            "label": "SFT \u00b7 verified",
+            "link": {
+              "type": "doc",
+              "id": "missions/01-language-model-agent/03-sft/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/03-sft/what-it-costs/index",
+                "label": "What it costs"
+              }
+            ]
           },
           {
-            "type": "doc",
-            "id": "missions/01-language-model-agent/04-rl/index",
-            "label": "RL (GRPO)"
+            "type": "category",
+            "label": "RL (GRPO)",
+            "link": {
+              "type": "doc",
+              "id": "missions/01-language-model-agent/04-rl/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/04-rl/reward-went-up/index",
+                "label": "The reward went up"
+              }
+            ]
           },
           {
             "type": "category",
@@ -71,14 +91,34 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/01-language-model-agent/06-agent/index",
-            "label": "Agent harness"
+            "type": "category",
+            "label": "Agent harness",
+            "link": {
+              "type": "doc",
+              "id": "missions/01-language-model-agent/06-agent/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/06-agent/what-stops-it/index",
+                "label": "What stops it"
+              }
+            ]
           },
           {
-            "type": "doc",
-            "id": "missions/01-language-model-agent/07-eval/index",
-            "label": "Eval"
+            "type": "category",
+            "label": "Eval",
+            "link": {
+              "type": "doc",
+              "id": "missions/01-language-model-agent/07-eval/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/07-eval/why-believe-the-number/index",
+                "label": "Why believe the number"
+              }
+            ]
           }
         ]
       },

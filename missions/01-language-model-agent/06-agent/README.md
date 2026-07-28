@@ -129,35 +129,6 @@ model, tool-calling fine-tuned or not, at the cost of the parsing step a
 native tool-call field would remove. See [`prod/README.md`](prod/README.md)
 for how production harnesses trade this off.
 
-## Sandboxing `run_command`: real controls, not a comment
-
-`resolve_in_jail` in `tools.py` is worth reading closely for a specific
-`pathlib` trap: `Path("/root") / "/etc/passwd"` silently discards the left
-side and returns `Path("/etc/passwd")`, because joining with an absolute path
-*replaces* rather than extends. A jail that just joins paths and checks the
-result for `..` would miss this; `resolve_in_jail` rejects absolute inputs
-outright before ever joining, then resolves (following symlinks) and checks
-ancestry — closing the absolute-path escape, the `..`-walk escape, and the
-symlink-escape in one function.
-
-`run_command` adds a fourth control on top of the jail: an **allowlist**
-checked against the parsed first token, not a denylist. A denylist ("no
-`rm -rf`") is a losing game — there is no bound on the ways to spell "delete
-everything." An allowlist inverts the burden: the command only runs if it
-names something already decided to be safe. This only works because the
-harness never passes `shell=True` — with a shell, `"echo hi; rm -rf /"` is
-one command as far as the OS is concerned, and checking `argv[0]` against an
-allowlist would only ever see `echo`. Shell metacharacters are rejected
-outright as well, so a command like that fails fast with a clear message
-instead of silently doing something the allowlist never anticipated. A
-timeout bounds a hung process; output truncation keeps a giant file from
-flooding the model's context.
-
-One gap is left honest rather than hidden: only `argv[0]` is allowlisted, so
-`cat /etc/passwd` still runs `cat` from an allowed name while reading a path
-outside the jail — arguments aren't validated against `resolve_in_jail`.
-Hardening that is exercise 3.
-
 ## Context management: eager vs. just-in-time, and compaction
 
 `ContextManager` tracks a token budget (`estimate_tokens` is a chars/4
@@ -186,38 +157,18 @@ harness stuffing the whole sandbox root into context upfront. That trade
 round-trips, goes stale) is a real, contested choice among production coding
 agents, covered in `capabilities/act-coordinate/README.md`.
 
-## The permission ladder and blast radius
+## The loop can act. What stops it?
 
-Every `Tool` in `tools.py` carries a `RiskTier`: `AUTO` (read-only, always
-allowed), `CONFIRM` (state-changing, needs sign-off), `DENY` (refused
-unconditionally). `check_permission` in `harness.py` enforces it, and
-`default_confirm` — the harness's default — **denies every `CONFIRM`-tier
-call**. That default is deliberate: a non-interactive run (a test, this
-file's own demo) must fail closed rather than silently execute something
-nobody approved just because nobody was there to say no. Swap in a real
-`confirm` function (a CLI y/n prompt, a policy check) to actually run
-`run_command`.
+Everything above makes the agent *capable* and *honest*: it reads files, runs
+commands, and cannot invent an observation it did not receive. None of it makes
+the agent safe. A grounding rule stops a fabricated result; it says nothing
+about a real command that should never have run.
 
-This is the practical version of risk-tiered confirmation from the
-capability README: auto-approve reversible reads, require confirmation
-before anything that changes state, hard-deny what should never run
-regardless of confirmation. The tier lives on the tool, not on the specific
-call — which is a simplification worth naming: a real harness eventually
-wants tier-by-argument distinctions too (`run_command` running `cat` is very
-different from `run_command` running `pytest`), which this stage's uniform
-per-tool tier doesn't capture. That's exercise 2.
-
-## Why more tools does not make a better agent
-
-Three tools, not thirty. Tool count adds selection complexity and failure
-surface — which tool, ambiguous overlaps between them — faster than it adds
-capability. A well-scoped 3-tool loop reliably beats a much larger one on
-tasks within its scope, which is why mini-swe-agent's small toolset (and
-this stage's) is a design choice, not a limitation waiting to be fixed by
-adding more. `run_command`'s description leans on this directly: it names
-`grep` as reachable *through* the allowlist rather than adding a fourth tool
-for search, because one well-designed escape hatch composes better than a
-growing enumeration of narrow tools.
+[What stops it?](what-stops-it/) is the containment half — the jail and the
+`pathlib` trap it exists for, the allowlist and why a denylist could not work,
+the three risk tiers and a default that denies, and why three tools rather than
+thirty is a containment decision before it is an accuracy one. It also states
+the gap the composition leaves open, which is the part worth reading twice.
 
 ## Production notes
 
@@ -263,27 +214,15 @@ place the harness reads environment variables (`backend_from_env` in
    heuristic with stage 01's `bpe.py` encoder as `ContextManager`'s
    `token_counter`. Does the budget behave differently on code-heavy versus
    prose-heavy observations?
-2. **Tier-by-argument permissions.** `run_command` is uniformly `CONFIRM`
-   today. Extend `check_permission` (or add a policy hook) so a read-only
-   command like `cat` or `grep` auto-allows while a repo-mutating one still
-   confirms — argue where the line should sit, and what closes the gap if
-   your classifier is wrong.
-3. **Harden the honest gap.** `run_command` only allowlists `argv[0]`.
-   Extend it to validate any argument that looks like a path against
-   `resolve_in_jail`, and write a command that currently escapes the jail
-   (e.g. reading a file outside `root` via an otherwise-allowlisted binary)
-   to confirm your fix actually closes it.
-4. **Add a fourth tool, on purpose.** Add a dedicated `grep` tool instead of
-   routing search through `run_command`, give it its own risk tier, and
-   argue in a comment why it does or doesn't earn its place given "why more
-   tools does not make a better agent" above.
-5. **Run it against a real model.** Point `AGENT_BASE_URL` at stage 05's
+2. **Run it against a real model.** Point `AGENT_BASE_URL` at stage 05's
    served model or an API you hold a key for. Does a real model ever try to
    write its own `Observation:` line, and does the grounding rule catch it
    the same way the `--demo grounding` script demonstrates?
 
 ## Next
 
-[Stage 07 — eval](../07-eval/): closing the loop with a harness-disclosed
+[What stops it?](what-stops-it/) covers the sandbox and the permission ladder
+this chapter deliberately set aside. After that,
+[stage 07 — eval](../07-eval/): closing the loop with a harness-disclosed
 evaluation of the agent built here, alongside the model-level evals from
 earlier stages.

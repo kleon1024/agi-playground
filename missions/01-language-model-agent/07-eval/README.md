@@ -102,69 +102,18 @@ under which the number may be compared to anything else. A perplexity
 number with neither recorded isn't wrong, exactly — it just isn't attached
 to anything.
 
-## Contamination: why SWE-bench Verified is distrusted and what replaced it
+## Three ways a correct number is still false
 
-SWE-bench (Jiménez et al., 2024) scores whether a generated patch makes a real
-GitHub issue's associated test suite pass. SWE-bench Verified — a
-human-filtered 500-issue subset meant to remove ambiguous issues — became the
-number everyone quoted for coding agents. The problem that surfaced after: the
-repositories and their fix PRs are public, and a model trained on post-cutoff
-web/code data has plausibly seen the *answer*, not just the question, on some
-fraction of those 500 issues — and a static, published benchmark cannot
-self-correct for that once it's sitting in enough training corpora.
-**SWE-bench Pro** is the field's documented response — built from private or
-otherwise undisclosed repositories so the fix isn't already circulating — and,
-as of 2026, **Terminal-Bench 2.0** is cited alongside it as a successor
-generation of agentic coding/terminal benchmarks built with the same
-contamination lesson in mind. Attribute and date any number you quote from
-any of these three: "SWE-bench Verified, as reported in [paper], [year]" is a
-specific, checkable claim; "SWE-bench" bare is not, because the benchmark's
-trustworthiness has visibly shifted across these versions in a few years. The
-lesson outlives this benchmark family: any static, public benchmark has a
-shelf life, and "widely cited" isn't the same claim as "uncontaminated."
+Everything above makes a score *reproducible*: the tokenizer is named, the
+context length is named, the baseline is named, the seed count is enforced.
+None of it makes the score *true*. A benchmark whose answers leaked into
+training data, an LLM judge with reproducible preferences, and a difference
+smaller than the run-to-run noise all produce numbers that pass every check on
+this page.
 
-## LLM-as-judge: known, reproducible failure modes
-
-Wherever an open-ended answer needs scoring — this mission's model's
-generations, an agent's free-form final response — an LLM judge substitutes
-for a human rater and inherits specific, well-characterized biases rather
-than neutral judgment (Zheng et al., 2023, the MT-Bench/Chatbot Arena paper):
-**position bias** (favoring whichever response is shown first — mitigated by
-scoring both orderings and discarding cases where the verdict flips),
-**verbosity bias** (favoring longer or more elaborately formatted answers
-independent of correctness — AlpacaEval 2.0's length-controlled win rate is a
-direct, quantified correction), and **self-preference bias** (a judge
-favoring outputs from its own model family — mitigated by judging with a
-different model than the one that generated the answer). None of these are
-solved by a better-worded judge prompt; they need structural countermeasures
-(swapped-order scoring, length control, cross-model judging), and the
-detection protocol is concrete: hold out a small human-labeled gold set,
-measure judge-human agreement, and inspect disagreements for exactly these
-signatures before trusting the judge's output on anything you can't check by
-hand.
-
-## Statistical significance: why one seed lies
-
-A point estimate from a few hundred samples carries a confidence interval
-wide enough to make most reported differences look more decisive than they
-are: 300 samples at a 50% success rate carries a roughly ±5.7-point 95%
-bootstrap CI, so two runs 4 points apart at that sample size aren't
-distinguishable from noise. Agentic evals compound this with genuine
-run-to-run variance beyond sampling — nonzero temperature, environment
-nondeterminism, and multi-turn compounding of small per-step differences all
-mean the identical agent scored twice can land in different places for
-reasons unrelated to anything you changed. `core/evaluate.py` takes two
-different, non-interchangeable positions on this: a bootstrap CI over the
-fixed set of `loglik` instances (uncertainty about which instances you
-happened to sample) and mean ± std over `--seeds` real sampled rollouts for
-`generate` instances and agent transcripts (uncertainty about what the model
-does on repeated attempts at the *same* instance). A report with neither is
-a number this stage's tooling will not produce.
-
-Change the task count below and decide when a four-point difference becomes
-meaningful. The repeated bars hold the system fixed and vary only the sample.
-
-<!-- interactive: EvaluationUncertainty -->
+[Why believe the number?](why-believe-the-number/) takes those three in turn,
+and states what each defense cannot do. Read it before quoting anything from
+this stage — including anything you quote from someone else.
 
 ## The harness-disclosure argument, operationalized
 
@@ -265,21 +214,9 @@ temptation stronger rather than weaker.
    different tokenizers on the same held-out data; confirm the perplexities
    differ for reasons unrelated to model quality, and explain why the sha256
    sits right next to the number.
-2. **Force the single-seed refusal.** Build a `tasks.jsonl` with one
-   `generate` instance and run `tasks` without `--seeds`. Read the error,
-   then re-run with `--seeds 3` and confirm `per_seed_accuracy` actually
-   varies rather than repeating one value three times.
-3. **Corrupt a harness-disclosure field.** Delete `temperature` from one
+2. **Corrupt a harness-disclosure field.** Delete `temperature` from one
    transcript's `harness` block in an otherwise-valid transcript directory;
    confirm `agent-report` raises rather than silently dropping it.
-4. **Compute the bootstrap CI by hand.** Take five `loglik` correctness
-   values, resample 2,000 times with `bootstrap_ci`, and compare the interval
-   width to a 300-sample, 50%-success-rate example (~±5.7 points) — confirm
-   yours is wider, and explain why it should be at n=5.
-5. **Compare a real SWE-bench Verified score against SWE-bench Pro's stated
-   design.** Find one paper quoting each for the same model family and write
-   two sentences on what the second benchmark specifically changes about the
-   first's contamination risk.
 
 ## What a passing mission report must contain
 
