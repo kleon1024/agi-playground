@@ -42,6 +42,7 @@ from torch.nn import functional as F
 Norm = Literal["rmsnorm", "layernorm"]
 Position = Literal["rope", "learned", "none"]
 Activation = Literal["swiglu", "gelu"]
+FFN = Literal["dense", "moe"]
 
 
 @dataclass(frozen=True)
@@ -59,9 +60,24 @@ class VariantConfig:
     pos_scheme: Position = "rope"
     activation: Activation = "swiglu"
 
+    # Mixture-of-experts. `ffn="moe"` replaces each block's single MLP with
+    # `n_routed_expert` narrow ones plus `n_shared_expert` that every token
+    # goes through, routing each token to `n_active_expert` of the routed set.
+    # `expert_d_ff` is each expert's width; leave it None to derive a width
+    # that holds active parameters equal to the dense arm (see `moe_arms`).
+    ffn: FFN = "dense"
+    n_routed_expert: int = 8
+    n_active_expert: int = 2
+    n_shared_expert: int = 1
+    expert_d_ff: int | None = None
+
     @property
     def d_head(self) -> int:
         return self.d_model // self.n_head
+
+    @property
+    def expert_width(self) -> int:
+        return self.expert_d_ff if self.expert_d_ff is not None else self.d_ff
 
 
 def d_ff_for(activation: Activation, d_model: int) -> int:
@@ -174,13 +190,99 @@ class GELUMLP(nn.Module):
         return self.down(F.gelu(self.up(x)))
 
 
+class MoE(nn.Module):
+    """Fine-grained experts with a shared expert and bias-corrected routing.
+
+    Three decisions here, and each is a place the arm could have been built
+    differently:
+
+    **Fine-grained experts.** `n_routed_expert` narrow experts of width
+    `expert_width`, of which `n_active_expert` run per token. Splitting a
+    given active-parameter budget across more, smaller experts gives the
+    router more combinations to choose from than a few wide ones do.
+
+    **A shared expert.** `n_shared_expert` experts run for every token,
+    unrouted. Without one, each routed expert has to relearn whatever is
+    common to all tokens, spending specialist capacity on general work.
+
+    **Bias-corrected load balancing, not an auxiliary loss.** Routing is
+    discrete, so a router that starts favouring a few experts keeps favouring
+    them, and the rest are never trained. The classical fix adds a
+    load-balancing term to the loss, which pushes against the language
+    objective and trades a little quality for balance. Instead each expert
+    carries a scalar `bias` used *only* to pick the top-k, never to weight the
+    output: overloaded experts have theirs nudged down, underloaded ones up,
+    once per step. The gradient of the language objective is untouched.
+
+    The dispatch below is a loop over experts, which is readable and slow.
+    Production kernels group tokens by expert and run one batched matmul; the
+    arithmetic is identical and the wall-clock is not, which is why this file
+    is for measuring quality per parameter rather than tokens per second.
+    """
+
+    def __init__(self, cfg: VariantConfig):
+        super().__init__()
+        self.cfg = cfg
+        expert_cfg = replace(cfg, d_ff=cfg.expert_width)
+        make = (lambda: SwiGLU(expert_cfg)) if cfg.activation == "swiglu" else (lambda: GELUMLP(expert_cfg))
+        self.experts = nn.ModuleList([make() for _ in range(cfg.n_routed_expert)])
+        self.shared = nn.ModuleList([make() for _ in range(cfg.n_shared_expert)])
+        self.router = nn.Linear(cfg.d_model, cfg.n_routed_expert, bias=False)
+        # Not a parameter: it is updated by a rule, not by a gradient.
+        self.register_buffer("bias", torch.zeros(cfg.n_routed_expert))
+        self.register_buffer("load", torch.zeros(cfg.n_routed_expert))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        B, T, C = x.shape
+        flat = x.reshape(-1, C)
+        scores = torch.sigmoid(self.router(flat))
+        _, chosen = torch.topk(scores + self.bias, self.cfg.n_active_expert, dim=-1)
+
+        # Renormalise over the chosen experts only, so a token's routed
+        # contribution has a consistent scale however confident the router was.
+        picked = scores.gather(-1, chosen)
+        weights = picked / picked.sum(-1, keepdim=True).clamp_min(1e-9)
+
+        out = torch.zeros_like(flat)
+        for e, expert in enumerate(self.experts):
+            hit = chosen == e
+            if not hit.any():
+                continue
+            rows = hit.any(-1).nonzero(as_tuple=True)[0]
+            w = (weights * hit).sum(-1)[rows].unsqueeze(-1)
+            out[rows] += w * expert(flat[rows])
+            if self.training:
+                self.load[e] += rows.numel()
+
+        for expert in self.shared:
+            out = out + expert(flat)
+        return out.reshape(B, T, C)
+
+    @torch.no_grad()
+    def rebalance(self, gamma: float = 1e-3) -> None:
+        """Nudge each expert's selection bias toward the mean load.
+
+        Call once per optimizer step. `gamma` is a step size on the routing
+        score, not on a parameter — too large and routing oscillates, too small
+        and a collapsed router never recovers.
+        """
+        if self.load.sum() == 0:
+            return
+        mean = self.load.mean()
+        self.bias += gamma * torch.sign(mean - self.load)
+        self.load.zero_()
+
+
 class Block(nn.Module):
     def __init__(self, cfg: VariantConfig):
         super().__init__()
         norm_cls = RMSNorm if cfg.norm == "rmsnorm" else lambda dim: nn.LayerNorm(dim)
         self.n1, self.n2 = norm_cls(cfg.d_model), norm_cls(cfg.d_model)
         self.attn = Attention(cfg)
-        self.mlp = SwiGLU(cfg) if cfg.activation == "swiglu" else GELUMLP(cfg)
+        if cfg.ffn == "moe":
+            self.mlp: nn.Module = MoE(cfg)
+        else:
+            self.mlp = SwiGLU(cfg) if cfg.activation == "swiglu" else GELUMLP(cfg)
 
     def forward(self, x, rope):
         x = x + self.attn(self.n1(x), rope)

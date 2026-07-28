@@ -37,7 +37,7 @@ from pathlib import Path
 import torch
 import torch.utils.checkpoint  # `import torch` alone does not bring this in
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "missions/01-language-model-agent/02-pretrain/core"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[4] / "missions/01-language-model-agent/02-pretrain/core"))
 from model import Config, Transformer
 
 # The card this repository's local lane uses, bf16 dense, no sparsity. Only the

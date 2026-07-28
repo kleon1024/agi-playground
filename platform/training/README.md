@@ -208,6 +208,13 @@ connects the tokenizer, decoder, optimizer, and checkpoints. The
 [first training loop](../../foundations/01-first-training-loop/) is the
 CPU-scale prerequisite when the full run is not yet available.
 
+Three sub-lessons take one question each further than the vertical slice can:
+[distributed training](01-distributed/) for when the model stops fitting on one
+card, [architecture ablations](02-architecture-ablations/) for whether a design
+choice actually helped, and [throughput](03-throughput/) for whether the run is
+using the card it is already on — measured at 14.69x between the slowest and
+fastest configuration of an identical model.
+
 A valid run record includes exact command, configuration, data version,
 hardware, wall-clock, cost, token count, checkpoints, and metrics. A plausible
 loss curve written from memory is not evidence.

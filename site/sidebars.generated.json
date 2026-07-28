@@ -67,6 +67,11 @@
           },
           {
             "type": "doc",
+            "id": "platform/training/03-throughput/index",
+            "label": "Throughput \u00b7 verified"
+          },
+          {
+            "type": "doc",
             "id": "platform/training/LANDSCAPE",
             "label": "Landscape"
           }

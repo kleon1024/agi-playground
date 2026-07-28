@@ -384,3 +384,25 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* A cumulative flag list: the reading order is the ladder, and enabled rungs
+   are marked by weight and rule rather than by colour alone. */
+.ladder-flags {
+  margin: 0.75rem 0;
+  padding-left: 1.25rem;
+}
+
+.ladder-flags li {
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-sm);
+  line-height: var(--leading-sm);
+}
+
+.ladder-flags li[data-on='true'] {
+  color: var(--rehearse-action-strong);
+  font-weight: 600;
+}
+
+.ladder-flags li[data-on='true']::marker {
+  content: '\2713\00a0';
+}
