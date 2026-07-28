@@ -1,3 +1,7 @@
+---
+label: Post-training and RL
+---
+
 # LLM Post-Training & RL: 2026 Landscape for a Teaching Repo
 
 > Research pass conducted 2026-07-24 with parallel web-research agents; sources linked inline.

@@ -143,3 +143,59 @@ def test_titles_do_not_carry_a_generated_number():
         assert not re.search(r"^- \[\d+ [—–-] ", index.read_text(), re.MULTILINE), (
             f"site/docs/{section}/index.md still renders a numbered title"
         )
+
+
+def test_every_published_page_is_reachable_from_the_sidebar():
+    """Navigation must not silently drop a page.
+
+    Building the sidebar explicitly fixed the "Evidence, Evidence, Evidence"
+    tree and lost something else: the builder recursed into directories only,
+    so every `LANDSCAPE.md`, every standard, every research pass, and all three
+    compute-lane guides were published, linked from prose, and unreachable from
+    navigation. Only `runs/`, `core/`, and `prod/` are supposed to be
+    off-tree — they are evidence and implementation, cited from the lesson that
+    owns them.
+    """
+    import json
+
+    sidebar_file = ROOT / "site" / "sidebars.generated.json"
+    docs = ROOT / "site" / "docs"
+    if not sidebar_file.is_file() or not docs.is_dir():
+        return  # site not synced in this environment
+
+    listed: set[str] = set()
+
+    def walk(node) -> None:
+        if isinstance(node, list):
+            for item in node:
+                walk(item)
+            return
+        if not isinstance(node, dict):
+            return
+        if node.get("type") == "doc":
+            listed.add(node["id"])
+        link = node.get("link") or {}
+        if link.get("type") == "doc":
+            listed.add(link["id"])
+        for item in node.get("items", []):
+            walk(item)
+
+    walk(json.loads(sidebar_file.read_text()))
+
+    def route(doc_id: str) -> str:
+        return doc_id.removesuffix("/index")
+
+    listed = {route(doc_id) for doc_id in listed}
+    missing = []
+    for page in sorted(docs.rglob("*.md*")):
+        relative = page.relative_to(docs)
+        if set(relative.parts) & SYNC_DOCS.UNLISTED_DIRS:
+            continue
+        doc_id = route(relative.with_suffix("").as_posix())
+        if doc_id in ("index", *listed):
+            continue
+        missing.append(doc_id)
+
+    assert not missing, "published but unreachable from the sidebar:\n  " + "\n  ".join(
+        missing
+    )

@@ -343,16 +343,40 @@ def build_sidebar() -> list:
     chapters and nothing else.
     """
 
+    def leaf(page: Path, rel: Path):
+        """A page that is not a directory: a landscape table, a standard, a lane
+        guide. It already carries its own nav label and position, written into
+        the generated frontmatter, so read them back rather than guessing.
+        """
+        label, position = page.stem, DEFAULT_POSITION
+        lines = page.read_text().splitlines()
+        for line in lines[1:] if lines[:1] == ["---"] else []:
+            if line == "---":
+                break
+            if line.startswith("sidebar_label:"):
+                label = line.split(":", 1)[1].strip().strip('"')
+            elif line.startswith("sidebar_position:"):
+                position = int(line.split(":", 1)[1].strip())
+        return {
+            "type": "doc",
+            "id": f"{rel.as_posix()}/{page.stem}",
+            "label": label,
+            "_position": position,
+        }
+
     def node(directory: Path):
         rel = directory.relative_to(OUT)
         children = []
         for child in sorted(directory.iterdir()):
-            if not child.is_dir() or child.name in UNLISTED_DIRS:
-                continue
-            if not (child / "index.md").exists() and not (child / "index.mdx").exists():
-                continue
-            children.append(node(child))
-        children.sort(key=lambda entry: entry["_position"])
+            if child.is_dir():
+                if child.name in UNLISTED_DIRS:
+                    continue
+                if not (child / "index.md").exists() and not (child / "index.mdx").exists():
+                    continue
+                children.append(node(child))
+            elif child.suffix in {".md", ".mdx"} and child.stem not in {"index", *UNLISTED_DIRS}:
+                children.append(leaf(child, rel))
+        children.sort(key=lambda entry: (entry["_position"], entry["label"]))
         doc_id = f"{rel.as_posix()}/index"
         label = SIDEBAR_LABELS.get(rel.as_posix(), rel.name)
         position = SIDEBAR_POSITIONS.get(rel.as_posix(), DEFAULT_POSITION)
