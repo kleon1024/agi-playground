@@ -319,6 +319,10 @@ table th {
   font-weight: 600;
 }
 
+.playground-hero__actions a > p {
+  margin: 0;
+}
+
 .playground-hero__primary {
   background: var(--rehearse-ink);
   color: var(--rehearse-surface);
