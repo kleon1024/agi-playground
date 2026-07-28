@@ -19,7 +19,7 @@ prompt -> sample responses -> score outcomes
 Unlike offline preference optimization, the policy changes the data it will see
 next. Reward design, exploration, and stability are now one system.
 
-## 1. Ground the problem in policy gradient
+## Why can you not just take the gradient of a reward?
 
 For language-model RL:
 
@@ -51,7 +51,7 @@ A separate reference policy supplies a KL penalty so reward improvement does
 not erase the SFT policy. The price is a complex loop with actor, critic,
 reference model, and often a reward model.
 
-## 2. Replace the learned critic with a sampled baseline
+## What can stand in for a value model?
 
 GRPO samples a group of responses to the same prompt and standardizes reward
 within that group:
@@ -81,7 +81,7 @@ GRPO removes the learned critic, not the need for:
 - correct token-level masking;
 - enough distinct samples per prompt.
 
-## 3. Know which estimator you are changing
+## Which knob are you actually turning?
 
 RL acronyms are useful only when tied to a failure:
 
@@ -96,7 +96,7 @@ Do not select a method from its publication date. Identify whether the
 observed failure comes from reward sparsity, advantage estimation, importance
 ratios, clipping, length bias, or data generation.
 
-## 4. Make reward verify the intended behavior
+## What should the reward be measuring?
 
 RL with verifiable rewards works when a deterministic procedure can score the
 outcome: an exact numeric answer, a program that passes tests, a proof checked
@@ -117,7 +117,7 @@ For every reward, publish:
 Reward-model scores can supplement a verifier, but they do not become ground
 truth by being continuous.
 
-## 5. Treat generation as part of training
+## Why is the sampler now part of the training loop?
 
 RL data is produced online. Temperature, top-p, maximum length, stop rules,
 group size, and rollout concurrency control which trajectories enter the
@@ -131,7 +131,7 @@ solution.
 Log rollout policy separately from optimizer configuration. A reward curve
 cannot be interpreted if the sampling policy changed silently.
 
-## 6. Extend the environment for agents
+## What changes when the model can act?
 
 A single-turn answer has one terminal reward. An agent trajectory includes tool
 selection, arguments, observations, retries, and a final answer. The
@@ -150,7 +150,7 @@ and process guardrails.
 An environment is a software product, not a prompt list. Version it and test it
 before attributing a policy change to the RL algorithm.
 
-## 7. Detect reward hacking before celebrating reward
+## Reward went up. Did anything get better?
 
 Monitor a set of signals that can disagree:
 

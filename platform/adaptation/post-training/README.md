@@ -23,7 +23,7 @@ three assume the base model already has the behavior somewhere in its
 distribution; installing a behavior it has never produced is
 [mid-training](../mid-training/)'s job, not this chapter's.
 
-## 1. Define the assistant turn
+## What exactly is the model being taught to produce?
 
 Pretraining rewards every correct next token in raw text. An assistant dataset
 contains roles and a behavioral boundary: user tokens are context; assistant
@@ -49,7 +49,7 @@ token matters too: without it, the model is not supervised on when to stop.
 The SFT data contract must therefore include template version, role boundaries,
 loss mask, truncation policy, and packed-sequence boundaries.
 
-## 2. Prove the data path before scaling it
+## How do you know the template is wired correctly?
 
 SFT mostly changes format, response policy, and style; it does not inject all
 the factual knowledge the base model lacks. Start with a small, reviewed set
@@ -67,7 +67,7 @@ The first evidence is not a benchmark average. It is a before-and-after set of
 fixed prompts showing that the model enters, answers, and exits the assistant
 turn correctly.
 
-## 3. Restrict the update when full fine-tuning is unnecessary
+## Do you need to move every weight?
 
 LoRA keeps a pretrained weight $W$ frozen and learns a low-rank update:
 
@@ -96,7 +96,7 @@ QLoRA reduces the frozen base weight footprint with 4-bit quantization while
 keeping adapters and critical computation at higher precision. It changes
 memory feasibility, not the semantic contract of the training data.
 
-## 4. Represent preference as evidence, not truth
+## What does a human comparison actually tell you?
 
 A preference record contains a prompt, a chosen response, a rejected response,
 and the rubric used to compare them. A reward model converts that comparison
@@ -113,7 +113,7 @@ population, and prompt distribution can all become shortcuts.
 Before using a reward model, measure agreement and slice accuracy across the
 failure modes the policy may exploit.
 
-## 5. Understand DPO as one explicit objective
+## Can you skip the reward model entirely?
 
 DPO compares how much the trainable policy prefers the chosen response over the
 rejected response relative to a frozen reference policy:
@@ -145,7 +145,7 @@ The useful comparison is not a leaderboard of acronyms:
 All remain offline objectives. They cannot explore responses absent from the
 fixed preference dataset.
 
-## 6. Use distillation when the teacher supplies a richer target
+## When is a stronger model a better label than a human?
 
 Distillation can supervise final answers, token distributions, rationales, or
 tool traces. The important distinction is whose trajectory is scored:
@@ -166,7 +166,7 @@ What the teacher exposes decides what you can copy, and that turns out to
 constrain the student's tokenizer rather than only its weights.
 [Distillation](../distillation/) takes that question on its own terms.
 
-## 7. Merge only when the compatibility assumption holds
+## Can two fine-tunes be added together?
 
 Model merging treats a fine-tune as a task vector:
 

@@ -20,7 +20,7 @@ teacher run live during training -> on-the-fly distillation
 Each view exposes more of what the teacher knows, and each costs more to
 obtain than the one before it.
 
-[Post-training's distillation section](../post-training/README.md#6-use-distillation-when-the-teacher-supplies-a-richer-target)
+[Post-training's distillation section](../post-training/README.md#when-is-a-stronger-model-a-better-label-than-a-human)
 already separated distillation by *whose trajectory is scored* — off-policy on
 teacher-generated text, on-policy on the student's own generations. This
 chapter asks the orthogonal question: whose *signal* is scored — the

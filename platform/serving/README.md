@@ -18,7 +18,7 @@ Model math determines the work. The serving system determines when that work
 runs, where intermediate state lives, and whether another request can share the
 device.
 
-## 1. Separate prefill from decode
+## Why one latency number hides two different bottlenecks
 
 During **prefill**, the model processes all prompt tokens in parallel and
 creates keys and values for every layer. During **decode**, it produces one new
@@ -34,7 +34,7 @@ These phases stress different resources:
 A single average latency hides both. Report time to first token separately from
 inter-token latency and total completion time.
 
-## 2. Cache the past instead of recomputing it
+## What does keeping the past cost?
 
 Without a KV cache, generating token `t+1` recomputes keys and values for all
 tokens `1..t`. Caching makes each decode step reuse that state.
@@ -56,7 +56,7 @@ when cache memory overtakes model weights.
 This is why grouped-query attention chosen during model design changes serving
 economics: fewer KV heads reduce cache memory for every live token.
 
-## 3. Allocate KV memory in pages
+## Why reserving the cache up front wastes most of it
 
 Requests do not know their final length when admitted. Reserving each request's
 maximum possible contiguous cache wastes memory; waiting for a large contiguous
@@ -77,7 +77,7 @@ Block size trades fragmentation against table overhead. The scheduler and cache
 manager must agree on allocation and release; a leaked block becomes a
 long-lived capacity defect.
 
-## 4. Schedule at token boundaries
+## When should a waiting request be let in?
 
 Static batching waits for every request in a batch to finish before replacing
 it. Output lengths vary, so completed slots sit idle. Continuous batching
@@ -100,7 +100,7 @@ Higher throughput can increase queueing latency. The scheduler therefore needs
 an explicit objective: throughput under time-to-first-token and inter-token
 SLOs, not tokens per second alone.
 
-## 5. Speculate only when verification is cheaper
+## When is guessing ahead worth the check?
 
 Speculative decoding lets a smaller draft model propose several tokens. The
 target model verifies them in one pass and accepts the longest matching prefix.
@@ -120,7 +120,7 @@ change it substantially.
 The target distribution remains authoritative. Speculation changes execution,
 not the model's intended output distribution.
 
-## 6. Quantize against an accuracy contract
+## How much precision can you give up?
 
 Quantization reduces weight memory and bandwidth by representing values with
 fewer bits. The decision is not “which format is smallest.” It is which
@@ -138,7 +138,7 @@ Keep the axes separate:
 A smaller checkpoint that falls back to a slow kernel is not a serving win.
 Benchmark the complete runtime.
 
-## 7. Admit work using memory and latency together
+## What should the server do when it is full?
 
 Before accepting a request, estimate:
 
@@ -160,7 +160,7 @@ workers. This improves specialization but adds transfer, routing, and failure
 boundaries. Use disaggregation only after phase-specific measurements show a
 real imbalance.
 
-## 8. Measure the user-visible service
+## Which number tells you the service is healthy?
 
 The minimum serving dashboard reports distributions, not averages:
 

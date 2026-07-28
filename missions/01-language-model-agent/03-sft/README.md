@@ -38,7 +38,7 @@ model never encountered a fact, formatting the question as a chat turn will
 not produce it — SFT reliably surfaces knowledge and reframes behavior, it
 does not add capability the base model didn't already have latent in it. See
 the post-training chapter's
-[supervision contract](../../../platform/adaptation/post-training/README.md#1-define-the-assistant-turn)
+[supervision contract](../../../platform/adaptation/post-training/README.md#what-exactly-is-the-model-being-taught-to-produce)
 for the boundary between visible context and learned output.
 
 ## The chat template is a learned convention, not a magic string
