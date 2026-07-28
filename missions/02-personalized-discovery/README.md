@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# Mission 02 — Personalized discovery
+# Personalized discovery
 
 **Business goal:** reduce the time it takes a user to find something worth
 their attention, without degrading what the catalogue offers them or what the

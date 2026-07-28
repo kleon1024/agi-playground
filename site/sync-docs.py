@@ -139,26 +139,6 @@ def order_from(path: Path) -> int:
     return DEFAULT_POSITION
 
 
-def numbered(title: str, path: Path) -> str:
-    """Compose the displayed title: the chapter number plus the heading.
-
-    The number is generated here so that no heading has to carry it, which is
-    what makes inserting a chapter a one-line change.
-    """
-    rel = path.relative_to(ROOT) if path.is_absolute() else path
-    if rel.name != "README.md":
-        return title
-    position = CHAPTER_ORDER.get(rel.parent.as_posix())
-    if position is None:
-        # Mission stages are not in the curriculum spine — their order is the
-        # numeric prefix on the directory, which is also the URL. Generating
-        # the number from it keeps headings free of one, so inserting a stage
-        # stays a rename rather than an edit to every heading below it.
-        m = DIR_NUM_RE.match(rel.parent.name)
-        position = int(m.group(1)) if m else None
-    return f"{position:02d} — {title}" if position is not None else title
-
-
 def rewrite_links(text: str, src_rel: Path) -> str:
     """Point source files at GitHub and lesson links at their public routes."""
 
@@ -298,7 +278,6 @@ def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int]:
     label, override_pos = FILE_OVERRIDES.get(src.name, (None, None))
     if position is None:
         position = override_pos if override_pos is not None else order_from(src)
-    title = numbered(title, src)
 
     lines = ["---", f'title: "{title}"']
     if desc:
@@ -399,14 +378,17 @@ def main() -> None:
         # Section roots are linked to as directories (e.g. ../../platform/) but
         # have no README of their own, so give them a landing page.
         if not (src_dir / "README.md").exists():
-            children = sorted(
+            children = [
                 (dir_meta.get(Path(section) / d.name, (d.name, DEFAULT_POSITION)), d.name)
                 for d in src_dir.iterdir()
                 if d.is_dir() and (d / "README.md").exists()
-            )
-            listing = "\n".join(
-                f"- [{meta[0]}]({name}/)" for meta, name in sorted(children)
-            )
+            ]
+            # Curriculum order, not alphabetical. The listing used to sort by
+            # the displayed title, which only looked right while every title
+            # began with its position ("02 — Data"). Sort by the position the
+            # manifest assigns, and fall back to the title for ties.
+            children.sort(key=lambda entry: (entry[0][1], entry[0][0]))
+            listing = "\n".join(f"- [{meta[0]}]({name}/)" for meta, name in children)
             (OUT / section / "index.md").write_text(
                 f'---\ntitle: "{TITLE_OVERRIDES[section]}"\n---\n\n{listing}\n'
             )

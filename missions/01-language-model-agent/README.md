@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# Mission 01 — Raw text to a tool-using model
+# Raw text to a tool-using model
 
 Build one complete language-model system on a single 24GB GPU: clean raw text,
 train a tokenizer, pretrain a decoder, adapt its behavior, serve it, place it

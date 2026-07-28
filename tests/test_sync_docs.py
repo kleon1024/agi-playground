@@ -108,3 +108,38 @@ def test_relative_source_links_stay_on_github():
         "[implementation](https://github.com/kleon1024/agi-playground/blob/main/"
         "missions/01-language-model-agent/01-tokenizer/core/bpe.py)"
     )
+
+
+def test_section_index_lists_are_in_curriculum_order():
+    """The platform index once read Data, Pretraining, Adaptation... only by
+    accident, because every title began with its position ("02 — Data") and
+    the listing sorted alphabetically. Dropping the visible numbers turned it
+    into Adaptation, Data, Evaluation, Pretraining — alphabetical nonsense.
+    """
+    index = ROOT / "site" / "docs" / "platform" / "index.md"
+    if not index.is_file():
+        return  # site not synced in this environment
+    listed = re.findall(r"^- \[[^\]]+\]\(([^)/]+)/\)$", index.read_text(), re.MULTILINE)
+    positions = [
+        SYNC_DOCS.order_from(Path("platform") / name / "README.md") for name in listed
+    ]
+    assert positions == sorted(positions), (
+        "site/docs/platform/index.md is not in curriculum order:\n  "
+        + "\n  ".join(f"{n} (position {p})" for n, p in zip(listed, positions))
+    )
+
+
+def test_titles_do_not_carry_a_generated_number():
+    """Rendered titles are the heading alone.
+
+    The generated prefix showed a curriculum-global position on a page that
+    only listed one branch, so the platform index read "02, 03, 08, 09" plus
+    one entry with no number at all.
+    """
+    for section in ("platform", "missions", "capabilities"):
+        index = ROOT / "site" / "docs" / section / "index.md"
+        if not index.is_file():
+            continue
+        assert not re.search(r"^- \[\d+ [—–-] ", index.read_text(), re.MULTILINE), (
+            f"site/docs/{section}/index.md still renders a numbered title"
+        )

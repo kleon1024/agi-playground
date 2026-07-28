@@ -20,6 +20,7 @@
 foundations
 platform/data
 platform/training
+platform/adaptation
 platform/adaptation/mid-training
 platform/adaptation/post-training
 platform/adaptation/distillation

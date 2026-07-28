@@ -2,7 +2,7 @@
 status: draft
 ---
 
-# Mission 03 — Quantitative research
+# Quantitative research
 
 **Business goal:** decide whether a candidate trading signal earns a place in
 a systematic strategy book, without letting the act of searching for that
