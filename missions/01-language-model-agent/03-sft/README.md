@@ -1,5 +1,6 @@
 ---
-status: draft
+status: verified
+verified: 2026-07-28
 base: scratch
 label: SFT
 ---
@@ -167,12 +168,48 @@ producing fluent chat-shaped output:
   mostly teaches format and style) is an argument for curation over volume,
   not evidence that curation substitutes for scale.
 
-## Reproducing
+## What it actually did
 
-No GPU has run this stage yet — the commands below are the reproduction
-recipe, not a report of a completed run. `runs/` will hold the actual
-numbers, the exact dataset snapshot, and before/after samples once stage 02
-has landed a checkpoint to fine-tune.
+Three epochs over 9,500 hand-written conversations took **92.5 seconds** on a
+24GB card and moved validation loss from 3.1829 to a best of **2.7828**. The
+behavioural change is visible without a benchmark. The base model, given a
+question, continued it; this model answers it:
+
+> **What are 5 things I can do when it's raining in London?**
+> Celebrate the day with these 5 things you can do when it's raining in London.
+> Have fun with your friends, be active, and find out more!
+>
+> 1. Find some local shops or bookstores. [...]
+
+It produces a heading and starts a list because it was asked for five things,
+and it stops — neither of which the base model would do. It is also still
+wrong about everything:
+
+> **What are some good desserts that use chocolate?**
+> Candy, chocolate, and chocolate, are the two popular desserts for children.
+
+A sentence with the shape of an answer and no content. That pairing is the
+result to carry forward: **SFT changed the form of the output and nothing about
+what the model knows**, which is what 9.8M tokens of instruction data can and
+cannot do to a model that saw 3.00B tokens of pretraining.
+
+Two costs of the 1,024-token context arrive here rather than in stage 02.
+Packing leaves **19.6% of trained positions as padding**, and **217
+conversations — 2.3% of the dataset — were discarded outright** for exceeding a
+single block. Neither was measured for impact; both are recorded because they
+are real.
+
+One number invites a false reading. Step 0 measures 3.1829 while pretraining
+ended at 3.0984, which looks like a regression and is not: different held-out
+distribution, loss counted only on assistant tokens, through a template the
+model has never seen. The only honest baseline for an SFT curve is its own
+step 0.
+
+Command, hardware, software versions, the full curve, all six generations, and
+the two setup defects worth knowing about are in
+[`runs/2026-07-28-sft-no-robots.md`](runs/2026-07-28-sft-no-robots.md).
+
+## Reproducing
 
 ```bash
 # fine-tune stage 02's checkpoint on HuggingFaceH4/no_robots
