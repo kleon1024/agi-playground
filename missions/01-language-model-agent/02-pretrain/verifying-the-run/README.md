@@ -76,7 +76,7 @@ differently-configured run is a guess wearing a number.
 
 ## What five hours bought
 
-![Validation loss over 22,888 steps](../runs/loss.svg)
+![Validation loss from step 0 to 22,500](../runs/loss.svg)
 
 Loss fell from 9.8697 to a best of **3.0689** at step 21,000, a validation
 perplexity of 21.5. It then rose to 3.0984 by step 22,500 — the final 6.5% of
