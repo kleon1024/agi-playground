@@ -8,7 +8,7 @@ label: Why concurrency pays
 # Why should sixteen requests cost less than sixteen times one?
 
 **Question:** [the previous chapter](../) left the engine generating a flat
-120-145 tokens per second for a single request, and explained why: a fixed
+105-135 tokens per second for a single request, and explained why: a fixed
 per-step cost that the KV cache cannot touch. A fixed cost per step is exactly
 the kind of cost that should be *shared*. If sixteen users send a prompt at the
 same moment, sixteen decode steps read the same weights out of memory. Read them

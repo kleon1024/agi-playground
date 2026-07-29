@@ -185,6 +185,19 @@ improves.
 The request trace should join admission, scheduling, model execution, and
 finish reason. Otherwise the owner of a latency spike cannot be identified.
 
+## Sub-lessons that measure instead of naming
+
+The sections above name the techniques and give the arithmetic behind them.
+Each sub-lesson takes one and runs it, which is the difference between knowing
+a technique exists and knowing what it is worth on a specific card.
+
+| Read this | When you need to decide | It returns |
+|---|---|---|
+| [graph execution](01-graph-execution/) | whether the card is working or waiting between tokens | a profile that says which of three bottlenecks you have, and roughly 3x from removing launch overhead |
+
+Techniques named above and not yet measured — quantization, speculative
+decoding, latency under load — stay named until a run record exists for them.
+
 ## Run the working path
 
 [Mission 01, serving](../../missions/01-language-model-agent/05-serve/) joins a

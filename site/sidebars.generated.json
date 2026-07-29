@@ -402,6 +402,11 @@
         "items": [
           {
             "type": "doc",
+            "id": "platform/serving/01-graph-execution/index",
+            "label": "Graph execution \u00b7 verified"
+          },
+          {
+            "type": "doc",
             "id": "platform/serving/LANDSCAPE",
             "label": "Landscape"
           }

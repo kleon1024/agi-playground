@@ -162,29 +162,40 @@ Measured on the stage-03 chat checkpoint, one request, greedy decoding:
 
 | New tokens | 32 | 64 | 128 | 256 | 512 |
 |---|---:|---:|---:|---:|---:|
-| Naive, tok/s | 99.6 | 120.3 | 123.7 | 123.1 | 130.8 |
-| KV cache, tok/s | 121.2 | 144.2 | 134.7 | 145.1 | 140.7 |
-| Speedup | 1.22x | 1.20x | 1.09x | 1.18x | 1.08x |
+| Naive, tok/s | 104.7 | 112.3 | 117.5 | 119.7 | 132.8 |
+| KV cache, tok/s | 126.6 | 126.3 | 123.8 | 120.6 | 122.2 |
+| Speedup | 1.21x | 1.12x | 1.05x | 1.01x | **0.92x** |
 
-**The speedup does not grow with sequence length, and that is the finding.**
-Recomputing the whole prefix every step is quadratic, so the gap should widen
-as generation gets longer. It does not. Both engines sit near a flat 120-145
-tokens/second no matter how much work the naive one is redoing.
+**The speedup shrinks as generation gets longer, and by 512 tokens the cache
+loses.** That is backwards. Recomputing the whole prefix every step is
+quadratic work, so the gap should widen with length — instead it closes and
+then inverts.
 
-That is the signature of a *fixed per-step cost* swamping everything else. At
-88M parameters and a batch of one, a decode step is a few dozen small kernel
-launches over weights that must be read from memory whatever the sequence
-length; the attention arithmetic the cache eliminates is small against it until
-sequences run far past 512 tokens. Stage 02 measured the same effect from the
-training side, where `torch.compile` bought 1.76x by fusing memory-bound work
-and removing launch overhead.
+Read the naive row again, though, because it is the one that explains this. It
+*rises* from 104.7 to 132.8 as sequences get longer. An engine limited by the
+quadratic work it redoes cannot speed up when you give it more of that work to
+redo. So neither engine is limited by arithmetic, and something else is setting
+the pace for both.
+
+That something is the rate at which decode steps can be *issued*. Each cached
+step is one token wide: a few hundred tiny kernel launches over weights that
+must be read whatever the sequence length. The naive path issues launches at a
+similar rate, but each one covers the entire sequence, so it extracts more
+arithmetic per launch — and that trade improves the longer the sequence gets,
+until it overtakes the cache. Stage 02 saw the same effect from the training
+side, where `torch.compile` bought 1.76x by fusing memory-bound work and
+removing launch overhead.
 
 Memory does behave as predicted: past 256 new tokens the naive path's peak
 exceeds the cached one, because it re-materialises activations for the whole
 sequence every step while the cache holds only keys and values. Full sweep in
-[`runs/2026-07-28-engine-bench.md`](runs/2026-07-28-engine-bench.md).
+[`runs/2026-07-29-engine-bench-corrected.md`](runs/2026-07-29-engine-bench-corrected.md).
 
-Hold on to the flat number. It is the premise of the next chapter.
+Hold on to that diagnosis. It is the premise of the next chapter, and
+[`platform/serving/01-graph-execution/`](../../../platform/serving/01-graph-execution/)
+puts a profiler on it rather than leaving it as the best available story: 513
+kernel launches per decode step, host time 6.87x device time, and a 3.06x
+speedup from removing the launches without touching the arithmetic.
 
 ## What this chapter does not establish
 
@@ -195,7 +206,14 @@ Hold on to the flat number. It is the premise of the next chapter.
   throughput on a synthetic prompt. No time-to-first-token, no inter-token
   distribution, no behaviour under load.
 - **Anything about quality.** Greedy decoding of `range(64)` produces token
-  sequences, not answers.
+  sequences, not answers. Both cached engines are now verified to reproduce a
+  full recompute's logits exactly
+  (`tests/test_decode_correctness.py`), which is correctness, not quality.
+  They were not always: the first version of this chapter benchmarked an engine
+  whose every decode step attended to position 0 alone, and it went unnoticed
+  precisely because a throughput sweep never reads its own output. The numbers
+  above are the re-measured ones, and the earlier record is kept and marked
+  rather than quietly replaced.
 
 ## Reproduce it
 
@@ -226,7 +244,7 @@ the code path runs with no GPU and no trained weights at all.
 serving layer in a tool loop.
 
 First, though: [why concurrency should be free](why-concurrency-pays/) takes
-the flat 120-145 tokens/second above and asks what happens when sixteen people
+the flat 105-135 tokens/second above and asks what happens when sixteen people
 send a prompt at the same time. The answer this engine gives is wrong, in a way
 that is worth 89x — and stage 06 issues one request per step, so the cost model
 it inherits comes from that chapter rather than this one.

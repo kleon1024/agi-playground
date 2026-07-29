@@ -1,5 +1,14 @@
 # Serving engine benchmark — 88M chat checkpoint on one 4090
 
+> **Superseded by
+> [`2026-07-29-engine-bench-corrected.md`](2026-07-29-engine-bench-corrected.md).**
+> The engine measured here had a causal-masking bug: every decode step in both
+> cached engines attended only to position 0. That made the cached paths both
+> wrong and *faster* than they should have been, so every `KV cache` and
+> `paged + continuous` number below is optimistic — increasingly so at longer
+> sequences. The `naive` column is unaffected. Kept unedited as the record of
+> what was actually run.
+
 ## Command
 
 ```bash

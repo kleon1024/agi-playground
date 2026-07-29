@@ -112,12 +112,12 @@ standards/     the contracts lessons, capabilities, and missions must satisfy
 | Layer | Scope | Status |
 |---|---|---|
 | [data](platform/data/) | Pipelines, dedup, filtering, annotation, synthetic data | Seeded by [mission 01 · corpus](missions/01-language-model-agent/00-corpus/) |
-| [training](platform/training/) | Tokenizers, architecture, training loop, scaling laws | Draft |
+| [training](platform/training/) | Tokenizers, architecture, training loop, scaling laws | Overview draft; 4 of 5 sub-lessons verified by runs |
 | [adaptation · mid-training](platform/adaptation/mid-training/) | The stage between pretraining and SFT: agentic and tool-use priors at pretraining scale, long-context extension, observation masking | Draft |
 | [adaptation · post-training](platform/adaptation/post-training/) | SFT, LoRA/PEFT, reward models, DPO family, merging | Draft |
 | [adaptation · distillation](platform/adaptation/distillation/) | Sequence-, logit-, and feature-level copying; the top-k storage format; why a shared tokenizer is not optional | Draft |
 | [adaptation · RL](platform/adaptation/reinforcement-learning/) | PPO grounding → GRPO/GSPO/DAPO → RLVR → agentic RL | Draft |
-| [serving](platform/serving/) | KV cache, paged attention, batching, speculative decoding, quantization; training infra | Draft |
+| [serving](platform/serving/) | KV cache, paged attention, batching, speculative decoding, quantization; training infra | Overview draft; [graph execution](platform/serving/01-graph-execution/) verified by a run |
 | [evaluation & observability](platform/evaluation-observability/) | Static and agentic evals, contamination, harness disclosure | Draft |
 | [safety & governance](platform/safety-governance/) | Enforcing the guardrails missions declare | Draft |
 

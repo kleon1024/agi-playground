@@ -107,6 +107,11 @@ const BUILD_PATH: Step[] = [
         label: 'Platform / serving',
         returns: 'the cost model for one request',
       },
+      {
+        href: '/playground/platform/serving/01-graph-execution/',
+        label: 'Graph execution',
+        returns: 'which of three bottlenecks the decode step actually has, and roughly 3x from fixing it',
+      },
     ],
     companion: { href: `${MISSION}/05-serve/why-concurrency-pays/`, label: 'Why concurrency pays' },
   },
