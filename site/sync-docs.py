@@ -47,7 +47,14 @@ SECTIONS = [
     ("research", 80),
 ]
 
-CODE_SUFFIXES = (".py", ".yaml", ".yml", ".json", ".toml", ".sh", ".txt")
+# Source and raw evidence alike: anything a reader follows to look at bytes
+# rather than to read a page. `runs/` entries cite their own records --
+# `.jsonl` result rows, `.diff` patches -- and those are files on GitHub, not
+# routes on this site. Omitting them here does not produce a wrong link, it
+# produces a broken build, which is the better failure of the two.
+CODE_SUFFIXES = (
+    ".py", ".yaml", ".yml", ".json", ".jsonl", ".toml", ".sh", ".txt", ".diff", ".csv",
+)
 ASSET_SUFFIXES = (".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp")
 LINK_RE = re.compile(r"(!?)\[([^\]]*)\]\(([^)]+)\)")
 

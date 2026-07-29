@@ -1,0 +1,510 @@
+########## haiku run 1 ##########
+diff --git a/missions/01-language-model-agent/05-serve/core/engine.py b/missions/01-language-model-agent/05-serve/core/engine.py
+index 99bd866..950ac1d 100644
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -145,10 +145,9 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+     - the new token's K/V are written into the cache before reading, and
+       attention runs against the cache's full contents (`start_pos + T`
+       tokens) rather than only the T tokens in `x` — the entire point.
+-    - `is_causal=True` still holds for a 1-query, N-key decode step: SDPA's
+-      causal mask aligns the query block against the *last* T_q positions of
+-      the key block, which for T_q=1 means "attend to everything" — exactly
+-      the single new token attending over all prior cached tokens.
++    - Causal masking is only applied during prefill (start_pos==0). In decode,
++      a single query attends to all cached keys, and `is_causal=True` would
++      use top-left alignment, masking all but position 0 — the bug.
+     """
+     _, T, _ = x.shape
+     q = attn.q(x).view(1, T, cfg.n_head, cfg.d_head).transpose(1, 2)
+@@ -165,7 +164,8 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    is_causal = (start_pos == 0)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=is_causal)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -317,7 +317,8 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCache,
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    is_causal = (start_pos == 0)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=is_causal)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+
+########## haiku run 2 ##########
+diff --git a/missions/01-language-model-agent/05-serve/core/engine.py b/missions/01-language-model-agent/05-serve/core/engine.py
+index 99bd866..8b8db90 100644
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -145,10 +145,10 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+     - the new token's K/V are written into the cache before reading, and
+       attention runs against the cache's full contents (`start_pos + T`
+       tokens) rather than only the T tokens in `x` — the entire point.
+-    - `is_causal=True` still holds for a 1-query, N-key decode step: SDPA's
+-      causal mask aligns the query block against the *last* T_q positions of
+-      the key block, which for T_q=1 means "attend to everything" — exactly
+-      the single new token attending over all prior cached tokens.
++    - causal masking must account for absolute position: during prefill
++      (start_pos=0), standard is_causal works; during decode (start_pos>0),
++      a custom lower-right causal mask aligns queries at absolute positions
++      start_pos..start_pos+T-1 to keys at 0..start_pos+T-1.
+     """
+     _, T, _ = x.shape
+     q = attn.q(x).view(1, T, cfg.n_head, cfg.d_head).transpose(1, 2)
+@@ -165,7 +165,13 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    # During prefill (T > 1), use standard causal masking. During decode (T == 1),
++    # the single query is "at the end" of the sequence and cached keys are "in the past",
++    # so no masking is needed—the query naturally only attends to prior tokens.
++    if T == 1:
++        out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=False)
++    else:
++        out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -317,7 +323,13 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCache,
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    # During prefill (T > 1), use standard causal masking. During decode (T == 1),
++    # the single query is "at the end" of the sequence and cached keys are "in the past",
++    # so no masking is needed—the query naturally only attends to prior tokens.
++    if T == 1:
++        out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=False)
++    else:
++        out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+
+########## haiku run 3 ##########
+diff --git a/missions/01-language-model-agent/05-serve/core/engine.py b/missions/01-language-model-agent/05-serve/core/engine.py
+index 99bd866..7b0c494 100644
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -145,10 +145,10 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+     - the new token's K/V are written into the cache before reading, and
+       attention runs against the cache's full contents (`start_pos + T`
+       tokens) rather than only the T tokens in `x` — the entire point.
+-    - `is_causal=True` still holds for a 1-query, N-key decode step: SDPA's
+-      causal mask aligns the query block against the *last* T_q positions of
+-      the key block, which for T_q=1 means "attend to everything" — exactly
+-      the single new token attending over all prior cached tokens.
++    - Causal masking: for prefill (T_q == T_k), use is_causal=True to enforce
++      causal attention. For decode (T_q < T_k), all cached keys are in the
++      past by construction, so no masking is needed and is_causal=True would
++      incorrectly mask most keys.
+     """
+     _, T, _ = x.shape
+     q = attn.q(x).view(1, T, cfg.n_head, cfg.d_head).transpose(1, 2)
+@@ -165,7 +165,8 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    is_causal = (T == k_full.size(2))
++    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=is_causal)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -317,7 +318,8 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCache,
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    is_causal = (T == k_full.size(2))
++    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=is_causal)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+
+########## sonnet run 1 ##########
+diff --git a/missions/01-language-model-agent/05-serve/core/engine.py b/missions/01-language-model-agent/05-serve/core/engine.py
+index 99bd866..cc03531 100644
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -53,6 +53,23 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "02-pretrain" / "co
+ from model import Config, Transformer, apply_rope, build_rope_cache
+ 
+ 
++def causal_lower_right(T_q: int, T_k: int, device) -> torch.Tensor:
++    """The causal mask a decode step actually needs: query row `i` (absolute
++    position `T_k - T_q + i`) may attend to key column `j` exactly when
++    `j <= T_k - T_q + i`.
++
++    `F.scaled_dot_product_attention(..., is_causal=True)` builds `tril` of a
++    `(T_q, T_k)` matrix aligned to the *top-left* corner (`diagonal=0`), which
++    only matches this when `T_q == T_k` (prefill, and `model.py`'s forward,
++    which always sees the whole sequence). A decode step has `T_q == 1`
++    against `T_k == pos + 1`; top-left alignment then leaves exactly one key
++    unmasked, position 0, no matter how far generation has gone. Aligning to
++    the *bottom-right* corner instead (`diagonal = T_k - T_q`) is what makes
++    row `i` line up with its true absolute position.
++    """
++    return torch.ones(T_q, T_k, dtype=torch.bool, device=device).tril(diagonal=T_k - T_q)
++
++
+ def load_model(checkpoint: Path | None, device: str) -> tuple[Transformer, Config]:
+     """Load a trained checkpoint, or a freshly initialized model of the same
+     shape when none is given. Random weights produce nonsense text but the
+@@ -145,10 +162,11 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+     - the new token's K/V are written into the cache before reading, and
+       attention runs against the cache's full contents (`start_pos + T`
+       tokens) rather than only the T tokens in `x` — the entire point.
+-    - `is_causal=True` still holds for a 1-query, N-key decode step: SDPA's
+-      causal mask aligns the query block against the *last* T_q positions of
+-      the key block, which for T_q=1 means "attend to everything" — exactly
+-      the single new token attending over all prior cached tokens.
++    - the mask is built explicitly with `causal_lower_right` rather than
++      passing `is_causal=True`: SDPA's `is_causal` aligns its `tril` to the
++      top-left corner, which only matches a decode step's true causality when
++      `T_q == T_k` (see `causal_lower_right`'s docstring for the shape this
++      derails on).
+     """
+     _, T, _ = x.shape
+     q = attn.q(x).view(1, T, cfg.n_head, cfg.d_head).transpose(1, 2)
+@@ -165,7 +183,8 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    mask = causal_lower_right(T, start_pos + T, x.device)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=mask)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -317,7 +336,8 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCache,
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    mask = causal_lower_right(T, start_pos + T, x.device)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=mask)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+
+########## sonnet run 2 ##########
+diff --git a/missions/01-language-model-agent/05-serve/core/engine.py b/missions/01-language-model-agent/05-serve/core/engine.py
+index 99bd866..e4d2ea4 100644
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -53,6 +53,24 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "02-pretrain" / "co
+ from model import Config, Transformer, apply_rope, build_rope_cache
+ 
+ 
++def causal_lower_right(T_q: int, T_k: int, device) -> torch.Tensor:
++    """Boolean attention mask (True = attend) for a query block that ends at
++    the *same* position the key block ends at, even when `T_q != T_k`.
++
++    `F.scaled_dot_product_attention(..., is_causal=True)` builds its mask as
++    `tril` of a `(T_q, T_k)` matrix, which aligns the two blocks top-left.
++    That is exactly right for prefill (`T_q == T_k`), but every decode step
++    has `T_q == 1` against `T_k == pos + 1`: top-left alignment then keeps
++    only key column 0, i.e. "attend to position 0 only", instead of "attend
++    to everything up to and including the new token". Query row `i` must see
++    key column `j` for every `j <= (T_k - T_q) + i` — bottom-right aligned —
++    which reduces to the ordinary lower-triangular mask when `T_q == T_k`.
++    """
++    q_idx = torch.arange(T_q, device=device).unsqueeze(1)
++    k_idx = torch.arange(T_k, device=device).unsqueeze(0)
++    return k_idx <= (T_k - T_q) + q_idx
++
++
+ def load_model(checkpoint: Path | None, device: str) -> tuple[Transformer, Config]:
+     """Load a trained checkpoint, or a freshly initialized model of the same
+     shape when none is given. Random weights produce nonsense text but the
+@@ -145,10 +163,10 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+     - the new token's K/V are written into the cache before reading, and
+       attention runs against the cache's full contents (`start_pos + T`
+       tokens) rather than only the T tokens in `x` — the entire point.
+-    - `is_causal=True` still holds for a 1-query, N-key decode step: SDPA's
+-      causal mask aligns the query block against the *last* T_q positions of
+-      the key block, which for T_q=1 means "attend to everything" — exactly
+-      the single new token attending over all prior cached tokens.
++    - the mask is built with `causal_lower_right`, not `is_causal=True`: a
++      1-query, N-key decode step needs the new token to attend over every
++      prior cached token, which is a bottom-right-aligned causal mask, not
++      the top-left alignment SDPA's `is_causal` flag applies.
+     """
+     _, T, _ = x.shape
+     q = attn.q(x).view(1, T, cfg.n_head, cfg.d_head).transpose(1, 2)
+@@ -165,7 +183,8 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    mask = causal_lower_right(T, start_pos + T, x.device)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=mask)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -317,7 +336,8 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCache,
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    mask = causal_lower_right(T, start_pos + T, x.device)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=mask)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+
+########## sonnet run 3 ##########
+diff --git a/missions/01-language-model-agent/05-serve/core/engine.py b/missions/01-language-model-agent/05-serve/core/engine.py
+index 99bd866..a719580 100644
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -53,6 +53,22 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "02-pretrain" / "co
+ from model import Config, Transformer, apply_rope, build_rope_cache
+ 
+ 
++def causal_lower_right(t_q: int, t_k: int, device) -> torch.Tensor:
++    """Boolean causal mask, `(t_q, t_k)`, aligned so the *last* `t_q` keys line
++    up with the `t_q` queries — the alignment a cached decode step needs.
++
++    `scaled_dot_product_attention(..., is_causal=True)` builds `tril` of a
++    `(t_q, t_k)` matrix, which aligns the two blocks top-left. That is only
++    the correct causal mask when `t_q == t_k` (prefill). Once the cache holds
++    prior tokens, a decode step has `t_q == 1` against `t_k == pos + 1`, and
++    top-left alignment keeps only key index 0 — the new token would attend to
++    the first prompt token and nothing else. Shifting the diagonal by
++    `t_k - t_q` re-aligns row `i` (query at absolute position `pos + i`)
++    against every key up to and including its own position, for any `t_q`.
++    """
++    return torch.ones(t_q, t_k, dtype=torch.bool, device=device).tril(diagonal=t_k - t_q)
++
++
+ def load_model(checkpoint: Path | None, device: str) -> tuple[Transformer, Config]:
+     """Load a trained checkpoint, or a freshly initialized model of the same
+     shape when none is given. Random weights produce nonsense text but the
+@@ -145,10 +161,9 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+     - the new token's K/V are written into the cache before reading, and
+       attention runs against the cache's full contents (`start_pos + T`
+       tokens) rather than only the T tokens in `x` — the entire point.
+-    - `is_causal=True` still holds for a 1-query, N-key decode step: SDPA's
+-      causal mask aligns the query block against the *last* T_q positions of
+-      the key block, which for T_q=1 means "attend to everything" — exactly
+-      the single new token attending over all prior cached tokens.
++    - the mask is `causal_lower_right`, not `is_causal=True`: a decode step
++      has T queries against `start_pos + T` keys, and only lower-right
++      alignment puts each query's own position at the diagonal.
+     """
+     _, T, _ = x.shape
+     q = attn.q(x).view(1, T, cfg.n_head, cfg.d_head).transpose(1, 2)
+@@ -165,7 +180,8 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    mask = causal_lower_right(T, k_full.size(2), x.device)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=mask)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -317,7 +333,8 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCache,
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    mask = causal_lower_right(T, k_full.size(2), x.device)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=mask)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+
+########## opus run 1 ##########
+diff --git a/missions/01-language-model-agent/05-serve/core/engine.py b/missions/01-language-model-agent/05-serve/core/engine.py
+index 99bd866..912c1ee 100644
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -44,6 +44,7 @@ from pathlib import Path
+ 
+ import torch
+ from torch.nn import functional as F
++from torch.nn.attention.bias import causal_lower_right
+ 
+ # The model these engines serve lives two directories over, in the pretrain
+ # stage. Importing it rather than duplicating it means the engine always
+@@ -134,6 +135,26 @@ class KVCache:
+         return self.buf[layer, 0, :, :upto], self.buf[layer, 1, :, :upto]
+ 
+ 
++def _causal_bias(T_q: int, T_k: int):
++    """The causal mask a *cached* attention step needs.
++
++    `F.scaled_dot_product_attention(..., is_causal=True)` aligns its mask
++    top-left: it is `tril` of a `(T_q, T_k)` matrix, so query row i may see
++    keys 0..i. That is right only when `T_q == T_k`, which is true during
++    prefill and false for every step after it. A decode step has `T_q == 1`
++    against `T_k == start_pos + 1`, and top-left alignment leaves row 0 with
++    exactly one visible key — position 0. The engine still runs, still fills
++    its cache, and still benchmarks at full speed while attending to the
++    first token of the prompt and nothing else.
++
++    Lower-right alignment is the one that generalizes: it anchors the last
++    query at the last key, so query row i sees keys 0..(T_k - T_q + i) — the
++    new token attending over the whole cache, and prefill unchanged, since
++    the two alignments coincide when the matrix is square.
++    """
++    return causal_lower_right(T_q, T_k)
++
++
+ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx: int, start_pos: int):
+     """Re-implementation of `Attention.forward` (model.py) with a cache.
+ 
+@@ -145,10 +166,9 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+     - the new token's K/V are written into the cache before reading, and
+       attention runs against the cache's full contents (`start_pos + T`
+       tokens) rather than only the T tokens in `x` — the entire point.
+-    - `is_causal=True` still holds for a 1-query, N-key decode step: SDPA's
+-      causal mask aligns the query block against the *last* T_q positions of
+-      the key block, which for T_q=1 means "attend to everything" — exactly
+-      the single new token attending over all prior cached tokens.
++    - the mask is `causal_lower_right`, not `is_causal=True`. Once a cache is
++      in play `T_q != T_k`, and the two alignments stop agreeing — see
++      `_causal_bias` for why the difference is silent and severe.
+     """
+     _, T, _ = x.shape
+     q = attn.q(x).view(1, T, cfg.n_head, cfg.d_head).transpose(1, 2)
+@@ -165,7 +185,8 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    bias = _causal_bias(T, k_full.size(2))
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=bias)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -317,7 +338,8 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCache,
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    bias = _causal_bias(T, k_full.size(2))
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=bias)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+
+########## opus run 2 ##########
+diff --git a/missions/01-language-model-agent/05-serve/core/engine.py b/missions/01-language-model-agent/05-serve/core/engine.py
+index 99bd866..55f760a 100644
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -44,6 +44,7 @@ from pathlib import Path
+ 
+ import torch
+ from torch.nn import functional as F
++from torch.nn.attention.bias import causal_lower_right
+ 
+ # The model these engines serve lives two directories over, in the pretrain
+ # stage. Importing it rather than duplicating it means the engine always
+@@ -145,10 +146,13 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+     - the new token's K/V are written into the cache before reading, and
+       attention runs against the cache's full contents (`start_pos + T`
+       tokens) rather than only the T tokens in `x` — the entire point.
+-    - `is_causal=True` still holds for a 1-query, N-key decode step: SDPA's
+-      causal mask aligns the query block against the *last* T_q positions of
+-      the key block, which for T_q=1 means "attend to everything" — exactly
+-      the single new token attending over all prior cached tokens.
++    - the causal mask is built with `causal_lower_right`, not `is_causal=True`.
++      `is_causal` aligns the mask top-left — `tril` of a `(T_q, T_kv)` matrix —
++      which is only correct when `T_q == T_kv`, as it is during prefill. A
++      decode step has `T_q == 1` against `T_kv == start_pos + 1`, and top-left
++      alignment leaves exactly one key unmasked: position 0. Lower-right
++      alignment puts the query at the *end* of the key block, so the new token
++      attends over all prior cached tokens and itself, which is the point.
+     """
+     _, T, _ = x.shape
+     q = attn.q(x).view(1, T, cfg.n_head, cfg.d_head).transpose(1, 2)
+@@ -165,7 +169,8 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    mask = causal_lower_right(T, k_full.size(2))
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=mask)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -317,7 +322,8 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCache,
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    mask = causal_lower_right(T, k_full.size(2))
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=mask)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+
+########## opus run 3 ##########
+diff --git a/missions/01-language-model-agent/05-serve/core/engine.py b/missions/01-language-model-agent/05-serve/core/engine.py
+index 99bd866..a5b4594 100644
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -44,6 +44,7 @@ from pathlib import Path
+ 
+ import torch
+ from torch.nn import functional as F
++from torch.nn.attention.bias import causal_lower_right
+ 
+ # The model these engines serve lives two directories over, in the pretrain
+ # stage. Importing it rather than duplicating it means the engine always
+@@ -145,10 +146,15 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+     - the new token's K/V are written into the cache before reading, and
+       attention runs against the cache's full contents (`start_pos + T`
+       tokens) rather than only the T tokens in `x` — the entire point.
+-    - `is_causal=True` still holds for a 1-query, N-key decode step: SDPA's
+-      causal mask aligns the query block against the *last* T_q positions of
+-      the key block, which for T_q=1 means "attend to everything" — exactly
+-      the single new token attending over all prior cached tokens.
++    - the mask is `causal_lower_right`, not `is_causal=True`. SDPA's
++      `is_causal` mask is the top-left `tril` of a `(T_q, T_k)` matrix, which
++      is only the right mask when `T_q == T_k` — true for prefill, false for
++      every decode step, where T_q=1 against T_k=start_pos+1 and a top-left
++      mask would leave only position 0 visible. Lower-right alignment puts
++      the last query at the last key, so the T queries in `x` see all
++      `start_pos` cached tokens plus themselves, causally — which reduces to
++      "attend to everything" for a single decode token, and to the ordinary
++      causal mask during prefill.
+     """
+     _, T, _ = x.shape
+     q = attn.q(x).view(1, T, cfg.n_head, cfg.d_head).transpose(1, 2)
+@@ -165,7 +171,9 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    out = F.scaled_dot_product_attention(
++        q, k_full, v_full, attn_mask=causal_lower_right(T, start_pos + T)
++    )
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -317,7 +325,9 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCache,
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    out = F.scaled_dot_product_attention(
++        q, k_full, v_full, attn_mask=causal_lower_right(T, start_pos + T)
++    )
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+

@@ -110,6 +110,23 @@ def test_relative_source_links_stay_on_github():
     )
 
 
+def test_runs_entries_can_cite_their_own_raw_evidence():
+    """A `runs/` entry links to the records behind it -- result rows, produced
+    patches. Those are files to look at on GitHub, not routes on this site, and
+    a suffix missing from the rewriter does not produce a wrong link, it breaks
+    the build."""
+    source = Path("missions/04-code-agent/03-cheap-or-expensive/runs/entry.md")
+    markdown = "[rows](results.jsonl) and [patches](patches.diff)"
+
+    rewritten = SYNC_DOCS.rewrite_links(markdown, source)
+
+    base = "https://github.com/kleon1024/agi-playground/blob/main"
+    stage = "missions/04-code-agent/03-cheap-or-expensive/runs"
+    assert rewritten == (
+        f"[rows]({base}/{stage}/results.jsonl) and [patches]({base}/{stage}/patches.diff)"
+    )
+
+
 def test_section_index_lists_are_in_curriculum_order():
     """The platform index once read Data, Pretraining, Adaptation... only by
     accident, because every title began with its position ("02 — Data") and

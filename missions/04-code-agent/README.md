@@ -70,7 +70,7 @@ them would hide the only comparison that says which is which.
 | [00 — The task set](00-task-set/) | what makes a bug report into a scoreable task? | verified |
 | 01 — No harness | is the loop worth anything over one blind call? | not started |
 | [02 — Scoring the attempt](02-agent-loop/) | what would change your mind about "it passed"? | verified |
-| 03 — Local against frontier | what does the cheap model cost you? | not started |
+| [03 — Cheap or expensive](03-cheap-or-expensive/) | the cheap model resolved everything; should you use it? | verified |
 | 04 — How it fails | how does it fail, and does it cheat? | not started |
 | 05 — The report | what did we actually establish? | not started |
 
@@ -86,11 +86,17 @@ baseline, agent loop, diff, score — driven by scripted backends rather than a
 model, and the test-tampering guardrail is demonstrated firing on a patch whose
 every other signal reads as a clean fix.
 
-No language model has driven the loop yet, so nothing here reports a resolve
-rate, tokens, or dollars. Per
-[the mission contract](../../standards/mission-contract.md), the contract was
-declared before the system was built, so the baseline and the metric cannot be
-chosen after seeing which ones flatter the result.
+[Stage 03](03-cheap-or-expensive/) put three model tiers through the task set,
+three runs each. All eighteen attempts resolved, at $0.16 per resolved task on
+the cheapest tier against $0.82 on the most expensive — and reading the patches
+showed the cheapest tier had produced three latent defects the resolve rate
+cannot see. The primary metric says route everything cheap; the diffs say
+otherwise. That gap is the mission's own thesis pointed at the mission.
+
+Per [the mission contract](../../standards/mission-contract.md), the contract
+was declared before the system was built, so the baseline and the metric cannot
+be chosen after seeing which ones flatter the result. The no-harness baseline
+in stage 01 has not run, so the value of the loop itself is still unmeasured.
 
 ## What this will not prove
 
