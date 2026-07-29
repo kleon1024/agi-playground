@@ -85,6 +85,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/01-language-model-agent/05-serve/paging-the-cache/index",
+                "label": "Paging the cache \u00b7 verified"
+              },
+              {
+                "type": "doc",
                 "id": "missions/01-language-model-agent/05-serve/why-concurrency-pays/index",
                 "label": "Why concurrency pays \u00b7 verified"
               }

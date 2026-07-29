@@ -51,7 +51,7 @@ declared path actually executed.
 | [`02-pretrain`](02-pretrain/) | 88.2M decoder, token data path, the training objective, and a resumable checkpoint | **verified** — 3.0B tokens in 4.98h, best val loss 3.0689 |
 | [`03-sft`](03-sft/) | chat template, assistant-only loss, and before/after behavior | **verified** — 9,500 conversations in 92.5s, best val loss 2.7828 |
 | [`04-rl`](04-rl/) | GRPO updates against a verifiable reward | implementation present; run pending |
-| [`05-serve`](05-serve/) | KV-cache decoding, paged allocation, and continuous batching | **verified** — the KV cache buys 1.08-1.22x, and concurrency buys nothing until the kernel is fused |
+| [`05-serve`](05-serve/) | KV-cache decoding, paged allocation, and continuous batching | **verified** — the KV cache buys 1.21x at 32 tokens and *loses* by 512, and concurrency buys nothing until the kernel is fused |
 | [`06-agent`](06-agent/) | bounded tool loop, grounding rule, context policy, and sandbox | implementation present; run pending |
 | [`07-eval`](07-eval/) | disclosed harness, static and agentic tasks, variance, and failure cases | implementation present; run pending |
 
