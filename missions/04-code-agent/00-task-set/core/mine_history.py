@@ -42,8 +42,10 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
 import subprocess
 import sys
+import tarfile
 import tempfile
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -141,24 +143,68 @@ def build_task(sha: str, subject: str) -> Task:
     )
 
 
-def materialize(task: Task, dest: Path) -> None:
-    """Build the base state: the parent commit, then the fix's test and
-    environment changes laid on top.
+def _extract(commit: str, dest: Path, paths: list[str] | None = None) -> None:
+    """Export a commit's files -- and only its files -- into `dest`.
 
-    A detached worktree rather than a clone, because it costs a checkout
-    instead of a copy of the whole history, and rather than mutating the real
-    working tree, because that would be an unpleasant surprise.
+    `git archive` rather than `git checkout`, because a checkout needs a
+    repository and a repository carries history. See `materialize`.
     """
-    git("worktree", "add", "--detach", str(dest), task.base_commit)
+    dest.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory() as tmp:
+        archive = Path(tmp) / "state.tar"
+        args = ["archive", "--format=tar", "-o", str(archive), commit]
+        if paths:
+            args += ["--", *paths]
+        git(*args)
+        with tarfile.open(archive) as tf:
+            tf.extractall(dest, filter="data")
+
+
+def materialize(task: Task, dest: Path) -> None:
+    """Build the base state as a standalone repository containing no history.
+
+    This was a `git worktree` at the parent commit, which was wrong in a way
+    that would have invalidated every measurement taken with it. A worktree
+    shares the original object database, so from inside the task
+    `git log --all` lists the fix commit -- subject line describing the bug
+    included -- and `git show <sha>` prints the patch. The answer sits one
+    command away from an agent being asked to derive it, and a coding agent
+    reads git history early and by habit.
+
+    So the base state is exported with `git archive` instead: the parent
+    commit's files, the fix's test and environment files laid on top, and then
+    `git init` on the result. The repository an agent sees has exactly one
+    commit -- the task -- and no route to the answer.
+
+    That single commit is also what makes the diff mean something. Without it
+    `git status` would report the test files the task construction just laid
+    down, and the test-tampering guardrail would fire on every attempt,
+    scoring every arm at zero while looking like it worked.
+
+    Known limitation: an overlay cannot express a deletion. A fix commit that
+    *removed* a test file leaves that file present in the base state. None of
+    the current tasks do, and `verify` would reject one that broke because of
+    it.
+    """
+    _extract(task.base_commit, dest)
     paths = task.test_files + task.env_files
     if paths:
-        # `git checkout <sha> -- <paths>` pulls exactly those files forward
-        # from the fix commit, leaving everything else at the parent.
-        git("checkout", task.commit, "--", *paths, cwd=dest)
+        _extract(task.commit, dest, paths)
+
+    identity = ["-c", "user.name=task-harness", "-c", "user.email=harness@localhost"]
+    git("init", "-q", "-b", "main", cwd=dest)
+    git("add", "-A", cwd=dest)
+    git(*identity, "commit", "--no-verify", "-q", "-m", "task base state", cwd=dest)
+
+
+def apply_gold(task: Task, dest: Path) -> None:
+    """Lay the withheld half of the fix commit over a materialized task."""
+    if task.source_files:
+        _extract(task.commit, dest, task.source_files)
 
 
 def cleanup(dest: Path) -> None:
-    git("worktree", "remove", "--force", str(dest))
+    shutil.rmtree(dest, ignore_errors=True)
 
 
 # pytest's exit code is not a boolean, and treating it as one is how a broken
@@ -227,9 +273,7 @@ def verify(task: Task) -> tuple[bool, str]:
                 # for the reason the task claims, so the task is not usable.
                 return False, f"base run exited {base_code}, not a test failure:\n{base_log[-600:]}"
 
-            # Apply the gold patch -- the source half of the fix commit.
-            if task.source_files:
-                git("checkout", task.commit, "--", *task.source_files, cwd=work)
+            apply_gold(task, work)
             gold_code, gold_log = run_tests(command, work)
             if gold_code != PYTEST_PASSED:
                 return False, f"target tests still fail after gold patch:\n{gold_log[-600:]}"

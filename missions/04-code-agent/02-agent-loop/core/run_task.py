@@ -212,9 +212,10 @@ def attempt(task: dict, backend, *, max_steps: int = 25, keep: Path | None = Non
     with tempfile.TemporaryDirectory() as tmp:
         work = Path(tmp) / "wt"
         junit = Path(tmp) / "out.xml"
+        # A standalone one-commit repository: the base state, with no route to
+        # the fix commit and nothing already modified. See MINER.materialize.
         MINER.materialize(task_obj, work)
         try:
-            freeze_base_state(work)
             target_cmd = scoring.instrument(task_obj.test_command, junit)
             suite_cmd = scoring.instrument(task_obj.test_command, junit, targets=["tests"])
 
@@ -267,36 +268,6 @@ def attempt(task: dict, backend, *, max_steps: int = 25, keep: Path | None = Non
             )
         finally:
             MINER.cleanup(work)
-
-
-def freeze_base_state(work: Path) -> None:
-    """Commit the materialized base state so the diff means what it says.
-
-    `materialize` builds a task by checking the fix commit's test and
-    environment files onto its parent, which leaves them modified relative to
-    the worktree's HEAD. Without this, `git status` reports those files before
-    the agent has done anything, and the first end-to-end run of this harness
-    duly announced that the guardrail had fired on an agent whose entire
-    contribution was one `list_dir`.
-
-    A guardrail that fires on every task is not a strict guardrail, it is a
-    broken one -- it would have scored every arm at 0% and looked like it was
-    working. Freezing here makes `git status` in the worktree mean exactly one
-    thing: what the agent changed.
-    """
-    identity = [
-        "-c",
-        "user.name=task-harness",
-        "-c",
-        "user.email=harness@localhost",
-    ]
-    subprocess.run(["git", "add", "-A"], cwd=work, check=True, capture_output=True)
-    subprocess.run(
-        ["git", *identity, "commit", "--no-verify", "-q", "-m", "task base state"],
-        cwd=work,
-        check=True,
-        capture_output=True,
-    )
 
 
 def _diff(work: Path) -> str:
