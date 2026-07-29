@@ -19,7 +19,10 @@
 
 foundations
 platform/data
+platform/data/01-ablation-harness/the-two-confounds
 platform/training
+platform/training/02-architecture-ablations/the-rung-that-flipped
+platform/training/05-upcycling/does-it-pay-off
 platform/adaptation
 platform/adaptation/mid-training
 platform/adaptation/post-training

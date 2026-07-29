@@ -122,44 +122,18 @@ experts with a Python loop rather than a grouped kernel, the same distinction
 [serving](../../../missions/01-language-model-agent/05-serve/why-concurrency-pays/)
 had to draw between a scheduling policy and a fused kernel.
 
-## Both arms get worse before either gets better
-
-Continuing to train the upcycled model made it *worse* first — and so did
-continuing to train the dense parent. At `lr=1e-4` both rose from 3.0576 to a
-peak near 3.1445 at 53M tokens, then fell steadily for the remaining 147M
-without either one getting back to where it started.
-
-This is not the surgery failing. The parent finished a cosine schedule at
-nearly zero learning rate, sitting in a minimum. Raising the rate to 1e-4 kicks
-it back out, and the model has to re-descend before it can make progress the
-old one could not. The effect is large enough to swamp everything else in the
-run, and it hits both arms equally — which is precisely why the comparison is
-run as a pair rather than as one arm against a remembered number.
-
 ## Does the extra capacity pay for itself?
 
-With the disruption applying to both arms identically, the difference between
-them is readable:
+Only if you keep training, and the run that answers it begins by getting worse.
+Raising the learning rate to continue lifts *both* arms' loss for the first 53M
+tokens before either recovers, which is why the comparison is run as a pair
+rather than against the parent's remembered number.
 
-| Tokens | dense continue | upcycled MoE | difference |
-|---:|---:|---:|---:|
-| 0 | 3.0576 | 3.0576 | 0.0000 |
-| 32.8M | 3.1364 | 3.1362 | -0.0002 |
-| 131.1M | 3.1145 | 3.1084 | -0.0061 |
-| 200.0M | 3.0939 | **3.0851** | **-0.0088** |
-
-The upcycled arm is *behind* for the first 32.8M tokens, crosses over, and then
-pulls away monotonically for the remaining 167M with no sign of flattening.
-That shape is what replication predicts. At step 0 the four experts are
-identical, so the extra 170M parameters compute nothing the dense model did not
-already compute; they begin to pay only once the experts have diverged into
-different functions, and that takes tokens. **An experiment stopped at 30M
-tokens would have reported the opposite result with a straight face.**
-
-Under an equal *wall-clock* budget the ranking reopens: the MoE arm took 1.93x
-as long, so the dense arm would get 1.93x the data, and it was still improving
-when the run ended. Full curve and evidence boundary in
-[`runs/`](runs/2026-07-28-continue-training.md).
+[Does it pay off?](does-it-pay-off/) has that pair: the upcycled arm behind at
+32.8M tokens, crossing over, and ending 0.0088 nats ahead at 200M with the gap
+still widening — plus the reason an experiment stopped at 30M tokens would have
+reported the opposite with a straight face, and the wall-clock budget under
+which the ranking reopens.
 
 ## Reproduce it
 
@@ -178,18 +152,12 @@ model class — only a correct reading of what each tensor means.
 
 Established, and recorded in [`runs/`](runs/2026-07-28-upcycle-88m.md): the
 surgery preserves the function exactly, under a stated precondition, with a
-test that would have caught the mistakes. Established in the
-[continued-training run](runs/2026-07-28-continue-training.md), at an equal
-token budget: the upcycled model ends 0.0088 nats ahead of the dense
-continuation.
+test that would have caught the mistakes.
 
-Not established: **that it is ahead under any other budget.** At equal
-wall-clock the dense arm gets nearly twice the data and the question is open.
-Not established either: **that 0.0088 survives replication.** One seed per arm
-cannot bound run-to-run variance; what carries the result is the monotone shape
-of the gap across 25 consecutive evaluations, not the endpoint. And still
-untested: whether 4 experts at top-2 is a good shape — it was chosen to make
-the identity check exact, not because it was tuned.
+Not established here: **that the converted model is better than the one it came
+from.** Conversion is free and exact; whether the capacity earns its cost is a
+separate run with its own boundary, in
+[does it pay off?](does-it-pay-off/).
 
 ## Check your mental model
 
@@ -204,8 +172,6 @@ the identity check exact, not because it was tuned.
 5. Storage went up 2.93x and compute 1.64x, but sustained throughput fell only
    1.93x. Which of those numbers is a property of the architecture, and which
    of the kernel?
-6. The upcycled arm was behind at 30M tokens and ahead at 200M. What does that
-   say about the shortest continued-training comparison worth running?
 
 ## Next
 

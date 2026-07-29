@@ -97,34 +97,18 @@ prevent. The answer the data supports is *not measurable at this scale* —
 a result, not a failed experiment. Per-arm numbers:
 [`runs/2026-07-29-five-rungs.md`](runs/2026-07-29-five-rungs.md).
 
-## 4. The rung where the definition decided the answer
+## 4. One rung where the definition decided the answer
 
-The feed-forward rung is worth its own look, because it is the one where
-section 1 stops being cautionary and starts changing the headline. Three arms,
-8 routed experts with top-2 routing plus one shared expert; only the per-expert
-width moves.
+The feed-forward rung is the one where section 1 stops being cautionary. Its
+nine runs support two opposite headlines: holding **active** parameters equal,
+mixture-of-experts wins on every seed by 0.0901 nats; holding **total**
+parameters equal, the difference is 0.0001 with the sign flipping between
+seeds. Under the third definition there is no winner at all, because the arm
+that would settle it was never run.
 
-| Arm | Total parameters | Active per token | Mean val loss |
-|---|---:|---:|---:|
-| `dense` | 33,661,440 | 33,652,736 | 3.8608 |
-| `moe-equal-active` | 67,314,176 | 33,685,504 | **3.7707** |
-| `moe-equal-total` | 33,694,208 | 22,478,848 | 3.8607 |
-
-Holding **active** parameters equal, MoE wins on every seed by 0.0901 nats.
-Holding **total** parameters equal, the difference is 0.0001 and its sign flips
-between seeds — not "MoE ties dense" but "this ladder cannot tell them apart",
-while the MoE arm reached that same loss through 33.2% fewer parameters per
-token. Switch the definition below and watch one set of nine runs change its
-verdict.
-
-<!-- interactive: EqualBudget -->
-
-The third definition has no winner at all. Both MoE arms ran at roughly half of
-dense throughput — `moe-equal-total` performs *less* arithmetic per token and
-still took 1.85x as long, which is routing overhead measured rather than
-argued. In the 1,645.9 seconds `moe-equal-active` needed, dense would have seen
-391M tokens instead of 200M. That arm was not run, so the 0.0901 is not
-evidence about it. A budget you did not buy is a blank, not a tie.
+[The rung that flipped](the-rung-that-flipped/) has the three arms, the
+interactive that switches the definition, and the 1.85x routing overhead that
+makes an equal-wall-clock comparison a blank rather than a tie.
 
 ## 5. What earns the right to say any of this
 
@@ -203,14 +187,9 @@ five.
    architectures in opposite orders?
 2. The norm rung's per-seed differences are -0.0023, +0.0052, +0.0091. Why is
    the average of those three not a result?
-3. Section 4's two MoE arms support opposite headlines from the same nine runs.
-   Which sentence is true of both, and which of each alone?
-4. `moe-equal-total` matched dense's loss using 33.2% fewer active parameters
-   and still took 1.85x as long. Which budget does that make it better under,
-   and which worse?
-5. Six runs of one identical configuration spanned 0.0018. What does that let
+3. Six runs of one identical configuration spanned 0.0018. What does that let
    you ignore, and what does it not excuse?
-6. The activation rung put GELU ahead of SwiGLU. Why is that not a finding, and
+4. The activation rung put GELU ahead of SwiGLU. Why is that not a finding, and
    what is?
 
 ## Next
