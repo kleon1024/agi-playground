@@ -22,16 +22,14 @@ while the norm changed. Three definitions are all defensible, all in common
 use, and they routinely disagree:
 
 - **Equal parameters** flatters anything that spends more compute per
-  parameter than the control — a block that reuses its weights across several
-  passes, or a mixture-of-experts layer whose stored parameters buy capacity
-  no single forward pass pays for in full.
-- **Equal FLOPs** flatters anything that adds parameters cheaply relative to
-  compute — the same mixture-of-experts layer from the other side, or a
-  wide-and-shallow dense model.
-- **Equal wall-clock** flatters whatever the kernels are already fast at. A
-  dense block sits on the most mature kernels in the stack; routing, gathers,
-  and extra sequential dependencies pay a kernel-immaturity tax that has
-  nothing to do with whether the idea is good.
+  parameter than the control — a block that reuses its weights across passes,
+  or a mixture-of-experts layer whose stored parameters buy capacity no single
+  forward pass pays for.
+- **Equal FLOPs** flatters the opposite: anything that adds parameters cheaply
+  relative to compute, the same expert layer read from the other side.
+- **Equal wall-clock** flatters whatever the kernels are already fast at.
+  Routing, gathers, and extra sequential dependencies pay a kernel-immaturity
+  tax that has nothing to do with whether the idea is good.
 
 Most published architecture comparisons do not state which of the three they
 used. Every run record produced in this chapter must, and `core/ablate.py`
@@ -94,8 +92,8 @@ SwiGLU each lose to their alternative on one seed of three.**
 Notice which way the activation rung fell. Its three-seed mean puts GELU ahead
 of SwiGLU by 0.0048, the opposite of the usual published ordering. Reporting
 that as "GELU wins" would be exactly the failure this chapter exists to
-prevent. The answer the data supports is *not measurable at this scale*, and
-that is a result, not a failed experiment. Per-arm numbers are in
+prevent. The answer the data supports is *not measurable at this scale* —
+a result, not a failed experiment. Per-arm numbers:
 [`runs/2026-07-29-five-rungs.md`](runs/2026-07-29-five-rungs.md).
 
 ## 4. The rung where the definition decided the answer
@@ -131,35 +129,43 @@ evidence about it. A budget you did not buy is a blank, not a tie.
 
 Three seeds per arm is the method, not a detail — and the ladder proved why by
 accident. The control configuration appears in all six rungs: `rmsnorm`,
-`rope`, `swiglu`, `kv8`, `L8-d512`, and `dense` are the same model, run with
-the same seeds on the same batches in the same order. Six replications that
-should be identical:
+`rope`, `swiglu`, `kv8`, `L8-d512`, and `dense` are one model, run with the
+same seeds on the same batches in the same order. Six replications that should
+be identical:
 
 > 3.8597, 3.8593, 3.8604, 3.8611, 3.8602, 3.8608
 
-**A range of 0.0018 with nothing whatsoever changed.** That residue is GPU
-nondeterminism — non-deterministic reductions in the backward pass, autotuned
-kernel choice, bf16 accumulation order. It is an assumption-free floor, bought
-for nothing, and it says that any claim here resting on less than about 0.002
-is resting on the allocator rather than on the architecture.
+**A range of 0.0018 with nothing changed.** That residue is GPU
+nondeterminism — non-deterministic backward reductions, autotuned kernel
+choice, bf16 accumulation order. It is an assumption-free floor bought for
+nothing: any claim resting on less than about 0.002 is resting on the
+allocator, not the architecture.
 
-Against that floor, a single seed per arm is not a weak result but no result.
-`core/ablate.py` runs `--seeds` seeds and writes every one out, because a file
-reporting one loss without saying so is reporting noise as a finding.
+Against that floor a single seed is not a weak result but no result, which is
+why `core/ablate.py` runs `--seeds` seeds and writes every one out.
 
-## 6. Evidence boundary: a ranking can invert with scale
+## 6. Evidence boundary: one metric, one distribution, one size
 
-Nothing here shows that a rung's winner at 33M parameters stays the winner at
-7B. That caution cuts both ways now. The equal-active MoE arm is already ahead
-at this size, which is a smaller and more specific claim than "MoE works" — and
-RMSNorm and SwiGLU failing to separate here is emphatically **not** evidence
-that they do not help at scale, only that 200M tokens and three seeds cannot
-see it.
+Every number above is validation cross-entropy on a held-out slice of **the
+same FineWeb-Edu shards the arms trained on**. That makes it a measure of
+in-distribution fit. It says which architecture predicts educational web text
+better; it says nothing about which one writes, reasons, or answers better. No
+arm was scored on text from another distribution, and none was scored on a
+downstream task — a model this small is not expected to separate from chance on
+the standard suites, so those scores would be noise wearing a benchmark's name,
+though that expectation is itself untested here. Perplexity makes the size of
+the largest effect legible: 47.5 down to 43.4. Whether that is worth doubling
+the stored parameters is not a question loss can answer.
 
-The rule that follows: trust a ranking only where it is stable across at least
-two sizes at the same budget definition. An unstable ranking is not a failed
-experiment; it is the finding, reportable as written rather than smoothed into
-"results were mixed."
+Nor does anything here show that a rung's winner at 33M stays the winner at 7B.
+That caution cuts both ways: the equal-active MoE arm leading at this size is a
+smaller claim than "MoE works", and RMSNorm and SwiGLU failing to separate is
+emphatically **not** evidence they do not help at scale — only that 200M tokens
+and three seeds cannot see it.
+
+Trust a ranking only where it is stable across at least two sizes at the same
+budget definition. An unstable ranking is not a failed experiment; it is the
+finding.
 
 ## Run the working path
 
@@ -218,11 +224,10 @@ than a ranking would have been. Position encoding and the feed-forward shape,
 by contrast, are choices stage 02 was right to take seriously.
 
 Two loose ends lead elsewhere. GQA's payoff is invisible on a training-time
-ladder, because the parameter delta is all such a comparison can see; the
-KV-cache-per-token arithmetic it was actually built to change is in
-[serving](../../serving/). And if the ladder makes you want a different
-feed-forward after the checkpoint already exists,
-[upcycling](../05-upcycling/) is how to get one without retraining.
+ladder — the parameter delta is all such a comparison sees, and the KV-cache
+arithmetic it was built to change is in [serving](../../serving/). And if this
+leaves you wanting a different feed-forward after the checkpoint already
+exists, [upcycling](../05-upcycling/) gets one without retraining.
 
 Primary references: Zhang & Sennrich, "Root Mean Square Layer Normalization"
 (2019); Su et al., "RoFormer" (2021); Shazeer, "GLU Variants Improve

@@ -93,6 +93,32 @@ SwiGLU by 0.0048 — the opposite of the usual published ordering. Reporting tha
 as "GELU wins" would be precisely the error the ladder exists to prevent: it is
 one seed's worth of noise wearing a result's clothes.
 
+## Method limitations worth fixing before the next ladder
+
+Three, recorded because they constrain what any reader can do with the numbers
+above and because two of them are mistakes rather than tradeoffs.
+
+**The metric is in-distribution fit, and only that.** Every loss is measured on
+`val.bin`, a held-out slice of the same FineWeb-Edu shards `train.bin` was
+built from. So the ladder ranks architectures by how well they predict
+educational web text. It does not rank them by capability, and a rung that won
+here could plausibly win because it suits this distribution rather than because
+it is better. The box holds 1.7GB of raw Common Crawl WARC that no arm has ever
+seen; scoring every arm on it as a second column would separate those two
+readings, and was not done.
+
+**`ablate.py` saves no checkpoints.** `train_one` trains, evaluates, returns a
+number, and lets the model fall out of scope. That makes every additional
+metric — top-1 accuracy, out-of-distribution loss, a benchmark suite —
+cost a full 13-hour retrain instead of a re-scoring pass over saved weights.
+It is a design mistake, not a constraint, and it is the reason this record
+reports one number per run.
+
+**No downstream task was scored.** A 33M-parameter model trained on 200M tokens
+is not expected to separate from chance on the standard suites, so those scores
+would be noise rather than evidence — but that expectation was not tested here,
+and stating it is not the same as having measured it.
+
 ## What these runs do not establish
 
 - **That RMSNorm and SwiGLU do not help.** They establish that 33M parameters
