@@ -26,9 +26,19 @@
             "label": "Corpus"
           },
           {
-            "type": "doc",
-            "id": "missions/01-language-model-agent/01-tokenizer/index",
-            "label": "Tokenizer \u00b7 verified"
+            "type": "category",
+            "label": "Tokenizer \u00b7 verified",
+            "link": {
+              "type": "doc",
+              "id": "missions/01-language-model-agent/01-tokenizer/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/01-tokenizer/is-it-the-same-tokenizer/index",
+                "label": "Is it the same tokenizer \u00b7 verified"
+              }
+            ]
           },
           {
             "type": "category",
@@ -118,6 +128,11 @@
               "id": "missions/01-language-model-agent/07-eval/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/07-eval/whose-harness/index",
+                "label": "Whose harness produced it"
+              },
               {
                 "type": "doc",
                 "id": "missions/01-language-model-agent/07-eval/why-believe-the-number/index",

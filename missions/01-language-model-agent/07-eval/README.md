@@ -44,11 +44,9 @@ Every subcommand also requires a named baseline (`--baseline-name/-value
 summary, both ending in a `does not prove` section for that eval type.
 
 `prod/lm_eval.py` — the same checkpoint through EleutherAI's
-lm-evaluation-harness, via a from-scratch adapter (`SpeedrunLM`) implementing
-the three methods the harness needs (`loglikelihood`, `loglikelihood_rolling`,
-`generate_until`) against `02-pretrain/core/model.py`'s `Transformer`, the way
-`lm_eval.models.huggingface.HFLM` does it against a HuggingFace model. What
-that buys and what it doesn't is its own section below.
+lm-evaluation-harness, via a from-scratch adapter. What that buys, and the
+class of task it structurally cannot express, is in
+[whose harness produced it](whose-harness/).
 
 ## Why "68% on benchmark X" is nearly uninterpretable
 
@@ -116,42 +114,15 @@ this page.
 and states what each defense cannot do. Read it before quoting anything from
 this stage — including anything you quote from someone else.
 
-## The harness-disclosure argument, operationalized
+## The other half of the number
 
-The lesson from `platform/evaluation-observability` this stage exists to
-implement, not just cite: an agent benchmark score is a function of
-`(model, tools, system prompt, loop/retry design, context-management policy,
-sampling parameters, environment version)`, and disclosing only the model
-name discloses the smallest part of what produced the number.
-`core/evaluate.py agent-report`'s `REQUIRED_HARNESS_FIELDS` — `tools`,
-`max_steps`, `context_budget_tokens`, `model_endpoint`, `temperature`,
-`harness_version`, `seed` — is that argument as a validation check rather
-than a paragraph: a transcript missing any of them makes the script raise
-instead of summarizing. This is the same discipline inspect-ai (UK AISI)
-builds a framework around — dataset + solver + scorer, every run logging a
-full transcript so disclosure is a byproduct of how the run was recorded
-rather than added after the fact. This stage hand-rolls the same idea at the
-scale one mission needs, rather than adopting the framework, because the
-transcript schema here is this mission's own (see the module docstring).
-
-## What a standard harness gives you, and where it stops
-
-`prod/lm_eval.py` runs the same checkpoint through EleutherAI's
-lm-evaluation-harness. What that buys over a hand-rolled loop: task
-definitions are declarative (dataset + prompt template + scoring rule — exact
-match, or log-likelihood comparison for multiple choice), which is what makes
-it possible to run hundreds of community-maintained static benchmarks by
-writing one model adapter (`SpeedrunLM` here) instead of one scoring function
-per benchmark, with results directly comparable to every other model run
-through the same harness version and task revision. Where it stops,
-structurally, not as a missing feature: it scores one static task at a time —
-a fixed prompt in, a score out — with no notion of a multi-turn trajectory,
-no tool calls, no environment state that changes between steps. Running a
-checkpoint through lm-eval-harness establishes nothing about how it behaves
-as an agent; that half is what `core/evaluate.py agent-report` exists for,
-and the two stay separate tools because "static benchmark" and "agentic
-trajectory" are different measurement problems, not the same one at a
-different scale.
+Everything above is about the score. The harness that produced it is the other
+half, and it is the half nobody names.
+[Whose harness produced it](whose-harness/) turns the disclosure argument into
+a validation check that raises on a missing field, and answers the tooling
+question this stage has to make: EleutherAI's lm-evaluation-harness for static
+benchmarks, a hand-rolled loop for agentic trajectories, and why those cannot
+be the same tool.
 
 ## What this mission's evaluation does NOT prove
 
