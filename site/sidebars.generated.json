@@ -221,6 +221,11 @@
             "label": "Outcome report \u00b7 verified"
           }
         ]
+      },
+      {
+        "type": "doc",
+        "id": "missions/04-code-agent/index",
+        "label": "Code agent"
       }
     ]
   },

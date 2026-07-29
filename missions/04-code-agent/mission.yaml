@@ -1,0 +1,138 @@
+# Mission 04 — Code-fixing agent (judged by tests)
+#
+# Missions 01-03 built systems and measured them. This one measures a system
+# that measures itself, which is a harder thing to keep honest: the agent's
+# success signal is a test suite, and the agent can edit the test suite.
+#
+# The mission exists because of a failure this repository produced on
+# 2026-07-29. The serving engine in mission 01 was benchmarked, published as
+# `status: verified`, and cited by three chapters while every decode step
+# attended to a single token. It was *faster* for being wrong, so no throughput
+# number looked suspicious. That is what optimizing against a metric with no
+# correctness check produces — and an autonomous agent optimizing against a
+# test suite has a much shorter path to the same place. Every guardrail below
+# is an attempt to make that specific failure detectable rather than
+# unthinkable.
+#
+# It is also the mission that gives capabilities/act-coordinate its second
+# consumer. Per the admission gate in standards/mission-contract.md, the agent
+# harness stops being local to mission 01 only when a second mission needs the
+# same input/output contract for a different decision. This is that mission:
+# same loop, same tools, same permission ladder, entirely different job.
+
+stakeholder: >
+  The maintainer of a Python repository who receives more bug reports than they
+  have hours, and must decide — per report, before knowing the answer — whether
+  to let an autonomous agent attempt it, and if so at what price. They are not
+  asking "can an agent write code". They are asking what a merged patch from
+  one is worth, and what it costs to find out.
+
+job: >
+  Turn a bug report that comes with a reproducing test into a patch that makes
+  that test pass without breaking anything else, at a cost per accepted patch
+  the maintainer would actually pay.
+
+decision: >
+  For each task, route it: attempt with the cheap locally-served model, escalate
+  to the expensive hosted frontier model, or decline and leave it for a human.
+  The routing policy is the deliverable. A system that resolves everything by
+  always spending the most money has not made this decision, it has avoided it.
+
+baseline: >
+  Two, and the mission must beat both:
+  (1) No harness — one model call with the issue text and the failing test, the
+      patch applied blind, no tools, no test feedback, no second attempt. This
+      is the "coding agents write code" control, and it is the one that decides
+      whether the loop earns its complexity. If the harness cannot beat a single
+      call, the harness is decoration.
+  (2) Always-frontier — route every task to the expensive model. This is the
+      policy that is hardest to beat on resolve rate and easiest to beat on
+      cost, which is exactly why the metric below is a pair and not a number.
+
+primary_metric: >
+  Resolve rate: the fraction of tasks where the declared failing test passes
+  AND no test that passed before the patch fails after it. Reported per arm
+  beside cost per resolved task in real dollars, and with the spread across at
+  least 3 independent runs of the same arm — agent runs are non-deterministic,
+  and mission 02 already established that a single seed is not a result. A
+  difference smaller than the run-to-run spread is reported as no result, the
+  same discipline platform/training/02-architecture-ablations applied to its
+  norm and activation rungs.
+
+guardrails:
+  - The agent may not modify test files. Enforced programmatically against the
+    produced diff, not requested in the system prompt. A task whose patch
+    touches a test file is scored as FAILED and recorded in the failure
+    taxonomy, because an agent that deletes the assertion it cannot satisfy is
+    the single most important behaviour this mission can observe. Asking a model
+    not to do something is not a guardrail; checking is.
+  - No task counts as resolved if any previously-passing test regresses. The
+    pre-patch test result is captured per task before the agent is invoked, so
+    "it passed" is always measured against a recorded baseline rather than
+    assumed from a green target test.
+  - The agent runs inside the existing path jail (tools.resolve_in_jail) with
+    the existing permission ladder, and with no network access, so it cannot
+    fetch the upstream fix instead of deriving one.
+  - Wall-clock and token budget per task are capped and the cap is reported; a
+    task that hits the cap is a failure, not a retry.
+  - Every published number traces to a runs/ entry, including dollars.
+
+latency_budget: >
+  Not a serving constraint — nobody is waiting on this interactively. What is
+  budgeted and reported is p50 and p95 wall-clock per task attempt, measured on
+  the real run, because it sets how many tasks a maintainer can push through in
+  a working day and therefore whether the routing decision is worth making at
+  all.
+
+cost_budget: >
+  Two numbers, both measured rather than estimated. (1) Dollars per resolved
+  task, per arm, which is the number the stakeholder's decision actually turns
+  on — cost per attempt flatters whichever model fails fastest. (2) A hard
+  ceiling on total hosted-API spend for the mission, declared before the first
+  run and printed into each runs/ entry as it is consumed; a stage that would
+  exceed it stops and reports rather than continuing. Local-model inference is
+  $0 marginal on the local lane, with GPU wall-clock reported instead.
+
+capabilities:
+  - act-coordinate   # the agent harness from mission 01 stage 06, reused here
+                     # for a different decision. This is the second consumer
+                     # the admission gate requires.
+
+acceptance:
+  - Beats the no-harness baseline on resolve rate by more than the run-to-run
+    spread, on both task sets
+  - Beats always-frontier on cost per resolved task without losing resolve rate
+    by more than the run-to-run spread
+  - No guardrail regresses past its threshold, and the test-tampering guardrail
+    is demonstrated to fire on at least one real attempt or is explicitly
+    reported as never having fired
+  - Resolve rate reported separately for the public and private task sets, never
+    pooled, since one is contamination-prone and the other is not
+  - Latency and dollars measured on real runs and inside budget
+  - Failures catalogued by category, not merely counted
+  - Every number traceable to a runs/ entry
+
+proves: >
+  That an agent harness built for one mission transfers to a different job
+  without modification, and that the value of the loop around a model — tools,
+  test feedback, retries — is separable from the value of the model itself and
+  can be measured against a single-call control. It also establishes a cost per
+  accepted patch on a declared task set, which is the number a routing policy
+  needs and which almost no published agent result reports.
+
+does_not_prove: >
+  Nothing about production maintenance. Every task here arrives with a
+  reproducing test already written, which is the selection that makes the
+  benchmark tractable and is also its largest distortion: writing the test is
+  usually the hard part of a bug report, and this mission hands the agent that
+  work for free. It says nothing about issues that are ambiguous, that require
+  a design decision, or that cannot be captured by a test at all. It says
+  nothing about repositories too large for the model's context window, since
+  both task sets are bounded to what fits. A resolve rate on the public set
+  cannot be compared to published SWE-bench numbers produced under a different
+  harness — the harness is the independent variable, which is the whole point
+  of the chapter in mission 01 stage 07 that this mission depends on. And the
+  private task set, being mined from this repository's own history, measures
+  performance on this codebase's idioms and its authors' habits; it is a
+  contamination control, not a benchmark, and its small N cannot support a
+  significance claim of any kind.

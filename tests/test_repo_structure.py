@@ -53,6 +53,25 @@ MISSIONS = [
     "01-language-model-agent",
     "02-personalized-discovery",
     "03-quantitative-research",
+    "04-code-agent",
+]
+
+# standards/mission-contract.md names these and calls the last two the fields
+# that keep the repo honest. Checking they are present is the difference
+# between a contract and a suggestion.
+MISSION_CONTRACT_FIELDS = [
+    "stakeholder",
+    "job",
+    "decision",
+    "baseline",
+    "primary_metric",
+    "guardrails",
+    "latency_budget",
+    "cost_budget",
+    "capabilities",
+    "acceptance",
+    "proves",
+    "does_not_prove",
 ]
 
 MISSION_01_STAGES = [
@@ -87,10 +106,23 @@ def test_missions_declare_a_contract():
     for name in MISSIONS:
         mission = ROOT / "missions" / name
         assert (mission / "README.md").is_file(), f"missing missions/{name}/README.md"
-        assert (mission / "mission.yaml").is_file(), (
+        contract = mission / "mission.yaml"
+        assert contract.is_file(), (
             f"missions/{name} has no mission.yaml — every mission must declare "
             "stakeholder, job, decision, baseline, primary_metric, guardrails, "
             "budgets, capabilities, and acceptance before it is built"
+        )
+        # Parsed by regex on top-level keys rather than with PyYAML, because
+        # the default test environment carries no dependencies beyond pytest
+        # and ruff, and a structural check should not be the thing that
+        # changes that.
+        keys = set(re.findall(r"^([a-z_]+):", contract.read_text(), re.MULTILINE))
+        missing = [f for f in MISSION_CONTRACT_FIELDS if f not in keys]
+        assert not missing, (
+            f"missions/{name}/mission.yaml is missing {missing}. "
+            "standards/mission-contract.md requires every field; proves and "
+            "does_not_prove are what stop a mission from claiming an outcome "
+            "it only proxied."
         )
 
 
