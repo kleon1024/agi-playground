@@ -28,17 +28,15 @@ Pretraining and SFT optimize the same loss — next-token cross-entropy — over
 data with a completely different distribution. Pretraining data is documents:
 self-contained, no speaker turns, no expectation of response. SFT data is
 dialogue: two roles, an expectation that role B replies to role A, and an
-expectation that the reply ends. Training on dialogue-shaped text with a
-document-shaped objective works only because we change *what counts toward
-the loss*, not the objective itself — which is the whole reason loss masking,
-covered next, is the central mechanism of this stage rather than a detail of
-it.
+expectation that the reply ends. Training dialogue-shaped text with a
+document-shaped objective works only because we change *what counts toward the
+loss*, not the objective — which is why loss masking, covered next, is this
+stage's central mechanism rather than a detail of it.
 
-It follows that SFT cannot fix what pretraining didn't put there. If the base
-model never encountered a fact, formatting the question as a chat turn will
-not produce it — SFT reliably surfaces knowledge and reframes behavior, it
-does not add capability the base model didn't already have latent in it. See
-the post-training chapter's
+It follows that SFT cannot fix what pretraining did not put there. If the base
+model never encountered a fact, formatting the question as a chat turn will not
+produce it. SFT surfaces knowledge and reframes behavior; it does not add
+capability the base model lacked. See the post-training chapter's
 [supervision contract](../../../platform/adaptation/post-training/README.md#what-exactly-is-the-model-being-taught-to-produce)
 for the boundary between visible context and learned output.
 
@@ -55,16 +53,12 @@ ChatML-tuned model with Alpaca-formatted prompts and it degrades toward its
 untuned base behavior, because the input no longer resembles anything it was
 trained to recognize as "a turn."
 
-This repo's tokenizer (stage 01) has no dedicated single-id tokens for chat
-markers — it was trained purely on web documents, which have no such
-concept. `core/sft.py` reuses two ids from the 127-id gap stage 02's `Config`
-already reserved when it padded the vocabulary to a multiple of 128
-(`16385` and `16386`, right after the document separator at `16384`) as
-`<|im_start|>`/`<|im_end|>`. Production tokenizers instead reserve chat
-special tokens *before* pretraining starts, specifically so the embedding
-table never needs to grow later — this repo's padding-for-alignment habit
-from stage 02 happens to leave exactly enough room to do the same trick
-here, one stage later than usual, for free.
+This repo's tokenizer has no chat-marker ids — it was trained on web documents,
+which have no such concept. `core/sft.py` takes `16385` and `16386` from the
+127-id gap stage 02 left when it padded the vocabulary to a multiple of 128.
+Production tokenizers reserve chat tokens *before* pretraining so the embedding
+table never has to grow; padding for alignment happens to leave exactly enough
+room to do the same thing one stage late, for free.
 
 ## Loss masking, worked
 
@@ -107,13 +101,12 @@ to reproduce. The token sequence stays fixed; only the loss boundary changes.
 
 ## It answers now. What did that cost?
 
-The mechanism is cheap: a template and a mask. The costs are not visible in the
-loss curve, and there are three worth knowing before you trust the result.
-Packing makes this stage finish in ninety seconds by putting unrelated
-conversations in one sequence, which has a consequence. The learning rate has
-to fall roughly thirtyfold, and the reason is not numerical stability. And one
-class of complaint about a fine-tuned model cannot be fixed with better data at
-all.
+The mechanism is cheap: a template and a mask. Three costs are not visible in
+the loss curve. Packing finishes this stage in ninety seconds by putting
+unrelated conversations in one sequence, which has a consequence. The learning
+rate has to fall roughly thirtyfold, for a reason that is not numerical
+stability. And one class of complaint about a fine-tuned model cannot be fixed
+with better data at all.
 
 [What did that cost?](what-it-costs/) takes those in turn, including the
 attention leak this lesson's `core/` accepts on purpose and what its blast
@@ -194,22 +187,17 @@ Rust encoder for speed on a real dataset, the same substitution stage 02's
    and sample from the result. Watch the model start generating plausible
    `<|im_start|>user\n...` turns of its own — the exact failure this stage
    exists to prevent.
-2. **Measure the packing win directly.** Before calling `pack()`, compute what
-   padding every example individually to `block_size` would cost in wasted
-   positions, and compare it to `pack()`'s actual fill rate on the same data.
-   The gap is a property of your data's length distribution, not a constant —
-   confirm that for yourself rather than trusting a quoted number.
-3. **Find the forgetting cliff.** Train the same run at `--lr 6e-4` (stage
+2. **Find the forgetting cliff.** Train the same run at `--lr 6e-4` (stage
    02's pretraining peak) for a few hundred steps and compare sample
    completions against the `2e-5` default on prompts unrelated to the
    fine-tuning data. Fluency usually survives; specific recall often doesn't.
-4. **Swap the chat template.** Re-render the same dataset with an
+3. **Swap the chat template.** Re-render the same dataset with an
    Alpaca-style (`### Instruction:` / `### Response:`) template instead of
    ChatML markers, fine-tune, then serve completions using the *other*
    template's boundary string. Confirm the model degrades toward base-model
    behavior — this is the "one consistent convention" claim, demonstrated
    rather than asserted.
-5. **Read what no_robots actually contains.** Categories vary widely (open
+4. **Read what no_robots actually contains.** Categories vary widely (open
    Q&A, rewrite, summarize, classify, coding, ...). Break the eval loss down
    by category and see whether the model improves uniformly or concentrates
    on whichever categories dominate the training count.

@@ -115,6 +115,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/01-language-model-agent/06-agent/what-fits-in-context/index",
+                "label": "What fits in context"
+              },
+              {
+                "type": "doc",
                 "id": "missions/01-language-model-agent/06-agent/what-stops-it/index",
                 "label": "What stops it"
               }

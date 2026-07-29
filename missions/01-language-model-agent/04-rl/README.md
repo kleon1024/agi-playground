@@ -122,39 +122,25 @@ position inside its own prompt group.
 
 <!-- interactive: GRPOAdvantage -->
 
-## Verifiable rewards: what "no reward model" buys you
-
-RLHF's reward comes from a learned reward model trained on human
-preference comparisons — itself a neural network with its own failure
-modes, drift, and hackable blind spots. RLVR replaces that with a
-programmatic verifier: does this arithmetic answer match the computed
-ground truth, does this code pass its test suite, does this proof check.
-`compute_reward` in this lesson is the entire "reward model" — a Python
-function, not a trained one.
-
-What that buys: no reward-model training run, no reward-model drift as the
-policy's outputs shift away from what the RM was trained on, and — because
-the verifier is a fixed rule, not a learned approximator — a much smaller
-surface to exploit. Not zero surface (see "reward hacking," below), but a
-rule that computes `13 * 17` can't be flattered by sycophantic phrasing or
-a confident tone the way a learned reward model can. This is why RLVR and
-math/code tasks are so tightly associated: a rule-based reward only works
-where a verifier exists, but where one does, it sidesteps almost the entire
-reward-hacking-against-a-learned-model problem.
-
 ## The reward is going up. Is that good?
 
-The loss above has one more term this chapter has not justified: a KL penalty
+Notice what the reward here is *not*: a learned model. `compute_reward` is a
+Python function that evaluates `13 * 17` — reinforcement learning from
+verifiable rewards, with no reward model to train and none to drift. That
+removes most of the ways a reward gets hacked, and it does not remove all of
+them.
+
+The loss above also has one term this chapter has not justified: a KL penalty
 against a frozen copy of the policy you started with. It is there because a
 policy optimizing an imperfect reward finds that reward's blind spots before
 you notice them, and the format reward this task needs in order to start
 learning at all is the same reward that gets farmed once it has.
 
-[The reward went up. Did the model get better?](reward-went-up/) takes that
-apart: what the leash is for and how it fails in both directions, why a
-partial-credit reward is exploitable by construction, three hacks specific to
-this task, and the published result that measured reward and true quality
-diverge past a knowable point rather than at some pathological extreme.
+[The reward went up. Did the model get better?](reward-went-up/) takes both
+apart: what a programmatic verifier buys and what surface it leaves, what the
+leash is for and how it fails in either direction, three hacks specific to this
+task, and the published result that measured reward and true quality diverge
+past a knowable point rather than at some pathological extreme.
 
 ## Reproducing
 

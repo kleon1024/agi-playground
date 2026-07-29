@@ -102,6 +102,16 @@ is a property of the code that was read, not an effect that was quantified, and
 no ablation was run at a higher learning rate to observe forgetting directly.
 Both are stated as mechanisms with named consequences, not as results.
 
+## Measure the packing win yourself
+
+Before calling `pack()`, compute what padding every example individually to
+`block_size` would cost in wasted positions, then compare that against
+`pack()`'s actual fill rate on the same data. The gap is a property of your
+data's length distribution, not a constant — the 19.6% recorded here belongs to
+no_robots at a 1,024-token block and to nothing else. Confirm it for yourself
+rather than trusting a quoted number, which is the same discipline every other
+figure in this repository is held to.
+
 ## Check your mental model
 
 1. Packing lets conversation B attend to conversation A. Why does that not

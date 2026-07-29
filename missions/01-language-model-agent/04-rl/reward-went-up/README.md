@@ -44,6 +44,28 @@ recipes use adaptive KL controllers — target a specific KL value and scale
 `beta` against the gap — rather than the fixed coefficient this lesson uses for
 readability.
 
+## A Python function is a much smaller thing to exploit
+
+Before the exploits, be clear about how much a verifiable reward has already
+removed. RLHF's reward comes from a learned reward model trained on human
+preference comparisons — itself a neural network, with its own failure modes,
+its own drift as the policy's outputs move away from what it was trained on,
+and its own blind spots. RLVR replaces that with a programmatic verifier: does
+this arithmetic answer match the computed ground truth, does this code pass its
+test suite, does this proof check. `compute_reward` in
+[the parent chapter](../README.md) is the entire "reward model" — a Python
+function, not a trained one.
+
+What that buys: no reward-model training run, no reward-model drift, and a much
+smaller surface to exploit. A rule that computes `13 * 17` cannot be flattered
+by sycophantic phrasing or a confident tone the way a learned reward model can.
+This is why RLVR and math or code tasks are so tightly associated — a rule-based
+reward only works where a verifier exists, but where one does, it sidesteps
+almost the entire problem of hacking a learned model.
+
+*Almost.* The surface is smaller, not zero, and the rest of this chapter is
+what remains of it.
+
 ## The reward you had to design is the reward that gets exploited
 
 Why not reward correctness alone and skip the format reward? Because a 0/1

@@ -130,33 +130,17 @@ model, tool-calling fine-tuned or not, at the cost of the parsing step a
 native tool-call field would remove. See [`prod/README.md`](prod/README.md)
 for how production harnesses trade this off.
 
-## Context management: eager vs. just-in-time, and compaction
+## Twenty steps of observations will not fit
 
-`ContextManager` tracks a token budget (`estimate_tokens` is a chars/4
-stand-in — wiring in stage 01's real tokenizer is exercise 1) and compacts
-when the budget is exceeded. The policy is a named, swappable function
-(`drop_oldest_tool_results`), not inline logic buried in the loop:
+Every observation the loop injects stays in the transcript, and file contents
+are not small. At some point the next request exceeds the budget and the
+harness has to decide what to delete — which is a policy, and `ContextManager`
+keeps it as a named, swappable function rather than an `if` inside the loop.
 
-1. **Collapse superseded reads.** If a later message reads a path that an
-   earlier observation already read, the earlier one is replaced with a
-   one-line stale marker — the newest read of any file is kept, because an
-   agent that read a file twice only needs the second read.
-2. **Drop the oldest non-system turn**, one at a time, until under budget —
-   never the system prompt, and never past a floor of 3 messages (the model
-   needs, at minimum, its own last action and the observation it produced).
-
-This is the lightweight, sliding-window-plus-summarization-adjacent style of
-compaction most 2026 production harnesses run, not MemGPT's full explicit
-paging interface (Packer et al., 2023) where the model itself calls functions
-to move information between working and archival memory — a heavier
-mechanism this stage doesn't need at a 3-tool scale, but worth knowing
-exists. It's also worth naming the eager/JIT split this stage sits on:
-`read_file`/`list_dir` are just-in-time by construction — the agent fetches
-only the file it decides it needs, exactly when it asks — rather than the
-harness stuffing the whole sandbox root into context upfront. That trade
-(exact, debuggable, more round-trips) versus an eager embedding index (fewer
-round-trips, goes stale) is a real, contested choice among production coding
-agents, covered in `capabilities/act-coordinate/README.md`.
+[What fits in context](what-fits-in-context/) is that policy: collapsing a
+superseded file read before discarding any decision, the message floor that
+stops compaction from erasing the agent's own last move, and the just-in-time
+tool design that makes per-observation compaction workable at all.
 
 ## The loop can act. What stops it?
 
