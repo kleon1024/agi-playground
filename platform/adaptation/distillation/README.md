@@ -1,5 +1,5 @@
 ---
-status: draft
+status: verified
 base: scratch
 ---
 
@@ -169,19 +169,46 @@ sized to the student and comparing against that. Without it, "distillation
 helped" and "we borrowed a bigger model's competence" are the same number
 wearing different labels.
 
-## Run the working path
+## The measured version, and why it refuses to answer
 
-`core/distill.py` runs top-$k$ logit distillation with a live teacher forward
-pass against
-[the 88,197,888-parameter student](../../../missions/01-language-model-agent/02-pretrain/core/model.py),
-plus a utility that writes an example shard in the format above and checks its
-byte size against the formula. `prod/distill_prod.py` runs the same job through
-TRL's `GKDTrainer` on two same-tokenizer public checkpoints.
+That control was run. `core/generate_traces.py` holds one set of 3,000 prompts
+fixed and varies only who wrote the assistant turn — the source dataset's own
+annotators, a 0.5B instruct teacher, a 7B instruct teacher — then fine-tunes the
+88M student on each corpus for an identical 102 steps. Step-matching is not
+bookkeeping: model teachers write longer answers, so equal *epochs* would have
+handed them 32% and 56% more gradient steps than the human arm.
 
-Both execute today. Neither has run on real hardware, and the teacher in
-`core/` is randomly initialised, so its loss is not a quality claim about
-anything. This chapter stays `status: draft` until `runs/` holds a real
-command, real hardware, and real metrics.
+Scoring all three students against all three authors' held-out answers to the
+same test prompts gives this, averaged over three seeds:
+
+| Trained on | ref: human | ref: teacher-small | ref: teacher-large |
+|---|---|---|---|
+| human | **2.9074** | 2.0181 | 2.3819 |
+| teacher-small | 3.0263 | **1.8320** | 2.2925 |
+| teacher-large | 2.9918 | 1.8878 | **2.2763** |
+| base, no SFT | 3.1916 | 2.3649 | 2.6895 |
+
+**Every arm wins on its own author, decisively.** So the experiment everybody
+runs — teacher corpus against human corpus, judged by held-out loss — picks its
+winner when it picks its reference set. Choose a human held-out set and human
+data wins; choose the teacher's and the teacher's data wins, from the same code.
+Held-out loss here measures author-matching, not answer quality, and one column
+of that table would have supported whichever conclusion its author preferred.
+
+Two things it does support. Every arm beats the base checkpoint on every
+reference set, so learning the chat format does not depend on who wrote the
+answers. And off the diagonal, on human reference text, the 7B teacher's data
+transfers better than the 0.5B teacher's (2.9918 against 3.0263) — the one
+quality signal in the run not confounded with the reference set's author.
+
+Ranking the corpora needs an author-neutral metric, a judge or a downstream
+task. This run has neither, and says so. Full boundary, commands and raw records
+in [`runs/`](runs/2026-07-29-who-wrote-the-answer.md).
+
+Path two remains unrun here: `core/distill.py` performs top-$k$ logit
+distillation with a live teacher forward pass, and `prod/distill_prod.py` runs
+the same job through TRL's `GKDTrainer`, but the teacher in `core/` is randomly
+initialised, so its loss is not a quality claim about anything.
 
 ## Check your mental model
 
@@ -196,6 +223,9 @@ command, real hardware, and real metrics.
 5. Distribution beats text within one teacher, yet a stronger black-box teacher
    often beats a weaker local one outright. What control separates those two
    claims?
+6. Every arm in the measured run won on its own author's held-out answers. What
+   does that make held-out loss unable to decide, and what would you have to
+   measure instead?
 
 ## Next
 
