@@ -83,6 +83,19 @@ suggests roughly 20 training tokens per parameter under its measured regime,
 but deployed models are often trained on far more data to reduce inference cost
 at a fixed quality target.
 
+**Worked, on this repository's own run:** $N = 88{,}197{,}888$ and
+$D = 3.0 \times 10^{9}$, so $C \approx 6 \times 88.2\text{M} \times 3.0\text{B}
+= 1.59 \times 10^{18}$ FLOPs. That is 34 tokens per parameter — past
+Chinchilla's ratio of about 20, deliberately, because the point of the run was
+a usable checkpoint, not a compute-optimal one.
+
+Run the estimate backwards and it becomes a schedule. The card used here
+advertises 165 TFLOP/s in bf16, so a run that converted every advertised FLOP
+into gradient would finish in $1.59 \times 10^{18} / 1.65 \times 10^{14}
+= 9{,}622$ seconds — 2.7 hours. The real run took **4.98 hours**. Nothing was
+wrong with it; that ratio is what utilization means, and
+[the throughput ladder](03-throughput/) spends a whole chapter recovering it.
+
 Change the budget below and separate three questions: what fits the training
 compute, what uses the available data, and what is affordable to serve.
 

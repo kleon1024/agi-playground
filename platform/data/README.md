@@ -105,6 +105,25 @@ LSH groups the signature into bands. More bands increase recall and false
 positives; more rows per band increase precision and false negatives. The
 threshold is therefore a corpus-policy decision, not an implementation detail.
 
+**Worked, at the settings the corpus pipeline actually uses** — 64 permutations
+split into 16 bands of 4 rows. A pair becomes a candidate if *any* band matches
+entirely, which happens with probability $1-(1-J^{4})^{16}$:
+
+| true Jaccard $J$ | one band matches | pair is compared |
+|---:|---:|---:|
+| 0.9 | 0.656 | 100.0% |
+| 0.7 | 0.240 | 98.8% |
+| 0.5 | 0.063 | 64.4% |
+| 0.3 | 0.008 | 12.2% |
+| 0.1 | 0.0001 | 0.2% |
+
+The half-way point sits at $(1/16)^{1/4} = 0.50$, exactly where bands and rows
+put it. That S-curve is the entire policy: near-copies at 0.9 are caught
+essentially always, unrelated documents at 0.1 are examined twice in a
+thousand, and the 0.5 row is where the corpus owner has to decide what counts
+as a duplicate. Change 16 and 4 and you have moved the threshold, whether or
+not you meant to.
+
 The first measured shard removed 264 near duplicates from 4,856 candidates.
 That high keep rate does not prove duplicates are solved at web scale: the
 local run only compared documents within a small bounded sample.

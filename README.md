@@ -116,7 +116,7 @@ standards/     the contracts lessons, capabilities, and missions must satisfy
 | [training](platform/training/) | Tokenizers, architecture, training loop, scaling laws | Overview draft; 4 of 5 sub-lessons verified by runs |
 | [adaptation · mid-training](platform/adaptation/mid-training/) | The stage between pretraining and SFT: agentic and tool-use priors at pretraining scale, long-context extension, observation masking | Draft |
 | [adaptation · post-training](platform/adaptation/post-training/) | SFT, LoRA/PEFT, reward models, DPO family, merging | Draft |
-| [adaptation · distillation](platform/adaptation/distillation/) | Sequence-, logit-, and feature-level copying; the top-k storage format; why a shared tokenizer is not optional | Draft |
+| [adaptation · distillation](platform/adaptation/distillation/) | What you can copy from a better model, and what a measured gain is allowed to mean; [what path two requires](platform/adaptation/distillation/what-path-two-requires/) prices the storage and the tokenizer wall | Verified |
 | [adaptation · RL](platform/adaptation/reinforcement-learning/) | PPO grounding → GRPO/GSPO/DAPO → RLVR → agentic RL | Draft |
 | [serving](platform/serving/) | KV cache, paged attention, batching, speculative decoding, quantization; training infra | Overview draft; [graph execution](platform/serving/01-graph-execution/) verified by a run |
 | [evaluation & observability](platform/evaluation-observability/) | Static and agentic evals, contamination, harness disclosure | Draft |

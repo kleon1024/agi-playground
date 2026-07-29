@@ -84,6 +84,16 @@ where $A\in\mathbb{R}^{r\times k}$,
 $B\in\mathbb{R}^{d\times r}$, and $r$ is much smaller than either original
 dimension.
 
+**Worked, on this repository's 88M model at $r=8$.** One query projection is
+$768 \times 768 = 589{,}824$ weights. Its LoRA pair is
+$8 \times (768 + 768) = 12{,}288$ — **48 times fewer**. Adapt all four
+attention projections in all 12 layers and the trainable set is 491,520
+parameters, **0.56% of the model**, against 18,874,368 if you moved the
+projections directly. With $\alpha = 16$ the update is scaled by
+$\alpha/r = 2$, and if you later raise $r$ to 16 that scale becomes 1, which is
+the entire reason the term is there: rank changes without the update's
+magnitude changing underneath you.
+
 Change rank below. Compare trainable parameters with update capacity rather
 than treating rank as a free quality knob.
 
@@ -111,6 +121,13 @@ $$
 P(y_w \succ y_l)=\sigma(r_w-r_l)
 $$
 
+**Worked:** a reward gap of 0 gives $\sigma(0) = 50\%$ — the model claims no
+preference. A gap of 1 gives 73.1%, a gap of 2 gives 88.1%, a gap of 3 gives
+95.3%. Now add 100 to both rewards. Every one of those numbers is unchanged,
+because $\sigma$ only ever sees the difference. A reward of 4.7 is not a score
+out of anything; it is meaningful only next to the reward of whatever it was
+compared against.
+
 The absolute reward value has no meaning. The model learns which response a
 particular annotation process tends to prefer. Length, format, annotator
 population, and prompt distribution can all become shortcuts.
@@ -132,6 +149,16 @@ L_{\text{DPO}}
 =
 -\log\sigma\left(\beta[h(y_w)-h(y_l)]\right)
 $$
+
+**Worked, at $\beta = 0.1$.** At step zero the policy *is* the reference, so
+$h(y_w) = h(y_l) = 0$ and the loss is $-\log\sigma(0) = \log 2 = 0.693$. Every
+correctly wired DPO run starts there, exactly, the same way pretraining starts
+at $\ln(\text{vocab})$ — and a first step that is not 0.693 means the reference
+model, not the objective, is wrong. To halve that loss to 0.347 the policy must
+reach $\beta[h(y_w)-h(y_l)] = 0.88$, which at $\beta = 0.1$ means a **8.8-nat**
+gap in log-probability between chosen and rejected. Small $\beta$ does not mean
+small changes; it means the policy has to move much further to register the
+same loss.
 
 Change the loss family below and inspect which assumption each variant removes.
 
@@ -179,6 +206,15 @@ $$
 \tau_i=\theta_i-\theta_{\text{base}}, \qquad
 \theta_{\text{merged}}=\theta_{\text{base}}+\sum_i\lambda_i\tau_i
 $$
+
+**Worked, on two fine-tunes of the 88M base at $\lambda_1=\lambda_2=0.5$.**
+Each $\tau_i$ has one number per weight — 88,197,888 of them — so merging two
+adapters means holding three full checkpoints, not two adapters. The arithmetic
+then decides everything. If the two task vectors are identical, the merge
+reproduces one fine-tune exactly. If they are exact opposites, $0.5\tau + 0.5(-\tau) = 0$
+and the merge is the base model, having learned nothing from either. Real task
+vectors sit between those poles, per weight, and no scalar $\lambda$ can tell
+you where.
 
 This is useful when checkpoints share the same base and their updates do not
 strongly conflict. It is not a substitute for evaluation. Merge methods such as

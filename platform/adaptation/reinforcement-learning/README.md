@@ -53,6 +53,16 @@ r_tA_t,
 \right]
 $$
 
+**Worked, at the usual $\epsilon = 0.2$.** Take a good action, $A_t = +1$, on
+which the update raised the probability by half, so $r_t = 1.5$. The two terms
+are $1.5$ and $\operatorname{clip}(1.5, 0.8, 1.2) = 1.2$, and $\min$ takes
+**1.2**. The last 0.3 of that improvement contributes nothing, so there is no
+gradient rewarding a further push — the objective stops paying past 20%. Now
+take $r_t = 0.9$ on the same good action: $\min(0.9, 0.9) = 0.9$, unclipped,
+because the clip only ever binds in the direction of the *large* move. That
+asymmetry is the whole design. An update that overshoots is capped; an update
+that undershoots is left free to recover.
+
 A separate reference policy supplies a KL penalty so reward improvement does
 not erase the SFT policy. The price is a complex loop with actor, critic,
 reference model, and often a reward model.
@@ -68,6 +78,19 @@ $$
 \frac{r_i-\operatorname{mean}(r_1,\ldots,r_G)}
 {\operatorname{std}(r_1,\ldots,r_G)}
 $$
+
+**Worked, on a group of 8 with a binary verifiable reward.** Two rollouts solve
+the task and six do not: mean 0.25, population standard deviation 0.433. The
+two winners get an advantage of $(1-0.25)/0.433 = +1.73$; the six losers get
+$(0-0.25)/0.433 = -0.58$. Note that the successes are pushed up three times as
+hard as each failure is pushed down — the scarcer the success, the louder it
+is. At 4 out of 8 the numbers become $+1.00$ and $-1.00$ and the signal is
+symmetric.
+
+Now set the group to 0 out of 8, or 8 out of 8. The standard deviation is zero,
+$\hat A_i$ is $0/0$, and the prompt contributes nothing at all. The
+implementation adds an epsilon and skips the group; no epsilon rescues the
+missing information.
 
 Change the response rewards below. Watch the advantage change relative to the
 group rather than the absolute reward scale.

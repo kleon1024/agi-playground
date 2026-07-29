@@ -46,6 +46,14 @@ $$
 \text{multiplicative} = \prod_i p_i^{\,w_i}
 $$
 
+**Worked, on two items and two equally weighted objectives.** Item A predicts
+0.9 on the first objective and 0.1 on the second; item B predicts 0.5 on both.
+Additive scores them $0.5(0.9)+0.5(0.1) = 0.50$ and $0.5(0.5)+0.5(0.5) = 0.50$
+— a dead tie. Multiplicative scores them $0.9^{0.5} \times 0.1^{0.5} = 0.30$
+and $0.5^{0.5} \times 0.5^{0.5} = 0.50$ — item B wins by two thirds. Same
+predictions, same weights, opposite ranking. The rule, not the model, decided
+which item a user sees.
+
 A weighted sum treats objectives as substitutes: a very high score on one
 can compensate a very low score on another, so a highly clickable item with
 mediocre everything-else can still win a slot. A weighted product treats

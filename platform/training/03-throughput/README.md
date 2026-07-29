@@ -36,6 +36,15 @@ d_model` — six per parameter for the forward-and-backward matmuls, plus the
 attention term, which is quadratic in sequence length and so does not fold into
 the parameter count.
 
+**Worked, on the 88M model:** $6 \times 88{,}197{,}888 = 529{,}187{,}328$ for
+the parameters, plus $12 \times 12 \times 1024 \times 768 = 113{,}246{,}208$
+for attention — **642,433,536 FLOPs per token**, of which attention is 17.6%.
+The slowest configuration below runs at 11,521 tokens/second, so it converts
+$11{,}521 \times 642{,}433{,}536 = 7.40$ TFLOP/s out of the card's advertised
+165, which is **4.5%**. The fastest runs at 169,230 tokens/second: 108.72
+TFLOP/s, **65.9%**. Those are the first and last rows of the table below, and
+you can now reproduce either of them from three numbers.
+
 MFU has a ceiling of 100% and no run reaches it. What matters is that a run at
 4% and a run at 66% are doing identical arithmetic, and one of them is spending
 94% of the card on something else. Finding out what is the rest of this

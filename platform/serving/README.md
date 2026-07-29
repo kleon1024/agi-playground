@@ -54,8 +54,18 @@ $$
 2BLTH_{\text{kv}}d_hb
 $$
 
-The factor of two is for keys and values. Change context and batch below; watch
-when cache memory overtakes model weights.
+The factor of two is for keys and values.
+
+**Worked, on the 88M model served here** — 12 layers, 4 key-value heads,
+`d_head` 64, bf16 — one token costs
+$2 \times 12 \times 4 \times 64 \times 2 = 12{,}288$ bytes, so one 1,024-token
+request holds **12.0 MiB** of cache. The weights are 88,197,888 parameters at
+2 bytes, or 176.4 MB. Divide: cache overtakes weights at 14,355 live tokens —
+**14 concurrent full-context requests**. Past that point the model is the small
+object in memory and the conversations are the large one, which inverts the
+intuition most people bring to a serving box.
+
+Change context and batch below and find that crossover yourself.
 
 <!-- interactive: KVCacheGrowth -->
 

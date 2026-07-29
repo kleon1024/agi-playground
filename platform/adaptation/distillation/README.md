@@ -62,8 +62,9 @@ already covers. Mask the prompt, train the assistant tokens, imitate style
 rather than correctness. The only thing that changed is who wrote the assistant
 turn.
 
-This is also the fallback whenever a shared tokenizer is unavailable, which is
-the constraint that ends path two before it starts — see below.
+This is also the fallback whenever a shared tokenizer is unavailable — a
+constraint that ends path two before it starts, and one this chapter returns to
+once path two has been explained.
 
 ## Path two: copy the shape of the teacher's doubt
 
@@ -83,9 +84,26 @@ $$
 
 At $T{=}1$ this is the teacher's raw call. Raising $T$ flattens the
 distribution so the small probabilities become visible instead of rounding into
-nothing. Softening also shrinks the gradient by roughly $1/T$, so the loss
-carries a $T^2$ factor to keep update magnitudes comparable across
-temperatures:
+nothing.
+
+**Worked, on illustrative logits** of 8.0 for `Paris`, 5.0 for `Lyon`, and 2.0
+for `banana`:
+
+| | `Paris` | `Lyon` | `banana` |
+|---|---:|---:|---:|
+| $T=1$ | 95.03% | 4.73% | 0.24% |
+| $T=2$ | 78.56% | 17.53% | 3.91% |
+| $T=4$ | 58.98% | 27.86% | 13.16% |
+
+Read the `banana` column, not the `Paris` one. Temperature is not a free
+magnifier of useful structure: at $T=4$ the nonsense token holds more mass than
+the plausible alternative did at $T=1$. Raising $T$ buys visibility into the
+teacher's ranking and pays for it by teaching the student that absurd
+continuations are ordinary. That trade, not the flattening, is what a
+temperature setting is choosing between.
+
+Softening also shrinks the gradient by roughly $1/T$, so the loss carries a
+$T^2$ factor to keep update magnitudes comparable across temperatures:
 
 $$
 L_{\text{KD}} = -T^2 \sum_{i} p_i^{\text{teacher}}(T)\,\log p_i^{\text{student}}(T)
@@ -97,56 +115,23 @@ what path one cannot transmit.
 
 <!-- interactive: DistillationTargets -->
 
-## What the distribution costs to keep
+## Path two is closed to this student, and probably to yours
 
-Nobody stores a full 16,512-wide distribution for every token of a corpus —
-most of that vocabulary carries negligible probability. Production recipes keep
-the top-$k$ entries per position:
+Two things have to be true before you can run it. You need somewhere to put the
+teacher's distribution — at the usual top-16, 64 extra bytes per token, or
+192 GB alongside a 3.0B-token corpus. And the student has to speak the *same*
+vocabulary as the teacher, because a divergence between two tokenizers compares
+unrelated strings and returns a number anyway.
 
-- `input_ids`: `uint16[N]` — the token stream, already paid for by any fine-tune
-- `topk_ids`: `uint16[N, k]` — which vocabulary entries were kept
-- `topk_logprobs`: `bfloat16[N, k]` — the teacher's log-probability at each
-
-Only the last two are new, at two bytes per entry:
-
-$$
-\text{bytes/token (extra)} = k \cdot (\underbrace{2}_{\text{topk\_ids}} + \underbrace{2}_{\text{topk\_logprobs}}) = 4k
-$$
-
-At $k{=}16$ that is 64 extra bytes per token. Recompute it for whatever $k$ a
-real run uses — the formula is the fact worth keeping, not the number.
-
-Whether to store those arrays or regenerate them is a question about disk and
-epochs, not about mechanism. If teacher and student both fit on one 24GB card,
-run the teacher's forward pass live during the student's training step and keep
-nothing: roughly a doubled step cost, and it never goes stale against a fixed
-dataset snapshot. The loss is identical either way.
-
-## The constraint that ends path two
-
-A KL divergence between two vocabularies is meaningless unless they are the
-*same* vocabulary. Index 4,211 might be `the` in one tokenizer and `ing` in
-another; comparing the probability each model assigns to index 4,211 compares
-two unrelated strings and calls the result a divergence.
-
-This is not a detail — it is why mission 01's student cannot take path two at
-all. Its tokenizer was trained from scratch in
+This student fails the second test. Its tokenizer was trained from scratch in
 [stage 01](../../../missions/01-language-model-agent/01-tokenizer/), 16,512
-entries, shared with no public model in existence. Any teacher you could reach
-speaks a different vocabulary.
+entries, shared with no public model in existence.
+[What path two requires](what-path-two-requires/) prices the storage, lists the
+three escapes from the tokenizer wall, and shows why that constraint makes
+tokenizer similarity weak evidence when one lab accuses another of distilling
+its model.
 
-Three ways out, none free: retrain the student against the teacher's tokenizer
-first (expensive, and it discards the student's own token statistics); drop to
-path one; or use a cross-tokenizer method that aligns *sorted* distributions by
-rank and magnitude rather than by index, paying for it with the approximation
-that sorting introduces.
-
-It is also why tokenizer similarity is weak evidence in public disputes over
-whether one model distilled another. Tokenizers do not transfer across training
-runs by default, and two independently trained tokenizers over similar corpora
-can converge on similar merge tables without a single logit ever having crossed
-between the models. Shared vocabulary strings prove a shared corpus family at
-most; they cannot substitute for a KL trace nobody recorded.
+Everything below applies to path one — the path almost everyone is on.
 
 ## What a distillation gain is allowed to mean
 
@@ -206,10 +191,8 @@ Ranking the corpora needs an author-neutral metric, a judge or a downstream
 task. This run has neither, and says so. Full boundary, commands and raw records
 in [`runs/`](runs/2026-07-29-who-wrote-the-answer.md).
 
-Path two remains unrun here: `core/distill.py` performs top-$k$ logit
-distillation with a live teacher forward pass, and `prod/distill_prod.py` runs
-the same job through TRL's `GKDTrainer`, but the teacher in `core/` is randomly
-initialised, so its loss is not a quality claim about anything.
+Path two remains unrun here, for the reason
+[its requirements page](what-path-two-requires/) gives.
 
 ## Check your mental model
 
@@ -217,14 +200,12 @@ initialised, so its loss is not a quality claim about anything.
    is it not "which signal is better"?
 2. What does a one-hot label destroy that a temperature-softened distribution
    keeps, and why does the loss get rescaled by $T^2$?
-3. At $k{=}32$, how many extra bytes per token does the top-$k$ format cost,
-   and which of the three arrays did not change?
-4. Mission 01's student has a 16,512-entry tokenizer trained from scratch.
-   Which path is closed to it, and what are the three escapes?
-5. Distribution beats text within one teacher, yet a stronger black-box teacher
+3. Raising temperature reveals the teacher's ranking. What does it cost you at
+   the same time?
+4. Distribution beats text within one teacher, yet a stronger black-box teacher
    often beats a weaker local one outright. What control separates those two
    claims?
-6. Every arm in the measured run won on its own author's held-out answers. What
+5. Every arm in the measured run won on its own author's held-out answers. What
    does that make held-out loss unable to decide, and what would you have to
    measure instead?
 
