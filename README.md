@@ -105,6 +105,7 @@ standards/     the contracts lessons, capabilities, and missions must satisfy
 
 | Lesson | Status |
 |---|---|
+| [The decoder block](foundations/00-attention/) — how one token finds the context it needs, and [what that block costs](foundations/00-attention/what-it-costs/) | Draft |
 | [First training loop](foundations/01-first-training-loop/) — the smallest complete pretraining loop, and why its failure is a *data* failure | Verified |
 
 ### platform

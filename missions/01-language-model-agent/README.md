@@ -65,7 +65,7 @@ taking.
 
 | At this stage | You need to decide | So read | And bring back |
 |---|---|---|---|
-| before 02 | what a decoder block is doing at all | [foundations](../../foundations/) | the forward and backward path of one block |
+| before 02 | what a decoder block is doing at all | [the decoder block](../../foundations/00-attention/) | the forward path, and this model's 88,197,888 parameters reconstructed from its own formulas |
 | 00 | which documents to keep, and whether the filter is defensible | [platform / data](../../platform/data/) | a versioned dataset with rejection reasons |
 | 02 | whether an architecture choice is worth its cost | [architecture ablations](../../platform/training/02-architecture-ablations/) | six choices measured, two of which flip sign between seeds |
 | 02 | why a run will take ten hours, and whether it should | [the throughput ladder](../../platform/training/03-throughput/) | tokens per second, MFU, and what to change |

@@ -258,6 +258,21 @@
     },
     "items": [
       {
+        "type": "category",
+        "label": "The decoder block",
+        "link": {
+          "type": "doc",
+          "id": "foundations/00-attention/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "foundations/00-attention/what-it-costs/index",
+            "label": "What a block costs"
+          }
+        ]
+      },
+      {
         "type": "doc",
         "id": "foundations/01-first-training-loop/index",
         "label": "First training loop \u00b7 verified"

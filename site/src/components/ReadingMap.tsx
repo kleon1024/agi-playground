@@ -49,9 +49,9 @@ const BUILD_PATH: Step[] = [
     note: 'Train the decoder and produce a resumable checkpoint.',
     detours: [
       {
-        href: '/playground/foundations/',
-        label: 'Foundations',
-        returns: 'what one decoder block does, and a training loop you can watch',
+        href: '/playground/foundations/00-attention/',
+        label: 'The decoder block',
+        returns: "the forward path, and this model's parameter count derived from its own formulas",
       },
       {
         href: '/playground/platform/training/03-throughput/',
