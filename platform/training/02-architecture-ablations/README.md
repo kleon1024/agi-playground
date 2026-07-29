@@ -16,6 +16,10 @@ tested — and the first thing a test needs is a definition of winning, because
 the nine training runs in section 3 support two opposite headlines depending
 on which definition you pick.
 
+**Before this:** [the decoder block](../../../foundations/00-attention/) for what
+RMSNorm, RoPE, SwiGLU and grouped-query attention each do. This chapter tests
+those choices; it does not explain them.
+
 ## 1. The comparison is underdetermined until you say what is held equal
 
 "RMSNorm beat LayerNorm" only means something once you say what stayed fixed

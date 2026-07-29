@@ -30,6 +30,10 @@ Mid-training is the stage that decides whether the model has already seen a
 think, call a tool, read the result, continue episode before
 [post-training](../post-training/) ever asks it to behave like an assistant.
 
+**Before this:** [what closes the gap](../README.md), for the three-stage split.
+This chapter is about the stage between pretraining and post-training, so both
+of its neighbours have to be in view.
+
 ## 1. The scale mismatch
 
 Post-training's SFT step runs on a small, reviewed demonstration set — sized

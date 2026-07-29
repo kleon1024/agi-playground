@@ -25,6 +25,10 @@ prompt -> sample responses -> score outcomes
 Unlike offline preference optimization, the policy changes the data it will see
 next. Reward design, exploration, and stability are now one system.
 
+**Before this:** [post-training](../post-training/). Reinforcement learning
+sharpens behavior a model already produces sometimes, so it presupposes a policy
+that supervised fine-tuning has already shaped.
+
 ## Why can you not just take the gradient of a reward?
 
 For language-model RL:

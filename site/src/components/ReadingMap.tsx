@@ -1,10 +1,25 @@
 import React from 'react';
+import READING_COST from '../reading-cost.generated.json';
 
 type MapLink = {
   href: string;
   label: string;
   note: string;
 };
+
+/* Reading minutes come from sync-docs.py, which derives them from the same
+   word count that prints the badge on each page. Nothing here is typed by
+   hand, so a route's declared cost cannot drift away from its chapters. */
+const COST: Record<string, { level: string; minutes: number }> = READING_COST;
+
+function minutesFor(href: string): number {
+  const path = href.replace(/^\/playground\//, '').replace(/\/$/, '');
+  return COST[path]?.minutes ?? 0;
+}
+
+function totalMinutes(hrefs: string[]): number {
+  return hrefs.reduce((sum, href) => sum + minutesFor(href), 0);
+}
 
 type Step = MapLink & {
   /** Support chapters this stage sends you to, and what each returns.
@@ -16,8 +31,10 @@ type Step = MapLink & {
    *  These are listed here and not only inside the chapter because a platform
    *  chapter nobody links to from the path is a chapter nobody reads. */
   detours?: Array<{ href: string; label: string; returns: string }>;
-  /** A companion chapter that continues this stage's own argument. */
-  companion?: { href: string; label: string };
+  /** Companion chapters that continue this stage's own argument. A stage can
+   *  have more than one: 05-serve owns both the paging mechanism and the
+   *  concurrency result, and neither is a detour into another section. */
+  companions?: Array<{ href: string; label: string }>;
 };
 
 const MISSION = '/playground/missions/01-language-model-agent';
@@ -42,6 +59,9 @@ const BUILD_PATH: Step[] = [
     href: `${MISSION}/01-tokenizer/`,
     label: 'Tokenizer',
     note: 'Build the vocabulary that fixes every later token ID.',
+    companions: [
+      { href: `${MISSION}/01-tokenizer/is-it-the-same-tokenizer/`, label: 'Is it the same tokenizer' },
+    ],
   },
   {
     href: `${MISSION}/02-pretrain/`,
@@ -69,7 +89,7 @@ const BUILD_PATH: Step[] = [
         returns: 'a converted checkpoint that starts at its parent’s loss',
       },
     ],
-    companion: { href: `${MISSION}/02-pretrain/verifying-the-run/`, label: 'Verifying the run' },
+    companions: [{ href: `${MISSION}/02-pretrain/verifying-the-run/`, label: 'Verifying the run' }],
   },
   {
     href: `${MISSION}/03-sft/`,
@@ -82,7 +102,7 @@ const BUILD_PATH: Step[] = [
         returns: 'a target format, and the tokenizer constraint that decides it',
       },
     ],
-    companion: { href: `${MISSION}/03-sft/what-it-costs/`, label: 'What it costs' },
+    companions: [{ href: `${MISSION}/03-sft/what-it-costs/`, label: 'What it costs' }],
   },
   {
     href: `${MISSION}/04-rl/`,
@@ -95,7 +115,7 @@ const BUILD_PATH: Step[] = [
         returns: 'the condition under which the gradient is non-zero at all',
       },
     ],
-    companion: { href: `${MISSION}/04-rl/reward-went-up/`, label: 'Did the model get better?' },
+    companions: [{ href: `${MISSION}/04-rl/reward-went-up/`, label: 'Did the model get better?' }],
   },
   {
     href: `${MISSION}/05-serve/`,
@@ -113,7 +133,10 @@ const BUILD_PATH: Step[] = [
         returns: 'which of three bottlenecks the decode step actually has, and roughly 3x from fixing it',
       },
     ],
-    companion: { href: `${MISSION}/05-serve/why-concurrency-pays/`, label: 'Why concurrency pays' },
+    companions: [
+      { href: `${MISSION}/05-serve/paging-the-cache/`, label: 'Paging the cache' },
+      { href: `${MISSION}/05-serve/why-concurrency-pays/`, label: 'Why concurrency pays' },
+    ],
   },
   {
     href: `${MISSION}/06-agent/`,
@@ -126,7 +149,10 @@ const BUILD_PATH: Step[] = [
         returns: 'a permission and stop-condition contract',
       },
     ],
-    companion: { href: `${MISSION}/06-agent/what-stops-it/`, label: 'What stops it' },
+    companions: [
+      { href: `${MISSION}/06-agent/what-fits-in-context/`, label: 'What fits in context' },
+      { href: `${MISSION}/06-agent/what-stops-it/`, label: 'What stops it' },
+    ],
   },
   {
     href: `${MISSION}/07-eval/`,
@@ -139,7 +165,10 @@ const BUILD_PATH: Step[] = [
         returns: 'variance, and the disclosure a result has to carry',
       },
     ],
-    companion: { href: `${MISSION}/07-eval/why-believe-the-number/`, label: 'Why believe the number' },
+    companions: [
+      { href: `${MISSION}/07-eval/whose-harness/`, label: 'Whose harness produced it' },
+      { href: `${MISSION}/07-eval/why-believe-the-number/`, label: 'Why believe the number' },
+    ],
   },
 ];
 
@@ -190,8 +219,21 @@ const REFERENCE_LAYERS: MapLink[] = [
 ];
 
 export function BuildPath(): React.ReactElement {
+  const spine = totalMinutes(BUILD_PATH.map((step) => step.href));
+  const companions = totalMinutes(
+    BUILD_PATH.flatMap((step) => step.companions ?? []).map((c) => c.href),
+  );
+  const detours = totalMinutes(
+    BUILD_PATH.flatMap((step) => step.detours ?? []).map((d) => d.href),
+  );
   return (
     <nav className="reading-map" aria-label="Language-model system reading path">
+      <p className="reading-map__budget">
+        <strong>{BUILD_PATH.length} stages, {spine} minutes.</strong> Read only the
+        numbered stages and you have the whole build. The companions add {companions} min
+        and answer the question each stage raises but does not settle; the detours add{' '}
+        {detours} min and each returns something the next stage consumes.
+      </p>
       <ol className="reading-map__spine">
         {BUILD_PATH.map((step, index) => (
           <li key={step.href} className="reading-map__step">
@@ -202,9 +244,10 @@ export function BuildPath(): React.ReactElement {
                   <strong>{step.label}</strong>
                 </span>
                 <span>{step.note}</span>
+                <span className="reading-map__minutes">{minutesFor(step.href)} min</span>
               </span>
             </a>
-            {(step.detours || step.companion) && (
+            {(step.detours || step.companions) && (
               <ul className="reading-map__branches">
                 {step.detours?.map((detour) => (
                   <li className="reading-map__branch" data-kind="detour" key={detour.href}>
@@ -214,13 +257,14 @@ export function BuildPath(): React.ReactElement {
                     <span> — return with {detour.returns}.</span>
                   </li>
                 ))}
-                {step.companion && (
-                  <li className="reading-map__branch" data-kind="companion">
-                    <a href={step.companion.href}>
-                      Then: <strong>{step.companion.label}</strong>
+                {step.companions?.map((companion) => (
+                  <li className="reading-map__branch" data-kind="companion" key={companion.href}>
+                    <a href={companion.href}>
+                      Then: <strong>{companion.label}</strong>
                     </a>
+                    <span className="reading-map__minutes"> {minutesFor(companion.href)} min</span>
                   </li>
-                )}
+                ))}
               </ul>
             )}
           </li>

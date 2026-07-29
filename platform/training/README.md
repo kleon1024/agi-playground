@@ -29,6 +29,10 @@ text -> tokens -> batches -> logits -> next-token loss
      -> gradients -> optimizer update -> checkpoint
 ```
 
+**Before this:** [the decoder block](../../foundations/00-attention/) for what is
+being trained, and [data](../data/) for what it is trained on. This chapter is
+about the budget that turns those two into a run.
+
 ## 1. Turn text into a stable interface
 
 A tokenizer is part of the model contract. Change it and token IDs, sequence

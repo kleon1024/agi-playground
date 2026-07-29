@@ -18,6 +18,10 @@ current mixture and once with the candidate substituted in, and read the
 difference. This chapter is about what has to be true of that comparison
 before the difference means anything.
 
+**Before this:** [how a raw crawl becomes a corpus](../README.md). You need a
+pipeline whose stages you could change before it is worth measuring whether a
+change helped.
+
 ## 1. Fix everything except the mixture
 
 An ablation is only informative if exactly one thing moved. Fix the

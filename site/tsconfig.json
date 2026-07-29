@@ -6,7 +6,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "ignoreDeprecations": "6.0",
-    "strict": true
+    "strict": true,
+    // src/reading-cost.generated.json is written by sync-docs.py and imported
+    // by ReadingMap.tsx, so a route's declared cost is derived from the same
+    // word count as the badge on each page rather than typed alongside it.
+    "resolveJsonModule": true
   },
   "exclude": [".docusaurus", "build"]
 }

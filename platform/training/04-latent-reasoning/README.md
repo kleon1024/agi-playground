@@ -17,6 +17,10 @@ that a decoder maps token ids to vectors, transforms those vectors, and turns
 the last one back into a distribution over tokens. This chapter changes exactly
 one link in that loop and measures what happens.
 
+**Before this:** [the decoder block](../../../foundations/00-attention/) and the
+[reinforcement-learning chapter](../../adaptation/reinforcement-learning/). This
+is an open question at the edge of both, not a mechanism either one settles.
+
 ## The loop, and the one link this chapter cuts
 
 Generating a chain of thought is a cycle. The model produces a hidden state, the

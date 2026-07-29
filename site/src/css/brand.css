@@ -462,6 +462,25 @@ table th {
   font-size: var(--type-lg);
 }
 
+/* What a route costs, before the reader commits to it. The numbers come from
+   sync-docs.py, so this treatment is semantic metadata rather than prose. */
+.reading-map__budget {
+  margin: 0 0 1rem;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid var(--rehearse-action-strong);
+  background: var(--rehearse-warm-white);
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-sm);
+  line-height: 1.6;
+}
+
+.reading-map__minutes {
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-xs);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
 .mission-branches {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

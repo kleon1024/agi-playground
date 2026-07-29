@@ -24,6 +24,9 @@ definition -> measurement -> enforcement point
            -> audit record -> escalation owner
 ```
 
+**Before this:** [act and coordinate](../../capabilities/act-coordinate/), for
+the permission and stop-condition contract a guardrail has to attach to.
+
 ## 1. Write guardrails as executable conditions
 
 “Do not harm quality” cannot be measured. A useful guardrail names a population,

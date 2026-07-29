@@ -25,6 +25,10 @@ consumes what the previous one leaves behind.
 | [Distillation](distillation/) | You can afford to generate from a good model but not to train one. What exactly can you copy? |
 | [Reinforcement learning](reinforcement-learning/) | How do you improve a model when there is no correct answer to imitate, only a signal about whether it succeeded? |
 
+**Before this:** [training](../training/), which produces the base model every
+chapter below starts from. Nothing here creates capability; all of it reshapes
+what pretraining already installed.
+
 ## Why mid-training is a separate chapter
 
 The pipeline is commonly described as two stages, pretraining then

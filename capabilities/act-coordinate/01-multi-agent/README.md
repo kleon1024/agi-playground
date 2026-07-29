@@ -18,6 +18,9 @@ second agent is not a free multiplier on capability. It is a specific trade,
 and the trade is only worth it under conditions this chapter tries to name
 precisely.
 
+**Before this:** [what the software around a model must own](../README.md). One
+agent's loop, tools, and stop conditions are the unit this chapter multiplies.
+
 ## 1. What a second agent actually buys
 
 Three reasons are real, and they are different reasons, not three names for

@@ -23,6 +23,10 @@ arrives here when the question becomes where its supervision should come from.
 Take back the target format and the tokenizer constraint; both decide what the
 stage can and cannot buy.
 
+**Before this:** [post-training](../post-training/), for what supervised
+fine-tuning already does with a fixed dataset. This chapter only changes who
+wrote the answers in it.
+
 ## The line that decides everything: do you own the teacher's weights?
 
 Not "which signal is better." That question comes second, and for most people

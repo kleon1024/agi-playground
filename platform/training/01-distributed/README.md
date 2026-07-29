@@ -26,6 +26,10 @@ torchrun --standalone --nproc_per_node=4 core/distributed.py --mode ddp
 torchrun --standalone --nproc_per_node=4 core/distributed.py --mode zero1
 ```
 
+**Before this:** [what makes a training run worth its compute](../README.md).
+You need the single-card picture — a token budget, a step, an optimizer state —
+before it means anything to split one across eight cards.
+
 ## The one idea in data parallelism
 
 Every rank holds a complete copy of the model and sees a *different* batch. It

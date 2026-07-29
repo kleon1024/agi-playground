@@ -613,6 +613,12 @@ def main() -> None:
         shutil.copy(landing, OUT / "index.mdx")
 
     count = 0
+    # What every chapter costs to read, keyed by its repository path, which is
+    # also its route below /playground/. `ReadingMap.tsx` sums these to declare
+    # what a route costs before the reader starts it. Emitted rather than typed
+    # for the same reason the per-page badge is: a number nobody writes cannot
+    # drift away from the prose it describes.
+    page_cost: dict[str, dict[str, object]] = {}
     for section, base_pos in SECTIONS:
         src_dir = ROOT / section
         if not src_dir.is_dir():
@@ -635,6 +641,7 @@ def main() -> None:
             title, position, nav_label, level, minutes = convert(src, OUT / dest_rel, None)
             if src.name == "README.md":
                 dir_cost[rel.parent] = (level, minutes)
+                page_cost[rel.parent.as_posix()] = {"level": level, "minutes": minutes}
                 key = dest_rel.parent.as_posix()
                 SIDEBAR_LABELS[key] = nav_label
                 SIDEBAR_POSITIONS[key] = position
@@ -680,8 +687,10 @@ def main() -> None:
             shutil.copy(img, OUT / rel)
 
     sidebar = build_sidebar()
-    (Path(__file__).resolve().parent / "sidebars.generated.json").write_text(
-        json.dumps(sidebar, indent=2) + "\n"
+    here = Path(__file__).resolve().parent
+    (here / "sidebars.generated.json").write_text(json.dumps(sidebar, indent=2) + "\n")
+    (here / "src" / "reading-cost.generated.json").write_text(
+        json.dumps(dict(sorted(page_cost.items())), indent=2) + "\n"
     )
 
     print(f"synced {count} pages from the repository into {OUT.relative_to(ROOT)}")

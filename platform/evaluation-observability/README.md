@@ -28,6 +28,9 @@ candidate change
 
 The output is a decision record another reviewer can reproduce.
 
+**Before this:** nothing, though it lands hardest after you have a number you
+want to believe. Every other chapter in this section produces one.
+
 ## 1. Name the unit being evaluated
 
 A model checkpoint, decoding configuration, prompt, tool set, retry policy, and

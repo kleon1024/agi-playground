@@ -1,0 +1,294 @@
+{
+  "capabilities/act-coordinate": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "capabilities/act-coordinate/01-multi-agent": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "capabilities/act-coordinate/01-multi-agent/prod": {
+    "level": "",
+    "minutes": 1
+  },
+  "foundations": {
+    "level": "foundation",
+    "minutes": 1
+  },
+  "foundations/00-attention": {
+    "level": "foundation",
+    "minutes": 8
+  },
+  "foundations/00-attention/what-it-costs": {
+    "level": "foundation",
+    "minutes": 4
+  },
+  "foundations/01-first-training-loop": {
+    "level": "foundation",
+    "minutes": 5
+  },
+  "infra": {
+    "level": "reference",
+    "minutes": 2
+  },
+  "missions/01-language-model-agent": {
+    "level": "foundation",
+    "minutes": 5
+  },
+  "missions/01-language-model-agent/00-corpus": {
+    "level": "foundation",
+    "minutes": 5
+  },
+  "missions/01-language-model-agent/01-tokenizer": {
+    "level": "foundation",
+    "minutes": 7
+  },
+  "missions/01-language-model-agent/01-tokenizer/is-it-the-same-tokenizer": {
+    "level": "foundation",
+    "minutes": 5
+  },
+  "missions/01-language-model-agent/02-pretrain": {
+    "level": "foundation",
+    "minutes": 8
+  },
+  "missions/01-language-model-agent/02-pretrain/verifying-the-run": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "missions/01-language-model-agent/03-sft": {
+    "level": "foundation",
+    "minutes": 8
+  },
+  "missions/01-language-model-agent/03-sft/what-it-costs": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "missions/01-language-model-agent/04-rl": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "missions/01-language-model-agent/04-rl/reward-went-up": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "missions/01-language-model-agent/05-serve": {
+    "level": "foundation",
+    "minutes": 8
+  },
+  "missions/01-language-model-agent/05-serve/paging-the-cache": {
+    "level": "foundation",
+    "minutes": 4
+  },
+  "missions/01-language-model-agent/05-serve/why-concurrency-pays": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "missions/01-language-model-agent/06-agent": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "missions/01-language-model-agent/06-agent/prod": {
+    "level": "",
+    "minutes": 1
+  },
+  "missions/01-language-model-agent/06-agent/what-fits-in-context": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/01-language-model-agent/06-agent/what-stops-it": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "missions/01-language-model-agent/07-eval": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "missions/01-language-model-agent/07-eval/whose-harness": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/01-language-model-agent/07-eval/why-believe-the-number": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "missions/02-personalized-discovery": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "missions/02-personalized-discovery/00-interactions": {
+    "level": "foundation",
+    "minutes": 7
+  },
+  "missions/02-personalized-discovery/01-content-understanding": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/02-personalized-discovery/02-recall": {
+    "level": "foundation",
+    "minutes": 7
+  },
+  "missions/02-personalized-discovery/03-pre-rank": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "missions/02-personalized-discovery/04-fine-rank": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "missions/02-personalized-discovery/05-value-tree": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "missions/02-personalized-discovery/06-mixing": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/02-personalized-discovery/07-rule-engine": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/02-personalized-discovery/08-serving": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "missions/02-personalized-discovery/09-report": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/03-quantitative-research": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "missions/03-quantitative-research/00-market-data": {
+    "level": "foundation",
+    "minutes": 7
+  },
+  "missions/03-quantitative-research/01-signal-research": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "missions/03-quantitative-research/02-cross-sectional-rank": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "missions/03-quantitative-research/03-walk-forward-validation": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "missions/03-quantitative-research/04-cost-and-capacity": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/03-quantitative-research/05-report": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/04-code-agent": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/04-code-agent/00-task-set": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "missions/04-code-agent/02-agent-loop": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "missions/04-code-agent/03-cheap-or-expensive": {
+    "level": "frontier",
+    "minutes": 5
+  },
+  "platform/adaptation": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "platform/adaptation/distillation": {
+    "level": "frontier",
+    "minutes": 8
+  },
+  "platform/adaptation/distillation/what-path-two-requires": {
+    "level": "frontier",
+    "minutes": 4
+  },
+  "platform/adaptation/mid-training": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "platform/adaptation/post-training": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "platform/adaptation/reinforcement-learning": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "platform/data": {
+    "level": "foundation",
+    "minutes": 7
+  },
+  "platform/data/01-ablation-harness": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "platform/data/01-ablation-harness/the-two-confounds": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "platform/evaluation-observability": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "platform/safety-governance": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "platform/serving": {
+    "level": "foundation",
+    "minutes": 6
+  },
+  "platform/serving/01-graph-execution": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "platform/training": {
+    "level": "foundation",
+    "minutes": 7
+  },
+  "platform/training/01-distributed": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "platform/training/02-architecture-ablations": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "platform/training/02-architecture-ablations/the-rung-that-flipped": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "platform/training/03-throughput": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "platform/training/04-latent-reasoning": {
+    "level": "frontier",
+    "minutes": 6
+  },
+  "platform/training/05-upcycling": {
+    "level": "frontier",
+    "minutes": 7
+  },
+  "platform/training/05-upcycling/does-it-pay-off": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "research": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "standards": {
+    "level": "reference",
+    "minutes": 1
+  }
+}

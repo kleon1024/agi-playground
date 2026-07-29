@@ -28,6 +28,9 @@ three assume the base model already has the behavior somewhere in its
 distribution; installing a behavior it has never produced is
 [mid-training](../mid-training/)'s job, not this chapter's.
 
+**Before this:** [what closes the gap](../README.md). You need a base checkpoint
+and the fact that it continues text rather than answering questions.
+
 ## What exactly is the model being taught to produce?
 
 Pretraining rewards every correct next token in raw text. An assistant dataset

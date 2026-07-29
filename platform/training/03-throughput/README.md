@@ -20,6 +20,10 @@ an optimizer update over a fixed batch of tokens. This chapter changes nothing
 about any of them. Every configuration below computes the same gradient on the
 same data and produces the same model. Only the wall-clock differs.
 
+**Before this:** [what makes a training run worth its compute](../README.md).
+You need a token budget you have committed to before it is worth asking how fast
+it is being spent.
+
 ## The number that survives changing the model
 
 Tokens per second is what you feel, and it is not comparable to anything. Halve

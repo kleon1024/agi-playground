@@ -22,6 +22,9 @@ The output of this chapter is not “clean text.” It is a versioned dataset wi
 a manifest, stage-level rejection reasons, sampled false-positive audits, and
 a contamination policy.
 
+**Before this:** nothing. A corpus is where a mission starts, and this chapter
+assumes only that you have raw text and an opinion about what belongs in it.
+
 ## 1. Define eligibility before quality
 
 A crawl contains redirects, binary responses, extraction failures, many

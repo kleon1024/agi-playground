@@ -27,6 +27,9 @@ observe -> decide -> propose action -> validate
 The harness owns every arrow. The model proposes; the harness decides what is
 valid, permitted, and observable.
 
+**Before this:** [serving](../../platform/serving/), because a model that cannot
+be called cannot act. Everything here is the software around that call.
+
 ## 1. Start from a task contract
 
 Before calling the model, state:

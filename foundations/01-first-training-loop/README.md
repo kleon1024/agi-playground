@@ -24,6 +24,10 @@ Run it first. Understand it second. It takes 34 seconds.
 python core/train_gpt.py
 ```
 
+**Before this:** [the decoder block](../00-attention/) if you want the forward
+path explained first. Otherwise nothing — this chapter is the shortest complete
+loop in the repository.
+
 ## What it builds
 
 A 10.75M-parameter decoder-only transformer: 6 layers, 6 heads, 384 embedding

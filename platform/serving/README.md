@@ -24,6 +24,9 @@ Model math determines the work. The serving system determines when that work
 runs, where intermediate state lives, and whether another request can share the
 device.
 
+**Before this:** [what a block costs](../../foundations/00-attention/what-it-costs/),
+for the key-value cache arithmetic every decision on this page is made against.
+
 ## Why one latency number hides two different bottlenecks
 
 During **prefill**, the model processes all prompt tokens in parallel and

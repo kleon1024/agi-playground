@@ -23,6 +23,10 @@ cannot issue work fast enough, the device cannot read memory fast enough, the
 device cannot compute fast enough — and to say why the standard fix for the
 first one costs you arithmetic to buy back time.
 
+**Before this:** [how a checkpoint becomes a service](../README.md), for the
+decode step and why it is memory-bound. This chapter profiles that step rather
+than re-deriving it.
+
 ## The one comparison that settles it
 
 A PyTorch profile reports two totals that are easy to skim past. `Self CPU time

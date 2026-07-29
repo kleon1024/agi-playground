@@ -18,6 +18,10 @@ that its weights are just named tensors in a file. This chapter changes the
 shape of one component in that stack while keeping every trained tensor, and
 measures whether the result is still the same model.
 
+**Before this:** [architecture ablations](../02-architecture-ablations/) for what
+a mixture-of-experts block is and which budget it should be judged under. This
+chapter converts one; that chapter decides whether it is worth converting.
+
 ## What a checkpoint actually is, and what "compatible" means
 
 A checkpoint is a dictionary from tensor names to numbers. Loading one into a
