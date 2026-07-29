@@ -201,6 +201,22 @@ def pack(
     return blocks
 
 
+def _rows(dataset: str, split: str):
+    """A hub dataset, or a local JSONL of the same `messages` shape.
+
+    The local path exists so an arm trained on teacher-generated answers runs
+    through this trainer unchanged. Distillation at sequence level *is* this
+    trainer -- the only thing that differs is who wrote the assistant turn, so
+    forking a second training script to say so would be duplicating the code
+    in order to hide the point.
+    """
+    from datasets import load_dataset  # deferred: only needed for this path
+
+    if dataset.endswith((".jsonl", ".json")):
+        return load_dataset("json", data_files=dataset, split="train")
+    return load_dataset(dataset, split=split)
+
+
 def load_examples(dataset: str, split: str, tok: Tokenizer, limit: int | None):
     """Pull a chat-formatted instruct dataset and render every row.
 
@@ -211,9 +227,7 @@ def load_examples(dataset: str, split: str, tok: Tokenizer, limit: int | None):
     noisier one. Each row's `messages` field is already `[{"role", "content"},
     ...]`, the same shape `render_and_mask` expects.
     """
-    from datasets import load_dataset  # deferred: only needed for this path
-
-    rows = load_dataset(dataset, split=split)
+    rows = _rows(dataset, split)
     if limit:
         rows = rows.select(range(min(limit, len(rows))))
 
@@ -449,9 +463,7 @@ def _first_user_turns(dataset: str, split: str, n: int):
     cheaper than carrying raw turns alongside every rendered/packed example."""
     if n <= 0:
         return
-    from datasets import load_dataset
-
-    rows = load_dataset(dataset, split=split).select(range(n))
+    rows = _rows(dataset, split).select(range(n))
     for row in rows:
         turns = row["messages"]
         yield [t for t in turns if t["role"] != "assistant"]
