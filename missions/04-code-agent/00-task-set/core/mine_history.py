@@ -23,10 +23,18 @@ tasks mined from a repository whose history is not in any model's training
 data, to sit beside a public benchmark that may well be. Report the two
 separately, never pooled -- see `../README.md`.
 
+`mine` and `verify` deliberately write different files. Candidates go to
+`tasks/candidates.jsonl`; only `verify --write` produces `tasks/private.jsonl`,
+which is the file everything downstream reads. Pointing both at one path is how
+an unverified candidate set gets committed as the task set -- which happened
+here on 2026-07-29, and no test caught it, because a candidate and a task are
+indistinguishable from their contents alone. The difference is which command
+wrote the file, so that is what the filenames record.
+
 Usage:
     python mine_history.py candidates
-    python mine_history.py mine   --out ../tasks/private.jsonl
-    python mine_history.py verify --manifest ../tasks/private.jsonl
+    python mine_history.py mine            # -> ../tasks/candidates.jsonl
+    python mine_history.py verify --write  # -> ../tasks/private.jsonl
 """
 
 from __future__ import annotations
@@ -41,6 +49,9 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[4]
+TASKS = REPO / "missions/04-code-agent/tasks"
+CANDIDATES_PATH = TASKS / "candidates.jsonl"  # what `mine` produces: unverified
+VERIFIED_PATH = TASKS / "private.jsonl"  # what `verify --write` produces
 
 # Three classes of file, because they play three different roles in a task.
 TEST_PREFIXES = ("tests/",)
@@ -243,7 +254,7 @@ def cmd_mine(args) -> None:
 
 
 def cmd_verify(args) -> None:
-    tasks = [Task(**json.loads(line)) for line in args.manifest.read_text().splitlines() if line]
+    tasks = [Task(**json.loads(line)) for line in args.candidates.read_text().splitlines() if line]
     valid = []
     for task in tasks:
         ok, note = verify(task)
@@ -252,12 +263,13 @@ def cmd_verify(args) -> None:
         if ok:
             valid.append(task)
     if args.write:
-        with args.manifest.open("w") as fh:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        with args.out.open("w") as fh:
             for task in valid:
                 fh.write(json.dumps(asdict(task)) + "\n")
-        print(f"\nkept {len(valid)} of {len(tasks)} in {args.manifest}")
+        print(f"\nwrote {len(valid)} of {len(tasks)} candidates to {args.out}")
     else:
-        print(f"\n{len(valid)} of {len(tasks)} verifiable; re-run with --write to filter")
+        print(f"\n{len(valid)} of {len(tasks)} verifiable; re-run with --write to publish")
 
 
 def main() -> None:
@@ -265,12 +277,11 @@ def main() -> None:
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("candidates")
     mine = sub.add_parser("mine")
-    mine.add_argument("--out", type=Path, default=REPO / "missions/04-code-agent/tasks/private.jsonl")
+    mine.add_argument("--out", type=Path, default=CANDIDATES_PATH)
     ver = sub.add_parser("verify")
-    ver.add_argument(
-        "--manifest", type=Path, default=REPO / "missions/04-code-agent/tasks/private.jsonl"
-    )
-    ver.add_argument("--write", action="store_true", help="drop tasks that do not verify")
+    ver.add_argument("--candidates", type=Path, default=CANDIDATES_PATH)
+    ver.add_argument("--out", type=Path, default=VERIFIED_PATH)
+    ver.add_argument("--write", action="store_true", help="publish the tasks that verified")
     args = ap.parse_args()
     {"candidates": cmd_candidates, "mine": cmd_mine, "verify": cmd_verify}[args.cmd](args)
 

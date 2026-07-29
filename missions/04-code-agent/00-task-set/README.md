@@ -132,15 +132,24 @@ the code or deleted the assertion.
 ## Run it
 
 ```bash
-uv run python missions/04-code-agent/00-task-set/core/mine_history.py candidates
-uv run python missions/04-code-agent/00-task-set/core/mine_history.py mine
-uv run python missions/04-code-agent/00-task-set/core/mine_history.py verify --write
+cd missions/04-code-agent/00-task-set/core
+uv run python mine_history.py candidates
+uv run python mine_history.py mine            # -> tasks/candidates.jsonl
+uv run python mine_history.py verify --write  # -> tasks/private.jsonl
 ```
 
 CPU only, no network, no API key, 16 seconds. Each task materializes as a
 detached `git worktree` at the base commit with the fix's test and environment
 files checked out on top — a checkout rather than a clone of the history, and
 never a mutation of your working tree.
+
+The two commands write to two different files on purpose. `mine` produces
+candidates; only `verify --write` produces the manifest everything downstream
+reads. When both wrote the same path, re-running `mine` to time it quietly
+replaced the verified set with the unverified one, and it was committed that
+way — no test caught it, because a candidate and a task have identical
+contents. The only thing that distinguishes them is which command wrote the
+file, so that is what the filenames now record.
 
 ## What this set is and is not
 

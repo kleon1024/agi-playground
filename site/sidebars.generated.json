@@ -234,6 +234,11 @@
             "type": "doc",
             "id": "missions/04-code-agent/00-task-set/index",
             "label": "The task set \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/04-code-agent/02-agent-loop/index",
+            "label": "Scoring the attempt \u00b7 verified"
           }
         ]
       }

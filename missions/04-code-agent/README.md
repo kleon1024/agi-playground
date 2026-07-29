@@ -69,7 +69,7 @@ them would hide the only comparison that says which is which.
 |---|---|---|
 | [00 — The task set](00-task-set/) | what makes a bug report into a scoreable task? | verified |
 | 01 — No harness | is the loop worth anything over one blind call? | not started |
-| 02 — The agent loop | what do tools and test feedback buy? | not started |
+| [02 — Scoring the attempt](02-agent-loop/) | what would change your mind about "it passed"? | verified |
 | 03 — Local against frontier | what does the cheap model cost you? | not started |
 | 04 — How it fails | how does it fail, and does it cheat? | not started |
 | 05 — The report | what did we actually establish? | not started |
@@ -81,10 +81,16 @@ and the reason they failed — tests that return early and record a pass when th
 file they inspect is absent — is the same defect this mission was built to catch,
 found in our own suite by the rule that mines it.
 
-No agent has run against those tasks, so nothing here reports a resolve rate.
-Per [the mission contract](../../standards/mission-contract.md), the contract
-was declared before the system was built, so the baseline and the metric cannot
-be chosen after seeing which ones flatter the result.
+[Stage 02](02-agent-loop/) has run the full path end to end — materialize,
+baseline, agent loop, diff, score — driven by scripted backends rather than a
+model, and the test-tampering guardrail is demonstrated firing on a patch whose
+every other signal reads as a clean fix.
+
+No language model has driven the loop yet, so nothing here reports a resolve
+rate, tokens, or dollars. Per
+[the mission contract](../../standards/mission-contract.md), the contract was
+declared before the system was built, so the baseline and the metric cannot be
+chosen after seeing which ones flatter the result.
 
 ## What this will not prove
 

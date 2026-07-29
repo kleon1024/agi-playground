@@ -8,10 +8,16 @@ finding.
 ## Command
 
 ```bash
-uv run python missions/04-code-agent/00-task-set/core/mine_history.py candidates
-uv run python missions/04-code-agent/00-task-set/core/mine_history.py mine
-uv run python missions/04-code-agent/00-task-set/core/mine_history.py verify --write
+cd missions/04-code-agent/00-task-set/core
+uv run python mine_history.py candidates
+uv run python mine_history.py mine            # -> tasks/candidates.jsonl
+uv run python mine_history.py verify --write  # -> tasks/private.jsonl
 ```
+
+The two output paths were one path when this run was first recorded. Re-running
+`mine` to measure the wall-clock below overwrote the verified manifest with the
+unverified candidate set, and that is what got committed in `650c7ad`; the
+correction and the reason the filenames now differ are in the chapter.
 
 ## Environment
 

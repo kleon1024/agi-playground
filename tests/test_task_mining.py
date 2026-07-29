@@ -14,6 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MINER_PATH = ROOT / "missions/04-code-agent/00-task-set/core/mine_history.py"
 MANIFEST_PATH = ROOT / "missions/04-code-agent/tasks/private.jsonl"
+CANDIDATES_PATH = ROOT / "missions/04-code-agent/tasks/candidates.jsonl"
 
 SPEC = importlib.util.spec_from_file_location("mine_history", MINER_PATH)
 assert SPEC is not None and SPEC.loader is not None
@@ -63,6 +64,24 @@ def test_manifest_tasks_withhold_their_answer():
         leaked = [f for f in task["source_files"] if MINER.classify(f) != "source"]
         assert not leaked, f"{name} leaks {leaked} into the gold patch"
         assert all(f in task["test_files"] for f in task["target_tests"])
+
+
+def test_the_task_set_is_drawn_from_the_candidate_set():
+    """`mine` writes candidates; `verify --write` writes tasks. They are
+    separate files because they were once one, and re-running `mine` replaced
+    the verified set with the unverified one. This cannot detect that on
+    contents alone -- nothing can, they are the same shape -- but it does catch
+    a manifest that drifted from the history it claims to come from."""
+    candidates = {
+        json.loads(line)["task_id"]
+        for line in CANDIDATES_PATH.read_text().splitlines()
+        if line
+    }
+    for task in _tasks():
+        assert task["task_id"] in candidates, (
+            f"{task['task_id']} is in the task set but not in the candidate set; "
+            "re-run mine_history.py mine, then verify --write"
+        )
 
 
 def test_manifest_records_a_command_that_names_its_target():
