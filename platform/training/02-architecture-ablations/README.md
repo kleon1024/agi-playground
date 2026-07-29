@@ -55,103 +55,120 @@ rung refuses to choose; the paragraphs after the table say why:
 | Feed-forward | dense -> mixture-of-experts | active parameters, *or* total parameters |
 
 Holding a budget equal takes arithmetic, and `core/model.py` does it in code
-rather than asserting it in prose — `python model.py` prints every rung's
-match and, more importantly, every rung's *miss*. SwiGLU against GELU comes
-within 0.03%; depth against width does not come out that clean, and the
-closest available width is still 5.8% high. Those misses are reported rather
-than rounded away, for the same reason
-[`01-distributed`](../01-distributed/) reports ZeRO's 2.5x saving instead of
-the clean 4x a reader expects: an uneven match is more instructive than a
-hidden one.
+rather than asserting it in prose: `python model.py` prints every rung's match
+and, more usefully, every rung's *miss* — SwiGLU against GELU lands within
+0.03%, depth against width is still 5.8% high at the closest available width.
+Misses are reported rather than rounded away, because an uneven match is more
+instructive than a hidden one.
 
-Two rungs decline to match at all, for opposite reasons. The attention rung
-lets the parameter count fall as KV heads shrink, because that fall *is* GQA's
-entire pretraining-time cost, traded for a KV cache that shrinks by the same
-ratio at serving time. And the feed-forward rung cannot pick: a
-mixture-of-experts block has *two* parameter counts — what it stores and what
-any one token passes through — so `moe_arms()` returns one arm matched on each
-and refuses to choose between them.
+Two rungs decline to match at all, for opposite reasons. Attention lets the
+parameter count fall as KV heads shrink, because that fall *is* GQA's entire
+pretraining-time cost, traded for a smaller KV cache at serving time. The
+feed-forward rung cannot pick: a mixture-of-experts block has *two* parameter
+counts — what it stores and what a token passes through — so `moe_arms()`
+returns one arm matched on each.
 
-## 3. What the rung measured, and why one number was not enough
+## 3. What the ladder found
 
-Of the six rungs, this is the one that has run on real tokens: three arms,
-three seeds each, 200M FineWeb-Edu tokens per run, sharing a per-seed batch
-sequence so a difference between arms cannot be a difference in what they
-were shown. Every expert setup is 8 routed experts with top-2 routing plus one
-shared expert; only the per-expert width changes.
+All six rungs have run: 17 arms, three seeds each, 51 runs, 12.97 GPU-hours on
+one card. Because arms within a rung see identical batches in identical order,
+the statistic this design supports is the **per-seed difference** against the
+control, not the gap between two independently noisy averages.
 
-| Arm | Total parameters | Active per token | Mean val loss | Seed spread |
-|---|---:|---:|---:|---:|
-| `dense` | 33,661,440 | 33,652,736 | 3.8608 | 0.0033 |
-| `moe-equal-active` | 67,314,176 | 33,685,504 | **3.7707** | 0.0122 |
-| `moe-equal-total` | 33,694,208 | 22,478,848 | 3.8607 | 0.0034 |
+| Rung | Change | Per-seed differences | Reading |
+|---|---|---|---|
+| Position | RoPE to learned | +0.0762, +0.0884, +0.0813 | RoPE wins on every seed |
+| Feed-forward | dense to MoE, equal active | -0.0942, -0.0940, -0.0822 | MoE wins on every seed |
+| Depth/width | 8 layers to 16 narrow ones | +0.0618, +0.0636, +0.0699 | deep-and-narrow loses |
+| Attention | 8 KV heads to 4 | +0.0096, +0.0004, +0.0177 | same direction, small |
+| Norm | RMSNorm to LayerNorm | -0.0023, +0.0052, +0.0091 | **sign flips** |
+| Activation | SwiGLU to GELU | +0.0001, -0.0115, -0.0031 | **sign flips** |
 
-Read the two MoE rows against dense one at a time, and they support opposite
-headlines. Holding **active** parameters equal, MoE wins by 0.0901 nats —
-7.4x the widest seed spread, comfortably clear of noise. Holding **total**
-parameters equal, the gap is 0.0001 against spreads of 0.0033, which does not
-say the two are equal; it says this ladder cannot tell them apart. What that
-arm did buy is on the other axis: the same loss while passing each token
-through 33.2% fewer parameters.
+Three tiers, and the last one is what the overnight run bought. Position
+encoding and expert routing are unmissable: every seed agrees, by margins more
+than ten times anything the hardware could manufacture. Attention and depth are
+directionally consistent but too small to size honestly. **And the two choices
+the literature argues about hardest cannot be ranked here at all — RMSNorm and
+SwiGLU each lose to their alternative on one seed of three.**
 
-Switch between the definitions below and watch a single set of nine runs
-change its verdict.
+Notice which way the activation rung fell. Its three-seed mean puts GELU ahead
+of SwiGLU by 0.0048, the opposite of the usual published ordering. Reporting
+that as "GELU wins" would be exactly the failure this chapter exists to
+prevent. The answer the data supports is *not measurable at this scale*, and
+that is a result, not a failed experiment. Per-arm numbers are in
+[`runs/2026-07-29-five-rungs.md`](runs/2026-07-29-five-rungs.md).
+
+## 4. The rung where the definition decided the answer
+
+The feed-forward rung is worth its own look, because it is the one where
+section 1 stops being cautionary and starts changing the headline. Three arms,
+8 routed experts with top-2 routing plus one shared expert; only the per-expert
+width moves.
+
+| Arm | Total parameters | Active per token | Mean val loss |
+|---|---:|---:|---:|
+| `dense` | 33,661,440 | 33,652,736 | 3.8608 |
+| `moe-equal-active` | 67,314,176 | 33,685,504 | **3.7707** |
+| `moe-equal-total` | 33,694,208 | 22,478,848 | 3.8607 |
+
+Holding **active** parameters equal, MoE wins on every seed by 0.0901 nats.
+Holding **total** parameters equal, the difference is 0.0001 and its sign flips
+between seeds — not "MoE ties dense" but "this ladder cannot tell them apart",
+while the MoE arm reached that same loss through 33.2% fewer parameters per
+token. Switch the definition below and watch one set of nine runs change its
+verdict.
 
 <!-- interactive: EqualBudget -->
 
-The third definition is the one to sit with, because it has no winner at all.
-Both MoE arms ran at roughly half of dense throughput — `moe-equal-total`
-performs *less* arithmetic per token and still took 1.85x as long, which is
-routing overhead measured rather than argued. So in the 1,645.9 seconds
-`moe-equal-active` needed, the dense arm would have seen 391M tokens instead
-of 200M. Whether it would still have lost is not established, because that arm
-was not run, and the 0.0901 nats above are not evidence about it. A budget
-definition you did not buy is not a tie — it is a blank.
+The third definition has no winner at all. Both MoE arms ran at roughly half of
+dense throughput — `moe-equal-total` performs *less* arithmetic per token and
+still took 1.85x as long, which is routing overhead measured rather than
+argued. In the 1,645.9 seconds `moe-equal-active` needed, dense would have seen
+391M tokens instead of 200M. That arm was not run, so the 0.0901 is not
+evidence about it. A budget you did not buy is a blank, not a tie.
 
-## 4. Why this is affordable, and what makes it a real experiment
+## 5. What earns the right to say any of this
 
-The whole rung cost 3.42 GPU-hours, only possible because every arm is tens of
-millions of parameters rather than tens of billions. That smallness is not a
-limitation to apologize for — it is what buys a *controlled* comparison on one
-card, where a single 70B run would consume the entire budget.
+Three seeds per arm is the method, not a detail — and the ladder proved why by
+accident. The control configuration appears in all six rungs: `rmsnorm`,
+`rope`, `swiglu`, `kv8`, `L8-d512`, and `dense` are the same model, run with
+the same seeds on the same batches in the same order. Six replications that
+should be identical:
 
-Smallness does not excuse a single run per arm. A single seed is not a weak
-result — it is no result, because run-to-run variance at small scale routinely
-exceeds the effect an architecture swap produces. The rung above is the
-argument in miniature: had `moe-equal-active` been run once and landed on
-3.7778 while dense landed on 3.8596, the reported effect would have been 0.082
-instead of 0.0901, and nothing in the output would have revealed that ±0.006 of
-it was the seed. `core/ablate.py` always runs `--seeds` independent seeds per
-arm and writes every one of them out, because a result file that reports one
-seed's loss without saying so is reporting noise as a finding.
+> 3.8597, 3.8593, 3.8604, 3.8611, 3.8602, 3.8608
 
-## 5. Evidence boundary: a ranking can invert with scale
+**A range of 0.0018 with nothing whatsoever changed.** That residue is GPU
+nondeterminism — non-deterministic reductions in the backward pass, autotuned
+kernel choice, bf16 accumulation order. It is an assumption-free floor, bought
+for nothing, and it says that any claim here resting on less than about 0.002
+is resting on the allocator rather than on the architecture.
 
-Nothing here demonstrates that a rung's winner at this parameter count stays
-the winner at a larger one. Mixture-of-experts is the standard caution: it is
-widely expected to look mediocre at small scale and strong at large scale,
-because the specialization that makes routing pay off needs enough capacity
-and enough tokens to have somewhere to go. Section 3 found the equal-active
-arm already ahead at 33M parameters, which is a smaller and more specific
-claim than "MoE works" — it says nothing about whether 0.0901 nats grows,
-shrinks, or reverses at 7B.
+Against that floor, a single seed per arm is not a weak result but no result.
+`core/ablate.py` runs `--seeds` seeds and writes every one out, because a file
+reporting one loss without saying so is reporting noise as a finding.
 
-The rule that follows: trust a rung's ranking only where it is stable across
-at least two sizes, run at the same budget definition. An unstable ranking —
-the winner at 10M parameters loses at 100M — is not a failed experiment. It is
-itself the finding, and it is reportable exactly as written, not smoothed into
+## 6. Evidence boundary: a ranking can invert with scale
+
+Nothing here shows that a rung's winner at 33M parameters stays the winner at
+7B. That caution cuts both ways now. The equal-active MoE arm is already ahead
+at this size, which is a smaller and more specific claim than "MoE works" — and
+RMSNorm and SwiGLU failing to separate here is emphatically **not** evidence
+that they do not help at scale, only that 200M tokens and three seeds cannot
+see it.
+
+The rule that follows: trust a ranking only where it is stable across at least
+two sizes at the same budget definition. An unstable ranking is not a failed
+experiment; it is the finding, reportable as written rather than smoothed into
 "results were mixed."
 
 ## Run the working path
 
-Three files, in the order you would use them. `core/model.py` is the
-variant-configurable transformer: run `python model.py` to print every rung's
-parameter arithmetic, including the numbers quoted in section 2, with nothing
-trained. `core/ladder.py` runs one rung across `--seeds` seeds as a CPU smoke
-test — forward and backward passes on synthetic random tokens, enough to prove
-every arm constructs and trains a step, nothing more. `core/ablate.py` is the
-one that can rank anything: real tokens, a fixed budget, seeds, and a result
-file that cannot be written without a budget definition.
+Three files, in the order you would use them. `core/model.py` prints every
+rung's parameter arithmetic with nothing trained. `core/ladder.py` is a CPU
+smoke test on synthetic tokens — enough to prove every arm constructs and takes
+a step, nothing more. `core/ablate.py` is the one that can rank anything: real
+tokens, a fixed budget, seeds, and a result file that cannot be written without
+a budget definition.
 
 ```bash
 cd platform/training/02-architecture-ablations/core
@@ -165,40 +182,40 @@ python ablate.py --rung moe --data <token-dir> --seeds 3 --tokens 2e8 \
 `prod/hf_ladder.py` redoes the attention and depth/width arithmetic through
 HuggingFace `LlamaConfig`, where `num_key_value_heads` and `hidden_size` are
 already named fields — and names the gap in the other direction: no shipped
-config varies norm, position, and activation independently of the model
-family, so that rung's production stand-in has to compare two architectures
-rather than flip one flag.
+config varies norm, position, and activation independently of the model family.
 
-**Only the feed-forward rung has been trained.** Its command, hardware,
-wall-clock, and per-seed losses are in
-[`runs/2026-07-28-moe-rung.md`](runs/2026-07-28-moe-rung.md). The other five
-rungs have their arms constructed and smoke-tested and nothing more, so this
-chapter makes no claim about norms, positions, activations, KV-head counts, or
-depth against width. Those tables in section 2 are a plan, not a finding.
+Commands, hardware, wall-clock, and every per-seed loss are in
+[`runs/2026-07-28-moe-rung.md`](runs/2026-07-28-moe-rung.md) for the
+feed-forward rung and
+[`runs/2026-07-29-five-rungs.md`](runs/2026-07-29-five-rungs.md) for the other
+five.
 
 ## Check your mental model
 
 1. Why can "equal parameters" and "equal FLOPs" rank the same two
    architectures in opposite orders?
-2. Section 3's two MoE arms support opposite headlines from the same nine
-   runs. Which sentence would be true of both, and which of each alone?
-3. `moe-equal-total` matched dense's loss using 33.2% fewer active parameters
+2. The norm rung's per-seed differences are -0.0023, +0.0052, +0.0091. Why is
+   the average of those three not a result?
+3. Section 4's two MoE arms support opposite headlines from the same nine runs.
+   Which sentence is true of both, and which of each alone?
+4. `moe-equal-total` matched dense's loss using 33.2% fewer active parameters
    and still took 1.85x as long. Which budget does that make it better under,
    and which worse?
-4. Why does matching SwiGLU and GELU by parameter count require shrinking
-   `d_ff`, and not just leaving it at the GELU value?
-5. Why is a single seed per arm "no result" rather than a weak one, at this
-   parameter scale?
-6. What would make the 0.0901-nat result untrustworthy even though it ran
-   cleanly across three seeds?
+5. Six runs of one identical configuration spanned 0.0018. What does that let
+   you ignore, and what does it not excuse?
+6. The activation rung put GELU ahead of SwiGLU. Why is that not a finding, and
+   what is?
 
 ## Next
 
 What this chapter hands back to
 [stage 02 of the language-model system](../../../missions/01-language-model-agent/02-pretrain/)
-is not a winning architecture. It is the habit of stating the budget before
-stating the ranking — without which "we chose RMSNorm" is a preference rather
-than a result.
+is not a winning architecture. It is a floor. Stage 02 chose RMSNorm and SwiGLU
+without comparing them to anything, and this ladder could not separate either
+one from its alternative. That does not make those choices wrong — it makes
+them **unjustified by this evidence**, which is a more useful thing to know
+than a ranking would have been. Position encoding and the feed-forward shape,
+by contrast, are choices stage 02 was right to take seriously.
 
 Two loose ends lead elsewhere. GQA's payoff is invisible on a training-time
 ladder, because the parameter delta is all such a comparison can see; the
@@ -211,4 +228,4 @@ Primary references: Zhang & Sennrich, "Root Mean Square Layer Normalization"
 (2019); Su et al., "RoFormer" (2021); Shazeer, "GLU Variants Improve
 Transformer" (2020); Ainslie et al., "GQA" (2023); Fedus et al., "Switch
 Transformers" (2022), for the scale-dependent mixture-of-experts result cited
-in section 5.
+in section 6.

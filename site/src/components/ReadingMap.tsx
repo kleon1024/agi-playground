@@ -61,7 +61,7 @@ const BUILD_PATH: Step[] = [
       {
         href: '/playground/platform/training/02-architecture-ablations/',
         label: 'Architecture ablations',
-        returns: 'a 0.0901-nat win that vanishes when you change what is held equal',
+        returns: 'six design choices measured, and the two everyone argues about flipping sign between seeds',
       },
       {
         href: '/playground/platform/training/05-upcycling/',

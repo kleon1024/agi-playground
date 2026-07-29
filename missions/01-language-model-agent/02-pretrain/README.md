@@ -132,8 +132,12 @@ starts.
 
 - **That any architecture choice here is a good one.** RMSNorm, RoPE, SwiGLU,
   and grouped-query attention are stated, not compared. One run with one seed
-  cannot rank them; [architecture ablations](../../../platform/training/02-architecture-ablations/)
-  is where that question is answered with a stated budget definition.
+  cannot rank them.
+  [Architecture ablations](../../../platform/training/02-architecture-ablations/)
+  runs the comparison at a smaller size and finds RoPE decisively ahead of the
+  alternatives, GQA's cost real and monotone — and RMSNorm and SwiGLU
+  indistinguishable from theirs, each losing on one seed of three. Two of these
+  four choices are so far unjustified by evidence, which is worth knowing.
 - **That the model knows anything.** A falling loss measures next-token
   agreement with held-out web text, not truth. The next chapter shows what
   3.0689 looks like when you read it.
