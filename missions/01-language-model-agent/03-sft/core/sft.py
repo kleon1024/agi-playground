@@ -382,8 +382,16 @@ def cmd_train(args: argparse.Namespace) -> None:
 
     steps_per_epoch = max(1, len(train_blocks) // (args.batch * args.grad_accum))
     total_steps = steps_per_epoch * args.epochs
+    if args.max_steps:
+        # Epochs are the wrong budget when the arms differ in answer length. A
+        # model teacher writes longer answers than a human annotator, so the
+        # same 3,000 prompts pack into more blocks, and "3 epochs" silently
+        # hands that arm more gradient steps and more tokens. Capping steps
+        # makes the optimizer budget identical and leaves author as the only
+        # thing that varies -- which was the entire point of the comparison.
+        total_steps = min(total_steps, args.max_steps)
     print(
-        f"epochs {args.epochs} x {steps_per_epoch:,} steps/epoch = {total_steps:,} steps "
+        f"epochs {args.epochs} x {steps_per_epoch:,} steps/epoch -> {total_steps:,} steps "
         f"(micro {args.batch} x accum {args.grad_accum})",
         flush=True,
     )
@@ -493,6 +501,41 @@ def cmd_sample(args: argparse.Namespace) -> None:
     print(reply)
 
 
+def cmd_score(args: argparse.Namespace) -> None:
+    """Loss of one checkpoint on one held-out set, printed as JSON.
+
+    Separated from `train` so the same checkpoint can be scored against several
+    reference sets. When arms are trained on answers by different authors, a
+    single held-out set cannot settle which arm is better: it is drawn from one
+    author, and the arm trained on that author will win on it whether or not it
+    learned anything else. Scoring every arm on every author's held-out answers
+    turns that objection into a table you can read.
+    """
+    torch.manual_seed(args.seed)
+    random.seed(args.seed)
+
+    tok = Tokenizer.from_file(str(args.tokenizer))
+    cfg = Config()
+    model = Transformer(cfg).to(args.device)
+    ckpt = torch.load(args.checkpoint, map_location=args.device, weights_only=False)
+    model.load_state_dict(ckpt["model"])
+
+    blocks = pack(load_examples(args.dataset, args.split, tok, args.limit), cfg.block_size)
+    autocast = (
+        torch.autocast("cuda", dtype=torch.bfloat16)
+        if args.device == "cuda"
+        else nullcontext()
+    )
+    loss = evaluate(model, blocks, args.batch, args.device, args.eval_iters, autocast)
+    print(json.dumps({
+        "checkpoint": str(args.checkpoint),
+        "dataset": args.dataset,
+        "split": args.split,
+        "blocks": len(blocks),
+        "loss": round(loss, 4),
+    }), flush=True)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -512,6 +555,8 @@ def main() -> None:
     t.add_argument("--limit", type=int, default=None, help="cap training rows, for a quick pass")
     t.add_argument("--eval-limit", type=int, default=200)
     t.add_argument("--epochs", type=int, default=3)
+    t.add_argument("--max-steps", type=int, default=None,
+                   help="cap total steps, to give arms an equal optimizer budget")
     t.add_argument("--batch", type=int, default=8, help="micro-batch size, in packed blocks")
     t.add_argument("--grad-accum", type=int, default=4)
     t.add_argument("--lr", type=float, default=2e-5,
@@ -538,6 +583,19 @@ def main() -> None:
     s.add_argument("--max-new-tokens", type=int, default=200)
     s.add_argument("--device", default="cuda")
     s.set_defaults(func=cmd_sample)
+
+    e = sub.add_parser("score")
+    e.add_argument("--tokenizer", type=Path, required=True)
+    e.add_argument("--checkpoint", type=Path, required=True)
+    e.add_argument("--dataset", default="HuggingFaceH4/no_robots",
+                   help="hub id or a local JSONL of held-out reference answers")
+    e.add_argument("--split", default="test")
+    e.add_argument("--limit", type=int, default=200)
+    e.add_argument("--batch", type=int, default=8)
+    e.add_argument("--eval-iters", type=int, default=20)
+    e.add_argument("--device", default="cuda")
+    e.add_argument("--seed", type=int, default=1337)
+    e.set_defaults(func=cmd_score)
 
     args = ap.parse_args()
     args.func(args)
