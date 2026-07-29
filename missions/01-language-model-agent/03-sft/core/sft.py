@@ -358,8 +358,15 @@ def cmd_train(args: argparse.Namespace) -> None:
         flush=True,
     )
 
+    # Eval may come from somewhere other than training. Comparing arms that
+    # were trained on different authors' answers requires holding the *target*
+    # fixed: each arm is scored on the same held-out human-written turns, not on
+    # a sample of its own teacher. Score an arm against its own teacher and the
+    # number rewards a model for imitating whoever it was trained to imitate,
+    # which is the one thing every arm is guaranteed to do.
+    eval_source = args.eval_dataset or args.dataset
     train_examples = load_examples(args.dataset, args.train_split, tok, args.limit)
-    eval_examples = load_examples(args.dataset, args.eval_split, tok, args.eval_limit)
+    eval_examples = load_examples(eval_source, args.eval_split, tok, args.eval_limit)
     train_blocks = pack(train_examples, cfg.block_size)
     eval_blocks = pack(eval_examples, cfg.block_size)
 
@@ -450,7 +457,7 @@ def cmd_train(args: argparse.Namespace) -> None:
     print(f"done in {(time.time() - t0) / 3600:.2f}h -> {ckpt_path}", flush=True)
 
     print(f"\n{args.samples_after} sample completion(s) after training:", flush=True)
-    prompts = _first_user_turns(args.dataset, args.eval_split, args.samples_after)
+    prompts = _first_user_turns(eval_source, args.eval_split, args.samples_after)
     for i, turns in enumerate(prompts):
         prompt_ids = render_prompt(turns, tok)
         reply = generate(model, tok, prompt_ids, args.max_new_tokens, args.device, cfg.block_size)
@@ -498,6 +505,9 @@ def main() -> None:
     t.add_argument("--out", type=Path, default=Path("ckpt"))
     t.add_argument("--dataset", default="HuggingFaceH4/no_robots")
     t.add_argument("--train-split", default="train")
+    t.add_argument("--eval-dataset", default=None,
+                   help="score against this instead of --dataset; the held-out "
+                        "target when arms differ in who wrote their answers")
     t.add_argument("--eval-split", default="test")
     t.add_argument("--limit", type=int, default=None, help="cap training rows, for a quick pass")
     t.add_argument("--eval-limit", type=int, default=200)
