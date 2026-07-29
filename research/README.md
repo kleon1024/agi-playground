@@ -17,6 +17,8 @@ RL post-training, exercise-driven inference infra, and agent harness engineering
 | [02-pretraining-and-data.md](02-pretraining-and-data.md) | Pretraining reference implementations; data pipeline, curation, annotation, tokenizer tooling |
 | [03-post-training-and-rl.md](03-post-training-and-rl.md) | Post-training frameworks, the 2026 algorithm canon (DPO family, GRPO/RLVR), recipes, 4090 feasibility |
 | [04-infra-and-agent-harness.md](04-infra-and-agent-harness.md) | Inference engine internals, training infra, agent harness engineering, evals, solo-builder infra |
+| [05-agent-memory.md](05-agent-memory.md) | Agent memory storage shapes, what Anthropic actually ships, the provenance of the "graph engineering" claim, and the edge-density measurement nobody publishes |
 
-> Conducted 2026-07-24. Landscape facts (versions, benchmarks, project status) reflect
-> that date; verify before relying on them.
+> Passes 01-04 were conducted 2026-07-24; pass 05 on 2026-07-29. Landscape facts
+> (versions, benchmarks, project status) reflect those dates; verify before relying
+> on them.

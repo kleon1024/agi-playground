@@ -534,6 +534,11 @@
       },
       {
         "type": "doc",
+        "id": "research/05-agent-memory",
+        "label": "Agent memory"
+      },
+      {
+        "type": "doc",
         "id": "research/synthesis",
         "label": "Synthesis"
       }
