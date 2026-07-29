@@ -8,6 +8,13 @@ license = { text = "MIT" }
 
 [dependency-groups]
 dev = ["pytest>=8", "ruff>=0.5"]
+# Opt-in, and not part of `uv run pytest`. Almost every test here is a
+# structural check that needs no framework, and keeping the default install
+# free of a 200MB wheel is worth protecting. The exception is
+# `tests/test_decode_correctness.py`, which compares a cached decode path
+# against recomputing from scratch -- a numerical claim that cannot be checked
+# without the numbers. Run it with `uv run --group torch pytest`.
+torch = ["torch>=2.5"]
 
 [tool.ruff]
 line-length = 100

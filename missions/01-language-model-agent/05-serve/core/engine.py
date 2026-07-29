@@ -44,6 +44,7 @@ from pathlib import Path
 
 import torch
 from torch.nn import functional as F
+from torch.nn.attention.bias import causal_lower_right
 
 # The model these engines serve lives two directories over, in the pretrain
 # stage. Importing it rather than duplicating it means the engine always
@@ -145,10 +146,15 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
     - the new token's K/V are written into the cache before reading, and
       attention runs against the cache's full contents (`start_pos + T`
       tokens) rather than only the T tokens in `x` — the entire point.
-    - `is_causal=True` still holds for a 1-query, N-key decode step: SDPA's
-      causal mask aligns the query block against the *last* T_q positions of
-      the key block, which for T_q=1 means "attend to everything" — exactly
-      the single new token attending over all prior cached tokens.
+    - `is_causal=True` is **wrong** here and the mask has to be given
+      explicitly. PyTorch builds its causal mask top-left — `tril` of a
+      `(T_q, T_k)` matrix — so with one query against N cached keys the only
+      key row that survives is key 0. A decode step needs the opposite,
+      bottom-right alignment, where the last query sees every key. The two
+      coincide exactly when `T_q == T_k`, which is why prefill was correct and
+      every decode step silently attended to the first token alone.
+      `causal_lower_right` is that alignment, and it reduces to `is_causal`
+      when the shapes are square.
     """
     _, T, _ = x.shape
     q = attn.q(x).view(1, T, cfg.n_head, cfg.d_head).transpose(1, 2)
@@ -165,7 +171,9 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx:
         k_full = k_full.repeat_interleave(n_rep, dim=1)
         v_full = v_full.repeat_interleave(n_rep, dim=1)
 
-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
+    out = F.scaled_dot_product_attention(
+        q, k_full, v_full, attn_mask=causal_lower_right(T, start_pos + T)
+    )
     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
 
 
@@ -300,7 +308,8 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCache,
                              block_table: list[int], start_pos: int):
     """`_cached_attention`, reading and writing through a block table instead
     of a direct offset into one contiguous buffer. The attention math is
-    identical; only where K/V physically live has changed.
+    identical — including the bottom-right causal alignment, for the reason
+    given there; only where K/V physically live has changed.
     """
     _, T, _ = x.shape
     q = attn.q(x).view(1, T, cfg.n_head, cfg.d_head).transpose(1, 2)
@@ -317,7 +326,9 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCache,
         k_full = k_full.repeat_interleave(n_rep, dim=1)
         v_full = v_full.repeat_interleave(n_rep, dim=1)
 
-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
+    out = F.scaled_dot_product_attention(
+        q, k_full, v_full, attn_mask=causal_lower_right(T, start_pos + T)
+    )
     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
 
 
