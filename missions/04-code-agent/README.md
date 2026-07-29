@@ -63,12 +63,27 @@ Scores are reported separately and never averaged together. One set may be in
 the training data of every model tested; the other provably is not. Pooling
 them would hide the only comparison that says which is which.
 
-## Status
+## Stages
 
-`mission.yaml` is written and committed. Nothing else here has run, so nothing
-here reports a number. Per
-[the mission contract](../../standards/mission-contract.md), the contract is
-declared before the system is built, so that the baseline and the metric cannot
+| Stage | Question | Status |
+|---|---|---|
+| [00 — The task set](00-task-set/) | what makes a bug report into a scoreable task? | verified |
+| 01 — No harness | is the loop worth anything over one blind call? | not started |
+| 02 — The agent loop | what do tools and test feedback buy? | not started |
+| 03 — Local against frontier | what does the cheap model cost you? | not started |
+| 04 — How it fails | how does it fail, and does it cheat? | not started |
+| 05 — The report | what did we actually establish? | not started |
+
+[Stage 00](00-task-set/) has run. It mined this repository's 100 commits down to
+4 candidates and admitted **2**, because a task is admitted only if its test
+fails before the fix and passes after it. Half the candidates failed that rule,
+and the reason they failed — tests that return early and record a pass when the
+file they inspect is absent — is the same defect this mission was built to catch,
+found in our own suite by the rule that mines it.
+
+No agent has run against those tasks, so nothing here reports a resolve rate.
+Per [the mission contract](../../standards/mission-contract.md), the contract
+was declared before the system was built, so the baseline and the metric cannot
 be chosen after seeing which ones flatter the result.
 
 ## What this will not prove

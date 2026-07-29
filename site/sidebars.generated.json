@@ -223,9 +223,19 @@
         ]
       },
       {
-        "type": "doc",
-        "id": "missions/04-code-agent/index",
-        "label": "Code agent"
+        "type": "category",
+        "label": "Code agent",
+        "link": {
+          "type": "doc",
+          "id": "missions/04-code-agent/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "missions/04-code-agent/00-task-set/index",
+            "label": "The task set \u00b7 verified"
+          }
+        ]
       }
     ]
   },
