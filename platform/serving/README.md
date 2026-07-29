@@ -1,5 +1,6 @@
 ---
 status: draft
+level: foundation
 ---
 
 # How does a checkpoint become a responsive service?

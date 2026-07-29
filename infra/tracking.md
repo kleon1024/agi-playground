@@ -1,3 +1,7 @@
+---
+level: reference
+---
+
 # Run tracking
 
 Every lesson's `runs/` directory is the honesty mechanism for this repo: a

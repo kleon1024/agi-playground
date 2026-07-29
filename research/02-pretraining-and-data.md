@@ -1,3 +1,7 @@
+---
+level: reference
+---
+
 # LLM Pretraining & Data Pipeline Tooling — Mid-2026 Landscape
 
 > Research pass conducted 2026-07-24 with parallel web-research agents; sources linked inline.

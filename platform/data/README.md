@@ -1,5 +1,6 @@
 ---
 status: draft
+level: foundation
 ---
 
 # How does a raw crawl become a corpus you can defend?

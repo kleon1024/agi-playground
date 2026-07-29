@@ -164,6 +164,34 @@ def test_every_lesson_declares_its_base_model():
     )
 
 
+def test_every_published_page_declares_its_level():
+    """Difficulty is not curriculum position, and the sidebar only carries one.
+
+    Before this field the repository published 80 pages and 80,436 words with
+    nothing anywhere saying which of them were prerequisites and which were
+    frontier claims. A reader's only ordering signal was the sidebar, which
+    encodes where a chapter sits in the curriculum, not what it assumes of you.
+    `reference` is a real answer -- standards, runbooks and research passes are
+    lookup surfaces, not rungs on the ladder.
+    """
+    allowed = {"foundation", "applied", "frontier", "reference"}
+    pattern = re.compile(r"^level:\s*(\S+)\s*$", re.MULTILINE)
+    problems = []
+    for section in ("foundations", "missions", "capabilities", "platform",
+                    "infra", "standards", "research"):
+        for page in sorted((ROOT / section).rglob("*.md")):
+            if {"core", "prod", "runs"} & set(page.parts):
+                continue
+            rel = page.relative_to(ROOT).as_posix()
+            head = page.read_text().split("\n---\n", 1)[0]
+            found = pattern.search(head)
+            if not found:
+                problems.append(f"{rel}: no `level:` in frontmatter")
+            elif found.group(1) not in allowed:
+                problems.append(f"{rel}: level `{found.group(1)}` is not one of {sorted(allowed)}")
+    assert not problems, "\n".join(problems)
+
+
 def test_top_level_docs_exist():
     for rel in [
         "README.md",

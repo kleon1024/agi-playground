@@ -1,3 +1,7 @@
+---
+level: applied
+---
+
 # What closes the gap between predicting text and answering a person?
 
 A pretrained base model predicts the next token in a document. Nothing about

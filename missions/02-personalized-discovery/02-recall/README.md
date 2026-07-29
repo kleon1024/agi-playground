@@ -1,5 +1,6 @@
 ---
 status: draft
+level: foundation
 ---
 
 # How do you find candidates without scoring everything?

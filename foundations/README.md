@@ -1,5 +1,6 @@
 ---
 status: draft
+level: foundation
 ---
 
 > **[Read this online](https://rehearse.maestro.onl/playground/foundations)**.

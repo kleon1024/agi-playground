@@ -1,3 +1,7 @@
+---
+level: reference
+---
+
 # Agent Memory Landscape (Mid-2026)
 
 > Research pass conducted 2026-07-29; sources linked inline. Landscape facts

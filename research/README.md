@@ -1,3 +1,7 @@
+---
+level: reference
+---
+
 # Research
 
 The positioning and landscape research behind agi-playground. This repo was designed

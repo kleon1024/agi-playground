@@ -337,7 +337,50 @@ def description_from(body: str) -> str:
 READ_ONLINE_RE = re.compile(r"^>\s*\*\*\[Read this online\].*?(?:\n(?!\n).*)*\n+", re.MULTILINE)
 
 
-def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int, str]:
+# What a reader is being asked for before they start, in the two units they
+# actually budget with: how hard, and how long.
+LEVEL_LABELS = {
+    "foundation": "Foundation",
+    "applied": "Applied",
+    "frontier": "Frontier",
+    "reference": "Reference",
+}
+WORDS_PER_MINUTE = 200  # technical prose, read rather than skimmed
+CODE_FENCE_RE = re.compile(r"```.*?```", re.DOTALL)
+TABLE_ROW_RE = re.compile(r"^\|.*\|$", re.MULTILINE)
+PROSE_WORD_RE = re.compile(r"[A-Za-z0-9'-]+")
+
+
+def reading_minutes(body: str) -> int:
+    """Minutes of prose, computed rather than declared.
+
+    Code fences and table rows are excluded: they are scanned, not read at
+    prose speed, and counting them made reference-heavy pages claim twice the
+    time they take. Computing this at sync time rather than writing it into
+    frontmatter means the number cannot drift away from the page it describes
+    -- an author who adds four paragraphs does not have to remember to update
+    a figure, and one who forgets cannot publish a lie about it.
+    """
+    text = CODE_FENCE_RE.sub("", body)
+    text = TABLE_ROW_RE.sub("", text)
+    words = len(PROSE_WORD_RE.findall(text))
+    return max(1, round(words / WORDS_PER_MINUTE))
+
+
+def cost_suffix(dir_cost: dict[Path, tuple[str, int]], section: str, name: str) -> str:
+    """What a chapter costs, shown where the reader picks one.
+
+    A section index listing bare titles makes the reader open each entry to
+    find out whether it is a twenty-minute foundation or a five-minute
+    reference.
+    """
+    level, minutes = dir_cost.get(Path(section) / name, ("", 0))
+    if level not in LEVEL_LABELS:
+        return ""
+    return f" — {LEVEL_LABELS[level]}, {minutes} min"
+
+
+def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int, str, str, int]:
     body = READ_ONLINE_RE.sub("", src.read_text())
     src_rel = src.relative_to(ROOT)
 
@@ -360,6 +403,11 @@ def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int, str]
     # no skipped prefix, so every interactive page otherwise advertised
     # "import KVCacheGrowth from '@site/src/components/KVCacheGrowth';".
     desc = description_from(body).replace('"', "'")
+
+    # Measured here, before widget imports are prepended: an `import ... from
+    # '@site/...'` line is not prose and counting it inflates exactly the
+    # interactive chapters.
+    minutes = reading_minutes(body)
 
     widgets = sorted(set(INTERACTIVE_RE.findall(body)))
     if widgets:
@@ -392,6 +440,16 @@ def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int, str]
     lines.append("---")
     lines.append("")
 
+    # The learning contract's cheapest half: what this page assumes, and what it
+    # will cost to read. 80,000 words with neither is a wall, and a reader who
+    # cannot see which chapters are foundations has no way to sequence them
+    # except the sidebar's order, which is a curriculum position and not a
+    # difficulty.
+    level = meta.get("level", "")
+    if level in LEVEL_LABELS:
+        lines.append(f"**{LEVEL_LABELS[level]}** · {minutes} min read")
+        lines.append("")
+
     # Which weights a lesson's claims rest on changes how you read every number
     # on the page, and it is invisible in a loss curve. This stays at the top
     # because it conditions how the rest of the page is read. `none` is
@@ -413,7 +471,7 @@ def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int, str]
 
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text("\n".join(lines) + body.rstrip("\n") + footer)
-    return title, position, nav_label
+    return title, position, nav_label, level, minutes
 
 
 def short_label(path: Path, meta: dict[str, str]) -> str:
@@ -567,11 +625,16 @@ def main() -> None:
         # called and where it sorts, so the category can be labelled from the
         # lesson's own H1 instead of its directory name.
         dir_meta: dict[Path, tuple[str, int]] = {}
+        # Kept beside dir_meta rather than widening it: `write_category_files`
+        # consumes that shape, and the section listing is the only thing that
+        # wants what a chapter costs to read.
+        dir_cost: dict[Path, tuple[str, int]] = {}
         for src in sorted(src_dir.rglob("*.md")):
             rel = src.relative_to(ROOT)
             dest_rel = rel.with_name("index.md") if src.name == "README.md" else rel
-            title, position, nav_label = convert(src, OUT / dest_rel, None)
+            title, position, nav_label, level, minutes = convert(src, OUT / dest_rel, None)
             if src.name == "README.md":
+                dir_cost[rel.parent] = (level, minutes)
                 key = dest_rel.parent.as_posix()
                 SIDEBAR_LABELS[key] = nav_label
                 SIDEBAR_POSITIONS[key] = position
@@ -592,7 +655,11 @@ def main() -> None:
             # began with its position ("02 — Data"). Sort by the position the
             # manifest assigns, and fall back to the title for ties.
             children.sort(key=lambda entry: (entry[0][1], entry[0][0]))
-            listing = "\n".join(f"- [{meta[0]}]({name}/)" for meta, name in children)
+
+            listing = "\n".join(
+                f"- [{meta[0]}]({name}/){cost_suffix(dir_cost, section, name)}"
+                for meta, name in children
+            )
             intro = SECTION_INTROS.get(section, "")
             body = f"{intro}\n\n{listing}" if intro else listing
             (OUT / section / "index.md").write_text(

@@ -1,5 +1,6 @@
 ---
 status: verified
+level: foundation
 verified: 2026-07-28
 base: scratch
 label: SFT

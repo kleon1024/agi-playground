@@ -1,3 +1,7 @@
+---
+level: reference
+---
+
 # The Open-Source LLM/ML Curriculum Landscape, Mid-2026
 
 > Research pass conducted 2026-07-24 with parallel web-research agents; sources linked inline.

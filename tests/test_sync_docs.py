@@ -136,7 +136,9 @@ def test_section_index_lists_are_in_curriculum_order():
     index = ROOT / "site" / "docs" / "platform" / "index.md"
     if not index.is_file():
         return  # site not synced in this environment
-    listed = re.findall(r"^- \[[^\]]+\]\(([^)/]+)/\)$", index.read_text(), re.MULTILINE)
+    # No `$` anchor: each entry now carries its level and reading time after
+    # the link. This test is about ordering, not about the line's shape.
+    listed = re.findall(r"^- \[[^\]]+\]\(([^)/]+)/\)", index.read_text(), re.MULTILINE)
     positions = [
         SYNC_DOCS.order_from(Path("platform") / name / "README.md") for name in listed
     ]

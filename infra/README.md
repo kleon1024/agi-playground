@@ -1,3 +1,7 @@
+---
+level: reference
+---
+
 # infra/ — compute lanes
 
 agi-playground runs on two compute lanes. Every lesson states which lane it

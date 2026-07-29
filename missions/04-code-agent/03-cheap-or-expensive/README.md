@@ -1,5 +1,6 @@
 ---
 status: verified
+level: frontier
 verified: 2026-07-29
 label: Cheap or expensive
 ---

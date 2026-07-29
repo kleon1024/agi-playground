@@ -1,5 +1,6 @@
 ---
 status: draft
+level: foundation
 ---
 
 # What does a click actually tell you?

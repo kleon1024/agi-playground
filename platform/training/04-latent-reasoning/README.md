@@ -1,5 +1,6 @@
 ---
 status: draft
+level: frontier
 base: scratch
 label: Latent reasoning
 ---

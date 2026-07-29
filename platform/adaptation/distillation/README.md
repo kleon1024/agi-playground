@@ -1,5 +1,6 @@
 ---
 status: verified
+level: frontier
 base: scratch
 ---
 

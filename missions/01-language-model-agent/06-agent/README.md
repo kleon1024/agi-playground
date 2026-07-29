@@ -1,5 +1,6 @@
 ---
 status: draft
+level: applied
 base: none
 label: Agent harness
 ---

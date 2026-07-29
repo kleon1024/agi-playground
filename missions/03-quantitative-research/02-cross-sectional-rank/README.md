@@ -1,5 +1,6 @@
 ---
 status: verified
+level: applied
 verified: 2026-07-27
 label: Cross-sectional rank
 ---

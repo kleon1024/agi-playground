@@ -1,5 +1,6 @@
 ---
 status: draft
+level: applied
 ---
 
 # How do you trade user value against revenue on purpose?

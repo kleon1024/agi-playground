@@ -1,3 +1,7 @@
+---
+level: reference
+---
+
 # The lesson and run contract
 
 Two rules govern everything published here:
@@ -46,6 +50,27 @@ Frontmatter carries `status:`, and it is not decoration:
 - `verified` — has a `runs/` entry, with `verified: YYYY-MM-DD`.
 
 A lesson is promoted to `verified` by running it, not by finishing the prose.
+
+## Level
+
+Every published page declares `level:`. Curriculum position and difficulty are
+different things, and the sidebar can only carry one of them — a reader looking
+at an ordered list of chapters cannot tell which are prerequisites and which
+assume everything before them.
+
+- `foundation` — a mechanism later chapters assume you hold. Read out of order
+  and the pages that depend on it stop parsing.
+- `applied` — a decision with a measured tradeoff. Assumes the mechanism, and
+  spends its words on what to choose and what the choice costs.
+- `frontier` — a claim at the edge of what this repository can establish. The
+  evidence boundary is the point of the chapter, not a closing caveat.
+- `reference` — a lookup or contributor surface, not a rung on the ladder:
+  standards, infrastructure runbooks, research passes, and `LANDSCAPE.md`
+  tables.
+
+The level is about what the page assumes, not how long it is. Reading time is
+computed from the prose at sync time and never written by hand, so it cannot
+drift away from the page it describes.
 
 ## Base
 

@@ -1,5 +1,6 @@
 ---
 status: draft
+level: foundation
 label: Training
 ---
 

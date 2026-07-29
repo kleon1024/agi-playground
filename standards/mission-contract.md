@@ -1,3 +1,7 @@
+---
+level: reference
+---
+
 # The mission contract
 
 A capability proves a hammer works. A mission proves a problem got solved.

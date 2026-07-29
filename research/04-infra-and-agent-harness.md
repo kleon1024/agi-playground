@@ -1,3 +1,7 @@
+---
+level: reference
+---
+
 # Open-Source LLM Inference/Infra & Agent Harness Landscape (Mid-2026)
 
 > Research pass conducted 2026-07-24 with parallel web-research agents; sources linked inline.

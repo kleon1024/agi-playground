@@ -1,3 +1,7 @@
+---
+level: reference
+---
+
 # agi-playground — Research Synthesis (2026-07-24)
 
 Four parallel research passes: curricula landscape, pretraining+data, post-training+RL, infra+agent harness.

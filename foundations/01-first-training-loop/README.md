@@ -1,5 +1,6 @@
 ---
 status: verified
+level: foundation
 base: scratch
 verified: 2026-07-26
 ---

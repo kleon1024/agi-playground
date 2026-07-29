@@ -1,3 +1,7 @@
+---
+level: reference
+---
+
 # Standards
 
 The contracts everything else in this repo has to satisfy. Read these before
