@@ -215,3 +215,7 @@ can supply the targets, or to
 generate new attempts, receive a reward, and update from its own behavior.
 
 Primary references: LIMA, LoRA, QLoRA, DPO, SimPO, GKD, and Task Arithmetic.
+
+[The post-training landscape](LANDSCAPE.md) pairs the from-scratch trainer here
+with the libraries that ship these algorithms, and says where their defaults
+disagree with what this chapter argues.

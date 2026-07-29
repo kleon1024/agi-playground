@@ -245,3 +245,8 @@ to [pretraining](../platform/training/) if you already have a clean shard.
 Primary references: Vaswani et al. (attention), Su et al. (RoPE), Zhang and
 Sennrich (RMSNorm), Shazeer (GLU variants), Dao et al. (FlashAttention), and
 Ainslie et al. (grouped-query attention).
+
+Every mechanism above has a production implementation that computes the same
+thing faster. [The foundations landscape](LANDSCAPE.md) pairs them off, so you
+know which of these files you would keep and which you would delete the moment
+the model has to be fast.

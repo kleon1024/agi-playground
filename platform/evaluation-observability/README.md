@@ -198,3 +198,6 @@ failure.
 Primary references: lm-evaluation-harness, Inspect, SWE-bench methodology,
 AgentDojo, policy-adherence environments, and standard binomial and paired-test
 methods.
+
+[The evaluation landscape](LANDSCAPE.md) sets those harnesses side by side —
+what each one fixes for you, and what it therefore stops you from disclosing.

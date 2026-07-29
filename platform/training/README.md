@@ -242,10 +242,18 @@ loss curve written from memory is not evidence.
 
 The output is a base model that predicts continuations over general text. It has
 never made a tool call, and its context window is as short as the one it trained
-on. Continue to [mid-training](../adaptation/mid-training/), which keeps this
-same next-token objective but changes the documents, then to
+on. [Adaptation](../adaptation/) is the branch that closes that gap, and it is
+four chapters rather than one because the techniques work at different scales on
+different data — its index asks which of them your model actually needs. If you
+are building the full pipeline, that order is
+[mid-training](../adaptation/mid-training/), which keeps this same next-token
+objective but changes the documents, then
 [post-training](../adaptation/post-training/) to define the behavioral contract
 that turns continuations into assistant answers.
+
+[The training landscape](LANDSCAPE.md) pairs each toy implementation here with
+the production trainers and tokenizer libraries that replace it, and says which
+difference is load-bearing at this scale and which is not.
 
 Primary references: Sennrich et al. (BPE), Kaplan et al. and Hoffmann et al.
 (scaling laws), Touvron et al. (LLaMA), Gururangan et al. (continued

@@ -220,6 +220,59 @@ def test_every_published_page_is_reachable_from_the_sidebar():
     )
 
 
+def test_no_published_page_is_an_orphan_in_prose():
+    """Reachable from the sidebar is not the same as reached by a reader.
+
+    The test above proves every page is listed in navigation. It passed while
+    ten pages had no inbound link from any sentence anywhere -- seven
+    `LANDSCAPE.md` tables, the adaptation branch index, and a sub-lesson --
+    which meant a reader following the causal spine of the curriculum never
+    learned they existed. The `LANDSCAPE.md` case was the sharpest: AGENTS.md
+    requires each one to name two production alternatives, and not one chapter
+    pointed at the table it was requiring.
+    """
+    sections = ("missions", "foundations", "capabilities", "platform",
+                "infra", "standards", "research")
+    pages = [
+        page
+        for section in sections
+        for page in sorted((ROOT / section).rglob("*.md"))
+        if not {"core", "prod", "runs"} & set(page.parts)
+    ]
+
+    def page_id(path: Path) -> str:
+        if path.name == "README.md":
+            return path.parent.relative_to(ROOT).as_posix()
+        return path.relative_to(ROOT).with_suffix("").as_posix()
+
+    ids = {page_id(p) for p in pages}
+    # Root docs route into the sections and count as prose like any chapter.
+    sources = pages + [ROOT / "README.md", ROOT / "AGENTS.md"]
+    linked: set[str] = set()
+    for source in sources:
+        if not source.is_file():
+            continue
+        for target in re.findall(r"\]\((?!http|#)([^)#]+)", source.read_text()):
+            try:
+                resolved = (source.parent / target).resolve().relative_to(ROOT.resolve())
+            except ValueError:
+                continue  # points outside the repository
+            text = resolved.as_posix().rstrip("/")
+            text = (
+                text[: -len("/README.md")]
+                if text.endswith("/README.md")
+                else text.removesuffix(".md")
+            )
+            if text != page_id(source):
+                linked.add(text)
+
+    orphans = sorted(ids - linked)
+    assert not orphans, (
+        "published but linked from no sentence in the repository; a page only "
+        "the sidebar knows about is a page nobody reads:\n  " + "\n  ".join(orphans)
+    )
+
+
 def test_angle_brackets_survive_inline_code_verbatim():
     """MDX does not parse JSX inside a code span, so `<` there needs no escape.
 

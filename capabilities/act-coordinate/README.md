@@ -196,6 +196,11 @@ reason about.
 
 Depth limits and budgets prevent recursive delegation from becoming unbounded.
 
+[One agent is stuck — would a second one help?](01-multi-agent/) takes this
+section further than a rule of thumb can, because the question it asks is
+whether a second agent bought anything at all or only doubled the bill. Read it
+when you are about to add one.
+
 ## 9. Evaluate the harness, not only the model
 
 Run the same task set while changing one variable:
@@ -244,3 +249,7 @@ environment.
 
 Primary references: ReAct, SWE-agent and agent-computer interfaces, MCP,
 MemGPT, AgentDojo, harness-aware evaluation, and policy-adherence environments.
+
+[The agent landscape](LANDSCAPE.md) names four production harnesses rather than
+one, deliberately: harness design is the independent variable this capability
+argues about, so anchoring to a single project's choices would beg the question.

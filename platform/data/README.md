@@ -212,3 +212,7 @@ token budget must be chosen against that artifact.
 
 Primary references: Common Crawl, FineWeb, DataTrove, Lee et al. on deduplication,
 Gopher data filtering, Dolma, DataComp-LM, DPO, and Tulu 3.
+
+[The data landscape](LANDSCAPE.md) maps the hand-written filters in this chapter
+onto the pipeline frameworks that run them at corpus scale, and names more than
+one of each so the chapter survives any single project being archived.

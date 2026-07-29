@@ -228,3 +228,7 @@ including its harness and decoding configuration, is actually better.
 Primary references: vLLM and PagedAttention, continuous batching work,
 speculative decoding, FlashAttention, and modern inference runtimes such as
 vLLM, SGLang, TensorRT-LLM, and llama.cpp.
+
+Which of those to reach for, and what each is actually good at, is in
+[the serving landscape](LANDSCAPE.md) — the readable engine you learn the
+mechanisms from, mapped against the production engines that implement them.

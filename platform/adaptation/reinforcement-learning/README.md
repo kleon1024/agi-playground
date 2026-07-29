@@ -209,3 +209,7 @@ alone.
 
 Primary references: PPO, DeepSeekMath and GRPO, GSPO, DAPO, RLVR work, and
 agent-environment evaluation literature.
+
+[The RL landscape](LANDSCAPE.md) names the production frameworks that own the
+sampler-plus-trainer loop this chapter builds by hand, and what each assumes
+about who owns the environment.
