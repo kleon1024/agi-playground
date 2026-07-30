@@ -28,13 +28,14 @@ liquidity inputs are real; the impact parameters are not execution evidence. The
 
 ## Which part of trading gets worse with size?
 
-The cost stack has different mechanisms. Commission is roughly linear in
-dollars traded. Spread is the toll for crossing the bid-ask market and is
-approximately a fixed number of basis points while a trade remains small.
-Neither alone creates the familiar capacity cliff. Market impact is the price
-concession needed to find the other side of an order. The common square-root
-model writes impact as *Y × volatility × sqrt(participation)*, where
-participation is trade notional divided by average daily volume.
+Pull the cost stack apart and you find different mechanisms at each layer.
+Commission is roughly linear in dollars traded. Spread is the toll for
+crossing the bid-ask market, and stays approximately a fixed number of basis
+points while a trade remains small. Neither alone creates the familiar
+capacity cliff — that comes from market impact, the price concession needed
+to find the other side of an order. The common square-root model writes
+impact as *Y × volatility × sqrt(participation)*, where participation is
+trade notional divided by average daily volume.
 
 Square root is sublinear in notional, but it is superlinear relative to zero:
 impact per dollar rises as participation rises. Doubling a trade does not
@@ -46,11 +47,11 @@ Almgren, Thum, Hauptmann, and Li, “Direct Estimation of Equity Market Impact,�
 Price Impact,” 2011, motivate approximate square-root behavior. The form is
 useful; its coefficient must be fitted from the firm’s fills.
 
-Turnover converts a per-trade cost into annual drag. A sizing rule that
-rebalances more often or changes more weight pays the stack repeatedly. The
-core script declares monthly rebalancing and six times annual one-way turnover.
-At a USD 10m book it calculated 0.0398% participation per rebalance and 0.2780%
-annual cost: 0.0300% commission, 0.1200% spread, 0.1280% impact. These are
+Rebalance more often, or change more weight each time, and turnover converts
+that per-trade cost into annual drag by paying the stack repeatedly. The core
+script declares monthly rebalancing and six times annual one-way turnover: at
+a USD 10m book it calculated 0.0398% participation per rebalance and 0.2780%
+annual cost — 0.0300% commission, 0.1200% spread, 0.1280% impact. These are
 measured outputs conditional on disclosed assumptions, not a brokerage bill.
 
 <!-- interactive: CostCapacity -->
@@ -62,15 +63,17 @@ grows. A higher turnover collapses the ceiling even when alpha does not move.
 
 ## Where does another dollar stop helping?
 
-Net percentage return declines monotonically. Net *dollar* return first rises,
-then peaks, then falls. The peak is the capacity answer: after it, marginal
-net return is zero or negative. On the declared 12% paper scenario, the
-script’s discrete sweep peaks at USD 25,156,111,076 and crosses total net-return
-breakeven at USD 125,780,555,379. Those enormous values expose a lesson-specific
-limitation, not an investable claim: a single high-ADV name is not a portfolio,
-the curve allows implausible participation rates, and the gross return is an
-assumption. A real capacity exercise imposes position, participation, venue,
-and execution constraints long before interpreting those levels.
+Watch net percentage return as book size grows and it declines monotonically.
+Net *dollar* return does something different: it first rises, then peaks,
+then falls, and that peak is the capacity answer — past it, marginal net
+return is zero or negative. On the declared 12% paper scenario, the script's
+discrete sweep peaks at USD 25,156,111,076 and crosses total net-return
+breakeven at USD 125,780,555,379. Those enormous values expose a
+lesson-specific limitation, not an investable claim: a single high-ADV name
+is not a portfolio, the curve allows implausible participation rates, and the
+gross return is an assumption. A real capacity exercise imposes position,
+participation, venue, and execution constraints long before interpreting
+those levels.
 
 A signal can survive stage 03 and still be worthless because capacity is below
 the size at which anyone would operate it. That is not research failing. It is

@@ -17,17 +17,17 @@ a list of scores into a page.
 
 ## Search once values become set-level
 
-Exhaustively testing every ordered k-item slate is the correct answer for a tiny catalogue and becomes impossible quickly: it is a permutation search. Beam search expands prefixes and retains only the best few partial slates. Beam width is therefore a compute-quality control, not a magic property. The harness compares each width with exhaustive search for nine candidates and five slots, so approximation is measured rather than asserted.
+Try testing every ordered k-item slate exhaustively and you get the correct answer on a tiny catalogue, then hit a wall almost immediately — it is a permutation search. Run beam search instead: it expands prefixes and keeps only the best few partial slates, so beam width becomes a compute-quality dial you turn, not a magic property. Compare each width against exhaustive search on nine candidates and five slots and you get a measured approximation, not an asserted one.
 
 The default run's width-1, width-2, width-3, and width-9 beams all found the 2.2624 exhaustive optimum. That is not proof that a narrow beam is enough; it says this constructed catalogue did not expose an approximation loss. Change the seed, category cap, or catalogue shape before trusting a beam width. A benchmark where a heuristic always wins is normally a benchmark that forgot to contain the hard case.
 
-Diversity as a constraint and diversity as an objective penalty are operationally different. A cap of two sports items is auditable: no slate may violate it. A multiplicative decay is a trade weight; it discourages repetition but can be outweighed by an unusually valuable duplicate. In the run, greedy top-K produced three sports items. The cap produced at most two. The penalty created a four-category slate, but made no promise it would do so for every request. Use constraints for obligations with an owner; use a penalty only when a product owner accepts its trade curve.
+Treat diversity as a constraint and you get something auditable: cap sports items at two and no slate may violate it. Treat it as an objective penalty instead and you get a trade weight — it discourages repetition but an unusually valuable duplicate can still outweigh it. Run greedy top-K in this harness and watch it produce three sports items; add the cap and it produces at most two; add the penalty and it happens to produce a four-category slate, without promising it will do so for every request. Reach for a constraint when the obligation has an owner; reach for a penalty only when a product owner accepts its trade curve.
 
 <!-- interactive: SlateMixing -->
 
 ## Price the ad's displacement
 
-An ad is not extra inventory. It replaces an organic result at a position. The core script converts expected ad revenue, bid times predicted click probability, into the same utility scale as organic value through an explicit trade rate. That rate is tuned to 3.0 in the synthetic default solely so the demo shows displacement; it is not a recommended policy. The run prints revenue and the position-weighted organic user value displaced at each ad-load level.
+Remember that an ad is not extra inventory — it replaces an organic result at a position. Run the core script and watch it convert expected ad revenue, bid times predicted click probability, into the same utility scale as organic value through an explicit trade rate. That rate is tuned to 3.0 in the synthetic default solely so the demo shows displacement; do not read it as a recommended policy. The run prints revenue and the position-weighted organic user value displaced at each ad-load level.
 
 The engineering obligation is to expose this curve. Where a business chooses to sit on it is a business decision. A system that reports ad revenue but not the organic item it displaced has hidden the cost, not avoided it. This is also why position bias is part of mixing: replacing slot one is not equivalent to replacing slot five, and a slot-allocation system must know the difference.
 

@@ -32,22 +32,23 @@ purged-and-gapped counterpart. Exact output lives in
 
 ## Which observations are allowed to teach the fold?
 
-Ordinary k-fold cross-validation shuffles examples. In a market series that
-puts future observations into the training set. That failure is obvious, but
-chronological splitting has a quieter second failure. A label at date *t* can
-mean the return from *t* through *t + 5*. A training label immediately before
-a test block therefore consumes prices inside that test block. Its row looks
-old, while its label has already reached across the boundary.
+Shuffle examples the way ordinary k-fold cross-validation does, and in a
+market series that puts future observations straight into the training set.
+That failure is obvious, but chronological splitting hides a quieter second
+one. A label at date *t* can mean the return from *t* through *t + 5*, so a
+training label immediately before a test block still consumes prices inside
+that test block — its row looks old, while its label has already reached
+across the boundary.
 
-Serial correlation creates another reason to leave space. Adjacent rows share
-the same market move, features, and overlapping label windows. A test row next
-to a training row is not an independent future test merely because their
-timestamps differ. **Purging** removes training observations whose forward
-label overlaps the test window. In a strict past-only walk-forward fold, the
-usual post-test embargo has no same-fold future training rows to remove, so the
-implementation expresses that second protection as an additional pre-test
-gap. They solve related but distinct boundary problems: overlap and
-near-duplicate information.
+Look at adjacent rows and serial correlation gives you another reason to
+leave space: they share the same market move, features, and overlapping
+label windows, so a test row next to a training row is not an independent
+future test merely because their timestamps differ. **Purging** removes
+training observations whose forward label overlaps the test window. In a
+strict past-only walk-forward fold, the usual post-test embargo has no
+same-fold future training rows to remove, so the implementation expresses
+that second protection as an additional pre-test gap — related but distinct
+boundary problems: overlap and near-duplicate information.
 
 <!-- interactive: PurgedFolds -->
 
@@ -68,14 +69,14 @@ arrange values for a prettier descending sequence.
 
 ## How much of the winner is just search?
 
-Even a perfectly purged test does not erase selection. If N variants are
-tested against the same history, the reported winner is the maximum of N noisy
-estimates. A maximum is positive more often than an individual draw. Deflated
-Sharpe asks whether the observed winner clears what search alone could create.
-The core approximation subtracts an expected maximum-noise term and accepts a
-trial count. With 14 disclosed trials, this run's protected statistic deflates
-to 0.3145. It is a teaching approximation, not a claim that we estimated a
-production probability.
+Run even a perfectly purged test and selection still is not erased. Test N
+variants against the same history and the reported winner is the maximum of N
+noisy estimates — a maximum comes up positive more often than an individual
+draw does. Deflated Sharpe asks whether the observed winner clears what
+search alone could create: the core approximation subtracts an expected
+maximum-noise term and accepts a trial count. With 14 disclosed trials, this
+run's protected statistic deflates to 0.3145 — a teaching approximation, not
+a claim that this estimates a production probability.
 
 The hard input is “effectively independent trials.” Nearby lookbacks and
 thresholds are correlated, so counting every grid point as independent can

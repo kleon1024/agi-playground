@@ -33,10 +33,10 @@ purpose.
 
 ## Git history is already full of tasks
 
-A task is a repository state where a test fails, plus the knowledge that some
-change to non-test code makes it pass. Every commit that fixed a bug and added
-the test proving it is exactly that, with the answer attached. So for a fix
-commit `C` with parent `P`:
+Pick any commit that fixed a bug and added the test proving it, and you are
+already holding a task: a repository state where a test fails, plus the
+knowledge that some change to non-test code makes it pass. Split that commit
+`C` and its parent `P` this way:
 
 ```
 base  = P, plus C's changes to test and environment files
@@ -44,11 +44,12 @@ gold  = C's changes to everything else
 task  = make the failing test pass, without touching the tests
 ```
 
-Three classes of file, because they play three different roles. Tests define
-the goal and belong to the base state. Source files are the answer and are
-withheld. Environment files — `pyproject.toml`, `uv.lock`, and their
-JavaScript equivalents — ride along with the tests, and that placement is a
-judgment worth defending.
+Sort each commit's files into three classes and you can see why each lands
+where it does. Leave tests at the base state — they define the goal, so the
+agent has to see them. Withhold source files — they are the answer. Carry
+environment files (`pyproject.toml`, `uv.lock`, and their JavaScript
+equivalents) along with the tests; that third placement is the one worth
+defending.
 
 `b81c414` fixed the serving engine *and* added the `torch` dependency group its
 new test needs. Leave that in the gold patch and the base state cannot run the
@@ -160,11 +161,11 @@ file, so that is what the filenames now record.
 
 ## What this set is and is not
 
-It is a **contamination control**, not a benchmark. Two tasks mined from a
-repository whose history is in no model's training data, to sit beside a public
-benchmark that may well be in all of them. The two are reported separately and
-never averaged, because the gap between them is the only measurement that says
-which is which.
+Treat this set as a **contamination control**, not a benchmark. It gives you
+two tasks mined from a repository whose history is in no model's training
+data, meant to sit beside a public benchmark that may well be in all of them.
+Report the two separately and never average them — the gap between them is
+the only measurement that tells you which is which.
 
 N = 2 supports no significance claim. The mining rule also selects narrowly: it
 sees only bugs whose author wrote a test in the same commit, which is 4 of the

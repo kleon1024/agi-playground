@@ -22,13 +22,14 @@ different concentrations, turnover, costs, and capacity.
 
 ## Rank because levels drift
 
-A raw score does not arrive with a stable unit. In the recorded panel, the
+Watch a raw score arrive with no stable unit. In the recorded panel, the
 cross-sectional momentum mean was 0.168 with 0.353 standard deviation at the
-first displayed date, then 0.300 and 0.312 at the last. A fixed dollar weight
-per raw-score unit would silently change its effective aggressiveness as that
-scale changes. Cross-sectional ranks discard the level and retain order: the
-best name is at the top percentile and the worst at the bottom on every date.
-That makes the mapping robust to monotone rescaling and regime-dependent spread.
+first displayed date, then 0.300 and 0.312 at the last. Size a fixed dollar
+weight per raw-score unit and its effective aggressiveness silently changes as
+that scale drifts. Rank the cross-section instead and you discard the level
+but keep the order: the best name sits at the top percentile and the worst at
+the bottom on every date, which makes the mapping robust to monotone
+rescaling and regime-dependent spread.
 
 The exchange is deliberate. A rank cannot tell whether the top two names are
 almost tied or widely separated. Using it asserts that relative order is
@@ -39,13 +40,14 @@ the disclosed strategy definition and, if varied, the search log.
 
 ## Choose the belief encoded by the weights
 
-The sizing ladder exposes four distinct beliefs. Equal-weight decile holds only
-the extreme long and short names: it claims the signal is informative at tails,
-not in between. Rank-proportional holds the full universe using centered ranks:
-every rank step gets equal importance. Signal-proportional weights a z-scored
-raw signal, claiming larger scores deserve larger conviction. Volatility-scaled
-starts there and divides by trailing realized volatility, trading some
-conviction-following for more even risk contribution.
+Walk the sizing ladder and four distinct beliefs come into view. Equal-weight
+decile holds only the extreme long and short names, claiming the signal is
+informative at the tails and not in between. Rank-proportional holds the full
+universe on centered ranks, giving every rank step equal importance.
+Signal-proportional weights a z-scored raw signal, claiming larger scores
+deserve larger conviction. Volatility-scaled starts from that and divides by
+trailing realized volatility, trading some conviction-following for more even
+risk contribution.
 
 All raw rules are normalized to gross exposure 2.0, meaning one unit long and
 one unit short. That isolates the effects of shape rather than allowing an
@@ -65,12 +67,12 @@ weighting belief.
 
 ## Constraints change the strategy again
 
-Long-short construction removes broad market direction, which can make a weak
-cross-sectional effect easier to inspect. It also gives up a source of return
-and does not neutralize sector, factor, liquidity, or crowding exposure by
-itself. Real books therefore carry constraints: a per-name cap limits any one
-position, sector neutrality de-means weights inside each sector, and a turnover
-budget limits trading between rebalances.
+Remove broad market direction with long-short construction and a weak
+cross-sectional effect becomes easier to inspect — but that also gives up a
+source of return, and it does not by itself neutralize sector, factor,
+liquidity, or crowding exposure. Real books carry constraints on top: a
+per-name cap limits any one position, sector neutrality de-means weights
+inside each sector, and a turnover budget limits trading between rebalances.
 
 These cannot be treated as a final clipping pass. In the core demonstration,
 cap then sector de-mean sometimes pushes positions above the cap again: it

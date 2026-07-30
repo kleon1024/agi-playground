@@ -27,19 +27,19 @@ rest of this README exists to make it concrete rather than merely assert it.
 
 ## Why one retrieval method is not enough
 
-A single retrieval method has a single blind spot, and the blind spots do not
-overlap. An embedding model built for semantic similarity is good at "more
-like this in meaning" and structurally bad at exact-match: it has no way to
-privilege a rare shared keyword over a vaguely related topic. Lexical search
-is the mirror image — it will find the keyword and miss the paraphrase.
-Item-to-item retrieval covers "more like what you just engaged with," which is
-a different question from "what does this user want overall," and can miss
-something the user would love if it does not resemble any single thing they
-have already touched. Freshness and business queues exist because neither of the above two can
-represent "just launched" or "a contractual placement" — not statistical
-properties of an interaction log at all. Production systems run all of these
-in parallel and union the results: not because any one queue is weak, but
-because each is precise about something the others cannot see.
+Run just one retrieval method and you get exactly one blind spot — and the
+blind spots do not overlap. Reach for an embedding model tuned for semantic
+similarity and you get "more like this in meaning," structurally bad at
+exact-match: it has no way to privilege a rare shared keyword over a
+vaguely related topic. Reach for lexical search instead and you get the
+mirror image — it finds the keyword and misses the paraphrase. Item-to-item
+retrieval answers "more like what you just engaged with," a different
+question from "what does this user want overall," and misses anything that
+does not resemble a single thing already touched. Freshness and business
+queues exist because neither of the above can represent "just launched" or
+"a contractual placement" — not statistical properties of an interaction log
+at all. Run all of these in parallel and union the results, not because any
+one queue is weak, but because each sees something the others cannot.
 
 ## What you build
 
@@ -95,17 +95,17 @@ way a queue's designed coverage does.
 
 ## The two-tower constraint
 
-`two_tower_recall` scores every item by `dot(user.embedding, item.embedding)`
-and nothing else — the two vectors are never combined, concatenated, or
-cross-attended before that dot product. This is not a simplification; it is
-the constraint that makes retrieval possible at all. If the item tower saw
-the user vector before scoring — the way a fine-ranker's cross-attention or
-concatenated MLP can — item embeddings could no longer be computed once and
-reused across every user; they would have to be recalculated per query,
-exactly the cost this stage exists to avoid. The trade: less expressiveness
-(no user-item feature interaction) for the one property that makes candidate
-generation over a huge catalogue tractable — item vectors precomputed once,
-indexed once, searched cheaply many times.
+Read `two_tower_recall` and you find it scores every item by
+`dot(user.embedding, item.embedding)` and nothing else — the two vectors are
+never combined, concatenated, or cross-attended before that dot product. That
+is not a simplification; it is the constraint that makes retrieval possible
+at all. Let the item tower see the user vector before scoring — the way a
+fine-ranker's cross-attention or concatenated MLP can — and item embeddings
+can no longer be computed once and reused across every user; they have to be
+recalculated per query, exactly the cost this stage exists to avoid. The
+trade: less expressiveness (no user-item feature interaction) for the one
+property that makes candidate generation over a huge catalogue tractable —
+item vectors precomputed once, indexed once, searched cheaply many times.
 
 ## Recall is lost twice, not once
 

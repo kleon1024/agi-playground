@@ -44,13 +44,14 @@ wrong.
 
 ## Which baseline has to be beaten?
 
-The contract declares two. Buy-and-hold of the same equal-weight universe is a
-passive floor. Clearing it establishes activity, not worth: a strategy that
-adds trading and complexity ought to beat doing almost nothing. The important
-baseline is the published 12-month return, skipping one month,
-cross-sectional-momentum heuristic, costed the same way as the candidate.
-Momentum is the field’s popularity baseline. It is hard to beat net of costs,
-so beating only buy-and-hold cannot establish a new edge.
+Read the contract and it declares two. Buy-and-hold of the same equal-weight
+universe is a passive floor — clearing it establishes activity, not worth,
+since a strategy that adds trading and complexity ought to beat doing almost
+nothing. The baseline that actually matters is the published 12-month
+return, skipping one month, cross-sectional-momentum heuristic, costed the
+same way as the candidate. Momentum is the field's popularity baseline and
+hard to beat net of costs, so beating only buy-and-hold cannot establish a
+new edge.
 
 The primary metric is annualized net-of-cost Sharpe on at least five purged,
 embargoed walk-forward folds, reported as a mean and standard deviation. The
@@ -60,13 +61,14 @@ single aggregate winner and a single fold are not substitutes for this test.
 
 ## Why guardrails get a veto
 
-Guardrails are not bonus points. The contract says a strategy profitable only
-before costs fails outright; each name must stay within 5% of trailing 20-day
-average dollar volume; maximum drawdown cannot exceed 1.5 times passive
-drawdown; deflated Sharpe must remain positive at a stated significance level;
-point-in-time checks must have zero violations; and the universe must include
-every historical member, not today’s survivors. One failure makes the verdict
-NOT MET even when returns look impressive.
+Read guardrails as vetoes, not bonus points. The contract says a strategy
+profitable only before costs fails outright; each name must stay within 5% of
+trailing 20-day average dollar volume; maximum drawdown cannot exceed 1.5
+times passive drawdown; deflated Sharpe must remain positive at a stated
+significance level; point-in-time checks must have zero violations; and the
+universe must include every historical member, not today's survivors. Fail
+any one of these and the verdict is NOT MET even when returns look
+impressive.
 
 The core report prints the quoted requirement, threshold, measured input, and
 pass/fail state. Its declared 95% significance bar is intentionally explicit:
@@ -85,14 +87,14 @@ mission is CANNOT DETERMINE.
 
 ## Which period made the aggregate misleading?
 
-An aggregate Sharpe averages across regimes where a strategy behaved
-differently. It is often the least informative number in the report. The
-artifact requires named periods, dates, candidate Sharpe, momentum Sharpe, and
-buy-and-hold Sharpe; it marks the worst candidate regime and prints drawdown
-start, trough, and recovery dates. A strategy can have a respectable decade
-average because one friendly regime overwhelms a sharp failure in the regime
-that matters most to risk. A report that hides this section is hiding the
-decision-relevant evidence.
+Average an aggregate Sharpe across regimes where a strategy actually behaved
+differently, and you get one of the least informative numbers in the report.
+The artifact instead requires named periods, dates, candidate Sharpe,
+momentum Sharpe, and buy-and-hold Sharpe; it marks the worst candidate regime
+and prints drawdown start, trough, and recovery dates. A strategy can post a
+respectable decade average because one friendly regime overwhelms a sharp
+failure in the regime that matters most to risk — hide this section and you
+hide the decision-relevant evidence.
 
 <!-- interactive: RegimeBreakdown -->
 

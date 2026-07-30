@@ -59,46 +59,47 @@ and $0.5^{0.5} \times 0.5^{0.5} = 0.50$ — item B wins by two thirds. Same
 predictions, same weights, opposite ranking. The rule, not the model, decided
 which item a user sees.
 
-A weighted sum treats objectives as substitutes: a very high score on one
-can compensate a very low score on another, so a highly clickable item with
-mediocre everything-else can still win a slot. A weighted product treats
-objectives as requirements — because any factor near zero, raised to a
-positive weight, drags the whole product toward zero, an item weak on even
-one weighted dimension is punished far harder than the equivalent sum would
-punish it. `demo_calibration_precondition`'s sibling comparison in
-`run_demo` — the weight sweep run under both combination rules — shows this
-directly: at the same satisfaction weight, the multiplicative order moves
-toward balanced items measurably sooner than the additive order does. Neither
-rule is "more correct." Additive says a platform will tolerate a bad outcome
-on one axis in exchange for a great one elsewhere; multiplicative says it
-will not. That is a policy choice a weight cannot express on its own.
+Choose a weighted sum and you have chosen to treat objectives as
+substitutes: a very high score on one can compensate a very low score on
+another, so a highly clickable item with mediocre everything-else can still
+win a slot. Choose a weighted product instead and you have chosen to treat
+objectives as requirements — any factor near zero, raised to a positive
+weight, drags the whole product toward zero, so an item weak on even one
+weighted dimension is punished far harder than the equivalent sum would
+punish it. Run the same weight sweep under both combination rules
+(`demo_calibration_precondition`'s sibling comparison in `run_demo`) and
+watch the difference show up directly: at the same satisfaction weight, the
+multiplicative order moves toward balanced items measurably sooner than the
+additive order does. Neither rule is "more correct." Additive says a
+platform will tolerate a bad outcome on one axis in exchange for a great one
+elsewhere; multiplicative says it will not — a policy choice a weight cannot
+express on its own.
 
 ## 4. Calibration is a precondition, not a nicety
 
-A weight of 2 on click is supposed to mean "click matters twice as much as
-whatever carries weight 1." That claim is only true if the click number is
-an honest probability. `demo_calibration_precondition` reruns the identical
-weights after inflating click's predictions by a fixed factor, with no
-change to product strategy at all, and the ranking still moves — for a
-reason that has nothing to do with what the platform is trying to optimize
-and everything to do with a miscalibrated input pretending to be a
-probability. Stage 04's calibration work is not a nice-to-have that happens
-to make the numbers look tidier; skipping it means every weight set here is
-making a promise the arithmetic cannot keep.
+Set a weight of 2 on click and you are claiming "click matters twice as much
+as whatever carries weight 1." That claim is only true if the click number
+is an honest probability. Run `demo_calibration_precondition`: it reruns the
+identical weights after inflating click's predictions by a fixed factor,
+with no change to product strategy at all, and watch the ranking move
+anyway — for a reason that has nothing to do with what the platform is
+trying to optimize and everything to do with a miscalibrated input
+pretending to be a probability. Skip stage 04's calibration work and every
+weight set here makes a promise the arithmetic cannot keep.
 
 ## 5. Every ad displaces an organic result — so price the displacement
 
-An ad does not add a slot to the page; it takes one that an organic item
-would otherwise have held. `auction_insert` prices that trade explicitly:
-convert the ad's expected revenue (bid times predicted click probability)
-into the same utility units as the organic value-tree score, using a
-declared trade rate — utility credited per dollar of expected revenue — and
-compare it against the weakest organic score inside the slate. Clear that
-bar and the ad enters, displacing whichever organic item it beat; miss it
-and the slate stays fully organic. The displaced item's own score is exactly
-what the ad cost the user in that slot, stated as the same number everything
-else in this stage is measured in, not a separate accounting kept off to the
-side.
+Remember that an ad does not add a slot to the page — it takes one that an
+organic item would otherwise have held. Call `auction_insert` and it prices
+that trade explicitly: convert the ad's expected revenue (bid times
+predicted click probability) into the same utility units as the organic
+value-tree score, using a declared trade rate — utility credited per dollar
+of expected revenue — and compare it against the weakest organic score
+inside the slate. Clear that bar and the ad enters, displacing whichever
+organic item it beat; miss it and the slate stays fully organic. Read the
+displaced item's own score and you have exactly what the ad cost the user in
+that slot, stated as the same number everything else in this stage is
+measured in, not a separate accounting kept off to the side.
 
 Move the weight below and watch the slate reorder, then watch the ad's fate
 change as the trade rate moves — the same one-variable-at-a-time discipline

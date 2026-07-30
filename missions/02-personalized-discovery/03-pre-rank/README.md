@@ -24,27 +24,27 @@ losing what fine-rank would have picked from it.
 
 ## 1. The arithmetic that forces this stage to exist
 
-Scoring a thousand candidates with fine-rank's model is not merely slower
-than scoring a hundred — at production latency budgets it is often not
-possible at all. Something cheap has to remove most of the field first, and
-"cheap" here is not a vague adjective: a pre-ranker typically runs at a
-fraction of fine-rank's per-item cost, using features that are already
-computed (embeddings, simple counts) rather than features that require a
-fresh forward pass through a heavy model. That budget gap is the entire
-reason this stage exists as a separate model rather than a cheaper setting of
-the fine-ranker.
+Try scoring a thousand candidates with fine-rank's model, and you find it is
+not merely slower than scoring a hundred — at production latency budgets it
+is often not possible at all. Something cheap has to remove most of the
+field first, and "cheap" here is not a vague adjective: build a pre-ranker
+and it runs at a fraction of fine-rank's per-item cost, using features
+already computed (embeddings, simple counts) rather than features that
+demand a fresh forward pass through a heavy model. That budget gap is the
+entire reason this stage exists as a separate model rather than a cheaper
+setting of the fine-ranker.
 
 ## 2. What a cheap proxy is allowed to get wrong
 
-A pre-ranker does not need to match the fine-ranker's order — it only needs
-its cut to contain the fine-ranker's eventual top picks. Those are different
+Do not ask a pre-ranker to match the fine-ranker's order — ask only that its
+cut contains the fine-ranker's eventual top picks. Those are different
 requirements, and conflating them is the mistake this lesson exists to
-prevent. A pre-ranker can be noisy everywhere and still be fine, provided the
-noise does not concentrate on the items that matter. It cannot, however, be
-**systematically** wrong about a slice of the catalogue — because systematic
-error does not average out across a large field the way random noise does,
-and a slice that is always underscored is a slice that never survives the
-cut, no matter how good the rest of the ranking looks.
+prevent. Let a pre-ranker be noisy everywhere and it can still be fine,
+provided the noise does not concentrate on the items that matter. Let it be
+**systematically** wrong about a slice of the catalogue, though, and you have
+a real problem: systematic error does not average out across a large field
+the way random noise does, so a slice that is always underscored never
+survives the cut, no matter how good the rest of the ranking looks.
 
 `core/pre_rank.py` makes that distinction concrete with two diagnostics,
 computed against `fine_rank_true`, an oracle score the demo's small catalogue

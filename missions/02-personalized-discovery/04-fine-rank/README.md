@@ -25,16 +25,17 @@ have hidden.
 
 ## 1. Why no single label is the objective
 
-Click is cheap to log and abundant, and it is also the objective most likely
-to reward a misleading thumbnail. Completion tells you whether the content
-delivered on what the click promised. Satisfaction — usually the rarest
-label, often collected from a post-session prompt — is the closest proxy to
-"the user is glad this happened," and dwell time sits somewhere between a
-real quality signal and an artifact of how long a format takes to consume.
-None of them alone is what a discovery system is actually trying to
-maximize; each is a different, imperfect view onto it. That is the argument
-for predicting all four rather than picking the one that is easiest to
-optimize.
+Optimize click alone and you get a system that rewards a misleading
+thumbnail — it is cheap to log and abundant, but it is also the objective
+most likely to reward that. Check completion instead and you learn whether
+the content delivered on what the click promised. Look at satisfaction —
+usually the rarest label, often collected from a post-session prompt — and
+you get the closest proxy to "the user is glad this happened"; dwell time
+sits somewhere between a real quality signal and an artifact of how long a
+format takes to consume. None of them alone is what a discovery system is
+actually trying to maximize; each is a different, imperfect view onto it —
+the argument for predicting all four rather than picking the one that is
+easiest to optimize.
 
 ## 2. A shared trunk, and the interference it invites
 
@@ -80,16 +81,15 @@ fall back on when the trunk is being pulled somewhere else.
 
 ## 4. Calibration: what "0.3" is supposed to mean
 
-A model can get every pairwise comparison right — rank the better item above
-the worse one, every time — while its output numbers are systematically off,
-because a monotonic transform of a score preserves its ranking. That failure
-is invisible if the only thing you check is ranking quality within one task.
-It stops being invisible the moment stage 05 combines *different* tasks'
-numbers arithmetically, because `0.5 * p_click + 0.5 * p_satisfaction` is
-only a meaningful blend if both numbers are honest probabilities on the same
-scale — a "0.3" from a systematically overconfident head is not the same
-quantity as a "0.3" from a well-calibrated one, even though they print
-identically.
+Check only ranking quality within one task and a model can get every
+pairwise comparison right — rank the better item above the worse one, every
+time — while its output numbers are systematically off, because a monotonic
+transform of a score preserves its ranking. That failure stays invisible
+until stage 05 combines *different* tasks' numbers arithmetically, because
+`0.5 * p_click + 0.5 * p_satisfaction` is only a meaningful blend if both
+numbers are honest probabilities on the same scale — a "0.3" from a
+systematically overconfident head is not the same quantity as a "0.3" from a
+well-calibrated one, even though they print identically.
 
 `expected_calibration_error` in `core/fine_rank.py` measures this directly:
 bucket predictions by confidence, and compare each bucket's average predicted

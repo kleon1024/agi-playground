@@ -15,13 +15,13 @@ The concrete artifact is a catalogue label and embedding. At time T, cold-item c
 
 ## Decide what the label is allowed to say
 
-A flat label such as `phones` helps retrieval, but it does not state that phones and laptops are both electronics. A hierarchy does. That matters downstream: a slate constraint can honestly say “at most two electronics items” only when the shared parent is part of the taxonomy. Otherwise the mixer needs a hidden lookup table, which is merely an undeclared taxonomy.
+Label an item `phones` and retrieval improves, but nothing states that phones and laptops are both electronics — a hierarchy does. Build one, and a slate constraint can honestly say "at most two electronics items" because the shared parent sits in the taxonomy. Skip it, and the mixer needs a hidden lookup table instead — an undeclared taxonomy wearing a different name.
 
 The core harness uses seven leaves under electronics, home, and media. This is deliberately small. The lesson is not that these are a useful production taxonomy; it is that the taxonomy determines what a diversity constraint, an audit, and a cold-start fallback can express. Taxonomies should be owned like product policy: changing one changes the feature contract for every downstream consumer.
 
 There are three usual labelling paths. Hand rules are transparent and cheap, but fail on synonyms and incomplete metadata. A trained classifier can learn a local taxonomy when representative labels exist, but inherits sampling bias and has no magic answer for a new tail category. A vision-language model can read image and text evidence before interaction exists, but costs latency and money, and can confidently produce a wrong label. The production example uses a downloadable sentence-transformer embedding as a runnable text analogue; a VLM request would retain the same batch, response, confidence, and provenance contract.
 
-Content and behaviour embeddings are not substitutes. Behaviour says that users co-engaged with two items; it is often strongest for established inventory. Content says that two items look or read alike; it exists on upload, but cannot know audience response. A cold item needs content retrieval first; after enough events, behaviour can complement or supersede it. Treating either vector as ground truth erases that boundary.
+Do not treat content and behaviour embeddings as substitutes. Behaviour tells you users co-engaged with two items — strongest signal for established inventory. Content tells you two items look or read alike — it exists on upload, but knows nothing about audience response. Reach for content retrieval first on a cold item; once enough events accumulate, let behaviour complement or supersede it. Treat either vector as ground truth and that boundary disappears.
 
 ## Move the confidence threshold
 
@@ -44,7 +44,7 @@ The production path requires `sentence-transformers` and downloads `all-MiniLM-L
 
 The run establishes the mechanics of a thresholded content queue on a synthetic catalogue. It does not establish VLM accuracy, tail accuracy, retrieval quality, or online discovery value. Stage 02 consumes this stage's content-derived route alongside behavioural queues and measures whether it retrieves a held-out target at all.
 
-Operationally, retain more than a label. Store the taxonomy version, model or ruleset version, input content hash, confidence, label path, and the time the item was processed. That makes an item’s representation reproducible when a policy changes. It also avoids a silent error where the ranker receives labels from two incompatible taxonomies after a backfill. A queue should declare whether it accepts stale content labels, blocks until enrichment completes, or uses a coarse fallback. Those are availability decisions with user-facing consequences, not merely data-pipeline choices.
+Retain more than a label. Store the taxonomy version, model or ruleset version, input content hash, confidence, label path, and processing time alongside it — that makes an item's representation reproducible when a policy changes, and stops a silent failure where the ranker mixes labels from two incompatible taxonomies after a backfill. Decide explicitly whether a queue accepts stale content labels, blocks until enrichment completes, or falls back to something coarse: these are availability decisions with user-facing consequences, not data-pipeline bookkeeping.
 
 The threshold should be selected against a declared downstream objective and sliced evaluation set, never just overall label accuracy. A threshold that maximizes head accuracy can destroy reach for sparse categories. Inspect per-leaf precision, cold coverage, missing-content rate, and the share falling back to generic retrieval. Then sample the rejected and low-confidence tail for human review. The core cannot supply those numbers because it has no real catalogue; it only supplies the causal mechanism required to make them meaningful.
 

@@ -23,22 +23,24 @@ the later evaluation for the search that produced the candidate.
 
 ## Start from what was knowable
 
-The panel is only honest if each input was public by the decision date. The
-price at a rebalance date can be used then. Book equity cannot: the economic
-period it describes may have ended long before the filing made it available.
-The core harness therefore asks for the latest filing at or before each date,
-not the latest database value for that fiscal period. This is an as-of join,
-not a cosmetic data-cleaning choice.
+Ask, for each input, whether it was actually public by the decision date, or
+the panel stops being honest. The price at a rebalance date passes — it was
+knowable then. Book equity does not pass on its own: the economic period it
+describes may have ended long before the filing made it available. So the
+core harness asks for the latest filing at or before each date, never the
+latest database value for that fiscal period — an as-of join, not a cosmetic
+data-cleaning choice.
 
-Three candidates make that rule concrete. Momentum compares an older adjusted
-price with a later one while optionally skipping recent months. Low volatility
-uses only previous monthly returns. Book-to-market divides the most recently
-filed equity by contemporaneous market equity, rejecting a stale filing. Each
-has free parameters: lookback and skip windows, a volatility window, or allowed
-ages for equity and shares. None may read a later price, filing, universe
-membership, or full-sample normalization. A clean source panel does not save a
-signal that recomputes its mean using future rows or selects the universe from
-companies that exist today.
+Build three candidates against that rule and watch what each is and is not
+allowed to touch. Momentum compares an older adjusted price with a later one,
+optionally skipping recent months. Low volatility uses only previous monthly
+returns. Book-to-market divides the most recently filed equity by
+contemporaneous market equity, rejecting a stale filing. Each has free
+parameters — lookback and skip windows, a volatility window, allowed ages for
+equity and shares — but none may read a later price, filing, universe
+membership, or full-sample normalization. A clean source panel does not save
+a signal that recomputes its mean using future rows or selects the universe
+from companies that exist today.
 
 The ten-name example is deliberately not called survivorship-safe. It is a
 hand-picked, continuously listed universe, so it cannot represent delisted
@@ -48,12 +50,13 @@ not claim a production-grade investment universe.
 
 ## Why the search count changes the claim
 
-Three parameter grids here create 32 coded variants: 18 momentum combinations,
-five volatility windows, and nine value freshness combinations. A grid is a
-multiplication machine: two choices for one parameter and three for another
-already create six hypotheses. Their tests may be correlated, but correlation
-does not make selection harmless. Picking the largest noisy statistic introduces
-selection bias; the selected value has been conditioned on being unusually high.
+Build three parameter grids and count what you actually get: 32 coded
+variants — 18 momentum combinations, five volatility windows, nine value
+freshness combinations. A grid is a multiplication machine: two choices for
+one parameter and three for another already create six hypotheses. Their
+tests may be correlated, but correlation does not make selection harmless —
+pick the largest noisy statistic and you have introduced selection bias, since
+that value has been conditioned on being unusually high.
 
 The recorded run makes that visible. The best real-data in-sample Spearman
 information coefficient was 0.0947. On 300 within-date random permutations of

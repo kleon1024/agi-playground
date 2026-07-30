@@ -125,7 +125,7 @@
   },
   "missions/02-personalized-discovery/00-interactions": {
     "level": "foundation",
-    "minutes": 8
+    "minutes": 7
   },
   "missions/02-personalized-discovery/01-content-understanding": {
     "level": "applied",
@@ -169,7 +169,7 @@
   },
   "missions/03-quantitative-research/00-market-data": {
     "level": "foundation",
-    "minutes": 8
+    "minutes": 7
   },
   "missions/03-quantitative-research/01-signal-research": {
     "level": "applied",
@@ -185,7 +185,7 @@
   },
   "missions/03-quantitative-research/04-cost-and-capacity": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "missions/03-quantitative-research/05-report": {
     "level": "applied",
