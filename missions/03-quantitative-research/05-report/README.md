@@ -11,6 +11,13 @@ label: Outcome report
 last input this report demands, alongside the validation, search-log, and
 sizing evidence the funnel above it produced.
 
+**Related:** [evaluation and observability](../../../platform/evaluation-observability/)
+is the shared discipline behind this refusal-shaped report, mission 01's
+[stage 07](../../01-language-model-agent/07-eval/), and mission 02's
+[stage 09](../../02-personalized-discovery/09-report/) — this mission adds
+purge, embargo, and multiple-testing correction on top of it because
+financial data fights back in a way logged clicks and text do not.
+
 Every earlier stage was allowed to fail safely. This one decides whether the
 mission gets to claim anything at all, using a contract written before the
 code. The contract is [`mission.yaml`](../mission.yaml): two post-cost

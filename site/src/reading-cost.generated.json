@@ -161,7 +161,7 @@
   },
   "missions/02-personalized-discovery/09-report": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "missions/03-quantitative-research": {
     "level": "applied",
@@ -189,7 +189,7 @@
   },
   "missions/03-quantitative-research/05-report": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "missions/04-code-agent": {
     "level": "applied",

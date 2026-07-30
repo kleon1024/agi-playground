@@ -165,6 +165,12 @@ are claimed there or here; this stage has no `runs/` entry yet (see
 `missions/01-language-model-agent/mission.yaml`), and none is due until
 `06-harness-aware-evaluation`'s discipline is actually applied in `07-eval`.
 
+**Related:** this loop, tools, and permission contract is
+[act and coordinate](../../../capabilities/act-coordinate/) — promoted out of
+mission-local code once
+[personalized discovery's rule engine](../../02-personalized-discovery/07-rule-engine/)
+needed the same inputs and objective.
+
 ## Reproducing
 
 Every command below runs with the deterministic `FakeBackend` — no GPU, no

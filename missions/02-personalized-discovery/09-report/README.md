@@ -14,6 +14,12 @@ label: Outcome report
 this report demands alongside quality and guardrails — the funnel above it
 in the mission's stage table supplies the rest.
 
+**Related:** the variance and disclosure discipline this stage enforces is
+[evaluation and observability](../../../platform/evaluation-observability/),
+the same discipline mission 01's [stage 07](../../01-language-model-agent/07-eval/)
+and mission 03's [stage 05](../../03-quantitative-research/05-report/) apply
+to a language model and a trading signal respectively.
+
 The artifact is a run-artifact JSON document plus a verdict. It contains seed-level nDCG@10 for the candidate and both declared baselines, guardrails, p50/p95 latency, cost, and failure cases. Its shape is documented in `core/report.py`. The report reads `mission.yaml`; it does not decide after seeing results which baseline, metric, or threshold would have been easier to pass.
 
 ## Why the baselines and guardrails are non-negotiable

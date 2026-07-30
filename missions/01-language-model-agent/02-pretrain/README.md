@@ -145,6 +145,10 @@ starts.
 - **That this data mixture is right.** No alternative mixture was trained.
   [The ablation harness](../../../platform/data/01-ablation-harness/) exists
   because answering that needs paired runs across seeds, not one run.
+- **That this architecture is the only way to spend this checkpoint's
+  weights.** [Upcycling](../../../platform/training/05-upcycling/) takes this
+  exact dense checkpoint and asks whether converting it to a mixture-of-experts
+  architecture buys back more capacity than it costs.
 
 ## Reproduce it
 
