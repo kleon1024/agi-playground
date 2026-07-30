@@ -90,7 +90,7 @@ fact.
 |---|---|---|
 | [00 — Task and environment](00-gridworld-baselines/) | what counts as a verifiable reward in a game, and does the starting policy clear the bar RL needs? | verified |
 | [01 — GRPO loop](01-grpo/) | does group-relative RL move the success rate at all, or hit the same zero-gradient wall mission 01 did? | verified |
-| 02 — Report | baselines, seeds, compute, and an honest verdict | not started |
+| [02 — Report](02-report/) | baselines, seeds, compute, and an honest verdict | verified — NOT MET |
 
 [Stage 00](00-gridworld-baselines/) built a 5x5 grid-world (deterministic,
 BFS-checked solvable, no dependencies) and measured both required baselines
@@ -111,6 +111,16 @@ prompt — greedy-decode eval (6.2-7.8%) lands below the random baseline
 (22.2%) on all 3 seeds, and sampled-decode eval (14.4-21.0%) does better but
 still doesn't clear random. Full mechanism and per-seed numbers in
 [its run record](01-grpo/runs/2026-07-31-grpo-training.md).
+
+[Stage 02](02-report/) held stage 01's result against this mission's own
+acceptance bar and printed `NOT MET` — not because training failed to move
+(199-200/200 steps per seed took a real gradient step, unlike mission 01's
+zero-gradient run) but because the policy it converged to decisively loses to
+both baselines under greedy decode, the decode mode a deployed system would
+actually use. Escaping degenerate rollout groups turned out to be necessary
+for GRPO to move a policy here, but not sufficient for the result to be a
+useful, board-conditional one. Full verdict and failure catalogue in
+[its run record](02-report/runs/2026-07-31-outcome-report.md).
 
 Per [the mission contract](../../standards/mission-contract.md), this
 contract is declared before any stage is built, so the environment and
