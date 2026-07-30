@@ -208,9 +208,10 @@ a technique exists and knowing what it is worth on a specific card.
 | Read this | When you need to decide | It returns |
 |---|---|---|
 | [graph execution](01-graph-execution/) | whether the card is working or waiting between tokens | a profile that says which of three bottlenecks you have, and roughly 3x from removing launch overhead |
+| [quantization](02-quantization/) | whether a smaller model decodes faster | a measured no, at this batch size — INT8 shrinks the model 2.79x and is slower, both by hand and through a real int8 kernel |
 
-Techniques named above and not yet measured — quantization, speculative
-decoding, latency under load — stay named until a run record exists for them.
+Techniques named above and not yet measured — speculative decoding, latency
+under load — stay named until a run record exists for them.
 
 ## Run the working path
 

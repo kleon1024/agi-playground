@@ -517,6 +517,11 @@
           },
           {
             "type": "doc",
+            "id": "platform/serving/02-quantization/index",
+            "label": "Quantization \u00b7 verified"
+          },
+          {
+            "type": "doc",
             "id": "platform/serving/LANDSCAPE",
             "label": "Landscape"
           }

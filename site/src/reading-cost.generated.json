@@ -263,6 +263,10 @@
     "level": "applied",
     "minutes": 8
   },
+  "platform/serving/02-quantization": {
+    "level": "applied",
+    "minutes": 5
+  },
   "platform/training": {
     "level": "foundation",
     "minutes": 7
