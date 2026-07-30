@@ -146,6 +146,21 @@ Straight from `mission.yaml`'s `does_not_prove`, restated for this stage:
   sized for what an 88M from-scratch model can plausibly attempt; it is not
   a capability benchmark.
 
+## What the perplexity report actually says
+
+Run against stage 02's checkpoint and its held-out `val.bin`:
+
+```
+checkpoint   stage02/ckpt/ckpt.pt  (sha256 ffd32ce920c4...)
+tokenizer    stage01/tokenizer.json  (sha256 0b2ce230b496...)
+context      1024 tokens, stride 1024
+windows      4882
+perplexity   21.677  (mean NLL 3.0762 +/- 0.3214)
+baseline     uniform distribution over vocab = 9.712 nats (ln(16512))
+```
+
+Full report: [`runs/2026-07-30-perplexity-report.json`](runs/2026-07-30-perplexity-report.json).
+
 ## Reproducing
 
 ```bash
@@ -173,12 +188,10 @@ python prod/lm_eval.py --ckpt ../02-pretrain/ckpt/ckpt.pt \
 ```
 
 [Stage 02](../02-pretrain/) has landed a checkpoint and
-[stage 03](../03-sft/) has fine-tuned it, so the commands above now have
-something to point at — but none of them has been run, and this README
-therefore still reports no perplexity, accuracy, or agent score. That is
-deliberate: publishing a number before it exists is exactly the failure mode
-this stage argues against, and having a checkpoint available makes the
-temptation stronger rather than weaker.
+[stage 03](../03-sft/) has fine-tuned it. Perplexity is now measured, above;
+the task suite and agent report are not. Publishing a number before it exists
+is the failure mode this stage argues against, and a checkpoint available
+makes the temptation stronger, not weaker.
 
 ## Exercises
 

@@ -1,0 +1,40 @@
+{
+  "eval_type": "perplexity",
+  "generated_at": "2026-07-30T08:46:03+00:00",
+  "checkpoint": {
+    "path": "/home/ding/agi-playground/stage02/ckpt/ckpt.pt",
+    "sha256": "ffd32ce920c456b5e05394946425c51e0eee86b22727edcfd566d038378cd151",
+    "config": {
+      "vocab_size": 16512,
+      "n_layer": 12,
+      "n_head": 12,
+      "n_kv_head": 4,
+      "d_model": 768,
+      "d_ff": 2048,
+      "block_size": 1024,
+      "rope_theta": 10000.0
+    }
+  },
+  "tokenizer": {
+    "path": "/home/ding/agi-playground/stage01/tokenizer.json",
+    "sha256": "0b2ce230b49626e05d89adfa4c8cd29e7e8c40ee55cf97260fc4a52b682a912b"
+  },
+  "data": "/home/ding/agi-playground/data/tokens/val.bin",
+  "metric": {
+    "n_windows": 4882,
+    "context_length": 1024,
+    "stride": 1024,
+    "mean_nll": 3.076249113120978,
+    "std_nll": 0.32142201306100154,
+    "perplexity": 21.67694196008777
+  },
+  "baseline": {
+    "name": "uniform distribution over vocab",
+    "value": "9.712 nats (ln(16512))",
+    "source": "missions/01-language-model-agent/02-pretrain/README.md, ln(vocab_size)"
+  },
+  "caveats": [
+    "Comparable only to another run that used the identical tokenizer (matching sha256 above) and the identical context length; perplexity is not a cross-tokenizer or cross-context-length metric.",
+    "A held-out split drawn from the same source distribution as training does not establish generalization to a different domain or a live workload."
+  ]
+}
