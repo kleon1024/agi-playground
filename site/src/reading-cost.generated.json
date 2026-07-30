@@ -215,6 +215,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/05-vision-language-model/01-vision-fusion": {
+    "level": "applied",
+    "minutes": 5
+  },
   "missions/06-game-ai": {
     "level": "applied",
     "minutes": 4

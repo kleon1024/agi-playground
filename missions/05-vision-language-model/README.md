@@ -89,7 +89,7 @@ one builds, not before.
 | Stage | Question | Status |
 |---|---|---|
 | [00 — Paired image-caption task](00-image-caption-task/) | what makes a scoreable image+question+answer instance, and how is train/eval leakage checked? | verified |
-| 01 — Patch embed and vision-token fusion | how does a text-only decoder learn to condition on an image, and does it beat a blind guess? | not started |
+| [01 — Patch embed and vision-token fusion](01-vision-fusion/) | how does a text-only decoder learn to condition on an image, and does it beat a blind guess? | draft — partial result, 2 of 3 seeds beat the baseline but the mean gap is smaller than seed spread |
 | 02 — Report | did the vision pathway add anything the hosted API or the text-only baseline couldn't already do? | not started |
 
 [Stage 00](00-image-caption-task/) generated 2,000 train and 400 eval
@@ -100,6 +100,17 @@ first closed that gap silently emptied eval's single-shape bucket. Widening
 each shape's size and position space fixed both — zero collisions, and
 eval's shape-count distribution now proportional to train's. Full numbers in
 [its run record](00-image-caption-task/runs/2026-07-31-dataset-gen.md).
+
+[Stage 01](01-vision-fusion/) trained the vision pathway and the text-only
+baseline for 3 seeds each. Two of three vision seeds beat every text-only
+seed by 17-18 points — a real, decisive margin — but the third vision seed
+collapsed below the text-only floor entirely, so vision's own seed-to-seed
+spread (0.231) is larger than the gap between the two means (0.111). Per this
+repository's own rule for a difference smaller than run-to-run spread, that
+is reported as a partial result, not a clean win: the mechanism can clearly
+learn to use the image, but training at this toy scale is unstable enough
+that one seed in three failed to. Full numbers in
+[its run record](01-vision-fusion/runs/2026-07-31-vision-vs-text-only.md).
 
 Per [the mission contract](mission.yaml), the contract above is declared
 before any stage is built, so its baselines and metric cannot be chosen after

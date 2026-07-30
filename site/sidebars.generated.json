@@ -289,6 +289,11 @@
             "type": "doc",
             "id": "missions/05-vision-language-model/00-image-caption-task/index",
             "label": "The image-caption task \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/05-vision-language-model/01-vision-fusion/index",
+            "label": "Vision-token fusion"
           }
         ]
       },
