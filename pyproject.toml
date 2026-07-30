@@ -8,6 +8,11 @@ license = { text = "MIT" }
 
 [dependency-groups]
 dev = ["pytest>=8", "ruff>=0.5"]
+lm-eval = [
+    "lm-eval>=0.4.12",
+    "tokenizers>=0.23.1",
+    "torch>=2.13.0",
+]
 # Opt-in, and not part of `uv run pytest`. Almost every test here is a
 # structural check that needs no framework, and keeping the default install
 # free of a 200MB wheel is worth protecting. The exception is

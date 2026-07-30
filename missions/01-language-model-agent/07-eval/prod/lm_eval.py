@@ -54,6 +54,13 @@ from pathlib import Path
 
 import torch
 
+# This file is named lm_eval.py, the same name as the third-party package it
+# imports below -- Python puts this script's own directory at the front of
+# sys.path, which shadows the real package with this file. Drop it before
+# importing anything, or `import lm_eval` below silently imports itself.
+_here = str(Path(__file__).resolve().parent)
+sys.path = [p for p in sys.path if p not in ("", _here)]
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "02-pretrain" / "core"))
 from model import Config, Transformer
 
@@ -96,7 +103,9 @@ class SpeedrunLM(LM):
         super().__init__()
         self.model, self.config = load_checkpoint(ckpt, device)
         self.tok = Tokenizer.from_file(str(tokenizer))
-        self.device = device
+        # LM.device is a read-only property backed by _device in the
+        # installed lm-eval-harness version -- self.device = device raises.
+        self._device = device
         self.block_size = self.config["block_size"]
         self._batch_size = batch_size
 

@@ -151,12 +151,19 @@ compaction cannot be audited from outside.
 result does and does not establish, including the fact that 38.3% remains below
 the 48% human estimate.
 
-`core/evaluate.py agent-report` has since run for real — [the parent
-chapter](../README.md#what-the-agent-report-actually-says) reports 0/6 — but
-`prod/lm_eval.py` still has not, so this chapter establishes what the static
-harness's tooling enforces, not what the model scores under it. The version
-of the ARC experiment this repository *could* run is stated in that research
-pass: stage 06's context policy is swappable by construction.
+Both halves of this stage's tooling have since run for real: `core/evaluate.py
+agent-report` reports 0/6 ([the parent
+chapter](../README.md#what-the-agent-report-actually-says)), and
+`prod/lm_eval.py` scored the same checkpoint on `lambada_openai` at 20.5%
+accuracy, 138.3 perplexity, limit 200 ([full
+report](../runs/2026-07-30-lm-eval-lambada.md)) — after fixing two real bugs
+that had silently kept the adapter from running at all (a self-import
+collision from sharing its filename with the package it wraps, and a
+read-only `device` property in the installed harness version). Neither number
+says anything about frontier-scale capability; both confirm the adapters
+this chapter argues for actually work end to end. The version of the ARC
+experiment this repository *could* run is stated in that research pass:
+stage 06's context policy is swappable by construction.
 
 Return to
 [what this mission's evaluation does not prove](../README.md#what-this-missions-evaluation-does-not-prove),

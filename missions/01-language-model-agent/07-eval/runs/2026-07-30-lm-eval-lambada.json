@@ -1,0 +1,31 @@
+{
+  "harness": "lm-evaluation-harness",
+  "harness_stops_at": "static, single-turn tasks scored by log-likelihood or exact-match generation. No agent loop, no tool use, no multi-turn trajectory scoring \u2014 see core/evaluate.py agent-report for that half of the eval.",
+  "checkpoint": "/tmp/lm-eval-ckpt/ckpt.pt",
+  "tokenizer": "/tmp/lm-eval-ckpt/tokenizer_hf.json",
+  "tasks": [
+    "lambada_openai"
+  ],
+  "num_fewshot": 0,
+  "limit": 200,
+  "results": {
+    "lambada_openai": {
+      "name": "lambada_openai",
+      "alias": "lambada_openai",
+      "sample_len": 200,
+      "perplexity,none": 138.31600556292582,
+      "perplexity_stderr,none": 30.97662660802195,
+      "acc,none": 0.205,
+      "acc_stderr,none": 0.02861764926136022
+    }
+  },
+  "versions": {
+    "lambada_openai": 1.0
+  },
+  "n-samples": {
+    "lambada_openai": {
+      "original": 5153,
+      "effective": 200
+    }
+  }
+}
