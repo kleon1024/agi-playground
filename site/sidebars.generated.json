@@ -362,7 +362,7 @@
         "items": [
           {
             "type": "category",
-            "label": "Ablation harness",
+            "label": "Ablation harness \u00b7 verified",
             "link": {
               "type": "doc",
               "id": "platform/data/01-ablation-harness/index"

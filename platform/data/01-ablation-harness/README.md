@@ -1,7 +1,8 @@
 ---
-status: draft
+status: verified
 level: applied
 base: scratch
+verified: 2026-07-30
 ---
 
 # Does this data help?
@@ -123,7 +124,20 @@ python core/ablation.py --sweep 1,2,4,8,16,32,64
 
 At one seed it refuses to report an interval at all. As the seed count rises,
 watch the verdict for the default mixtures cross from "not detectable" to a
-declared winner, and note the seed count at which that happens.
+declared winner. Run it and the crossover is exactly where the design put it:
+
+```
+n=2, 4, 8    NOT DETECTABLE — interval spans zero
+n=16         mixture B wins: -0.0273 +/- 0.0209 bits/char
+n=32, 64     mixture B wins, point estimate stable at -0.024 to -0.027
+```
+
+n=16 is the pivot: at n=8 the 95% interval is -0.0214 ± 0.0271 (spans zero);
+at n=16 it is -0.0273 ± 0.0209 (does not). `prod/torch_ablation.py`'s
+gradient-trained model and Welch's t-test agree independently at the same
+n=16 (p=0.0001) — a different model and a different test, the same
+crossover point. Below n=16 here, a reported winner would be reporting noise.
+Full output: [`runs/2026-07-30-mixture-ablation-sweep.md`](runs/2026-07-30-mixture-ablation-sweep.md).
 
 Read that crossover for what it is. The two default mixtures and the training
 length were **chosen by search** until the effect was small enough to stay
