@@ -88,9 +88,18 @@ one builds, not before.
 
 | Stage | Question | Status |
 |---|---|---|
-| 00 — Paired image-caption task | what makes a scoreable image+question+answer instance, and how is train/eval leakage checked? | not started |
+| [00 — Paired image-caption task](00-image-caption-task/) | what makes a scoreable image+question+answer instance, and how is train/eval leakage checked? | verified |
 | 01 — Patch embed and vision-token fusion | how does a text-only decoder learn to condition on an image, and does it beat a blind guess? | not started |
 | 02 — Report | did the vision pathway add anything the hosted API or the text-only baseline couldn't already do? | not started |
+
+[Stage 00](00-image-caption-task/) generated 2,000 train and 400 eval
+image+question+answer instances and found two real defects in its own
+leakage guardrail before closing it: disjoint seed ranges produced 116
+pixel-identical train/eval collisions, and the rejection-sampling fix that
+first closed that gap silently emptied eval's single-shape bucket. Widening
+each shape's size and position space fixed both — zero collisions, and
+eval's shape-count distribution now proportional to train's. Full numbers in
+[its run record](00-image-caption-task/runs/2026-07-31-dataset-gen.md).
 
 Per [the mission contract](mission.yaml), the contract above is declared
 before any stage is built, so its baselines and metric cannot be chosen after

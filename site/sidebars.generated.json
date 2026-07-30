@@ -278,9 +278,19 @@
         ]
       },
       {
-        "type": "doc",
-        "id": "missions/05-vision-language-model/index",
-        "label": "Vision-language model"
+        "type": "category",
+        "label": "Vision-language model",
+        "link": {
+          "type": "doc",
+          "id": "missions/05-vision-language-model/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "missions/05-vision-language-model/00-image-caption-task/index",
+            "label": "The image-caption task \u00b7 verified"
+          }
+        ]
       },
       {
         "type": "doc",
