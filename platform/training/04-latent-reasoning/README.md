@@ -1,8 +1,9 @@
 ---
-status: draft
+status: verified
 level: frontier
 base: scratch
 label: Latent reasoning
+verified: 2026-07-30
 ---
 
 # What if the model could think without choosing words?
@@ -120,26 +121,31 @@ to match whatever came out:
   spread. A thought at `d_model=128` carries more than a token in principle,
   and the curriculum has few stages and little capacity to learn how to use it.
 
-Run at the defaults above (CPU only, no GPU on this machine), `direct` alone
-took 16-17 minutes per seed, and the full three-arm sweep did not finish
-inside one sitting. What did finish is real and is kept, not discarded: three
-seeds of `direct` at the full 6000-step budget converge to **0.502 mean
-accuracy** — chance, on this balanced yes/no task — with loss fully settled
-at 0.345-0.354. A second run at a quarter of the budget (`--steps 1500
---stage-steps 300`) completed all three arms: `direct` **0.502**, `cot`
-**0.5013**, `latent` **0.5007** — all at chance, but `cot`'s loss (0.83-0.88)
-had not converged the way `direct`'s had, and `latent`'s curriculum depends on
-`cot`-level convergence at each stage to hand the next stage anything useful.
-`direct` failing is a stable result, unchanged across both step counts — a
-real finding, not an artifact of too little training. Whether `cot` actually
-beats `direct`, and where `latent` lands, remains open: neither arm reached
-the chapter's own step budget with a completed run. [Full numbers and both
-partial JSON files.](runs/2026-07-30-arm-comparison.md)
+The defaults above at full budget (6000 steps for `direct`/`cot`, five
+1500-step curriculum stages for `latent`, 3 seeds each) first ran CPU-only,
+where `direct` alone took 16-17 minutes per seed and the full sweep never
+finished in one sitting — a partial `direct`-only result converged to **0.502
+mean accuracy**, chance. The same command then ran to completion on an RTX
+4090 (19.4 minutes total, all three arms, $0, local lane):
 
-A result inside the seed spread would be a reportable result here, not a
-failed experiment — the instrument that makes that claim legitimate is three
-seeds per arm and the spread reported beside every mean. That instrument
-worked; the comparison it was built to make has not run to completion yet.
+```
+direct   mean 0.502  spread 0.012   -- chance, matches the CPU-only result exactly
+cot      mean 0.9993 spread 0.002   -- effectively solves the task
+latent   mean 0.502  spread 0.012   -- chance, indistinguishable from direct
+```
+
+Half the hypothesis lands cleanly: `cot` crushes `direct`. `latent` does not
+land between them — it lands on top of `direct`, and the curriculum log says
+why. Each seed's per-stage accuracy climbs through the early stages and hits
+**1.0 at the `n_latent=3` stage**, then collapses back to **0.5 at
+`n_latent=4`** — the final stage, at the task's actual reasoning depth (4
+hops) — with loss settling at 0.345-0.353, the same number `direct` converges
+to. The model can clearly use three latent thoughts; going to four is where
+training throws that away rather than extending it. That is a specific,
+reportable failure mode, not "latent reasoning doesn't work" in general: a
+longer curriculum, a smaller step per stage, or a wider latent channel are
+the next things to vary, not run here. [Full GPU run, with the curriculum
+log and the earlier CPU-only partial result.](runs/2026-07-30-arm-comparison-gpu.md)
 
 Beyond that, this chapter will not establish anything about a model that has to
 reason in natural language. The task is synthetic, the vocabulary is 51 tokens,
