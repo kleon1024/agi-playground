@@ -1,0 +1,396 @@
+{
+  "seed": 1,
+  "steps": 200,
+  "degenerate_steps": 0,
+  "wall_clock_s": 118.0613717911765,
+  "history": [
+    {
+      "step": 0,
+      "mean_reward": 0.07,
+      "mean_format": 0.1416666666666667,
+      "mean_success": 0.041666666666666664,
+      "loss": -0.11675563454627991,
+      "groups_used": 3
+    },
+    {
+      "step": 5,
+      "mean_reward": 0.17500000000000002,
+      "mean_format": 0.25,
+      "mean_success": 0.125,
+      "loss": -0.1924898773431778,
+      "groups_used": 4
+    },
+    {
+      "step": 10,
+      "mean_reward": 0.07687500000000001,
+      "mean_format": 0.384375,
+      "mean_success": 0.0,
+      "loss": 0.08622726052999496,
+      "groups_used": 4
+    },
+    {
+      "step": 15,
+      "mean_reward": 0.10937500000000001,
+      "mean_format": 0.390625,
+      "mean_success": 0.03125,
+      "loss": -0.05561918020248413,
+      "groups_used": 4
+    },
+    {
+      "step": 20,
+      "mean_reward": 0.5900000000000001,
+      "mean_format": 0.45,
+      "mean_success": 0.5,
+      "loss": -0.019944723695516586,
+      "groups_used": 4
+    },
+    {
+      "step": 25,
+      "mean_reward": 0.16062500000000002,
+      "mean_format": 0.490625,
+      "mean_success": 0.0625,
+      "loss": -0.04406113922595978,
+      "groups_used": 4
+    },
+    {
+      "step": 30,
+      "mean_reward": 0.18916666666666668,
+      "mean_format": 0.5291666666666667,
+      "mean_success": 0.08333333333333333,
+      "loss": 0.09836804121732712,
+      "groups_used": 3
+    },
+    {
+      "step": 35,
+      "mean_reward": 0.23750000000000002,
+      "mean_format": 0.5625,
+      "mean_success": 0.125,
+      "loss": 0.15269500017166138,
+      "groups_used": 2
+    },
+    {
+      "step": 40,
+      "mean_reward": 0.16583333333333336,
+      "mean_format": 0.41250000000000003,
+      "mean_success": 0.08333333333333333,
+      "loss": -0.20741434395313263,
+      "groups_used": 3
+    },
+    {
+      "step": 45,
+      "mean_reward": 0.16625,
+      "mean_format": 0.51875,
+      "mean_success": 0.0625,
+      "loss": 0.1871308833360672,
+      "groups_used": 4
+    },
+    {
+      "step": 50,
+      "mean_reward": 0.30000000000000004,
+      "mean_format": 0.5625,
+      "mean_success": 0.1875,
+      "loss": 0.1278442144393921,
+      "groups_used": 2
+    },
+    {
+      "step": 55,
+      "mean_reward": 0.2725,
+      "mean_format": 0.5291666666666667,
+      "mean_success": 0.16666666666666666,
+      "loss": 0.024732911959290504,
+      "groups_used": 3
+    },
+    {
+      "step": 60,
+      "mean_reward": 0.24375000000000002,
+      "mean_format": 0.59375,
+      "mean_success": 0.125,
+      "loss": 0.07392560690641403,
+      "groups_used": 4
+    },
+    {
+      "step": 65,
+      "mean_reward": 0.19166666666666668,
+      "mean_format": 0.5416666666666666,
+      "mean_success": 0.08333333333333333,
+      "loss": 0.03842980042099953,
+      "groups_used": 3
+    },
+    {
+      "step": 70,
+      "mean_reward": 0.38125000000000003,
+      "mean_format": 0.65625,
+      "mean_success": 0.25,
+      "loss": 0.0637127086520195,
+      "groups_used": 4
+    },
+    {
+      "step": 75,
+      "mean_reward": 0.42625,
+      "mean_format": 0.56875,
+      "mean_success": 0.3125,
+      "loss": 0.08547944575548172,
+      "groups_used": 4
+    },
+    {
+      "step": 80,
+      "mean_reward": 0.225,
+      "mean_format": 0.65625,
+      "mean_success": 0.09375,
+      "loss": 0.06962413340806961,
+      "groups_used": 4
+    },
+    {
+      "step": 85,
+      "mean_reward": 0.375,
+      "mean_format": 0.625,
+      "mean_success": 0.25,
+      "loss": -0.03258548676967621,
+      "groups_used": 4
+    },
+    {
+      "step": 90,
+      "mean_reward": 0.375,
+      "mean_format": 0.625,
+      "mean_success": 0.25,
+      "loss": -0.014508149586617947,
+      "groups_used": 4
+    },
+    {
+      "step": 95,
+      "mean_reward": 0.171875,
+      "mean_format": 0.546875,
+      "mean_success": 0.0625,
+      "loss": 0.024798639118671417,
+      "groups_used": 4
+    },
+    {
+      "step": 100,
+      "mean_reward": 0.4375,
+      "mean_format": 0.625,
+      "mean_success": 0.3125,
+      "loss": 0.06823762506246567,
+      "groups_used": 4
+    },
+    {
+      "step": 105,
+      "mean_reward": 0.330625,
+      "mean_format": 0.715625,
+      "mean_success": 0.1875,
+      "loss": 0.11577256768941879,
+      "groups_used": 4
+    },
+    {
+      "step": 110,
+      "mean_reward": 0.15937500000000002,
+      "mean_format": 0.796875,
+      "mean_success": 0.0,
+      "loss": 0.302155077457428,
+      "groups_used": 4
+    },
+    {
+      "step": 115,
+      "mean_reward": 0.23562500000000003,
+      "mean_format": 0.865625,
+      "mean_success": 0.0625,
+      "loss": 0.0540425106883049,
+      "groups_used": 4
+    },
+    {
+      "step": 120,
+      "mean_reward": 0.19375,
+      "mean_format": 0.8125,
+      "mean_success": 0.03125,
+      "loss": 0.19398517906665802,
+      "groups_used": 4
+    },
+    {
+      "step": 125,
+      "mean_reward": 0.48125,
+      "mean_format": 0.84375,
+      "mean_success": 0.3125,
+      "loss": -0.0531010776758194,
+      "groups_used": 2
+    },
+    {
+      "step": 130,
+      "mean_reward": 0.17083333333333336,
+      "mean_format": 0.8541666666666666,
+      "mean_success": 0.0,
+      "loss": 0.14753828942775726,
+      "groups_used": 3
+    },
+    {
+      "step": 135,
+      "mean_reward": 0.171875,
+      "mean_format": 0.859375,
+      "mean_success": 0.0,
+      "loss": 0.15464036166667938,
+      "groups_used": 4
+    },
+    {
+      "step": 140,
+      "mean_reward": 0.16875,
+      "mean_format": 0.84375,
+      "mean_success": 0.0,
+      "loss": -0.14755021035671234,
+      "groups_used": 2
+    },
+    {
+      "step": 145,
+      "mean_reward": 0.31666666666666665,
+      "mean_format": 0.9583333333333334,
+      "mean_success": 0.125,
+      "loss": 0.20291340351104736,
+      "groups_used": 3
+    },
+    {
+      "step": 150,
+      "mean_reward": 0.55,
+      "mean_format": 0.875,
+      "mean_success": 0.375,
+      "loss": 0.03636495769023895,
+      "groups_used": 4
+    },
+    {
+      "step": 155,
+      "mean_reward": 0.275,
+      "mean_format": 0.90625,
+      "mean_success": 0.09375,
+      "loss": 0.0730496197938919,
+      "groups_used": 4
+    },
+    {
+      "step": 160,
+      "mean_reward": 0.471875,
+      "mean_format": 0.953125,
+      "mean_success": 0.28125,
+      "loss": 0.03843536600470543,
+      "groups_used": 4
+    },
+    {
+      "step": 165,
+      "mean_reward": 0.446875,
+      "mean_format": 0.828125,
+      "mean_success": 0.28125,
+      "loss": 0.08430125564336777,
+      "groups_used": 4
+    },
+    {
+      "step": 170,
+      "mean_reward": 0.325,
+      "mean_format": 0.84375,
+      "mean_success": 0.15625,
+      "loss": -0.049183979630470276,
+      "groups_used": 4
+    },
+    {
+      "step": 175,
+      "mean_reward": 0.484375,
+      "mean_format": 0.859375,
+      "mean_success": 0.3125,
+      "loss": 0.07547303289175034,
+      "groups_used": 4
+    },
+    {
+      "step": 180,
+      "mean_reward": 0.171875,
+      "mean_format": 0.859375,
+      "mean_success": 0.0,
+      "loss": 0.06152063608169556,
+      "groups_used": 4
+    },
+    {
+      "step": 185,
+      "mean_reward": 0.42083333333333334,
+      "mean_format": 0.8541666666666666,
+      "mean_success": 0.25,
+      "loss": 0.04408513009548187,
+      "groups_used": 3
+    },
+    {
+      "step": 190,
+      "mean_reward": 0.478125,
+      "mean_format": 0.828125,
+      "mean_success": 0.3125,
+      "loss": -0.03524710610508919,
+      "groups_used": 4
+    },
+    {
+      "step": 195,
+      "mean_reward": 0.21875,
+      "mean_format": 0.78125,
+      "mean_success": 0.0625,
+      "loss": 0.11993815004825592,
+      "groups_used": 4
+    }
+  ],
+  "eval_greedy": {
+    "trials": 500,
+    "successes": 31,
+    "success_rate": 0.062
+  },
+  "eval_sampled": {
+    "trials": 500,
+    "successes": 72,
+    "success_rate": 0.144
+  },
+  "examples": [
+    {
+      "board": "..#..\n.....\nS..G.\n..#.#\n#....",
+      "raw_completion": "UUUUUUUUUUUU",
+      "extracted_actions": "UUUUUUUUUUUU",
+      "reached_goal": false,
+      "steps": 12
+    },
+    {
+      "board": ".....\n....#\n##...\nS..G.\n#....",
+      "raw_completion": "UUUUUUUUUUUU",
+      "extracted_actions": "UUUUUUUUUUUU",
+      "reached_goal": false,
+      "steps": 12
+    },
+    {
+      "board": ".....\n...#.\nS..##\n.....\n...G#",
+      "raw_completion": "UUUUUUUUUUUU",
+      "extracted_actions": "UUUUUUUUUUUU",
+      "reached_goal": false,
+      "steps": 12
+    },
+    {
+      "board": ".....\n.....\n.G.#.\n#...#\n.S#..",
+      "raw_completion": "UUUUUUUUUUUU",
+      "extracted_actions": "UUUUUUUUUUUU",
+      "reached_goal": true,
+      "steps": 2
+    },
+    {
+      "board": "...#.\n.#.G.\n.....\n..#..\n.#..S",
+      "raw_completion": "UUUUUUUUUUUU",
+      "extracted_actions": "UUUUUUUUUUUU",
+      "reached_goal": false,
+      "steps": 12
+    },
+    {
+      "board": "#....\n...#.\n.#...\nG..#.\n.S...",
+      "raw_completion": "UUUUUUUUUUUU",
+      "extracted_actions": "UUUUUUUUUUUU",
+      "reached_goal": false,
+      "steps": 12
+    },
+    {
+      "board": "#G...\n...#.\n.S#..\n.#...\n.....",
+      "raw_completion": "UUUUUUUUUUUU",
+      "extracted_actions": "UUUUUUUUUUUU",
+      "reached_goal": true,
+      "steps": 2
+    },
+    {
+      "board": ".....\n#S...\n.##..\n.....\n#.G..",
+      "raw_completion": "UUUUUUUUUUUU",
+      "extracted_actions": "UUUUUUUUUUUU",
+      "reached_goal": false,
+      "steps": 12
+    }
+  ]
+}

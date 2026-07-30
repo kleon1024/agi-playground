@@ -89,7 +89,7 @@ fact.
 | Stage | Question | Status |
 |---|---|---|
 | [00 — Task and environment](00-gridworld-baselines/) | what counts as a verifiable reward in a game, and does the starting policy clear the bar RL needs? | verified |
-| 01 — GRPO loop | does group-relative RL move the success rate at all, or hit the same zero-gradient wall mission 01 did? | not started |
+| [01 — GRPO loop](01-grpo/) | does group-relative RL move the success rate at all, or hit the same zero-gradient wall mission 01 did? | verified |
 | 02 — Report | baselines, seeds, compute, and an honest verdict | not started |
 
 [Stage 00](00-gridworld-baselines/) built a 5x5 grid-world (deterministic,
@@ -98,6 +98,19 @@ over 500 real episodes: random reaches the goal 22.2% of the time, greedy
 one-step lookahead 82.4% — a real, non-degenerate gap, since a saturated or
 near-zero baseline would leave stage 01's training run nothing to say. Full
 numbers in [its run record](00-gridworld-baselines/runs/2026-07-31-baselines.md).
+
+[Stage 01](01-grpo/) trained 3 seeds with GRPO imported unmodified from
+mission 01's arithmetic run, substituting only the reward function and
+rollout environment. Unlike mission 01's own cold-start run, this policy did
+not get stuck in degenerate rollout groups — 199-200 of 200 steps per seed
+took a real gradient step, and training-time success reached 40-50% at
+points. But the argmax policy every seed converged to ignores the board
+entirely, always emitting one constant repeated action (`RRRRRRRRRRRR`,
+`UUUUUUUUUUUU`, or `LLLLLLLLLLLL` depending on the seed) regardless of the
+prompt — greedy-decode eval (6.2-7.8%) lands below the random baseline
+(22.2%) on all 3 seeds, and sampled-decode eval (14.4-21.0%) does better but
+still doesn't clear random. Full mechanism and per-seed numbers in
+[its run record](01-grpo/runs/2026-07-31-grpo-training.md).
 
 Per [the mission contract](../../standards/mission-contract.md), this
 contract is declared before any stage is built, so the environment and
