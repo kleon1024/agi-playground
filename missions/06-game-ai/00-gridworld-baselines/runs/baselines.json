@@ -1,0 +1,24 @@
+{
+  "size": 5,
+  "num_walls": 4,
+  "max_steps": 12,
+  "trials": 500,
+  "seed": 0,
+  "wall_clock_s": 0.019823834067210555,
+  "results": {
+    "random": {
+      "policy": "random",
+      "trials": 500,
+      "successes": 111,
+      "success_rate": 0.222,
+      "mean_steps_on_success": 5.4324324324324325
+    },
+    "greedy": {
+      "policy": "greedy",
+      "trials": 500,
+      "successes": 412,
+      "success_rate": 0.824,
+      "mean_steps_on_success": 3.1529126213592233
+    }
+  }
+}

@@ -227,6 +227,10 @@
     "level": "applied",
     "minutes": 4
   },
+  "missions/06-game-ai/00-gridworld-baselines": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/07-realtime-voice": {
     "level": "applied",
     "minutes": 3

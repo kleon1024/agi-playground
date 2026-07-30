@@ -303,9 +303,19 @@
         ]
       },
       {
-        "type": "doc",
-        "id": "missions/06-game-ai/index",
-        "label": "Game AI"
+        "type": "category",
+        "label": "Game AI",
+        "link": {
+          "type": "doc",
+          "id": "missions/06-game-ai/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "missions/06-game-ai/00-gridworld-baselines/index",
+            "label": "Grid-world environment and baselines \u00b7 verified"
+          }
+        ]
       },
       {
         "type": "doc",

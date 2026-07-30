@@ -88,9 +88,16 @@ fact.
 
 | Stage | Question | Status |
 |---|---|---|
-| 00 — Task and environment | what counts as a verifiable reward in a game, and does the starting policy clear the bar RL needs? | not started |
+| [00 — Task and environment](00-gridworld-baselines/) | what counts as a verifiable reward in a game, and does the starting policy clear the bar RL needs? | verified |
 | 01 — GRPO loop | does group-relative RL move the success rate at all, or hit the same zero-gradient wall mission 01 did? | not started |
 | 02 — Report | baselines, seeds, compute, and an honest verdict | not started |
+
+[Stage 00](00-gridworld-baselines/) built a 5x5 grid-world (deterministic,
+BFS-checked solvable, no dependencies) and measured both required baselines
+over 500 real episodes: random reaches the goal 22.2% of the time, greedy
+one-step lookahead 82.4% — a real, non-degenerate gap, since a saturated or
+near-zero baseline would leave stage 01's training run nothing to say. Full
+numbers in [its run record](00-gridworld-baselines/runs/2026-07-31-baselines.md).
 
 Per [the mission contract](../../standards/mission-contract.md), this
 contract is declared before any stage is built, so the environment and
