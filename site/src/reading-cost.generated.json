@@ -101,11 +101,11 @@
   },
   "missions/01-language-model-agent/06-agent/what-fits-in-context": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "missions/01-language-model-agent/06-agent/what-stops-it": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "missions/01-language-model-agent/07-eval": {
     "level": "applied",

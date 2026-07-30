@@ -1,8 +1,9 @@
 ---
-status: draft
+status: verified
 level: applied
 base: none
 label: What stops it
+verified: 2026-07-30
 ---
 
 # The agent can act. What stops it?
@@ -117,8 +118,20 @@ composition has holes. A harness that must resist an adversary needs process
 isolation, a filesystem namespace, and dropped privileges — controls the
 operating system enforces rather than controls a Python function requests.
 
-This stage has no `runs/` entry, so nothing here is a claim about how often any
-of it triggers in practice.
+## A real run: every claim above, checked directly
+
+`runs/containment_demo.py` imports `resolve_in_jail`, `run_command`, and
+`check_permission` straight from `tools.py`/`harness.py` and fires each
+control for real: an absolute path and a six-level `../` walk are both
+rejected before the jail's ancestry check even has to run; a symlink planted
+inside the sandbox pointing at a file outside it is followed by `resolve()`
+and rejected the same way; `default_confirm` denies a `CONFIRM`-tier call
+with `PermissionDenied`; a shell-metacharacter string and an unallowlisted
+binary are both refused, with the real file still present afterward to prove
+nothing ran. And the documented gap is real, not theoretical: `run_command(root,
+"cat /etc/passwd")` returns 71 real lines from this machine's actual
+`/etc/passwd`, because `cat` passes the allowlist and `run_command` never
+checks its argument against `resolve_in_jail`. [Full output.](runs/2026-07-30-containment-demo.md)
 
 ## Exercises
 

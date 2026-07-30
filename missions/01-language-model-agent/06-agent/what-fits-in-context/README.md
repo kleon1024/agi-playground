@@ -1,8 +1,9 @@
 ---
-status: draft
+status: verified
 level: applied
 base: none
 label: What fits in context
+verified: 2026-07-30
 ---
 
 # What do you throw away when the transcript stops fitting?
@@ -94,12 +95,28 @@ makes a per-observation compaction policy workable.
 4. An eager index would reduce round-trips. What would it cost this
    compaction policy?
 
+## What a real run of the policy actually shows
+
+Called directly against a scripted transcript sized to cross the budget
+(no model, no network — [`core/demo_compaction.py`](core/demo_compaction.py)),
+`ContextManager` does exactly what's claimed above. A second read of the same
+path crosses a 3,000-token budget; collapsing the first, now-stale read to a
+16-token marker reclaims 1,784 tokens and resolves the overage in one
+compaction, without a single turn dropped — step 1 handles it before step 2
+is ever reached. Against a 30-token budget with nothing collapsible, seven
+compactions drop the oldest turn one at a time until exactly 3 messages
+remain, then stop — the transcript stays over budget (50 tokens against a
+30-token target) rather than erase the model's last action and its own
+observation. [Full output.](runs/2026-07-30-compaction-demo.md)
+
 ## Evidence boundary and next step
 
-No agent run exists yet, so nothing here has been measured against a real
-transcript. The policy is implemented and demonstrable with the deterministic
-`FakeBackend`; whether the ordering in step 1 versus step 2 matters at real
-scale is a claim awaiting `runs/`.
+The parent mission's real agent run against a served checkpoint
+([`../runs/2026-07-30-real-agent-run.md`](../runs/2026-07-30-real-agent-run.md))
+never exercised either path above: all 6 rollouts hit `max_steps` before the
+transcript grew large enough to cross the token budget, so this policy has
+now been verified in isolation, not yet inside a real multi-step agent run
+that actually fills its context window.
 
 Return to [the loop can act — what stops it?](../README.md#the-loop-can-act-what-stops-it),
 which is the containment question this one deliberately does not touch.
