@@ -132,7 +132,7 @@
           },
           {
             "type": "category",
-            "label": "Eval",
+            "label": "Eval \u00b7 verified",
             "link": {
               "type": "doc",
               "id": "missions/01-language-model-agent/07-eval/index"

@@ -1,7 +1,8 @@
 ---
-status: draft
+status: verified
 level: applied
 base: scratch
+verified: 2026-07-30
 ---
 
 # How would you know if any of this worked?
@@ -52,15 +53,14 @@ class of task it structurally cannot express, is in
 
 Break the sentence into what it needs to actually mean something:
 
-1. **Which harness, exactly?** For anything beyond a single forward pass —
-   any agent, any multi-turn task — the score is a function of (model, tool
-   schemas, system prompt, loop/retry design, context-management policy,
-   sampling parameters, environment version), and most published numbers
-   disclose only the first. The 2026 paper this stage's track is named
-   after, *"Stop Comparing LLM Agents Without Disclosing the Harness,"* is
-   the argument in one sentence: two papers reporting "Model A beats Model B
-   on Benchmark X" under different scaffolds aren't making a comparable
-   claim, even with an identical benchmark name.
+1. **Which harness, exactly?** Beyond a single forward pass — any agent, any
+   multi-turn task — the score is a function of (model, tool schemas, system
+   prompt, loop/retry design, context-management policy, sampling
+   parameters, environment version), and most published numbers disclose
+   only the first. This stage's track is named after the 2026 paper *"Stop
+   Comparing LLM Agents Without Disclosing the Harness"*: two papers
+   reporting "Model A beats Model B" under different scaffolds aren't making
+   a comparable claim.
 2. **How many seeds?** A single run at nonzero temperature — or through any
    environment with real nondeterminism — is one draw from a distribution,
    not the distribution. `core/evaluate.py` raises rather than accepting
@@ -102,11 +102,10 @@ to anything.
 
 ## Three ways a correct number is still false
 
-Everything above makes a score *reproducible*: tokenizer, context length,
-baseline, and seed count are all named or enforced. None of it makes the score
-*true*. A benchmark whose answers leaked into training data, an LLM judge with
-reproducible preferences, and a difference smaller than the run-to-run noise all
-produce numbers that pass every check on this page.
+Everything above makes a score *reproducible* — tokenizer, context length,
+baseline, and seed count are all named or enforced — not *true*. A leaked
+benchmark, a judge with reproducible preferences, and a difference smaller
+than run-to-run noise all pass every check on this page.
 
 [Why believe the number?](why-believe-the-number/) takes those three in turn and
 states what each defense cannot do. Read it before quoting anything from this
@@ -114,23 +113,21 @@ stage — including anything you quote from someone else.
 
 ## The other half of the number
 
-Everything above is about the score. The harness that produced it is the other
-half, and in one published 2026 result that half was worth three times the score
-with the model unchanged. [Whose harness produced it](whose-harness/) separates
-harness properties that have a right answer from ones that only have a
-*declared* one, turns the second list into a validation check, and settles this
-stage's tooling question: lm-evaluation-harness for static benchmarks, a
-hand-rolled loop for agentic trajectories.
+Everything above is about the score. The harness that produced it is the
+other half — in one published 2026 result, worth three times the score with
+the model unchanged. [Whose harness produced it](whose-harness/) separates
+harness properties with a right answer from ones that are only *declared*,
+and settles this stage's tooling question: lm-evaluation-harness for static
+benchmarks, a hand-rolled loop for agentic trajectories.
 
 ## What this mission's evaluation does NOT prove
 
 Straight from `mission.yaml`'s `does_not_prove`, restated for this stage:
 
 - **No business outcome.** The mission's baseline is a hosted frontier model
-  that will outperform this 88M-parameter checkpoint on essentially every
-  task — there is no stakeholder metric or live-user baseline. A passing
-  number here claims the pipeline producing it is real and honestly
-  reported, not that the system is *good*.
+  that outperforms this 88M checkpoint on nearly every task — there is no
+  stakeholder metric or live-user baseline. A passing number here claims the
+  pipeline is real and honestly reported, not that the system is *good*.
 - **No generalization beyond text.** Nothing here says the platform layers
   it exercises work for a different modality or decision loop — that claim
   belongs to a later mission.
@@ -176,6 +173,26 @@ they measure different things, not because one is wrong.
 
 Full report: [`runs/2026-07-30-task-suite-report.json`](runs/2026-07-30-task-suite-report.json).
 
+## What the agent report actually says
+
+Aggregated from stage 06's six real transcripts:
+
+```
+transcripts  6 across 2 tasks, 1 harness config
+count-py-files          success 0.00  (3 rollouts, 6.0 steps avg)
+find-resolve-in-jail    success 0.00  (3 rollouts, 6.0 steps avg)
+overall                 0.000  95% CI [0.000, 0.000]
+baseline                chance = 0.0 (no ReAct examples in this checkpoint's SFT mix)
+```
+
+`harness_configs_seen == 1`, so all six rollouts are comparable. Zero success
+is itself the finding: [stage 06's own
+run](../06-agent/runs/2026-07-30-real-agent-run.md) traces it to a
+format-following failure, not a reasoning one — the model never emitted one
+parseable `Action:` line to even fail at executing.
+
+Full report: [`runs/2026-07-30-agent-report.json`](runs/2026-07-30-agent-report.json).
+
 ## Reproducing
 
 ```bash
@@ -202,11 +219,10 @@ python prod/lm_eval.py --ckpt ../02-pretrain/ckpt/ckpt.pt \
     --out lm_eval_report.json
 ```
 
-[Stage 02](../02-pretrain/) has landed a checkpoint and
-[stage 03](../03-sft/) has fine-tuned it. Perplexity and the task suite are
-now measured, above; the agent report is not. Publishing a number before it
-exists is the failure mode this stage argues against, and a checkpoint
-available makes the temptation stronger, not weaker.
+[Stage 02](../02-pretrain/) landed a checkpoint, [stage 03](../03-sft/)
+fine-tuned it, and [stage 06](../06-agent/) ran it through the harness.
+Perplexity, the task suite, and the agent report are all measured, above —
+the honest-reporting discipline this stage argues for, applied to itself.
 
 ## Exercises
 
@@ -220,9 +236,9 @@ available makes the temptation stronger, not weaker.
 
 ## What a passing mission report must contain
 
-Per `mission.yaml`'s acceptance criteria, the report this stage produces once
-every earlier stage has a verified run must show, per `runs/` entry: the
-exact command and CLI arguments including the named baseline; tokenizer
+Per `mission.yaml`'s acceptance criteria, the report this stage produces must
+show, per `runs/` entry: the exact command and CLI arguments including the
+named baseline; tokenizer
 sha256 and context length for perplexity; seed count and per-seed results
 (not just the mean) for the task suite; harness configuration and
 `harness_configs_seen == 1` for the agent eval; and the `caveats` block for

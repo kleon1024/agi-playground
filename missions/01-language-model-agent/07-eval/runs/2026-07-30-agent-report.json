@@ -1,0 +1,49 @@
+{
+  "eval_type": "agent",
+  "generated_at": "2026-07-30T09:20:52+00:00",
+  "n_transcripts": 6,
+  "n_tasks": 2,
+  "harness_configs_seen": 1,
+  "harness": {
+    "tools": [
+      "read_file",
+      "list_dir",
+      "run_command"
+    ],
+    "max_steps": 6,
+    "context_budget_tokens": 4000,
+    "model_endpoint": "http://localhost:8811/v1",
+    "temperature": 0.7,
+    "harness_version": "harness.py@98f2e9e",
+    "seed": 1001
+  },
+  "per_task": {
+    "count-py-files": {
+      "n_rollouts": 3,
+      "success_rate_mean": 0.0,
+      "success_rate_std": 0.0,
+      "steps_mean": 6
+    },
+    "find-resolve-in-jail": {
+      "n_rollouts": 3,
+      "success_rate_mean": 0.0,
+      "success_rate_std": 0.0,
+      "steps_mean": 6
+    }
+  },
+  "overall_success_rate": {
+    "n": 6,
+    "mean": 0.0,
+    "ci95_lo": 0.0,
+    "ci95_hi": 0.0
+  },
+  "baseline": {
+    "name": "chance (arbitrary tool-call sequence succeeding)",
+    "value": "0.0",
+    "source": "no ReAct-formatted examples in this checkpoint's SFT mix; task requires at least one parseable Action"
+  },
+  "caveats": [
+    "Success rate is a property of (model, harness) jointly; it says nothing about how the same model would score under a different tool set, loop design, or context-management policy.",
+    "If harness_configs_seen > 1, the aggregate mixes non-comparable runs \u2014 read the per-transcript harness blocks in that case, not the aggregate."
+  ]
+}
