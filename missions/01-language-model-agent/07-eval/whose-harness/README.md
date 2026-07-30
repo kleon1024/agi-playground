@@ -151,11 +151,12 @@ compaction cannot be audited from outside.
 result does and does not establish, including the fact that 38.3% remains below
 the 48% human estimate.
 
-Nothing in this stage has been run either. `prod/lm_eval.py` and
-`core/evaluate.py agent-report` both execute, but no report exists in `runs/`,
-so this chapter establishes what the tooling enforces — not what the model
-scores. The version of the ARC experiment this repository *could* run is stated
-in that research pass: stage 06's context policy is swappable by construction.
+`core/evaluate.py agent-report` has since run for real — [the parent
+chapter](../README.md#what-the-agent-report-actually-says) reports 0/6 — but
+`prod/lm_eval.py` still has not, so this chapter establishes what the static
+harness's tooling enforces, not what the model scores under it. The version
+of the ARC experiment this repository *could* run is stated in that research
+pass: stage 06's context policy is swappable by construction.
 
 Return to
 [what this mission's evaluation does not prove](../README.md#what-this-missions-evaluation-does-not-prove),
