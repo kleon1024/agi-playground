@@ -1,0 +1,120 @@
+# Mission 07 — Real-time voice loop (streaming, not batch)
+#
+# Every other mission in this repository moves discrete text tokens through a
+# transformer. This mission asks whether the serving mechanism built for that
+# job — a KV cache, paged allocation, continuous batching, all described in
+# platform/serving — is actually about tokens, or about text. The way to find
+# out is to point the same mechanism at a different discrete-token stream and
+# see what breaks.
+#
+# The new work here is narrow on purpose: a small from-scratch audio codec
+# that turns a waveform into a discrete token sequence, and a decode loop that
+# reuses platform/serving/01-graph-execution's KV-cache and scheduling code
+# unchanged. If the serving layer needs new mechanism to handle audio tokens,
+# that is itself the finding — the mission does not assume the answer is yes.
+
+stakeholder: >
+  Someone building a low-latency voice interface (a voice assistant, a
+  transcription pipeline, a dictation tool) who must decide whether a small,
+  self-trained streaming voice pipeline is viable at all before spending on a
+  hosted streaming ASR/TTS API, and if so, what it costs in latency per audio
+  chunk. They are not asking whether the audio sounds good in isolation. They
+  are asking whether a chunk can be turned into output fast enough to feel
+  real-time, and at what quality cost relative to processing the whole
+  utterance at once.
+
+job: >
+  Turn a short waveform into a discrete token sequence through a from-scratch
+  codec, then decode it one chunk at a time — reusing this repository's
+  existing KV-cache and continuous-batching serving mechanism — instead of
+  waiting for the full utterance before producing any output.
+
+decision: >
+  Whether platform/serving's KV-cache, paged-allocation, and continuous-
+  batching mechanics, built and measured against text tokens in mission 01,
+  transfer unchanged to a different discrete-token modality (audio codec
+  tokens), with only a new codec at the input/output boundary — or whether
+  audio's chunk structure demands new serving mechanism the text case never
+  needed.
+
+baseline: >
+  Two, and the mission must report against both:
+  (1) An offline (full-buffer, non-streaming) pass through the identical
+      codec and decode loop — same weights, same tokens, no streaming
+      constraint. This isolates what streaming specifically costs in quality
+      or adds in latency, holding the model fixed.
+  (2) A hosted streaming ASR/TTS API's published or measured latency and
+      quality on comparable short utterances, named and dated, since this
+      mission's toy codec cannot be assumed comparable without a stated
+      baseline to be honest about the gap.
+
+primary_metric: >
+  A reconstruction-quality proxy (a concrete, computable audio distance
+  measured against the reference waveform — for example mean-squared
+  reconstruction error or a simple spectral distance on held-out clips)
+  reported beside per-chunk decode latency (p50 and p95, matching
+  platform/serving's own latency-distribution discipline, never a single
+  average), both from real runs on the declared hardware.
+
+guardrails:
+  - Every number traces to a runs/ entry — command, hardware, wall-clock,
+    exact chunk size, and the seed or clip set used.
+  - No claim of production speech quality, multi-speaker robustness, or
+    multilingual coverage; the codec and dataset are toy-scale by
+    construction, and the report says so beside every metric.
+  - Latency is measured on a real decode run, never estimated or assumed
+    from the offline baseline's cost.
+  - The streaming loop reuses platform/serving/01-graph-execution/core/'s
+    KV-cache and scheduling code directly; if a change to that code is
+    required to make audio tokens work, the change and the reason for it are
+    recorded, not silently folded in as if it were always general enough.
+
+latency_budget: >
+  Unlike mission 04, latency here is a first-class constraint: a listener is
+  waiting on each chunk. The toy target is a declared, measured per-chunk
+  decode time on the local GPU lane (specific figure set once stage 01 has a
+  real profile to set it against, per platform/serving's own practice of
+  measuring before declaring a number) — reported as p50/p95 from an actual
+  run, not assumed from FLOPs.
+
+cost_budget: >
+  Local-lane GPU wall-clock only, $0 marginal cost, matching mission 04's
+  local-model cost accounting. No hosted API spend is required to produce
+  this mission's own numbers; the hosted-API comparison in the baseline uses
+  only published or separately-measured figures, named and dated rather than
+  run against a live account here.
+
+capabilities: []
+  # None yet. A shared multimodal-serving capability is not created here —
+  # per the admission gate in standards/mission-contract.md, it is promoted
+  # only once a second mission needs the identical streaming-token-decode
+  # contract for a non-text modality.
+
+acceptance:
+  - Per-chunk decode latency measured on a real run and reported against the
+    declared budget, p50 and p95, not an average
+  - Reconstruction-quality proxy beats a naive baseline (silence or a
+    mean-signal reconstruction) on held-out clips
+  - The offline-vs-streaming quality and latency gap is reported explicitly,
+    not implied
+  - Every stage has a runs/ entry with command, hardware, wall-clock, and
+    metrics before being marked verified
+  - Any change required to platform/serving's KV-cache or scheduling code to
+    support audio tokens is named and justified, not silently made
+
+proves: >
+  Whether the serving mechanism this repository already built and measured
+  for text — KV cache, paged allocation, continuous batching — is a property
+  of discrete-token sequences in general, or of text tokens specifically. A
+  measured yes or a measured no are both real results here; the mission does
+  not pre-commit to either.
+
+does_not_prove: >
+  Nothing about production speech quality, naturalness, or intelligibility at
+  any scale beyond the toy codec trained here. Nothing about multi-speaker or
+  multilingual robustness — the dataset is small and homogeneous by
+  construction. Nothing about true full-duplex operation (simultaneous
+  listening and speaking); the loop here is one direction at a time. And
+  nothing about network-transport latency in a real deployment — the
+  measured latency is compute time on the local lane, not round-trip time
+  over a real network to a real client.

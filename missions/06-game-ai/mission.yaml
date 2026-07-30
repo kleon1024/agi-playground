@@ -1,0 +1,125 @@
+# Mission 06 — Game-playing policy (judged by a verifiable reward)
+#
+# Mission 01's stage 04-rl built GRPO from scratch against an arithmetic
+# task and hit a real null result: a randomly initialized policy at that
+# scale never once produced a well-formed completion, so every rollout group
+# came back degenerate and zero gradient steps were taken. That result drew
+# a sharp boundary — GRPO sharpens behavior a policy already produces
+# sometimes, it cannot install behavior that is absent — and this mission
+# exists to test that boundary against a different reward source, not a
+# different algorithm.
+#
+# A game's win/score condition is a verifiable reward exactly like
+# arithmetic correctness is: computed by a rule, not learned. What changes
+# is the rollout environment (an episode in a game, not a single completion)
+# and the reward function (score or terminal state, not string matching).
+# The GRPO loop itself — group-relative advantage, clipped surrogate, KL
+# leash against a frozen reference — is imported unmodified from
+# ../01-language-model-agent/04-rl/core/grpo.py rather than reimplemented,
+# per this repo's cross-mission reuse convention (missions import each
+# other's core/ directly rather than duplicating it).
+
+stakeholder: >
+  Someone who already has a policy that solves a game some of the time —
+  not by design, by luck, by a heuristic, or by a small amount of prior
+  training — and is deciding whether reinforcement learning is worth
+  applying to sharpen it, versus writing a better heuristic by hand or
+  giving up on the approach. They are not asking "can RL play games." They
+  are asking whether *this* policy, at *this* starting success rate, is
+  a candidate for RL at all.
+
+job: >
+  Given a simple game environment with a terminal win/loss or score signal,
+  and a policy that already succeeds above chance some fraction of the time,
+  use GRPO against that verifiable reward to raise the success rate — and
+  report honestly if the starting policy is too far below chance for the
+  method to get a nonzero gradient at all.
+
+decision: >
+  Whether group-relative RL against a verifiable game reward beats a fixed
+  baseline policy, and at what compute cost — and, load-bearing, whether the
+  starting policy already clears the bar GRPO needs to work at all. Mission
+  01's own result is the warning here: if every rollout in a group fails (or
+  succeeds) identically, `std(rewards) == 0`, the group-normalized advantage
+  is `0/0`, and that group contributes no gradient. A cold-start policy on a
+  hard game can hit that wall exactly the way the cold-start arithmetic
+  policy did.
+
+baseline: >
+  Two, and the mission must compare against both without pooling them:
+  (1) Random policy — uniform-random legal actions, establishes the floor.
+  (2) Scripted/heuristic policy — a simple hand-written rule for the chosen
+      environment (e.g. "always push the pole's fall direction" for
+      CartPole, or a greedy one-step lookahead for a small grid-world). This
+      is the baseline that is actually hard to beat cheaply, and the one a
+      stakeholder would reach for first before reaching for RL at all.
+
+primary_metric: >
+  Success/win rate on the environment's own terminal condition (episode
+  return above a stated threshold, or win/loss for a discrete-outcome game),
+  reported beside both baselines' rates and total training compute, across
+  at least 3 independent seeds — RL training is non-deterministic, and
+  mission 01's task-suite eval already established that a single seed is not
+  a result. A difference smaller than the run-to-run spread is reported as
+  no result, not rounded into a claim.
+
+guardrails:
+  - If the starting policy never escapes degenerate groups at whatever scale
+    is actually run, that is reported plainly as a null result, in mission
+    01 04-rl's own register — never retroactively rescaled or warm-started
+    after the fact to manufacture a positive number.
+  - Every published number traces to a runs/ entry: exact command,
+    environment version, seed, wall-clock, and the reward curve (or its
+    absence).
+  - No claim beyond the declared environment's difficulty — a result on
+    CartPole or a small grid-world says nothing about a harder game.
+  - The reward function is the environment's own terminal signal, not a
+    learned or shaped proxy that could be gamed independently of it.
+
+latency_budget: >
+  Not a serving constraint. What is reported is wall-clock per training run,
+  on whatever compute lane actually ran it (the local GPU lane or CPU,
+  named in the runs/ entry, not in prose) — the environments this mission
+  targets are cheap enough that a full run should complete in minutes, not
+  hours, and a run that doesn't is itself a finding to report.
+
+cost_budget: >
+  Local-lane compute is $0 marginal; GPU or CPU wall-clock is reported
+  instead. No hosted-API spend is expected for this mission — the policy and
+  environment are both run locally, unlike mission 04's routing decision
+  between a local and a hosted model.
+
+capabilities: []
+  # No existing capability reused here beyond the GRPO training loop itself,
+  # which is imported directly from mission 01's 04-rl stage rather than
+  # promoted into capabilities/ — it has not yet cleared the two-consumer
+  # admission gate in standards/mission-contract.md on its own; this mission
+  # is what would make it a candidate, not a foregone promotion.
+
+acceptance:
+  - Beats both baselines on success rate by more than the run-to-run spread,
+    OR reports an honest null result with the same rigor mission 01's 04-rl
+    applied to its own zero-gradient outcome
+  - Every stage has an exact command and a runs/ entry before being marked
+    verified
+  - Success rate reported per seed, not only as a mean
+  - Wall-clock and compute lane are recorded for every run
+  - Failures (degenerate groups, reward collapse, non-convergence) are
+    catalogued by category, not merely counted
+
+proves: >
+  That the GRPO mechanism mission 01 built once — group-relative advantage,
+  clipped surrogate, KL leash, imported rather than reimplemented — transfers
+  to a materially different reward source (a game's terminal signal instead
+  of string-matched arithmetic correctness) by changing only the reward
+  function and rollout environment, not the training algorithm.
+
+does_not_prove: >
+  Nothing about complex, real-time, or partially-observed games — the
+  environments here are small, fully observed, and turn-based or short-
+  horizon by construction. Nothing about multi-agent or competitive play,
+  self-play against another learned policy, or credit assignment across
+  long horizons; all of that is out of scope for a toy environment sized to
+  run in minutes. A result here does not generalize to game engines, pixel
+  observations, or anything requiring a perception stage — that would need
+  mission 05's vision work as a prerequisite, not this mission's RL loop.

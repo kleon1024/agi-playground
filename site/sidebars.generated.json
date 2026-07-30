@@ -276,6 +276,31 @@
             "label": "Cheap or expensive \u00b7 verified"
           }
         ]
+      },
+      {
+        "type": "doc",
+        "id": "missions/05-vision-language-model/index",
+        "label": "Vision-language model"
+      },
+      {
+        "type": "doc",
+        "id": "missions/06-game-ai/index",
+        "label": "Game AI"
+      },
+      {
+        "type": "doc",
+        "id": "missions/07-realtime-voice/index",
+        "label": "Real-time voice"
+      },
+      {
+        "type": "doc",
+        "id": "missions/08-video-generation/index",
+        "label": "Video generation"
+      },
+      {
+        "type": "doc",
+        "id": "missions/09-bio-pharma-modeling/index",
+        "label": "Molecular property prediction"
       }
     ]
   },

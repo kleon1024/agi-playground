@@ -13,7 +13,7 @@ Every mission below is the same underlying claim tested against a different
 domain: build one working system end to end, on real data or a disclosed
 proxy for it, and refuse to claim more than the evidence supports.
 
-## The four missions, and what each one is actually testing
+## The four built missions, and what each one is actually testing
 
 **[Language-model system](01-language-model-agent/)** builds the platform
 layers for the first time — corpus, tokenizer, pretraining, SFT, RL, serving,
@@ -44,13 +44,53 @@ it did the job trustworthy — reusing mission 01's agent-loop capability
 verbatim as its second consumer, which is what promotes that loop from
 mission-local code to [a capability](../capabilities/act-coordinate/).
 
+## Five more missions, contract declared and stages not yet built
+
+Per [the mission contract](../standards/mission-contract.md), no mission is
+built before its `mission.yaml` and stage table exist — so these five are
+listed here in that declared-only state, not because their pages are
+finished. Each reuses code from the four missions above rather than
+reimplementing it; each names exactly what it does and does not claim before
+a single stage has run.
+
+**[Vision-language model](05-vision-language-model/)** grafts a real
+patch-embedding and vision-token fusion path onto mission 01's decoder,
+importing its RoPE/RMSNorm/SwiGLU/training loop unchanged, and asks whether
+the result beats a hosted VLM API and a text-only decoder answering blind.
+
+**[Game AI](06-game-ai/)** points mission 01's GRPO loop at a game's
+win/score signal instead of arithmetic correctness, and watches for the same
+zero-gradient wall a cold-start policy can hit — a null result here is as
+real an outcome as a win.
+
+**[Real-time voice](07-realtime-voice/)** asks whether platform/serving's
+KV-cache and continuous-batching mechanics, built and measured against text,
+transfer unchanged to a from-scratch audio codec's token stream, or whether
+audio demands new serving mechanism the text case never needed.
+
+**[Video generation](08-video-generation/)** asks a feasibility question
+before a quality one: does this repository's real-run, declared-compute-lane
+discipline survive contact with video at all, given a clip is dozens of
+frames each costing what one image does. Sequenced last among the new
+systems tracks because it needs the most new code and may need the Modal
+lane rather than the local GPU lane every other mission has used so far.
+
+**[Molecular property prediction](09-bio-pharma-modeling/)** is the narrow,
+runnable question underneath a much larger ask for "anti-aging/pharma"
+coverage: does a small trained model beat a descriptor-based baseline on one
+public, checkable toxicity label. It says nothing about aging biology or
+drug discovery, on purpose — see its `does_not_prove` section before reading
+any number out of it as more than that.
+
 ## Reading order
 
-Mission 01 first — its stages are what the other three missions cite. After
-that, 02, 03, and 04 do not depend on each other and can be read in any order;
-each names exactly which platform chapters and capabilities it reuses in its
-own "What this reuses" section, so you can tell what is new to that mission
-and what is the same architecture wearing a different domain.
+Mission 01 first — its stages are what the other three built missions cite.
+After that, 02, 03, and 04 do not depend on each other and can be read in any
+order; each names exactly which platform chapters and capabilities it reuses
+in its own "What this reuses" section, so you can tell what is new to that
+mission and what is the same architecture wearing a different domain.
+Missions 05 through 09 are declared but not yet built; read their
+`mission.yaml` files to see what each one will and will not claim once it is.
 
 ## Where a mission sends you
 

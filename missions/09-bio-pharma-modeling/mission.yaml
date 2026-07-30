@@ -1,0 +1,120 @@
+# Mission 09 — Molecular property prediction (judged against a descriptor baseline)
+#
+# This mission exists because the user asked for curriculum coverage of
+# "science model systems like anti-aging/pharma." That framing cannot be built
+# honestly at this repository's scale: no toy compute budget, and no public
+# dataset that exists, lets anyone verify a claim about aging biology or drug
+# discovery. AGENTS.md's own rule is "if you cannot run it, do not write the
+# number" — an anti-aging claim is not runnable here, full stop.
+#
+# What IS runnable is the narrow technical question underneath the marketing
+# framing: can a small, from-scratch model predict a specific, labeled,
+# checkable molecular property from structure, on a small public dataset,
+# better than the field's standard descriptor-based baseline? That is this
+# mission's entire scope. Every section below, including `does_not_prove`,
+# says so directly rather than letting the mission's name imply more than its
+# evidence can carry.
+#
+# The dataset is Tox21 (NIH/EPA/NCATS, distributed via MoleculeNet), a public
+# set of ~8,000 compounds with binary toxicity-assay labels across 12
+# endpoints. This mission uses exactly one endpoint. MoleculeNet's benchmark
+# paper (Wu et al., 2018, "MoleculeNet: A Benchmark for Molecular Machine
+# Learning") reports baseline numbers per endpoint under a scaffold split;
+# the exact number for the chosen endpoint is recorded in stage 00's runs/
+# entry once verified against the paper directly, not quoted here from
+# memory.
+
+stakeholder: >
+  Someone screening candidate compounds for a specific measurable toxicity
+  property, deciding whether it is worth training a small structure-based
+  model to predict that property versus using a standard cheminformatics
+  descriptor baseline they already have. They are not asking "can ML predict
+  drug safety" — they are asking whether a small trained model beats the
+  baseline they'd otherwise ship, on one declared, checkable label.
+
+job: >
+  Given a molecule's structure (SMILES string), predict one binary toxicity
+  label from the Tox21 dataset (one endpoint, declared before training) with
+  better held-out discrimination than a standard descriptor-based baseline.
+
+decision: >
+  Whether a small from-scratch model over a learned or fixed molecular
+  representation beats a logistic-regression-over-descriptors baseline on the
+  chosen endpoint, under a scaffold split (not a random split — molecular
+  datasets have near-duplicate structures, and a random split silently leaks
+  them across train/test). If the gap is smaller than the run-to-run spread,
+  the honest answer is "no result," the same discipline
+  platform/training/02-architecture-ablations already applies to its own
+  ablation rungs.
+
+baseline: >
+  Two: (1) logistic regression over standard RDKit descriptors (molecular
+  weight, LogP, TPSA, ring counts, and similar fixed features) — the field's
+  usual first baseline, cheap to compute and to fit. (2) the published
+  MoleculeNet baseline for the chosen endpoint (Wu et al., 2018), named,
+  dated, and dependent on matching their scaffold-split protocol as closely
+  as this mission's own split allows — a mismatch in split methodology is
+  recorded as a caveat, not silently ignored.
+
+primary_metric: >
+  ROC-AUC on the held-out scaffold split for the one declared endpoint,
+  reported beside both baselines and training cost, with the spread across at
+  least 3 seeds — a single run is one draw, not a result, per the same rule
+  every other mission here applies to non-deterministic training.
+
+guardrails:
+  - The train/test split is a scaffold split, not random — checked and
+    reported as the fraction of test-set molecules sharing a Murcko scaffold
+    with any training molecule. A nonzero overlap is reported, not silently
+    dropped from the number.
+  - Every published number traces to a runs/ entry: exact command, dataset
+    version/hash, split seed, and per-seed results.
+  - The `does_not_prove` boundary below is stated in this file AND repeated in
+    the mission README's "why this mission exists" section — it must not be
+    possible to read one without the other.
+
+latency_budget: >
+  Not applicable. Nobody is waiting on a prediction interactively; this is an
+  offline screening decision, not a serving path.
+
+cost_budget: >
+  Small. ~8,000 compounds, descriptor computation and a small model both fit
+  comfortably on CPU or the existing local GPU in minutes. No hosted-API cost
+  is expected; if one is incurred (e.g. an embedding API for a molecular
+  representation), it is capped and reported the same way mission 04 reports
+  hosted-model spend.
+
+capabilities: []
+  # None yet. This mission does not need capabilities/act-coordinate or any
+  # existing capability; if a future mission needs the same molecular
+  # representation contract, that is the second consumer the admission gate
+  # in standards/mission-contract.md would require before promoting one.
+
+acceptance:
+  - Beats the descriptor-based baseline on ROC-AUC by more than the run-to-run
+    spread across seeds, on the scaffold-split held-out set
+  - Scaffold-overlap between train and test is measured and reported, not
+    assumed to be zero
+  - Every stage has a runs/ entry before being marked verified
+  - The does_not_prove boundary appears in both this file and the README,
+    verbatim in substance
+
+proves: >
+  That this repository's existing training-loop and ablation-harness
+  discipline — held-out evaluation, seed-variance reporting, "not detectable"
+  as a valid verdict — transfers to a non-text, non-image structured-data
+  domain (molecular strings/graphs) using only a new data representation, with
+  no new statistical methodology required.
+
+does_not_prove: >
+  This mission does NOT discover, validate, or provide any evidence toward an
+  anti-aging or pharmacological claim of any kind. Tox21 and the one endpoint
+  used here were chosen because they are small, public, and produce a
+  checkable number — not because they relate to aging biology, longevity, or
+  any specific drug-discovery pipeline. A model beating a descriptor baseline
+  on one toxicity-assay label says nothing about in vivo safety, efficacy, or
+  the outcome of any real screening program. It does not generalize to a
+  different endpoint, a different dataset, or a different molecular
+  representation without re-running the comparison from scratch. Readers
+  looking for evidence about anti-aging science will not find it in this
+  mission, on purpose.

@@ -37,7 +37,7 @@
   },
   "missions": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "missions/01-language-model-agent": {
     "level": "foundation",
@@ -206,6 +206,26 @@
   "missions/04-code-agent/03-cheap-or-expensive": {
     "level": "frontier",
     "minutes": 5
+  },
+  "missions/05-vision-language-model": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/06-game-ai": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/07-realtime-voice": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/08-video-generation": {
+    "level": "frontier",
+    "minutes": 4
+  },
+  "missions/09-bio-pharma-modeling": {
+    "level": "applied",
+    "minutes": 4
   },
   "platform": {
     "level": "applied",
