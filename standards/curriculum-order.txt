@@ -17,7 +17,9 @@
 # directory is absent from this file, or if a heading starts carrying its own
 # number again.
 
+missions
 foundations
+platform
 platform/data
 platform/data/01-ablation-harness/the-two-confounds
 platform/training
@@ -31,4 +33,5 @@ platform/adaptation/distillation/what-path-two-requires
 platform/adaptation/reinforcement-learning
 platform/serving
 platform/evaluation-observability
+capabilities
 capabilities/act-coordinate

@@ -1,4 +1,8 @@
 {
+  "capabilities": {
+    "level": "applied",
+    "minutes": 2
+  },
   "capabilities/act-coordinate": {
     "level": "applied",
     "minutes": 6
@@ -29,6 +33,10 @@
   },
   "infra": {
     "level": "reference",
+    "minutes": 2
+  },
+  "missions": {
+    "level": "applied",
     "minutes": 2
   },
   "missions/01-language-model-agent": {
@@ -198,6 +206,10 @@
   "missions/04-code-agent/03-cheap-or-expensive": {
     "level": "frontier",
     "minutes": 5
+  },
+  "platform": {
+    "level": "applied",
+    "minutes": 2
   },
   "platform/adaptation": {
     "level": "applied",
