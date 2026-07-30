@@ -90,7 +90,7 @@ one builds, not before.
 |---|---|---|
 | [00 — Paired image-caption task](00-image-caption-task/) | what makes a scoreable image+question+answer instance, and how is train/eval leakage checked? | verified |
 | [01 — Patch embed and vision-token fusion](01-vision-fusion/) | how does a text-only decoder learn to condition on an image, and does it beat a blind guess? | draft — partial result, 2 of 3 seeds beat the baseline but the mean gap is smaller than seed spread |
-| 02 — Report | did the vision pathway add anything the hosted API or the text-only baseline couldn't already do? | not started |
+| [02 — Report](02-report/) | did the vision pathway add anything the hosted API or the text-only baseline couldn't already do? | verified — NOT MET, hosted API decisively wins |
 
 [Stage 00](00-image-caption-task/) generated 2,000 train and 400 eval
 image+question+answer instances and found two real defects in its own
@@ -111,6 +111,19 @@ is reported as a partial result, not a clean win: the mechanism can clearly
 learn to use the image, but training at this toy scale is unstable enough
 that one seed in three failed to. Full numbers in
 [its run record](01-vision-fusion/runs/2026-07-31-vision-vs-text-only.md).
+
+[Stage 02](02-report/) added the third baseline mission.yaml required — a
+real hosted VLM API call, `openai/gpt-4o-mini` via OpenRouter, on the
+identical 784-question eval set, $1.00 total — and mechanically checked all
+three pathways against the mission's own acceptance bar. Verdict: **NOT
+MET**. The hosted API scored 0.833 exact-match against the vision pathway's
+0.4375 mean, a decisive build-vs-buy loss, not a close one. A per-category
+breakdown also explains stage 01's seed-2 collapse concretely: that seed
+does not miscount, it emits end-of-sequence immediately after the question
+for `total_count` questions specifically, scoring exactly 0/100 there while
+staying in line with the other seeds on every other category. Full numbers
+in [its run record](02-report/runs/2026-07-31-hosted-api-full.md) and
+[category breakdown](02-report/runs/2026-07-31-category-breakdown.md).
 
 Per [the mission contract](mission.yaml), the contract above is declared
 before any stage is built, so its baselines and metric cannot be chosen after

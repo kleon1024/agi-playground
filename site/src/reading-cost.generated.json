@@ -209,7 +209,7 @@
   },
   "missions/05-vision-language-model": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/05-vision-language-model/00-image-caption-task": {
     "level": "applied",
@@ -218,6 +218,10 @@
   "missions/05-vision-language-model/01-vision-fusion": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/05-vision-language-model/02-report": {
+    "level": "applied",
+    "minutes": 4
   },
   "missions/06-game-ai": {
     "level": "applied",

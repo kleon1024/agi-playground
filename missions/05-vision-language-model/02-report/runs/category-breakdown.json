@@ -1,0 +1,52 @@
+{
+  "seeds": 3,
+  "epochs": 30,
+  "batch_size": 64,
+  "wall_clock_s": 1004.5147472079843,
+  "by_category": {
+    "vision": {
+      "column_shape": {
+        "correct": 251,
+        "total": 717
+      },
+      "presence": {
+        "correct": 143,
+        "total": 249
+      },
+      "shape_color": {
+        "correct": 392,
+        "total": 783
+      },
+      "shape_count": {
+        "correct": 131,
+        "total": 303
+      },
+      "total_count": {
+        "correct": 112,
+        "total": 300
+      }
+    },
+    "text_only": {
+      "column_shape": {
+        "correct": 239,
+        "total": 717
+      },
+      "presence": {
+        "correct": 128,
+        "total": 249
+      },
+      "shape_color": {
+        "correct": 213,
+        "total": 783
+      },
+      "shape_count": {
+        "correct": 128,
+        "total": 303
+      },
+      "total_count": {
+        "correct": 61,
+        "total": 300
+      }
+    }
+  }
+}

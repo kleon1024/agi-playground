@@ -294,6 +294,11 @@
             "type": "doc",
             "id": "missions/05-vision-language-model/01-vision-fusion/index",
             "label": "Vision-token fusion"
+          },
+          {
+            "type": "doc",
+            "id": "missions/05-vision-language-model/02-report/index",
+            "label": "Outcome report \u00b7 verified"
           }
         ]
       },
