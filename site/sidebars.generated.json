@@ -112,7 +112,7 @@
           },
           {
             "type": "category",
-            "label": "Agent harness",
+            "label": "Agent harness \u00b7 verified",
             "link": {
               "type": "doc",
               "id": "missions/01-language-model-agent/06-agent/index"

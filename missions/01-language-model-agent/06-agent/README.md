@@ -1,8 +1,9 @@
 ---
-status: draft
+status: verified
 level: applied
 base: none
 label: Agent harness
+verified: 2026-07-30
 ---
 
 # What turns a model into something that acts?
@@ -117,25 +118,24 @@ than crashing on the first bad parse:
   with the JSON error, fed back as the next observation.
 - An unknown tool name → an observation naming the tools that do exist.
 - A schema mismatch (missing required argument, wrong type) →
-  `validate_arguments` in `tools.py` — a deliberately small
-  object/properties/required/type subset of JSON Schema, enough to catch
-  what a model actually gets wrong without a full JSON Schema
-  implementation — raises `ToolError`, which `run_agent` catches and turns
-  into an observation the model can act on.
+  `validate_arguments` in `tools.py` — a deliberately small JSON-Schema
+  subset, enough to catch what a model actually gets wrong without a full
+  implementation — raises `ToolError`, turned into an observation the model
+  can act on.
 
-In every case the loop continues rather than crashing. This is deliberately
-a from-scratch textual protocol (`Action: <name>` / `Action Input: <json>`)
-rather than a native function-calling API response — it works against any
-model, tool-calling fine-tuned or not, at the cost of the parsing step a
-native tool-call field would remove. See [`prod/README.md`](prod/README.md)
-for how production harnesses trade this off.
+In every case the loop continues rather than crashing. This is a
+from-scratch textual protocol (`Action: <name>` / `Action Input: <json>`)
+rather than a native function-calling response — it works against any
+model at the cost of the parsing step a native tool-call field would
+remove. See [`prod/README.md`](prod/README.md) for that tradeoff in
+production harnesses.
 
 ## Twenty steps of observations will not fit
 
 Every observation the loop injects stays in the transcript, and file contents
-are not small. At some point the next request exceeds the budget and the
-harness has to decide what to delete — which is a policy, and `ContextManager`
-keeps it as a named, swappable function rather than an `if` inside the loop.
+are not small. Eventually the next request exceeds the budget and the harness
+must decide what to delete — a policy `ContextManager` keeps as a named,
+swappable function rather than an `if` inside the loop.
 
 [What fits in context](what-fits-in-context/) is that policy: collapsing a
 superseded file read before discarding any decision, the message floor that
@@ -145,9 +145,9 @@ tool design that makes per-observation compaction workable at all.
 ## The loop can act. What stops it?
 
 Everything above makes the agent *capable* and *honest*: it reads files, runs
-commands, and cannot invent an observation it did not receive. None of it makes
-the agent safe. A grounding rule stops a fabricated result; it says nothing
-about a real command that should never have run.
+commands, and cannot invent an observation it did not receive. None of that
+makes it safe — a grounding rule stops a fabricated result, not a real
+command that should never have run.
 
 [What stops it?](what-stops-it/) is the containment half — the jail and the
 `pathlib` trap it exists for, the allowlist and why a denylist could not work,
@@ -160,10 +160,18 @@ the gap the composition leaves open, which is the part worth reading twice.
 [`prod/README.md`](prod/README.md) maps each design decision above — the
 loop, the tools, the grounding rule, context management, permissions — to how
 mini-swe-agent, OpenHands, and Claude Code's published harness-design
-write-ups handle the same decision at production scale. No benchmark numbers
-are claimed there or here; this stage has no `runs/` entry yet (see
-`missions/01-language-model-agent/mission.yaml`), and none is due until
-`06-harness-aware-evaluation`'s discipline is actually applied in `07-eval`.
+write-ups handle the same decision at production scale.
+
+## A real run
+
+Point this harness at a served checkpoint instead of `FakeBackend`: the
+mechanism holds, the model does not. Two tasks with ground truth stated
+first ("how many Python files here" = 2; "which file defines
+`resolve_in_jail`" = `tools.py`), three seeds each over
+[`serve_for_agent.py`](runs/serve_for_agent.py): **0/6**. Every rollout
+exhausted `max_steps` without one parseable `Action:`/`Final Answer:` —
+this SFT checkpoint never saw the ReAct scaffold, so grounding never fired.
+[Full transcripts.](runs/2026-07-30-real-agent-run.md)
 
 **Related:** this loop, tools, and permission contract is
 [act and coordinate](../../../capabilities/act-coordinate/) — promoted out of
