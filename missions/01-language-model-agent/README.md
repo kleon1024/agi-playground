@@ -50,7 +50,7 @@ declared path actually executed.
 | [`01-tokenizer`](01-tokenizer/) | byte-level BPE vocabulary, fast export, and round-trip parity | verified run |
 | [`02-pretrain`](02-pretrain/) | 88.2M decoder, token data path, the training objective, and a resumable checkpoint | **verified** — 3.0B tokens in 4.98h, best val loss 3.0689 |
 | [`03-sft`](03-sft/) | chat template, assistant-only loss, and before/after behavior | **verified** — 9,500 conversations in 92.5s, best val loss 2.7828 |
-| [`04-rl`](04-rl/) | GRPO updates against a verifiable reward | implementation present; run pending |
+| [`04-rl`](04-rl/) | GRPO updates against a verifiable reward | **verified** — 200/200 groups degenerate at cold-start scale; zero gradient steps taken, a real null result |
 | [`05-serve`](05-serve/) | KV-cache decoding, paged allocation, and continuous batching | **verified** — the KV cache buys 1.21x at 32 tokens and *loses* by 512, and concurrency buys nothing until the kernel is fused |
 | [`06-agent`](06-agent/) | bounded tool loop, grounding rule, context policy, and sandbox | **verified** — 0/6 against a served SFT checkpoint; the harness never once saw a parseable `Action:` |
 | [`07-eval`](07-eval/) | disclosed harness, static and agentic tasks, variance, and failure cases | **verified** — perplexity 21.677, loglik 0.625/8, agent report 0/6 |

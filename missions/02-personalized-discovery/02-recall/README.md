@@ -1,6 +1,7 @@
 ---
-status: draft
+status: verified
 level: foundation
+verified: 2026-07-30
 ---
 
 # How do you find candidates without scoring everything?
@@ -34,12 +35,11 @@ is the mirror image — it will find the keyword and miss the paraphrase.
 Item-to-item retrieval covers "more like what you just engaged with," which is
 a different question from "what does this user want overall," and can miss
 something the user would love if it does not resemble any single thing they
-have already touched. Freshness and business queues exist because neither of
-the above two has any way to represent "this just launched" or "this is a
-contractual placement" — those are not statistical properties of an
-interaction log at all. Production systems run all of these in parallel and
-union the results for exactly this reason: not because any one queue is weak,
-but because each is precise about something the others cannot see.
+have already touched. Freshness and business queues exist because neither of the above two can
+represent "just launched" or "a contractual placement" — not statistical
+properties of an interaction log at all. Production systems run all of these
+in parallel and union the results: not because any one queue is weak, but
+because each is precise about something the others cannot see.
 
 ## What you build
 
@@ -97,17 +97,15 @@ way a queue's designed coverage does.
 
 `two_tower_recall` scores every item by `dot(user.embedding, item.embedding)`
 and nothing else — the two vectors are never combined, concatenated, or
-cross-attended before that single dot product. This is not a simplification;
-it is the constraint that makes retrieval possible at all. If the item tower
-were allowed to see the user vector before scoring — the way a fine-ranker's
-cross-attention or concatenated MLP can — item embeddings could no longer be
-computed once and reused across every user. They would have to be
-recalculated per query, which is exactly the cost this stage exists to avoid.
-The two-tower architecture trades away some model expressiveness (it cannot
-represent interactions between user and item features the way a joint model
-can) in exchange for the one property that makes candidate generation over a
-huge catalogue tractable at all: item vectors are precomputed once, indexed
-once, and searched cheaply many times.
+cross-attended before that dot product. This is not a simplification; it is
+the constraint that makes retrieval possible at all. If the item tower saw
+the user vector before scoring — the way a fine-ranker's cross-attention or
+concatenated MLP can — item embeddings could no longer be computed once and
+reused across every user; they would have to be recalculated per query,
+exactly the cost this stage exists to avoid. The trade: less expressiveness
+(no user-item feature interaction) for the one property that makes candidate
+generation over a huge catalogue tractable — item vectors precomputed once,
+indexed once, searched cheaply many times.
 
 ## Recall is lost twice, not once
 
@@ -118,11 +116,10 @@ FAISS's exact `IndexFlatIP` and its approximate `IndexHNSWFlat` — built over
 identical vectors, and measures the approximate index's recall against the
 exact one. The exact index is itself exhaustive scoring, just done fast; the
 approximate index trades some of that recall for search speed, and how much
-is a tunable knob (`efSearch`, graph connectivity) rather than a fixed cost.
-The lesson this comparison teaches is that recall loss compounds: a queue can
-have a real structural blind spot (the subject of the widget above), and
-separately, an approximate index can fail to find items that are genuinely
-within that queue's reach. Both losses are measurable here only because the
+is a tunable knob (`efSearch`), not a fixed cost. Recall loss compounds: a
+queue can have a real structural blind spot (the widget above), and
+separately, an approximate index can fail to find items genuinely within
+that queue's reach. Both losses are measurable here only because the
 catalogue is still small enough to also compute the exact answer — which
 stops being true at production scale, and is the reason `08-serving`, later
 in this mission, has to budget for it rather than assume it away.
@@ -132,14 +129,39 @@ in this mission, has to budget for it rather than assume it away.
 Nothing in this stage is a claim about the mission's real catalogue or real
 users. The five-queue catalogue is synthetic and built to have a known
 answer; the FAISS comparison runs on synthetic vectors chosen to make the
-exact-vs-approximate gap visible, not to characterize any particular
-production workload. What this stage does establish, mechanically: a
-retrieval method's blind spot is not a matter of degree that more training
-fixes, and an approximate index's recall is a parameter you set, not a
-property you discover afterward. Stage `01`, content understanding, is what
-will eventually replace these synthetic item vectors with real embeddings
-learned from interaction and content data; until it exists, two-tower's inputs
-here are illustrative placeholders for that pipeline.
+exact-vs-approximate gap visible, not to characterize a production workload.
+What this stage does establish, mechanically: a retrieval method's blind spot
+is not a matter of degree that more training fixes, and an approximate
+index's recall is a parameter you set, not a property you discover
+afterward. Stage `01`, content understanding, will eventually replace these
+synthetic item vectors with real embeddings; until it exists, two-tower's
+inputs here are illustrative placeholders.
+
+## What the numbers actually look like, on a real run
+
+Run the five queues against the 400-item synthetic catalogue and disable each
+in turn:
+
+```
+(none disabled)        mean coverage 1.00
+disable two_tower       mean coverage 0.84   two_tower's own row: 8/20 (0.40)
+disable lexical         mean coverage 0.80   lexical's own row:   4/20 (0.20)
+disable item_to_item    mean coverage 0.95   item_to_item's own row: 16/20 (0.80)
+disable freshness       mean coverage 0.84   freshness's own row: 7/20 (0.35)
+```
+
+Every disable drops that queue's own target row to somewhere between 0.20 and
+0.80, while the other three queues stay at or near 20/20 — the widget's claim
+holds on the actual script output, not only in the illustrative animation.
+
+The FAISS comparison over a 5,000-item catalogue tells the same recall-versus-
+speed story with real numbers: at the default search width, the approximate
+`IndexHNSWFlat` index answers in 0.576 ms against the exact index's 1.133 ms
+but only reaches 0.913 recall@25; widening `--ef-search` to 64 pushes recall
+to 0.984 while also narrowing the speed gap (0.714 ms vs. 0.911 ms). Recall
+bought back at a measured latency cost, on this machine, this run — full
+output in
+[`runs/2026-07-30-multi-queue-coverage.md`](runs/2026-07-30-multi-queue-coverage.md).
 
 ## Reproducing
 

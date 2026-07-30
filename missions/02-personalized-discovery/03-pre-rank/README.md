@@ -97,10 +97,32 @@ visible the moment the metric is sliced by the segment a pre-ranker has no
 way to see — which is the entire argument for measuring surface rate by
 slice rather than trusting one aggregate correlation.
 
-## Reproducing
+## What the real run actually shows
 
-No run has happened yet — `runs/` will hold one once this stage's numbers
-are exercised on a real catalogue rather than a synthetic one.
+Run the default scale (600 items, cut to 60, true top-10) four times, seeds
+1/7/42/99:
+
+```
+seed  true-top10 long-tail   cheap-proxy long-tail surface   popularity-only long-tail surface
+1     9                       0.111                            0.000
+7     5                       0.200                            0.000
+42    5                       0.200                            0.000
+99    7                       0.143                            0.000
+```
+
+The popularity-only proxy's long-tail surface rate is **0.000 on every
+seed** — exactly the claim above, not a rounded approximation of it: a cold
+item's popularity is noise by construction, so it never outranks a head item
+on that signal. The cheap proxy's long-tail surface rate is never zero,
+because `content_sim` gives it real signal on cold items too.
+
+That gap does not survive every configuration. At the funnel's actual scale
+(2000 items, cut to 150, true top-20, seed 42) both proxies hit 0.000 —
+the cheap proxy's structural advantage is a capability, not a guarantee at
+every cut ratio. Full numbers:
+[`runs/2026-07-30-longtail-surface-rate.md`](runs/2026-07-30-longtail-surface-rate.md).
+
+## Reproducing
 
 ```bash
 # default: 600-item catalogue, cut to 60, measured against the true top-10

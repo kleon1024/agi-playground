@@ -1,8 +1,9 @@
 ---
-status: draft
+status: verified
 level: applied
 base: scratch
 label: The reward went up
+verified: 2026-07-30
 ---
 
 # The reward went up. Did the model get better?
@@ -130,20 +131,30 @@ measuring success is the same instrument being optimized against.
 Reward hacking is the default outcome of unmitigated reinforcement learning,
 not an edge case that careful reward design avoids.
 
-## What this chapter does not establish
+## A real run: the exercise below cannot fire yet
 
-No run is recorded here, so none of the three hacks is claimed to have been
-observed in this repository — they are the failure modes the reward function's
-shape makes available, named in advance so they are recognizable. The
-inverted-U result is external, attributed, and measured on reward *models*
-rather than on the verifiable rewards this stage uses; the mechanism
-transfers, the specific coefficients do not.
+Exercise 1 asks to remove the leash (`--kl-beta 0`) and watch reward and a
+held-out correctness check separate. Run it against [the exact same seed as
+the parent chapter's base run](../runs/2026-07-30-base-grpo-run.md) and the
+result is identical: every one of 200 groups is degenerate, so `grpo_loss`
+— the only place `kl_beta` is used — is never called. Setting `kl_beta` to 0
+changes nothing observable, because the gate it would affect is never
+reached. [Full run.](runs/2026-07-30-kl-beta-zero-ablation.md)
+
+None of the three hacks below is claimed to have been observed in this
+repository — they are the failure modes the reward function's shape makes
+available, named in advance so they are recognizable once training actually
+starts. The inverted-U result is external, attributed, and measured on
+reward *models* rather than the verifiable rewards this stage uses; the
+mechanism transfers, the specific coefficients do not.
 
 ## Exercises
 
-1. **Remove the leash.** Set `kl_beta` to 0 and train. Plot reward and a
-   held-out correctness check on the same axes, and identify the step where
-   they separate.
+1. **Remove the leash, after a warm start.** The run above shows `--kl-beta 0`
+   changes nothing on its own — training never starts. Warm-start the policy
+   first (parent chapter's Exercise 1), then rerun with `--kl-beta 0` and plot
+   reward against a held-out correctness check; identify the step where they
+   separate.
 2. **Invert the weights.** Set `format_weight` above `correctness_weight` and
    describe the completions after a few hundred steps before you look at them.
 3. **Close the regex edge.** Change `_ANSWER_RE` to require exactly one

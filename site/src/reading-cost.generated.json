@@ -133,7 +133,7 @@
   },
   "missions/02-personalized-discovery/02-recall": {
     "level": "foundation",
-    "minutes": 7
+    "minutes": 8
   },
   "missions/02-personalized-discovery/03-pre-rank": {
     "level": "applied",
@@ -145,7 +145,7 @@
   },
   "missions/02-personalized-discovery/05-value-tree": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "missions/02-personalized-discovery/06-mixing": {
     "level": "applied",

@@ -1,6 +1,7 @@
 ---
-status: draft
+status: verified
 level: applied
+verified: 2026-07-30
 ---
 
 # How do you trade user value against revenue on purpose?
@@ -106,10 +107,28 @@ argued about in a room instead of computed.
 
 <!-- interactive: ValueTree -->
 
-## Reproducing
+## What the numbers actually look like, on a real run
 
-No run has happened yet; the commands below exercise the arithmetic on a
-synthetic slate, not a report of a completed run.
+Section 3 above claims the multiplicative rule "moves toward balanced items
+measurably sooner" than the additive rule. Run a finer sweep — `steps=200`
+instead of the demo's `steps=4` — on the same 12-item, seed-42 slate, and
+that claim gets a number: the multiplicative top pick flips at satisfaction
+weight **0.165**; the additive top pick doesn't flip until **0.410**. Less
+than half the weight buys the same reordering under the stricter rule.
+
+The default demo (`python core/value_tree.py`) confirms the rest: the
+calibration break reorders 8 of 12 items with the weights held fixed — click
+inflated 1.6x, nothing about product strategy touched — and the ad auction
+enters only at `trade_rate=0.8`, displacing `item_6` at organic value 0.499.
+`prod/scipy_trade_rate.py --target-ad-load 0.15` solves a trade rate of
+0.6039 across 200 independent synthetic slates and hits 15.00% exactly.
+
+Full output: [`runs/2026-07-30-weight-sweep-and-auction.md`](runs/2026-07-30-weight-sweep-and-auction.md).
+Every input above is synthetic — `make_items`'s four archetypes, not a fit to
+any observed population — so this confirms the mechanics, not a real
+platform's actual weights.
+
+## Reproducing
 
 ```bash
 # weight sweep (additive and multiplicative), calibration precondition demo,

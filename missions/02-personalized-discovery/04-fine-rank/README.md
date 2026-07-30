@@ -1,7 +1,8 @@
 ---
-status: draft
+status: verified
 level: applied
 label: Fine-rank
+verified: 2026-07-30
 ---
 
 # Which objective are you actually ranking by?
@@ -101,10 +102,29 @@ fix does not touch ranking at all, because a monotonic recalibration cannot
 change pairwise order — it only makes the number honest enough for stage 05
 to add it to something else.
 
-## Reproducing
+## What a real run actually shows
 
-No GPU or checkpoint has run this stage yet; the commands below are the
-reproduction recipe, not a report of a completed run.
+```
+                     naive    balanced
+hidden=8, epochs=25
+  satisfaction       0.651       0.706
+  dwell              0.658       0.803
+hidden=16, epochs=60
+  satisfaction       0.644       0.664
+  dwell             -0.080       0.809
+```
+
+The wider trunk makes naive weighting *worse*, not better: more capacity and
+more training gives dwell's raw-seconds gradient more room to dominate the
+shared trunk, and its naive correlation goes negative. Balancing recovers
+0.803-0.809 regardless of trunk size — the fix, not the architecture, is
+what stabilizes this. Calibration: Platt scaling drops the click head's ECE
+from 0.0722 to 0.0552 (default trunk); the `prod/` isotonic-regression lane
+fits the same held-out set to ECE 0.0000, which is overfitting to that set,
+not a better calibration in general. Full output:
+[`runs/2026-07-30-negative-transfer-and-calibration.md`](runs/2026-07-30-negative-transfer-and-calibration.md).
+
+## Reproducing
 
 ```bash
 # naive vs. balanced multi-task training, plus calibration before/after
@@ -114,7 +134,7 @@ python core/fine_rank.py
 python core/fine_rank.py --hidden 16 --epochs 60
 
 # the production lane: PyTorch/Adam training, isotonic regression calibration
-python prod/torch_fine_rank.py
+PYTHONPATH=core python prod/torch_fine_rank.py
 ```
 
 ## Exercises
