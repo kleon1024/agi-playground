@@ -5,6 +5,11 @@
     "label": "Start here"
   },
   {
+    "type": "doc",
+    "id": "topics",
+    "label": "Read by topic"
+  },
+  {
     "type": "category",
     "label": "Missions",
     "link": {

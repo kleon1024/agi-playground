@@ -1,0 +1,133 @@
+---
+title: Read by topic
+description: Every chapter that touches one recurring decision, in reading order, across every mission and platform area.
+---
+
+# Which topic are you actually trying to understand?
+
+The [build path](/playground/) reads one mission top to bottom. This page cuts
+the other way: pick a decision you care about and follow every chapter that
+touches it, in the order that makes the argument build, regardless of which
+mission or platform area it lives in.
+
+Each topic below names the chapters in the order to read them. A chapter that
+appears in more than one topic is not duplicated content — it is one chapter
+answering more than one question, and the topic list tells you which question
+you are reading it for this time.
+
+## Data provenance and leakage
+
+Getting a split wrong makes every later number a lie, in three different
+domains.
+
+- [Corpus filtering: how does a raw crawl become a corpus you can defend?](/playground/platform/data/)
+- [Stage 00 — the corpus](/playground/missions/01-language-model-agent/00-corpus/)
+- [The ablation harness: does this data help?](/playground/platform/data/01-ablation-harness/)
+- [The two confounds a proxy run can hide](/playground/platform/data/01-ablation-harness/the-two-confounds/)
+- [Mission 02, stage 00 — what does a click actually tell you?](/playground/missions/02-personalized-discovery/00-interactions/)
+- [Mission 03, stage 00 — what did you actually know on the decision date?](/playground/missions/03-quantitative-research/00-market-data/)
+
+## Tokenization identity
+
+- [Stage 01 — how does text become the numbers a model sees?](/playground/missions/01-language-model-agent/01-tokenizer/)
+- [Is it the same tokenizer?](/playground/missions/01-language-model-agent/01-tokenizer/is-it-the-same-tokenizer/)
+
+## Model architecture and what it costs
+
+- [The decoder block](/playground/foundations/00-attention/)
+- [What a block costs](/playground/foundations/00-attention/what-it-costs/)
+- [Architecture ablations: the budget you hold equal](/playground/platform/training/02-architecture-ablations/)
+- [The rung where the budget definition decided the winner](/playground/platform/training/02-architecture-ablations/the-rung-that-flipped/)
+
+## Training-run verification and throughput
+
+- [Your first training loop](/playground/foundations/01-first-training-loop/)
+- [Stage 02 — what are you actually training?](/playground/missions/01-language-model-agent/02-pretrain/)
+- [Verifying the run](/playground/missions/01-language-model-agent/02-pretrain/verifying-the-run/)
+- [Training: what makes a run worth the compute it spends?](/playground/platform/training/)
+- [Distributed training, without a cluster](/playground/platform/training/01-distributed/)
+- [Your run will take ten hours. Should it?](/playground/platform/training/03-throughput/)
+
+## Post-training: loss masking, preferences, and reward
+
+From a text predictor to something that follows instructions and improves
+from a signal instead of a label.
+
+- [Stage 03 — how does a text predictor learn to answer?](/playground/missions/01-language-model-agent/03-sft/)
+- [What SFT costs](/playground/missions/01-language-model-agent/03-sft/what-it-costs/)
+- [Mid-training: where does a base model learn to call a tool?](/playground/platform/adaptation/mid-training/)
+- [Post-training: how does a continuation model become an assistant?](/playground/platform/adaptation/post-training/)
+- [Stage 04 — how do you improve a model with no correct answer to copy?](/playground/missions/01-language-model-agent/04-rl/)
+- [The reward went up. Did the model get better?](/playground/missions/01-language-model-agent/04-rl/reward-went-up/)
+- [Reinforcement learning: how does a model improve with no answer to copy?](/playground/platform/adaptation/reinforcement-learning/)
+
+## Distillation
+
+- [What can you actually copy from a better model?](/playground/platform/adaptation/distillation/)
+- [What path two requires](/playground/platform/adaptation/distillation/what-path-two-requires/)
+
+## Frontier architecture bets
+
+Open questions this repository states rather than settles.
+
+- [What if the model could think without choosing words?](/playground/platform/training/04-latent-reasoning/)
+- [Can you keep the weights and change the architecture?](/playground/platform/training/05-upcycling/)
+- [Does the extra capacity earn back what it cost?](/playground/platform/training/05-upcycling/does-it-pay-off/)
+
+## Serving cost and latency
+
+- [Stage 05 — what is the model actually doing between tokens?](/playground/missions/01-language-model-agent/05-serve/)
+- [Paging the cache](/playground/missions/01-language-model-agent/05-serve/paging-the-cache/)
+- [Why concurrency pays](/playground/missions/01-language-model-agent/05-serve/why-concurrency-pays/)
+- [Serving: how does a checkpoint become a responsive service?](/playground/platform/serving/)
+- [Is the card working, or waiting?](/playground/platform/serving/01-graph-execution/)
+
+## Agent harness mechanics
+
+- [Stage 06 — what turns a model into something that acts?](/playground/missions/01-language-model-agent/06-agent/)
+- [What fits in context](/playground/missions/01-language-model-agent/06-agent/what-fits-in-context/)
+- [The agent can act. What stops it?](/playground/missions/01-language-model-agent/06-agent/what-stops-it/)
+- [Act and coordinate: what must the software around a model own before it can act?](/playground/capabilities/act-coordinate/)
+- [One agent is stuck. Would a second one help?](/playground/capabilities/act-coordinate/01-multi-agent/)
+
+## Evaluation and evidence discipline
+
+- [Stage 07 — how would you know if any of this worked?](/playground/missions/01-language-model-agent/07-eval/)
+- [Whose harness produced it](/playground/missions/01-language-model-agent/07-eval/whose-harness/)
+- [Why believe the number](/playground/missions/01-language-model-agent/07-eval/why-believe-the-number/)
+- [Evaluation: what evidence justifies replacing what you already run?](/playground/platform/evaluation-observability/)
+
+## Safety enforcement and guardrails
+
+- [How does a guardrail become something that actually stops you?](/playground/platform/safety-governance/)
+
+## Ranking and recommendation: the funnel arc
+
+Mission 02's stage-by-stage argument for why a discovery system is a cascade,
+not one model.
+
+- [Content understanding — what retrieves an item nobody has touched?](/playground/missions/02-personalized-discovery/01-content-understanding/)
+- [Recall — how do you find candidates without scoring everything?](/playground/missions/02-personalized-discovery/02-recall/)
+- [Pre-rank — what can you afford to score, and what must you drop?](/playground/missions/02-personalized-discovery/03-pre-rank/)
+- [Fine-rank — which objective are you actually ranking by?](/playground/missions/02-personalized-discovery/04-fine-rank/)
+- [The value tree — how do you trade user value against revenue on purpose?](/playground/missions/02-personalized-discovery/05-value-tree/)
+- [Mixing — why is the best slate not the top ten items?](/playground/missions/02-personalized-discovery/06-mixing/)
+- [The rule engine — who can answer why this item was shown?](/playground/missions/02-personalized-discovery/07-rule-engine/)
+- [Serving — which stage do you cut to fit the request budget?](/playground/missions/02-personalized-discovery/08-serving/)
+
+## Quantitative research: the validity arc
+
+Mission 03's argument for why "it backtested well" is the wrong question.
+
+- [Signal research — how many ideas may you try before the winner means nothing?](/playground/missions/03-quantitative-research/01-signal-research/)
+- [Cross-sectional rank — what turns a score into a portfolio?](/playground/missions/03-quantitative-research/02-cross-sectional-rank/)
+- [Walk-forward validation — what Sharpe would survive an honest split?](/playground/missions/03-quantitative-research/03-walk-forward-validation/)
+- [Cost and capacity — how much can the paper return actually carry?](/playground/missions/03-quantitative-research/04-cost-and-capacity/)
+
+## Verifying an agent's own success claim
+
+Mission 04's argument for why a green test is not evidence of a correct fix.
+
+- [The task set — what makes a bug report into a task an agent can be scored on?](/playground/missions/04-code-agent/00-task-set/)
+- [Scoring the attempt — what would change your mind?](/playground/missions/04-code-agent/02-agent-loop/)
+- [Cheap or expensive — the cheap model resolved everything. Should you use it?](/playground/missions/04-code-agent/03-cheap-or-expensive/)

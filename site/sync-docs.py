@@ -554,7 +554,10 @@ def build_sidebar() -> list:
     # The landing page is a doc like any other, and without it here Docusaurus
     # renders `/` with no sidebar at all — a reader who arrives at the front
     # door gets four inline links and no way to see the curriculum.
-    top = [{"type": "doc", "id": "index", "label": "Start here"}]
+    top = [
+        {"type": "doc", "id": "index", "label": "Start here"},
+        {"type": "doc", "id": "topics", "label": "Read by topic", "_position": 10},
+    ]
     for section, base_pos in SECTIONS:
         directory = OUT / section
         if not directory.is_dir():
@@ -607,10 +610,16 @@ def main() -> None:
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
 
-    # Landing page is maintained by hand — it carries the interactive demo.
-    landing = Path(__file__).resolve().parent / "landing.mdx"
+    # Landing page and the topic index are maintained by hand: the landing
+    # page carries the interactive demo, and the topic index cuts across
+    # every section, which the per-directory sidebar below cannot express.
+    here_dir = Path(__file__).resolve().parent
+    landing = here_dir / "landing.mdx"
     if landing.exists():
         shutil.copy(landing, OUT / "index.mdx")
+    topics = here_dir / "topics.mdx"
+    if topics.exists():
+        shutil.copy(topics, OUT / "topics.mdx")
 
     count = 0
     # What every chapter costs to read, keyed by its repository path, which is
