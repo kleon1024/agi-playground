@@ -11,6 +11,10 @@ base: none
 
 The artifact is an ordered slate. Its value depends on position and on the items already chosen, so static top-K is no longer the optimization problem. The core script makes that dependency explicit with a position discount and a category mechanism. Slot zero has weight 1.000 in the executed run; slot two has 0.500. A candidate's placement matters, and its marginal value is conditioned on its prefix.
 
+**Before this:** [stage 05's value tree](../05-value-tree/), which gave every
+candidate one scalar score — this stage is what happens once you try to turn
+a list of scores into a page.
+
 ## Search once values become set-level
 
 Exhaustively testing every ordered k-item slate is the correct answer for a tiny catalogue and becomes impossible quickly: it is a permutation search. Beam search expands prefixes and retains only the best few partial slates. Beam width is therefore a compute-quality control, not a magic property. The harness compares each width with exhaustive search for nine candidates and five slots, so approximation is measured rather than asserted.
@@ -45,3 +49,9 @@ The trade curve should be monitored by segment, not just page average. A high-re
 Do not confuse a category label with all similarity. A taxonomy cap catches obvious repetition, while embeddings, creator identity, language, format, and session intent can reveal redundancy the taxonomy cannot. Adding each signal increases the search state and makes explanations harder, so introduce it only when a measured failure slice requires it. The small core intentionally keeps category as the one causal variable. The production system may use richer marginal-relevance features, but must preserve the ability to answer what caused an item to lose a slot.
 
 Finally, validate the candidate pool before diagnosing mixing. A diverse slate cannot be assembled from a homogeneous recall union. If a constraint repeatedly leaves too few feasible options, the diagnosis belongs upstream in content understanding or recall, not in a more aggressive beam heuristic. This division prevents the mixer from being blamed for a retrieval blind spot it cannot repair.
+
+## Next
+
+[Stage 07 — the rule engine](../07-rule-engine/) applies constraints this
+stage does not know about — legal, safety, contractual — after mixing has
+already assembled the slate this stage optimized.

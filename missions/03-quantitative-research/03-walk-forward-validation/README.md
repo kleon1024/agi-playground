@@ -7,6 +7,10 @@ label: Walk-forward validation
 
 # What Sharpe would survive an honest split?
 
+**Before this:** [stage 02's target weights](../02-cross-sectional-rank/) and
+[stage 01's disclosed search log](../01-signal-research/), which this stage's
+deflated Sharpe needs to know how many variants produced the winner.
+
 Your backtest says Sharpe 1.8. What number would it need for you to believe it?
 The question is not whether 1.8 is large in isolation. It is whether the
 process that produced it gave the strategy information that would have been

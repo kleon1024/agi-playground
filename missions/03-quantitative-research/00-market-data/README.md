@@ -11,6 +11,10 @@ date?* Get that wrong and nothing built on top of this stage — a signal, a
 backtest, a Sharpe ratio — means anything, no matter how careful the modeling
 is downstream.
 
+**Before this:** [why this mission is the hardest test of the architecture](../README.md),
+for why a domain where the data actively fights back needs strictly more
+evaluation discipline than mission 01's text or mission 02's logged clicks.
+
 **Why this is stage 00 and not a data-loading afterthought.** Every backtest
 tutorial that starts from a tidy CSV of "historical prices" has already made
 the decisions that decide whether the result is honest, and hidden them from

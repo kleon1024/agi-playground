@@ -7,6 +7,10 @@ label: Outcome report
 
 # Can this mission claim anything at all?
 
+**Before this:** [stage 04's capacity curve](../04-cost-and-capacity/) — the
+last input this report demands, alongside the validation, search-log, and
+sizing evidence the funnel above it produced.
+
 Every earlier stage was allowed to fail safely. This one decides whether the
 mission gets to claim anything at all, using a contract written before the
 code. The contract is [`mission.yaml`](../mission.yaml): two post-cost

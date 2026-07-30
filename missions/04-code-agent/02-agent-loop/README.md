@@ -22,7 +22,7 @@ Green target, zero regressions, and it resolved nothing. By the end you will be
 able to say which check produced that verdict, why no other check could have,
 and what the harness had to get right before the verdict meant anything.
 
-**Prerequisite:** [stage 00](../00-task-set/), which supplies the tasks, and
+**Before this:** [stage 00](../00-task-set/), which supplies the tasks, and
 [the mission 01 agent harness](../../01-language-model-agent/06-agent/), which
 supplies the loop. Neither is rebuilt here.
 

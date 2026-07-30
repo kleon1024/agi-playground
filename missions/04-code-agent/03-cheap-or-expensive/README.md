@@ -22,7 +22,7 @@ patch generality   haiku 0/3    sonnet 3/3    opus 3/3
 By the end you will be able to say what the second row measures, why the
 mission's declared primary metric cannot see it, and what it costs to find out.
 
-**Prerequisite:** [stage 02](../02-agent-loop/), which supplies the scorer and
+**Before this:** [stage 02](../02-agent-loop/), which supplies the scorer and
 the tasks.
 
 ## What the resolve rate says

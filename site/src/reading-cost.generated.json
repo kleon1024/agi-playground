@@ -121,7 +121,7 @@
   },
   "missions/02-personalized-discovery/01-content-understanding": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "missions/02-personalized-discovery/02-recall": {
     "level": "foundation",
@@ -141,11 +141,11 @@
   },
   "missions/02-personalized-discovery/06-mixing": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "missions/02-personalized-discovery/07-rule-engine": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "missions/02-personalized-discovery/08-serving": {
     "level": "applied",
@@ -189,7 +189,7 @@
   },
   "missions/04-code-agent/00-task-set": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/04-code-agent/02-agent-loop": {
     "level": "applied",

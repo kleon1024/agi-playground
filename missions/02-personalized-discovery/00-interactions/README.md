@@ -9,6 +9,11 @@ level: foundation
 not lie about how well a model will do, and establish the popularity baseline
 every later stage in this mission has to beat.
 
+**Before this:** [why this mission is a funnel](../README.md), for why
+recommendation, search, and ads are one decision loop rather than three, and
+why that loop is a cascade of progressively more expensive stages over
+progressively smaller candidate sets.
+
 **Why this stage decides everything after it.** Every stage downstream of this
 one — recall, pre-rank, fine-rank, the value tree — is evaluated against the
 split this stage produces. If the split leaks the future into the past, every

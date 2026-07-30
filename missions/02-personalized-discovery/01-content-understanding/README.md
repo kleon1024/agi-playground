@@ -11,6 +11,8 @@ base: none
 
 The concrete artifact is a catalogue label and embedding. At time T, cold-item coverage is the fraction of catalogue items reachable by at least one queue. The behavioural queue reaches only items with logged interactions. Adding a content queue reaches items whose content can be labelled or embedded with enough confidence. That turns “help cold start” into a measurable union, rather than a slogan.
 
+**Before this:** [stage 00's leak-free split and popularity baseline](../00-interactions/), which every queue in stage 02 — including the content queue this stage supplies — is ultimately measured against.
+
 ## Decide what the label is allowed to say
 
 A flat label such as `phones` helps retrieval, but it does not state that phones and laptops are both electronics. A hierarchy does. That matters downstream: a slate constraint can honestly say “at most two electronics items” only when the shared parent is part of the taxonomy. Otherwise the mixer needs a hidden lookup table, which is merely an undeclared taxonomy.
@@ -45,3 +47,10 @@ The run establishes the mechanics of a thresholded content queue on a synthetic 
 Operationally, retain more than a label. Store the taxonomy version, model or ruleset version, input content hash, confidence, label path, and the time the item was processed. That makes an item’s representation reproducible when a policy changes. It also avoids a silent error where the ranker receives labels from two incompatible taxonomies after a backfill. A queue should declare whether it accepts stale content labels, blocks until enrichment completes, or uses a coarse fallback. Those are availability decisions with user-facing consequences, not merely data-pipeline choices.
 
 The threshold should be selected against a declared downstream objective and sliced evaluation set, never just overall label accuracy. A threshold that maximizes head accuracy can destroy reach for sparse categories. Inspect per-leaf precision, cold coverage, missing-content rate, and the share falling back to generic retrieval. Then sample the rejected and low-confidence tail for human review. The core cannot supply those numbers because it has no real catalogue; it only supplies the causal mechanism required to make them meaningful.
+
+## Next
+
+[Stage 02 — recall](../02-recall/) is where this stage's content labels and
+embeddings stop being an isolated diagnostic: they become one of five
+retrieval queues, standing in for real learned embeddings until content
+understanding graduates from synthetic to production data.

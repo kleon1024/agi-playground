@@ -7,6 +7,9 @@ label: Cost and capacity
 
 # How much can the paper return actually carry?
 
+**Before this:** [stage 03's purged, embargoed validation](../03-walk-forward-validation/)
+— this stage only prices weights that already survived that boundary.
+
 Your validated strategy makes 12% a year on paper. How much money can you put
 into it before it makes nothing? Capacity is not a footnote. It is a property
 of the strategy, and often the property that decides whether a signal is a

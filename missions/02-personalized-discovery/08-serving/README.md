@@ -9,6 +9,10 @@ base: none
 
 **Question:** the earlier stages could take as long as they needed. What changes when recall, pre-rank, fine-rank, the value tree, mixing, and rules must complete in one request under the mission's p95 300ms target? You need a measured latency budget, not a list of plausible stage times.
 
+**Before this:** [stage 07's rule engine](../07-rule-engine/) — the last
+stage in the funnel this budget has to fit, after recall, pre-rank, fine-rank,
+the value tree, mixing, and rules have all run.
+
 The artifact is an end-to-end distribution plus per-stage distributions. Mean is inadequate because a slow minority of requests is what users feel at the tail. The harness does not execute or time the funnel: it draws each stage's latency from a lognormal distribution whose median and spread are hand-chosen and disclosed in the script, then composes 5,000 such requests. That is a deliberate choice — the property this chapter teaches is how stage distributions compose, and a simulation isolates it from the noise of whatever else a developer machine is doing. With parallel recall and no cache, the sampled end-to-end mean was 31.22ms and p95 was 49.31ms. Read them as outputs of a declared model, not as timings of any real system.
 
 ## Do not add stage p95s
@@ -30,7 +34,13 @@ uv run python prod/serving_harness.py --trials 1000
 
 The core uses standard-library timing/distributions; its stage parameters are deliberately tuned and disclosed to show composition. The production harness uses NumPy and a thread-pool/async fan-out shape with a synthetic ANN catalogue. Alternatives include FAISS, ScaNN, or a managed vector service, paired with an HDR histogram or a metrics store that preserves tail samples.
 
-This establishes the shape of latency composition in a declared per-stage latency model. Because the stage distributions are assumed rather than fitted to any real service, even the shape is only as good as those assumptions; what the run does establish is the composition arithmetic on top of them. It measures nothing about production hardware, real ANN recall, network queues, concurrent traffic, tail amplification from garbage collection, or a deployed service's p95. Therefore this stage cannot claim the mission is within its online budget. Stage 09 consumes the run artifacts and refuses to declare mission success without end-to-end quality, guardrail, cost, and failure evidence.
+This establishes the shape of latency composition in a declared per-stage latency model. Because the stage distributions are assumed rather than fitted to any real service, even the shape is only as good as those assumptions; what the run does establish is the composition arithmetic on top of them. It measures nothing about production hardware, real ANN recall, network queues, concurrent traffic, tail amplification from garbage collection, or a deployed service's p95. Therefore this stage cannot claim the mission is within its online budget.
+
+## Next
+
+[Stage 09 — the outcome report](../09-report/) consumes this stage's run
+artifacts and refuses to declare mission success without end-to-end quality,
+guardrail, cost, and failure evidence alongside it.
 
 Trace IDs must join stage timing, timeout, cache status, candidate counts, and
 the returned slate. Without that request-level record, a tail regression cannot

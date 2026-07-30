@@ -18,6 +18,10 @@ be a hundredth the cost of the fine-ranker and still keep the items the
 fine-ranker would have chosen — because once an item is cut here, no amount
 of fine-ranker quality downstream can bring it back.
 
+**Before this:** [stage 02's five recall queues](../02-recall/) and the
+union they hand off — this stage's whole job is to shrink that union without
+losing what fine-rank would have picked from it.
+
 ## 1. The arithmetic that forces this stage to exist
 
 Scoring a thousand candidates with fine-rank's model is not merely slower

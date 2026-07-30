@@ -25,6 +25,12 @@ By the end you will be able to say why each field is there, why one specific
 rule decides whether a task is admitted, and what that rule found when it was
 pointed at this repository.
 
+**Before this:** [why this mission exists](../README.md) — a serving engine
+this repository once published as `verified` was faster because a decode step
+had stopped attending to some of its own past, and the guardrail this mission
+is built around is the answer to how an agent could do the same thing on
+purpose.
+
 ## Git history is already full of tasks
 
 A task is a repository state where a test fails, plus the knowledge that some

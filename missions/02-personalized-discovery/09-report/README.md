@@ -10,6 +10,10 @@ label: Outcome report
 
 **Question:** the funnel produces slates. Is the mission accomplished? No claim is checkable until it is judged against the contract written before the system existed. This stage turns that contract into a report that can say met, not met, or cannot determine.
 
+**Before this:** [stage 08's latency budget](../08-serving/) is one input
+this report demands alongside quality and guardrails — the funnel above it
+in the mission's stage table supplies the rest.
+
 The artifact is a run-artifact JSON document plus a verdict. It contains seed-level nDCG@10 for the candidate and both declared baselines, guardrails, p50/p95 latency, cost, and failure cases. Its shape is documented in `core/report.py`. The report reads `mission.yaml`; it does not decide after seeing results which baseline, metric, or threshold would have been easier to pass.
 
 ## Why the baselines and guardrails are non-negotiable

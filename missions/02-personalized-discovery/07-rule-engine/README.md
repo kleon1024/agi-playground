@@ -11,6 +11,10 @@ base: none
 
 The artifact is a decision record: for one impression it lists the policy version, rules that fired, candidates each removed or boosted, precedence, and the final result. That is the boundary between a learned preference and a rule. A learned ranker is appropriate when the system must infer an uncertain preference from data. A rule is appropriate when a legal, safety, contractual, or editorial owner defines what must happen and must be able to revise it on a policy timescale.
 
+**Before this:** [stage 06's assembled slate](../06-mixing/) — this stage
+applies constraints that slate assembly has no way to know about, and can
+remove candidates mixing already spent a beam search choosing.
+
 ## Put policy in data, not in scattered branches
 
 Imperative `if` statements spread through serving code are hard to inspect, reorder, or attribute. The core engine represents regional blocks, safety blocks, an editorial boost, and a per-creator cap as declarative data. It applies them in explicit priority order. Blocks are terminal, boosts annotate surviving scores, and the cap runs after ranking because its outcome depends on the order of survivors. That precedence is product policy, not an implementation accident.
@@ -41,3 +45,8 @@ Rules should also fail closed or fail open deliberately. Licensing and safety no
 Rules can be tested as policy examples before rollout. Include a representative input, the expected kept and removed IDs, the expected reasons, and a counterexample that must remain allowed. Evaluate old and proposed policy versions on the same candidate sample to quantify how much reach changes. This is not enough to approve a policy, but it prevents an accidental syntax or precedence change from silently becoming a broad block. Human review then decides whether the measured change is intended.
 
 Do not use the rule layer as a hiding place for model defects. A temporary rule that masks a bad prediction may be appropriate for immediate safety, but it should name an expiry, owner, and remediation path. Otherwise policy accumulates into a second, untestable ranker. The invariant is clear ownership: rules state externally accountable constraints; learned stages estimate preferences inside those constraints.
+
+## Next
+
+[Stage 08 — serving](../08-serving/) has to fit everything upstream of it,
+rule engine included, inside one request's latency budget.

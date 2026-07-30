@@ -10,6 +10,11 @@ retrieval methods running in parallel, and show — on a catalogue small enough
 to score exhaustively — that turning off any one of them leaves a hole
 nothing else fills.
 
+**Before this:** [stage 00's split](../00-interactions/) supplies the
+behavioural log these queues learn from, and
+[stage 01's content labels](../01-content-understanding/) stand in for the
+real item embeddings the two-tower and freshness queues eventually need.
+
 **Why this is the one stage nothing downstream repairs.** A fine-ranker can be
 arbitrarily good and it changes nothing for an item recall never retrieved:
 the ranker never sees it, so it can never rank it, however well it would have

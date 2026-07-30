@@ -10,6 +10,10 @@ verified: 2026-07-27
 and an idea. How many variants may you try before the winner is expected to look
 good even when it has no edge?
 
+**Before this:** [stage 00's point-in-time panel](../00-market-data/) — every
+candidate signal here is built only from what that panel certifies as knowable
+on each decision date.
+
 The answer is not a permissible number. It is a recording requirement. A result
 without its search denominator is not interpretable: one candidate that scores
 well and the best of thirty-two candidates that scores well are different

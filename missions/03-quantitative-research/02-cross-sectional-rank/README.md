@@ -11,6 +11,8 @@ label: Cross-sectional rank
 that score into a portfolio, and how many of the choices in that translation
 are part of the strategy rather than an afterthought?
 
+**Before this:** [stage 01's candidate signals and search log](../01-signal-research/).
+
 [Stage 01](../01-signal-research/) produced candidate signals plus a
 machine-readable search log. It did not produce a tradable decision. This stage
 holds one momentum score fixed and changes only its translation into target

@@ -17,6 +17,11 @@ second requirement is why this stage predicts a vector instead of a single
 number, and why getting each entry of that vector calibrated matters as much
 as getting its ranking right.
 
+**Before this:** [stage 03's cut](../03-pre-rank/) from about a thousand
+candidates to about a hundred — small enough for this stage's heavier model
+to afford, and already checked for the systematic misses a cheap proxy could
+have hidden.
+
 ## 1. Why no single label is the objective
 
 Click is cheap to log and abundant, and it is also the objective most likely

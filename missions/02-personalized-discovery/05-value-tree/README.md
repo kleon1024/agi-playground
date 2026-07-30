@@ -16,6 +16,10 @@ scalar is not a modeling detail — it is the platform's product strategy,
 written down as arithmetic, and this stage is where that fact stops being an
 abstraction.
 
+**Before this:** [stage 04's four calibrated predictions](../04-fine-rank/)
+per item — this stage only works because those numbers are honest
+probabilities, not merely well-ranked scores.
+
 ## 1. A ranking needs one number, and the choice of number is a decision
 
 Fine-rank hands this stage `{click: 0.7, completion: 0.4, satisfaction:
