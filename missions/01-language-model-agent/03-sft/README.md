@@ -24,14 +24,15 @@ ends.
 
 ## Why this is not "more pretraining"
 
-Pretraining and SFT optimize the same loss — next-token cross-entropy — over
-data with a completely different distribution. Pretraining data is documents:
-self-contained, no speaker turns, no expectation of response. SFT data is
-dialogue: two roles, an expectation that role B replies to role A, and an
-expectation that the reply ends. Training dialogue-shaped text with a
-document-shaped objective works only because we change *what counts toward the
-loss*, not the objective — which is why loss masking, covered next, is this
-stage's central mechanism rather than a detail of it.
+Open stage 00's cleaned text next to a no_robots conversation and compare their
+shape. Pretraining data is documents: self-contained, no speaker turns, no
+expectation of response. SFT data is dialogue: two roles, an expectation that
+role B replies to role A, and an expectation that the reply ends. Pretraining
+and SFT still optimize the same loss — next-token cross-entropy — over that
+different distribution, and you make dialogue-shaped text trainable under a
+document-shaped objective by changing *what counts toward the loss*, not the
+objective — which is why loss masking, covered next, is this stage's central
+mechanism rather than a detail of it.
 
 It follows that SFT cannot fix what pretraining did not put there. If the base
 model never encountered a fact, formatting the question as a chat turn will not
@@ -62,15 +63,17 @@ room to do the same thing one stage late, for free.
 
 ## Loss masking, worked
 
-The loss is computed only on assistant tokens. Concretely: `labels[i]` equals
+Open `render_and_mask` and watch what it does to `labels[i]`: it copies
 `ids[i]` wherever token `i` belongs to an assistant turn's content or its
-closing `<|im_end|>`, and `-100` everywhere else. `-100` is not an arbitrary
-sentinel — it is `torch.nn.functional.cross_entropy`'s default
-`ignore_index`, so stage 02's `Transformer.forward` (which calls
-`cross_entropy(logits, targets)` with no `ignore_index` argument) already
-ignores it. No change to the frozen model is needed for it to become
-SFT-aware; that is the reason `-100` is the field's near-universal choice for
-masked labels, not a coincidence this lesson invented.
+closing `<|im_end|>`, and writes `-100` everywhere else. That is the whole
+mechanism — the loss is computed only on assistant tokens. `-100` is not an
+arbitrary sentinel you're asked to take on faith: it is
+`torch.nn.functional.cross_entropy`'s default `ignore_index`, so stage 02's
+`Transformer.forward` (which calls `cross_entropy(logits, targets)` with no
+`ignore_index` argument) already ignores it, with no change to the frozen
+model needed for it to become SFT-aware. That is why `-100` is the field's
+near-universal choice for masked labels, not a coincidence this lesson
+invented.
 
 For one assistant turn — say the tokenizer renders "yes." as three tokens —
 the sequence and its labels look like this:

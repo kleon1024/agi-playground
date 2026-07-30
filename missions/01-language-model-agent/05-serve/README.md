@@ -31,13 +31,13 @@ the block loop against the trained model's own submodules instead.
 
 ## Why is a decode step slow when the arithmetic is trivial?
 
-A single decode step is a matrix-vector product against every weight matrix in
-the model. Generating `B` tokens' worth of output from one linear layer costs
-`2 * B * d_in * d_out` FLOPs, but moving that weight matrix from HBM to the chip
-costs `d_in * d_out * bytes_per_element` regardless of `B` — the weights are
-read once and reused across whatever batch is in flight. The ratio of those two,
-**arithmetic intensity**, is what a roofline model uses to predict whether a
-workload is compute-bound or memory-bound:
+Follow one weight matrix through a decode step. Generating `B` tokens' worth
+of output from one linear layer costs `2 * B * d_in * d_out` FLOPs, but moving
+that weight matrix from HBM to the chip costs `d_in * d_out * bytes_per_element`
+regardless of `B` — the weights are read once and reused across whatever batch
+is in flight. Take the ratio of those two costs and you get **arithmetic
+intensity**, the number a roofline model uses to predict whether a workload is
+compute-bound or memory-bound:
 
 ```
 AI = FLOPs / bytes ≈ (2 * B * d_in * d_out) / (d_in * d_out * bytes_per_element)

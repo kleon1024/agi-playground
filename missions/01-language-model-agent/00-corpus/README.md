@@ -9,14 +9,14 @@ base: none
 **Goal:** turn raw Common Crawl into clean, deduplicated English text, and
 understand every filter that made it clean.
 
-**Why this is stage 00 and not an appendix.** Every from-scratch LLM tutorial
-starts by downloading a tidy dataset — Tiny Shakespeare, WikiText, an
-already-filtered slice of something larger. That skips the part that actually
-determines whether your model is any good. A model trained on raw Common Crawl
-and the same model trained on filtered Common Crawl are not close, and the gap
-is larger than most architecture changes you could make. Data is the
-highest-leverage variable in the pipeline, and it is the one nearly every
-curriculum treats as somebody else's problem.
+**Why this is stage 00 and not an appendix.** Notice what every from-scratch
+LLM tutorial does first: it downloads a tidy dataset — Tiny Shakespeare,
+WikiText, an already-filtered slice of something larger. That skips the part
+that actually determines whether your model is any good. Train the same
+architecture once on raw Common Crawl and once on filtered Common Crawl and
+the two runs are not close — the gap is larger than most architecture changes
+you could make. Data is the highest-leverage variable in the pipeline, and it
+is the one nearly every curriculum treats as somebody else's problem.
 
 So we start here, and we start by writing the filters ourselves.
 

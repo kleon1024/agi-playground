@@ -14,14 +14,14 @@ dataset of examples.
 
 ## Why RL after SFT at all
 
-Supervised fine-tuning (stage 03) trains the model to imitate a distribution
-of good responses: minimize cross-entropy against a target token sequence
-someone else produced. That is a *behavioral cloning* objective — it never
-asks "was this response actually good," only "did you predict this exact
-token." SFT can only ever be as good as its demonstrations, and it cannot
-express a preference it never saw a labeled example of — it can't learn
-"shorter is better when both answers are correct" unless that preference
-was written into the training set as an example.
+Go back to stage 03's SFT loss and ask what it actually optimizes: minimizing
+cross-entropy against a target token sequence someone else produced. That is a
+*behavioral cloning* objective — it never asks "was this response actually
+good," only "did you predict this exact token." Follow that objective as far
+as it goes and you hit a hard ceiling: SFT can only ever be as good as its
+demonstrations, and it cannot express a preference it never saw a labeled
+example of — it can't learn "shorter is better when both answers are correct"
+unless that preference was written into the training set as an example.
 
 RL replaces "imitate this token sequence" with "maximize this scalar
 objective," which the model discovers its own path to by generating,
@@ -88,14 +88,15 @@ environment is the one thing no trainer can hide from you.
 
 ## The group-relative trick
 
-PPO estimates the advantage of an action from a learned critic:
+Ask where PPO's advantage estimate comes from: a learned critic,
 `A(s,a) = Q(s,a) - V(s)`, trained alongside the policy to predict expected
-return. For LLM RL that critic is itself a full copy of the model, adding
-an entire model's worth of memory (actor, critic, frozen reference, and — in
-RLHF's original formulation — a frozen reward model: four models resident
-simultaneously). GRPO's move (Shao et al., *DeepSeekMath*, 2024): stop
-training a critic. Instead, sample `G` completions to the *same* prompt and
-use the group's own reward mean and standard deviation as the baseline:
+return. For LLM RL that critic is itself a full copy of the model, so before
+writing a line of GRPO, count what PPO already holds in memory at once: actor,
+critic, frozen reference, and — in RLHF's original formulation — a frozen
+reward model, four models resident simultaneously. GRPO's move (Shao et al.,
+*DeepSeekMath*, 2024) removes one of them outright: stop training a critic.
+Instead, sample `G` completions to the *same* prompt and use the group's own
+reward mean and standard deviation as the baseline:
 
 ```
 A_i = (r_i - mean(r_1, ..., r_G)) / (std(r_1, ..., r_G) + eps)
