@@ -328,9 +328,19 @@
         ]
       },
       {
-        "type": "doc",
-        "id": "missions/07-realtime-voice/index",
-        "label": "Real-time voice"
+        "type": "category",
+        "label": "Real-time voice",
+        "link": {
+          "type": "doc",
+          "id": "missions/07-realtime-voice/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "missions/07-realtime-voice/00-audio-codec/index",
+            "label": "Audio codec \u00b7 verified"
+          }
+        ]
       },
       {
         "type": "doc",

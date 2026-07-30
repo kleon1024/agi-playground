@@ -68,15 +68,23 @@ again.
 
 | Stage | Question | Status |
 |---|---|---|
-| 00 — Audio codec | how does a waveform become a discrete token sequence, and what does that cost in quality? | not started |
+| [00 — Audio codec](00-audio-codec/) | how does a waveform become a discrete token sequence, and what does that cost in quality? | verified |
 | 01 — Streaming decode | does the existing KV-cache and continuous-batching mechanism work unchanged for audio tokens? | not started |
 | 02 — Report | what does streaming cost in latency, and what does it buy or lose against the offline pass? | not started |
 
+[Stage 00](00-audio-codec/) built a small conv encoder / vector-quantization
+/ conv decoder codec, trained on synthetic tone-sequence clips (no real
+speech, no license needed, trivial provenance). Its first training attempt
+collapsed to a silence-matching local minimum with the codebook stuck on 1-2
+codes; raising the learning rate and training longer escaped it. The result
+decisively beats both required naive baselines — reconstruction MSE 0.0111
+against 0.325 (silence) and 0.300 (mean-signal) — with healthy, non-collapsed
+codebook usage (34 of 64 codes used). Full trace in
+[its run record](00-audio-codec/runs/2026-07-31-codec-training.md).
+
 Per [the mission contract](../../standards/mission-contract.md), this
 contract is declared before any stage is built, so the baseline and metric
-above cannot be chosen after seeing which ones flatter a result. No stage
-below has run yet; none of the numbers this mission will report exist until
-they do.
+above cannot be chosen after seeing which ones flatter a result.
 
 ## What this will not prove
 
