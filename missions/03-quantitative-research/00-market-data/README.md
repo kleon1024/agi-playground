@@ -98,6 +98,55 @@ Two free, genuinely public sources, no API key for either:
 | `naive_lookup` vs `point_in_time_value` | The wrong join (keyed on period alone) beside the right one (filed at-or-before an as-of date) | Puts the look-ahead bug and its fix side by side in the same function signature |
 | `find_restatement_gap` | Locate a real period with more than one filed value | Turns "fundamentals get restated" from an abstract warning into a concrete, inspectable example |
 
+## What the raw output actually looks like
+
+Run the MSFT command below and read what actually comes back, instead of
+taking the mechanism's claims on faith:
+
+```
+$ python core/point_in_time.py --ticker MSFT --range 2y --cik 789019 --tag Assets
+=== corporate-action adjustment: MSFT (2y) ===
+bars: 501  dividends: 8  splits: 0
+reconstruction vs vendor adjclose — median rel error: 0.000000  max rel error: 0.000000  (n=501)
+
+=== point-in-time fundamentals: CIK 789019, tag Assets ===
+facts returned: 142
+period 2015-06-30: first filed 2015-07-31 = 176,223,000,000 (10-K); latest filed 2016-07-28 = 174,472,000,000 (10-K)
+naive join keyed only on fiscal period 2015-06-30: 174,472,000,000 (silently the latest restatement, filed 2016-07-28)
+point-in-time value as of 2015-07-31: 176,223,000,000 (filed 2015-07-31)
+```
+
+That restatement is real: Microsoft's FY2015 total assets were first filed at
+\$176.223B, then revised down by \$1.75B — about 1% — thirteen months later. A
+naive join keyed only on fiscal period 2015-06-30 hands you the revised
+\$174.472B figure even when you ask "what did the market know on 2015-07-31,"
+the day the original 10-K posted. `point_in_time_value` returns the right
+number, \$176.223B, because it respects the filed date instead of the fiscal
+period alone.
+
+Three of MSFT's 501 fetched bars, so you can see the shape of what
+`fetch_price_history` returns:
+
+| date | close | adjclose |
+|---|---:|---:|
+| 2024-07-30 | 422.92 | 416.38 |
+| 2024-08-01 | 417.11 | 410.66 |
+| 2026-07-29 | 390.54 | 390.54 |
+
+The split check runs the same way against a real split. NVDA's declared
+10-for-1 split lands on 2024-06-10:
+
+```
+$ python core/point_in_time.py --ticker NVDA --range 5y --cik 1045810 --tag Assets
+split 1718026200: declared ratio 10.00, day-over-day close ratio 1.0075 -> already applied by vendor
+```
+
+A day-over-day ratio of 1.0075 — not 0.1 — is the tell: if Yahoo's `close`
+were genuinely raw, that ratio would collapse to roughly a tenth across the
+split's ex-date. It doesn't, so `close` already reflects the split, and
+`reconstruct_adjusted_close` correctly leaves it alone instead of dividing
+every pre-split price by ten a second time.
+
 ## Reproducing
 
 ```bash

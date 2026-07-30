@@ -1,6 +1,7 @@
 ---
-status: draft
+status: verified
 level: foundation
+verified: 2026-07-30
 ---
 
 # What does a click actually tell you?
@@ -94,6 +95,42 @@ regardless of order, and a large share of test rows end up with a same-user
 train row sitting after them in time. That is not a rounding error or an
 artifact of one dataset; it follows directly from the shuffle, and it is the
 exact mechanism by which a random split lets a model see its own answer key.
+
+## What the numbers actually look like, on a real dataset
+
+Run this stage against MovieLens `ml-latest-small` (100,836 ratings) and the
+abstractions above turn into rows you can point at.
+`read_movielens_ratings` parses cleanly — 0 malformed, 0 duplicates — into
+rows like `Interaction(user='1', item='1', timestamp=964982703.0,
+rating=4.0)`.
+
+`filter_min_interactions` drops 10,562 rows, all for item-sparsity (6,074 of
+9,724 movies have under 5 ratings) — and the per-user distribution shows what
+the rule alone doesn't: 8 users above MovieLens's own 20-rating guarantee
+(user 175 at 24, user 598 at 21, user 578 at 27) fall to 12, 16, and 17 once
+their sparse movies are gone. Eligibility moves per item, not just per user.
+
+Interactions per user, after filtering (610 users total):
+
+| bucket | users |
+|---|---:|
+| 10-19 | 8 |
+| 20-49 | 224 |
+| 50-99 | 139 |
+| 100-199 | 116 |
+| 200+ | 123 |
+
+Median 68, min 12, max 2,132.
+
+Now the comparison this chapter argues for, measured instead of asserted.
+`time_split` at the default 0.2 test fraction leaks 0 of 1,223 eligible test
+rows. `random_split` on the identical interactions leaks 17,885 of 18,055 —
+99.1%. One instance: user 75's test row is timestamped 1,158,989,870; that
+same user's random-split train set holds a row 369 seconds later. The
+popularity floor moves too: hit-rate@20 is 0.0389 under the honest split,
+0.0496 under the leaking one — a real number for why comparing scores across
+different splits compares different experiments. Full output:
+[`runs/2026-07-30-movielens-split.md`](runs/2026-07-30-movielens-split.md).
 
 ## The floor: popularity
 

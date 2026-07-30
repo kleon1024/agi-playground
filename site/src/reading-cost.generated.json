@@ -45,7 +45,7 @@
   },
   "missions/01-language-model-agent/00-corpus": {
     "level": "foundation",
-    "minutes": 5
+    "minutes": 7
   },
   "missions/01-language-model-agent/01-tokenizer": {
     "level": "foundation",
@@ -125,7 +125,7 @@
   },
   "missions/02-personalized-discovery/00-interactions": {
     "level": "foundation",
-    "minutes": 7
+    "minutes": 8
   },
   "missions/02-personalized-discovery/01-content-understanding": {
     "level": "applied",
@@ -169,7 +169,7 @@
   },
   "missions/03-quantitative-research/00-market-data": {
     "level": "foundation",
-    "minutes": 7
+    "minutes": 8
   },
   "missions/03-quantitative-research/01-signal-research": {
     "level": "applied",

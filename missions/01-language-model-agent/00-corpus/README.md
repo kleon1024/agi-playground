@@ -65,6 +65,78 @@ Read the funnel, because it contradicts the usual intuition:
   them — which is precisely why production dedup is a distributed multi-stage
   job instead of one pipeline step.
 
+## What a document actually looks like at each gate
+
+Numbers alone let you imagine a funnel without ever seeing what falls through
+it. Run the pipeline on a fresh WARC file — 3,000 documents this time, not
+20,000 — and open the output at each stage instead of trusting the count.
+
+A document dies at **language ID** for reasons that have nothing to do with
+quality. This one is a Polish home-cooking blog:
+
+```
+url: 06072005.eu/nowatorskie-metody-nauczania
+"Nowatorskie metody nauczania : Kuchnia i Kulinaria [...]"
+english_score: 0.065   (threshold: 0.12)
+```
+
+It is well-formed prose. The stop-word ratio has never seen a Polish stop word,
+so it scores near zero — this filter cannot tell "not English" from "no
+English stop words," and those are different claims that happen to agree most
+of the time.
+
+A document dies at **extraction** when the page is mostly JavaScript and an
+empty `<title>`:
+
+```
+url: 070404.com/video/170434785.html
+'<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n<title></title>\n...'
+```
+
+Under 200 characters of real text survive stripping the markup — there was
+barely a page here to begin with.
+
+A document dies at the **C4 line filter** when it reads as navigation rather
+than prose, even though every individual line is grammatical:
+
+```
+url: bftu.org.bw
+"Home - BFTU\nWelcome To BFTU\nThe BFTU was formed in April 1977 [...]\n
+Learn More\nEstablished\nStaff\nProjects\nSUBSCRIBE NEWSLETTER\n..."
+```
+
+Half the lines are menu items and calls to action; C4's line filter keeps the
+sentences and throws the rest away, and what is left is too short to clear 50
+words.
+
+Two documents survive every gate, and they are not the same kind of survivor.
+One is what the pipeline is for — an 842-word travel-blog post
+(`abirdslifeinontario.blogspot.com`) that reads as continuous prose start to
+finish. The other is a 148-word hosting-provider error page
+(`137hnluxury.com/cgi-sys/defaultwebpage.cgi`, "If you are the owner of this
+website, please contact your hosting provider...") that happens to be
+grammatical English above the length floor. Nothing in this funnel tells
+these two apart — structural fluency is not the same property as being worth
+training on, which is exactly the gap datatrove's extra filters close below.
+
+The kept documents' length distribution, from this same 3,000-document run
+(569 survivors):
+
+```
+     <200 words: 196  (34.4%)
+   200-500 words: 167  (29.3%)
+  500-1000 words: 110  (19.3%)
+ 1000-2000 words:  58  (10.2%)
+    2000+ words:  38  ( 6.7%)
+median: 322 words   mean: 705 words
+```
+
+A third of what survives is under 200 words — closer to the error-page
+survivor above than to the blog post. The mean is dragged well above the
+median by a long tail of a few thousand-word-plus documents; whatever
+downstream training does with document length (packing, truncation) is
+answering to that shape, not to a typical document.
+
 ## Reproducing
 
 ```bash
