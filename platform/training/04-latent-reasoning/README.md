@@ -109,12 +109,10 @@ computed embedding is fine — the prefix is unchanged and the cache stays valid
 after it. Latent thoughts are cheap in tokens and expensive in passes, which is
 the opposite trade from the one the name suggests.
 
-## What this chapter does not yet establish
+## What a real run actually shows
 
-**No run has been recorded.** The three arms are implemented and each trains end
-to end, but this lesson stays `draft` until `runs/` contains a measured
-comparison across seeds. The hypothesis is stated here in advance, so it cannot
-be adjusted afterwards to match whatever comes out:
+The hypothesis below was written before any run, so it could not be adjusted
+to match whatever came out:
 
 - `cot` beats `direct`, because the task is built to require sequential steps
   and a single forward pass has a fixed depth to do them in.
@@ -122,9 +120,26 @@ be adjusted afterwards to match whatever comes out:
   spread. A thought at `d_model=128` carries more than a token in principle,
   and the curriculum has few stages and little capacity to learn how to use it.
 
-A result inside the seed spread is a reportable result here, not a failed
-experiment. The instrument that makes that claim legitimate is three seeds per
-arm and the spread reported beside every mean.
+Run at the defaults above (CPU only, no GPU on this machine), `direct` alone
+took 16-17 minutes per seed, and the full three-arm sweep did not finish
+inside one sitting. What did finish is real and is kept, not discarded: three
+seeds of `direct` at the full 6000-step budget converge to **0.502 mean
+accuracy** — chance, on this balanced yes/no task — with loss fully settled
+at 0.345-0.354. A second run at a quarter of the budget (`--steps 1500
+--stage-steps 300`) completed all three arms: `direct` **0.502**, `cot`
+**0.5013**, `latent` **0.5007** — all at chance, but `cot`'s loss (0.83-0.88)
+had not converged the way `direct`'s had, and `latent`'s curriculum depends on
+`cot`-level convergence at each stage to hand the next stage anything useful.
+`direct` failing is a stable result, unchanged across both step counts — a
+real finding, not an artifact of too little training. Whether `cot` actually
+beats `direct`, and where `latent` lands, remains open: neither arm reached
+the chapter's own step budget with a completed run. [Full numbers and both
+partial JSON files.](runs/2026-07-30-arm-comparison.md)
+
+A result inside the seed spread would be a reportable result here, not a
+failed experiment — the instrument that makes that claim legitimate is three
+seeds per arm and the spread reported beside every mean. That instrument
+worked; the comparison it was built to make has not run to completion yet.
 
 Beyond that, this chapter will not establish anything about a model that has to
 reason in natural language. The task is synthetic, the vocabulary is 51 tokens,

@@ -1,0 +1,53 @@
+{
+  "task": {
+    "entities": 40,
+    "hops": 4,
+    "vocab": 51
+  },
+  "budget": "equal steps for direct and cot; latent trains stage_steps per curriculum stage",
+  "seeds": 3,
+  "arms": {
+    "direct": {
+      "runs": [
+        {
+          "seed": 0,
+          "accuracy": 0.494,
+          "curriculum": [
+            {
+              "n_latent": 0,
+              "loss": 0.3539,
+              "accuracy": 0.5
+            }
+          ],
+          "wallclock_s": 1006.6
+        },
+        {
+          "seed": 1,
+          "accuracy": 0.506,
+          "curriculum": [
+            {
+              "n_latent": 0,
+              "loss": 0.3458,
+              "accuracy": 0.5
+            }
+          ],
+          "wallclock_s": 981.7
+        },
+        {
+          "seed": 2,
+          "accuracy": 0.506,
+          "curriculum": [
+            {
+              "n_latent": 0,
+              "loss": 0.3453,
+              "accuracy": 0.5
+            }
+          ],
+          "wallclock_s": 957.8
+        }
+      ],
+      "mean_accuracy": 0.502,
+      "seed_spread": 0.012
+    }
+  }
+}

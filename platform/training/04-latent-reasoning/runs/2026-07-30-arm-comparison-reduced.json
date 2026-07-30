@@ -1,0 +1,197 @@
+{
+  "task": {
+    "entities": 40,
+    "hops": 4,
+    "vocab": 51
+  },
+  "budget": "equal steps for direct and cot; latent trains stage_steps per curriculum stage",
+  "seeds": 3,
+  "arms": {
+    "direct": {
+      "runs": [
+        {
+          "seed": 0,
+          "accuracy": 0.506,
+          "curriculum": [
+            {
+              "n_latent": 0,
+              "loss": 0.3468,
+              "accuracy": 0.5
+            }
+          ],
+          "wallclock_s": 237.4
+        },
+        {
+          "seed": 1,
+          "accuracy": 0.506,
+          "curriculum": [
+            {
+              "n_latent": 0,
+              "loss": 0.3401,
+              "accuracy": 0.5
+            }
+          ],
+          "wallclock_s": 239.9
+        },
+        {
+          "seed": 2,
+          "accuracy": 0.494,
+          "curriculum": [
+            {
+              "n_latent": 0,
+              "loss": 0.3503,
+              "accuracy": 0.5
+            }
+          ],
+          "wallclock_s": 222.7
+        }
+      ],
+      "mean_accuracy": 0.502,
+      "seed_spread": 0.012
+    },
+    "cot": {
+      "runs": [
+        {
+          "seed": 0,
+          "accuracy": 0.504,
+          "curriculum": [
+            {
+              "n_latent": 0,
+              "loss": 0.8829,
+              "accuracy": 0.49
+            }
+          ],
+          "wallclock_s": 252.0
+        },
+        {
+          "seed": 1,
+          "accuracy": 0.506,
+          "curriculum": [
+            {
+              "n_latent": 0,
+              "loss": 0.8572,
+              "accuracy": 0.5
+            }
+          ],
+          "wallclock_s": 261.5
+        },
+        {
+          "seed": 2,
+          "accuracy": 0.494,
+          "curriculum": [
+            {
+              "n_latent": 0,
+              "loss": 0.8254,
+              "accuracy": 0.5
+            }
+          ],
+          "wallclock_s": 280.5
+        }
+      ],
+      "mean_accuracy": 0.5013,
+      "seed_spread": 0.012
+    },
+    "latent": {
+      "runs": [
+        {
+          "seed": 0,
+          "accuracy": 0.502,
+          "curriculum": [
+            {
+              "n_latent": 0,
+              "loss": 0.9753,
+              "accuracy": 0.5
+            },
+            {
+              "n_latent": 1,
+              "loss": 1.214,
+              "accuracy": 0.5
+            },
+            {
+              "n_latent": 2,
+              "loss": 1.2479,
+              "accuracy": 0.5
+            },
+            {
+              "n_latent": 3,
+              "loss": 1.367,
+              "accuracy": 0.5
+            },
+            {
+              "n_latent": 4,
+              "loss": 0.3476,
+              "accuracy": 0.485
+            }
+          ],
+          "wallclock_s": 700.0
+        },
+        {
+          "seed": 1,
+          "accuracy": 0.506,
+          "curriculum": [
+            {
+              "n_latent": 0,
+              "loss": 1.032,
+              "accuracy": 0.5
+            },
+            {
+              "n_latent": 1,
+              "loss": 1.2352,
+              "accuracy": 0.51
+            },
+            {
+              "n_latent": 2,
+              "loss": 1.2377,
+              "accuracy": 0.525
+            },
+            {
+              "n_latent": 3,
+              "loss": 1.3215,
+              "accuracy": 0.5
+            },
+            {
+              "n_latent": 4,
+              "loss": 0.3421,
+              "accuracy": 0.5
+            }
+          ],
+          "wallclock_s": 657.2
+        },
+        {
+          "seed": 2,
+          "accuracy": 0.494,
+          "curriculum": [
+            {
+              "n_latent": 0,
+              "loss": 1.0218,
+              "accuracy": 0.5
+            },
+            {
+              "n_latent": 1,
+              "loss": 1.2298,
+              "accuracy": 0.525
+            },
+            {
+              "n_latent": 2,
+              "loss": 1.254,
+              "accuracy": 0.5
+            },
+            {
+              "n_latent": 3,
+              "loss": 1.3551,
+              "accuracy": 0.5
+            },
+            {
+              "n_latent": 4,
+              "loss": 0.3569,
+              "accuracy": 0.505
+            }
+          ],
+          "wallclock_s": 665.1
+        }
+      ],
+      "mean_accuracy": 0.5007,
+      "seed_spread": 0.012
+    }
+  }
+}
