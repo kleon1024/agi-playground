@@ -619,6 +619,11 @@
       },
       {
         "type": "doc",
+        "id": "research/06-harness-effects",
+        "label": "Harness effects"
+      },
+      {
+        "type": "doc",
         "id": "research/synthesis",
         "label": "Synthesis"
       }

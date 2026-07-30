@@ -103,26 +103,26 @@ to anything.
 
 ## Three ways a correct number is still false
 
-Everything above makes a score *reproducible*: the tokenizer is named, the
-context length is named, the baseline is named, the seed count is enforced.
-None of it makes the score *true*. A benchmark whose answers leaked into
-training data, an LLM judge with reproducible preferences, and a difference
-smaller than the run-to-run noise all produce numbers that pass every check on
-this page.
+Everything above makes a score *reproducible*: tokenizer, context length,
+baseline, and seed count are all named or enforced. None of it makes the score
+*true*. A benchmark whose answers leaked into training data, an LLM judge with
+reproducible preferences, and a difference smaller than the run-to-run noise all
+produce numbers that pass every check on this page.
 
-[Why believe the number?](why-believe-the-number/) takes those three in turn,
-and states what each defense cannot do. Read it before quoting anything from
-this stage — including anything you quote from someone else.
+[Why believe the number?](why-believe-the-number/) takes those three in turn and
+states what each defense cannot do. Read it before quoting anything from this
+stage — including anything you quote from someone else.
 
 ## The other half of the number
 
 Everything above is about the score. The harness that produced it is the other
-half, and it is the half nobody names.
-[Whose harness produced it](whose-harness/) turns the disclosure argument into
-a validation check that raises on a missing field, and answers the tooling
-question this stage has to make: EleutherAI's lm-evaluation-harness for static
-benchmarks, a hand-rolled loop for agentic trajectories, and why those cannot
-be the same tool.
+half, and in one published 2026 result that half was worth three times the score
+with the model unchanged. [Whose harness produced it](whose-harness/) opens on
+that case, separates the harness properties that have a right answer from the
+ones that only have a *declared* one, turns the second list into a validation
+check that raises on a missing field, and settles this stage's tooling question:
+lm-evaluation-harness for static benchmarks, a hand-rolled loop for agentic
+trajectories, and why those cannot be the same tool.
 
 ## What this mission's evaluation does NOT prove
 

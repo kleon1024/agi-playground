@@ -15,17 +15,14 @@ it, found the KV cache buying almost nothing, and named the culprit "a fixed
 per-step cost". That is a hypothesis wearing a finding's clothes. This chapter
 puts a profiler on one decode step, and then acts on what it says.
 
-**Prerequisite:** that chapter's KV-cache engine, which is the code being
-profiled here.
-
 You will finish able to tell three bottlenecks apart from a profile — the host
 cannot issue work fast enough, the device cannot read memory fast enough, the
 device cannot compute fast enough — and to say why the standard fix for the
 first one costs you arithmetic to buy back time.
 
 **Before this:** [how a checkpoint becomes a service](../README.md), for the
-decode step and why it is memory-bound. This chapter profiles that step rather
-than re-deriving it.
+decode step and why it is memory-bound; the engine profiled here is the
+KV-cache engine from stage 05.
 
 ## The one comparison that settles it
 
@@ -39,7 +36,7 @@ kernels. If the first is larger, **the GPU spent part of the step idle, waiting
 for a host that could not issue work quickly enough.** Nothing you do to the
 arithmetic will help, because the arithmetic was never what you were waiting on.
 
-Run it over 50 decode steps, prefill excluded so the numbers are per step:
+Over 50 decode steps, prefill excluded so the numbers are per step:
 
 ```
 eager (engine.py)
@@ -133,7 +130,7 @@ Device time went **up** by 2.12x — that is the masked-out arithmetic, paid in
 full. Wall-clock still fell threefold. And at 1.05x the step is now balanced:
 neither side is starving the other, so the next win has to come from the
 kernels themselves rather than from how they are issued. The bottleneck did not
-disappear; it moved, and the profile says where to look next.
+disappear; it moved.
 
 ## Does the compiler just do this?
 
@@ -162,10 +159,9 @@ those tensors elsewhere would get silent corruption. So the 2.47x is kernel
 fusion alone: fewer, larger kernels, attacking the same launch bottleneck by a
 different route.
 
-That is the useful shape of this comparison. The compiler is the right default
-and gets most of the win blind. The remaining gap is available only to code
-that can promise, as `core/` does by construction, that mutating those buffers
-is safe.
+The compiler is the right default and gets most of the win blind. The remaining
+gap is available only to code that can promise, as `core/` does by
+construction, that mutating those buffers is safe.
 
 ## Run the working path
 

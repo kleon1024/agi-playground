@@ -53,8 +53,7 @@ Nvidia's Minitron line (2024) prunes a large model and distils the remainder
 back from its parent. External results, attributed and dated — none of them
 reproduced here.
 
-So read the table, find your row, and the rest of this chapter tells you what
-that row costs.
+Find your row; the rest of this chapter is what it costs.
 
 ## Path one: copy the words
 
@@ -67,8 +66,7 @@ rather than correctness. The only thing that changed is who wrote the assistant
 turn.
 
 This is also the fallback whenever a shared tokenizer is unavailable — a
-constraint that ends path two before it starts, and one this chapter returns to
-once path two has been explained.
+constraint that ends path two before it starts.
 
 ## Path two: copy the shape of the teacher's doubt
 

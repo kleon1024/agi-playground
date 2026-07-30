@@ -22,7 +22,9 @@ RL post-training, exercise-driven inference infra, and agent harness engineering
 | [03-post-training-and-rl.md](03-post-training-and-rl.md) | Post-training frameworks, the 2026 algorithm canon (DPO family, GRPO/RLVR), recipes, 4090 feasibility |
 | [04-infra-and-agent-harness.md](04-infra-and-agent-harness.md) | Inference engine internals, training infra, agent harness engineering, evals, solo-builder infra |
 | [05-agent-memory.md](05-agent-memory.md) | Agent memory storage shapes, what Anthropic actually ships, the provenance of the "graph engineering" claim, and the edge-density measurement nobody publishes |
+| [06-harness-effects.md](06-harness-effects.md) | The published case where two harness settings tripled an ARC-AGI-3 score with the model unchanged, what it establishes, and what the encrypted half of it does not |
 
-> Passes 01-04 were conducted 2026-07-24; pass 05 on 2026-07-29. Landscape facts
+> Passes 01-04 were conducted 2026-07-24; pass 05 on 2026-07-29; pass 06 on
+> 2026-07-30. Landscape facts
 > (versions, benchmarks, project status) reflect those dates; verify before relying
 > on them.

@@ -103,8 +103,7 @@ than treating rank as a free quality knob.
 <!-- interactive: LoRARank -->
 
 Initialize one factor randomly and the other to zero so the initial update is
-exactly zero but gradients can still flow. Scaling by `alpha / r` keeps update
-magnitude comparable while rank changes.
+exactly zero but gradients can still flow.
 
 LoRA is not merely compressed full fine-tuning. It constrains the directions
 the model can move. That can regularize a small dataset, but it can also block
