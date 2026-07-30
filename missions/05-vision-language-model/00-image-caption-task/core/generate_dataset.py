@@ -59,7 +59,7 @@ COLORS = {
     "yellow": (230, 200, 40),
 }
 COLOR_NAMES = list(COLORS)
-BACKGROUND = (255, 255, 255)
+BACKGROUND: tuple[int, int, int] = (255, 255, 255)
 
 # Grid cells as (row, col) -> (row_label, col_label). (0, 0) is top-left.
 CELLS = [(r, c) for r in range(2) for c in range(2)]
