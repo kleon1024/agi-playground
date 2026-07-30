@@ -1,0 +1,12 @@
+{"id": "capital-france", "type": "loglik", "prompt": "The capital of France is", "choices": [" Paris", " London", " Berlin"], "answer_index": 0}
+{"id": "water-boils", "type": "loglik", "prompt": "Water boils at 100 degrees", "choices": [" Celsius", " Fahrenheit", " Kelvin"], "answer_index": 0}
+{"id": "sun-rises", "type": "loglik", "prompt": "The sun rises in the", "choices": [" east", " west", " north"], "answer_index": 0}
+{"id": "arithmetic-2-2", "type": "loglik", "prompt": "2 + 2 =", "choices": [" 4", " 5", " 3"], "answer_index": 0}
+{"id": "opposite-hot", "type": "loglik", "prompt": "The opposite of hot is", "choices": [" cold", " warm", " wet"], "answer_index": 0}
+{"id": "dog-sound", "type": "loglik", "prompt": "A dog says", "choices": [" woof", " meow", " moo"], "answer_index": 0}
+{"id": "sky-color", "type": "loglik", "prompt": "The color of the sky on a clear day is", "choices": [" blue", " green", " purple"], "answer_index": 0}
+{"id": "day-after-monday", "type": "loglik", "prompt": "Monday comes before", "choices": [" Tuesday", " Sunday", " Friday"], "answer_index": 0}
+{"id": "gen-capital-france", "type": "generate", "prompt": "The capital of France is", "target": "Paris", "max_new_tokens": 8, "temperature": 0.8}
+{"id": "gen-arithmetic", "type": "generate", "prompt": "2 + 2 =", "target": "4", "max_new_tokens": 8, "temperature": 0.8}
+{"id": "gen-opposite-up", "type": "generate", "prompt": "The opposite of up is", "target": "down", "max_new_tokens": 8, "temperature": 0.8}
+{"id": "gen-roses", "type": "generate", "prompt": "Roses are red, violets are", "target": "blue", "max_new_tokens": 8, "temperature": 0.8}

@@ -60,8 +60,7 @@ Break the sentence into what it needs to actually mean something:
    after, *"Stop Comparing LLM Agents Without Disclosing the Harness,"* is
    the argument in one sentence: two papers reporting "Model A beats Model B
    on Benchmark X" under different scaffolds aren't making a comparable
-   claim, even with an identical benchmark name. GAIA's own authors flag
-   their benchmark as harness-sensitive for exactly this reason.
+   claim, even with an identical benchmark name.
 2. **How many seeds?** A single run at nonzero temperature — or through any
    environment with real nondeterminism — is one draw from a distribution,
    not the distribution. `core/evaluate.py` raises rather than accepting
@@ -117,31 +116,27 @@ stage — including anything you quote from someone else.
 
 Everything above is about the score. The harness that produced it is the other
 half, and in one published 2026 result that half was worth three times the score
-with the model unchanged. [Whose harness produced it](whose-harness/) opens on
-that case, separates the harness properties that have a right answer from the
-ones that only have a *declared* one, turns the second list into a validation
-check that raises on a missing field, and settles this stage's tooling question:
-lm-evaluation-harness for static benchmarks, a hand-rolled loop for agentic
-trajectories, and why those cannot be the same tool.
+with the model unchanged. [Whose harness produced it](whose-harness/) separates
+harness properties that have a right answer from ones that only have a
+*declared* one, turns the second list into a validation check, and settles this
+stage's tooling question: lm-evaluation-harness for static benchmarks, a
+hand-rolled loop for agentic trajectories.
 
 ## What this mission's evaluation does NOT prove
 
 Straight from `mission.yaml`'s `does_not_prove`, restated for this stage:
 
-- **No business outcome.** The mission's own stated baseline is a hosted
-  frontier model, which will outperform this speedrun's 88M-parameter
-  checkpoint on essentially every task — there is no stakeholder metric, no
-  live users, and no baseline this beats on output quality. A passing
-  perplexity, task-suite, or agent number here is not a claim that this
-  system is *good*; it is a claim that the pipeline producing it is real and
-  its numbers are honestly reported.
+- **No business outcome.** The mission's baseline is a hosted frontier model
+  that will outperform this 88M-parameter checkpoint on essentially every
+  task — there is no stakeholder metric or live-user baseline. A passing
+  number here claims the pipeline producing it is real and honestly
+  reported, not that the system is *good*.
 - **No generalization beyond text.** Nothing here says the platform layers
-  it exercises (serving, agent harness, eval discipline) work for a
-  different modality or decision loop — that claim belongs to a later
-  mission that has to re-earn it.
+  it exercises work for a different modality or decision loop — that claim
+  belongs to a later mission.
 - **No agent-benchmark comparability to anyone else's number**, per the
-  harness-disclosure argument, unless that number discloses an identical
-  configuration — which most published numbers do not.
+  harness-disclosure argument, unless it discloses an identical
+  configuration.
 - **No task-suite accuracy meaningful outside this repo.** The suite is
   sized for what an 88M from-scratch model can plausibly attempt; it is not
   a capability benchmark.
@@ -160,6 +155,26 @@ baseline     uniform distribution over vocab = 9.712 nats (ln(16512))
 ```
 
 Full report: [`runs/2026-07-30-perplexity-report.json`](runs/2026-07-30-perplexity-report.json).
+
+## What the task-suite report actually says
+
+[`fixtures/tasks.jsonl`](fixtures/tasks.jsonl): 8 `loglik` instances (three-way
+multiple choice) and 4 `generate` instances, run against the SFT checkpoint at
+5 seeds:
+
+```
+loglik      accuracy 0.625 (5/8)  95% CI [0.250, 0.875]  bootstrap, n=8
+generate    mean 0.050 +/- 0.100 across 5 seeds  [0.0, 0.0, 0.0, 0.25, 0.0]
+baseline    random choice among 3 options = 0.333
+```
+
+Loglik beats chance, but the CI spans half the range at n=8 — barely more
+than "probably better than random." Generate is the harder test: it must
+reproduce an exact prefix at temperature 0.8, which an 88M model rarely does
+even when loglik ranks the right answer highest. The two disagree because
+they measure different things, not because one is wrong.
+
+Full report: [`runs/2026-07-30-task-suite-report.json`](runs/2026-07-30-task-suite-report.json).
 
 ## Reproducing
 
@@ -188,10 +203,10 @@ python prod/lm_eval.py --ckpt ../02-pretrain/ckpt/ckpt.pt \
 ```
 
 [Stage 02](../02-pretrain/) has landed a checkpoint and
-[stage 03](../03-sft/) has fine-tuned it. Perplexity is now measured, above;
-the task suite and agent report are not. Publishing a number before it exists
-is the failure mode this stage argues against, and a checkpoint available
-makes the temptation stronger, not weaker.
+[stage 03](../03-sft/) has fine-tuned it. Perplexity and the task suite are
+now measured, above; the agent report is not. Publishing a number before it
+exists is the failure mode this stage argues against, and a checkpoint
+available makes the temptation stronger, not weaker.
 
 ## Exercises
 
@@ -207,15 +222,12 @@ makes the temptation stronger, not weaker.
 
 Per `mission.yaml`'s acceptance criteria, the report this stage produces once
 every earlier stage has a verified run must show, per `runs/` entry: the
-exact evaluation command and CLI arguments (including the named baseline);
-for perplexity, the tokenizer sha256 and context length; for the task suite,
-the seed count and per-seed results, not just the mean; for the agent eval,
-the harness configuration and confirmation that `harness_configs_seen == 1`
-(or a note on which per-transcript harness each number belongs to); and, for
-every metric, the `caveats` block this stage's tooling attaches
-automatically. A report missing any of these isn't a smaller version of a
-passing report — it's a different, weaker claim wearing the same percentage
-sign.
+exact command and CLI arguments including the named baseline; tokenizer
+sha256 and context length for perplexity; seed count and per-seed results
+(not just the mean) for the task suite; harness configuration and
+`harness_configs_seen == 1` for the agent eval; and the `caveats` block for
+every metric. A report missing any of these is a different, weaker claim
+wearing the same percentage sign.
 
 ## Next
 
