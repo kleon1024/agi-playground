@@ -31,6 +31,7 @@ export default function VisionSeedSpread(): React.ReactElement {
       ))}
       <p>vision mean: <strong>{isNaN(visionMean) ? '--' : visionMean.toFixed(4)}</strong>, spread: <strong>{isNaN(spread) ? '--' : spread.toFixed(4)}</strong></p>
       <p>text-only mean: <strong>{textMean.toFixed(4)}</strong>, gap: <strong>{isNaN(gap) ? '--' : gap.toFixed(4)}</strong></p>
+      <p>beats text-only outside noise: <strong>{visionActive.length > 1 ? (beats ? 'yes' : 'no') : '--'}</strong></p>
       <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75 }}>
         {visionActive.length < 3
           ? 'With seed 2 (the collapsed run) excluded, the gap is real and decisive.'

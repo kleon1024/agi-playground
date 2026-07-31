@@ -63,11 +63,12 @@ total_count       37.3%        20.3%         53.0%
 `total_count` is the hardest category for every pathway, including the
 hosted API (53.0%, its own single worst category, against a 91.6% peak on
 `presence`) -- a floor set by the task, not by any one architecture. The
-per-question economics: $1.0033 over 784 questions is $0.00128/question;
-reaching the vision pathway's training cost ($0 marginal, ~20 minutes of CPU
-wall-clock) would take roughly 700,000 questions at the hosted API's price
-before the self-trained pathway's fixed cost is recouped in dollars alone --
-and that still ignores that the trained pathway's accuracy is lower.
+per-question economics: $1.0033 over 784 questions is $0.00128/question; the
+vision pathway's own training cost was $0 marginal (CPU only, ~20 minutes
+wall-clock) -- there is no volume of hosted-API questions that reaches that
+floor, since any nonzero per-question price already exceeds it; the real
+tradeoff is entirely on the accuracy axis, where hosted still leads
+decisively.
 
 <!-- interactive: CategoryBreakdown -->
 

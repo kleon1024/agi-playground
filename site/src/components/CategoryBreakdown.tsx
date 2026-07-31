@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-const CATEGORIES = ['presence', 'shape_color', 'position', 'count_present', 'total_count'] as const;
+const CATEGORIES = ['presence', 'shape_color', 'column_shape', 'shape_count', 'total_count'] as const;
 const HOSTED: Record<string, number> = {
-  presence: 0.916, shape_color: 0.916, position: 0.870, count_present: 0.810, total_count: 0.530,
+  presence: 0.916, shape_color: 0.969, column_shape: 0.812, shape_count: 0.762, total_count: 0.530,
 };
 const VISION: Record<string, number> = {
-  presence: 0.520, shape_color: 0.501, position: 0.440, count_present: 0.420, total_count: 0.310,
+  presence: 0.574, shape_color: 0.501, column_shape: 0.350, shape_count: 0.432, total_count: 0.373,
 };
 
 export default function CategoryBreakdown(): React.ReactElement {
@@ -41,7 +41,9 @@ export default function CategoryBreakdown(): React.ReactElement {
       </table>
       <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75 }}>
         total_count is the hardest category for every pathway, including hosted (0.530, its own
-        worst) -- a floor set by the task, not the architecture. shape_color has the smallest gap.
+        worst) -- a floor set by the task, not the architecture. It also has the smallest gap to
+        hosted (15.7pp); shape_color has the largest (46.8pp), despite being where vision most
+        clearly separates from text-only in absolute terms.
       </p>
     </div>
   );
