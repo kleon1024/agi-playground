@@ -81,7 +81,7 @@ picked after the fact to flatter whichever outcome actually happened.
 |---|---|---|
 | [00 — Synthetic video dataset](00-synthetic-video-dataset/) | what makes a scoreable short sequence, generated rather than scraped? | verified |
 | [01 — Video tokenizer](01-video-tokenizer/) | how do frames become a token sequence a decoder can condition on? | verified |
-| 02 — Generation model | can an autoregressive or small diffusion model over those tokens beat frame-repeat? | not started |
+| [02 — Generation model](02-generation-model/) | can an autoregressive or small diffusion model over those tokens beat frame-repeat? | verified |
 | 03 — Report | what did this cost, and did it clear the declared ceiling? | not started |
 
 [Stage 00](00-synthetic-video-dataset/) extends [mission 05](../05-vision-language-model/)'s
@@ -115,9 +115,20 @@ in [its run record](01-video-tokenizer/runs/2026-07-31-codec-training.md).
 
 Stage 01 is the genuinely new code in this mission: no lesson anywhere in
 this repository yet turns a sequence of frames into tokens a decoder can
-attend over. Stage 02 is where the feasibility decision in
+attend over.
+
+[Stage 02](02-generation-model/) is where the feasibility decision in
 [`mission.yaml`](mission.yaml) actually gets made, on real hardware, against
-a real ceiling.
+a real ceiling — and did not need it: codec retrain, LM training, and
+generation together used 152.5s of a declared 1800s local-CPU budget (8.5%).
+Reusing mission 01's `Config`/`Transformer` unmodified for a 65-symbol
+vocabulary, the trained sequence model's greedy 4-frame completion beats the
+mission's declared frame-repeat baseline by 37.2% in pixel MSE and lands
+within 3.2% of the oracle (true-token) ceiling — though only 6.7% of eval
+clips get the exact right token continuation, an honest gap the aggregate
+MSE alone does not show, attributable to stage 01's own low-fidelity
+reconstruction rather than to this stage's sequence model. Full trace in
+[its run record](02-generation-model/runs/2026-07-31-generation-training.md).
 
 ## What this will not prove
 

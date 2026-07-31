@@ -369,6 +369,11 @@
             "type": "doc",
             "id": "missions/08-video-generation/01-video-tokenizer/index",
             "label": "Video tokenizer \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/08-video-generation/02-generation-model/index",
+            "label": "Generation model \u00b7 verified"
           }
         ]
       },

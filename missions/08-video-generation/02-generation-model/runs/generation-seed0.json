@@ -1,0 +1,28 @@
+{
+  "seed": 0,
+  "codec_steps": 800,
+  "lm_steps": 400,
+  "lm_lr": 0.003,
+  "prompt_frames": 4,
+  "n_new_frames": 4,
+  "n_eval_clips": 150,
+  "reconstruction_mse": {
+    "lm_completion": 0.0804300382733345,
+    "oracle_tokens": 0.07794064283370972,
+    "frame_repeat_baseline": 0.12808586657047272
+  },
+  "beats_frame_repeat_baseline": true,
+  "predicted_token_sequence_exact_match_rate": 0.06666667014360428,
+  "vocab_size_including_bos": 65,
+  "compute": {
+    "codec_wall_clock_s": 140.885759124998,
+    "lm_train_wall_clock_s": 7.405568083981052,
+    "generation_wall_clock_s": 0.0469820408616215,
+    "total_wall_clock_s": 152.52365845791064,
+    "compute_ceiling_s": 1800.0,
+    "ceiling_exceeded": false,
+    "compute_lane": "local CPU (no CUDA GPU available in this environment)",
+    "dollar_cost": 0.0
+  },
+  "verdict": "MET"
+}

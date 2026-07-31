@@ -257,7 +257,7 @@
   },
   "missions/08-video-generation": {
     "level": "frontier",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/08-video-generation/00-synthetic-video-dataset": {
     "level": "applied",
@@ -266,6 +266,10 @@
   "missions/08-video-generation/01-video-tokenizer": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/08-video-generation/02-generation-model": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/09-bio-pharma-modeling": {
     "level": "applied",
