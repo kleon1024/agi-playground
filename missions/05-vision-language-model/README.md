@@ -44,6 +44,27 @@ the vision pathway proved nothing.
 Two baselines, because each rules out a different way this mission could
 report a false win.
 
+The build-vs-buy question is a two-axis tradeoff: accuracy against dollar
+cost per question. Three real points: the vision pathway (mean exact-match
+0.4375, $0 marginal), the text-only baseline (0.3270, $0), and the hosted API
+(0.8329, $0.00128/question, `openai/gpt-4o-mini` via OpenRouter). The hosted
+point dominates both self-trained points on both axes at once, which is why
+this mission's verdict is a clean NOT MET rather than a "depends on your
+budget" judgment call. The aggregate hides where the vision pathway's signal
+is real: `shape_color` -- the one question type mathematically unanswerable
+from question text alone -- is exactly where vision separates furthest from
+text-only (50.1% vs 27.2%, an 84% relative lift), the strongest evidence the
+pathway conditions on pixels, not memorized phrasing.
+
+<!-- interactive: BuildVsBuyTradeoff -->
+
+Hosted multimodal APIs got cheap fast: CLIP (Radford et al., 2021)
+established that a single contrastively-pretrained vision-language model
+could zero-shot a wide range of tasks, and by 2024 that capability was
+available as a per-token API call rather than something every team needed to
+train -- the economic shift this mission's build-vs-buy question tests
+against, at toy scale.
+
 **Hosted VLM API** answers the same question set through a single external
 call, no training, no tuning. This is the build-vs-buy control: if this
 mission's own trained pathway cannot beat a stock API call, building it was

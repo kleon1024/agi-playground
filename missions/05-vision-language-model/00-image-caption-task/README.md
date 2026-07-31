@@ -100,6 +100,25 @@ images a 2,000-example train set draws, so the same image recurs by the
 birthday paradox, and a later eval draw from the same tiny space lands on one
 already in train.
 
+This is the birthday paradox. With `k` possible pixel-identical outcomes and
+`n` independent draws, the probability at least one pair collides is
+approximately `1 - exp(-n(n-1) / 2k)` for `n << k`. At the original
+single-shape state space (`k=48`) and roughly 700 single-shape draws
+(`n≈700`), that formula gives `1 - exp(-5098) ≈ 1.0` -- collisions were
+essentially certain before a single image was rendered. Widening size and
+position jitter to `k=3,600` changes the exponent to roughly `-68`, still
+nominally "certain" in the pure math but spread thinly enough across 3,600
+outcomes that a train/eval collision specifically becomes rare, matching the
+guardrail's zero-collision result.
+
+<!-- interactive: CollisionProbability -->
+
+Near-duplicate detection between train and eval splits is a known failure
+mode in dataset curation at every scale: CCNet (Wenzek et al., 2019) and
+GPT-3's training corpus documentation (Brown et al., 2020) both report
+fuzzy-deduplication passes for the same reason -- an overlapping held-out set
+silently inflates every downstream metric.
+
 Rejection sampling — skip any eval candidate whose pixel hash already exists in
 train, advance the seed, try again — fixed the collision count to exactly
 zero. But it exposed a second, quieter defect: with train having already

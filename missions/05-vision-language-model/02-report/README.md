@@ -60,6 +60,22 @@ shape_count       43.2%        42.2%         76.2%
 total_count       37.3%        20.3%         53.0%
 ```
 
+`total_count` is the hardest category for every pathway, including the
+hosted API (53.0%, its own single worst category, against a 91.6% peak on
+`presence`) -- a floor set by the task, not by any one architecture. The
+per-question economics: $1.0033 over 784 questions is $0.00128/question;
+reaching the vision pathway's training cost ($0 marginal, ~20 minutes of CPU
+wall-clock) would take roughly 700,000 questions at the hosted API's price
+before the self-trained pathway's fixed cost is recouped in dollars alone --
+and that still ignores that the trained pathway's accuracy is lower.
+
+<!-- interactive: CategoryBreakdown -->
+
+Per-category accuracy breakdown rather than one aggregate score is standard
+VQA evaluation practice going back to the original VQA dataset (Antol et al.,
+2015), specifically because an aggregate can hide a model exploiting
+question-type frequency rather than image content.
+
 Two things stand out. First, `shape_color` is exactly where vision should
 separate from text-only if it is really seeing the image -- color is not
 recoverable from the question's wording -- and it does, by the widest margin

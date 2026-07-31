@@ -96,6 +96,22 @@ text_only  eval exact-match   mean=0.3270  spread=0.0459  per_seed=[0.3304, 0.34
 wall-clock: 1181.4s (19.7 min) for all 6 (model, seed) runs combined, CPU only
 ```
 
+Vision's per-seed accuracies are `[0.5128, 0.5153, 0.2844]`, so
+`spread = max - min = 0.2309` (this repository's convention for a 3-seed run,
+not a standard deviation). The gap to text-only's mean (0.3270) is
+`0.4375 - 0.3270 = 0.1105`. Since `0.1105 < 0.2309`, the observed gap is
+smaller than the noise a single training run at this scale already produces
+-- which is why stage 02's verdict cannot be "vision wins," independent of
+the hosted-API comparison.
+
+<!-- interactive: VisionSeedSpread -->
+
+Patch embedding as a vision-token sequence is the mechanism Vision
+Transformer (Dosovitskiy et al., 2020) introduced; conditioning a text
+decoder on a fixed-length vision-token prefix via fused attention rather than
+a separate encoder-decoder is the shape PaLM-E (Driess et al., 2023) and
+Flamingo (Alayrac et al., 2022) both use at production scale.
+
 Two of the vision pathway's three seeds (0.513, 0.515) decisively beat every
 text-only seed (0.330, 0.348, 0.302) — a 17-18 point gap, far wider than
 text-only's own 0.046 seed-to-seed spread. On those two seeds the vision
