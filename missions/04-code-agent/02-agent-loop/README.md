@@ -74,8 +74,8 @@ The regression check only flags members of `P` that flip to failing, so a
 tampering strategy is invisible to it iff every member of `P` keeps passing --
 trivially satisfiable for `T` alone, since `T` was never in `P` to begin with.
 This chapter's own two recorded verdicts are the two boundary cases: on
-`354c352`, tampering touched only the target and produced 0 regressions (the
-regression check was blind; the diff check caught it). On `b81c414`,
+`b81c414`, tampering touched only the target and produced 0 regressions (the
+regression check was blind; the diff check caught it). On `354c352`,
 tampering replaced the whole test file, incidentally removing 9 other members
 of `P`, producing 11 regressions (the regression check would have caught this
 one too; the diff check fired first). Precision of the attack, not its

@@ -2,18 +2,15 @@ import React, { useState } from 'react';
 
 const CACHE_LEN = 6;
 
-function topLeftAllowed(row: number, col: number): boolean {
-  // is_causal=True convention: query row i (0-indexed within the new block)
-  // sits at absolute position CACHE_LEN + i; sees keys 0..(CACHE_LEN + i).
-  return col <= CACHE_LEN + row;
+function noMaskAllowed(): boolean {
+  return true; // haiku's decode branch: is_causal=False once start_pos != 0 -- nothing is masked
 }
 
-function bottomRightAllowed(row: number, col: number, queryLen: number): boolean {
+function bottomRightAllowed(row: number, col: number): boolean {
   // causal_lower_right: query row i sees cached keys 0..CACHE_LEN-1 plus
   // new-block keys 0..i.
   if (col < CACHE_LEN) return true;
   return col - CACHE_LEN <= row;
-  void queryLen;
 }
 
 export default function DecodeMaskShape(): React.ReactElement {
@@ -22,8 +19,8 @@ export default function DecodeMaskShape(): React.ReactElement {
   let mismatches = 0;
   const rows = Array.from({ length: queryLen }, (_, row) =>
     Array.from({ length: totalKeys }, (_, col) => {
-      const a = topLeftAllowed(row, col);
-      const b = bottomRightAllowed(row, col, queryLen);
+      const a = noMaskAllowed();
+      const b = bottomRightAllowed(row, col);
       if (a !== b) mismatches += 1;
       return { a, b, mismatch: a !== b };
     })
@@ -37,6 +34,9 @@ export default function DecodeMaskShape(): React.ReactElement {
           <option value={4}>4 (probe's multi-token query)</option>
         </select>
       </label>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.6 }}>
+        no mask (haiku's decode branch) vs bottom-right causal (correct)
+      </p>
       <p>cache length: {CACHE_LEN}, mismatched cells: <strong>{mismatches}</strong></p>
       <table style={{ borderCollapse: 'collapse', fontSize: 'var(--type-xs)' }}>
         <tbody>
@@ -50,7 +50,7 @@ export default function DecodeMaskShape(): React.ReactElement {
                     padding: '0.2rem 0.35rem',
                     background: cell.mismatch ? 'var(--brand-chart-warning-fill)' : undefined,
                   }}
-                  title={`top-left: ${cell.a ? 'allowed' : 'masked'}, bottom-right: ${cell.b ? 'allowed' : 'masked'}`}
+                  title={`no mask (haiku's decode branch): ${cell.a ? 'allowed' : 'masked'}, bottom-right causal (correct): ${cell.b ? 'allowed' : 'masked'}`}
                 >
                   {cell.mismatch ? '!=' : '='}
                 </td>
@@ -60,9 +60,9 @@ export default function DecodeMaskShape(): React.ReactElement {
         </tbody>
       </table>
       <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75 }}>
-        At query length 1 the two conventions agree everywhere (0 mismatches) -- single-token
-        decode looks safe. At query length 4 (the probe's actual test) they disagree, which is
-        the direct cause of haiku's 1.2e-3/4.2e-2/1.2e-3 measured errors.
+        At query length 1 no mask and bottom-right causal agree everywhere (0 mismatches) --
+        single-token decode looks safe. At query length 4 (the probe's actual test) they
+        disagree, which is the direct cause of haiku's 1.2e-3/4.2e-2/1.2e-3 measured errors.
       </p>
     </div>
   );

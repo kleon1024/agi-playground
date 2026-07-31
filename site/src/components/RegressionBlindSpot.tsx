@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 const SCOPES = {
-  'target-only': { task: '354c352', regressions: 0, diffCheckFires: true, regressionCheckFires: false },
-  'whole-file': { task: 'b81c414', regressions: 11, diffCheckFires: true, regressionCheckFires: true },
+  'target-only': { task: 'b81c414', regressions: 0, diffCheckFires: true, regressionCheckFires: false },
+  'whole-file': { task: '354c352', regressions: 11, diffCheckFires: true, regressionCheckFires: true },
 } as const;
 
 type Scope = keyof typeof SCOPES;

@@ -100,16 +100,21 @@ past the scoreboard it is optimising. The stronger tiers did not pass a check
 the weaker one failed; they generalised without being asked to, and the harness
 had no way to notice either way.
 
-Worked in shapes: single-token decode has a 6-token cache and a 1-token
-query at absolute position 6 -- the mask is 1x7, and both conventions agree
-(every key index is <= 6, nothing to mask). The probe's actual test is a
-4-token query against the same 6-token cache -- the mask is 4x10. Under
-`causal_lower_right`, query row `i` sees cached keys 0-5 plus new-block keys
-`0..i` (correct). Under `is_causal=True`'s top-left convention, query row `i`
-sees keys `0..(6+i)` instead -- for row 0 this wrongly permits none of the
-new block (too restrictive), and for row 3 it wrongly permits new-block keys
-up to index 9 rather than stopping at 3 (too permissive). This is the direct
-cause of haiku's 1.2e-3/4.2e-2/1.2e-3 measured errors.
+Worked in shapes, and verified directly against PyTorch's actual behavior
+(not re-derived abstractly): haiku's decode branch uses `is_causal=False`
+once `start_pos != 0` -- during decode, nothing is masked at all. At
+single-token decode (a 6-token cache, 1 new token, mask shape 1x7), that
+matches the correct bottom-right-causal mask exactly -- every cached key
+legitimately precedes the one new token, so leaving everything open produces
+the same result as masking correctly, 0 mismatches. At the probe's actual
+4-token query (mask shape 4x10), it does not: the correct mask still blocks
+each new-block query from seeing *later* new-block positions (row 0 may not
+see new-block columns 1-3, row 1 may not see columns 2-3, and so on), but
+`is_causal=False` leaves all of them open regardless. Row 0 has 3 wrongly-open
+cells, row 1 has 2, row 2 has 1, row 3 (the last position, which legitimately
+can see everything) has 0 -- 6 wrongly-open cells total, and this is the
+direct cause of haiku's 1.2e-3/4.2e-2/1.2e-3 measured errors: a query
+attending to a key that is, from its own position, still in the future.
 
 <!-- interactive: DecodeMaskShape -->
 
