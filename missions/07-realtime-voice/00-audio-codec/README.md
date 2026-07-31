@@ -58,6 +58,28 @@ learning rate to `1e-3` and training for 600 steps crossed that threshold at
 around step 150 and kept improving through step 550. Full trace in
 [`runs/2026-07-31-codec-training.md`](runs/2026-07-31-codec-training.md).
 
+Why does matching silence look locally optimal? Training minimizes
+`L = mean((x_hat - x)^2)` over waveforms `x` that are zero-mean by
+construction. If the decoder outputs a constant near zero regardless of
+input, the gradient of `L` with respect to that constant depends only on the
+mean of the target, already near zero -- the easiest early gradient step is
+"output less," not "output the right shape." The real training log shows
+this exactly: `recon_loss` is flat at 0.325-0.349 for the first 100 steps,
+then falls to 0.0145 by step 550. The escape is visible in `vq_loss`, which
+jumps from ~5e-6 (a converged codebook) to 4.18 at step 150 -- the encoder
+has started producing latents no longer clustered near the codebook's
+initial center -- then falls again as the codebook re-converges around real
+structure (0.06 by step 550).
+
+<!-- interactive: CodecCollapseEscape -->
+
+VQ-VAE training getting stuck in this kind of near-silence local minimum,
+needing a codebook-reset technique to escape it, is documented in VQ-VAE
+training generally (van den Oord et al., 2017); EnCodec's recipe (Défossez
+et al., 2022) applies periodic codebook re-initialization for exactly this
+reason -- the same technique mission 08's video codec needed for its own,
+more severe collapse.
+
 ## Result
 
 ```

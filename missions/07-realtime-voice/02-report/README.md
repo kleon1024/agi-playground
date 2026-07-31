@@ -36,6 +36,24 @@ latency gap: invisible at 48-step native length; a real 6.9x divergence
 VERDICT: MET
 ```
 
+`mission.yaml` names five acceptance lines, and the `MET` verdict depends on
+all five independently: latency at two scales, the codec and LM beating both
+naive baselines, the offline-vs-streaming gap reported explicitly (here, a
+true zero -- max logit gap 1.19e-05 across 30 clips), every stage having a
+`runs/` entry, and any change to reused serving code being named (none was
+needed, itself the finding). Flip any one hypothetically and the verdict
+changes -- a codec producing tokens worse than noise would make "the cache
+preserves output quality" a vacuous claim regardless of how clean the cache
+correctness result was.
+
+<!-- interactive: AcceptanceGatePanel -->
+
+Report-stage code mechanically applying a pre-declared acceptance contract,
+refusing to print a verdict when an input is missing, is this repository's
+own convention -- the same principle behind pre-registration in empirical
+research, standardized through initiatives like the Open Science Framework
+(est. 2011) to prevent post-hoc threshold selection.
+
 This is mission 07's first `MET` verdict among the three fully-built
 missions this session -- missions 05 (vision) and 06 (game AI) both closed
 `NOT MET` on their own honestly-reported results. The difference here is not

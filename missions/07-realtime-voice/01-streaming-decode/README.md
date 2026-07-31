@@ -70,6 +70,24 @@ quality claim), the same growing-vs-flat divergence
 documents for text reappears here for audio tokens. Full numbers in
 [`runs/2026-07-31-streaming-decode.md`](runs/2026-07-31-streaming-decode.md).
 
+Naive (full-recompute) generation reruns attention over all prior positions
+at each step -- total cost across `T` tokens is `O(1+2+...+T) = O(T^2)`, each
+individual step more expensive as the sequence grows. Cached generation
+reuses stored keys/values and only computes attention for the one new token
+against the cache -- `O(T)` total, fixed cost per step. The real numbers
+confirm this: at the 500-step stress test, naive's first-10-steps p50 is
+1.43ms and its last-10-steps p50 is 9.81ms, a 6.9x slowdown; cached's is
+1.15ms to 1.50ms, a 1.3x change, close to flat. At the mission's native
+48-token clip length, cached decode's early p50 (1.15ms) is the same order
+of magnitude as naive's early p50 (1.46ms) -- the mechanism is real, but too
+short a sequence for the linear term to matter.
+
+<!-- interactive: AudioLatencyDivergence -->
+
+KV caching for autoregressive decoding is standard practice, formalized as a
+systems problem by Orca (Yu et al., 2022) and vLLM's PagedAttention (Kwon et
+al., 2023, the scheme `platform/serving/01-graph-execution` itself models).
+
 ## Quality: real, partial completion capability
 
 ```

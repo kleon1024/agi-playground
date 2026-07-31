@@ -64,6 +64,14 @@ that code has never seen: a codec that turns a waveform into the discrete
 token sequence the serving loop already knows how to schedule, and back
 again.
 
+<!-- interactive: RealtimeVoicePipeline -->
+
+Neural audio codecs that turn waveforms into a discrete token vocabulary a
+language model can be trained over trace to SoundStream (Zeghidour et al.,
+2021) and were popularized for real-time use by EnCodec (Défossez et al.,
+2022) -- both use a residual/vector-quantization bottleneck conceptually
+identical to this stage's single-codebook VQ, at a far larger scale.
+
 ## Stages
 
 | Stage | Question | Status |
