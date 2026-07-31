@@ -84,6 +84,29 @@ picked after the fact to flatter whichever outcome actually happened.
 | [02 — Generation model](02-generation-model/) | can an autoregressive or small diffusion model over those tokens beat frame-repeat? | verified |
 | [03 — Report](03-report/) | what did this cost, and did it clear the declared ceiling? | verified |
 
+<!-- interactive: Mission08ComputePipeline -->
+
+Stacking every stage's real wall-clock gives the pipeline's actual compute
+profile: dataset generation 2.7s, codec training 137.6s (stage 01's own run,
+retrained again inside stage 02 at 140.9s rather than checkpointed, per this
+mission's "retrain, don't checkpoint" convention), LM training 7.4s,
+generation 0.05s. Stage 02's own total (152.5s) is what matters against the
+declared ceiling: 152.5s / 1800.0s = 8.5% used, an 11.8x headroom multiplier.
+That headroom does not mean a harder video task stays this cheap: the
+codec's cost scales roughly linearly with frame count (three stride-2
+convolutions applied per frame independently) while the LM's attention cost
+scales quadratically with sequence length -- at this mission's 9-token
+sequences the quadratic term is negligible, but it would not stay negligible
+at a much longer clip length, and nothing in this mission's real runs
+measures that regime.
+
+Token-based autoregressive video generation over a learned discrete codebook
+traces to VideoGPT (Yan et al., 2021), which pairs a 3D VQ-VAE with a causal
+transformer over the resulting token grid -- the same two-stage shape this
+mission's stage 01 and stage 02 follow, at a scale many orders of magnitude
+larger. Video Diffusion Models (Ho et al., 2022) is the alternative lineage
+`mission.yaml` explicitly leaves untried.
+
 [Stage 00](00-synthetic-video-dataset/) extends [mission 05](../05-vision-language-model/)'s
 synthetic image generator along a time axis, reusing its drawing primitives
 unmodified and adding only the temporal part: a shape moving in one of 8

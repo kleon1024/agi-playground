@@ -71,6 +71,25 @@ sampling this time discarded a single eval candidate out of 150, not
 hundreds. Full numbers in
 [`runs/2026-07-31-dataset-gen.md`](runs/2026-07-31-dataset-gen.md).
 
+A clip's identity is fixed by five choices: shape, color, half-size,
+direction, and a continuous start position bounded so all 8 frames stay
+on-canvas. Unlike mission 05's single static image, two clips only collide
+if their hash matches across all 8 frames. The real run gives a way to
+estimate the effective size of that space: with 800 train clips and 9
+duplicate-hash pairs, the birthday-approximation collision rate
+`k(k-1) / (2N)` solves to an effective space size `N ≈ 800² / (2×9) ≈
+35,600` -- two orders of magnitude larger than mission 05's pre-jitter
+single-image space of 48 combinations, which is why rejection sampling only
+discarded a single eval candidate out of 150 here.
+
+<!-- interactive: MotionRangeSampler -->
+
+Procedurally generated shape-motion clips with a known ground truth are the
+standard toy substrate for motion-prediction research precisely because they
+cannot be found by memorizing web content -- Moving MNIST (Srivastava,
+Mansimov & Salakhutdinov, 2015) established the pattern this mission's own
+`mission.yaml` cites as its external baseline.
+
 ## Run it
 
 ```bash

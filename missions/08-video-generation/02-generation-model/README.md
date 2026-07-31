@@ -79,6 +79,31 @@ work -- beating a genuine motion baseline, landing near the oracle ceiling
 -- but "beats frame-repeat in pixel MSE" and "predicts the exact right
 future" are different claims, and only the weaker one is established here.
 
+Training uses teacher forcing: at every position the model predicts the next
+token conditioned on the true preceding tokens, so a wrong prediction at step
+`t` never affects what the model sees at step `t+1` during training. Greedy
+generation at inference time has no such guarantee -- each new token is
+appended and fed back in, so a wrong token changes what the model conditions
+on for every step after it, the standard exposure-bias gap for autoregressive
+models. `oracle_tokens` MSE decodes the true future tokens through the codec
+(no generation, no compounding, a pure measure of stage 01's reconstruction
+floor); `lm_completion` MSE decodes the model's own greedily-generated
+tokens, only 3.2% higher, because stage 01's codec is a low-fidelity blur --
+a wrong predicted token often decodes close enough to the true frame that
+pixel MSE barely notices. `predicted_token_sequence_exact_match_rate`
+measures the same sequence in token space instead, where a compounded wrong
+choice is not forgiven by a blurry decoder, which is why the two metrics
+diverge so sharply on the same run.
+
+<!-- interactive: SeedSpreadBands -->
+
+Pairing a discrete video codec with a causal transformer over its tokens is
+the same two-stage design VideoGPT (Yan et al., 2021) used for real video;
+the exposure-bias gap this section derives is older still, standard in
+sequence-to-sequence literature since Bengio et al.'s scheduled-sampling
+paper (2015), which this mission's greedy decoder does not use -- a
+documented scope limit, not an oversight.
+
 ## Run it
 
 ```bash

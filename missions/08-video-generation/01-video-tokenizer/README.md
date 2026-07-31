@@ -103,6 +103,29 @@ find the actual cause:
    the bounded final activation fixed it: the same 8-clip control that had
    plateaued exactly at baseline reached 29% below it and was still falling.
 
+`tanh`'s derivative is `tanh'(z) = 1 - tanh(z)^2`. At `z = 0` this is 1 (full
+gradient passes through); by `z = 3`, `tanh(3) ≈ 0.995`, so
+`tanh'(3) ≈ 0.0099` -- two orders of magnitude smaller, and it keeps
+shrinking exponentially as `|z|` grows. A decoder chasing the fastest early
+MSE win pushes its pre-activation `z` toward whatever value makes `tanh(z)`
+closest to the 94%-background target, and the further it pushes, the smaller
+`tanh'(z)` gets -- the gradient that would tell the decoder to attend to
+which code it was given shrinks exactly as fast as the decoder is rewarded
+for ignoring it. This is consistent with the measured consequence: feeding
+two very different codebook vectors into the trained decoder produced a max
+output difference of 0.001, near the noise floor rather than exactly zero.
+Raising the learning rate (the fix that worked for mission 07's local-minimum
+failure) does nothing here -- a larger step multiplied by a near-zero
+gradient is still a near-zero update.
+
+<!-- interactive: SaturationGradientTrap -->
+
+Codebook collapse and dead-code entrenchment are known failure modes since
+van den Oord, Vinyals & Kavukcuoglu introduced VQ-VAE (2017); the periodic
+revival fix used here is the technique Zeghidour et al.'s SoundStream (2021)
+and the EnCodec line standardized, applied here to per-frame video latents
+via the same `VectorQuantizer` code imported unmodified from mission 07.
+
 Full trace of all three, in order, with the numbers at each stage:
 [`runs/2026-07-31-codec-training.md`](runs/2026-07-31-codec-training.md).
 
