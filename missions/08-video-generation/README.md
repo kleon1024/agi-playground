@@ -79,16 +79,25 @@ picked after the fact to flatter whichever outcome actually happened.
 
 | Stage | Question | Status |
 |---|---|---|
-| 00 — Synthetic video dataset | what makes a scoreable short sequence, generated rather than scraped? | not started |
+| [00 — Synthetic video dataset](00-synthetic-video-dataset/) | what makes a scoreable short sequence, generated rather than scraped? | verified |
 | 01 — Video tokenizer | how do frames become a token sequence a decoder can condition on? | not started |
 | 02 — Generation model | can an autoregressive or small diffusion model over those tokens beat frame-repeat? | not started |
 | 03 — Report | what did this cost, and did it clear the declared ceiling? | not started |
 
-Stage 00 extends [mission 05](../05-vision-language-model/)'s synthetic
-image-generation approach along a time axis instead of building a new data
-source. Stage 01 is the genuinely new code in this mission: no lesson
-anywhere in this repository yet turns a sequence of frames into tokens a
-decoder can attend over. Stage 02 is where the feasibility decision in
+[Stage 00](00-synthetic-video-dataset/) extends [mission 05](../05-vision-language-model/)'s
+synthetic image generator along a time axis, reusing its drawing primitives
+unmodified and adding only the temporal part: a shape moving in one of 8
+fixed directions at constant speed, bounded so it stays on-canvas for all 8
+frames of a clip. 800 train / 150 eval clips generated in 2.7s CPU, $0, with
+the same train/eval collision guardrail mission 05 stage 00 established —
+this time rejecting a single eval candidate out of 150, since a per-clip
+render space multiplying shape, color, size, direction, and start position
+across 8 frames is far larger than a single static image's. Full trace in
+[its run record](00-synthetic-video-dataset/runs/2026-07-31-dataset-gen.md).
+
+Stage 01 is the genuinely new code in this mission: no lesson anywhere in
+this repository yet turns a sequence of frames into tokens a decoder can
+attend over. Stage 02 is where the feasibility decision in
 [`mission.yaml`](mission.yaml) actually gets made, on real hardware, against
 a real ceiling.
 

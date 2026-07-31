@@ -259,6 +259,10 @@
     "level": "frontier",
     "minutes": 4
   },
+  "missions/08-video-generation/00-synthetic-video-dataset": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/09-bio-pharma-modeling": {
     "level": "applied",
     "minutes": 4

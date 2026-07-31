@@ -353,9 +353,19 @@
         ]
       },
       {
-        "type": "doc",
-        "id": "missions/08-video-generation/index",
-        "label": "Video generation"
+        "type": "category",
+        "label": "Video generation",
+        "link": {
+          "type": "doc",
+          "id": "missions/08-video-generation/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "missions/08-video-generation/00-synthetic-video-dataset/index",
+            "label": "Synthetic video dataset \u00b7 verified"
+          }
+        ]
       },
       {
         "type": "doc",
