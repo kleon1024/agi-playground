@@ -1,0 +1,35 @@
+Mission 08 outcome report
+========================================================================
+
+1. Every stage has an exact command and a runs/ entry before being marked verified
+------------------------------------------------------------------------
+  stage 00 (synthetic video dataset): 2026-07-31-dataset-gen.md -- verified
+  stage 01 (video tokenizer):          video-codec-seed0.json -- verified
+  stage 02 (generation model):          3 seeds present -- verified
+
+2. Primary metric: beats frame-repeat baseline by more than run-to-run spread?
+------------------------------------------------------------------------
+  frame-repeat baseline (fixed, no learning):  0.1281
+  LM completion per seed:                       [0.0804, 0.0865, 0.0882]
+  LM completion mean:                           0.0851
+  LM completion run-to-run spread (max-min):    0.0078
+  margin (baseline - mean):                     0.0430
+  margin > spread (0.0430 > 0.0078) -> beats baseline outside seed noise
+
+  caveat (not part of the acceptance metric, reported per mission.yaml's cost/quality-together discipline): exact-token-sequence match rate per seed = [0.0667, 0.22, 0.1933] -- pixel MSE beats baseline decisively while exact-match stays low, because stage 01's codec is a documented low-fidelity reconstruction (see stage 01 run record); this is stage 01's ceiling, not a failure of stage 02's sequence model.
+
+3. Compute: wall-clock and dollar cost, reported beside the quality metric
+------------------------------------------------------------------------
+  seed 0: total 152.5s (140.9s codec + 7.4s LM + 0.05s generation), local CPU (no CUDA GPU available in this environment), $0.00, ceiling 1800s (not exceeded, 8.5% used)
+  seed 1: total 150.6s (139.3s codec + 6.9s LM + 0.05s generation), local CPU (no CUDA GPU available in this environment), $0.00, ceiling 1800s (not exceeded, 8.4% used)
+  seed 2: total 153.9s (141.8s codec + 7.4s LM + 0.05s generation), local CPU (no CUDA GPU available in this environment), $0.00, ceiling 1800s (not exceeded, 8.6% used)
+
+4. Failure catalogue (mission.yaml guardrail: catalogued by category, not merely counted)
+------------------------------------------------------------------------
+  Three real, sequential training-collapse failures preceded stage 01's working codec (full diagnostics in 01-video-tokenizer/runs/2026-07-31-codec-training.md):
+  (a) codebook-initialization collapse -- codebook near the origin vs. encoder outputs far away, so nearest-neighbor argmin locked onto one arbitrary index for every input. Fixed by data-dependent codebook initialization from real encoder outputs.
+  (b) dead-code entrenchment -- only the selected embedding row receives gradient, so an early arbitrary winner never lost. Fixed by periodic dead-code revival (the standard SoundStream/EnCodec technique), 158 codes revived total across the official run.
+  (c) decoder activation saturation (the root cause) -- a bounded final Tanh saturated to the background-dominant pixel value within the first 20-50 steps and blocked gradient to the codebook regardless of which code the decoder received, confirmed by feeding two different codebook vectors into the decoder and measuring a max 0.001 pixel-value difference in the output. Fixed by removing the bounded final activation entirely.
+  Stage 02 itself reported zero training failures across all 3 seeds -- the codec and LM both converged to a beats-baseline result every time.
+
+VERDICT: MET

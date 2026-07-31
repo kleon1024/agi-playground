@@ -82,7 +82,7 @@ picked after the fact to flatter whichever outcome actually happened.
 | [00 — Synthetic video dataset](00-synthetic-video-dataset/) | what makes a scoreable short sequence, generated rather than scraped? | verified |
 | [01 — Video tokenizer](01-video-tokenizer/) | how do frames become a token sequence a decoder can condition on? | verified |
 | [02 — Generation model](02-generation-model/) | can an autoregressive or small diffusion model over those tokens beat frame-repeat? | verified |
-| 03 — Report | what did this cost, and did it clear the declared ceiling? | not started |
+| [03 — Report](03-report/) | what did this cost, and did it clear the declared ceiling? | verified |
 
 [Stage 00](00-synthetic-video-dataset/) extends [mission 05](../05-vision-language-model/)'s
 synthetic image generator along a time axis, reusing its drawing primitives
@@ -129,6 +129,23 @@ clips get the exact right token continuation, an honest gap the aggregate
 MSE alone does not show, attributable to stage 01's own low-fidelity
 reconstruction rather than to this stage's sequence model. Full trace in
 [its run record](02-generation-model/runs/2026-07-31-generation-training.md).
+Two further seeds (1 and 2) confirm the pattern rather than being a lucky
+single draw: LM-completion MSE across all three seeds is `[0.0804, 0.0865,
+0.0882]`, a run-to-run spread of `0.0078` against a margin over baseline of
+`0.0430` -- the baseline is beaten by roughly 5.5x the spread it would need
+to clear.
+
+[Stage 03](03-report/) holds all three stages' results against
+[`mission.yaml`](mission.yaml)'s acceptance bar mechanically: `MET`. This is
+only the second `MET` verdict among the five missions built this session
+(after mission 07) -- missions 05 and 06 both closed `NOT MET` on their own
+honestly-reported results. The declared 30-minute compute ceiling was never
+close to binding on any of the three seeds (8.4-8.6% used each), so this
+mission's original premise -- that video might not survive this
+repository's compute discipline at all -- turned out not to be the binding
+constraint; the video tokenizer's training difficulty (stage 01's three real
+collapse failures) was. Full trace in
+[its run record](03-report/runs/2026-07-31-outcome-report.txt).
 
 ## What this will not prove
 

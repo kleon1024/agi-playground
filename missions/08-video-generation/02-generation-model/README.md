@@ -89,6 +89,15 @@ uv run --group torch python train_generation.py --codec-steps 800 --lm-steps 400
 CPU only, ~153s wall-clock, $0. Full trace:
 [`runs/2026-07-31-generation-training.md`](runs/2026-07-31-generation-training.md).
 
+Two further seeds confirm this is not a lucky single draw:
+`--seed 1` gives `lm_completion` MSE `0.0865` (exact-match `22.0%`), `--seed 2`
+gives `0.0882` (exact-match `19.3%`) -- both still decisively beat the fixed
+`0.1281` baseline. Across all three seeds, the run-to-run spread (`0.0078`)
+is far smaller than the margin over baseline (`0.0430`), which is what
+`mission.yaml`'s acceptance bar requires. Raw results:
+[`runs/generation-seed1.json`](runs/generation-seed1.json),
+[`runs/generation-seed2.json`](runs/generation-seed2.json).
+
 ## What this stage does not establish
 
 Nothing about real-world video, camera motion, multi-object scenes, or
