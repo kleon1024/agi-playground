@@ -108,6 +108,27 @@ distribution instead of only the top-1 token, so it occasionally emits the
 board-appropriate action even though the model's single most confident
 choice per position has not learned to depend on the board.
 
+Greedy decode takes argmax over the policy's output distribution at each
+position; sampled decode (T=1.0) draws from that same distribution
+proportionally. The two only diverge sharply when the distribution has a
+narrow but not overwhelming peak -- if training pushed most probability mass
+for the first action onto one direction but left a real, board-correlated
+tail too small to win argmax but large enough to sometimes win a draw,
+greedy reads as "always the same action" while sampled reads as "usually
+that action, but board-appropriate directions come through often enough to
+move the aggregate." The per-seed numbers match: sampled decode
+(14.4-21.0%) is 2.3-2.7x greedy decode (6.2-7.8%) on every seed, larger than
+temperature alone would produce from a policy whose distribution is
+genuinely board-independent.
+
+<!-- interactive: DecodeModeCollapse -->
+
+This greedy-vs-sample divergence after RL training is a documented failure
+mode in RLHF literature under the name "mode collapse" -- usually discussed
+for language generation diversity, which makes this grid-world result a
+small, mechanistically legible instance of a pattern usually only observed
+at LLM scale.
+
 Full training curves, per-seed detail, and the concrete example dump are in
 [`runs/2026-07-31-grpo-training.md`](runs/2026-07-31-grpo-training.md).
 

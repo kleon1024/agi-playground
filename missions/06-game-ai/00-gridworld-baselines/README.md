@@ -65,6 +65,25 @@ oscillating for the rest of the step budget. That is why it is beatable, not
 a bug — `mission.yaml` asks for exactly this kind of baseline, not an
 optimal solver.
 
+The greedy baseline is a one-step lookahead with no memory: at each position
+it evaluates all 4 actions in fixed order `U, D, L, R`, computes Manhattan
+distance to the goal after each candidate, and takes the first action
+achieving the strict minimum. This is pure greedy descent on distance with no
+lookahead beyond one move -- if the only path to the goal requires a move
+that *increases* distance (routing around a wall segment), greedy never
+takes it, because every candidate it considers only in terms of immediate
+distance reduction. Measured over 500 real trials, this baseline still
+reaches the goal 82.4% of the time (`mean_steps_on_success = 3.15`) -- the
+trap triggers on a minority of sampled boards, not the common case, which is
+exactly what makes it a real bar rather than a strawman.
+
+<!-- interactive: GreedyLookaheadTrap -->
+
+Manhattan-distance greedy descent is the textbook baseline against A* search
+(Hart, Nilsson & Raphael, 1968), which fixes exactly this trap by using the
+same heuristic as a lower bound inside best-first search with backtracking,
+rather than as the entire policy.
+
 ```
  random: 111/500 = 0.222  mean_steps_on_success=5.43
  greedy: 412/500 = 0.824  mean_steps_on_success=3.15

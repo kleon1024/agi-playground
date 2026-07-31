@@ -37,6 +37,23 @@ sampled decode vs greedy baseline: margin -0.6453 -> decisively loses
 VERDICT: NOT MET
 ```
 
+`report.py`'s comparison rule: for a candidate mean `m` with per-seed spread
+`s = max(per_seed) - min(per_seed)` and baseline `b`, margin is `m - b`. A
+margin only counts as a real win or loss if `|margin| > s` -- otherwise it is
+"within the noise band." Applied here: greedy-decode margin vs random is
+`0.0727 - 0.222 = -0.1493`, and `0.1493 > 0.016` (the spread) -- a real,
+decisive loss. Sampled-decode vs random is `0.1787 - 0.222 = -0.0433` against
+a spread of `0.066` -- since `0.0433 < 0.066`, this is correctly reported as
+"within the noise band" despite the negative point estimate.
+
+<!-- interactive: SpreadVsMargin -->
+
+Reporting an effect only when it exceeds measured run-to-run spread, rather
+than any effect with the right sign, mirrors requiring statistical
+significance before claiming a result in a small-sample experiment --
+raw per-seed range rather than a computed variance-based interval, since a
+formal confidence interval would be unreliable with only 3 seeds.
+
 This is not mission 01's zero-gradient null result reused under a different
 name: 199-200 of 200 steps per seed took a real gradient step, and the
 policy clearly learned legal-move formatting and some board sensitivity

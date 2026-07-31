@@ -69,6 +69,27 @@ duplicating the mechanism, the same way mission 04's agent harness reuses
 [`capabilities/act-coordinate`](../../capabilities/act-coordinate/) rather
 than rewriting a tool loop.
 
+GRPO's one departure from PPO is how it computes the advantage `A_i` for each
+of the `G` completions sampled per prompt. PPO trains a value network
+`V(s)` and sets `A(s,a) = Q(s,a) - V(s)`. GRPO trains no value network:
+`A_i = (r_i - mean(r_1..r_G)) / (std(r_1..r_G) + eps)`. If every completion
+in a group scores identically, `std = 0`, `A_i` becomes `0/0` for every
+member, and the group contributes no gradient. Mission 01's arithmetic run
+hit this wall on all 200 of 200 steps -- a randomly initialized policy
+essentially never emitted a well-formed completion, so every group's rewards
+were identical and the run never took an optimizer step. Stage 01's
+grid-world run does not: only 1 of 200 steps per seed came back degenerate
+(`degenerate_steps: [0, 0, 1]` across seeds), because legal-move format
+credit plus a terminal goal bit gives the policy enough surface area to
+produce variance within almost every group.
+
+<!-- interactive: GRPOAdvantage -->
+
+Group Relative Policy Optimization was introduced by Shao et al. in the
+DeepSeekMath paper (2024) to drop PPO's value network for LLM RL
+fine-tuning; it became widely known a year later as the RL algorithm behind
+DeepSeek-R1 (2025).
+
 ## The wall this mission is watching for
 
 Mission 01's null result came from a cold-start policy against a
