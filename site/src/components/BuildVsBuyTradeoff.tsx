@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const VIEWS = {
   aggregate: { hosted: 0.8329, vision: 0.4375, textOnly: 0.3270 },
-  shape_color: { hosted: 0.916, vision: 0.501, textOnly: 0.272 },
+  shape_color: { hosted: 0.969, vision: 0.501, textOnly: 0.272 },
 } as const;
 
 type View = keyof typeof VIEWS;
