@@ -80,7 +80,7 @@ picked after the fact to flatter whichever outcome actually happened.
 | Stage | Question | Status |
 |---|---|---|
 | [00 — Synthetic video dataset](00-synthetic-video-dataset/) | what makes a scoreable short sequence, generated rather than scraped? | verified |
-| 01 — Video tokenizer | how do frames become a token sequence a decoder can condition on? | not started |
+| [01 — Video tokenizer](01-video-tokenizer/) | how do frames become a token sequence a decoder can condition on? | verified |
 | 02 — Generation model | can an autoregressive or small diffusion model over those tokens beat frame-repeat? | not started |
 | 03 — Report | what did this cost, and did it clear the declared ceiling? | not started |
 
@@ -94,6 +94,24 @@ this time rejecting a single eval candidate out of 150, since a per-clip
 render space multiplying shape, color, size, direction, and start position
 across 8 frames is far larger than a single static image's. Full trace in
 [its run record](00-synthetic-video-dataset/runs/2026-07-31-dataset-gen.md).
+
+[Stage 01](01-video-tokenizer/) reuses mission 07's `VectorQuantizer`
+unmodified for a per-frame VQ-VAE codec (new 2D `Encoder`/`Decoder`,
+one 64-way token per frame). Three real training failures preceded the
+working result, each with its own diagnostic: codebook collapse (fixed by
+data-dependent codebook init), dead codes never recovering (fixed by
+periodic revival), and a decoder `Tanh` that saturated to background white
+within the first ~50 steps and permanently blocked gradient regardless of
+which code the decoder received (the real bug — confirmed directly by
+feeding two different codes into the decoder and measuring a 0.001 max
+output difference; fixed by removing the bounded final activation). The
+resulting codec beats both naive baselines (16.6% and 8.2% lower MSE), and a
+shape-pixel-vs-background-pixel split confirms the gain is real shape
+signal (24.6% better than background baseline on shape pixels
+specifically), not merely exploiting the 94%-background pixel imbalance —
+though the reconstruction itself is a faint, low-fidelity blur at this
+one-token-per-frame bit rate, shown and reported as what it is. Full trace
+in [its run record](01-video-tokenizer/runs/2026-07-31-codec-training.md).
 
 Stage 01 is the genuinely new code in this mission: no lesson anywhere in
 this repository yet turns a sequence of frames into tokens a decoder can

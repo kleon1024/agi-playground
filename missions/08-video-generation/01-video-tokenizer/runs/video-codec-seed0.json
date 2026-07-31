@@ -1,0 +1,45 @@
+{
+  "seed": 0,
+  "steps": 800,
+  "batch_size": 16,
+  "lr": 0.001,
+  "n_train_clips": 800,
+  "n_eval_clips": 150,
+  "eval_mse_codec": 0.07875164598226547,
+  "baseline_mse": {
+    "background": 0.09436723589897156,
+    "mean_frame": 0.0858035609126091
+  },
+  "shape_vs_background": {
+    "codec": {
+      "shape_pixel_fraction": 0.059622395783662796,
+      "shape_mse": 1.1939613819122314,
+      "background_mse": 0.008044435642659664
+    },
+    "baselines": {
+      "background": {
+        "shape_pixel_fraction": 0.059622395783662796,
+        "shape_mse": 1.582748293876648,
+        "background_mse": 0.0
+      },
+      "mean_frame": {
+        "shape_pixel_fraction": 0.059622395783662796,
+        "shape_mse": 1.3112106323242188,
+        "background_mse": 0.008109553717076778
+      }
+    }
+  },
+  "beats_background": true,
+  "beats_mean_frame": true,
+  "codebook_usage": {
+    "unique_codes_used": 63,
+    "codebook_size": 64,
+    "entropy": 3.7913665771484375,
+    "max_entropy": 4.158883094787598,
+    "entropy_ratio": 0.9116309573356907
+  },
+  "dead_codes_revived_total": 158,
+  "revive_every": 20,
+  "final_train_recon_loss_last50_mean": 0.07984312191605568,
+  "wall_clock_s": 136.00505341705866
+}
