@@ -241,7 +241,7 @@
   },
   "missions/07-realtime-voice": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "missions/07-realtime-voice/00-audio-codec": {
     "level": "applied",
@@ -250,6 +250,10 @@
   "missions/07-realtime-voice/01-streaming-decode": {
     "level": "applied",
     "minutes": 3
+  },
+  "missions/07-realtime-voice/02-report": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/08-video-generation": {
     "level": "frontier",

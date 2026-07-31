@@ -70,7 +70,7 @@ again.
 |---|---|---|
 | [00 — Audio codec](00-audio-codec/) | how does a waveform become a discrete token sequence, and what does that cost in quality? | verified |
 | [01 — Streaming decode](01-streaming-decode/) | does the existing KV-cache mechanism work unchanged for audio tokens? | verified |
-| 02 — Report | what does streaming cost in latency, and what does it buy or lose against the offline pass? | not started |
+| [02 — Report](02-report/) | what does streaming cost in latency, and what does it buy or lose against the offline pass? | verified — MET |
 
 [Stage 00](00-audio-codec/) built a small conv encoder / vector-quantization
 / conv decoder codec, trained on synthetic tone-sequence clips (no real
@@ -96,6 +96,19 @@ for a different discrete-token modality. No CUDA GPU was available in this
 environment, so every number is CPU wall-clock, a real deviation from
 `mission.yaml`'s "local GPU lane" framing. Full numbers in
 [its run record](01-streaming-decode/runs/2026-07-31-streaming-decode.md).
+
+[Stage 02](02-report/) held both results against `mission.yaml`'s
+acceptance bar and printed `MET` — this mission's first `MET` verdict among
+the three fully-built missions this session (05 and 06 both closed `NOT
+MET`). The codec and the LM-completion pathway both beat both required naive
+baselines, the KV-cache decode path is provably identical to full recompute
+rather than merely similar, and the latency gap is reported at two scales
+rather than assumed from one. The report is explicit that this is an easier
+bar than mission 05 or 06 set out to clear — "does a proven mechanism
+transfer unchanged" is a different, lower bar than "does training produce a
+policy that beats a strong baseline" — not evidence this mission was more
+rigorously built. Full verdict in
+[its run record](02-report/runs/2026-07-31-outcome-report.md).
 
 Per [the mission contract](../../standards/mission-contract.md), this
 contract is declared before any stage is built, so the baseline and metric
