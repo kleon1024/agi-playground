@@ -94,6 +94,29 @@ showed the cheapest tier had produced three latent defects the resolve rate
 cannot see. The primary metric says route everything cheap; the diffs say
 otherwise. That gap is the mission's own thesis pointed at the mission.
 
+Concretely: stage 03's real run resolved all 18 attempts across three model
+tiers (haiku, sonnet, opus -- 6 each), so `resolve_rate = 18/18` is identical
+across every tier and tells a reader nothing about which tier to pick.
+`probe_generality.py` re-checks each patch against a 4-token query on a live
+6-token cache, at the same 2e-5 tolerance the target test uses. Haiku's
+patches diverge by 1.2e-3 to 4.2e-2 against a correct-patch baseline of
+5.960e-08 -- three orders of magnitude off, on all three of its runs. Sonnet
+and opus hold tolerance on all three of theirs. `resolve_rate = 18/18` and
+`patch_generality = 6/9` are both true and measure different claims: "passes
+the given test" versus "correct outside the shape the test exercises." This
+is the identical failure mode that motivated this mission: a serving engine
+published `verified` because its bug made it faster, and nothing in the
+resolve-rate-shaped evidence looked wrong.
+
+<!-- interactive: ResolveVsGenerality -->
+
+SWE-bench (Jimenez et al., 2023) established resolve-rate-against-a-held-out-test
+as the standard agentic-coding benchmark metric; by 2024 several follow-up
+audits had documented exactly this class of gap -- a patch satisfying a test
+suite by construction while remaining wrong outside the space that suite
+checks. Stage 03 is this repository's own from-scratch instance of that same
+finding.
+
 Per [the mission contract](../../standards/mission-contract.md), the contract
 was declared before the system was built, so the baseline and the metric cannot
 be chosen after seeing which ones flatter the result. The no-harness baseline

@@ -65,6 +65,27 @@ with gold proves the answer is inside the withheld files. Failing at base proves
 the test can tell the difference — and that half is the one that does the work,
 because a test that never fails cannot score anything.
 
+Formalized: let `f(state) ∈ {FAIL, PASS, DID_NOT_RUN}`. A candidate is
+admitted iff `f(base) = FAIL AND f(gold) = PASS`. Both of this chapter's real
+historical rejections collapse to the same mistake in this table. The
+`site/docs` early-return case has `f(base) = PASS` always -- the guard
+returns before checking anything, at both base and gold, since the file is
+absent in a fresh worktree either way -- rejected because the first half
+fails, not the second. The exit-code-5 case originally read `f(gold) =
+DID_NOT_RUN` (pytest collected nothing because `pytest.importorskip("torch")`
+skipped under the default env) as `f(gold) = FAIL` after collapsing to
+`returncode == 0`, making a task that could never be verified look like
+"still broken after the fix" instead of "never tested."
+
+<!-- interactive: TestOutcomeTruth -->
+
+Mutation testing (DeMillo, Lipton, Sayward, 1978) formalized precisely this
+admission criterion -- a test is evidence only if it can be shown to fail on
+a known-bad input, not merely pass on the intended one -- and modern mutation
+frameworks (mutmut, PIT) run the identical fail-then-pass check this chapter
+runs against real repository fix-commit history, using synthetically injected
+bugs instead.
+
 Running it against this repository's 100 commits:
 
 | Stage | Count |

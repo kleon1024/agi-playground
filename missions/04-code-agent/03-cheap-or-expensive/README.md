@@ -100,6 +100,25 @@ past the scoreboard it is optimising. The stronger tiers did not pass a check
 the weaker one failed; they generalised without being asked to, and the harness
 had no way to notice either way.
 
+Worked in shapes: single-token decode has a 6-token cache and a 1-token
+query at absolute position 6 -- the mask is 1x7, and both conventions agree
+(every key index is <= 6, nothing to mask). The probe's actual test is a
+4-token query against the same 6-token cache -- the mask is 4x10. Under
+`causal_lower_right`, query row `i` sees cached keys 0-5 plus new-block keys
+`0..i` (correct). Under `is_causal=True`'s top-left convention, query row `i`
+sees keys `0..(6+i)` instead -- for row 0 this wrongly permits none of the
+new block (too restrictive), and for row 3 it wrongly permits new-block keys
+up to index 9 rather than stopping at 3 (too permissive). This is the direct
+cause of haiku's 1.2e-3/4.2e-2/1.2e-3 measured errors.
+
+<!-- interactive: DecodeMaskShape -->
+
+The top-left-vs-bottom-right causal-mask convention split is a real, dated
+API distinction: PyTorch added `torch.nn.attention.bias.causal_lower_right`
+in the 2.5 release cycle (2024) to give decode-time attention (query shorter
+than key) a correct default, after FlashAttention-style fused kernels (Dao et
+al., 2022) made bottom-right alignment standard for cached decode.
+
 ## What this costs the maintainer
 
 The decision the mission set out to make now has two answers.
