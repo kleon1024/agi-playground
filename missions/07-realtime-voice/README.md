@@ -69,7 +69,7 @@ again.
 | Stage | Question | Status |
 |---|---|---|
 | [00 — Audio codec](00-audio-codec/) | how does a waveform become a discrete token sequence, and what does that cost in quality? | verified |
-| 01 — Streaming decode | does the existing KV-cache and continuous-batching mechanism work unchanged for audio tokens? | not started |
+| [01 — Streaming decode](01-streaming-decode/) | does the existing KV-cache mechanism work unchanged for audio tokens? | verified |
 | 02 — Report | what does streaming cost in latency, and what does it buy or lose against the offline pass? | not started |
 
 [Stage 00](00-audio-codec/) built a small conv encoder / vector-quantization
@@ -81,6 +81,21 @@ decisively beats both required naive baselines — reconstruction MSE 0.0111
 against 0.325 (silence) and 0.300 (mean-signal) — with healthy, non-collapsed
 codebook usage (34 of 64 codes used). Full trace in
 [its run record](00-audio-codec/runs/2026-07-31-codec-training.md).
+
+[Stage 01](01-streaming-decode/) trained a causal Transformer over the
+codec's own token vocabulary, importing `Config`/`Transformer`/`KVCache`
+directly from mission 01's serving engine — no line of that file changed.
+Naive (full-recompute) and cache-based generation produced identical token
+sequences across 30 held-out clips (max logit gap 1.19e-05, matching this
+repo's own established tolerance for the same check on text). The cache's
+latency benefit was invisible at this mission's native 48-token clip length
+but reappeared clearly at a 500-step stress test (naive's tail ran 6.9x
+slower than its start; cached stayed flat) — the same growing-vs-flat
+divergence mission 01's own serving chapter documents for text, now shown
+for a different discrete-token modality. No CUDA GPU was available in this
+environment, so every number is CPU wall-clock, a real deviation from
+`mission.yaml`'s "local GPU lane" framing. Full numbers in
+[its run record](01-streaming-decode/runs/2026-07-31-streaming-decode.md).
 
 Per [the mission contract](../../standards/mission-contract.md), this
 contract is declared before any stage is built, so the baseline and metric
