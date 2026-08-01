@@ -13,6 +13,7 @@ data/raw/
 wandb/
 .trackio/
 **/.cache/
+**/data/cache/
 
 # OS / editor
 .DS_Store
