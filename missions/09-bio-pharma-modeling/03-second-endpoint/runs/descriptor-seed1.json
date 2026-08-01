@@ -1,0 +1,21 @@
+{
+  "seed": 1,
+  "n_train": 5154,
+  "n_test": 1289,
+  "n_train_dropped": 0,
+  "n_test_dropped": 0,
+  "descriptor_names": [
+    "MolWt",
+    "MolLogP",
+    "TPSA",
+    "NumHDonors",
+    "NumHAcceptors",
+    "NumRotatableBonds",
+    "RingCount",
+    "NumAromaticRings",
+    "FractionCSP3",
+    "NumHeteroatoms"
+  ],
+  "test_roc_auc": 0.6574649515825987,
+  "wall_clock_seconds": 1.7574992179870605
+}

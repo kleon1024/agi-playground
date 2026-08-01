@@ -1,0 +1,39 @@
+{
+  "endpoint": "NR-PPAR-gamma",
+  "url": "https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/tox21.csv.gz",
+  "dataset_sha256": "7d7e7facd853a63e79ddce4e9c3fcb7a0d83a1c300b603031c0f2c64fbe77761",
+  "n_labeled_for_endpoint": 6450,
+  "n_dropped_unparseable_smiles": 7,
+  "dropped_mol_ids": [
+    "TOX24724",
+    "TOX24723",
+    "TOX24552",
+    "TOX24622",
+    "TOX7518",
+    "TOX28892",
+    "TOX28623"
+  ],
+  "endpoint_label_stats": {
+    "labeled": 6450,
+    "positive": 186,
+    "positive_rate": 0.02883720930232558
+  },
+  "train_frac_target": 0.8,
+  "split_seed": 0,
+  "n_train": 5154,
+  "n_test": 1289,
+  "train_positive_rate": 0.022894838960031045,
+  "test_positive_rate": 0.05275407292474787,
+  "scaffold_split_stats": {
+    "n_scaffold_groups": 1812,
+    "n_train": 5154,
+    "n_test": 1289,
+    "n_train_scaffolds": 523,
+    "n_test_scaffolds": 1289,
+    "overlap_scaffold_count": 0,
+    "overlap_test_molecule_fraction": 0.0,
+    "empty_scaffold_group_size": 1640,
+    "empty_scaffold_assigned_to": "train"
+  },
+  "wall_clock_seconds": 26.357721090316772
+}

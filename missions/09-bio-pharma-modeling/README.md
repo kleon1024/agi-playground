@@ -82,6 +82,7 @@ isn't.
 | [00 — Dataset and property](00-dataset-and-property/) | which endpoint, and what does the label actually measure? | verified |
 | [01 — Descriptor baseline and model](01-descriptor-baseline-and-model/) | does a small trained model beat the standard descriptor baseline? | verified |
 | [02 — Report](02-report/) | scaffold-checked result, and what it does and does not say beyond this one label | verified |
+| [03 — Second endpoint](03-second-endpoint/) | does the SR-MMP finding generalize to a second, more imbalanced endpoint? | verified |
 
 Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the endpoint, baseline, and
