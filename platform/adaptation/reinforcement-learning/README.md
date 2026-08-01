@@ -234,8 +234,20 @@ Continue to [serving](../../serving/) to expose that policy under a latency and
 memory contract, then evaluate the complete system rather than the checkpoint
 alone.
 
-Primary references: PPO, DeepSeekMath and GRPO, GSPO, DAPO, RLVR work, and
-agent-environment evaluation literature.
+Primary references, in the order each fix arrived: Schulman et al., "Proximal
+Policy Optimization Algorithms" (2017) is the clipped-ratio objective this
+chapter derives above; Shao et al., "DeepSeekMath" (February 2024) introduces
+GRPO, removing PPO's learned critic in exchange for the group-relative
+baseline this chapter's worked example uses; DAPO (ByteDance Seed, March 2025)
+changes sampling, clipping, and length-handling on top of the same group-
+relative core; GSPO (Qwen team, July 2025) moves the importance ratio from
+per-token to per-sequence to fix instability GRPO shows on long, sparsely-
+rewarded sequences. Eight years separate PPO from GSPO, and every later method
+in this line still answers to the same failure PPO's clip was built to
+prevent: an update large enough to destroy the policy in one step. Also
+relevant: RLVR work and agent-environment evaluation literature, which this
+chapter's later sections on verifiable rewards and agent trajectories draw on
+without dating to one paper.
 
 [The RL landscape](LANDSCAPE.md) names the production frameworks that own the
 sampler-plus-trainer loop this chapter builds by hand, and what each assumes

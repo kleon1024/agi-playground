@@ -252,9 +252,19 @@ find out where a transformer really keeps what it knows. Then to
 [data](../../platform/data/) to construct the input distribution, or to
 [pretraining](../../platform/training/) if you already have a clean shard.
 
-Primary references: Vaswani et al. (attention), Su et al. (RoPE), Zhang and
-Sennrich (RMSNorm), Shazeer (GLU variants), Dao et al. (FlashAttention), and
-Ainslie et al. (grouped-query attention).
+Primary references, in the order the mechanism actually accumulated:
+Vaswani et al., "Attention Is All You Need" (2017) introduces the scaled
+dot-product form this chapter opens with; Zhang and Sennrich, "Root Mean
+Square Layer Normalization" (2019) is the RMSNorm this chapter uses in place
+of the original paper's LayerNorm; Shazeer, "GLU Variants Improve Transformer"
+(2020) proposes the gated feed-forward this chapter uses instead of a plain
+ReLU MLP; Su et al., "RoFormer" (2021) introduces RoPE; Dao et al.,
+"FlashAttention" (2022) makes the exact softmax-attention computation above
+IO-aware rather than changing what it computes; and Ainslie et al., "GQA"
+(2023) is the grouped-query-attention scheme this chapter's 12-query/4-key-
+value-head split follows. Six years separate the first paper from the last,
+and every mechanism named here still appears, unmodified in substance, in the
+block this chapter builds by hand.
 
 Every mechanism above has a production implementation that computes the same
 thing faster. [The foundations landscape](../LANDSCAPE.md) pairs them off, so

@@ -198,9 +198,21 @@ Evaluation closes one build loop and starts the next. Continue to
 changes the unit under test, or return to the subsystem that owns the dominant
 failure.
 
-Primary references: lm-evaluation-harness, Inspect, SWE-bench methodology,
-AgentDojo, policy-adherence environments, and standard binomial and paired-test
-methods.
+Primary references, in the order each widened what "evaluation" had to cover:
+EleutherAI's lm-evaluation-harness (2021) standardizes static-benchmark
+scoring across checkpoints, which is the simpler half of Section 2's
+static-versus-agentic split; Jimenez et al., "SWE-bench" (2023) moves the
+unit of evaluation from a single output to a multi-step trajectory against
+a real repository, forcing the harness-as-independent-variable point Section
+3 makes; the UK AI Safety Institute's Inspect framework (2024) generalizes
+that trajectory-eval pattern into a reusable tool rather than a
+benchmark-specific harness; and Debenedetti et al., "AgentDojo" (2024) adds
+adversarial tool-use and prompt-injection scenarios, which is where the
+policy-adherence failure row in Section 7's table comes from. Three years
+separate the first tool from the last, tracking the same shift the rest of
+this chapter argues for: from scoring an output to scoring a trajectory.
+Also relevant: standard binomial and paired-test methods, which are older
+than any tool named here and unchanged by this history.
 
 [The evaluation landscape](LANDSCAPE.md) sets those harnesses side by side —
 what each one fixes for you, and what it therefore stops you from disclosing.
