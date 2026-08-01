@@ -31,10 +31,6 @@ _UNIQUE_LEN = 120
 _NGRAM = 5
 
 
-def _hash(x: str) -> int:
-    return hash(x) & _MERSENNE
-
-
 def shingles(words: list) -> set:
     if len(words) < _NGRAM:
         return {hash(" ".join(words))}
