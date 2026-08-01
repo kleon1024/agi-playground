@@ -148,6 +148,8 @@ into one. The DERP-relayed p95 (42ms) is not small next to a single
 audio-LM decode step; a real deployment on this exact link would be
 bottlenecked by the network hop, not the cache.
 
+<!-- interactive: RealSpeechNetworkPipeline -->
+
 ## Run it
 
 ```bash

@@ -98,6 +98,8 @@ MSE stayed tight. This stage does not explain why token-exact-match varies
 this much more than pixel-space reconstruction does -- it is reported here
 as an honest observation, not explained away.
 
+<!-- interactive: SequenceLengthScaling -->
+
 **Verdict:** `MET` (all 3 seeds) -- `lm_completion` beats frame-repeat by a
 margin several times the run-to-run spread in every seed, and every run
 finished well under the declared ceiling (39.4% at the highest), nowhere
