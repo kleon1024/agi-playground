@@ -1,0 +1,43 @@
+{
+  "endpoints": [
+    {
+      "name": "SR-MMP",
+      "n_train": 4643,
+      "train_positive_count": 689,
+      "train_positive_rate": 0.1484,
+      "model_auc_mean": 0.7312,
+      "model_auc_spread": 0.0159,
+      "descriptor_auc_mean": 0.8142,
+      "descriptor_auc_spread": 0.001,
+      "gap_model_minus_descriptor": -0.083,
+      "verdict": "descriptor wins beyond spread"
+    },
+    {
+      "name": "NR-PPAR-gamma",
+      "n_train": 5154,
+      "train_positive_count": 118,
+      "train_positive_rate": 0.0229,
+      "model_auc_mean": 0.6591,
+      "model_auc_spread": 0.062,
+      "descriptor_auc_mean": 0.6554,
+      "descriptor_auc_spread": 0.0044,
+      "gap_model_minus_descriptor": 0.0037,
+      "verdict": "inconclusive (gap inside spread)"
+    },
+    {
+      "name": "NR-ER",
+      "n_train": 4949,
+      "train_positive_count": 628,
+      "train_positive_rate": 0.1269,
+      "model_auc_mean": 0.6679,
+      "model_auc_spread": 0.0227,
+      "descriptor_auc_mean": 0.6413,
+      "descriptor_auc_spread": 0.0011,
+      "gap_model_minus_descriptor": 0.0265,
+      "verdict": "model wins beyond spread"
+    }
+  ],
+  "variance_vs_positive_count_direction": "monotonic decreasing",
+  "gap_vs_positive_count_direction": "not monotonic",
+  "note": "n=3; monotonicity check only, no correlation coefficient computed or implied."
+}

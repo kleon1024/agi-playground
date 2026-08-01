@@ -84,6 +84,7 @@ isn't.
 | [02 — Report](02-report/) | scaffold-checked result, and what it does and does not say beyond this one label | verified |
 | [03 — Second endpoint](03-second-endpoint/) | does the SR-MMP finding generalize to a second, more imbalanced endpoint? | verified |
 | [04 — Third endpoint](04-third-endpoint/) | does stage 03's scarcity-drives-variance hypothesis hold at a third endpoint? | verified |
+| [05 — Cross-endpoint analysis](05-cross-endpoint-analysis/) | across all three endpoints, does one variable explain both the variance pattern and who wins? | verified |
 
 Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the endpoint, baseline, and
