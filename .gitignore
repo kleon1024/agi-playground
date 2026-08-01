@@ -12,6 +12,7 @@ __pycache__/
 data/raw/
 wandb/
 .trackio/
+**/.cache/
 
 # OS / editor
 .DS_Store

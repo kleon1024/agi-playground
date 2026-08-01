@@ -79,6 +79,7 @@ identical to this stage's single-codebook VQ, at a far larger scale.
 | [00 — Audio codec](00-audio-codec/) | how does a waveform become a discrete token sequence, and what does that cost in quality? | verified |
 | [01 — Streaming decode](01-streaming-decode/) | does the existing KV-cache mechanism work unchanged for audio tokens? | verified |
 | [02 — Report](02-report/) | what does streaming cost in latency, and what does it buy or lose against the offline pass? | verified — MET |
+| [03 — Real speech and network](03-real-speech-and-network/) | does the same codec architecture and the same KV cache hold on real speech, over a real network? | verified |
 
 [Stage 00](00-audio-codec/) built a small conv encoder / vector-quantization
 / conv decoder codec, trained on synthetic tone-sequence clips (no real
@@ -118,6 +119,23 @@ policy that beats a strong baseline" — not evidence this mission was more
 rigorously built. Full verdict in
 [its run record](02-report/runs/2026-07-31-outcome-report.md).
 
+[Stage 03](03-real-speech-and-network/) retrained the identical codec
+architecture — no change — on LibriSpeech `dev-clean` (Panayotov et al.,
+2015; CC BY 4.0), 1-2 speakers. At stage 00's own step count the codec
+reproduced stage 00's collapse story but did not escape it in time
+(codebook stuck at 1 of 64 codes); a controlled sweep showed the fix is
+specifically more steps at the same learning rate, not a higher one, and at
+2000 steps all three seeds escaped cleanly, beating both naive baselines by
+roughly 2x. The KV-cache mechanism held on this real-speech token
+vocabulary too (max logit gap 2.8e-05, matching stage 01's own tolerance).
+This stage also ran the mission's first real network measurement — a
+round trip over this repository's documented Tailscale link
+([`infra/local-4090.md`](../../infra/local-4090.md)), independently
+confirmed live and measured at p50 9.7ms / p95 42.5ms over 200 round trips,
+layered on top of, not merged with, stage 01's local decode latency. Full
+numbers in
+[its run record](03-real-speech-and-network/runs/2026-08-01-real-speech-and-network.md).
+
 Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the baseline and metric
 above cannot be chosen after seeing which ones flatter a result.
@@ -127,6 +145,8 @@ above cannot be chosen after seeing which ones flatter a result.
 The codec and dataset are toy-scale by construction, so nothing here says
 anything about production speech quality, multi-speaker or multilingual
 robustness, or true full-duplex operation — the loop runs one direction at a
-time. Measured latency is local compute time, not round-trip time to a real
-client over a real network. Full boundary in [`mission.yaml`](mission.yaml)
-under `does_not_prove`.
+time. Stage 03 adds a real network round trip, but only over this
+repository's own home Tailscale link — a DERP-relayed hop on this sandbox's
+network path — which does not generalize to arbitrary internet paths or a
+direct (non-relayed) connection. Full boundary in
+[`mission.yaml`](mission.yaml) under `does_not_prove`.
