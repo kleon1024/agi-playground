@@ -52,6 +52,13 @@ runnable `core/` and a real `runs/` entry, same contract as everywhere else
 in this repository. These teach general infrastructure mechanism; the
 runbooks below document this repository's own two real compute lanes.
 
+- [`01-networking/`](01-networking/) — star vs. ring allreduce topology,
+  measured over real inter-process IPC: ring wins every combination tested
+  and the margin widens with world size, plus the two deadlock bugs building
+  the toy itself surfaced.
+- [`02-storage/`](02-storage/) — modulo vs. consistent-hash shard placement,
+  measured by how much data actually moves on real disk when a storage node
+  is added: 80% remapped vs. 18%, against a 20% theoretical floor.
 - [`03-orchestration/`](03-orchestration/) — a scheduler doesn't do more
   work, it decides whose work happens first: a real 10-job, 2-slot batch
   measured under FIFO vs priority dispatch, and the cold-start measurement
@@ -63,8 +70,6 @@ runbooks below document this repository's own two real compute lanes.
   topology (NVLink vs PCIe vs cross-node network) determines which
   parallelism strategy (data, tensor, pipeline) tolerates which link, and
   what part of that claim is measurable without a real cluster.
-
-Networking and storage chapters are planned but not yet built.
 
 ## Setup docs
 
