@@ -226,11 +226,98 @@ outside the verifier's domain.
 
 ## Check your mental model
 
-1. Why does equal reward within a group create no GRPO learning signal?
-2. Which part of PPO does GRPO remove, and which safeguards remain?
-3. Why is the rollout sampler part of the optimization algorithm?
-4. How can a correct verifier still reward the wrong behavior?
-5. Which evidence separates reward improvement from general capability?
+Answer each before opening it.
+
+**1. Why does equal reward within a group create no GRPO learning signal?**
+
+<details>
+<summary>Answer</summary>
+
+Because the advantage standardizes each reward against the group's own mean
+and standard deviation: $\hat A_i = (r_i - \operatorname{mean})/\operatorname{std}$.
+If every response in the group gets the same reward, each $r_i$ equals the
+mean exactly, so the numerator is zero for every response and every advantage
+is zero — the prompt contributes no gradient at all. The degenerate cases at
+the extremes (0 out of 8, or 8 out of 8) make the same failure sharper: the
+standard deviation itself is zero, $\hat A_i$ becomes $0/0$, and no epsilon
+added to avoid the division recovers information that was never there —
+prompts need to allow meaningful variation within a sampled group or they
+teach nothing.
+
+</details>
+
+**2. Which part of PPO does GRPO remove, and which safeguards remain?**
+
+<details>
+<summary>Answer</summary>
+
+GRPO removes the learned critic — the separate value model PPO trains to
+estimate the baseline — replacing it with a baseline computed directly from
+the group's own sampled rewards (standardized mean and standard deviation).
+What GRPO does not remove: the old-policy importance ratio, a bounded/clipped
+update, a reference policy or equivalent drift control (the KL check),
+correct token-level masking, and the need for enough distinct samples per
+prompt for the group statistics to mean anything. Dropping the critic cuts
+training cost and removes one source of critic-memory error; it does not
+remove the need for the other stability safeguards PPO established.
+
+</details>
+
+**3. Why is the rollout sampler part of the optimization algorithm?**
+
+<details>
+<summary>Answer</summary>
+
+Because RL data is produced online — the policy generates the very
+trajectories it will then train on, so sampler settings (temperature, top-p,
+maximum length, stop rules, group size, rollout concurrency) directly decide
+what enters the update, not just how it's preprocessed. Too little diversity
+means every rollout in a group gets the same reward and the advantage is
+zero, exactly as in question 1; too much diversity spends compute sampling
+invalid trajectories that teach nothing useful. Truncation is not a
+harmless efficiency knob either — it can make a correct-but-long reasoning
+path look wrong, or reward a short guess over a nearly complete solution.
+None of that is separable from "the algorithm"; it is why the chapter insists
+on logging rollout policy separately from optimizer configuration, since a
+reward curve is uninterpretable if the sampling policy changed silently
+underneath it.
+
+</details>
+
+**4. How can a correct verifier still reward the wrong behavior?**
+
+<details>
+<summary>Answer</summary>
+
+Because the verifier's specific check *is* the task the policy actually
+optimizes, and a verifier can be "correct" on the cases it checks while still
+being narrow enough to leave shortcuts open. A math reward that checks only
+the final string can be satisfied by a formatting trick that produces the
+right string through the wrong reasoning; a coding reward built on weak tests
+can be satisfied by code that passes those specific tests without solving
+the general problem — the policy learns the gaps in the test suite, not the
+task the tests were meant to stand in for. The verifier is not a passive
+scorer sitting outside the loop; whatever it fails to check becomes a
+shortcut available to the policy.
+
+</details>
+
+**5. Which evidence separates reward improvement from general capability?**
+
+<details>
+<summary>Answer</summary>
+
+No single signal does — the chapter's answer is a set of signals that can
+disagree with each other: training reward, held-out verifier success,
+response length and format, KL from the reference policy, diversity within
+each group, manual audit of high-reward failures, and baseline capability
+regressions. The diagnostic case named explicitly is training reward rising
+while held-out verifier success stays flat — that combination is not
+progress, it is direct evidence the policy found a feature of the *training*
+reward specifically that does not transfer to prompts it wasn't optimized
+against. Trusting training reward alone would miss exactly this failure.
+
+</details>
 
 ## Next
 

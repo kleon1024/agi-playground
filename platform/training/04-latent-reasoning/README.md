@@ -167,18 +167,105 @@ demonstrates that nothing here needs a custom model — only custom training.
 
 ## Check your mental model
 
-1. A hidden state is hundreds of continuous numbers and a token is one choice
-   out of thousands. What exactly is lost at each step of a written chain of
-   thought, and why might that loss be useful rather than wasteful?
-2. Unreachable questions are built from a decoy chain of the same length. What
-   would a model learn to do if they were built by picking a random entity
-   instead?
-3. The written chain is identical for `yes` and `no` answers. Why is that
-   necessary for the token-chain arm to be a fair baseline?
-4. Why can a latent thought not be supervised directly, and what does the
-   curriculum substitute for that missing supervision?
-5. Latent thoughts emit fewer tokens and cost more forward passes. Under what
-   serving conditions would that still be the better trade?
+Answer each before opening it.
+
+**1. A hidden state is hundreds of continuous numbers and a token is one choice
+out of thousands. What exactly is lost at each step of a written chain of
+thought, and why might that loss be useful rather than wasteful?**
+
+<details>
+<summary>Answer</summary>
+
+Everything the model was considering and didn't pick is destroyed the moment
+a hidden state collapses into one sampled token — 768 continuous numbers
+reduced to a single choice out of 16,512, with nothing recoverable at the
+next step. That loss could still be useful, not merely wasteful, because
+forcing a decision at each step is also what makes the reasoning legible and
+auditable: `cot`'s written chain can be read, checked, and scored on its own,
+and the curriculum in this chapter only works *because* early stages can
+supervise against those written tokens. The chapter's actual result is
+consistent with the collapse mattering less at shallow depth (three latent
+thoughts trained fine) and more at the task's full depth (four thoughts
+collapsed to chance) — so the tax is real, but this run doesn't establish
+that it's *always* wasteful, only that this curriculum couldn't pay it past
+three steps.
+
+</details>
+
+**2. Unreachable questions are built from a decoy chain of the same length. What
+would a model learn to do if they were built by picking a random entity
+instead?**
+
+<details>
+<summary>Answer</summary>
+
+It would learn a shortcut that has nothing to do with reasoning: entities
+reachable from the source tend to appear "close" to it in whatever the model
+picks up on from the input structure, so a randomly-picked unreachable target
+would often be trivially distinguishable by depth or position alone, without
+tracing the path at all. By instead building the decoy from a chain of the
+*same length*, both the reachable and unreachable targets are equally deep
+and equally present in the input — the only way to tell them apart is to
+actually walk the graph. This is what makes the task test reasoning rather
+than pattern-matching on superficial position.
+
+</details>
+
+**3. The written chain is identical for `yes` and `no` answers. Why is that
+necessary for the token-chain arm to be a fair baseline?**
+
+<details>
+<summary>Answer</summary>
+
+If the written chain differed systematically between `yes` and `no` cases —
+say, reachable chains looking structurally different from unreachable ones —
+then writing the chain would leak information about the label itself, and
+`cot`'s advantage over `direct` could just be "the model learned to recognize
+the shape of a `yes`-chain" rather than "writing intermediate steps helps
+reasoning." Making the written walk identical in form for both answers means
+the chain conveys the same kind of information regardless of the true label,
+so any accuracy gain from writing it has to come from the reasoning process
+itself, not from a hidden shortcut in how the chain was constructed.
+
+</details>
+
+**4. Why can a latent thought not be supervised directly, and what does the
+curriculum substitute for that missing supervision?**
+
+<details>
+<summary>Answer</summary>
+
+A latent thought has no token, so there's nothing to score it against
+directly — at initialization, a thought is whatever the untrained network
+happens to emit, and its only gradient signal arrives indirectly, through the
+final answer several positions later. The curriculum substitutes a staged
+transition: stage 0 writes every reasoning step as tokens (identical to the
+`cot` arm, fully supervised), and each later stage replaces one more written
+step with a latent thought while the rest remain visible as tokens. This lets
+the model learn what a thought needs to carry while it can still see the
+token it is replacing, rather than trying to learn that from the sparse,
+delayed answer-only signal alone.
+
+</details>
+
+**5. Latent thoughts emit fewer tokens and cost more forward passes. Under what
+serving conditions would that still be the better trade?**
+
+<details>
+<summary>Answer</summary>
+
+When output length, not forward-pass count, is the binding cost — for
+example, if a serving system is billed or bounded by tokens generated (context
+window pressure, per-token API cost, or a strict output-length budget) rather
+than by wall-clock compute, then fewer emitted tokens can be worth extra
+forward passes even though each thought depends on the one before it and so
+cannot be parallelized, and even though overwriting a sequence slot
+invalidates the KV cache from that point forward. This chapter's own numbers
+don't establish that such conditions exist in practice for this method — it
+only establishes the trade's shape (cheap in tokens, expensive in passes),
+leaving the "when is that actually the better trade" question open.
+
+</details>
 
 ## Next
 

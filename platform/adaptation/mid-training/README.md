@@ -173,16 +173,99 @@ exists.
 
 ## Check your mental model
 
-1. Why does installing an agentic prior cost pretraining-scale tokens rather
-   than SFT-scale tokens?
-2. What does the Agentic CPT paper argue goes wrong if that prior is installed
-   during post-training instead?
-3. Why does context-length extension end up sharing a stage with
-   agentic-prior installation rather than happening on its own?
-4. What is the difference between what First-order and High-order Action
-   Synthesis each start from?
-5. What failure does masking the loss on observation tokens prevent, and what
-   does the model still see despite the mask?
+Answer each before opening it.
+
+**1. Why does installing an agentic prior cost pretraining-scale tokens rather
+than SFT-scale tokens?**
+
+<details>
+<summary>Answer</summary>
+
+Because deciding to call a tool mid-response, reading unpredictable output,
+and continuing the reasoning after it is a genuinely new behavioral pattern,
+not a small adjustment to format or turn-taking — and SFT's small, reviewed
+demonstration set (sized in the millions of tokens) is designed for the
+latter, not the former. The Agentic CPT paper's own numbers make the scale
+concrete: 300 billion tokens across two context-length stages, before any
+SFT or RL runs on top. That is a pretraining-scale intervention by any
+convention, which is exactly why this chapter's pipeline diagram places it as
+its own stage rather than folding it into either neighbor.
+
+</details>
+
+**2. What does the Agentic CPT paper argue goes wrong if that prior is installed
+during post-training instead?**
+
+<details>
+<summary>Answer</summary>
+
+It argues that folding agentic-prior installation into post-training asks one
+optimization to do two incompatible jobs from the same small, carefully
+curated signal at once: acquire a genuinely new behavioral pattern (tool use)
+while also staying aligned to human preference. The gradient that best
+teaches tool use is rarely the gradient that best preserves already-tuned
+helpfulness and safety behavior, so pushing both through the same SFT/RL
+signal sets them against each other. Installing the behavioral prior earlier,
+under the plain next-token objective at pretraining scale, separates the two
+problems — post-training then only has to align a model that already knows
+how to act, rather than teaching it to act and align in the same pass.
+
+</details>
+
+**3. Why does context-length extension end up sharing a stage with
+agentic-prior installation rather than happening on its own?**
+
+<details>
+<summary>Answer</summary>
+
+Because both jobs want the same kind of input: long documents built from real
+dependency chains, at the same token scale. Real agentic trajectories —
+think, call a tool, read the result, continue, repeat — routinely run
+64K-128K tokens before reaching an answer, which means training a model to
+hold an agentic episode together already requires exactly the long-context
+training data that context extension needs. GLM-5's three-band mid-training
+schedule (32K, then 128K, then 200K) makes this explicit rather than
+coincidental — the two jobs merge into one stage because the data that serves
+one job serves the other equally well.
+
+</details>
+
+**4. What is the difference between what First-order and High-order Action
+Synthesis each start from?**
+
+<details>
+<summary>Answer</summary>
+
+First-order Action Synthesis (FAS) builds think/act/observe tuples directly
+from a knowledge source, with the observation generated to stay consistent
+with that source rather than returned by a live tool call — it constructs a
+single clean trajectory from scratch. High-order Action Synthesis (HAS)
+starts from an existing trajectory and expands it into a fuller decision
+process: a wrong first attempt, an observation that reveals the mismatch,
+and a corrected step. FAS produces one clean shot; HAS produces a trajectory
+that includes getting something wrong and recovering from it.
+
+</details>
+
+**5. What failure does masking the loss on observation tokens prevent, and what
+does the model still see despite the mask?**
+
+<details>
+<summary>Answer</summary>
+
+It prevents the model from learning to fabricate tool output. If training
+loss ran on all three spans (think, act, observe), the model would learn to
+generate convincing observation text as if predicting it were the goal — but
+at inference time, no real tool result exists yet at the point the model
+needs to condition on one, so a model trained to predict observations has
+learned to hallucinate them instead of waiting for and using a real result.
+Despite the mask, the model still *sees* the observation tokens in context —
+conditioning on a real or synthesized tool result is exactly the skill being
+trained — the mask only removes the gradient that would otherwise reward
+reproducing that text, via `-100` in the loss (`CrossEntropyLoss`'s ignored
+index) over every observation span.
+
+</details>
 
 ## Next
 

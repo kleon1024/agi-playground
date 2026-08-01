@@ -155,18 +155,98 @@ measures the leftovers as much as the change.
 
 ## Check your mental model
 
-1. A run reports 200,000 tokens/second. What else do you need before you can
-   say whether that is good?
-2. Flash attention and `torch.compile` together are worth 5x here, and neither
-   makes a matrix multiply faster. What are they making faster?
-3. The profiler shows `aten::mm` unchanged at 275.8ms and 277.5ms across the
-   compile boundary. Why is that the strongest possible evidence for the
-   memory-bound diagnosis?
-4. Activation checkpointing lost 17% throughput. Under what circumstance is
-   turning it on the higher-throughput decision anyway?
-5. The fp32 rung reported a number without failing on a card too small to hold
-   it. What column would have caught that, and what would have caught it on a
-   platform that raises out-of-memory instead?
+Answer each before opening it.
+
+**1. A run reports 200,000 tokens/second. What else do you need before you can
+say whether that is good?**
+
+<details>
+<summary>Answer</summary>
+
+The model's parameter count, layer count, block size, and model width (to
+compute FLOPs per token), plus the card's advertised peak FLOPs/s — everything
+MFU needs. Tokens/second alone is not comparable across models: halve the
+model size and the same hardware roughly doubles tokens/second, which
+measures the model shrinking, not the run getting more efficient. Only after
+converting to MFU (fraction of the card's advertised throughput actually
+turned into gradient) can "is this good" be answered — and even then, 65.9%
+in this chapter's own fastest configuration is a measured ceiling for this
+setup, not a claim that 100% is reachable.
+
+</details>
+
+**2. Flash attention and `torch.compile` together are worth 5x here, and neither
+makes a matrix multiply faster. What are they making faster?**
+
+<details>
+<summary>Answer</summary>
+
+Memory traffic, not arithmetic. Flash attention's 2.94x comes from never
+materializing the `(sequence x sequence)` score matrix in memory — same
+attention computation, far less data moved. `torch.compile`'s 1.72x comes from
+fusing chains of small elementwise operations into single kernels, cutting the
+number of separate memory round-trips between them. The profiler evidence in
+this same chapter confirms it directly: `aten::mm` (the actual matmuls) takes
+275.8ms before compilation and 277.5ms after — statistically the same. The
+341ms that disappeared was overhead around the matmuls, not the matmuls
+themselves.
+
+</details>
+
+**3. The profiler shows `aten::mm` unchanged at 275.8ms and 277.5ms across the
+compile boundary. Why is that the strongest possible evidence for the
+memory-bound diagnosis?**
+
+<details>
+<summary>Answer</summary>
+
+Because it rules out the alternative explanation directly rather than merely
+being consistent with the memory-bound story. If compilation had somehow made
+the matrix multiplies themselves faster, `aten::mm`'s time would have dropped
+too — but it didn't move at all while total self-CUDA time fell from 818.6ms
+to 477.6ms. The only place that missing 341ms could have come from is
+non-GEMM work: elementwise kernels, copies, and launch overhead. A profiler
+that attributes every microsecond to a specific kernel turns "explanations are
+cheap" into a falsifiable claim, and this one didn't get falsified.
+
+</details>
+
+**4. Activation checkpointing lost 17% throughput. Under what circumstance is
+turning it on the higher-throughput decision anyway?**
+
+<details>
+<summary>Answer</summary>
+
+When the 2.5x memory it frees (8,686MB down to 3,410MB in this chapter's
+measurement) lets you run a larger batch size than you could otherwise fit.
+A larger effective batch can raise overall throughput and training stability
+by more than the 17% per-step cost of recomputing activations during the
+backward pass — but only if the freed memory is actually spent on a bigger
+batch, not left unused. This is explicitly a trade, not a strict improvement:
+whether it's worth it depends on what the freed memory buys, which this
+chapter states rather than assumes.
+
+</details>
+
+**5. The fp32 rung reported a number without failing on a card too small to hold
+it. What column would have caught that, and what would have caught it on a
+platform that raises out-of-memory instead?**
+
+<details>
+<summary>Answer</summary>
+
+The peak-memory column would have caught it here: 27.7GB requested against a
+24.5GB card is a memory footprint that doesn't fit, visible the moment memory
+is checked alongside throughput. WSL2's driver silently paged the overflow
+into host memory over PCIe instead of raising an error, so the run "succeeded"
+and printed a plausible-looking throughput number that was actually measuring
+PCIe transfer speed, not GPU compute. On a platform that raises
+out-of-memory instead of silently paging, the crash itself would have caught
+it — the run simply wouldn't have completed. Either way, the lesson is the
+same: any throughput comparison across configurations with different memory
+footprints needs the peak-memory column read before the throughput column.
+
+</details>
 
 ## Next
 

@@ -72,15 +72,83 @@ definition stops being bookkeeping and becomes the claim.
 
 ## Check your mental model
 
-1. Section 4's two MoE arms support opposite headlines from the same nine runs.
-   Which sentence is true of both, and which of each alone?
-2. `moe-equal-total` matched dense's loss using 33.2% fewer active parameters
-   and still took 1.85x as long. Which budget does that make it better under,
-   and which worse?
-3. What would you have to run before you could say anything at all under an
-   equal-wall-clock budget?
-4. Name another architectural idea that would force the same two-parameter-count
-   problem, and say which budget would flatter it.
+Answer each before opening it.
+
+**1. Section 4's two MoE arms support opposite headlines from the same nine
+runs. Which sentence is true of both, and which of each alone?**
+
+<details>
+<summary>Answer</summary>
+
+True of both arms: mixture-of-experts reaches at least as good a loss as
+dense while using fewer active parameters per token — `moe-equal-active` wins
+outright at equal active parameters, and `moe-equal-total` ties dense's loss
+while using 33.2% fewer active parameters per token, which is a real
+efficiency win even without a loss improvement. True of `moe-equal-active`
+alone: it wins by 0.0901 nats, but only under the equal-active-parameters
+definition, at double the total stored parameters. True of `moe-equal-total`
+alone: its loss is statistically indistinguishable from dense's (0.0001
+difference, sign flips across seeds) — it does not win on loss under this
+budget, it only wins on per-token efficiency.
+
+</details>
+
+**2. `moe-equal-total` matched dense's loss using 33.2% fewer active parameters
+and still took 1.85x as long. Which budget does that make it better under,
+and which worse?**
+
+<details>
+<summary>Answer</summary>
+
+Better under an equal-total-parameters budget measured by per-token
+compute-efficiency: same loss, less arithmetic per token, which is a genuine
+win on that specific axis. Worse under an equal-wall-clock budget: despite
+doing *less* arithmetic per token, it still took 1.85x as long as dense to
+train, because routing, gathers, and extra sequential dependencies cost real
+wall-clock time that current kernels aren't fast at — a cost that has nothing
+to do with the architecture's FLOP efficiency and everything to do with
+implementation overhead. The same model can be a clear win on one budget
+definition and a clear loss on another, simultaneously, which is exactly the
+chapter's point.
+
+</details>
+
+**3. What would you have to run before you could say anything at all under an
+equal-wall-clock budget?**
+
+<details>
+<summary>Answer</summary>
+
+A dense arm trained on the amount of data dense would have seen in the same
+wall-clock time the MoE arm took — in this chapter's own numbers, dense would
+have processed roughly 391M tokens in the 1,645.9 seconds `moe-equal-active`
+took to process 200M. That dense-at-391M-tokens run was never executed, so
+there is no result to compare against under an equal-wall-clock budget; the
+0.0901-nat MoE win is not evidence about that comparison, because the arm
+that would settle it doesn't exist. A budget you didn't buy a comparison run
+for is a blank, not a tie.
+
+</details>
+
+**4. Name another architectural idea that would force the same
+two-parameter-count problem, and say which budget would flatter it.**
+
+<details>
+<summary>Answer</summary>
+
+Any architecture that decouples stored capacity from per-token compute forces
+the same problem — the chapter names conditional computation, weight sharing
+across passes, and early exit as examples (upcycling, covered elsewhere in
+this same platform section, is another concrete instance: it changes total
+stored parameters while, at initialization, changing active compute only
+modestly). Equal-parameters budgets flatter these designs, since they get
+credit for large stored capacity while a well-designed variant spends only a
+fraction of it per forward pass; equal-FLOPs budgets do the opposite, letting
+a plain dense control grow larger to match the conditional model's compute
+and closing or reversing the apparent advantage. Whichever definition isn't
+stated is the one likely being used to flatter the result.
+
+</details>
 
 ## Evidence boundary and next step
 

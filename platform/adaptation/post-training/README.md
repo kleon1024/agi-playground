@@ -238,11 +238,83 @@ establish broad instruction-following quality, safety, or preference alignment.
 
 ## Check your mental model
 
-1. Why are prompt tokens visible but excluded from SFT loss?
-2. What does LoRA rank constrain?
-3. What can a reward-model score claim, and what can it not claim?
-4. Why is DPO still limited by an offline dataset?
-5. What compatibility assumption makes task-vector merging plausible?
+Answer each before opening it.
+
+**1. Why are prompt tokens visible but excluded from SFT loss?**
+
+<details>
+<summary>Answer</summary>
+
+The model still needs to see the prompt in context — it has to condition its
+answer on what the user actually asked. But training loss on those tokens
+would waste gradient budget teaching the model to reproduce text it never
+has to generate at inference, and worse, it makes "generate both sides of the
+conversation" a valid learned behavior. Setting user and role-marker tokens'
+labels to `-100` keeps them in context without asking the model to predict
+them.
+
+</details>
+
+**2. What does LoRA rank constrain?**
+
+<details>
+<summary>Answer</summary>
+
+The directions the model's update is allowed to move in, not merely the
+parameter count. $A$ and $B$ together define a rank-$r$ update, so raising
+$r$ increases the space of possible weight changes the adapter can express,
+while a low rank can regularize a small dataset but can also block a change
+that genuinely requires a higher-rank update — LoRA is not just compressed
+full fine-tuning, it is a constrained one.
+
+</details>
+
+**3. What can a reward-model score claim, and what can it not claim?**
+
+<details>
+<summary>Answer</summary>
+
+It can claim a relative preference between two specific responses to the
+same prompt — $P(y_w \succ y_l) = \sigma(r_w - r_l)$ depends only on the
+difference between rewards. It cannot claim an absolute quality score: adding
+100 to both rewards leaves every predicted preference unchanged, because
+$\sigma$ only ever sees the difference. A reward of 4.7 in isolation means
+nothing; it is only meaningful next to whatever it was compared against.
+
+</details>
+
+**4. Why is DPO still limited by an offline dataset?**
+
+<details>
+<summary>Answer</summary>
+
+DPO only compares chosen and rejected responses that already exist in a fixed
+preference dataset — it never generates new candidate responses of its own
+to explore. If a genuinely better response was never sampled into that
+dataset, DPO has no mechanism for discovering it; it can only reweight
+preference between the options it was given. This limitation is not specific
+to DPO — every variant in the comparison table (IPO, KTO, ORPO, SimPO)
+remains an offline objective for the same reason: none of them can explore
+responses absent from the fixed dataset.
+
+</details>
+
+**5. What compatibility assumption makes task-vector merging plausible?**
+
+<details>
+<summary>Answer</summary>
+
+That the checkpoints being merged share the same base model and their
+updates do not strongly conflict. The merge arithmetic
+$\theta_{\text{merged}} = \theta_{\text{base}} + \sum_i \lambda_i \tau_i$ only
+makes sense because every task vector $\tau_i = \theta_i - \theta_{\text{base}}$
+is computed relative to that same shared base weight space — subtract a
+different base and the vectors point through unrelated coordinate systems,
+and no scalar $\lambda$ can reconcile that. Sharing a base is necessary but
+not sufficient: real task vectors can still conflict per weight, which is why
+merging is not a substitute for evaluating the merged model directly.
+
+</details>
 
 ## Next
 

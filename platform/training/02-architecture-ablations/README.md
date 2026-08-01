@@ -187,14 +187,85 @@ five.
 
 ## Check your mental model
 
-1. Why can "equal parameters" and "equal FLOPs" rank the same two
-   architectures in opposite orders?
-2. The norm rung's per-seed differences are -0.0023, +0.0052, +0.0091. Why is
-   the average of those three not a result?
-3. Six runs of one identical configuration spanned 0.0018. What does that let
-   you ignore, and what does it not excuse?
-4. The activation rung put GELU ahead of SwiGLU. Why is that not a finding, and
-   what is?
+Answer each before opening it.
+
+**1. Why can "equal parameters" and "equal FLOPs" rank the same two
+architectures in opposite orders?**
+
+<details>
+<summary>Answer</summary>
+
+Because the two definitions flatter opposite kinds of design. Equal parameters
+flatters anything that spends more compute per stored parameter than the
+control — a mixture-of-experts layer whose stored weights buy capacity no
+single forward pass fully uses looks great under this definition, since it's
+being compared to a dense model with the same parameter count but far less
+capacity. Equal FLOPs flatters the reverse: anything that adds parameters
+cheaply relative to compute, which is the same MoE layer read from the other
+side — under equal FLOPs, the dense control gets to be much larger to match
+the MoE arm's compute, closing or reversing the gap. The feed-forward rung in
+this chapter is the concrete demonstration: MoE wins by 0.0901 nats under
+equal-active, but the difference collapses to 0.0001 with the sign flipping
+between seeds under equal-total.
+
+</details>
+
+**2. The norm rung's per-seed differences are -0.0023, +0.0052, +0.0091. Why is
+the average of those three not a result?**
+
+<details>
+<summary>Answer</summary>
+
+Because the sign flips across the three seeds — one seed favors RMSNorm,
+two favor LayerNorm — which means the "true" direction of the effect isn't
+knowable from this data at all, and averaging three numbers that disagree on
+sign produces a number that doesn't represent any of the three seeds'
+individual behavior. This chapter's own measured floor makes the point sharp:
+six runs of one identical configuration spanned 0.0018 purely from GPU
+nondeterminism, and every one of the norm rung's per-seed differences
+(-0.0023, +0.0052, +0.0091) is inside or barely outside that same noise band.
+A mean computed from numbers this close to the noise floor is reporting the
+allocator, not the architecture.
+
+</details>
+
+**3. Six runs of one identical configuration spanned 0.0018. What does that let
+you ignore, and what does it not excuse?**
+
+<details>
+<summary>Answer</summary>
+
+It lets you ignore any per-seed difference smaller than about 0.002 as a
+meaningful architectural signal — that range (0.0018) is what GPU
+nondeterminism alone produces with literally nothing changed (same model,
+same seeds, same batches, same order), so a smaller gap is indistinguishable
+from noise. It does not excuse skipping seeds or running just one: a single
+seed still can't be trusted even when it clears the noise floor, since you
+have no way to know from one number alone whether you got a typical seed or
+an outlier. The floor tells you how small an effect can possibly mean
+something; it doesn't replace the three-seed discipline that established the
+floor in the first place.
+
+</details>
+
+**4. The activation rung put GELU ahead of SwiGLU. Why is that not a finding, and
+what is?**
+
+<details>
+<summary>Answer</summary>
+
+It's not a finding that "GELU beats SwiGLU" because the three per-seed
+differences (+0.0001, -0.0115, -0.0031) flip sign across seeds, exactly like
+the norm rung — the mean of 0.0048 in GELU's favor is an average of
+disagreeing signs, sitting close to the same ~0.002 noise floor the identical-
+configuration control established. Reporting "GELU wins" would mistake noise
+for signal, which is precisely the failure this whole chapter is built to
+prevent. The actual finding is the meta-result: at this model size (33M) and
+this token budget (200M), the difference between SwiGLU and GELU is not
+measurable at all — a real, reportable conclusion about the limits of this
+experiment's resolution, not a verdict on which activation is better.
+
+</details>
 
 ## Next
 

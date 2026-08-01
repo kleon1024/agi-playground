@@ -249,11 +249,91 @@ loss curve written from memory is not evidence.
 
 ## Check your mental model
 
-1. Why does tokenizer fertility affect both cost and model quality?
-2. Which batch size controls an optimizer update under accumulation?
-3. Why does BF16 still need higher-precision optimizer state?
-4. What does Chinchilla optimize, and what deployment cost does it omit?
-5. Which evidence separates overfitting from a broken training loop?
+Answer each before opening it.
+
+**1. Why does tokenizer fertility affect both cost and model quality?**
+
+<details>
+<summary>Answer</summary>
+
+Fertility is how many tokens a source string becomes. A high-fertility string
+(say, a rare language or a domain the merge rules never saw much of) burns
+more of the context window and more attention compute per unit of real content
+— that is the cost side. The quality side is separate but linked: every token
+the vocabulary produces gets its own embedding and its own share of training
+examples, so a token that only appears by fragmenting a common word into
+pieces gets far fewer training signals per underlying concept than a token
+that cleanly represents a whole common word. A single global fertility average
+hides exactly the users paying both costs at once — high token count *and*
+poorly-trained embeddings for their language or domain.
+
+</details>
+
+**2. Which batch size controls an optimizer update under accumulation?**
+
+<details>
+<summary>Answer</summary>
+
+The effective batch — the sum across all `k` micro-batches — not the
+micro-batch size itself. That is why each micro-batch loss must be divided by
+`k` before `backward()`: without that division, the accumulated gradient is
+`k` times larger than the effective-batch gradient would have been, which
+silently multiplies the effective learning rate by `k`. The optimizer step,
+not the micro-batch, is the unit the rest of the run (learning-rate schedule,
+checkpoint cadence, tokens-per-update accounting) is measured against.
+
+</details>
+
+**3. Why does BF16 still need higher-precision optimizer state?**
+
+<details>
+<summary>Answer</summary>
+
+BF16 keeps FP32's exponent range, so it doesn't have FP16's overflow problem —
+but it still has fewer mantissa bits than FP32, meaning less precision per
+number. An optimizer update is often a small correction added to an
+already-large accumulated weight or moment value; in reduced mantissa
+precision, small updates can round away to nothing against a large
+accumulator. Keeping optimizer state and the authoritative weight update in
+FP32 preserves the update's precision while still letting the much larger
+forward/backward matrix multiplies run in cheaper, faster BF16 — a mixed
+contract, not "16-bit everywhere."
+
+</details>
+
+**4. What does Chinchilla optimize, and what deployment cost does it omit?**
+
+<details>
+<summary>Answer</summary>
+
+Chinchilla's compute-optimal ratio (roughly 20 training tokens per parameter,
+under its measured regime) optimizes training-compute efficiency: for a fixed
+training FLOP budget, that ratio minimizes final loss. It says nothing about
+*inference* cost. A smaller model trained on more tokens per parameter than
+Chinchilla's ratio suggests (this repository's own run used 34, not 20,
+deliberately) costs more to train but less to serve per query forever after —
+which is why deployed models are routinely trained past the compute-optimal
+point: the training cost is paid once, the inference cost is paid on every
+call.
+
+</details>
+
+**5. Which evidence separates overfitting from a broken training loop?**
+
+<details>
+<summary>Answer</summary>
+
+The pair of train and validation loss, read together, not train loss alone.
+If both are flat, the loop itself is likely broken (label shift, masking,
+optimizer, or learning rate) — the model isn't learning at all, so there's
+nothing yet to overfit. If train falls while validation stays flat or rises,
+that's overfitting or a train/validation mismatch — the loop is working, but
+the model is memorizing the training distribution's noise rather than
+generalizing. Train loss by itself cannot distinguish these: a falling train
+loss looks identical in both cases until validation loss is checked alongside
+it.
+
+</details>
 
 ## Next
 

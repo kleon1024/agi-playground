@@ -198,18 +198,95 @@ Path two remains unrun here, for the reason
 
 ## Check your mental model
 
-1. Which question decides whether path two is available to you at all, and why
-   is it not "which signal is better"?
-2. What does a one-hot label destroy that a temperature-softened distribution
-   keeps, and why does the loss get rescaled by $T^2$?
-3. Raising temperature reveals the teacher's ranking. What does it cost you at
-   the same time?
-4. Distribution beats text within one teacher, yet a stronger black-box teacher
-   often beats a weaker local one outright. What control separates those two
-   claims?
-5. Every arm in the measured run won on its own author's held-out answers. What
-   does that make held-out loss unable to decide, and what would you have to
-   measure instead?
+Answer each before opening it.
+
+**1. Which question decides whether path two is available to you at all, and why
+is it not "which signal is better"?**
+
+<details>
+<summary>Answer</summary>
+
+Whether you own the teacher's weights or only have API access. An API emits
+text, not logits, so no amount of signal richness matters if you can never
+observe the distribution behind it — the constraint is structural, not a
+judgment call about which signal is better. "Which signal is better" only
+becomes a live question once you already have both options available, and for
+most people who only hold API access, that second question never arrives at
+all.
+
+</details>
+
+**2. What does a one-hot label destroy that a temperature-softened distribution
+keeps, and why does the loss get rescaled by $T^2$?**
+
+<details>
+<summary>Answer</summary>
+
+A one-hot label destroys the relative structure among the wrong answers —
+that `Lyon` was a plausible near-miss and `banana` was not. It says `Paris`
+and nothing else. A temperature-softened distribution keeps that shape: heavy
+mass on `Paris`, real but smaller mass on `Lyon`, effectively none on
+`banana`, which encodes which mistakes are plausible. The loss is rescaled by
+$T^2$ because softening by $T$ shrinks the gradient by roughly $1/T$, so
+without the $T^2$ factor a higher temperature would silently produce smaller
+updates — the rescaling keeps update magnitude comparable as temperature
+changes.
+
+</details>
+
+**3. Raising temperature reveals the teacher's ranking. What does it cost you at
+the same time?**
+
+<details>
+<summary>Answer</summary>
+
+It teaches the student that absurd continuations are ordinary. The worked
+table makes this concrete: at $T{=}1$, `banana` holds 0.24% of the mass, but
+at $T{=}4$ it holds 13.16% — more mass than the plausible alternative
+(`Lyon`) held at $T{=}1$ (4.73%). Temperature is not a free magnifier of
+useful structure; every bit of visibility it buys into the teacher's ranking
+of plausible answers, it pays for by inflating the probability the student
+assigns to implausible ones.
+
+</details>
+
+**4. Distribution beats text within one teacher, yet a stronger black-box teacher
+often beats a weaker local one outright. What control separates those two
+claims?**
+
+<details>
+<summary>Answer</summary>
+
+Generating targets from a model comparably sized to the student and comparing
+against that. Without it, an improvement from a much stronger teacher measures
+the teacher's quality, not the distillation method — almost anything a
+stronger model supervises will look like progress regardless of whether it
+arrived as logits or text. Isolating the method's own contribution requires
+holding teacher strength roughly fixed near the student's own scale, which is
+the only way to separate "distillation helped" from "we borrowed a bigger
+model's competence."
+
+</details>
+
+**5. Every arm in the measured run won on its own author's held-out answers. What
+does that make held-out loss unable to decide, and what would you have to
+measure instead?**
+
+<details>
+<summary>Answer</summary>
+
+It makes held-out loss unable to decide which corpus produces genuinely
+better answers — it measures author-matching, not answer quality, since
+whichever reference set you choose is won by the arm trained on that same
+author's data. Ranking the corpora on quality instead would require an
+author-neutral metric: a judge that scores answers without knowing who wrote
+them, or a downstream task whose score does not depend on matching one
+author's phrasing. This run has neither, which is why it reports two things
+it can support (every arm beats the base checkpoint; the 7B teacher's data
+transfers better than the 0.5B teacher's, off-diagonal) instead of a ranking
+it cannot.
+
+</details>
 
 ## Next
 

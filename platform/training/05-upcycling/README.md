@@ -165,17 +165,100 @@ separate run with its own boundary, in
 
 ## Check your mental model
 
-1. The precondition is a shared tokenizer and a shared `d_model`. Which one
-   breaks the embedding table, and which one breaks the attention matrices?
-2. Why does replicating one feed-forward into four identical experts produce
-   *exactly* the parent's output, rather than approximately?
-3. The untrained floor is 9.7118 and the parent scores 3.0498. What would you
-   conclude from an upcycled loss of 4.2, and what from a loss of 3.0501?
-4. The router's gradient is zero at step 0. Why does that not make the router
-   permanently untrainable?
-5. Storage went up 2.93x and compute 1.64x, but sustained throughput fell only
-   1.93x. Which of those numbers is a property of the architecture, and which
-   of the kernel?
+Answer each before opening it.
+
+**1. The precondition is a shared tokenizer and a shared `d_model`. Which one
+breaks the embedding table, and which one breaks the attention matrices?**
+
+<details>
+<summary>Answer</summary>
+
+Changing the tokenizer breaks the embedding table: row 4,102 only means "the
+token the tokenizer assigns id 4,102" as long as that assignment stays fixed
+— swap tokenizers and the same row now denotes a different string, turning
+the table into a table of wrong answers, even though its shape is unchanged.
+Changing `d_model` breaks the attention matrices (and every other tensor that
+reads or writes the residual stream): those tensors' shapes are defined in
+terms of `d_model`, so a different width makes them incompatible outright,
+not just semantically wrong — they wouldn't even multiply.
+
+</details>
+
+**2. Why does replicating one feed-forward into four identical experts produce
+*exactly* the parent's output, rather than approximately?**
+
+<details>
+<summary>Answer</summary>
+
+Because top-k routing renormalizes its weights to sum to one, and if every
+expert computes the same function `F`, the weighted combination
+`w1*F(x) + w2*F(x) + ...` always equals `F(x)` regardless of what the router's
+weights actually are — the routing becomes mathematically irrelevant to the
+output when all routed experts are identical copies. This isn't an
+approximation that happens to be close; it's an algebraic identity, which is
+exactly why the chapter can test for it to four decimal places (3.0498 vs
+3.0499) rather than merely checking that the output looks "similar."
+
+</details>
+
+**3. The untrained floor is 9.7118 and the parent scores 3.0498. What would you
+conclude from an upcycled loss of 4.2, and what from a loss of 3.0501?**
+
+<details>
+<summary>Answer</summary>
+
+A loss of 4.2 — between the parent's 3.0498 and the untrained floor of
+9.7118 — would mean the surgery is wrong somewhere: a transposed attention
+matrix, an expert wired to the wrong layer, or a shared expert quietly
+double-counting the feed-forward would all land in that middle range, because
+the conversion preserved the parent's function only partially. A loss of
+3.0501, essentially identical to the parent's 3.0498 within floating-point
+noise, is exactly what a correct conversion should produce — the tiny 0.0001
+remaining gap is attributable to accumulation-order differences (summing two
+weighted expert outputs instead of one path), not to a difference in what the
+model computes.
+
+</details>
+
+**4. The router's gradient is zero at step 0. Why does that not make the router
+permanently untrainable?**
+
+<details>
+<summary>Answer</summary>
+
+The router's gradient is zero at step 0 specifically because all four experts
+are still identical at that point — the output doesn't depend on which expert
+gets more routing weight when every expert computes the same function, so
+there's nothing for the router's gradient to respond to yet. But the router
+itself is initialized randomly (not zero), which breaks the symmetry between
+experts from the very first step: each expert starts seeing a slightly
+different subset of tokens and receives a slightly different gradient, so by
+step 1 the four experts have already begun to diverge into different
+functions. Once they differ even slightly, routing between them does affect
+the output, and the router's gradient becomes non-zero from that point on.
+
+</details>
+
+**5. Storage went up 2.93x and compute 1.64x, but sustained throughput fell only
+1.93x. Which of those numbers is a property of the architecture, and which
+of the kernel?**
+
+<details>
+<summary>Answer</summary>
+
+Storage (2.93x) and active-parameter compute (1.64x) are properties of the
+architecture itself — they follow directly from having four experts instead
+of one feed-forward, with two active per token, independent of how the
+experts are executed. The measured 1.93x throughput slowdown is a property of
+the kernel, not the architecture: it doesn't match either architectural
+number because `core/` dispatches experts with a Python loop rather than a
+fused, grouped kernel. The same architecture run through a proper grouped
+kernel would be expected to land closer to the 1.64x compute ratio — the gap
+between 1.64x and 1.93x is implementation overhead, the same
+scheduling-policy-vs-fused-kernel distinction the serving chapter draws
+elsewhere in this curriculum.
+
+</details>
 
 ## Next
 

@@ -83,13 +83,79 @@ was chosen to make the identity check exact, not because it was tuned.
 
 ## Check your mental model
 
-1. Both arms got worse for 53M tokens. What would you have concluded if only
-   the upcycled arm had been run?
-2. Why is the upcycled arm behind at 32.8M tokens and ahead at 200M?
-3. What does that crossover imply about the shortest continued-training
-   comparison worth running?
-4. The gap is 0.0088 nats from one seed per arm. Which part of that result is
-   load-bearing, and which part is not?
+Answer each before opening it.
+
+**1. Both arms got worse for 53M tokens. What would you have concluded if only
+the upcycled arm had been run?**
+
+<details>
+<summary>Answer</summary>
+
+Without the dense parent run alongside it, a loss rising from 3.0576 to
+3.1445 over the first 53M tokens would look like the upcycling surgery
+failing — as if the extra capacity or the router were actively hurting the
+model. Running both arms as a pair reveals that this isn't about upcycling at
+all: the parent checkpoint finished its cosine schedule at nearly zero
+learning rate, sitting in a minimum, and raising the rate back to 1e-4 kicks
+*any* model in that state out of the minimum before it can re-descend. Both
+arms rise together because both are hit by the same disruption — it hits
+equally, which is exactly why comparing against a remembered number (rather
+than a live control) would have misread it as a catastrophe.
+
+</details>
+
+**2. Why is the upcycled arm behind at 32.8M tokens and ahead at 200M?**
+
+<details>
+<summary>Answer</summary>
+
+At step 0, the four experts are identical copies (by the replication
+argument from the parent chapter), so the extra 170M parameters compute
+nothing the dense model doesn't already compute — the upcycled model is
+paying the disruption cost of the learning-rate bump with no extra capability
+yet to offset it, which is why it starts behind. The experts only begin to
+diverge into genuinely different functions as training proceeds, and it's
+only once that divergence has accumulated enough that the extra capacity
+starts doing useful, non-redundant work — which is why the crossover happens
+partway through rather than immediately.
+
+</details>
+
+**3. What does that crossover imply about the shortest continued-training
+comparison worth running?**
+
+<details>
+<summary>Answer</summary>
+
+It implies a real floor: an experiment stopped before the crossover (this run
+put it somewhere before 32.8M tokens) would report the upcycled arm as worse,
+when a longer run of the exact same setup shows it pulling ahead and staying
+ahead. A comparison stopped at 30M tokens here would have reported the
+opposite conclusion with equal apparent confidence. The crossover isn't a
+quirk of this particular run — it's a property of the replication method
+itself (identical experts need time to diverge before they pay for
+themselves), so any continued-training comparison using this method needs to
+run long enough to see whether a crossover happens, not just report whichever
+side is ahead at whatever token count the run happened to stop at.
+
+</details>
+
+**4. The gap is 0.0088 nats from one seed per arm. Which part of that result is
+load-bearing, and which part is not?**
+
+<details>
+<summary>Answer</summary>
+
+The shape of the gap is load-bearing: the monotone widening across 25
+consecutive evaluations, after the crossover, is a consistent trend within
+this single run and is what the chapter's conclusion actually rests on. The
+exact endpoint value, 0.0088 nats, is not load-bearing on its own — one seed
+per arm cannot bound run-to-run variance, so that specific number could shift
+under a different seed. The chapter is explicit about this: what's
+established is "ahead at this token budget, with a monotone gap," not "ahead
+by exactly 0.0088 nats, guaranteed."
+
+</details>
 
 ## Next
 

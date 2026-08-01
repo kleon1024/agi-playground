@@ -82,14 +82,72 @@ evidence that it happened.
 
 ## Check your mental model
 
-1. At $k{=}32$, how many extra bytes per token does the top-$k$ format cost,
-   and which of the three arrays did not change?
-2. When is storing the teacher's distribution worth more than recomputing it
-   live, and what does each choice buy you?
-3. Why is comparing two models' probabilities at index 4,211 meaningless
-   across tokenizers?
-4. Two models share a suspiciously similar merge table. What does that
-   establish, and what would you need instead?
+Answer each before opening it.
+
+**1. At $k{=}32$, how many extra bytes per token does the top-$k$ format cost,
+and which of the three arrays did not change?**
+
+<details>
+<summary>Answer</summary>
+
+$4k = 4 \times 32 = 128$ extra bytes per token. `input_ids` did not change —
+it stays `uint16[N]`, the plain token stream already paid for by any
+fine-tune regardless of $k$. Only `topk_ids` and `topk_logprobs` scale with
+$k$; the token stream itself is independent of how many distribution entries
+you decide to keep per position.
+
+</details>
+
+**2. When is storing the teacher's distribution worth more than recomputing it
+live, and what does each choice buy you?**
+
+<details>
+<summary>Answer</summary>
+
+Storing is worth it when the annotation will be reused across many student
+runs against a fixed dataset snapshot — you pay the storage cost (192 GB at
+$k{=}16$ on this repository's corpus) once and amortize it. Recomputing live
+is worth it when teacher and student both fit on the same card and the corpus
+might change — it costs roughly a doubled step cost on every run, but it
+never goes stale, so you can change the corpus tomorrow without re-annotating
+anything. Storage buys reuse; live inference buys the freedom to change the
+data.
+
+</details>
+
+**3. Why is comparing two models' probabilities at index 4,211 meaningless
+across tokenizers?**
+
+<details>
+<summary>Answer</summary>
+
+Because the same index denotes different strings in different tokenizers —
+index 4,211 might mean `the` in one vocabulary and `ing` in another. A KL
+divergence between the two models' probabilities at that index is not
+comparing two models' beliefs about the same token; it is comparing each
+model's belief about a different string and calling the result a divergence
+anyway. The comparison only means something when both models share the exact
+same vocabulary, so the same index is guaranteed to denote the same string in
+both.
+
+</details>
+
+**4. Two models share a suspiciously similar merge table. What does that
+establish, and what would you need instead?**
+
+<details>
+<summary>Answer</summary>
+
+At most, a shared corpus family — two independently trained tokenizers over
+similar corpora can converge on similar merge tables without any logit ever
+crossing between the models, since tokenizers do not transfer across training
+runs by default. It does not establish that distribution distillation
+happened. What you would need instead is a recorded KL trace — direct
+evidence that one model's distribution was actually used as a training
+target for the other — because a shared tokenizer is a *precondition* for
+that kind of distillation, not evidence that it occurred.
+
+</details>
 
 ## Evidence boundary and next step
 
