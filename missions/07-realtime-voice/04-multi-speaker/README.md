@@ -87,6 +87,8 @@ file) shows no single speaker consistently dominates the error in any seed
 -- the added variance is a training-dynamics effect, not one hard-to-encode
 voice dragging the average down.
 
+<!-- interactive: SpeakerDiversityVariance -->
+
 ## Finding: the KV-cache mechanism still holds regardless
 
 Same check stages 01/03 ran, same methodology (logits, not generated token

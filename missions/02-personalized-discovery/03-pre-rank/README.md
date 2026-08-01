@@ -122,6 +122,8 @@ the cheap proxy's structural advantage is a capability, not a guarantee at
 every cut ratio. Full numbers:
 [`runs/2026-07-30-longtail-surface-rate.md`](runs/2026-07-30-longtail-surface-rate.md).
 
+<!-- interactive: PreRankSurfaceRate -->
+
 ## Reproducing
 
 ```bash
