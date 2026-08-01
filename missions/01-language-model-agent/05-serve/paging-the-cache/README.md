@@ -98,12 +98,73 @@ the mechanism that implements it, not a speedup.
 
 1. Name the two kinds of fragmentation, and say which one a larger block size
    makes worse.
+
+<details>
+<summary>Answer</summary>
+
+Internal fragmentation (waste *inside* an allocation that belongs to
+someone — unused slots reserved for a sequence that finished early) and
+external fragmentation (waste *between* allocations that belongs to nobody,
+because differently-sized reservations can't lend each other unused space).
+A larger block size makes internal fragmentation worse: the worked example
+shows a 20-token sequence wasting 12 slots at a 16-token block size but 44
+slots at a 64-token block size — the sequence can only round up to a whole
+number of blocks, and bigger blocks mean a bigger last partial block.
+
+</details>
+
 2. Why does a shared free list eliminate external fragmentation entirely,
    rather than merely reducing it?
+
+<details>
+<summary>Answer</summary>
+
+Because every block is the same fixed size, any free block can satisfy any
+request's next allocation — there's no such thing as "free space that's the
+wrong shape to reuse," which is precisely what external fragmentation is.
+Contiguous reservation at varying sizes leaves gaps between allocations that
+only a request needing exactly that gap's size could use; fixed-size,
+interchangeable blocks pulled from one shared free list make every unit of
+free memory usable by every waiting request, so the condition that creates
+external fragmentation (free memory shaped wrong for anyone waiting) can't
+arise at all.
+
+</details>
+
 3. A sequence generates 20 tokens with a block size of 16. How many slots are
    wasted, and how many would be wasted under a 1,024-token reservation?
+
+<details>
+<summary>Answer</summary>
+
+At a 16-token block size: the sequence needs 2 blocks (32 slots) to hold 20
+tokens, wasting 12 slots — 37.5% of its own allocation, but only 12 slots in
+absolute terms. Under a 1,024-token contiguous reservation (`max_len`
+reserved up front, as `KVCacheEngine` does), the same 20-token sequence
+leaves 1,004 slots reserved and unusable for as long as it's alive — roughly
+84x more wasted slots than the paged version, for the identical sequence.
+
+</details>
+
 4. Copy-on-write and prefix caching both require the block table. What exactly
    does contiguous reservation make impossible about them?
+
+<details>
+<summary>Answer</summary>
+
+Both require a unit of cache smaller than an entire request that multiple
+sequences can point at simultaneously — copy-on-write needs multiple
+sequences to share the same physical blocks for a common prefix until they
+diverge, and prefix caching needs blocks to be hashed and looked up by
+content so a repeated preamble's KV can be skipped entirely. Contiguous
+reservation gives each sequence one monolithic buffer with no internal
+subdivision, so there is no unit small enough for two sequences to
+partially share — "there is no unit of cache small enough to share." The
+block table is what introduces that unit; without it, sharing anything less
+than a whole sequence's cache is structurally impossible, not just
+unoptimized.
+
+</details>
 
 ## Next
 

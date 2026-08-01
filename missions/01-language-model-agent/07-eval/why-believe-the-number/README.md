@@ -133,14 +133,92 @@ useless result.
 
 1. A benchmark's fix PRs are public and its issues are public. Which of the two
    makes the score untrustworthy, and why is only one of them a problem?
+
+<details>
+<summary>Answer</summary>
+
+The fix PRs are the problem — they are the answer, not just the question. A
+model trained on post-cutoff web and code data has plausibly seen the actual
+resolution to some fraction of the 500 issues, which is what turns a
+capability score into a partial memorization score. The issues being public
+is not by itself the problem: an issue statement alone is just a task
+description, the same kind of thing any benchmark publishes. It only becomes
+a problem once the matching fix sits in the same public corpora a model was
+trained on.
+
+</details>
+
 2. Why does a better-worded judge prompt not fix verbosity bias, when it
    plausibly would fix a judge that misunderstood the rubric?
+
+<details>
+<summary>Answer</summary>
+
+A misunderstood rubric is a comprehension failure — the judge didn't grasp
+what to score, and a clearer prompt can fix that. Verbosity bias is not a
+comprehension failure; the judge understood the rubric fine and still favors
+longer, more elaborately formatted answers *independent of correctness*,
+because that preference is baked into how it was trained, not into how the
+question was phrased. Asking it nicely not to doesn't change the underlying
+distribution it learned. That's why the fix is structural — length control,
+as in AlpacaEval 2.0's length-controlled win rate — rather than a rewritten
+prompt.
+
+</details>
+
 3. A report shows 61% with a ±5.7-point bootstrap interval and one seed. Which
    uncertainty is quantified and which is missing?
+
+<details>
+<summary>Answer</summary>
+
+Quantified: uncertainty about which instances happened to be sampled — that's
+exactly what a bootstrap confidence interval over a fixed instance set
+measures. Missing: uncertainty about what the model does on repeated attempts
+at the *same* instance, which needs mean ± standard deviation over multiple
+seeds/rollouts and simply isn't produced by one seed. The chapter is explicit
+that these are two different uncertainties that don't substitute for each
+other — a report with a bootstrap interval and one seed has answered the
+first question and silently assumed the second away.
+
+</details>
+
 4. You raise the sample count from 300 to 3,000 and the interval narrows. What
    class of error does that not touch at all?
+
+<details>
+<summary>Answer</summary>
+
+More samples only shrinks the uncertainty about *which instances* you
+happened to draw — it says nothing about the other two failure modes this
+chapter names. Contamination (the benchmark's answers leaking into training
+data) doesn't shrink with more samples of the same contaminated benchmark;
+neither does judge bias (position, verbosity, self-preference), which is a
+property of the scoring instrument, not the sample size. And it doesn't touch
+seed/rollout variance either — a bigger fixed-instance sample is a different
+axis from repeated attempts at the same instance. A tighter interval around
+a systematically biased or contaminated number is still a systematically
+biased or contaminated number.
+
+</details>
+
 5. Under what circumstance is "we could not tell these two systems apart" the
    correct and complete finding rather than a failed experiment?
+
+<details>
+<summary>Answer</summary>
+
+When the measured difference is smaller than the combined noise the
+evaluation can't rule out — smaller than the bootstrap interval's width, or
+within the seed-to-seed spread of repeated rollouts. The chapter's own
+example makes this concrete: two runs four points apart at 300 samples and a
+±5.7-point interval are not distinguishable from noise at all. Reporting
+"cannot tell apart" in that situation is the honest, complete finding; it
+would only be a failed experiment if the tooling that should have quantified
+the uncertainty (the bootstrap CI, the seed spread) was never run in the
+first place.
+
+</details>
 
 ## Next
 

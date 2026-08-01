@@ -152,14 +152,94 @@ checks its argument against `resolve_in_jail`. [Full output.](runs/2026-07-30-co
 
 1. `resolve_in_jail` rejects absolute paths before joining rather than after.
    What escapes if you reverse those two steps?
+
+<details>
+<summary>Answer</summary>
+
+`Path("/root") / "/etc/passwd"` evaluates to `Path("/etc/passwd")` — joining
+with an absolute path replaces the left side rather than extending it. If
+`resolve_in_jail` joined first and rejected absolutes second (or only checked
+the joined result for `..`), the absolute path would already have discarded
+the jail root by the time any check ran, and there is no `..` anywhere in
+`/etc/passwd` for a downstream check to catch. Rejecting absolute inputs
+*before* joining is what closes that escape; reversing the order lets it
+straight through.
+
+</details>
+
 2. Why does the allowlist depend on never passing `shell=True`, and what
    exactly does an allowlist check see when a shell is involved?
+
+<details>
+<summary>Answer</summary>
+
+The allowlist checks the parsed first token (`argv[0]`) of the command. With
+`shell=True`, the operating system treats a string like `"echo hi; rm -rf /"`
+as one command, and an allowlist check against `argv[0]` would only ever see
+`echo` — the allowlist has no visibility into everything after the shell
+metacharacter. So the check would pass while a completely different,
+unvetted command actually runs. Without a shell, the harness parses and
+allowlists the real first token, and shell metacharacters are rejected
+outright rather than silently doing something the allowlist never
+anticipated.
+
+</details>
+
 3. The default `confirm` denies everything. What breaks if it allowed instead,
    in a run where no human is watching?
+
+<details>
+<summary>Answer</summary>
+
+Every `CONFIRM`-tier call — anything that changes state, like `run_command` —
+would execute unattended in a test, a scheduled job, or any non-interactive
+run, with nobody having actually approved it. The chapter's point is that
+"the absence of a human is not consent": failing open would mean a
+state-changing action runs *merely because* no one was present to say no,
+which is the opposite of what sign-off is supposed to guarantee. Failing
+closed by default is what forces someone to deliberately swap in a real
+`confirm` function before `run_command` becomes reachable at all.
+
+</details>
+
 4. `cat /etc/passwd` passes the allowlist. Is that a bug in the allowlist, in
    the jail, or in neither?
+
+<details>
+<summary>Answer</summary>
+
+Neither, exactly — it's a documented gap in the *composition* of the two
+controls. The allowlist is doing its job: `cat` is a name already decided to
+be safe, so it's allowed to run. The jail is doing its job too: it protects
+`read_file`. The gap is that `run_command` never checks its arguments against
+`resolve_in_jail`, so an allowlisted binary can read a path the jail would
+have refused if `read_file` had been asked for it directly. The chapter
+names this deliberately as "a control that validates the caller does not
+automatically validate what the caller invokes" — a real hole, disclosed
+rather than hidden, and left as exercise 2 to close.
+
+</details>
+
 5. You are asked to add ten more tools. Give one accuracy argument and one
    containment argument against it, and say which you would lead with.
+
+<details>
+<summary>Answer</summary>
+
+Accuracy argument: more tools add selection complexity and ambiguous overlaps
+faster than they add capability — a well-scoped three-tool loop reliably
+beats a much larger one on tasks within its scope, which is why mini-swe-agent
+and this stage both keep the toolset small on purpose rather than as a
+limitation awaiting more tools. Containment argument: every tool is a surface
+you have to reason about the failure of — each new one needs its own risk
+tier, its own jail interaction, and its own answer to "what does this do when
+the model is confused?" I'd lead with containment, because it's the stronger
+and more durable argument: the accuracy case could in principle be overturned
+by a better model that handles more tools fine, but the containment cost (ten
+new surfaces to audit instead of one) doesn't go away just because the model
+got better at choosing between them.
+
+</details>
 
 ## Next
 

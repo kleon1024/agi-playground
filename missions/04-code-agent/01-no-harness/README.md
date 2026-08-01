@@ -88,12 +88,62 @@ failing particularly cheaply.
 1. Every no-harness attempt was handed the exact file the fix belongs in. What
    does that concession mean this stage does, and does not, measure about "can
    an agent find the bug"?
+
+<details>
+<summary>Answer</summary>
+
+It means this stage does NOT measure whether an agent can locate the bug at
+all — the prompt already includes the contents of exactly the file stage
+00's task construction names as the one the gold patch touches, oracle file
+location in the SWE-bench sense. What it DOES measure is narrower and
+cleaner: given the right file already in view, can the model fix the bug in
+one blind shot, with no `Read`/`Grep` step and no chance to check its own
+work. Handing over the file for free is what isolates that one question —
+without the concession, a failure to resolve could mean "couldn't find it"
+or "found it but fixed it wrong," and this stage would not be able to tell
+which.
+
+</details>
+
 2. `sonnet`'s no-harness resolve rate is 1/6, lower than `opus`'s 3/6, but its
    `$/resolved` figure is *higher* than `opus`'s too. Reconcile that with
    "cheaper tiers resolve less."
+
+<details>
+<summary>Answer</summary>
+
+`$/resolved` divides total spend by resolved *count*, not by attempt count,
+so a tier that fails often still spends money on every failed attempt —
+sonnet's five unresolved attempts (one timeout at $0, four real spends on
+wrong or non-applying patches) get divided across only one success, which
+punishes the ratio harder than opus's fewer, costlier-per-call failures
+divided across three successes. "Cheaper tiers resolve less" describes the
+resolve-rate axis; it says nothing about cost-per-resolved, which depends on
+how much was spent on the failures too. The two rankings can and do diverge —
+that's the whole point of the section title, "the number that flatters
+neither arm."
+
+</details>
+
 3. The `opus`-tier margin (+0.500) is smaller than that tier's own run-to-run
    spread (1.000). What does declaring that a "no result" protect against, that
    reporting a 50-point win would not?
+
+<details>
+<summary>Answer</summary>
+
+It protects against mistaking noise for a finding. With only 2 tasks and 3
+repeats, opus's own per-run resolved fraction swings from 0 to 0.5 to 1.0 —
+a spread of 1.000 — which is larger than the +0.500 gap between the harness
+and no-harness arms. A gap smaller than the arm's own run-to-run variability
+could easily flip sign on a different set of 3 repeats, so reporting it as a
+"50-point win" would claim the harness helps at this tier when the data
+cannot actually distinguish that from chance. Declaring it a no result is the
+same discipline mission 01's 04-rl stage applies to its own zero-gradient
+outcome: an honest "cannot tell" instead of a number rounded into a claim it
+doesn't support.
+
+</details>
 
 **Next:** [stage 04](../04-how-it-fails/) catalogues every real failure this
 mission has produced, across both arms, by category — including the

@@ -140,14 +140,95 @@ python train.py --data data/tokens --out ckpt --tokens 3.0e9 --compile
 ## Check your mental model
 
 1. What does a step-0 loss of 5 imply, given a 16,512-token vocabulary?
+
+<details>
+<summary>Answer</summary>
+
+A correctly initialized model with no learning yet must score $\ln(16{,}512)
+= 9.712$ nats, because that's the loss of spreading probability uniformly
+across every possible next token. A step-0 loss of 5 sits far *below* that
+line, and the chapter is explicit about what "far below" means: the model is
+seeing the answer it's supposed to predict — a label-shifting bug, a mask
+that lets attention read the token being predicted, or a validation file that
+overlaps training. It is not a lucky initialization; it's a sign the run is
+broken before training has done anything at all.
+
+</details>
+
 2. Why does omitting the division by the accumulation count change the learning
    rate rather than just the logged loss?
+
+<details>
+<summary>Answer</summary>
+
+Because the division is part of the optimization algorithm, not cosmetic
+bookkeeping on a printed number. Skipping it leaves the accumulated gradient
+scaled up by the accumulation count (eight, in this run), and a gradient
+scaled by eight produces exactly the same parameter update as multiplying the
+learning rate by eight would — the optimizer can't tell the difference
+between "gradient is eight times bigger" and "step size is eight times
+bigger." That's a silent change to the actual optimization problem being
+solved, and critically, no log line reports it: the loss value you'd see
+printed looks the same either way, which is what makes this bug dangerous
+rather than merely cosmetic.
+
+</details>
+
 3. This run used 34 tokens per parameter against a compute-optimal 20. Why is
    over-training the right call for a model you intend to serve?
+
+<details>
+<summary>Answer</summary>
+
+Chinchilla's ratio is optimal for minimizing loss *given a fixed training
+compute budget* — it says nothing about what happens after training ends.
+Once you intend to serve the model, inference cost depends on parameter
+count and gets paid on every single request for the life of the model,
+while training tokens are a one-time, already-sunk cost. So it's better to
+spend extra tokens pushing a smaller parameter count further past the
+compute-optimal point than to buy a bigger model that would cost more on
+every future request — the same logic the chapter uses elsewhere for why the
+KV-cache tradeoff is worth paying once at training time.
+
+</details>
+
 4. Validation loss rose over the last 1,500 steps. Name the three explanations
    and say what evidence would separate them.
+
+<details>
+<summary>Answer</summary>
+
+The three: (1) the model beginning to overfit as it approaches one full
+epoch over the corpus (0.95 at the end); (2) the cosine learning-rate floor
+being too high to let the model settle; (3) evaluation noise, since each
+validation point samples the validation set rather than consuming it in
+full. The chapter states directly that "this run cannot distinguish them,
+because it is one run" — separating them needs the paired multi-seed
+comparison in the data-ablation harness: repeated seeds would reveal whether
+the uptick reproduces (ruling out noise), a run with a lower LR floor would
+test explanation 2, and tracking loss against epoch count on a corpus of
+different sizes would test explanation 1.
+
+</details>
+
 5. The model writes fluent English and states that Monaco is the capital of
    France. Which of those two facts is surprising at this scale?
+
+<details>
+<summary>Answer</summary>
+
+Neither, according to the chapter — both are exactly the expected result at
+88M parameters over 3.0B tokens, which is the whole point of the section
+title "Fluent, and useless." Fluency (morphology, syntax, register, the
+shape of an encyclopedia paragraph) is cheap and comes from surface-level
+next-token statistics the model genuinely learned. Getting facts wrong is
+equally expected — "grounding is not" cheap, and a model this small over
+this little data "was never going to" hold accurate world knowledge. The
+surprising failure mode this chapter warns against isn't either fact alone;
+it's mistaking the first (fluency, visible in a falling loss curve) for
+evidence of the second (a working, knowledgeable model).
+
+</details>
 
 ## Next
 

@@ -167,15 +167,94 @@ HuggingFace `Trainer` and `LlamaForCausalLM`. The two agree at exactly
 
 1. Roughly four fifths of the raw crawl is discarded before training. Name two
    filters that do that work and what each one is protecting against.
+
+<details>
+<summary>Answer</summary>
+
+Any two of: English-language detection (guards against training on the wrong
+language entirely — only 36.7% of extracted text survives it), Gopher quality
+rules (guards against low-quality, boilerplate, or malformed text — 31.7%
+survive), C4's line filter (guards against navigation menus, boilerplate
+lines, and other non-prose junk — 24.3% survive), or deduplication (guards
+against the model over-weighting duplicated content and wasting budget
+re-learning the same text — 23.0% survive). Each filter protects against a
+different way "raw HTML" fails to be the "encyclopedic, expository, mostly
+grammatical prose" the chapter says the surviving 23% actually is.
+
+</details>
+
 2. Why does the loss use the sequence shifted left by one rather than a
    separate label file?
+
+<details>
+<summary>Answer</summary>
+
+Because the target at position $i$ is just the input at position $i+1$ — the
+next-token objective is defined entirely in terms of data the model already
+has, shifted by one position. That's what lets one forward pass supply a
+target at *every* position simultaneously (131,072 tokens' worth in one
+optimizer step), rather than needing a separately authored or stored label
+for each position. A separate label file would duplicate information already
+present in the sequence itself and buy nothing the shift doesn't already
+give for free — this is exactly what the chapter calls "what makes
+pretraining efficient enough to be possible at all."
+
+</details>
+
 3. A validation loss of 3.0689 corresponds to what probability on the correct
    token? Why is perplexity a friendlier way to say the same thing?
+
+<details>
+<summary>Answer</summary>
+
+Roughly 4.65% — one in 21.5, per the chapter's own conversion. Perplexity
+(here, 21.5) is friendlier because it's stated in units a reader can picture
+directly: "the model's uncertainty is like choosing uniformly among about 21.5
+options," rather than a raw nats value like 3.0689 that only means something
+once you've done $e^{-\mathcal{L}}$ in your head. Both numbers carry exactly
+the same information; perplexity just undoes the log so the scale reads as a
+count of plausible next tokens instead of an abstract loss unit.
+
+</details>
+
 4. Why must a correctly initialised model start at `ln(vocab_size)`, and what
    does a step-0 loss of 5 imply?
+
+<details>
+<summary>Answer</summary>
+
+A model that knows nothing yet can do no better than spread probability
+evenly across all 16,512 possible next tokens, and the loss of a uniform
+distribution over $V$ options is exactly $\ln(V)$ — here $\ln(16{,}512) =
+9.712$. Every correctly initialized run must start at (or very near) that
+line, which is why the chapter calls step 0 "a complete test of whether the
+labels, the mask, and the data splits are wired correctly." A step-0 loss of
+5 is far *below* that line, which the chapter says means the model is
+already seeing the answer — a label-shifting bug, an attention mask that lets
+a position read the token it's supposed to predict, or a validation set that
+overlaps training, not a lucky head start.
+
+</details>
+
 5. The KV cache shrinks with the key/value head count and the parameter count
    barely moves. Why is that trade decided at training time rather than at
    serving time?
+
+<details>
+<summary>Answer</summary>
+
+Because the key/value head count is baked into the architecture that gets
+trained — grouped-query attention's head count is fixed once the weights are
+learned around it, not something a serving deployment can retune afterward
+without retraining. The chapter's own numbers make the asymmetry concrete:
+dropping from 12 to 4 KV heads costs 9,437,184 parameters of attention
+capacity once, at training time, but the KV-cache-per-token savings (36,864
+to 12,288 bytes) are "collected on every request for the life of the model" —
+a one-time training cost that pays a serving-time dividend on every single
+inference call, which is exactly why serving cares about this choice more
+than training does even though training is where the choice gets locked in.
+
+</details>
 
 ## Next
 

@@ -165,12 +165,74 @@ a single blind call is still unmeasured — that is stage 01.
 
 1. The resolve rate is 18/18 and the patch generality is 6/9. What is the
    difference between the two measurements measuring?
+
+<details>
+<summary>Answer</summary>
+
+The resolve rate asks whether the target test goes from red to green, using
+exactly the input shape the test exercises: single-token decode. The patch
+generality asks whether the fix holds on a shape the test never checks —
+`probe_generality.py`'s 4-token query against a live cache. Both are real
+measurements; they are just measuring different questions, and a scorer that
+only runs the target test cannot see the second one at all. That is why
+haiku can score 6/6 on resolve rate and 0/3 on generality without either
+number being wrong.
+
+</details>
+
 2. Why can a test written from one failure not distinguish a narrow fix from a
    general one?
+
+<details>
+<summary>Answer</summary>
+
+Because the test was written by observing a specific failure — prefill
+versus decode shape mismatch — and it only encodes enough input to reproduce
+that one shape. A fix that happens to be correct exactly on that shape and
+wrong everywhere else passes the same test as a fix that is correct
+everywhere. Haiku's `is_causal=False` branch is the proof: it matches the
+single-token decode case the test runs (nothing to mask, so leaving
+everything open is harmless) and silently fails the 4-token case the test
+never runs. The test can only tell you the bug you already knew about is
+fixed, not whether the neighbouring case is.
+
+</details>
+
 3. Haiku's patch is wrong for a shape no current call site produces. What makes
    that worth reporting, and what makes it wrong to call it a live bug?
+
+<details>
+<summary>Answer</summary>
+
+It's worth reporting because it's a latent defect: `generate` only issues a
+prefill followed by single tokens today, but the moment someone adds chunked
+prefill, speculative decoding, or prefix-cache reuse, the exact 4-token-query
+shape the probe already measured as wrong (1.2e-3/4.2e-2/1.2e-3 error) starts
+occurring for real. It's wrong to call it live because nothing in this
+repository's current call sites actually produces that shape yet — the "What
+this does not prove" section states this directly: latent, not live. The
+distinction matters because reporting it as an active bug would overstate
+what was actually observed; reporting nothing would hide a defect a future
+change could trip over.
+
+</details>
+
 4. Cost and latency ranked the three tiers differently. Which policy does the
    mission's stakeholder actually need, and why is that not settled here?
+
+<details>
+<summary>Answer</summary>
+
+The table shows haiku cheapest but slowest on the harder task (120s median),
+sonnet fastest (98s) despite costing 3.3x more, and opus in between on both —
+so "cheapest" and "fastest" name two different policies, not one. Which the
+stakeholder needs depends on whether the routing decision is optimizing
+dollar spend or wall-clock latency, and this chapter does not settle that
+because `mission.yaml`'s declared primary metric is resolve rate, not either
+of these — the cost/latency tradeoff is a real finding surfaced here, not the
+thing the mission was built to decide between.
+
+</details>
 
 **Next:** stage 01 strips the loop to a single blind model call, which is the
 control that says whether tools and test feedback are worth their complexity.

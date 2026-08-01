@@ -77,13 +77,61 @@ told to," which is not the question this mission is measuring.
 
 1. Stage 03's failure row is all zeros. What real claim does that support, and
    what claim would it be wrong to draw from it?
+
+<details>
+<summary>Answer</summary>
+
+It supports the real, narrow claim that this task set's failure surface,
+under a full harness with tool access and up to 25 retry steps, is empty —
+none of the three tiers needed a second observation to notice a wrong patch,
+on these two tasks. It would be wrong to draw the general claim that a full
+harness eliminates failure for frontier coding agents: two tasks, three
+tiers, three runs each is a small, specific surface, and "What this does not
+prove" says so directly — a larger or more adversarial task set could still
+surface harness-level failures this one did not.
+
+</details>
+
 2. Eleven of stage 01's twelve `target_still_failing` verdicts never even
    applied. Why does collapsing "wrote a working patch that was wrong" and
    "wrote something `git apply` couldn't parse" into one bucket understate what
    a no-harness call actually fails at?
+
+<details>
+<summary>Answer</summary>
+
+Because those are different failure modes with different implications. A
+patch that applies cleanly but doesn't fix the bug means the model understood
+the mechanics of patching but reasoned incorrectly about the fix — that's
+only one attempt out of twelve. Eleven never got that far: `git apply`
+rejected them outright, and the one inspected by hand shows why — the model
+miscounted its own patch's line spans (claimed 17/43, actually wrote 19/42).
+Labeling all twelve as one bucket ("target still failing") makes it look like
+the no-harness arm mostly fails at fixing bugs, when it actually mostly fails
+at the mechanical act of producing a syntactically valid diff without a tool
+loop to catch and let it retry.
+
+</details>
+
 3. The tampering guardrail has fired exactly once in this mission's history,
    and it was scripted. What would change your answer to "is this guardrail
    necessary"?
+
+<details>
+<summary>Answer</summary>
+
+Zero real firings across 36 real attempts, both arms, means no model in this
+mission's actual runs ever found deleting or weakening a test cheaper than
+fixing the bug — which is a fact about these two tasks' tractability, not
+proof the guardrail is unneeded. What would change the answer is a harder or
+more adversarial task set where a model under pressure (a tight budget, a
+task it can't actually solve) might find cheating the cheaper path; the
+mission deliberately did not write a prompt engineered to make that happen,
+since that would answer "can a model be made to cheat if told to" rather than
+whether it cheats on real, unprompted attempts — a different question than
+this mission measures.
+
+</details>
 
 ## What this does not prove
 

@@ -183,14 +183,93 @@ own sub-agent feature handle the same decisions at production scale.
 
 1. Which of the three benefits in section 1 does a debate/panel topology
    buy, and which does it explicitly give up in exchange?
+
+<details>
+<summary>Answer</summary>
+
+It buys independent perspective — the whole point of debate/panel is that a
+second agent has not seen the first one's reasoning, so it can catch an
+anchored error or propose a framing the first agent ruled out. It gives up
+context isolation to get it: independent perspective specifically requires a
+full second attempt rather than a compressed summary, so debate/panel is
+"the one topology that spends context to buy diversity rather than saving
+it," per section 4. You cannot have both the cheapest possible handoff and a
+genuinely independent second opinion from the same topology.
+
+</details>
+
 2. Why does a shared write between two tasks force sequencing even when
    neither task's `depends_on` names the other?
+
+<details>
+<summary>Answer</summary>
+
+Because the parallel-safety rule is about what each side actually owns, not
+about what the task graph declares — section 3 states it plainly: two
+subtasks may run in parallel only when they share no output and neither
+depends on the other's intermediate decisions. A `depends_on` field is just
+metadata a task author wrote down; a shared output is a fact about what the
+two tasks actually touch. `core/orchestrator.py`'s own demo makes this
+checkable rather than asserted: the scheduler refuses to run a re-scan
+alongside the original scan specifically because both write the same output,
+even though nothing declared that as a dependency. Sequential work wearing a
+parallel costume still produces a result that depends on execution order.
+
+</details>
+
 3. What must a structured return contain that a well-written paragraph
    answering the same question would not reliably contain?
+
+<details>
+<summary>Answer</summary>
+
+Its status, its artifact, and what it could not verify, per section 3. A
+prose paragraph a person would read without difficulty is not something a
+program can safely branch on — the parent has to *act* on the child's
+return, not just understand it, and acting requires fields it can check
+programmatically rather than a narrative it has to re-interpret. This is the
+same argument the parent capability README makes for typed tool schemas over
+free-text commands: the boundary between two processes is where informal
+communication stops being good enough.
+
+</details>
+
 4. Why is comparing a 3-agent system against a single agent at one-third
    the token budget not evidence that the 3-agent system is better?
+
+<details>
+<summary>Answer</summary>
+
+Because it changes two variables — agent count and per-agent budget — at
+once, so a win cannot be attributed to either one. Section 5 draws this
+directly from the parent chapter's evaluation discipline: a comparison that
+changes more than one variable at a time cannot say which variable caused
+the result. The honest test holds *total* token cost equal across both
+arms — does the multi-agent version beat a single agent given that entire
+combined budget to spend directly — because handing the single agent a
+fraction of the spend guarantees it looks worse regardless of whether
+multi-agent coordination itself buys anything.
+
+</details>
+
 5. Which topology minimizes lossy handoffs, and what does it give up to get
    that?
+
+<details>
+<summary>Answer</summary>
+
+The single agent, by definition — zero handoffs means zero serialization
+loss, since every handoff is a lossy compression of everything the sub-agent
+"just knew" while doing the work but never explicitly stated, per section 2.
+What it gives up is everything delegation was for in the first place:
+context isolation (the parent's window fills with raw evidence instead of
+just conclusions), parallelism over genuinely independent work, and
+independent perspective. Section 4's decision rule follows from exactly this
+trade: stay on a single agent until a specific limitation of that loop names
+a concrete reason to pay the handoff cost for one of the other three
+benefits.
+
+</details>
 
 ## Next
 

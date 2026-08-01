@@ -137,14 +137,96 @@ this host, and how each was resolved, are recorded with the sweep.
 1. The scheduler admits and evicts at every forward pass, exactly as designed,
    and throughput stayed flat. What does that tell you about which of the two
    mechanisms in continuous batching produces the speedup?
+
+<details>
+<summary>Answer</summary>
+
+It tells you the speedup comes from the fused kernel, not the scheduling
+policy. Continuous batching is "two separable things: a scheduling policy
+and a fused kernel," and this engine implements only the first — it admits,
+evicts, and frees blocks correctly, exactly as designed, yet aggregate
+throughput barely moves across 1 to 16 concurrent requests. The scheduling
+policy decides *which* requests get to run each step; it's the fused kernel
+that turns "many requests in one batch" into "one weight read serving many
+requests' arithmetic." Without that kernel, a per-request Python loop has
+nothing to amortize, so the policy alone buys nothing measurable.
+
+</details>
+
 2. CUDA graphs bought 4.7x at one request and 4.5x at sixteen. Why does a
    roughly constant factor point at launch overhead rather than at arithmetic?
+
+<details>
+<summary>Answer</summary>
+
+A cost that scales with the amount of arithmetic in a step would show a
+*changing* multiplier as batch size changes the FLOPs per step — but the
+chapter finds a roughly flat 4.7x at one request and 4.5x at sixteen, a
+constant factor across a sweep where the arithmetic per step varies enormously.
+"A constant factor across the whole sweep is the fingerprint of a cost that
+does not depend on how much work a step contains" — which is exactly what a
+per-step kernel-launch overhead is: removing it saves the same fraction of
+time whether the step is doing a little arithmetic or a lot, unlike a
+compute-bound cost that would scale with the work.
+
+</details>
+
 3. Batching gave 14.0x at sixteen requests, graphs gave 4.5x, and the total was
    89x. Why do these multiply rather than add?
+
+<details>
+<summary>Answer</summary>
+
+Because they remove two different, independent per-unit costs: batching
+removes a per-*request* cost (amortizing one weight read across many
+requests' arithmetic), while graphs remove a per-*step* cost (kernel-launch
+overhead, paid once per step regardless of batch composition). Since each
+mechanism scales the same underlying time by its own independent factor —
+one shrinking the request-dependent portion, the other shrinking the
+launch-overhead portion — their effects compound multiplicatively rather than
+summing: 14.0 × 4.5 ≈ 63, and the chapter's measured 89x reflects both
+factors acting on the same baseline together, not two separate additive
+savings.
+
+</details>
+
 4. Prefix caching was switched off for the comparison even though all sixteen
    prompts were identical. What would leaving it on have measured instead?
+
+<details>
+<summary>Answer</summary>
+
+It would have measured the additional saving from recognizing that all
+sixteen prompts share the same content and skipping recomputation of their
+KV entirely — a saving the chapter deliberately excludes from this
+comparison because it isn't part of what continuous batching or CUDA graphs
+contribute; it's a separate mechanism (hashing blocks by content, from the
+paging chapter). Leaving it on would conflate "what does batching plus
+graphs buy" with "what does batching plus graphs plus free redundant-prompt
+elimination buy," which the chapter treats as a distinct, excludable
+question — exercise 3 asks you to turn it back on and decide for yourself
+whether it belongs in a fair comparison against an engine with no such
+cache.
+
+</details>
+
 5. Which of the numbers in this chapter would you expect to survive a move to a
    7B model, and which would collapse?
+
+<details>
+<summary>Answer</summary>
+
+The mechanisms survive; the multipliers don't. The chapter states this
+directly: "88M parameters is precisely the regime where fixed per-step costs
+dominate... on a serving-sized model the GEMMs are large enough to hide the
+launches and the same flag buys far less." So the scheduling-policy-vs-kernel
+distinction, the direction of the batching win, and the existence of some
+CUDA-graph benefit would all survive — but the specific 14.0x, 4.5x, and 89x
+figures would shrink substantially at 7B, because larger GEMMs raise
+arithmetic intensity per step and make the per-step launch overhead a much
+smaller fraction of the total time than it is at 88M parameters.
+
+</details>
 
 ## Exercises
 

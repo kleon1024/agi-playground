@@ -181,11 +181,76 @@ the code path runs with no GPU and no trained weights at all.
 1. A decode step is a matrix-vector product against every weight in the model.
    Why does that make it memory-bound rather than compute-bound, and what
    changes when the batch grows?
+
+<details>
+<summary>Answer</summary>
+
+Arithmetic intensity is `AI = FLOPs / bytes ≈ 2B / bytes_per_element` — the
+`d_in`/`d_out` terms cancel, so it depends only on batch size and precision.
+Decoding one token for one request sits at `AI ≈ 1`, two orders of magnitude
+below a datacentre card's ridge point of roughly 150 FLOPs per byte, which
+means the card finishes the arithmetic long before it finishes streaming the
+weight matrix from HBM — it's memory-bound. Growing the batch raises `B`
+directly, which raises `AI` linearly: 64 concurrent decode steps reach `AI ≈
+64`, still memory-bound but 64x further from idle than a single request,
+because the same weight read now serves 64 requests' worth of arithmetic
+instead of one.
+
+</details>
+
 2. The KV cache turns quadratic work into linear work, and *lost* at 512
    tokens. Reconcile those two statements.
+
+<details>
+<summary>Answer</summary>
+
+Both are true because they're about different bottlenecks. The complexity
+claim (quadratic vs. linear) is about *arithmetic* — and the chapter shows
+neither engine is actually arithmetic-bound: the naive engine's throughput
+*rises* with sequence length, which an engine limited by the quadratic work
+it redoes could not do. The real bottleneck for both engines is the rate at
+which decode steps can be issued — kernel-launch overhead. The naive path
+issues launches at a similar rate but each covers the whole sequence,
+extracting more arithmetic per launch as sequences grow, until that trade
+overtakes the cache's launch-bound, one-token-wide steps. The asymptotic
+argument is real; it just isn't reached at this scale, and the chapter says
+so directly in "what this chapter does not establish."
+
+</details>
+
 3. Dropping from 12 KV heads to 4 divides the cache by three. Why is that
    decided during training rather than at serving time?
+
+<details>
+<summary>Answer</summary>
+
+The key/value head count is an architectural choice baked into the weights
+during training — it's not a knob a serving deployment can retune afterward
+without retraining the model. The chapter frames the cost as "three of those
+twelve KiB are a pretraining decision you are now collecting on": training
+paid this trade once, and serving collects the payoff (or the cost) "on
+every request for the life of the model." Since the choice is fixed by the
+time serving begins, serving cares about it more than training does, even
+though training is where the decision was actually made.
+
+</details>
+
 4. What does the naive engine's *rising* throughput rule out as the bottleneck?
+
+<details>
+<summary>Answer</summary>
+
+It rules out redone quadratic arithmetic as the limiting factor. An engine
+whose bottleneck were the quadratic work it recomputes every step could not
+get *faster* as sequences grow longer and there's more of that work to redo
+— throughput would fall, not rise, as the redundant computation piled up.
+Instead it rises from 104.7 to 132.8 tok/s as sequences lengthen, which
+means something other than arithmetic is setting the pace: the rate at
+which per-token kernel launches can be issued, with longer sequences letting
+the naive path extract more arithmetic per launch and thereby amortize the
+fixed launch cost better.
+
+</details>
 
 ## Next
 

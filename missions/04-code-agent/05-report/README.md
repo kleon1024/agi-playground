@@ -75,12 +75,58 @@ that makes bullet 7 true of itself.
 
 1. Why does a missing public task set make bullets 1 and 4 undecidable rather
    than failed?
+
+<details>
+<summary>Answer</summary>
+
+"Failed" would mean the evidence exists and says no. Here the evidence
+simply does not exist for the comparison bullets 1 and 4 ask for — stage 00
+mined and verified only a private set (two tasks from this repository's own
+git history), never a public benchmark subset. There is nothing to report
+"separately" from when there is only one set, and nothing has been silently
+pooled into a false answer either. `report.py` says CANNOT DETERMINE rather
+than picking a verdict against the one set that exists, because that gap is
+a pre-existing scope hole in stage 00's foundation, not something stages 01,
+04, or 05 could have produced evidence for.
+
+</details>
+
 2. Bullet 2 reads MET. What did stage 03 substitute for the arm
    `mission.yaml` actually named, and why does that substitution not
    invalidate the verdict on the tiers that did run?
+
+<details>
+<summary>Answer</summary>
+
+`mission.yaml`'s `decision` field named a locally-served open-weights model
+compared against a hosted frontier one. Stage 03 substituted three
+hosted-subscription tiers of a single CLI instead — a scope decision made
+before this report existed. That substitution doesn't invalidate the
+cost verdict on the tiers that actually ran because the bullet is answered
+honestly on what was measured (haiku/sonnet/opus, real dollar figures per
+resolved task), not silently rebranded as an answer to the original
+local-vs-hosted question. The report carries the scope note forward instead
+of erasing it, which is what keeps "MET" from overclaiming.
+
+</details>
+
 3. If stage 00 later mines and verifies a public task-set companion, what
    changes about how this script needs to be rewritten to re-evaluate bullets 1
    and 4?
+
+<details>
+<summary>Answer</summary>
+
+The script would need a second, disjoint source of `runs/` records — one
+that stage 00 doesn't currently produce — and it would need to compute and
+print bullets 1 and 4's verdicts *separately* per set rather than pooling
+them, since that separation is exactly what the bullets ask for and exactly
+what a single private set cannot supply. `report.py` reads stage 00's
+manifests and stages 01/03's JSONL directly already; the rewrite is adding a
+second manifest source and a second harness-vs-no-harness comparison, not
+changing the mechanical read-and-verdict pattern this script already uses.
+
+</details>
 
 ## What this does not prove
 

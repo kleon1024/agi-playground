@@ -116,15 +116,92 @@ figure in this repository is held to.
 
 1. Packing lets conversation B attend to conversation A. Why does that not
    corrupt the training signal, and what exactly does it cost instead?
+
+<details>
+<summary>Answer</summary>
+
+The training signal is the loss mask, and the loss mask depends only on
+`labels` — never on attention. The model is never taught to *predict* a
+token from the wrong conversation, because the loss simply never asks it to
+predict those positions at all. What it costs instead is attention capacity:
+a late token in conversation B can attend to conversation A's irrelevant
+tokens, spending some of its representational budget on a neighbor that has
+nothing to do with the answer it's forming. It's wasted computation, not a
+corrupted target.
+
+</details>
+
 2. The learning rate drops thirtyfold going from pretraining to SFT. Is that
    about numerical stability, and if not, what is it about?
+
+<details>
+<summary>Answer</summary>
+
+Not stability — the pretraining rate (`6e-4`) was already numerically stable
+for training the same architecture from scratch. The real reason is what the
+optimizer step lands on: pretraining starts from random weights where there
+is nothing yet to disturb, so a large step is safe. SFT starts from a
+converged model that already computes something useful, and a step that size
+applied to it doesn't gently adjust that knowledge — it re-randomizes large
+parts of it before the new objective has any chance to specialize. The
+thirtyfold drop to `2e-5` is protecting the pretrained knowledge from being
+overwritten, not protecting the training loop from diverging numerically.
+
+</details>
+
 3. A fine-tuned model gives a fluent, confident, wrong answer. Which of the
    four limits above is responsible, and how would you tell it apart from the
    others?
+
+<details>
+<summary>Answer</summary>
+
+Most likely "no ground truth" — SFT imitates the style of its training
+examples, not their correctness, so a confidently-worded wrong answer in the
+training set teaches the model to be confidently wrong just as efficiently as
+a correct one would teach it to be confidently right. You'd tell it apart
+from "no new knowledge" by checking whether the correct answer was ever in
+the pretraining corpus at all: if it was, and the model still gets it wrong
+confidently, the training data's own correctness is the more likely culprit,
+not a gap in what the base model ever saw.
+
+</details>
+
 4. LIMA trained on about 1,000 examples. What does that license you to reduce,
    and what does it not?
+
+<details>
+<summary>Answer</summary>
+
+It licenses reducing data *volume* — the Superficial Alignment Hypothesis
+argues pretraining already holds almost all the knowledge, so SFT needs only
+enough curated examples to teach format and style, not thousands more. It
+does not license reducing model *capacity*. That's the distinction the
+chapter calls "the one most often misread": LIMA says you need less data than
+you thought, not that curation substitutes for scale — a small model given
+LIMA-quality data still has a small model's capacity, and no amount of data
+curation changes that.
+
+</details>
+
 5. Catastrophic forgetting produces text that reads well. What would you
    measure to detect it, given that loss on the fine-tuning set will look fine?
+
+<details>
+<summary>Answer</summary>
+
+Since forgetting presents as fluent, grammatical output that has quietly lost
+knowledge the base model previously had, the fine-tuning set's own loss
+curve can't reveal it — that loss only measures fit to the new objective, not
+retention of the old one. You'd need to probe the model on facts or
+capabilities it demonstrably had *before* SFT (something checkable against
+the base checkpoint) and compare, rather than trusting that a low, well-
+behaved SFT loss means nothing was lost — exactly the ablation this page
+states was not run here: no higher-learning-rate run was done to observe
+forgetting directly, so this is a named mechanism with a stated consequence,
+not a measured result.
+
+</details>
 
 ## Next
 

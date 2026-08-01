@@ -238,10 +238,87 @@ establish autonomous reliability across arbitrary systems.
 ## Check your mental model
 
 1. Which steps belong to the model, and which belong to deterministic runtime?
+
+<details>
+<summary>Answer</summary>
+
+The model owns exactly two things in the loop: observing state and proposing
+the next action. Everything after "propose action" — parse, validate, check
+permission, execute, record — is deterministic runtime, per section 2's trace.
+The model never executes anything itself and must never invent the
+observation a tool would have returned; the harness is what turns a proposal
+into a real, checked effect. That split is why the loop is inspectable one
+phase at a time: you can point at the exact moment the trace stops being a
+guess and starts being software.
+
+</details>
+
 2. Why is tool output untrusted even when the tool itself is trusted?
+
+<details>
+<summary>Answer</summary>
+
+Trusting the tool only tells you the mechanism executed correctly — it says
+nothing about the content that mechanism returns. A trusted `read_file` or
+`fetch_url` tool can still return a web page or file whose contents carry
+instructions written by someone other than the user, per section 4. The
+harness has to distinguish user authority (who is allowed to direct the
+agent) from data being processed (what the agent is looking at), and no
+amount of correct tool implementation collapses that distinction — it is a
+property of where the content came from, not of how faithfully the tool
+fetched it.
+
+</details>
+
 3. What information must survive context compaction?
+
+<details>
+<summary>Answer</summary>
+
+Decisions, constraints, unresolved failures, and artifact identifiers, per
+section 5. A summary that keeps the narrative thread but drops a specific
+error message or file path can make the next action impossible to verify —
+the model might remember *that* something failed without retaining *which*
+line or *which* path failed, which is exactly the detail the next tool call
+needs. This is why compaction is a selection problem, not a compression
+problem: the three-layer split (stable contract, working state, retrievable
+history) exists so the pieces that must never be paraphrased away sit in the
+layer that doesn't get summarized.
+
+</details>
+
 4. When is retrying more dangerous than stopping?
+
+<details>
+<summary>Answer</summary>
+
+When the first attempt's side effect is unknown, per section 7. A parse or
+validation failure is safe to retry because nothing executed yet. But once a
+tool call has actually run and its outcome is ambiguous — did the write
+happen, did the payment go through — repeating the same call risks
+duplicating the effect rather than correcting it. That is why retries need a
+reason and a limit, and why an idempotency key or an explicit state
+inspection has to own that boundary instead of a bare retry loop: the loop
+can't tell "safe to redo" from "already done" without checking.
+
+</details>
+
 5. Which property makes a task suitable for sub-agent delegation?
+
+<details>
+<summary>Answer</summary>
+
+Independent verifiability, per section 8. A delegated task needs to name its
+own output artifact and its own verification command, so the parent can check
+the result without having to re-derive the child's reasoning. The costs
+section is the other half of the answer: if two tasks edit the same state or
+depend on each other's intermediate decisions, they are not independently
+verifiable, and splitting them into parallel sub-agents trades a
+context-fragmentation and coordination cost for no real gain — the child
+still returns a result, not authority, and the parent still has to integrate
+and verify it either way.
+
+</details>
 
 ## Next
 

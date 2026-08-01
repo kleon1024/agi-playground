@@ -165,14 +165,90 @@ mechanism transfers, the specific coefficients do not.
 
 1. Why does a correctness-only reward produce no gradient at all early in
    training, rather than merely a weak one?
+
+<details>
+<summary>Answer</summary>
+
+Early in training the policy essentially never emits a parseable
+`<answer>N</answer>`, so every completion in a group scores exactly 0 under a
+correctness-only reward. GRPO's advantage is computed by normalizing within
+the group — and when every score in the group is identical, the normalized
+advantage is 0 for all of them, which `rollout_and_score` discards as
+degenerate. A "weak" gradient would still be a nonzero number nudging the
+policy somewhere; this is a hard zero, produced structurally by every
+completion tying, not by the signal being small.
+
+</details>
+
 2. The format reward exists to solve cold start and is the thing that gets
    farmed. Is that a design mistake, and what would replace it?
+
+<details>
+<summary>Answer</summary>
+
+Not a design mistake — the chapter states this directly: "any reward shaped
+to make partial progress visible is, by construction, also a reward partially
+satisfiable without doing the real task." That's an inherent property of
+partial-credit shaping, not a fixable flaw in this particular reward
+function; DeepSeek-R1's paper reports navigating the identical tension for
+the identical cold-start reason. The mitigation isn't replacing the format
+reward with something unfarmable — it's weighting correctness so it
+dominates (`correctness_weight=1.0` against `format_weight=0.2`), so the
+format reward can still solve cold start without becoming the policy's
+easiest path to reward.
+
+</details>
+
 3. Reward is rising and KL is rising. Which of those two tells you the model is
    improving, and what third measurement settles it?
+
+<details>
+<summary>Answer</summary>
+
+Neither alone tells you the model is improving. The Gao/Schulman/Hilton
+inverted-U result says true quality rises with KL divergence only up to a
+real optimum, past which measured reward keeps climbing while actual quality
+falls — so a rising reward curve is "not evidence of anything on its own,"
+and rising KL just says the policy has moved further from the reference,
+which could be genuine improvement or could be exploiting the scorer's blind
+spots. The third measurement that settles it is a held-out check that does
+not use the training reward — otherwise the instrument measuring success is
+the same instrument being optimized against.
+
+</details>
+
 4. What does the frozen reference policy contribute to the objective that no
    term computed from the current policy could?
+
+<details>
+<summary>Answer</summary>
+
+A fixed point of comparison to what the model was *before* optimization
+began. Every term computed from the current policy only knows where the
+policy is now (or was a step ago); it has no memory of the starting point.
+The KL term against the frozen reference is "the only thing in the objective
+that remembers what the model was before optimization began" — delete it and
+nothing in the loss says "stay near where you started," so the policy is
+free to drift arbitrarily far chasing reward, settling on degenerate
+sequences that exploit scorer edge cases rather than doing the real task.
+
+</details>
+
 5. Under what circumstance would you accept a lower measured reward as the
    better result?
+
+<details>
+<summary>Answer</summary>
+
+When the held-out correctness check (not the training reward) shows the
+higher-reward checkpoint is actually past the inverted-U's optimum —
+climbing reward but falling true quality, per the Gao/Schulman/Hilton
+result. In that case the checkpoint with the lower training-reward score but
+the better held-out score is the one that's actually solving the task rather
+than exploiting the verifier's blind spots, and preferring it means trusting
+the measurement that isn't the same instrument being optimized against.
+
+</details>
 
 ## Next
 

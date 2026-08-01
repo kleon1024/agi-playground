@@ -132,14 +132,97 @@ So the honest default is both, for different halves of the report.
 
 1. Name three of the seven components of an agent score that a "Model A beats
    Model B" claim usually leaves out.
+
+<details>
+<summary>Answer</summary>
+
+The score is a function of `(model, tools, system prompt, loop/retry design,
+context-management policy, sampling parameters, environment version)` — seven
+terms — and published comparisons routinely disclose only the first. Any
+three of the other six qualify: tools available, context-management policy
+(the exact setting that took ARC's number from 13.3% to 38.3%), sampling
+parameters (temperature and seed count), step/retry budget, system prompt,
+or environment version. Leaving any of them undisclosed means "Model A beats
+Model B" is really "this configuration of Model A beats that configuration
+of Model B," which is a claim about a pair, not about the models alone.
+
+</details>
+
 2. Discarding reasoning and truncating context both cost points in the ARC
    result. Why does only one of them count as a harness defect?
+
+<details>
+<summary>Answer</summary>
+
+Discarding the model's private reasoning between turns is close to a
+straight defect because the model was trained to think privately and carry
+that thinking forward — a harness that throws it away is evaluating a
+different system than the one that actually shipped, per item 4 of "five
+things a good harness always does." Truncating versus compacting context is
+not a defect at all; it's a policy choice with no universally correct value.
+ARC and OpenAI simply picked opposite ones, and both are defensible as long
+as they're declared — the chapter's whole point is that "match the
+deployment contract" has a right answer, while "how do you manage context"
+does not.
+
+</details>
+
 3. Why does `REQUIRED_HARNESS_FIELDS` raise rather than warn, and what would
    change if it warned?
+
+<details>
+<summary>Answer</summary>
+
+It raises because a warning can be ignored and a run can still complete and
+get reported — the whole point of the check is to make disclosure a
+precondition a run cannot skip, "the only form of it that survives a
+deadline." If it only warned, a transcript missing `tools`, `max_steps`,
+`temperature`, or any other required field could still produce a published
+score with those seven components silently incomplete, which is exactly the
+"number-shaped object" the previous chapter argues against. Raising forces
+the choice to be made and recorded before the score exists at all.
+
+</details>
+
 4. ARC's generic harness and OpenAI's tuned one disagree. What does each one
    measure that the other cannot?
+
+<details>
+<summary>Answer</summary>
+
+ARC's generic harness measures the model — deliberately using untuned
+settings so shortcomings stay visible and different models stay comparable
+against the same neutral conditions. OpenAI's tuned harness measures the
+product — the settings a real deployment actually uses, including context
+handling matched to how the model was trained. Neither can measure what the
+other measures: a generic harness can't tell you how the model performs in
+its actual deployment configuration, and a tuned harness can't give you a
+model-only comparison uncontaminated by product-specific engineering. "Model
+A beats Model B" from either one is a claim about that pair, not "the
+score."
+
+</details>
+
 5. A colleague proposes evaluating your agent through lm-eval-harness. What is
    structurally wrong with that, and what is *not* wrong with it?
+
+<details>
+<summary>Answer</summary>
+
+What's structurally wrong: lm-eval-harness scores one static task at a time
+with a fixed prompt and fixed answer — it cannot express a trajectory with
+tools, multi-turn state, and an environment that changes between steps.
+"Static benchmark" and "agentic trajectory" are different measurement
+problems, not the same one at different scale, so pointing it at an agent
+loses everything the agent's own transcript would show. What's not wrong:
+lm-eval-harness is exactly right for the checkpoint's static capability —
+`prod/lm_eval.py` uses it for real, via the `SpeedrunLM` adapter, to get
+comparability against hundreds of community-maintained benchmarks at a fixed
+harness version, which a from-scratch agent harness could never offer. The
+honest answer is both, for different halves of the report, not either
+instead of the other.
+
+</details>
 
 ## Evidence boundary and next step
 

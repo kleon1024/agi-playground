@@ -89,11 +89,70 @@ makes a per-observation compaction policy workable.
 
 1. Why does the policy collapse superseded reads before dropping old turns,
    rather than the other way round?
+
+<details>
+<summary>Answer</summary>
+
+Because collapsing redundancy reclaims tokens without losing any decision the
+agent made, while dropping a turn destroys history outright. The worked
+example makes the gap concrete: collapsing one stale 1,800-token read reclaims
+more budget than discarding three entire turns would, and it does so for
+free — the agent only ever needed the *second* read of a file it read twice,
+so the first read was already redundant information, not evidence. Doing the
+cheap, lossless reclaim first means the destructive step (dropping oldest
+turns) only runs when redundancy alone can't cover the overage.
+
+</details>
+
 2. What breaks if the message floor is removed?
+
+<details>
+<summary>Answer</summary>
+
+The policy could compact past the point where the model has its own last
+action and the observation it produced, which is the minimum evidence needed
+to continue the task at all. Without the floor, an aggressive compaction
+could ask the model to keep acting from a transcript that contains no record
+of what it just did — the loop wouldn't crash, but the agent would be
+reasoning blind, which is a worse failure than the one the floor is
+guarding against (an overage that stays slightly over budget).
+
+</details>
+
 3. `estimate_tokens` uses chars/4. On which kind of observation would you
    expect that to be most wrong, and in which direction?
+
+<details>
+<summary>Answer</summary>
+
+Code — the chapter says explicitly that a real tokenizer and the chars/4
+stand-in "disagree most on exactly the content an agent reads most: code."
+Code has a much higher density of short tokens (punctuation, operators,
+indentation, short identifiers) than the prose chars/4 was calibrated
+against, so a real tokenizer would count *more* tokens per character than
+chars/4 assumes — meaning chars/4 underestimates the true token cost of code
+observations, which is the direction that risks a budget breach the
+estimator didn't see coming.
+
+</details>
+
 4. An eager index would reduce round-trips. What would it cost this
    compaction policy?
+
+<details>
+<summary>Answer</summary>
+
+It would replace many small, individually droppable observations with one
+large retrieved block, which is precisely what makes per-observation
+compaction workable in the just-in-time design. The comparison table names
+the tradeoff directly: what compaction must handle shifts from "many small
+observations" to "one large block," losing the fine-grained ability to
+collapse or drop individual stale reads one at a time. It would also trade
+away freshness (an index goes stale) and debuggability (every just-in-time
+read is visible in the transcript; retrieval from a pre-built index is
+opaque) for fewer round-trips.
+
+</details>
 
 ## What a real run of the policy actually shows
 
