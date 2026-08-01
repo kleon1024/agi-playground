@@ -139,6 +139,12 @@ An escalation packet should contain:
 Escalation does not transfer ownership of analysis. It transfers a decision
 whose authority exceeds the current team.
 
+## Chapters that measure instead of naming
+
+| Read this | When you need to decide | It returns |
+|---|---|---|
+| [eval gates](01-eval-gates/) | whether a release-blocking threshold can be computed instead of reviewed by hand | a from-scratch gate mechanism, and a real sweep showing no threshold clears both false blocks and false passes at once |
+
 ## Current forcing function
 
 Mission 01 is local and single-user, so it exercises tool permissions and
