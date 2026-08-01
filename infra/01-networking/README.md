@@ -39,6 +39,10 @@ processes (`multiprocessing.Process`) communicating over real IPC queues, and
 asserts every result against a plain single-process sum before trusting a
 timing number.
 
+The ring's reduce-scatter and all-gather phases, one step at a time:
+
+<!-- interactive: RingAllreduceFlow -->
+
 ## What the coordinator actually costs
 
 ```

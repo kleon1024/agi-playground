@@ -150,6 +150,11 @@ For every reward, publish:
 Reward-model scores can supplement a verifier, but they do not become ground
 truth by being continuous.
 
+Sampling, scoring, group-relative advantage, the clipped update, and the KL
+check against a reference policy are now all in view — the loop as a whole:
+
+<!-- interactive: RLTrainingLoop -->
+
 ## Why is the sampler now part of the training loop?
 
 RL data is produced online. Temperature, top-p, maximum length, stop rules,
