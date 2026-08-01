@@ -1,0 +1,56 @@
+{
+  "stage": "05-multi-object",
+  "n_objects": 2,
+  "dataset": {
+    "n_objects": 2,
+    "train_clips": 800,
+    "eval_clips": 150,
+    "wall_clock_s": 6.386369958985597,
+    "train_internal_duplicates": 0,
+    "eval_rejected_for_collision": 0,
+    "train_eval_collisions": 0,
+    "train_occlusion": {
+      "n_clips": 800,
+      "clips_with_any_occluded_frame": 633,
+      "clips_with_any_occluded_frame_fraction": 0.79125,
+      "mean_overlapping_pixel_fraction": 0.008705596923828125,
+      "max_overlapping_pixel_fraction": 0.087890625
+    },
+    "eval_occlusion": {
+      "n_clips": 150,
+      "clips_with_any_occluded_frame": 123,
+      "clips_with_any_occluded_frame_fraction": 0.82,
+      "mean_overlapping_pixel_fraction": 0.008048502604166667,
+      "max_overlapping_pixel_fraction": 0.0494384765625
+    }
+  },
+  "generation": {
+    "seed": 2,
+    "codec_steps": 800,
+    "lm_steps": 400,
+    "lm_lr": 0.003,
+    "prompt_frames": 4,
+    "n_new_frames": 4,
+    "n_eval_clips": 150,
+    "reconstruction_mse": {
+      "lm_completion": 0.1532987356185913,
+      "oracle_tokens": 0.15330827236175537,
+      "frame_repeat_baseline": 0.21929049491882324
+    },
+    "beats_frame_repeat_baseline": true,
+    "predicted_token_sequence_exact_match_rate": 0.2866666615009308,
+    "vocab_size_including_bos": 65,
+    "compute": {
+      "codec_wall_clock_s": 188.19042291585356,
+      "lm_train_wall_clock_s": 9.43834870797582,
+      "generation_wall_clock_s": 0.07206099992617965,
+      "total_wall_clock_s": 203.81069454085082,
+      "compute_ceiling_s": 1800.0,
+      "ceiling_exceeded": false,
+      "compute_lane": "local CPU (no CUDA GPU available in this environment)",
+      "dollar_cost": 0.0
+    },
+    "verdict": "MET"
+  },
+  "tokenizer_still_binding_constraint": true
+}

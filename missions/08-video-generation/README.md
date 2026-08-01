@@ -84,6 +84,7 @@ picked after the fact to flatter whichever outcome actually happened.
 | [02 — Generation model](02-generation-model/) | can an autoregressive or small diffusion model over those tokens beat frame-repeat? | verified |
 | [03 — Report](03-report/) | what did this cost, and did it clear the declared ceiling? | verified |
 | [04 — Longer sequences](04-longer-sequences/) | does the feasibility finding survive doubling the clip length? | verified |
+| [05 — Multi-object scenes](05-multi-object/) | does the feasibility finding survive two occluding objects instead of one? | verified |
 
 <!-- interactive: Mission08ComputePipeline -->
 
@@ -191,6 +192,20 @@ across seeds at 8 frames (19.3%-22.0%) — became far noisier at 16 frames
 (8.7%-33.3%), an unexplained finding reported honestly rather than
 smoothed over. Full traces in
 [its three run records](04-longer-sequences/runs/).
+
+[Stage 05](05-multi-object/) tests the other half of the same named
+follow-on: two independently-moving, occluding shapes composited into one
+scene, still at 8 frames. Nothing in `video_codec.py` or `video_lm.py` was
+reimplemented — the new code is a compositor and an occlusion-measurement
+function in this stage's own dataset generator. All 3 seeds closed `MET`
+(`lm_completion` MSE beats frame-repeat by roughly 6.8x the run-to-run
+spread), but reconstruction quality is measurably worse than the
+single-object case (mean MSE 0.1483 vs 0.0851) and exact-match rate both
+fell and became far noisier across seeds (0.67%-28.67%, vs 19.3%-22.0% at
+one object) — the tokenizer's one-token-per-frame capacity, not compute, is
+the binding constraint along this axis too, the same pattern stage 04 found
+along the frame-count axis. Full traces in
+[its three run records](05-multi-object/runs/).
 
 ## What this will not prove
 
