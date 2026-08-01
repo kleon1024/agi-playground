@@ -23,9 +23,11 @@ you would rather build the mental model before the artifact.
 |---|---|---|
 | [The decoder block](00-attention/) | How does one token find the context it needs, transform it, and still leave a path for learning? | the forward path, and the 88M model's parameter count reconstructed from its own formulas |
 | [The first training loop](01-first-training-loop/) | What actually happens between a loss number and a changed weight? | the backward path, on a model small enough to run on a laptop |
+| [Optimization](02-optimization/) | Why do SGD, momentum, and Adam disagree on the same loss surface? | SGD, momentum, and Adam implemented from scratch, racing on one ill-conditioned bowl: 343 vs. 138 vs. 82 steps to converge |
 
-Read them in that order if you are reading both: the second chapter trains the
-thing the first chapter describes.
+Read them in that order if you are reading both the first two: the second
+chapter trains the thing the first chapter describes, and the third asks why
+that training loop's optimizer was the right choice.
 
 ## Where these go next
 

@@ -15,7 +15,9 @@ treat them as forward pointers, not synthesis-sourced anchors.
 |---|---|---|
 | The hand-rolled backward pass in [the first training loop](01-first-training-loop/) | PyTorch `autograd` engine, JAX `grad`/`vjp` | Both trace a computation graph and reverse it; ours is unbatched and CPU-only so every line is inspectable. Once the mechanics click, read PyTorch's `autograd` source — it's the same idea with dispatch, device placement, and fused kernels layered on. |
 | Naive O(n²) attention in [the decoder block](README.md) | PyTorch `scaled_dot_product_attention` (fused kernels), FlashAttention, xFormers | The naive version is correct but memory-bound; production kernels fuse and tile the same math to avoid materializing the full attention matrix. [The serving landscape](../platform/serving/LANDSCAPE.md) covers the implications on the other side — paged KV, batching — once a model is trained. |
+| The from-scratch SGD/momentum/Adam in [optimization](02-optimization/) | PyTorch `torch.optim.AdamW`, `torch.optim.SGD`; JAX `optax` | Same update rules; production implementations add fused CUDA kernels (all parameters updated in one kernel launch instead of one per-tensor Python-loop step), weight decay decoupled correctly (AdamW vs. plain L2 penalty added to the gradient), and gradient clipping. The mechanism this chapter isolates (per-parameter adaptive normalization) is unchanged between the toy and the library call. |
 
 Neither row above is a single-vendor dependency: PyTorch/JAX for autograd, and
 at least two distinct attention-kernel projects (FlashAttention, xFormers)
-plus PyTorch's built-in fused path for attention.
+plus PyTorch's built-in fused path for attention. The optimizer row similarly
+names two distinct production implementations (PyTorch, JAX/optax), not one.

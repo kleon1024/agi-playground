@@ -1,0 +1,48 @@
+{
+  "surface": {
+    "A": 100.0,
+    "B": 1.0,
+    "condition_number": 100.0,
+    "start": [
+      1.0,
+      1.0
+    ]
+  },
+  "loss_tolerance": 1e-06,
+  "max_steps": 4000,
+  "wall_clock_s": 0.0016682147979736328,
+  "sgd": {
+    "lr": 0.019,
+    "steps_to_converge": 343,
+    "final_loss": 9.636272372508532e-07,
+    "final_point": [
+      -2.0192065097205488e-16,
+      0.0013882559110271083
+    ],
+    "sign_flips_on_steep_axis": 341,
+    "n_history_points": 344
+  },
+  "momentum": {
+    "lr": 0.01,
+    "mu": 0.9,
+    "steps_to_converge": 138,
+    "final_loss": 9.490693489612759e-07,
+    "final_point": [
+      -0.00012861281239284848,
+      0.0004939768686515068
+    ],
+    "sign_flips_on_steep_axis": 47,
+    "n_history_points": 139
+  },
+  "adam": {
+    "lr": 0.1,
+    "steps_to_converge": 82,
+    "final_loss": 2.167020857894219e-07,
+    "final_point": [
+      6.550668998224485e-05,
+      6.550975756213764e-05
+    ],
+    "sign_flips_on_steep_axis": 4,
+    "n_history_points": 83
+  }
+}
