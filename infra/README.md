@@ -44,6 +44,21 @@ is reserved for the handful of labs that genuinely need more than one GPU.
 
 When a lesson's README doesn't say otherwise, assume the local 4090 lane.
 
+## Chapters
+
+Alongside the operational runbooks below, `infra/` is growing a small set of
+product-independent mechanism chapters — theory plus a from-scratch, CPU-
+runnable `core/` and a real `runs/` entry, same contract as everywhere else
+in this repository. These teach general infrastructure mechanism; the
+runbooks below document this repository's own two real compute lanes. More
+chapters (networking, storage, orchestration, observability) are planned but
+not yet built.
+
+- [`05-gpu-cluster-concepts/`](05-gpu-cluster-concepts/) — why interconnect
+  topology (NVLink vs PCIe vs cross-node network) determines which
+  parallelism strategy (data, tensor, pipeline) tolerates which link, and
+  what part of that claim is measurable without a real cluster.
+
 ## Setup docs
 
 - [`local-4090.md`](local-4090.md) — Mac dev box → Tailscale → Windows 11 +
