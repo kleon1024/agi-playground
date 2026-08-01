@@ -31,6 +31,10 @@
     "level": "foundation",
     "minutes": 5
   },
+  "foundations/02-optimization": {
+    "level": "foundation",
+    "minutes": 10
+  },
   "infra": {
     "level": "reference",
     "minutes": 3
@@ -54,6 +58,10 @@
   "infra/05-gpu-cluster-concepts": {
     "level": "applied",
     "minutes": 6
+  },
+  "infra/06-gpu-dedup-at-scale": {
+    "level": "reference",
+    "minutes": 8
   },
   "missions": {
     "level": "applied",
@@ -325,7 +333,7 @@
   },
   "missions/08-video-generation": {
     "level": "frontier",
-    "minutes": 9
+    "minutes": 10
   },
   "missions/08-video-generation/00-synthetic-video-dataset": {
     "level": "applied",
@@ -346,6 +354,10 @@
   "missions/08-video-generation/04-longer-sequences": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/08-video-generation/05-multi-object": {
+    "level": "applied",
+    "minutes": 6
   },
   "missions/09-bio-pharma-modeling": {
     "level": "applied",
@@ -419,9 +431,17 @@
     "level": "applied",
     "minutes": 8
   },
+  "platform/evaluation-observability/01-metric-gaming": {
+    "level": "applied",
+    "minutes": 9
+  },
   "platform/safety-governance": {
     "level": "applied",
     "minutes": 6
+  },
+  "platform/safety-governance/01-eval-gates": {
+    "level": "applied",
+    "minutes": 8
   },
   "platform/serving": {
     "level": "foundation",

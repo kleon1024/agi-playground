@@ -444,6 +444,11 @@
             "type": "doc",
             "id": "missions/08-video-generation/04-longer-sequences/index",
             "label": "Longer sequences \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/08-video-generation/05-multi-object/index",
+            "label": "Multi-object scenes \u00b7 verified"
           }
         ]
       },
@@ -516,6 +521,11 @@
         "type": "doc",
         "id": "foundations/01-first-training-loop/index",
         "label": "First training loop \u00b7 verified"
+      },
+      {
+        "type": "doc",
+        "id": "foundations/02-optimization/index",
+        "label": "Optimization \u00b7 verified"
       },
       {
         "type": "doc",
@@ -747,15 +757,30 @@
         "items": [
           {
             "type": "doc",
+            "id": "platform/evaluation-observability/01-metric-gaming/index",
+            "label": "Metric gaming \u00b7 verified"
+          },
+          {
+            "type": "doc",
             "id": "platform/evaluation-observability/LANDSCAPE",
             "label": "Landscape"
           }
         ]
       },
       {
-        "type": "doc",
-        "id": "platform/safety-governance/index",
-        "label": "Safety and governance"
+        "type": "category",
+        "label": "Safety and governance",
+        "link": {
+          "type": "doc",
+          "id": "platform/safety-governance/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "platform/safety-governance/01-eval-gates/index",
+            "label": "Evaluation gates"
+          }
+        ]
       }
     ]
   },
@@ -791,6 +816,11 @@
         "type": "doc",
         "id": "infra/05-gpu-cluster-concepts/index",
         "label": "GPU cluster concepts \u00b7 verified"
+      },
+      {
+        "type": "doc",
+        "id": "infra/06-gpu-dedup-at-scale/index",
+        "label": "GPU dedup at scale \u00b7 verified"
       },
       {
         "type": "doc",

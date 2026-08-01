@@ -39,7 +39,7 @@ is reserved for the handful of labs that genuinely need more than one GPU.
 | Inference, harness, and eval labs (nano-vLLM, agent loop, lm-eval/inspect-ai) | Local 4090 | Single-GPU serving is the whole point of the exercise |
 | 2–4 GPU parallelism (FSDP2/TP/PP) | Modal | Requires multiple GPUs the local box doesn't have |
 | 7B+ full-parameter SFT/RL | Modal | Exceeds single-4090 memory even with tricks |
-| GPU-accelerated dedup at scale (e.g. NeMo Curator-style) | Modal | Throughput work that benefits from elastic GPU count |
+| GPU-accelerated dedup at scale (e.g. NeMo Curator-style) | Modal | Throughput work that benefits from elastic GPU count — see [`06-gpu-dedup-at-scale/`](06-gpu-dedup-at-scale/) for why the bottleneck shifts there in the first place |
 | RL rollout concurrency at scale | Modal | Needs parallel rollout workers beyond one card |
 
 When a lesson's README doesn't say otherwise, assume the local 4090 lane.
@@ -70,6 +70,11 @@ runbooks below document this repository's own two real compute lanes.
   topology (NVLink vs PCIe vs cross-node network) determines which
   parallelism strategy (data, tensor, pipeline) tolerates which link, and
   what part of that claim is measurable without a real cluster.
+- [`06-gpu-dedup-at-scale/`](06-gpu-dedup-at-scale/) — MinHash hashing cost
+  stays flat per document, but LSH bucket verification does not: measured on
+  CPU across four corpus sizes, verification overtakes hashing between
+  16,000 and 48,000 synthetic documents, which is the real reason
+  GPU-accelerated dedup (NeMo Curator-style) exists.
 
 ## Setup docs
 
