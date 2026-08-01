@@ -37,7 +37,7 @@
   },
   "infra/01-networking": {
     "level": "reference",
-    "minutes": 4
+    "minutes": 5
   },
   "infra/02-storage": {
     "level": "reference",
@@ -269,7 +269,7 @@
   },
   "missions/06-game-ai": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "missions/06-game-ai/00-gridworld-baselines": {
     "level": "applied",
@@ -282,6 +282,18 @@
   "missions/06-game-ai/02-report": {
     "level": "applied",
     "minutes": 4
+  },
+  "missions/06-game-ai/03-fixing-collapse": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/06-game-ai/04-minigrid": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/06-game-ai/05-report": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/07-realtime-voice": {
     "level": "applied",

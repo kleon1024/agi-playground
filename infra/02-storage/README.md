@@ -94,6 +94,17 @@ distributed synthetic keys (`shard-00000` through `shard-01999`). Real
 workloads have hot keys; consistent hashing's virtual-node count is itself a
 tuning knob for load balance that this chapter does not explore.
 
+## A brief history
+
+Consistent hashing predates distributed storage entirely: Karger et al.
+introduced it in 1997 ("Consistent Hashing and Random Trees," STOC 1997) to
+relieve hot spots in web caching -- the mechanism behind Akamai's original
+CDN request routing. Amazon's Dynamo paper (DeCandia et al., 2007) adapted
+the same ring construction specifically to bound the remap-on-resize cost
+this chapter measures for key-value storage placement, and Cassandra (2008)
+inherited Dynamo's ring directly -- the same "who owns which shard" question
+this chapter's core/ answers, on a different storage engine.
+
 ## Exercises
 
 1. Re-run with `--virtual-nodes 10` and `--virtual-nodes 1000`. Does the

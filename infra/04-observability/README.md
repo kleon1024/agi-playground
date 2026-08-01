@@ -90,6 +90,17 @@ many runs — none of that infrastructure is built or claimed here; this
 chapter teaches the *statistic*, not the *pipeline* that would serve it at
 scale in production.
 
+## A brief history
+
+The percentile-over-mean argument this chapter makes has a canonical
+reference: Dean and Barroso's "The Tail at Scale" (*Communications of the
+ACM*, 2013) documented, at Google's production scale, that a service's p99
+latency governs user-perceived performance far more than its mean once
+enough parallel calls are in flight -- because a single slow straggler
+dominates a fan-out request. That is the same distinction this chapter's
+p50/p95 histogram draws for a training loop's own per-step time, just
+without the fan-out.
+
 ## Exercises
 
 1. Raise `--steps` to 1000 and watch whether p95 stabilizes or the tail

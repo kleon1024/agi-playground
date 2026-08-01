@@ -354,6 +354,21 @@
             "type": "doc",
             "id": "missions/06-game-ai/02-report/index",
             "label": "Outcome report \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/06-game-ai/03-fixing-collapse/index",
+            "label": "Fixing the collapse \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/06-game-ai/04-minigrid/index",
+            "label": "A real partially-observed environment \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/06-game-ai/05-report/index",
+            "label": "Full-chain report \u00b7 verified"
           }
         ]
       },
