@@ -1,0 +1,53 @@
+{
+  "config": {
+    "steps": 200,
+    "batch_size": 8,
+    "seq_len": 64
+  },
+  "counters": {
+    "steps": 200,
+    "tokens": 102400
+  },
+  "final_loss": 6.2450079917907715,
+  "step_time_s": {
+    "p50": 0.018454333068802953,
+    "p95": 0.021142167039215565,
+    "min": 0.016432167030870914,
+    "max": 0.029944750014692545,
+    "mean": 0.01871612933347933
+  },
+  "step_time_histogram": [
+    {
+      "bucket_start_s": 0.01643,
+      "count": 76
+    },
+    {
+      "bucket_start_s": 0.01812,
+      "count": 99
+    },
+    {
+      "bucket_start_s": 0.01981,
+      "count": 16
+    },
+    {
+      "bucket_start_s": 0.0215,
+      "count": 2
+    },
+    {
+      "bucket_start_s": 0.02319,
+      "count": 4
+    },
+    {
+      "bucket_start_s": 0.02488,
+      "count": 0
+    },
+    {
+      "bucket_start_s": 0.02657,
+      "count": 2
+    },
+    {
+      "bucket_start_s": 0.02826,
+      "count": 1
+    }
+  ]
+}

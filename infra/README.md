@@ -50,14 +50,21 @@ Alongside the operational runbooks below, `infra/` is growing a small set of
 product-independent mechanism chapters — theory plus a from-scratch, CPU-
 runnable `core/` and a real `runs/` entry, same contract as everywhere else
 in this repository. These teach general infrastructure mechanism; the
-runbooks below document this repository's own two real compute lanes. More
-chapters (networking, storage, orchestration, observability) are planned but
-not yet built.
+runbooks below document this repository's own two real compute lanes.
 
+- [`03-orchestration/`](03-orchestration/) — a scheduler doesn't do more
+  work, it decides whose work happens first: a real 10-job, 2-slot batch
+  measured under FIFO vs priority dispatch, and the cold-start measurement
+  artifact the first version of that comparison got wrong.
+- [`04-observability/`](04-observability/) — a real training loop
+  (mission 01's `Transformer`, unmodified) instrumented with real per-step
+  timing, and why p50/p95/histogram are different instruments than a mean.
 - [`05-gpu-cluster-concepts/`](05-gpu-cluster-concepts/) — why interconnect
   topology (NVLink vs PCIe vs cross-node network) determines which
   parallelism strategy (data, tensor, pipeline) tolerates which link, and
   what part of that claim is measurable without a real cluster.
+
+Networking and storage chapters are planned but not yet built.
 
 ## Setup docs
 
