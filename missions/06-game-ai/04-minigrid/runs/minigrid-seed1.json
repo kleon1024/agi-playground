@@ -1,0 +1,18 @@
+{
+  "env_id": "MiniGrid-Empty-6x6-v0",
+  "seed": 1,
+  "steps": 80,
+  "degenerate_steps": 80,
+  "wall_clock_s": 32.09043687512167,
+  "history": [],
+  "eval_greedy": {
+    "trials": 100,
+    "successes": 0,
+    "success_rate": 0.0
+  },
+  "eval_sampled": {
+    "trials": 100,
+    "successes": 0,
+    "success_rate": 0.0
+  }
+}

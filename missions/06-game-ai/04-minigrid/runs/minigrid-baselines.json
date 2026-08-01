@@ -1,0 +1,12 @@
+{
+  "random": {
+    "trials": 500,
+    "successes": 2,
+    "success_rate": 0.004
+  },
+  "wall_follow": {
+    "trials": 500,
+    "successes": 500,
+    "success_rate": 1.0
+  }
+}

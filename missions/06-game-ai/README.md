@@ -111,7 +111,10 @@ fact.
 |---|---|---|
 | [00 — Task and environment](00-gridworld-baselines/) | what counts as a verifiable reward in a game, and does the starting policy clear the bar RL needs? | verified |
 | [01 — GRPO loop](01-grpo/) | does group-relative RL move the success rate at all, or hit the same zero-gradient wall mission 01 did? | verified |
-| [02 — Report](02-report/) | baselines, seeds, compute, and an honest verdict | verified — NOT MET |
+| [02 — Report](02-report/) | baselines, seeds, compute, and an honest verdict | verified — NOT MET (grid-world scope alone) |
+| [03 — Fixing the collapse](03-fixing-collapse/) | is stage 01's greedy-decode collapse fixable via group size or an entropy bonus, on the same grid-world? | verified — neither fix worked |
+| [04 — MiniGrid](04-minigrid/) | does a real partially-observed environment change the outcome? | verified — cold-start null result, 0 gradient steps taken |
+| [05 — Full-chain report](05-report/) | baselines, seeds, compute, and an honest verdict across the mission's full approved scope | verified — MET, as an honest null result |
 
 [Stage 00](00-gridworld-baselines/) built a 5x5 grid-world (deterministic,
 BFS-checked solvable, no dependencies) and measured both required baselines
@@ -143,16 +146,51 @@ for GRPO to move a policy here, but not sufficient for the result to be a
 useful, board-conditional one. Full verdict and failure catalogue in
 [its run record](02-report/runs/2026-07-31-outcome-report.md).
 
+[Stage 03](03-fixing-collapse/) tested whether stage 01's collapse is
+fixable by tuning the training signal alone, on the identical 5x5
+grid-world: smaller rollout groups (per Fan et al., "Learning Without
+Critics? Revisiting GRPO in Classical RL Environments," 2025, which found
+smaller groups reduced collapse in classical-RL settings) and a direct
+entropy bonus. Neither fixed it — smaller groups made every measured number
+worse across all 3 seeds tested, and the entropy bonus raised mid-training
+entropy without changing which action wins the argmax. Full numbers in
+[its run record](03-fixing-collapse/runs/2026-08-01-collapse-fix-sweep.md).
+
+[Stage 04](04-minigrid/) moved to MiniGrid, a genuinely partially-observed
+environment (a 7x7 egocentric patch, not the whole board), with a new
+interleaved rollout loop and a custom `masked_grpo_loss` to handle
+non-contiguous action-token positions. Confirmed the room solvable first (a
+wall-following heuristic reaches 100% success; random reaches only 0.4%).
+Training then hit a harder wall than stage 01's: every rollout group across
+all 3 seeds drew identical (zero) reward, so not one gradient step was ever
+taken — the same "GRPO cannot install absent behavior" boundary mission 01
+found, recurring because the cold-start policy's success rate never cleared
+the threshold a group needs to see any reward variance at all. Full numbers
+in [its run record](04-minigrid/runs/2026-08-01-minigrid-cold-start.md).
+
+[Stage 05](05-report/) held the full chain — stages 00-01, 03, and 04 —
+against this mission's acceptance bar and printed `MET, as an honest null
+result`: stage 01's collapse resisted the two most direct fixes tried in
+stage 03, and stage 04 found a second, mechanistically-explained null
+result in a harder domain. Full verdict in
+[its run record](05-report/runs/2026-08-01-full-chain-report.md).
+
 Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the environment and
 baseline cannot be chosen after seeing which ones flatter a result.
 
 ## What this will not prove
 
-Nothing about complex, real-time, partially-observed, multi-agent, or
-pixel-observation games — the environments here are small, fully observed,
-and sized to train in minutes. A result here says nothing about a harder
-game, and nothing about combining this mission's RL loop with a perception
-stage (that dependency runs the other way: perception would need
-[mission 05](../05-vision-language-model/)'s work, not this mission's). Full
-boundary in [`mission.yaml`](mission.yaml) under `does_not_prove`.
+Stages 00-02 (fully observed, short-horizon grid-world) prove nothing about
+complex, real-time, or partially-observed games. Stage 04's MiniGrid
+extension is a real partially-observed environment (compact 7x7x3
+observation, sparse terminal reward), but it still proves nothing about
+pixel observations, real-time play, multi-agent or competitive play, or
+environments without early termination — per Fan et al. (2025), GRPO's
+group-relative advantage is known to degrade without episode boundaries,
+and MiniGrid's goal/lava termination keeps this mission inside that
+known-viable regime deliberately. A result here does not generalize to game
+engines or continuous-control games, and does not require [mission
+05](../05-vision-language-model/)'s vision work, since MiniGrid's
+observation is a compact symbolic grid, not pixels. Full boundary in
+[`mission.yaml`](mission.yaml) under `does_not_prove`.
