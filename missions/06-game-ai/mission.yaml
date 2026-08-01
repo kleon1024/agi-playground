@@ -33,7 +33,12 @@ job: >
   and a policy that already succeeds above chance some fraction of the time,
   use GRPO against that verifiable reward to raise the success rate — and
   report honestly if the starting policy is too far below chance for the
-  method to get a nonzero gradient at all.
+  method to get a nonzero gradient at all. A later stage asks whether the
+  greedy-decode mode-collapse observed in stage 01 (non-degenerate sampled
+  behavior, but a constant, board-independent greedy action) is a fixable
+  property of the GRPO training signal, independent of environment
+  difficulty — and if fixed, whether it survives a materially harder,
+  partially-observed environment.
 
 decision: >
   Whether group-relative RL against a verifiable game reward beats a fixed
@@ -43,7 +48,12 @@ decision: >
   succeeds) identically, `std(rewards) == 0`, the group-normalized advantage
   is `0/0`, and that group contributes no gradient. A cold-start policy on a
   hard game can hit that wall exactly the way the cold-start arithmetic
-  policy did.
+  policy did. A second question, added after stage 01's result: whether the
+  failure diagnosed there (greedy-decode collapse to a constant,
+  board-independent action despite non-degenerate sampled-decode behavior)
+  is fixable by tuning the training signal alone, and separately, whether a
+  fixed policy generalizes to a partially-observed environment with sparse,
+  longer-horizon reward.
 
 baseline: >
   Two, and the mission must compare against both without pooling them:
@@ -53,6 +63,10 @@ baseline: >
       CartPole, or a greedy one-step lookahead for a small grid-world). This
       is the baseline that is actually hard to beat cheaply, and the one a
       stakeholder would reach for first before reaching for RL at all.
+  A later stage's MiniGrid extension restates the heuristic baseline as a
+  frontier-exploration or BFS-under-partial-observation heuristic — a
+  concrete pick is declared in that stage's own README before its run, not
+  here.
 
 primary_metric: >
   Success/win rate on the environment's own terminal condition (episode
@@ -87,7 +101,10 @@ cost_budget: >
   Local-lane compute is $0 marginal; GPU or CPU wall-clock is reported
   instead. No hosted-API spend is expected for this mission — the policy and
   environment are both run locally, unlike mission 04's routing decision
-  between a local and a hosted model.
+  between a local and a hosted model. A later stage's MiniGrid runs may take
+  longer wall-clock per seed than the grid-world stages; a 30-minute-per-seed
+  local ceiling is declared before running, checked after, and reported as
+  CEILING_EXCEEDED rather than silently shrunk, per mission 08's precedent.
 
 capabilities: []
   # No existing capability reused here beyond the GRPO training loop itself,
@@ -115,11 +132,16 @@ proves: >
   function and rollout environment, not the training algorithm.
 
 does_not_prove: >
-  Nothing about complex, real-time, or partially-observed games — the
-  environments here are small, fully observed, and turn-based or short-
-  horizon by construction. Nothing about multi-agent or competitive play,
-  self-play against another learned policy, or credit assignment across
-  long horizons; all of that is out of scope for a toy environment sized to
-  run in minutes. A result here does not generalize to game engines, pixel
-  observations, or anything requiring a perception stage — that would need
-  mission 05's vision work as a prerequisite, not this mission's RL loop.
+  Stages 00-02 (fully observed, short-horizon grid-world) prove nothing
+  about complex, real-time, or partially-observed games. A later stage
+  extends onto MiniGrid, a real partially-observed environment (compact
+  7x7x3 observation, sparse terminal reward) — but that extension still
+  proves nothing about pixel observations, real-time play, multi-agent or
+  competitive play, or environments without early termination (per Fan et
+  al., "Learning Without Critics? Revisiting GRPO in Classical RL
+  Environments," 2025 — GRPO's group-relative advantage is known to degrade
+  without episode boundaries; MiniGrid's goal/lava termination keeps this
+  mission inside that known-viable regime deliberately, not by oversight).
+  A result here does not generalize to game engines or continuous-control
+  games, and does not require mission 05's vision work as a prerequisite,
+  since MiniGrid's observation is a compact symbolic grid, not pixels.

@@ -66,10 +66,16 @@ guardrails:
     programmatically, so no eval instance is a near-duplicate of a training
     instance. A pathway that memorizes rather than sees would otherwise pass
     silently.
-  - No claim of real-photo generalization. The dataset is synthetic
-    (generated shapes, colors, positions) specifically so provenance is
-    trivial and reproducible; this guardrail exists so a passing number is
-    never read as "this works on photographs."
+  - Stages 00-02 use a synthetic dataset (generated shapes, colors,
+    positions) specifically so provenance is trivial and reproducible, and
+    their results say nothing about real photographs. Stages 03-05 extend
+    the mission onto a real photograph subset (VQA v2 / COCO, CC BY 4.0
+    annotations, non-commercial Flickr ToU) with the same disjointness
+    discipline applied by COCO image id rather than pixel hash; a passing
+    number on stages 00-02 is never read as evidence about real
+    photographs, and a number from stages 03-05 is never read as
+    comparable to the full VQA v2 benchmark (a few hundred images, not
+    40,000).
   - Every published number traces to a runs/ entry, same rule as every other
     mission in this repository.
   - No new shared capability is created for this mission alone. The vision
@@ -92,6 +98,12 @@ cost_budget: >
   dataset is synthetic and small by design, so a small compute budget is
   expected to be sufficient — a run that needs materially more should be
   treated as a signal the task is scoped wrong, not as license to spend more.
+  Stages 03-05 add: a one-time, $0 dataset-fetch cost (tens of MB from
+  public VQA v2/COCO mirrors), and a declared 30-minute wall-clock training
+  ceiling on the local 4090 lane (checked after the run and reported as
+  CEILING_EXCEEDED rather than silently shrunk, per mission 07/08's
+  convention), since real JPEG decode and a larger patch grid cost
+  materially more than the 32x32 synthetic case.
 
 capabilities: []
   # Deliberately empty. A shared "perceive-understand" capability is named as
@@ -120,13 +132,15 @@ proves: >
   multimodal pathway and a hosted multimodal API on the same task.
 
 does_not_prove: >
-  Nothing about real-photograph understanding — the dataset is synthetic by
-  construction and stays that way through this mission's first pass. Nothing
-  about frontier-scale VLM capability; the model here is sized to train in
-  minutes on a single consumer-grade GPU, several orders of magnitude below
-  any deployed vision-language model. Nothing about generalization to video,
-  audio, or any other modality — those are separate missions with their own
-  contracts. And nothing about which architecture choice (prefix fusion vs.
-  cross-attention, patch size, encoder depth) is best in general; this mission
-  measures the specific choice its stage 01 run record makes, not the design
-  space around it.
+  Stages 00-02 prove nothing about real-photograph understanding — that
+  dataset is synthetic by construction. Stages 03-05 extend to a small real
+  photograph subset, but that extension does not prove: frontier-scale VLM
+  capability (the model here is sized to train in minutes on a single
+  consumer-grade GPU, several orders of magnitude below any deployed
+  vision-language model); anything comparable to the full VQA v2 benchmark
+  or leaderboard (a few hundred images, not the ~40,000-image validation
+  set); or generalization to video, audio, or any other modality — those
+  are separate missions with their own contracts. And nothing about which
+  architecture choice (prefix fusion vs. cross-attention, patch size,
+  encoder depth) is best in general; this mission measures the specific
+  choice its stage 01 run record makes, not the design space around it.

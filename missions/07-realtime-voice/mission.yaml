@@ -27,7 +27,12 @@ job: >
   Turn a short waveform into a discrete token sequence through a from-scratch
   codec, then decode it one chunk at a time — reusing this repository's
   existing KV-cache and continuous-batching serving mechanism — instead of
-  waiting for the full utterance before producing any output.
+  waiting for the full utterance before producing any output. A later stage
+  repeats this job against a real short-speech corpus (LibriSpeech
+  dev-clean, 1-2 speakers) in place of synthetic tones, and adds a
+  round-trip latency measurement over a real network link (this
+  repository's existing Mac-to-4090 Tailscale tunnel, documented in
+  infra/local-4090.md) alongside local compute time.
 
 decision: >
   Whether platform/serving's KV-cache, paged-allocation, and continuous-
@@ -35,7 +40,9 @@ decision: >
   transfer unchanged to a different discrete-token modality (audio codec
   tokens), with only a new codec at the input/output boundary — or whether
   audio's chunk structure demands new serving mechanism the text case never
-  needed.
+  needed. A later stage asks the companion question: whether the same codec
+  architecture generalizes from procedural tones to real (if narrow) speech,
+  and what a real network link adds to the latency already measured here.
 
 baseline: >
   Two, and the mission must report against both:
@@ -47,6 +54,10 @@ baseline: >
       quality on comparable short utterances, named and dated, since this
       mission's toy codec cannot be assumed comparable without a stated
       baseline to be honest about the gap.
+  (3) The toy-tone codec's own stage 00/01 result, once a later stage trains
+      the same architecture on real speech — "same mechanism, harder input"
+      — reported as an additional reference point, not a replacement for
+      either baseline above.
 
 primary_metric: >
   A reconstruction-quality proxy (a concrete, computable audio distance
@@ -75,14 +86,21 @@ latency_budget: >
   decode time on the local GPU lane (specific figure set once stage 01 has a
   real profile to set it against, per platform/serving's own practice of
   measuring before declaring a number) — reported as p50/p95 from an actual
-  run, not assumed from FLOPs.
+  run, not assumed from FLOPs. A later stage adds a second declared figure:
+  real Tailscale round-trip p50/p95 (Mac client to the 4090 host, per
+  infra/local-4090.md's existing tunnel), reported alongside the existing
+  local-decode p50/p95 — two honestly distinguished numbers, never
+  conflated into one.
 
 cost_budget: >
   Local-lane GPU wall-clock only, $0 marginal cost, matching mission 04's
   local-model cost accounting. No hosted API spend is required to produce
   this mission's own numbers; the hosted-API comparison in the baseline uses
   only published or separately-measured figures, named and dated rather than
-  run against a live account here.
+  run against a live account here. A later stage's LibriSpeech dev-clean
+  download (one archive, ~338MB, CC BY 4.0) is a one-time, $0 fetch; only
+  1-2 speakers' utterances are used for training, keeping wall-clock
+  comparable to the existing procedural-tone runs.
 
 capabilities: []
   # None yet. A shared multimodal-serving capability is not created here —
@@ -113,8 +131,11 @@ does_not_prove: >
   Nothing about production speech quality, naturalness, or intelligibility at
   any scale beyond the toy codec trained here. Nothing about multi-speaker or
   multilingual robustness — the dataset is small and homogeneous by
-  construction. Nothing about true full-duplex operation (simultaneous
-  listening and speaking); the loop here is one direction at a time. And
-  nothing about network-transport latency in a real deployment — the
-  measured latency is compute time on the local lane, not round-trip time
-  over a real network to a real client.
+  construction (a later real-speech stage uses only 1-2 LibriSpeech
+  speakers, not the corpus's 40+ dev-clean speakers). Nothing about true
+  full-duplex operation (simultaneous listening and speaking); the loop here
+  is one direction at a time. Nothing about production speech quality
+  relative to real neural codecs (SoundStream/EnCodec scale). And the later
+  stage's real-network measurement is specific to this repository's own
+  home-network Tailscale link, not a general internet client's latency — it
+  does not generalize to arbitrary network paths.
