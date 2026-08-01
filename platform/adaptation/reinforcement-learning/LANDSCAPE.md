@@ -5,7 +5,7 @@ level: reference
 
 # RL: Landscape
 
-Source: `research/synthesis.md` anchor table, "GRPO/RLVR" and "Agentic RL"
+Source: `reference/research/synthesis.md` anchor table, "GRPO/RLVR" and "Agentic RL"
 rows, plus the "Key 2025-2026 shifts" notes on RLVR/GRPO/GSPO/DAPO status.
 
 | Toy (teach-from) | Production | Our take |

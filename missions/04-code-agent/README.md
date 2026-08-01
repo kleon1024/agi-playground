@@ -117,7 +117,7 @@ suite by construction while remaining wrong outside the space that suite
 checks. Stage 03 is this repository's own from-scratch instance of that same
 finding.
 
-Per [the mission contract](../../standards/mission-contract.md), the contract
+Per [the mission contract](../../reference/standards/mission-contract.md), the contract
 was declared before the system was built, so the baseline and the metric cannot
 be chosen after seeing which ones flatter the result. The no-harness baseline
 in stage 01 has not run, so the value of the loop itself is still unmeasured.

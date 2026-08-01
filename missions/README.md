@@ -46,7 +46,7 @@ mission-local code to [a capability](../capabilities/act-coordinate/).
 
 ## Five more missions, contract declared and stages not yet built
 
-Per [the mission contract](../standards/mission-contract.md), no mission is
+Per [the mission contract](../reference/standards/mission-contract.md), no mission is
 built before its `mission.yaml` and stage table exist — so these five are
 listed here in that declared-only state, not because their pages are
 finished. Each reuses code from the four missions above rather than

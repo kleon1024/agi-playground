@@ -54,4 +54,4 @@ This is why every lesson in the repository declares a `base:` in its
 frontmatter — `scratch`, `none`, or `external:<model-id>`. The same technique
 applied to an 88M model trained here and to a published 0.6B checkpoint
 produces different results for reasons that are invisible in a loss curve. See
-[the lesson and run contract](../../standards/lesson-and-run-contract.md).
+[the lesson and run contract](../../reference/standards/lesson-and-run-contract.md).

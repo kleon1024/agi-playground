@@ -212,7 +212,7 @@ const REFERENCE_LAYERS: MapLink[] = [
     note: 'Choose the local or cloud compute lane and reproduce the runtime.',
   },
   {
-    href: '/playground/standards/',
+    href: '/playground/reference/standards/',
     label: 'Standards',
     note: 'Check the lesson, run, mission, and evidence contracts.',
   },

@@ -43,8 +43,7 @@ SECTIONS = [
     ("capabilities", 40),
     ("platform", 50),
     ("infra", 60),
-    ("standards", 70),
-    ("research", 80),
+    ("reference", 70),
 ]
 
 # Source and raw evidence alike: anything a reader follows to look at bytes
@@ -72,9 +71,8 @@ TITLE_OVERRIDES = {
     "platform": "Platform",
     "capabilities": "Capabilities",
     "missions": "Missions",
-    "standards": "Standards",
     "infra": "Infrastructure",
-    "research": "Research",
+    "reference": "Reference",
 }
 
 # A section root used to render as a bare bullet list, which told a reader
@@ -118,15 +116,12 @@ SECTION_INTROS = {
         "worth knowing before you hit them. Naming specific hardware belongs "
         "here and in run records, not in curriculum prose."
     ),
-    "standards": (
+    "reference": (
         "**Contributor surface, not a learner path.** The contracts every lesson, "
-        "run record, and mission must satisfy before its numbers mean anything. "
-        "Read these before contributing; skip them if you are here to learn."
-    ),
-    "research": (
-        "**Dated landscape evidence.** Why the technical choices elsewhere in "
-        "this repository were made, with external results attributed and dated. "
-        "Reference material, consulted from a decision rather than read through."
+        "run record, and mission must satisfy before its numbers mean anything, "
+        "plus the dated landscape research behind why the technical choices "
+        "elsewhere in this repository were made. Read these before contributing; "
+        "skip them if you are here to learn."
     ),
 }
 
@@ -148,7 +143,7 @@ FILE_OVERRIDES = {"LANDSCAPE.md": ("Landscape", 90)}
 # at the top of that file for why. Sub-lessons inside a chapter still sort by
 # their directory's numeric prefix (`01-distributed`), which is stable because
 # it is also the URL.
-ORDER_FILE = ROOT / "standards" / "curriculum-order.txt"
+ORDER_FILE = ROOT / "reference" / "standards" / "curriculum-order.txt"
 DIR_NUM_RE = re.compile(r"^(\d+)[-_]")
 DEFAULT_POSITION = 50
 

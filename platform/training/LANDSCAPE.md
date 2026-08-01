@@ -5,7 +5,7 @@ level: reference
 
 # Pretraining: Landscape
 
-Source: `research/synthesis.md` anchor table, "Tokenizer" and "Pretraining"
+Source: `reference/research/synthesis.md` anchor table, "Tokenizer" and "Pretraining"
 rows.
 
 | Toy (teach-from) | Production | Our take |

@@ -5,7 +5,7 @@ level: reference
 
 # Data: Landscape
 
-Source: `research/synthesis.md` anchor table, "Data pipeline" and
+Source: `reference/research/synthesis.md` anchor table, "Data pipeline" and
 "Annotation/synthetic" rows.
 
 | Toy (teach-from) | Production | Our take |

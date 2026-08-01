@@ -56,7 +56,7 @@ MISSIONS = [
     "04-code-agent",
 ]
 
-# standards/mission-contract.md names these and calls the last two the fields
+# reference/standards/mission-contract.md names these and calls the last two the fields
 # that keep the repo honest. Checking they are present is the difference
 # between a contract and a suggestion.
 MISSION_CONTRACT_FIELDS = [
@@ -120,7 +120,7 @@ def test_missions_declare_a_contract():
         missing = [f for f in MISSION_CONTRACT_FIELDS if f not in keys]
         assert not missing, (
             f"missions/{name}/mission.yaml is missing {missing}. "
-            "standards/mission-contract.md requires every field; proves and "
+            "reference/standards/mission-contract.md requires every field; proves and "
             "does_not_prove are what stop a mission from claiming an outcome "
             "it only proxied."
         )
@@ -150,7 +150,7 @@ def _lesson_readmes(tree: str):
 def test_every_lesson_declares_its_base_model():
     """Track A (from-scratch) and Track B (published checkpoint) are not
     interchangeable, and the difference is invisible in a loss curve. See the
-    GRPO zero-advantage argument in standards/lesson-and-run-contract.md.
+    GRPO zero-advantage argument in reference/standards/lesson-and-run-contract.md.
     """
     missing = []
     for tree in BASE_DECLARING_TREES:
@@ -178,7 +178,7 @@ def test_every_published_page_declares_its_level():
     pattern = re.compile(r"^level:\s*(\S+)\s*$", re.MULTILINE)
     problems = []
     for section in ("foundations", "missions", "capabilities", "platform",
-                    "infra", "standards", "research"):
+                    "infra", "reference"):
         for page in sorted((ROOT / section).rglob("*.md")):
             if {"core", "prod", "runs"} & set(page.parts):
                 continue
@@ -197,11 +197,12 @@ def test_top_level_docs_exist():
         "README.md",
         "LICENSE",
         "AGENTS.md",
-        "research/README.md",
+        "reference/README.md",
+        "reference/research/README.md",
         "infra/README.md",
-        "standards/README.md",
-        "standards/mission-contract.md",
-        "standards/lesson-and-run-contract.md",
+        "reference/standards/README.md",
+        "reference/standards/mission-contract.md",
+        "reference/standards/lesson-and-run-contract.md",
     ]:
         assert (ROOT / rel).is_file(), f"missing {rel}"
 

@@ -2,7 +2,7 @@
 
 Nothing in `missions/01-language-model-agent/06-agent/core/` is rewritten here.
 That harness is the capability this mission is the second consumer of, and the
-admission gate in `standards/mission-contract.md` is only satisfied if the
+admission gate in `reference/standards/mission-contract.md` is only satisfied if the
 second consumer uses it as-is. What this file adds is the four things that are
 genuinely about *this* job:
 

@@ -5,7 +5,7 @@ level: reference
 
 # Foundations: Landscape
 
-`research/synthesis.md`'s anchor table doesn't carry a dedicated row for this
+`reference/research/synthesis.md`'s anchor table doesn't carry a dedicated row for this
 track — it's prerequisite math/mechanics, not a toy-vs-production pairing tied
 to a specific tool lineage. The mappings below are the general-purpose
 libraries the from-scratch mechanics correspond to once you leave this track;

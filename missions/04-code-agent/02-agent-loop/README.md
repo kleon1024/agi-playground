@@ -149,7 +149,7 @@ That policy allows writes to test files, on purpose, though it could refuse
 them in one line. A guardrail that prevents the behaviour cannot measure it, and
 measuring it is the point. Production would block; this scores.
 
-Per [`standards/mission-contract.md`](../../../standards/mission-contract.md), a
+Per [`standards/mission-contract.md`](../../../reference/standards/mission-contract.md), a
 capability is admitted only once a second mission uses the same contract for a
 different decision. This is that second use, and the fact that it needed four
 additions and zero edits is the evidence.

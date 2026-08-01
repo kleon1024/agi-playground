@@ -37,7 +37,7 @@ Missing any harness-disclosure field, or fewer than 3 rollouts for any task,
 raises rather than summarizing a claim the transcripts cannot support.
 
 Every report requires a named baseline (`--baseline-name/--value/--source`):
-per `standards/mission-contract.md`'s acceptance rule 1, a result that beats
+per `reference/standards/mission-contract.md`'s acceptance rule 1, a result that beats
 nothing is not a result. Every report is written as JSON (`--out`) plus a
 human-readable `.md` summary next to it, and includes a `caveats` list stating
 what that specific number does not establish.
@@ -154,7 +154,7 @@ def require_baseline(name: str | None, value: str | None, source: str | None) ->
     if not name or not value or not source:
         raise ValueError(
             "a result without a named baseline is not interpretable "
-            "(standards/mission-contract.md, acceptance rule 1): pass "
+            "(reference/standards/mission-contract.md, acceptance rule 1): pass "
             "--baseline-name, --baseline-value, and --baseline-source."
         )
     return {"name": name, "value": value, "source": source}

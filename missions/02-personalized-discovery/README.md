@@ -161,7 +161,7 @@ from [`platform/evaluation-observability`](../../platform/evaluation-observabili
 where harness disclosure and seed variance already live.
 
 New capabilities live inside this mission until a **second** mission needs them,
-per the gate in [`standards/mission-contract.md`](../../standards/mission-contract.md).
+per the gate in [`standards/mission-contract.md`](../../reference/standards/mission-contract.md).
 `perceive-understand` is the likely first graduate, since multimodal content
 intelligence would reuse it directly.
 

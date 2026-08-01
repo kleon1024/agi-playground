@@ -5,7 +5,7 @@ level: reference
 
 # Evals: Landscape
 
-Source: `research/synthesis.md` anchor table, "Evals" row, and the "Harness
+Source: `reference/research/synthesis.md` anchor table, "Evals" row, and the "Harness
 disclosure matters" note under key 2025-2026 shifts.
 
 | Toy (teach-from) | Production | Our take |

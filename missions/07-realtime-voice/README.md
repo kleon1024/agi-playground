@@ -118,7 +118,7 @@ policy that beats a strong baseline" — not evidence this mission was more
 rigorously built. Full verdict in
 [its run record](02-report/runs/2026-07-31-outcome-report.md).
 
-Per [the mission contract](../../standards/mission-contract.md), this
+Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the baseline and metric
 above cannot be chosen after seeing which ones flatter a result.
 

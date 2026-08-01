@@ -79,11 +79,11 @@ isn't.
 
 | Stage | Question | Status |
 |---|---|---|
-| 00 — Dataset and property | which endpoint, and what does the label actually measure? | not started |
-| 01 — Descriptor baseline and model | does a small trained model beat the standard descriptor baseline? | not started |
-| 02 — Report | scaffold-checked result, and what it does and does not say beyond this one label | not started |
+| [00 — Dataset and property](00-dataset-and-property/) | which endpoint, and what does the label actually measure? | verified |
+| [01 — Descriptor baseline and model](01-descriptor-baseline-and-model/) | does a small trained model beat the standard descriptor baseline? | verified |
+| [02 — Report](02-report/) | scaffold-checked result, and what it does and does not say beyond this one label | verified |
 
-Per [the mission contract](../../standards/mission-contract.md), this
+Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the endpoint, baseline, and
 split cannot be chosen after seeing which ones flatter a result. No stage
 below is `verified` until it has a real `runs/` entry with the exact command,

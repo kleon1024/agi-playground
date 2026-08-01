@@ -5,7 +5,7 @@ level: reference
 
 # Agents: Landscape
 
-Source: `research/synthesis.md` anchor table, "Agent harness" row.
+Source: `reference/research/synthesis.md` anchor table, "Agent harness" row.
 
 | Toy (teach-from) | Production | Our take |
 |---|---|---|

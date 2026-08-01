@@ -20,6 +20,13 @@ lm-eval = [
 # against recomputing from scratch -- a numerical claim that cannot be checked
 # without the numbers. Run it with `uv run --group torch pytest`.
 torch = ["torch>=2.5"]
+# Opt-in, for mission 09's RDKit descriptor baseline and Murcko-scaffold
+# split only. Not part of the default install for the same reason as `torch`.
+chem = ["rdkit>=2023.9"]
+game = [
+    "gymnasium>=1.0",
+    "minigrid>=2.3",
+]
 
 [tool.ruff]
 line-length = 100

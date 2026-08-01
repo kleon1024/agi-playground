@@ -22,8 +22,7 @@ foundations/   scoped prerequisite mathematics and mechanisms, bound to no produ
 capabilities/  reusable decision primitives, admitted only after two missions use them
 platform/      cross-mission lifecycle reference: data, training, serving, evaluation, safety
 infra/         runtime and compute-lane runbooks
-standards/     evidence and contribution contracts; contributors read these first
-research/      dated landscape evidence behind technical choices
+reference/     contributor and evidence-governance surfaces (standards/, research/)
 ```
 
 ## Curriculum ownership
@@ -49,9 +48,10 @@ diagnostic that the next mission stage consumes.
   and tradeoffs for data, training, adaptation, serving, evaluation,
   observability, and safety. It does not own stakeholder outcomes or form a
   mandatory linear course.
-- **Infrastructure owns where work runs.** Standards and research explain how
-  claims are governed and why choices were made; they are contributor and
-  reference surfaces, not the learner's opening path.
+- **Infrastructure owns where work runs.** `reference/standards/` and
+  `reference/research/` explain how claims are governed and why choices were
+  made; they are contributor and reference surfaces, not the learner's
+  opening path.
 
 Use the central-question test when content overlaps. If a chapter's central
 question, inputs, outputs, and acceptance remain the same in a second mission,
@@ -81,7 +81,7 @@ Missions additionally need a `mission.yaml` written **before** building —
 declaring stakeholder, job, decision, baseline, primary metric, guardrails,
 budgets, and acceptance. Business outcomes cannot be executed, so they are
 proven against declared reproducible proxies, and every mission must state what
-it does *not* prove. Full rules in [`standards/`](standards/).
+it does *not* prove. Full rules in [`reference/standards/`](reference/standards/).
 
 If you cannot run it, do not write the number. Estimates, plausible figures,
 and "typical" results are all failures here. External published results are

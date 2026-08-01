@@ -5,7 +5,7 @@ level: reference
 
 # Post-training: Landscape
 
-Source: `research/synthesis.md` anchor table, "SFT/PEFT" and "RM/DPO family"
+Source: `reference/research/synthesis.md` anchor table, "SFT/PEFT" and "RM/DPO family"
 rows.
 
 | Toy (teach-from) | Production | Our take |

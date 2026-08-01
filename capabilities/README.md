@@ -10,7 +10,7 @@ reusable *decision*: the same input/output contract and the same objective,
 needed by at least two missions independently — reused by at least two
 missions, a clear input/output contract, objectively evaluable on its own, a
 toy-to-production mapping, and running on an existing compute lane, per
-[the admission gate](../standards/mission-contract.md#the-capability-admission-gate).
+[the admission gate](../reference/standards/mission-contract.md#the-capability-admission-gate).
 Fail any one of those and the explanation stays local to the mission that
 needed it first, because reuse of a noun is not reuse of a decision — a rank
 in a recommendation slate and a rank in a trading portfolio share a word, not

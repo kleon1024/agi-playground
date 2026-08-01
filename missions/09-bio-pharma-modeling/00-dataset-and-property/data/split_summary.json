@@ -1,0 +1,96 @@
+{
+  "endpoint": "SR-MMP",
+  "url": "https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/tox21.csv.gz",
+  "dataset_sha256": "7d7e7facd853a63e79ddce4e9c3fcb7a0d83a1c300b603031c0f2c64fbe77761",
+  "n_total_rows_in_file": 7831,
+  "n_labeled_for_endpoint": 5810,
+  "n_dropped_unparseable_smiles": 6,
+  "dropped_mol_ids": [
+    "TOX24723",
+    "TOX24552",
+    "TOX24622",
+    "TOX7518",
+    "TOX28892",
+    "TOX28623"
+  ],
+  "all_endpoint_label_stats": {
+    "NR-AR": {
+      "labeled": 7265,
+      "positive": 309,
+      "positive_rate": 0.04253269098417068
+    },
+    "NR-AR-LBD": {
+      "labeled": 6758,
+      "positive": 237,
+      "positive_rate": 0.03506954720331459
+    },
+    "NR-AhR": {
+      "labeled": 6549,
+      "positive": 768,
+      "positive_rate": 0.11726981218506642
+    },
+    "NR-Aromatase": {
+      "labeled": 5821,
+      "positive": 300,
+      "positive_rate": 0.05153753650575502
+    },
+    "NR-ER": {
+      "labeled": 6193,
+      "positive": 793,
+      "positive_rate": 0.1280477958985952
+    },
+    "NR-ER-LBD": {
+      "labeled": 6955,
+      "positive": 350,
+      "positive_rate": 0.0503235082674335
+    },
+    "NR-PPAR-gamma": {
+      "labeled": 6450,
+      "positive": 186,
+      "positive_rate": 0.02883720930232558
+    },
+    "SR-ARE": {
+      "labeled": 5832,
+      "positive": 942,
+      "positive_rate": 0.16152263374485595
+    },
+    "SR-ATAD5": {
+      "labeled": 7072,
+      "positive": 264,
+      "positive_rate": 0.03733031674208145
+    },
+    "SR-HSE": {
+      "labeled": 6467,
+      "positive": 372,
+      "positive_rate": 0.05752280810267512
+    },
+    "SR-MMP": {
+      "labeled": 5810,
+      "positive": 918,
+      "positive_rate": 0.15800344234079175
+    },
+    "SR-p53": {
+      "labeled": 6774,
+      "positive": 423,
+      "positive_rate": 0.062444641275465014
+    }
+  },
+  "train_frac_target": 0.8,
+  "split_seed": 0,
+  "n_train": 4643,
+  "n_test": 1161,
+  "train_positive_rate": 0.14839543398664656,
+  "test_positive_rate": 0.19724375538329025,
+  "scaffold_split_stats": {
+    "n_scaffold_groups": 1668,
+    "n_train": 4643,
+    "n_test": 1161,
+    "n_train_scaffolds": 507,
+    "n_test_scaffolds": 1161,
+    "overlap_scaffold_count": 0,
+    "overlap_test_molecule_fraction": 0.0,
+    "empty_scaffold_group_size": 1467,
+    "empty_scaffold_assigned_to": "train"
+  },
+  "wall_clock_seconds": 28.258368015289307
+}

@@ -60,7 +60,7 @@ Note which of these is which. Discarding reasoning is close to a straight defect
 relative to how the model was trained. Truncation versus compaction is a
 **policy choice with no universally correct default** — and it is the same
 decision mission 01 stage 06 makes in
-[what fits in context](../missions/01-language-model-agent/06-agent/what-fits-in-context/),
+[what fits in context](../../missions/01-language-model-agent/06-agent/what-fits-in-context/),
 where the policy collapses a superseded read before discarding any decision.
 ARC and OpenAI picked opposite defaults, and both can defend theirs.
 
@@ -114,6 +114,6 @@ compaction result, at a scale where every number is measured rather than cited.
 That run does not exist yet, which is why stage 06 is still `draft`.
 
 The generalizable finding needs no run at all, and it is the one
-[whose harness produced it](../missions/01-language-model-agent/07-eval/whose-harness/)
+[whose harness produced it](../../missions/01-language-model-agent/07-eval/whose-harness/)
 now carries: a score is a property of a pair, and the half nobody names is the
 half that moved 3x.

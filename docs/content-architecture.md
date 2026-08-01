@@ -139,7 +139,7 @@ sites; a lesson release does not block the interview product.
 - **A canonical URL per lesson** is what makes external linking possible at all —
   from a video description, a post, or Rehearse.
 - **Free, but structured.** Free content earns attention only when organised
-  well enough to return to. The contracts in [`standards/`](../standards/) exist
+  well enough to return to. The contracts in [`reference/standards/`](../reference/standards/) exist
   partly for this: they make lessons navigable and comparable rather than a pile
   of posts.
 

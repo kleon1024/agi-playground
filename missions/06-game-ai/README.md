@@ -143,7 +143,7 @@ for GRPO to move a policy here, but not sufficient for the result to be a
 useful, board-conditional one. Full verdict and failure catalogue in
 [its run record](02-report/runs/2026-07-31-outcome-report.md).
 
-Per [the mission contract](../../standards/mission-contract.md), this
+Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the environment and
 baseline cannot be chosen after seeing which ones flatter a result.
 

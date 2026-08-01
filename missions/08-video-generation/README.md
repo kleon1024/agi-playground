@@ -71,7 +71,7 @@ stops there and that is reported as a finding — video generation is not
 feasible inside this repository's compute discipline at the scale attempted —
 rather than silently shrinking the dataset or the model until something fits
 and presenting that as the plan all along. Per
-[the mission contract](../../standards/mission-contract.md), the baseline and
+[the mission contract](../../reference/standards/mission-contract.md), the baseline and
 metric were declared before any run, specifically so a result cannot be
 picked after the fact to flatter whichever outcome actually happened.
 

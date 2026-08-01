@@ -5,7 +5,7 @@ level: reference
 
 # Inference: Landscape
 
-Source: `research/synthesis.md` anchor table, "Inference" and "Training
+Source: `reference/research/synthesis.md` anchor table, "Inference" and "Training
 infra" rows.
 
 | Toy (teach-from) | Production | Our take |

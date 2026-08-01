@@ -147,7 +147,7 @@ The ARC-AGI-3 numbers are external, published by the model's own vendor, and
 not reproducible here: the model is hosted, the benchmark is not run in this
 repository, and OpenAI's compaction item is encrypted, so what survived
 compaction cannot be audited from outside.
-[The research pass](../../../../research/06-harness-effects.md) records what the
+[The research pass](../../../../reference/research/06-harness-effects.md) records what the
 result does and does not establish, including the fact that 38.3% remains below
 the 48% human estimate.
 

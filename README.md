@@ -55,7 +55,7 @@ users — missions prove them against **declared, reproducible proxies** (offlin
 replay, simulated users, public benchmark against a stated baseline), and every
 mission must state what it does *not* establish. One fabricated number would
 cost more credibility than every verified one earns. See
-[`standards/`](standards/).
+[`reference/`](reference/), specifically [`standards/`](reference/standards/).
 
 ## Missions
 
@@ -97,8 +97,7 @@ platform/      the lifecycle that turns models into reliable capabilities
 capabilities/  composable hammers, admitted only when two missions need them
 missions/      infrastructure through to business outcome
 infra/         local, cloud, and distributed runtime
-research/      the landscape evidence behind every technical choice
-standards/     the contracts lessons, capabilities, and missions must satisfy
+reference/     contributor and evidence-governance surfaces (standards/, research/)
 ```
 
 ### foundations
@@ -166,7 +165,7 @@ recorded output:
 
 ## Research
 
-[`research/`](research/) holds the landscape survey the curriculum's scope is
+[`reference/research/`](reference/research/) holds the landscape survey the curriculum's scope is
 argued from — what exists, what it covers, and the gaps this repo targets. Kept
 as a standing artifact and updated as the field moves.
 
