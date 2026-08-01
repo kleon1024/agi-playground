@@ -83,6 +83,7 @@ picked after the fact to flatter whichever outcome actually happened.
 | [01 — Video tokenizer](01-video-tokenizer/) | how do frames become a token sequence a decoder can condition on? | verified |
 | [02 — Generation model](02-generation-model/) | can an autoregressive or small diffusion model over those tokens beat frame-repeat? | verified |
 | [03 — Report](03-report/) | what did this cost, and did it clear the declared ceiling? | verified |
+| [04 — Longer sequences](04-longer-sequences/) | does the feasibility finding survive doubling the clip length? | verified |
 
 <!-- interactive: Mission08ComputePipeline -->
 
@@ -169,6 +170,27 @@ repository's compute discipline at all -- turned out not to be the binding
 constraint; the video tokenizer's training difficulty (stage 01's three real
 collapse failures) was. Full trace in
 [its run record](03-report/runs/2026-07-31-outcome-report.txt).
+
+[Stage 04](04-longer-sequences/) spends part of stage 03's measured headroom
+(8.5% of ceiling) to test, on real hardware, the one thing stage 03 flagged
+but did not run: does the finding hold at twice the clip length? Nothing in
+`video_codec.py` or `video_lm.py` was reimplemented — both were already
+frame-count-agnostic except for two trailing asserts, relaxed and
+documented rather than silently duplicated. Doubling `N_FRAMES` from 8 to 16
+at the original `SPEED` produced a real geometry failure (`empty range in
+randrange`, travel distance exceeding the 32-pixel canvas) — a genuine
+consequence of the extension, fixed by halving `SPEED` to hold travel
+distance roughly constant, not a bug. Across three seeds, `lm_completion`
+MSE (mean 0.0856) still beats frame-repeat (0.1185) by a margin more than
+4x the run-to-run spread (0.0074): `MET`. Wall-clock grew roughly 4x (mean
+660s vs 152.5s, still 31-39% of the declared ceiling) and reconstruction
+quality is measurably worse than at 8 frames, confirming stage 03's
+prediction that the tokenizer's quality, not compute, would be the harder
+scale's real constraint. Exact-match rate — the one metric that was tight
+across seeds at 8 frames (19.3%-22.0%) — became far noisier at 16 frames
+(8.7%-33.3%), an unexplained finding reported honestly rather than
+smoothed over. Full traces in
+[its three run records](04-longer-sequences/runs/).
 
 ## What this will not prove
 

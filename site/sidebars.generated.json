@@ -267,6 +267,11 @@
           },
           {
             "type": "doc",
+            "id": "missions/04-code-agent/01-no-harness/index",
+            "label": "No harness \u00b7 verified"
+          },
+          {
+            "type": "doc",
             "id": "missions/04-code-agent/02-agent-loop/index",
             "label": "Scoring the attempt \u00b7 verified"
           },
@@ -274,6 +279,16 @@
             "type": "doc",
             "id": "missions/04-code-agent/03-cheap-or-expensive/index",
             "label": "Cheap or expensive \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/04-code-agent/04-how-it-fails/index",
+            "label": "How it fails \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/04-code-agent/05-report/index",
+            "label": "The report \u00b7 verified"
           }
         ]
       },
@@ -299,6 +314,21 @@
             "type": "doc",
             "id": "missions/05-vision-language-model/02-report/index",
             "label": "Outcome report \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/05-vision-language-model/03-real-photo-task/index",
+            "label": "The real-photo task \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/05-vision-language-model/04-real-photo-vision-fusion/index",
+            "label": "Real-photo vision fusion \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/05-vision-language-model/05-real-photo-report/index",
+            "label": "Real-photo outcome report \u00b7 verified"
           }
         ]
       },
@@ -379,6 +409,11 @@
             "type": "doc",
             "id": "missions/08-video-generation/03-report/index",
             "label": "Outcome report \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/08-video-generation/04-longer-sequences/index",
+            "label": "Longer sequences \u00b7 verified"
           }
         ]
       },
@@ -687,6 +722,31 @@
       "id": "infra/index"
     },
     "items": [
+      {
+        "type": "doc",
+        "id": "infra/01-networking/index",
+        "label": "Networking \u00b7 verified"
+      },
+      {
+        "type": "doc",
+        "id": "infra/02-storage/index",
+        "label": "Storage \u00b7 verified"
+      },
+      {
+        "type": "doc",
+        "id": "infra/03-orchestration/index",
+        "label": "Orchestration \u00b7 verified"
+      },
+      {
+        "type": "doc",
+        "id": "infra/04-observability/index",
+        "label": "Observability \u00b7 verified"
+      },
+      {
+        "type": "doc",
+        "id": "infra/05-gpu-cluster-concepts/index",
+        "label": "GPU cluster concepts \u00b7 verified"
+      },
       {
         "type": "doc",
         "id": "infra/local-4090",

@@ -121,4 +121,8 @@ def generate_greedy(model: Transformer, prompt: torch.Tensor, n_new: int) -> tor
     return ids
 
 
-assert N_FRAMES == 8  # this LM's BOS-prefixed block_size arithmetic assumes stage 00's clip length
+assert N_FRAMES >= 1  # build_lm_dataset/build_lm_config/train_lm/generate_greedy all
+# read N_FRAMES (or a block_size derived from the actual tensor shape) dynamically --
+# nothing here hardcodes 8. Stage 02's own numbers assume N_FRAMES == 8; stage 04
+# reuses every function in this file unmodified at N_FRAMES == 16 by monkeypatching
+# that default before import, per this repo's "record the change" convention.

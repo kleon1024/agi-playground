@@ -33,7 +33,27 @@
   },
   "infra": {
     "level": "reference",
-    "minutes": 2
+    "minutes": 3
+  },
+  "infra/01-networking": {
+    "level": "reference",
+    "minutes": 4
+  },
+  "infra/02-storage": {
+    "level": "reference",
+    "minutes": 4
+  },
+  "infra/03-orchestration": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "infra/04-observability": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "infra/05-gpu-cluster-concepts": {
+    "level": "applied",
+    "minutes": 6
   },
   "missions": {
     "level": "applied",
@@ -199,6 +219,10 @@
     "level": "applied",
     "minutes": 7
   },
+  "missions/04-code-agent/01-no-harness": {
+    "level": "applied",
+    "minutes": 4
+  },
   "missions/04-code-agent/02-agent-loop": {
     "level": "applied",
     "minutes": 7
@@ -207,9 +231,17 @@
     "level": "frontier",
     "minutes": 6
   },
+  "missions/04-code-agent/04-how-it-fails": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/04-code-agent/05-report": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/05-vision-language-model": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "missions/05-vision-language-model/00-image-caption-task": {
     "level": "applied",
@@ -222,6 +254,18 @@
   "missions/05-vision-language-model/02-report": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/05-vision-language-model/03-real-photo-task": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/05-vision-language-model/04-real-photo-vision-fusion": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/05-vision-language-model/05-real-photo-report": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/06-game-ai": {
     "level": "applied",
@@ -257,7 +301,7 @@
   },
   "missions/08-video-generation": {
     "level": "frontier",
-    "minutes": 8
+    "minutes": 9
   },
   "missions/08-video-generation/00-synthetic-video-dataset": {
     "level": "applied",
@@ -274,6 +318,10 @@
   "missions/08-video-generation/03-report": {
     "level": "applied",
     "minutes": 3
+  },
+  "missions/08-video-generation/04-longer-sequences": {
+    "level": "applied",
+    "minutes": 5
   },
   "missions/09-bio-pharma-modeling": {
     "level": "applied",

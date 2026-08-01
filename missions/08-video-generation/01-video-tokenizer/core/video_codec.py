@@ -139,4 +139,9 @@ class VideoCodec(nn.Module):
         return self.decoder(z_q)
 
 
-assert N_FRAMES == 8  # this codec's Config/README numbers assume stage 00's clip length
+assert N_FRAMES >= 1  # Encoder/Decoder read T from the tensor at call time (B, T =
+# frames.shape[:2]) and have no architectural dependency on frame count; this only
+# guards against an empty clip. Stage 01's own numbers assume N_FRAMES == 8 (the
+# default from generate_video_dataset); stage 04 reuses this same class unmodified
+# at N_FRAMES == 16 by monkeypatching that default before import, exactly the kind
+# of change this repo's convention says to record rather than silently fold in.
