@@ -44,6 +44,9 @@ lm-eval = [
 torch = [
     { name = "torch" },
 ]
+vision = [
+    { name = "pillow" },
+]
 
 [package.metadata]
 
@@ -63,6 +66,7 @@ lm-eval = [
     { name = "torch", specifier = ">=2.13.0" },
 ]
 torch = [{ name = "torch", specifier = ">=2.5" }]
+vision = [{ name = "pillow", specifier = ">=10" }]
 
 [[package]]
 name = "aiohappyeyeballs"
