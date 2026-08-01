@@ -16,42 +16,49 @@ produced by a script that reads only committed `runs/` records and cannot
 soften a number after seeing it:
 
 ```text
-1. beats no-harness beyond spread, both sets   -> CANNOT DETERMINE
+1. beats no-harness beyond spread, both sets   -> PARTIAL
 2. beats always-frontier on $/resolved          -> MET
 3. guardrails hold, tampering fired-or-honest   -> MET
-4. public/private reported separately           -> CANNOT DETERMINE
+4. public/private reported separately           -> MET
 5. latency and dollars, real and in budget       -> MET
 6. failures catalogued by category              -> MET
 7. every number traces to runs/                 -> MET
 ```
 
-By the end you will be able to say why two bullets read `CANNOT DETERMINE`
-rather than `NOT MET`, and why both trace to the same root cause.
+By the end you will be able to say why bullet 1 reads `PARTIAL` rather than a
+clean `MET` or `NOT MET`, and why that is a narrower, more specific gap than
+the "no public set exists at all" gap this chapter used to report.
 
-**Before this:** every other stage in this mission.
-[`core/report.py`](core/report.py) reads
-[stage 00](../00-task-set/)'s manifests and
-[stage 01](../01-no-harness/)/[stage 03](../03-cheap-or-expensive/)'s `runs/`
-JSONL directly; nothing here is hand-copied.
+**Before this:** every other stage in this mission, including
+[stage 00](../00-task-set/)'s later addition of a mined-and-verified public
+task set (`tasks/public.jsonl`, sourced from a permissively-licensed public
+repository's own git history, disjoint from the original private set).
+[`core/report.py`](core/report.py) reads stage 00's public and private
+manifests and [stage 01](../01-no-harness/)/[stage 03](../03-cheap-or-expensive/)'s
+`runs/` JSONL directly; nothing here is hand-copied.
 
-## Why two bullets say CANNOT DETERMINE, not NOT MET
+## Why bullet 1 says PARTIAL, not MET or NOT MET
 
-Bullets 1 and 4 both ask for the public and private task sets, reported
-separately. [Stage 00](../00-task-set/) mined and verified only a private set
-— two tasks pulled from this repository's own git history. No public
-benchmark subset was ever admitted alongside it. There is nothing to report
-separately from, and nothing has been pooled, because there is only one set.
-That is a real, pre-existing gap in this mission's own foundation, not a
-defect in stages 01, 04, or 05 — stage 00 was out of scope for this build and
-was read, not edited. `report.py` says so plainly rather than silently
-evaluating the bullet against the one set that exists and calling it MET.
+A public task set now exists — the gap this section used to describe (bullets
+1 and 4 both undecidable because only a private set was ever mined) has been
+closed by a later stage-00 addition. Bullet 4 is a clean `MET` now: both sets'
+resolve rates are measured and reported side by side, never pooled (18/18
+private, 6/6 public).
 
-Per-tier, on the set that does exist: the harness beats no-harness decisively
-at `haiku` and `sonnet`, and produces a genuine no-result at `opus` (the
-margin sits inside that arm's own run-to-run spread at N=2 tasks). Full numbers
-in [stage 01](../01-no-harness/).
+Bullet 1 stays `PARTIAL` for a narrower reason. On the **private** set, the
+harness beats no-harness decisively at `haiku` and `sonnet`, and produces a
+genuine no-result at `opus` (the margin sits inside that arm's own
+run-to-run spread at N=2 tasks — full numbers in
+[stage 01](../01-no-harness/)). On the **public** set, only the harness arm
+has ever been run (6/6 resolved on `haiku`) — no no-harness control exists to
+compare it against, because building one was out of this addition's scope.
+Bullet 1 literally asks for "beats no-harness... both sets," and half of
+that comparison has no denominator to check against. `report.py` reports
+that half as `CANNOT DETERMINE` within an overall `PARTIAL`, rather than
+either assuming the private-set result transfers or silently rounding the
+bullet to `MET` on the strength of the public set's own resolve rate alone.
 
-## What the other five bullets say
+## What the other six bullets say
 
 **Bullet 2 (cost) is MET**, with a scope note carried forward rather than
 erased: `mission.yaml`'s `decision` field names a locally-served open-weights
@@ -61,33 +68,40 @@ existed. The bullet is answered honestly on the tiers that actually ran, which
 is not the same claim as answering it on the tiers `mission.yaml` originally
 named.
 
-**Bullet 3 (guardrails) is MET.** Zero regressions across 36 real attempts.
-Zero real test-tampering firings — reported as "never fired," per the
-mission's own explicit-or-fired branch, with the scripted stage 02
-demonstration cited but not counted as a real one.
+**Bullet 3 (guardrails) is MET.** Zero regressions across 42 real attempts
+(18 private harness, 18 private no-harness, 6 public harness). Zero real
+test-tampering firings — reported as "never fired," per the mission's own
+explicit-or-fired branch, with the scripted stage 02 demonstration cited but
+not counted as a real one.
+
+**Bullet 4 (public/private separation) is MET**, per the section above.
 
 **Bullets 5, 6, 7 are MET** on their own terms: every dollar and wall-clock
-figure traces to a `runs/` JSONL line, [stage 04](../04-how-it-fails/)
-catalogues every real failure by category, and this script is the mechanism
-that makes bullet 7 true of itself.
+figure traces to a `runs/` JSONL line (now including the public set's stage-00
+attempts in the total), [stage 04](../04-how-it-fails/) catalogues every real
+failure by category, and this script is the mechanism that makes bullet 7
+true of itself.
 
 ## Check your mental model
 
-1. Why does a missing public task set make bullets 1 and 4 undecidable rather
-   than failed?
+1. Why does bullet 1 read `PARTIAL` rather than a clean `MET` or `NOT MET`,
+   now that both a public and a private task set exist?
 
 <details>
 <summary>Answer</summary>
 
-"Failed" would mean the evidence exists and says no. Here the evidence
-simply does not exist for the comparison bullets 1 and 4 ask for — stage 00
-mined and verified only a private set (two tasks from this repository's own
-git history), never a public benchmark subset. There is nothing to report
-"separately" from when there is only one set, and nothing has been silently
-pooled into a false answer either. `report.py` says CANNOT DETERMINE rather
-than picking a verdict against the one set that exists, because that gap is
-a pre-existing scope hole in stage 00's foundation, not something stages 01,
-04, or 05 could have produced evidence for.
+`PARTIAL` means the bullet decomposes into pieces that don't all point the
+same way, and at least one piece has no evidence to check at all — different
+from "failed," which would mean the evidence exists and says no. On the
+private set, the harness beats no-harness decisively at `haiku` and `sonnet`,
+and produces a genuine no-result at `opus` (the margin sits inside that arm's
+own run-to-run spread at N=2 tasks). On the public set, only the harness arm
+has ever run — 6/6 resolved on `haiku` — with no no-harness control to
+compare it against. Bullet 1 literally asks for "beats no-harness... both
+sets," so the public half is `CANNOT DETERMINE`, not silently assumed to
+inherit the private set's decisive result, and not silently rounded to `MET`
+on the harness arm's resolve rate alone. `PARTIAL` is the honest label for
+"some of this is decisively true, and some of it has no comparison to check."
 
 </details>
 
@@ -110,30 +124,36 @@ of erasing it, which is what keeps "MET" from overclaiming.
 
 </details>
 
-3. If stage 00 later mines and verifies a public task-set companion, what
-   changes about how this script needs to be rewritten to re-evaluate bullets 1
-   and 4?
+3. Stage 00 has now mined and verified a public task-set companion, and
+   bullet 4 moved from `CANNOT DETERMINE` to `MET`. What specific piece of
+   evidence would still need to exist for bullet 1's public half to close the
+   same way?
 
 <details>
 <summary>Answer</summary>
 
-The script would need a second, disjoint source of `runs/` records — one
-that stage 00 doesn't currently produce — and it would need to compute and
-print bullets 1 and 4's verdicts *separately* per set rather than pooling
-them, since that separation is exactly what the bullets ask for and exactly
-what a single private set cannot supply. `report.py` reads stage 00's
-manifests and stages 01/03's JSONL directly already; the rewrite is adding a
-second manifest source and a second harness-vs-no-harness comparison, not
-changing the mechanical read-and-verdict pattern this script already uses.
+A no-harness control run against the public set — the same `claude_arm.py`
+comparison stage 01 already ran against the private set, but pointed at
+[`tasks/public.jsonl`](../00-task-set/) instead. Right now only the harness
+arm has ever been attempted on the public set (6/6 resolved on `haiku`).
+Bullet 4 only required the two sets' resolve rates to be measured and
+reported separately, which a single harness run per set can already supply.
+Bullet 1 requires an actual comparison — harness vs. no-harness — on *both*
+sets, and no amount of additional harness-only attempts on the public set
+can produce that; only a real no-harness run against the same public tasks
+closes the gap.
 
 </details>
 
 ## What this does not prove
 
-**A CANNOT DETERMINE is not evidence against the mission.** It is evidence
-that stage 00's task set was never built to the scope `mission.yaml` declared,
-discovered by trying to check the contract mechanically rather than by
-reading the prose.
+**A PARTIAL is not evidence against the mission.** It is evidence that one
+specific comparison — harness vs. no-harness on the public task set — has
+never been run, discovered by trying to check the contract mechanically
+rather than by reading the prose. It does not mean the private-set result is
+in doubt, and it does not mean the public set's own harness result (6/6
+resolved) is in doubt; it means those two facts cannot yet be combined into
+the exact comparison bullet 1 asks for.
 
 **This report is not a routing policy.** `mission.yaml`'s `decision` field
 asks which arm to route a task to. Nothing in stages 00-05 builds or measures

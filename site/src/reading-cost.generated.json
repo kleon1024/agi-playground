@@ -237,7 +237,7 @@
   },
   "missions/04-code-agent/05-report": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/05-vision-language-model": {
     "level": "applied",
