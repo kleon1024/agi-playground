@@ -27,6 +27,11 @@ game = [
     "gymnasium>=1.0",
     "minigrid>=2.3",
 ]
+# Opt-in, for mission 05's real-photo (VQA v2 / COCO) stages only -- resizing
+# real JPEGs to this repo's 32x32 vision-token input needs a real image
+# decoder, which stdlib does not have. Not part of the default install for
+# the same reason as `torch`.
+vision = ["pillow>=10"]
 
 [tool.ruff]
 line-length = 100

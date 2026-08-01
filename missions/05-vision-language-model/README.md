@@ -112,6 +112,9 @@ one builds, not before.
 | [00 — Paired image-caption task](00-image-caption-task/) | what makes a scoreable image+question+answer instance, and how is train/eval leakage checked? | verified |
 | [01 — Patch embed and vision-token fusion](01-vision-fusion/) | how does a text-only decoder learn to condition on an image, and does it beat a blind guess? | draft — partial result, 2 of 3 seeds beat the baseline but the mean gap is smaller than seed spread |
 | [02 — Report](02-report/) | did the vision pathway add anything the hosted API or the text-only baseline couldn't already do? | verified — NOT MET, hosted API decisively wins |
+| [03 — Real-photo task](03-real-photo-task/) | does the same leakage-controlled task design hold once images are real photographs instead of rendered shapes? | verified |
+| [04 — Real-photo vision fusion](04-real-photo-vision-fusion/) | does the same vision pathway, unchanged, still separate from text-only on real photographs? | verified — real, narrow margin (+0.0152 vs 0.0101 spread) |
+| [05 — Real-photo report](05-real-photo-report/) | does the real-photo vision pathway hold up against the hosted VLM API too? | verified — NOT MET, hosted API decisively wins on real photographs too |
 
 [Stage 00](00-image-caption-task/) generated 2,000 train and 400 eval
 image+question+answer instances and found two real defects in its own
@@ -151,12 +154,46 @@ before any stage is built, so its baselines and metric cannot be chosen after
 seeing which ones flatter the result — the same discipline every other
 mission in this repository follows.
 
+Stages 00-02 close the synthetic-shapes question completely: NOT MET, hosted
+API wins decisively. Rather than stop there, `mission.yaml` was rescoped to
+ask the same question again on real photographs, since a synthetic-shapes
+result alone leaves open whether the leakage-control design and the vision
+pathway's partial signal were artifacts of rendered data.
+
+[Stage 03](03-real-photo-task/) rebuilt the task on a 300/100 image subset of
+VQA v2 (real photographs, COCO val2014) — the leakage guardrail changes from
+pixel-hash disjointness (appropriate for procedurally generated images that
+can collide) to COCO image-id disjointness (real photographs essentially
+never collide by pixel hash, but the same real image could appear in both
+splits by id). Full numbers in
+[its run record](03-real-photo-task/runs/2026-08-01-real-photo-dataset.md).
+
+[Stage 04](04-real-photo-vision-fusion/) retrained stage 01's exact
+architecture, zero code changes, on stage 03's real photographs: vision beats
+text-only by a real, narrow margin (+0.0152, larger than vision's own
+seed-to-seed spread of 0.0101) — the same direction as the synthetic result,
+now confirmed on real data. Interestingly the seed-stability pattern flips:
+text-only is the noisier pathway here (spread 0.0707), the opposite of stage
+01's synthetic case. Full numbers in
+[its run record](04-real-photo-vision-fusion/runs/2026-08-01-real-photo-vision-vs-text-only.md).
+
+[Stage 05](05-real-photo-report/) added the hosted VLM API baseline on the
+same real-photo eval set, $0.2534 total. Verdict: **NOT MET** — hosted API
+scored 0.4596 exact-match against vision's 0.2374 mean, a gap roughly 22x
+vision's own seed spread, not a close call. The real-photo result matches the
+synthetic one on the underlying build-vs-buy answer: buy, not build, at this
+scale. Full numbers in
+[its run record](05-real-photo-report/runs/2026-08-01-real-photo-report.md).
+
 ## What this will not prove
 
-Nothing about real photographs — the dataset is synthetic by construction.
 Nothing about frontier-scale vision-language capability — the model here
-trains in minutes on a single consumer-grade GPU. Nothing about video, audio,
-or any modality besides still images, and nothing about which architecture
-choice is best in general, only about the specific one this mission's stage 01
-run record measures. Full boundary in [`mission.yaml`](mission.yaml) under
+trains in minutes on a single consumer-grade GPU (or CPU, when that GPU lane
+is unreachable, as it was for stages 04-05). Nothing about video, audio, or
+any modality besides still images. Stages 03-05's real-photo result covers
+only a 300/100-image slice of VQA v2's roughly 40,000-image validation set —
+it says nothing about how the vision pathway would fare with more real-photo
+training data, and nothing about which architecture choice is best in
+general, only about the specific one this mission's stage 01/04 run records
+measure. Full boundary in [`mission.yaml`](mission.yaml) under
 `does_not_prove`.
