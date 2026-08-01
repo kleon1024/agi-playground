@@ -158,14 +158,76 @@ question, answered with the tools an actual proxy-scale ablation would use.
 
 ## Check your mental model
 
-1. Why must the seed set be fixed in advance rather than chosen after seeing
-   which seeds produce the preferred result?
-2. What does "not detectable at this scale" mean as a reported outcome, and
-   why is a harness that never returns it untrustworthy?
-3. Given a stated per-run time and a seed count, how do you compute the
-   wall-clock cost of a two-arm comparison?
-4. Name the two confounds that can leave a statistically sound comparison
-   wrong about the decision it was run for.
+**1. Why must the seed set be fixed in advance rather than chosen after seeing
+   which seeds produce the preferred result?**
+
+<details>
+<summary>Answer</summary>
+
+Because choosing seeds after seeing the results is a way of picking exactly
+the noise that flatters the answer you wanted — the seed becomes a second
+uncontrolled variable hiding inside what's supposed to be a single-variable
+comparison (only the mixture is meant to move). Section 1's whole discipline
+— fix architecture, parameters, token budget, eval set, *and the seed set*
+before looking at a single result — exists precisely so that "the mixture
+did this" can't quietly mean "this particular seed happened to land well and
+we picked it."
+
+</details>
+
+**2. What does "not detectable at this scale" mean as a reported outcome, and
+   why is a harness that never returns it untrustworthy?**
+
+<details>
+<summary>Answer</summary>
+
+It means the observed difference between two mixtures is no larger than the
+spread you'd see from seed noise alone, holding the mixture fixed — you
+genuinely cannot yet tell "the mixture helped" from "this seed happened to
+land well." A harness that always returns a winner hasn't solved that
+problem, it's hidden it: since most real data decisions produce a small true
+effect, a tool that must always answer will manufacture a winner out of pure
+noise every time the effect is too small to detect at the seed count run —
+exactly the failure the n=8 "NOT DETECTABLE — interval spans zero" result is
+built to demonstrate honestly instead.
+
+</details>
+
+**3. Given a stated per-run time and a seed count, how do you compute the
+   wall-clock cost of a two-arm comparison?**
+
+<details>
+<summary>Answer</summary>
+
+Serial wall-clock is *M x S x R* minutes — mixtures times seeds-per-arm times
+minutes-per-run. With M=2, S=8, R=20, that's 320 minutes (about five hours)
+run one at a time. Because the runs are independent of each other, they
+parallelize across however many workers are available: on four workers, the
+same 320 minutes of total work finishes in roughly 80 minutes. The chapter's
+point in showing the arithmetic explicitly is that it's recoverable with your
+own *R*, not a fixed number to take on faith — recompute it before deciding
+how many seeds you can actually afford.
+
+</details>
+
+**4. Name the two confounds that can leave a statistically sound comparison
+   wrong about the decision it was run for.**
+
+<details>
+<summary>Answer</summary>
+
+First, proxy-to-target transfer: a proxy model has less capacity than the
+model the decision is actually for, and curated data helps a small model
+disproportionately more — so a mixture ranking measured at proxy scale can
+invert once you scale up. Second, synthetic-data self-grading: if the
+candidate mixture is model-generated text, an apparent improvement may really
+be measuring the teacher model's own quality rather than the generation
+method, or the generator having already seen the benchmark it's being scored
+against. Both confounds can survive a comparison that is otherwise perfectly
+sound statistically — the seed-variance discipline in this chapter catches
+noise, not these two.
+
+</details>
 
 ## Next
 

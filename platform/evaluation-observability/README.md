@@ -185,11 +185,87 @@ claim broad capability or production impact beyond that task population.
 
 ## Check your mental model
 
-1. What is the actual evaluation unit for an agent?
-2. Why can a higher score be unattributable?
-3. Which contamination paths exist after pretraining?
-4. When is an LLM judge appropriate?
-5. What evidence is missing from a score without an interval or failure slices?
+**1. What is the actual evaluation unit for an agent?**
+
+<details>
+<summary>Answer</summary>
+
+Not just `checkpoint + prompt template + decoding parameters` — that's the
+static-task unit. An agent's unit is larger because more of it can change the
+trajectory: `checkpoint + harness + tools + permissions + environment +
+budget`. Two runs that share a checkpoint but differ in retry policy or tool
+set aren't comparing the same system, even though "the model" is identical —
+which is exactly why Section 3 insists the harness gets logged as its own
+variable, not folded silently into "the model's score."
+
+</details>
+
+**2. Why can a higher score be unattributable?**
+
+<details>
+<summary>Answer</summary>
+
+Because tool descriptions, context selection, retries, timeout, stop rules,
+and permission prompts can move agent success more than a small model
+upgrade — so if a new score comes from a run where the harness also changed,
+there's no way to say how much of the gain is the model versus the harness
+around it. The fix isn't a better statistic, it's discipline: log the
+per-episode harness configuration alongside the outcome, so a reviewer can
+at least check whether the harness moved before crediting the model.
+
+</details>
+
+**3. Which contamination paths exist after pretraining?**
+
+<details>
+<summary>Answer</summary>
+
+Pretraining data is only the first path the chapter names — after that,
+contamination can still enter through fine-tuning examples, a retrieval
+corpus, prompt exemplars shown to the model at inference time, or simply a
+developer manually debugging on what's supposed to be the held-out test set.
+That last one is easy to miss because it isn't a data-pipeline bug at all —
+it's a person, mid-development, looking at the answer to a question the
+evaluation set is supposed to ask blind. It's why the chapter's layered
+checks include "a record of every test item inspected during development,"
+not just hash-based dataset scanning.
+
+</details>
+
+**4. When is an LLM judge appropriate?**
+
+<details>
+<summary>Answer</summary>
+
+Only where a deterministic verifier can't observe the dimension you care
+about, and only after the judge itself has been calibrated against reviewed
+human labels — order randomized, model identity hidden, rubric variants
+tested, agreement reported by slice. A judge that hasn't been checked this
+way carries its own biases (preferring longer answers, its own style,
+confident tone, whichever answer came first) straight into your result. The
+chapter's framing is blunt about what a judge actually is: "Judge score is
+another model output. It is not ground truth" — so it's a tool for the
+things a verifier structurally cannot see, not a default replacement for one.
+
+</details>
+
+**5. What evidence is missing from a score without an interval or failure slices?**
+
+<details>
+<summary>Answer</summary>
+
+Without an interval, you can't tell whether an observed difference between
+two systems is real or just the sampling noise of a finite evaluation set —
+the same system can produce visibly different success rates across repeated
+samples of the same size, so a bare point estimate can't support a ship
+decision on its own. Without failure slices and owners, even a passing
+aggregate score hides *which* failures happened and who is responsible for
+fixing them — "an aggregate score is a release signal; failure records are
+engineering inputs," and a pie chart without representative traces "cannot
+guide a fix." Both gaps point at the same problem: a number by itself can't
+tell you whether it's safe to trust, or what to do next if it's borderline.
+
+</details>
 
 ## Next
 

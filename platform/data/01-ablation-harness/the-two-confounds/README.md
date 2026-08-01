@@ -77,14 +77,69 @@ it is the generator marking its own work, and it will pass.
 
 ## Check your mental model
 
-1. Your mixture wins by a clear margin at 33M parameters. What is the cheapest
-   thing you can do to find out whether that survives at 7B?
-2. A ranking flips between two proxy sizes. What have you learned, and what
-   have you not?
-3. You generate synthetic data with a frontier model and your benchmark score
-   rises. Name the two distinct reasons that might not be about your method.
-4. Why does "have the generator score its own outputs" fail as a quality
-   filter, and what class of task escapes that failure?
+**1. Your mixture wins by a clear margin at 33M parameters. What is the
+   cheapest thing you can do to find out whether that survives at 7B?**
+
+<details>
+<summary>Answer</summary>
+
+Run the same comparison at a second, still-affordable proxy size — not jump
+straight to 7B. The mitigation this chapter names "is not a better proxy; it
+is a second data point": trust only the conclusions where the ranking agrees
+at both sizes. That's the same discipline the architecture ladder arrives at
+from the other direction — a ranking only means something once it's stable
+across at least two sizes at the same budget definition.
+
+</details>
+
+**2. A ranking flips between two proxy sizes. What have you learned, and what
+   have you not?**
+
+<details>
+<summary>Answer</summary>
+
+You've learned that this particular mixture's ranking does not transfer
+between those two proxy sizes — the comparison doesn't generalize for this
+mixture. You have not learned which size's ranking is "correct," or anything
+about how the mixture will actually rank at target scale. A flip only tells
+you the proxy comparison fails to transfer for this mixture; it does not
+resolve which answer to believe.
+
+</details>
+
+**3. You generate synthetic data with a frontier model and your benchmark
+   score rises. Name the two distinct reasons that might not be about your
+   method.**
+
+<details>
+<summary>Answer</summary>
+
+First, you may be measuring the teacher's ability rather than the value of
+the generation method — the "improvement" is really distillation of a better
+model into a worse one, filtered through your pipeline and reported as a data
+result. Second, benchmark contamination: the generating model may have
+already been exposed to the benchmark you're scoring against, so the win
+reflects leaked exposure rather than a real generalization gain. Both can
+produce the identical observed number as a genuine method improvement.
+
+</details>
+
+**4. Why does "have the generator score its own outputs" fail as a quality
+   filter, and what class of task escapes that failure?**
+
+<details>
+<summary>Answer</summary>
+
+It fails because the filter and the thing being filtered are the same
+judgment — the generating model marking its own work will systematically pass
+its own mistakes, since there's no independent check in the loop. It escapes
+this failure exactly where verification is cheaper than generation and comes
+from somewhere other than the generator's own judgment: code that either runs
+and passes its tests or doesn't, arithmetic with a checkable answer, a proof
+that either type-checks or doesn't. Those have a cheap, independent verifier;
+most tasks do not.
+
+</details>
 
 ## Evidence boundary and next step
 

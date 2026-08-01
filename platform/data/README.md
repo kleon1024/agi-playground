@@ -219,12 +219,90 @@ better model. That question requires a controlled pretraining comparison.
 
 ## Check your mental model
 
-1. Why is language filtering an eligibility decision rather than a quality
-   score?
-2. Which evidence distinguishes a strict filter from a broken extractor?
-3. Why can a lower dedup threshold improve recall while harming precision?
-4. Why are final corpus size and downstream model quality not interchangeable?
-5. What must remain fixed to attribute a model change to the data mixture?
+**1. Why is language filtering an eligibility decision rather than a quality
+   score?**
+
+<details>
+<summary>Answer</summary>
+
+Because it removed more documents than every local quality heuristic combined
+— 18,210 non-empty extractions down to 7,348 English documents — and it isn't
+judging any individual document's quality at all, it's deciding upfront which
+population the corpus can even represent. A model trained on the survivors
+literally cannot represent the languages the eligibility gate removed, no
+matter how large the model later gets. That's a distribution choice made
+before quality enters the picture, not a score any document earns or fails.
+
+</details>
+
+**2. Which evidence distinguishes a strict filter from a broken extractor?**
+
+<details>
+<summary>Answer</summary>
+
+Stage-level rejection reasons plus a sampled review of what each gate
+actually rejected — not the aggregate "documents kept" number. DataTrove's
+5,513 versus the local pipeline's 9,184 can't by itself say which pipeline is
+better, because a smaller surviving corpus looks identical whether it came
+from a stricter, correctly-working quality policy or from a broken extractor
+silently discarding good text. Only per-gate records (the rule, its version,
+accepted/rejected counts, and a false-positive/false-negative sample) let you
+tell "extraction correctness failure" (1,790 responses going empty) apart
+from "downstream quality policy" (a stricter repetition filter) apart from a
+miscalibrated rule.
+
+</details>
+
+**3. Why can a lower dedup threshold improve recall while harming precision?**
+
+<details>
+<summary>Answer</summary>
+
+Because the band/row configuration sets an S-curve, and moving it in either
+direction is a straight tradeoff, not a free improvement. At 16 bands of 4
+rows, a pair becomes a duplicate candidate with probability
+$1-(1-J^4)^{16}$ — relaxing the match condition (fewer rows per band, or more
+bands) shifts that curve so more true near-duplicates get caught (higher
+recall) but also more unrelated pairs at lower true Jaccard cross the
+same relaxed threshold and get flagged as candidates (lower precision). The
+crossover sits exactly at $(1/16)^{1/4}=0.50$ for these settings — change 16
+and 4 and the corpus owner has moved the recall/precision tradeoff, whether
+or not that was the intent.
+
+</details>
+
+**4. Why are final corpus size and downstream model quality not interchangeable?**
+
+<details>
+<summary>Answer</summary>
+
+Because a larger surviving corpus says nothing about what got discarded or
+why — the local pipeline kept more documents (9,184) than DataTrove's
+stricter recipe (5,513), but "calling one pipeline better from survivor count
+alone would be invalid." The missing evidence is downstream quality and a
+review of the rejected examples: a smaller, more carefully filtered corpus
+could train a better model than a larger noisier one, or the reverse, and
+counting what remained can't answer that — only a controlled pretraining
+comparison can.
+
+</details>
+
+**5. What must remain fixed to attribute a model change to the data mixture?**
+
+<details>
+<summary>Answer</summary>
+
+The mixture weights, token counts, and repetition rates all have to stay
+visible and not change silently alongside anything else — including
+curriculum scheduling, which is itself "another uncontrolled variable" unless
+it's testing an explicit, stated hypothesis. A downstream model change is
+uninterpretable if the mixture moved at the same time as some other unnamed
+factor, for exactly the same reason the ablation-harness chapter insists on
+fixing everything except the one variable under test: you can only attribute
+an effect to the thing you deliberately held everything else constant
+against.
+
+</details>
 
 ## Next
 

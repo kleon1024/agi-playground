@@ -145,13 +145,80 @@ Commands, hardware, and every number above:
 
 ## Check your mental model
 
-1. The int8 model's logits sit at cosine similarity 0.9997 to fp32, and greedy decoding still
-   disagrees on 63 of 64 tokens. Reconcile those two numbers.
-2. Device time went up after quantization, not down. What operation is responsible, and why does
-   it run on every forward call instead of once?
-3. Under what condition would this exact technique actually deliver a speedup?
-4. torchao's real int8 kernel was slower than the hand-rolled dequant version. What does that rule
-   out as this model's bottleneck, and what does it not rule out?
+**1. The int8 model's logits sit at cosine similarity 0.9997 to fp32, and greedy decoding still
+   disagrees on 63 of 64 tokens. Reconcile those two numbers.**
+
+<details>
+<summary>Answer</summary>
+
+Both numbers are true at the same time because they're measuring different
+things. Cosine similarity 0.9997 says the *entire distribution* barely
+moved — quantization perturbed it only slightly. But greedy decoding only
+cares about which single logit is largest, and at the very first position the
+top two logits were already close (7.72% vs. 6.44% probability). The
+roughly 3.2% mean relative rounding error from 8-bit weights is small in an
+absolute sense, but it's large enough to cross a gap that size and flip the
+argmax. Once that first token differs, autoregressive decoding conditions
+every later step on a different prefix than the reference — so a barely-moved
+distribution at each step compounds into near-total disagreement by token 64.
+The quantizer isn't broken; greedy exact match is measuring compounding
+argmax flips, not distributional closeness.
+
+</details>
+
+**2. Device time went up after quantization, not down. What operation is responsible, and why does
+   it run on every forward call instead of once?**
+
+<details>
+<summary>Answer</summary>
+
+Dequantization — `weight_i8.float() * scale[:, None]` — materializes a
+full-width fp32 tensor before the matmul can read it, on every `Linear` call.
+That's a whole elementwise multiply-and-cast kernel that the original fp32
+path never had to pay for, plus its own separate kernel-launch overhead in a
+decode step that graph execution already proved is launch-bound, not
+bandwidth-bound. It runs every call rather than once because the weights are
+stored as int8 permanently between calls — the entire point of quantizing was
+to keep the smaller footprint at rest, so dequantizing once and caching an
+fp32 copy would just recreate the original memory cost this technique was
+supposed to avoid.
+
+</details>
+
+**3. Under what condition would this exact technique actually deliver a speedup?**
+
+<details>
+<summary>Answer</summary>
+
+When decode is genuinely bandwidth-bound rather than launch-bound — a larger
+model, a larger batch, where arithmetic intensity (AI = B, from the serving
+chapter) sits closer to the ridge point and the bytes moved through memory
+actually gate the step's time. This model at batch 1 is nowhere near that
+regime: its bottleneck is kernel-launch count, and shrinking the bytes on
+disk does nothing to that bottleneck — it can only help once bytes moved is
+the thing actually limiting the step.
+
+</details>
+
+**4. torchao's real int8 kernel was slower than the hand-rolled dequant version. What does that rule
+   out as this model's bottleneck, and what does it not rule out?**
+
+<details>
+<summary>Answer</summary>
+
+It rules out memory bandwidth as this model's bottleneck at this scale — even
+a real fused int8 GEMM (`torch.ops.aten._int_mm`, no dequant-to-fp32 step)
+came in slower than eager fp32, so the problem clearly isn't "too many bytes
+moved," confirming the launch-bound diagnosis from the previous chapter. It
+does *not* rule out that torchao's specific dispatch mechanism has its own
+unmeasured per-call overhead (tensor-subclass dispatch that may not amortize
+at this model's small per-layer matmul sizes and batch-1 decode) — the
+chapter states that explicitly as an unmeasured hypothesis, not a
+conclusion. It also doesn't rule out that a kernel purpose-built and fused
+for this exact architecture could behave differently; only two
+existing dequant-based paths were actually measured here.
+
+</details>
 
 ## Next
 

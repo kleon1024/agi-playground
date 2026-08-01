@@ -234,13 +234,75 @@ the behavior established by the previous step.
 You are ready to move on when you can answer these without reciting a library
 API:
 
-1. Why does score scaling depend on head width rather than model width?
-2. Which operation prevents training-time future leakage?
-3. Why can grouped-query attention reduce serving memory without reducing the
-   number of query heads?
-4. What path remains when an attention or FFN sublayer initially contributes
-   almost nothing?
-5. Which part of a block retrieves context, and which part transforms it?
+**1. Why does score scaling depend on head width rather than model width?**
+
+<details>
+<summary>Answer</summary>
+
+Because the variance blow-up comes from the dot product summing $d_k$
+terms — the width of one head's own subspace, not the model's full width.
+Each head computes its own independent $QK^\top$ over only its own
+`d_head` dimensions, so the correction has to normalize per-head. Dividing
+by $\sqrt{d_{\text{model}}}$ instead would over- or under-correct depending
+on how many heads that width is split across.
+
+</details>
+
+**2. Which operation prevents training-time future leakage?**
+
+<details>
+<summary>Answer</summary>
+
+The causal mask — setting every future position's score to $-\infty$ before
+softmax, so after softmax those positions receive exactly zero weight no
+matter what their value is. Without it, the full sequence is visible during
+training and the model could read the answer it's supposed to be predicting.
+
+</details>
+
+**3. Why can grouped-query attention reduce serving memory without reducing
+   the number of query heads?**
+
+<details>
+<summary>Answer</summary>
+
+Because query heads and key-value heads pay for different things: query
+heads determine retrieval expressiveness (how many independent similarity
+functions the model can compute), while KV heads determine how much state
+must be cached and read back per generated token. Sharing fewer KV heads
+across many query heads keeps all 12 query heads' retrieval power intact
+while only storing and reading 4 heads' worth of keys and values — shrinking
+the cache to a third of plain multi-head attention without touching how many
+distinct queries the model can ask.
+
+</details>
+
+**4. What path remains when an attention or FFN sublayer initially
+   contributes almost nothing?**
+
+<details>
+<summary>Answer</summary>
+
+The residual identity path — `x = x + sublayer(...)`. Even when the
+sublayer's output starts near zero, `x` still passes through unchanged, so
+information and gradients keep flowing through depth while that sublayer is
+still learning to contribute anything. That's the whole point of writing the
+update as an addition rather than a replacement.
+
+</details>
+
+**5. Which part of a block retrieves context, and which part transforms it?**
+
+<details>
+<summary>Answer</summary>
+
+Attention retrieves context — it moves information between positions via the
+query-key-value mechanism. The feed-forward network (SwiGLU) transforms the
+representation at each position independently afterward, changing what's
+there rather than fetching it from anywhere else. Retrieval and
+transformation are two separate jobs, done by two separate sublayers.
+
+</details>
 
 ## Evidence boundary and next step
 

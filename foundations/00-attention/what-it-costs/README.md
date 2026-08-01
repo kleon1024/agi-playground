@@ -114,15 +114,80 @@ is how capacity estimates go wrong by an order of magnitude.
 
 ## Check your mental model
 
-1. Which component holds the most parameters, and by roughly what factor?
-2. Why are the key and value projections narrower than the query projection in
-   this model, and where does that show up at serving time?
-3. Untying the output head from the embedding adds how much, proportionally,
-   and why is that a bad trade at this scale?
-4. Context doubles. What happens to the cache, and what happens to the score
-   matrix?
-5. Which of the three costs does FlashAttention address, and which two does it
-   leave untouched?
+**1. Which component holds the most parameters, and by roughly what factor?**
+
+<details>
+<summary>Answer</summary>
+
+The feed-forward network, at 56,623,104 parameters (64.2%) versus the
+attention projections' 18,874,368 combined (21.4%) — roughly three times as
+many parameters as every attention projection put together. Attention
+decides what to read; the feed-forward network is what actually gets read.
+
+</details>
+
+**2. Why are the key and value projections narrower than the query
+   projection in this model, and where does that show up at serving time?**
+
+<details>
+<summary>Answer</summary>
+
+Because this model has only 4 key-value heads against 12 query heads
+(grouped-query attention) — keys and values project through
+$2 \times 768 \times 256$, while queries and the output projection stay at
+$768^2$. At serving time this shows up directly in KV-cache size, which
+scales with the number of KV heads: this model's cache is a third of what
+plain 12-head multi-head attention would cost — 12.0 MiB versus 36.0 MiB per
+1,024-token sequence — without giving up any of the 12 query heads' retrieval
+capacity.
+
+</details>
+
+**3. Untying the output head from the embedding adds how much,
+   proportionally, and why is that a bad trade at this scale?**
+
+<details>
+<summary>Answer</summary>
+
+It adds 14.4%, growing the model from 88,197,888 to 100,879,104 parameters —
+exactly the embedding table's own share, since untying just duplicates it as
+a second, separate output head. It's a bad trade at this scale because that
+14% growth "buys, at this scale, very little": it doesn't touch either of the
+model's real bottlenecks — the feed-forward network's parameter share or the
+KV cache's serving cost — it just adds size for its own sake.
+
+</details>
+
+**4. Context doubles. What happens to the cache, and what happens to the
+   score matrix?**
+
+<details>
+<summary>Answer</summary>
+
+The cache grows linearly — doubling context doubles the cache bytes per
+token, since cache cost is per-token and per-concurrent-request. The score
+matrix grows quadratically — doubling context quadruples its memory per the
+table (1,024 tokens: 2 MiB/head; 2,048: 8 MiB; 4,096: 32 MiB). Two different
+growth curves on the same page, and conflating them is exactly "how capacity
+estimates go wrong by an order of magnitude."
+
+</details>
+
+**5. Which of the three costs does FlashAttention address, and which two
+   does it leave untouched?**
+
+<details>
+<summary>Answer</summary>
+
+It addresses the score matrix's quadratic memory cost — not by changing the
+quadratic arithmetic or the attention result, but by tiling the computation
+so the full sequence-by-sequence matrix is never materialized in slower
+memory. It leaves the other two untouched: the parameter budget (fixed,
+paid once, unrelated to this) and the KV cache (linear in context and
+concurrency, a separate line of the budget addressed instead by paged
+attention, continuous batching, and quantization).
+
+</details>
 
 ## Evidence boundary and next step
 

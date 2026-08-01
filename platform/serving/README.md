@@ -226,12 +226,85 @@ a latency SLO without a representative load test.
 
 ## Check your mental model
 
-1. Why is decode often memory-bound while prefill is compute-heavy?
-2. Which architecture parameter directly changes KV-cache size?
-3. What invariant does paged allocation preserve?
-4. Why can continuous batching improve throughput but hurt one request's
-   latency?
-5. When does speculative decoding become slower than ordinary decoding?
+**1. Why is decode often memory-bound while prefill is compute-heavy?**
+
+<details>
+<summary>Answer</summary>
+
+Prefill processes every prompt token in parallel, so there's plenty of matrix
+work available to keep compute units busy — that's what makes it
+compute-heavy. Decode produces exactly one new token per step, but that one
+step still has to attend over the entire cached history — every key and value
+computed so far. The compute per step is tiny; the memory traffic to read that
+growing cache is not. As the cache grows, the bottleneck shifts from "how fast
+can you multiply" to "how fast can you read," which is why the two phases need
+separate latency numbers instead of one blended average.
+
+</details>
+
+**2. Which architecture parameter directly changes KV-cache size?**
+
+<details>
+<summary>Answer</summary>
+
+The number of key-value heads, $H_{\text{kv}}$ — it's a direct multiplicative
+factor in the cache-size formula $2BLTH_{\text{kv}}d_hb$, alongside batch,
+layers, sequence length, head dimension, and bytes per element. This is
+exactly why grouped-query attention (fewer KV heads than query heads) changes
+serving economics: it shrinks the memory every live token costs without
+touching the other factors in that formula.
+
+</details>
+
+**3. What invariant does paged allocation preserve?**
+
+<details>
+<summary>Answer</summary>
+
+That each token's key and value must remain retrievable — that's the one
+thing that can never break, no matter how memory is organized underneath it.
+What paging changes is *how* that guarantee is satisfied: instead of one
+contiguous buffer reserved per request (which wastes memory on unused
+capacity and fragments when large contiguous regions aren't available),
+logical token positions map to physical blocks through a block table. The
+retrieval contract is unchanged; only the allocation boundary moved.
+
+</details>
+
+**4. Why can continuous batching improve throughput but hurt one request's
+   latency?**
+
+<details>
+<summary>Answer</summary>
+
+Because reforming the active batch at every decode step lets a finished
+slot's capacity go straight to the next waiting request instead of sitting
+idle until the whole batch completes — that's where the throughput gain
+comes from. But a scheduler packing more work into the same device now has to
+decide whose token gets computed this step, and admitting more concurrent
+work means an individual request can sit in that rotation longer than it
+would under a scheme serving it alone. Throughput and one request's wait time
+are pulling in different directions, which is exactly why the chapter insists
+the scheduler needs an explicit objective — throughput *under* a latency SLO
+— rather than optimizing tokens-per-second alone.
+
+</details>
+
+**5. When does speculative decoding become slower than ordinary decoding?**
+
+<details>
+<summary>Answer</summary>
+
+When the draft model's proposals get rejected often enough that its
+acceptance length is poor — the target model still has to run a full
+verification pass over every proposed token regardless of how many it
+accepts, so a cheap-but-usually-wrong draft adds its own cost on top of the
+verification cost you'd have paid anyway, without buying back the multi-token
+speedup that makes speculation worthwhile in the first place. That's why
+acceptance has to be measured per request slice: temperature, domain, and
+prompt style all shift how often the draft actually gets it right.
+
+</details>
 
 ## Next
 
