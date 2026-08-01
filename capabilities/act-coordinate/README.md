@@ -250,8 +250,20 @@ This capability completes the first vertical slice. Return to
 unit: checkpoint, serving configuration, harness, tools, permissions, and
 environment.
 
-Primary references: ReAct, SWE-agent and agent-computer interfaces, MCP,
-MemGPT, AgentDojo, harness-aware evaluation, and policy-adherence environments.
+Primary references, in the order this chapter's decisions arrived: ReAct
+(Yao et al., Oct 2022) first interleaved model reasoning with real tool calls
+rather than reasoning in isolation, which is section 2's observe-decide-act
+loop. MemGPT (Packer et al., Oct 2023) treated context as a managed resource
+with its own paging discipline rather than a single growing prompt, which is
+section 5's three-layer context split. SWE-agent (Yang et al., 2024) named
+the agent-computer interface as its own design surface — narrow, validated
+tool schemas over raw shell access — which is section 3's tool-design
+argument. AgentDojo (Debenedetti et al., Jun 2024) turned "observations can
+carry adversarial instructions" into a benchmarked, measurable property
+rather than a stated worry, which is section 4's untrusted-data boundary.
+MCP (Anthropic, Nov 2024) standardized how tools, resources, and prompts are
+exposed across hosts — explicitly not a safety mechanism, per section 3 — the
+same distinction MCP's own spec draws between transport and policy.
 
 [The agent landscape](LANDSCAPE.md) names four production harnesses rather than
 one, deliberately: harness design is the independent variable this capability

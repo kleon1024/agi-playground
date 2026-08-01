@@ -116,6 +116,17 @@ that benefit is worth paying for every participant's full context at the
 comparison step — this is the one topology that spends context to buy
 diversity rather than saving it.
 
+Each shape above has a dated origin in the LLM-agent literature, not just a
+name: multiagent debate (Du et al., May 2023) introduced independent
+attempts plus a judge specifically to catch one model's own reasoning
+errors — the debate/panel topology above, unchanged in intent. AutoGen (Wu
+et al., Aug 2023) formalized a group-chat supervisor pattern for LLM agents,
+the conversational ancestor of this chapter's supervisor-with-workers shape.
+LangGraph (LangChain, Jan 2024) generalized supervisor and pipeline shapes
+into one directed-graph abstraction, trading the single-shape simplicity
+this chapter argues for in favor of expressiveness a framework needs and a
+single lesson does not.
+
 <!-- interactive: AgentTopology -->
 
 ## 5. How you would know it helped

@@ -5,7 +5,7 @@
   },
   "capabilities/act-coordinate": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "capabilities/act-coordinate/01-multi-agent": {
     "level": "applied",
