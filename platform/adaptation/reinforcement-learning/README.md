@@ -247,9 +247,16 @@ baseline this chapter's worked example uses; DAPO (ByteDance Seed, March 2025)
 changes sampling, clipping, and length-handling on top of the same group-
 relative core; GSPO (Qwen team, July 2025) moves the importance ratio from
 per-token to per-sequence to fix instability GRPO shows on long, sparsely-
-rewarded sequences. Eight years separate PPO from GSPO, and every later method
-in this line still answers to the same failure PPO's clip was built to
-prevent: an update large enough to destroy the policy in one step. Also
+rewarded sequences. The same instability drew a second, parallel fix the same
+month: Zhao et al., "Geometric-Mean Policy Optimization" (submitted July 28,
+2025; revised October 2025; accepted ICLR 2026) keeps GRPO's per-token
+structure but replaces the arithmetic mean of token-level rewards with their
+geometric mean, which is inherently less sensitive to the outlier importance
+ratios that motivate GSPO's sequence-level rewrite — two different repairs
+to the same GRPO failure mode, not a chronological sequel. Eight years
+separate PPO from this pair, and every later method in this line still
+answers to the same failure PPO's clip was built to prevent: an update large
+enough to destroy the policy in one step. Also
 relevant: RLVR work and agent-environment evaluation literature, which this
 chapter's later sections on verifiable rewards and agent trajectories draw on
 without dating to one paper.
