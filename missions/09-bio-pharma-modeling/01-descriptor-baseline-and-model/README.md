@@ -94,6 +94,8 @@ single logit. [`core/smiles_tokenizer.py`](core/smiles_tokenizer.py) builds
 the character vocabulary from the training split only, with an explicit
 `<unk>` for any character only test contains.
 
+<!-- interactive: MoleculePropertyComparison -->
+
 ## Result
 
 Full per-seed numbers, environment, and the exact commands:

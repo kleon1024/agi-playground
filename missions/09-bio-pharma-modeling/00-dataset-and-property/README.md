@@ -48,6 +48,21 @@ Murcko scaffold (ring system, substituents stripped) first, then assigns whole
 groups to train or test, so a held-out result is actually a test of
 generalization to unseen structures.
 
+**A brief history.** The descriptors this mission's baseline fits — LogP,
+polar surface area, ring counts — descend from Hansch and Fujita's 1964
+quantitative structure-activity relationship work (*J. Am. Chem. Soc.* 86(8):
+1616-1626), the first framework to correlate a fixed set of computed
+physicochemical properties with biological activity rather than fitting
+structure directly. The "Murcko scaffold" grouping used for this stage's split
+comes from a specific, later paper: Bemis and Murcko, "The Properties of Known
+Drugs. 1. Molecular Frameworks" (*J. Med. Chem.* 39(15): 2887-2893, 1996),
+which defined the ring-system-with-substituents-stripped decomposition this
+mission uses directly. Tox21 itself is a US federal interagency screening
+program (NIH/EPA/FDA, launched 2008) that tests thousands of compounds against
+a panel of toxicity-pathway assays; MoleculeNet (Wu et al., 2018, cited in
+stage 01) later packaged a slice of that data as a standard ML benchmark,
+which is the exact CSV this stage downloads.
+
 ## Building and checking the split
 
 `core/prepare_dataset.py`:
