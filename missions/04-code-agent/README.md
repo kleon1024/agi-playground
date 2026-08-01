@@ -69,11 +69,11 @@ them would hide the only comparison that says which is which.
 | Stage | Question | Status |
 |---|---|---|
 | [00 — The task set](00-task-set/) | what makes a bug report into a scoreable task? | verified |
-| 01 — No harness | is the loop worth anything over one blind call? | not started |
+| [01 — No harness](01-no-harness/) | is the loop worth anything over one blind call? | verified |
 | [02 — Scoring the attempt](02-agent-loop/) | what would change your mind about "it passed"? | verified |
 | [03 — Cheap or expensive](03-cheap-or-expensive/) | the cheap model resolved everything; should you use it? | verified |
-| 04 — How it fails | how does it fail, and does it cheat? | not started |
-| 05 — The report | what did we actually establish? | not started |
+| [04 — How it fails](04-how-it-fails/) | how does it fail, and does it cheat? | verified |
+| [05 — The report](05-report/) | what did we actually establish? | verified |
 
 [Stage 00](00-task-set/) has run. It mined this repository's 100 commits down to
 4 candidates and admitted **2**, because a task is admitted only if its test
@@ -119,8 +119,22 @@ finding.
 
 Per [the mission contract](../../reference/standards/mission-contract.md), the contract
 was declared before the system was built, so the baseline and the metric cannot
-be chosen after seeing which ones flatter the result. The no-harness baseline
-in stage 01 has not run, so the value of the loop itself is still unmeasured.
+be chosen after seeing which ones flatter the result.
+
+[Stage 01](01-no-harness/) has since run the no-harness control: one blind
+`claude -p` call per attempt, every tool denied, a diff applied blind with no
+retry. Resolve rate came back 0/6 (haiku), 1/6 (sonnet), 3/6 (opus) against the
+harness's 6/6 on every tier — decisive at haiku and sonnet, and a genuine no
+result at opus, where the margin sits inside that arm's own run-to-run spread
+at this task set's N=2. [Stage 04](04-how-it-fails/) then catalogued every real
+failure across both arms: eleven of stage 01's twelve unresolved attempts never
+produced a diff `git apply` would even accept, and the test-tampering guardrail
+has still never fired on a real model attempt, in either arm, across all 36
+real attempts this mission has now run. [Stage 05](05-report/) holds all of it
+against `mission.yaml` mechanically and finds five of seven acceptance bullets
+met — the other two undecidable, both because stage 00 mined only a private
+task set and never built the public companion `mission.yaml` calls for, not
+because anything resolved worse than declared.
 
 ## What this will not prove
 

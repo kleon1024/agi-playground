@@ -1,0 +1,55 @@
+Mission 04 outcome report
+========================================================================
+
+1. Beats the no-harness baseline on resolve rate by more than the spread, both task sets
+------------------------------------------------------------------------
+  pooled across tiers -- harness: 18/18 resolved, no-harness: 4/18 resolved (private set only; see below)
+  per tier, margin vs run-to-run spread (spread = max-min of each run's resolved fraction):
+    haiku    harness 6/6 (per-run [1.0, 1.0, 1.0], spread 0.000)  vs no-harness 0/6 (per-run [0.0, 0.0, 0.0], spread 0.000)  margin +1.000  DECISIVE
+    opus     harness 6/6 (per-run [1.0, 1.0, 1.0], spread 0.000)  vs no-harness 3/6 (per-run [0.0, 0.5, 1.0], spread 1.000)  margin +0.500  inside spread -- no result
+    sonnet   harness 6/6 (per-run [1.0, 1.0, 1.0], spread 0.000)  vs no-harness 1/6 (per-run [0.5, 0.0, 0.0], spread 0.500)  margin +0.833  DECISIVE
+  public set: NOT BUILT. Stage 00 mined only a private task set from this repository's own history; no public benchmark subset was ever admitted alongside it. This bullet cannot be evaluated on 'both task sets' because only one exists.
+  -> CANNOT DETERMINE (public task set was never built by stage 00)
+
+2. Beats always-frontier on $/resolved without losing resolve rate by more than the spread
+------------------------------------------------------------------------
+  (This bullet is about the harness arm's own tiers, stage 03 -- no-harness is bullet 1's comparison.)
+  haiku    6/6 resolved, $/resolved = $0.1604
+  opus     6/6 resolved, $/resolved = $0.8226
+  sonnet   6/6 resolved, $/resolved = $0.5368
+  cheapest tier (haiku) vs always-frontier (opus): cheaper per resolved task, no resolve-rate loss
+  Scope note: mission.yaml's decision names a locally-served open-weights model against a hosted frontier model. Stage 03 ran three hosted-subscription tiers of one CLI (haiku/sonnet/opus) rather than an actual local-lane model -- a scope decision stage 03 made before this report existed, not something stages 01/04/05 changed. This bullet is answered on the tiers that actually ran.
+  -> MET
+
+3. No guardrail regresses; test-tampering guardrail fires on a real attempt, or is reported as never firing
+------------------------------------------------------------------------
+  real attempts inspected: 36 (18 harness + 18 no-harness)
+  regressed: 0
+  tampering guardrail: never fired on a real model attempt across all 36 real attempts in this mission. (Stage 02's scripted `--demo tamper` run demonstrates the check mechanically; it used no model and is not counted here.)
+  -> MET (guardrail behaved correctly and was explicitly reported either way)
+
+4. Resolve rate reported separately for public and private sets, never pooled
+------------------------------------------------------------------------
+  Only the private set exists; there is nothing to pool it with, and this report has not pooled anything. Same gap as bullet 1.
+  -> CANNOT DETERMINE (no public set exists)
+
+5. Latency and dollars measured on real runs and inside budget
+------------------------------------------------------------------------
+  total real spend across stages 01+03: $14.2627 over 36 attempts
+  stage 03 harness: p50=83.3s p95=200.5s over 18 attempts
+  stage 01 no-harness: p50=82.1s p95=250.7s over 18 attempts
+  2/18 no-harness attempts hit the declared 240s wall-clock cap and are scored as failures, per mission.yaml's guardrail, not retried with a longer cap.
+  -> MET (both measured on real runs; see each stage's runs/ entry for the declared ceiling)
+
+6. Failures catalogued by category, not merely counted
+------------------------------------------------------------------------
+  See 04-how-it-fails/core/taxonomy.py and its runs/ entry for the full breakdown.
+  -> MET
+
+7. Every number traceable to a runs/ entry
+------------------------------------------------------------------------
+  This script reads only from committed runs/ JSONL files; no number above was typed by hand.
+  -> MET
+
+========================================================================
+OVERALL: NOT MET / PARTIAL / CANNOT DETERMINE on bullets ['1', '4'] of 7
