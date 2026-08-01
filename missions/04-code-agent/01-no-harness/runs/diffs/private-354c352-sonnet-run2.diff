@@ -1,0 +1,44 @@
+--- a/site/sync-docs.py
++++ b/site/sync-docs.py
+@@ -1,3 +1,4 @@
++
+ #!/usr/bin/env python3
+ """Generate the docs site's pages from the repository's markdown.
+ 
+@@ -132,10 +133,12 @@ def fix_admonition_titles(text: str) -> str:
+     )
+ 
+ 
++INLINE_CODE_RE = re.compile(r"`[^`\n]*`")
++
++
+ def escape_mdx(text: str) -> str:
+     """Escape characters MDX would read as JSX, outside code fences.
+ 
+     MDX 3 treats `<` as the start of a JSX tag, so prose like "under <1,000
+     lines" or "<UNK>" fails to compile. Inside fenced code blocks these must be
+-    left exactly as written, so fences are stepped over rather than rewritten.
++    left exactly as written, so fences and inline code spans are stepped over
++    rather than rewritten.
+     """
+     out, in_fence = [], False
+     for line in text.split("\n"):
+@@ -147,8 +150,15 @@ def escape_mdx(text: str) -> str:
+         if in_fence:
+             out.append(line)
+             continue
+-        # A `<` that is not opening a tag or a closing tag is literal text.
+-        out.append(re.sub(r"<(?![a-zA-Z/!])", "&lt;", line))
++        # A `<` that is not opening a tag or a closing tag is literal text,
++        # but not inside inline code spans, which must be left verbatim.
++        parts = INLINE_CODE_RE.split(line)
++        codes = INLINE_CODE_RE.findall(line)
++        rebuilt = []
++        for i, part in enumerate(parts):
++            rebuilt.append(re.sub(r"<(?![a-zA-Z/!])", "&lt;", part))
++            if i < len(codes):
++                rebuilt.append(codes[i])
++        out.append("".join(rebuilt))
+     return "\n".join(out)
+ 
+ 

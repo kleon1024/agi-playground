@@ -1,0 +1,31 @@
+Looking at the failing tests for correctness between naive generation and cache-based generation, I need to identify the issue with how causal attention is being applied.
+
+The problem is in the `_cached_attention` and `_cached_attention_paged` functions. They use `is_causal=True` unconditionally, but this creates an issue during decode steps:
+
+- During **prefill**: We have T_q = len(prompt) and T_k = len(prompt), so they're aligned and `is_causal=True` works correctly.
+- During **decode**: We have T_q = 1 (one new token) and T_k = seq_len (all tokens so far). With `is_causal=True`, SDPA applies masking based on tensor indices, restricting the query at tensor index 0 to only attend to keys at index 0, which is wrong. The new token should attend to all previous tokens.
+
+The fix is to only use `is_causal=True` when T > 1 (prefill), and use `is_causal=False` for decode steps (T=1) where a single query needs to attend to all cached keys.
+
+```diff
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -127,7 +127,7 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_id
+         k_full, v_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=(T > 1))
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -252,7 +252,7 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCach
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=(T > 1))
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+```

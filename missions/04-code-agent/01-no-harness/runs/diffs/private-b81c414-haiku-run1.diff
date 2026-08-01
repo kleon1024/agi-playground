@@ -1,0 +1,34 @@
+Looking at the failing tests, I need to identify the correctness issue in the caching implementations.
+
+Examining the `KVCache.write` method:
+
+```python
+def write(self, layer: int, k: torch.Tensor, v: torch.Tensor, pos: int) -> None:
+    # k, v: (n_kv_head, n_tokens, d_head)
+    n = k.size(1)
+    self.buf[layer, 0, :, pos : pos + n] = k
+    self.buf[layer, 1, :, pos : pos + n] = v
+```
+
+The buffer shape is `(n_layer, 2, n_kv_head, max_len, d_head)`. 
+
+When we index `self.buf[layer, 0, :, pos : pos + n]`, we get shape `(n_kv_head, n)` - a 2D tensor. But `k` has shape `(n_kv_head, n, d_head)` - a 3D tensor. The assignment is missing the final dimension slice, which causes a shape mismatch.
+
+The `read` method correctly returns `(n_kv_head, length, d_head)`, so the write must store in that same format.
+
+```diff
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -132,8 +132,8 @@ class KVCache:
+ 
+     def write(self, layer: int, k: torch.Tensor, v: torch.Tensor, pos: int) -> None:
+         # k, v: (n_kv_head, n_tokens, d_head)
+         n = k.size(1)
+-        self.buf[layer, 0, :, pos : pos + n] = k
+-        self.buf[layer, 1, :, pos : pos + n] = v
++        self.buf[layer, 0, :, pos : pos + n, :] = k
++        self.buf[layer, 1, :, pos : pos + n, :] = v
+ 
+     def read(self, layer: int, upto: int) -> tuple[torch.Tensor, torch.Tensor]:
+         return self.buf[layer, 0, :, :upto], self.buf[layer, 1, :, :upto]
+```

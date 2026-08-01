@@ -1,0 +1,30 @@
+```diff
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -159,11 +159,11 @@
+     cache.write(layer_idx, k[0], v[0], start_pos)
+     k_full, v_full = cache.read(layer_idx, start_pos + T)
+     k_full, v_full = k_full.unsqueeze(0), v_full.unsqueeze(0)
+ 
+     n_rep = cfg.n_head // cfg.n_kv_head
+     if n_rep > 1:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=(T > 1))
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+@@ -311,11 +311,11 @@
+     cache.write(layer_idx, block_table, start_pos, k[0], v[0])
+     k_full, v_full = cache.read(layer_idx, block_table, start_pos + T)
+     k_full, v_full = k_full.unsqueeze(0), v_full.unsqueeze(0)
+ 
+     n_rep = cfg.n_head // cfg.n_kv_head
+     if n_rep > 1:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=(T > 1))
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+```

@@ -1,0 +1,50 @@
+--- a/site/sync-docs.py
++++ b/site/sync-docs.py
+@@
+-def escape_mdx(text: str) -> str:
+-    """Escape characters MDX would read as JSX, outside code fences.
+-
+-    MDX 3 treats `<` as the start of a JSX tag, so prose like "under <1,000
+-    lines" or "<UNK>" fails to compile. Inside fenced code blocks these must be
+-    left exactly as written, so fences are stepped over rather than rewritten.
+-    """
+-    out, in_fence = [], False
++# A `<` that is not opening a tag or a closing tag is literal text.
++ANGLE_RE = re.compile(r"<(?![a-zA-Z/!])")
++# An inline code span: a run of backticks, its contents, and a closing run.
++INLINE_CODE_RE = re.compile(r"`+[^`]*`+")
++
++
++def escape_outside_inline_code(line: str) -> str:
++    """Escape one line of prose, leaving its inline code spans verbatim."""
++    out, pos = [], 0
++    for m in INLINE_CODE_RE.finditer(line):
++        out.append(ANGLE_RE.sub("&lt;", line[pos:m.start()]))
++        out.append(m.group(0))
++        pos = m.end()
++    out.append(ANGLE_RE.sub("&lt;", line[pos:]))
++    return "".join(out)
++
++
++def escape_mdx(text: str) -> str:
++    """Escape characters MDX would read as JSX, outside code.
++
++    MDX 3 treats `<` as the start of a JSX tag, so prose like "under <1,000
++    lines" or "<UNK>" fails to compile. Code is already code to MDX, so both
++    fenced blocks and inline spans are stepped over rather than rewritten —
++    escaping inside them would show the reader a literal `&lt;`.
++    """
++    out, in_fence = [], False
+     for line in text.split("\n"):
+         stripped = line.lstrip()
+         if stripped.startswith(("```", "~~~")):
+             in_fence = not in_fence
+             out.append(line)
+             continue
+         if in_fence:
+             out.append(line)
+             continue
+-        # A `<` that is not opening a tag or a closing tag is literal text.
+-        out.append(re.sub(r"<(?![a-zA-Z/!])", "&lt;", line))
++        out.append(escape_outside_inline_code(line))
+     return "\n".join(out)

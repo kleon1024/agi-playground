@@ -1,0 +1,69 @@
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -133,7 +133,24 @@
+     def read(self, layer: int, upto: int) -> tuple[torch.Tensor, torch.Tensor]:
+         return self.buf[layer, 0, :, :upto], self.buf[layer, 1, :, :upto]
+ 
+ 
++def _causal_mask(T: int, start_pos: int, device) -> torch.Tensor:
++    """Boolean attention mask for T queries at absolute positions
++    `start_pos .. start_pos+T` over the `start_pos + T` keys already held in
++    the cache: query i may read key j exactly when `j <= start_pos + i`.
++
++    `F.scaled_dot_product_attention(..., is_causal=True)` cannot express
++    this. For a non-square (T_q, T_k) it builds the mask *top-left* aligned —
++    `j <= i` counted from the start of the key block — so a decode step (one
++    query against N cached keys) would attend to key 0 alone and its logits
++    would diverge from a full recompute. Prefill, where T_q == T_k, is the
++    only case in which the built-in mask and this one agree.
++    """
++    q_pos = torch.arange(start_pos, start_pos + T, device=device).unsqueeze(1)
++    k_pos = torch.arange(start_pos + T, device=device).unsqueeze(0)
++    return (k_pos <= q_pos).view(1, 1, T, start_pos + T)
++
++
+ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_idx: int, start_pos: int):
+     """Re-implementation of `Attention.forward` (model.py) with a cache.
+ 
+@@ -145,9 +162,9 @@
+     - the new token's K/V are written into the cache before reading, and
+       attention runs against the cache's full contents (`start_pos + T`
+       tokens) rather than only the T tokens in `x` — the entire point.
+-    - `is_causal=True` still holds for a 1-query, N-key decode step: SDPA's
+-      causal mask aligns the query block against the *last* T_q positions of
+-      the key block, which for T_q=1 means "attend to everything" — exactly
+-      the single new token attending over all prior cached tokens.
++    - the mask comes from `_causal_mask`, not `is_causal=True`: the queries
++      sit at absolute positions `start_pos ..` while the keys start at 0, and
++      SDPA's built-in causal mask assumes the two blocks start together, so
++      it would cut a decode step down to the very first cached token.
+     """
+     _, T, _ = x.shape
+@@ -159,10 +176,11 @@
+     cache.write(layer_idx, k[0], v[0], start_pos)
+     k_full, v_full = cache.read(layer_idx, start_pos + T)
+     k_full, v_full = k_full.unsqueeze(0), v_full.unsqueeze(0)
+ 
+     n_rep = cfg.n_head // cfg.n_kv_head
+     if n_rep > 1:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    mask = _causal_mask(T, start_pos, x.device)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=mask)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+@@ -326,10 +344,11 @@
+     cache.write(layer_idx, block_table, start_pos, k[0], v[0])
+     k_full, v_full = cache.read(layer_idx, block_table, start_pos + T)
+     k_full, v_full = k_full.unsqueeze(0), v_full.unsqueeze(0)
+ 
+     n_rep = cfg.n_head // cfg.n_kv_head
+     if n_rep > 1:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    mask = _causal_mask(T, start_pos, x.device)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=mask)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))

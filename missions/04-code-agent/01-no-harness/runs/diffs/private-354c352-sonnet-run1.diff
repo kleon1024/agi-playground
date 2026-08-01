@@ -1,0 +1,36 @@
+--- a/site/sync-docs.py
++++ b/site/sync-docs.py
+@@ -177,8 +177,8 @@ def escape_mdx(text: str) -> str:
+     """Escape characters MDX would read as JSX, outside code fences.
+ 
+     MDX 3 treats `<` as the start of a JSX tag, so prose like "under <1,000
+-    lines" or "<UNK>" fails to compile. Inside fenced code blocks these must be
+-    left exactly as written, so fences are stepped over rather than rewritten.
++    lines" or "<UNK>" fails to compile. Inside fenced code blocks and inline
++    code spans these must be left exactly as written, so both are stepped
++    over rather than rewritten.
+     """
+     out, in_fence = [], False
+     for line in text.split("\n"):
+@@ -190,9 +190,18 @@ def escape_mdx(text: str) -> str:
+         if in_fence:
+             out.append(line)
+             continue
+-        # A `<` that is not opening a tag or a closing tag is literal text.
+-        out.append(re.sub(r"<(?![a-zA-Z/!])", "&lt;", line))
++        out.append(_escape_angle_brackets(line))
+     return "\n".join(out)
+ 
+ 
++def _escape_angle_brackets(line: str) -> str:
++    """Escape `<` outside inline code spans, leaving spans verbatim."""
++    parts = re.split(r"(`[^`]*`)", line)
++    for i, part in enumerate(parts):
++        if part.startswith("`") and part.endswith("`") and len(part) >= 2:
++            continue
++        # A `<` that is not opening a tag or a closing tag is literal text.
++        parts[i] = re.sub(r"<(?![a-zA-Z/!])", "&lt;", part)
++    return "".join(parts)
++
++
+ def description_from(body: str) -> str:

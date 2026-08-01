@@ -1,0 +1,33 @@
+Looking at the failing tests for KV cache and paged cache logits correctness, I need to identify the bug in the attention implementation.
+
+The issue is with the `is_causal=True` parameter in the `F.scaled_dot_product_attention` calls. During the decode phase, when we have a single query token attending to many cached key/value tokens, the causal mask behaves incorrectly:
+
+- During **prefill**: Multiple query tokens (T > 1) should each attend to prior keys - `is_causal=True` is correct
+- During **decode**: One query token (T = 1) should attend to ALL prior keys in cache - but `is_causal=True` makes it attend only to itself
+
+The fix is to only apply the causal mask when we have multiple query tokens (prefill), not single tokens (decode):
+
+```diff
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -120,7 +120,7 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_id
+     if n_rep > 1:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=(T > 1))
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -232,7 +232,7 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCach
+     if n_rep > 1:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=(T > 1))
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+```
