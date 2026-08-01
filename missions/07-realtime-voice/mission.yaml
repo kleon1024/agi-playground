@@ -129,13 +129,19 @@ proves: >
 
 does_not_prove: >
   Nothing about production speech quality, naturalness, or intelligibility at
-  any scale beyond the toy codec trained here. Nothing about multi-speaker or
-  multilingual robustness — the dataset is small and homogeneous by
-  construction (a later real-speech stage uses only 1-2 LibriSpeech
-  speakers, not the corpus's 40+ dev-clean speakers). Nothing about true
-  full-duplex operation (simultaneous listening and speaking); the loop here
-  is one direction at a time. Nothing about production speech quality
-  relative to real neural codecs (SoundStream/EnCodec scale). And the later
-  stage's real-network measurement is specific to this repository's own
-  home-network Tailscale link, not a general internet client's latency — it
-  does not generalize to arbitrary network paths.
+  any scale beyond the toy codec trained here. Multi-speaker robustness is
+  only partially tested: a later stage trains on 1-2 LibriSpeech speakers,
+  and a follow-on stage extends this to 10 of the corpus's 40+ dev-clean
+  speakers, at which the same fix that escaped collapse for 1-2 speakers
+  (more steps, unchanged learning rate) still avoids full collapse in all 3
+  seeds tried, but codebook utilization becomes highly seed-dependent
+  (18-63 of 64 codes used, where 1-2 speakers consistently reached 51-63) —
+  this is still not the full 40+ speaker corpus, and nothing here establishes
+  what happens beyond 10 speakers or with the seed-to-seed variance
+  unresolved. Nothing about true full-duplex operation (simultaneous
+  listening and speaking); the loop here is one direction at a time. Nothing
+  about production speech quality relative to real neural codecs
+  (SoundStream/EnCodec scale). And the later stage's real-network measurement
+  is specific to this repository's own home-network Tailscale link, not a
+  general internet client's latency — it does not generalize to arbitrary
+  network paths.

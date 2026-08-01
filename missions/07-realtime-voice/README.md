@@ -80,6 +80,7 @@ identical to this stage's single-codebook VQ, at a far larger scale.
 | [01 — Streaming decode](01-streaming-decode/) | does the existing KV-cache mechanism work unchanged for audio tokens? | verified |
 | [02 — Report](02-report/) | what does streaming cost in latency, and what does it buy or lose against the offline pass? | verified — MET |
 | [03 — Real speech and network](03-real-speech-and-network/) | does the same codec architecture and the same KV cache hold on real speech, over a real network? | verified |
+| [04 — Multi-speaker](04-multi-speaker/) | does the fix that escaped collapse for 1-2 speakers still work at 10? | verified |
 
 [Stage 00](00-audio-codec/) built a small conv encoder / vector-quantization
 / conv decoder codec, trained on synthetic tone-sequence clips (no real
@@ -136,6 +137,18 @@ layered on top of, not merged with, stage 01's local decode latency. Full
 numbers in
 [its run record](03-real-speech-and-network/runs/2026-08-01-real-speech-and-network.md).
 
+[Stage 04](04-multi-speaker/) reran stage 03's exact fix — 2000 steps,
+`lr=1e-3`, no architecture change — on a balanced 10-speaker LibriSpeech mix
+instead of 1-2. All three seeds still beat both naive baselines (no full
+collapse), but the tight, consistent codebook health stage 03 found at 1-2
+speakers (51-63 of 64 codes, ~52-53% margin over silence, all three seeds
+within a narrow band) breaks down into strong seed-dependence at 10 speakers
+(18-63 of 64 codes, 4.3%-38.2% margin) — the same fix keeps the codec from
+failing outright, but no longer reliably converges to a well-utilized
+codebook. The KV-cache mechanism held regardless (max logit gap 2.45e-05,
+same order of magnitude as every prior stage). Full numbers in
+[its run record](04-multi-speaker/runs/2026-08-01-multi-speaker.md).
+
 Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the baseline and metric
 above cannot be chosen after seeing which ones flatter a result.
@@ -143,9 +156,12 @@ above cannot be chosen after seeing which ones flatter a result.
 ## What this will not prove
 
 The codec and dataset are toy-scale by construction, so nothing here says
-anything about production speech quality, multi-speaker or multilingual
-robustness, or true full-duplex operation — the loop runs one direction at a
-time. Stage 03 adds a real network round trip, but only over this
+anything about production speech quality or true full-duplex operation — the
+loop runs one direction at a time. Multi-speaker robustness is only
+partially tested: stage 03 uses 1-2 speakers, stage 04 extends this to 10 of
+the corpus's 40+ dev-clean speakers, and neither is the full corpus. Nothing
+here diagnoses *why* stage 04's escape became seed-dependent, only that it
+did. Stage 03 adds a real network round trip, but only over this
 repository's own home Tailscale link — a DERP-relayed hop on this sandbox's
 network path — which does not generalize to arbitrary internet paths or a
 direct (non-relayed) connection. Full boundary in

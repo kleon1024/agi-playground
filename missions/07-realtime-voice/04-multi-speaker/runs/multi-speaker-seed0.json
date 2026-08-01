@@ -1,0 +1,353 @@
+{
+  "seed": 0,
+  "speakers": [
+    "2277",
+    "1462",
+    "2035",
+    "3752",
+    "6313",
+    "3081",
+    "2428",
+    "5694",
+    "5895",
+    "7976"
+  ],
+  "n_speakers": 10,
+  "n_train": 400,
+  "n_eval": 100,
+  "codec_steps": 2000,
+  "codec_lr": 0.001,
+  "data_wall_clock_s": 2.1160069999750704,
+  "codec_wall_clock_s": 779.9826817919966,
+  "lm_wall_clock_s": 83.25321633392014,
+  "codec_history": [
+    {
+      "step": 0,
+      "recon_loss": 0.05114196985960007,
+      "vq_loss": 0.01131021324545145
+    },
+    {
+      "step": 50,
+      "recon_loss": 0.03333915024995804,
+      "vq_loss": 6.459890755650122e-06
+    },
+    {
+      "step": 100,
+      "recon_loss": 0.031199898570775986,
+      "vq_loss": 3.856702619486896e-07
+    },
+    {
+      "step": 150,
+      "recon_loss": 0.02722732350230217,
+      "vq_loss": 2.3052074027418712e-07
+    },
+    {
+      "step": 200,
+      "recon_loss": 0.03134073317050934,
+      "vq_loss": 1.9066159495650936e-07
+    },
+    {
+      "step": 250,
+      "recon_loss": 0.030055100098252296,
+      "vq_loss": 1.7982549138650938e-07
+    },
+    {
+      "step": 300,
+      "recon_loss": 0.03521835058927536,
+      "vq_loss": 2.0034707404192886e-07
+    },
+    {
+      "step": 350,
+      "recon_loss": 0.030725453048944473,
+      "vq_loss": 1.2217044798035204e-07
+    },
+    {
+      "step": 400,
+      "recon_loss": 0.02765887975692749,
+      "vq_loss": 1.0362364122329382e-07
+    },
+    {
+      "step": 450,
+      "recon_loss": 0.02806427888572216,
+      "vq_loss": 1.049283753218333e-07
+    },
+    {
+      "step": 500,
+      "recon_loss": 0.03199135139584541,
+      "vq_loss": 1.2507230451319629e-07
+    },
+    {
+      "step": 550,
+      "recon_loss": 0.02952786162495613,
+      "vq_loss": 1.0232348301997263e-07
+    },
+    {
+      "step": 600,
+      "recon_loss": 0.02570672333240509,
+      "vq_loss": 1.1605759198118903e-07
+    },
+    {
+      "step": 650,
+      "recon_loss": 0.03468802198767662,
+      "vq_loss": 1.4230975864393258e-07
+    },
+    {
+      "step": 700,
+      "recon_loss": 0.03631303459405899,
+      "vq_loss": 1.9649962723633507e-07
+    },
+    {
+      "step": 750,
+      "recon_loss": 0.033852629363536835,
+      "vq_loss": 3.0230734182623564e-07
+    },
+    {
+      "step": 800,
+      "recon_loss": 0.031470730900764465,
+      "vq_loss": 2.874647009321052e-07
+    },
+    {
+      "step": 850,
+      "recon_loss": 0.03105754777789116,
+      "vq_loss": 4.1974672626565734e-07
+    },
+    {
+      "step": 900,
+      "recon_loss": 0.03063083440065384,
+      "vq_loss": 3.671888748613128e-07
+    },
+    {
+      "step": 950,
+      "recon_loss": 0.0287166815251112,
+      "vq_loss": 3.679631674913253e-07
+    },
+    {
+      "step": 1000,
+      "recon_loss": 0.02841278165578842,
+      "vq_loss": 5.347398541744042e-07
+    },
+    {
+      "step": 1050,
+      "recon_loss": 0.02330600842833519,
+      "vq_loss": 5.315279167916742e-07
+    },
+    {
+      "step": 1100,
+      "recon_loss": 0.0272075105458498,
+      "vq_loss": 9.782826282389578e-07
+    },
+    {
+      "step": 1150,
+      "recon_loss": 0.038165539503097534,
+      "vq_loss": 9.593436516297515e-07
+    },
+    {
+      "step": 1200,
+      "recon_loss": 0.030500877648591995,
+      "vq_loss": 6.496932769550767e-07
+    },
+    {
+      "step": 1250,
+      "recon_loss": 0.03524819761514664,
+      "vq_loss": 1.4561589978256961e-06
+    },
+    {
+      "step": 1300,
+      "recon_loss": 0.026293130591511726,
+      "vq_loss": 1.0346084309276193e-06
+    },
+    {
+      "step": 1350,
+      "recon_loss": 0.0287599079310894,
+      "vq_loss": 1.1799036201409763e-06
+    },
+    {
+      "step": 1400,
+      "recon_loss": 0.035456351935863495,
+      "vq_loss": 1.5077889656822663e-06
+    },
+    {
+      "step": 1450,
+      "recon_loss": 0.023907246068120003,
+      "vq_loss": 1.7287500213569729e-06
+    },
+    {
+      "step": 1500,
+      "recon_loss": 0.03366577997803688,
+      "vq_loss": 3.1831159503781237e-06
+    },
+    {
+      "step": 1550,
+      "recon_loss": 0.027430161833763123,
+      "vq_loss": 1.7292517213718384e-06
+    },
+    {
+      "step": 1600,
+      "recon_loss": 0.02712775580585003,
+      "vq_loss": 3.6077312870475e-06
+    },
+    {
+      "step": 1650,
+      "recon_loss": 0.03385359048843384,
+      "vq_loss": 3.6745850593433715e-06
+    },
+    {
+      "step": 1700,
+      "recon_loss": 0.026329804211854935,
+      "vq_loss": 4.084712600160856e-06
+    },
+    {
+      "step": 1750,
+      "recon_loss": 0.03245598450303078,
+      "vq_loss": 4.832893409911776e-06
+    },
+    {
+      "step": 1800,
+      "recon_loss": 0.02651117369532585,
+      "vq_loss": 1.6201405742322095e-05
+    },
+    {
+      "step": 1850,
+      "recon_loss": 0.02938253805041313,
+      "vq_loss": 0.0018467415357008576
+    },
+    {
+      "step": 1900,
+      "recon_loss": 0.03171826899051666,
+      "vq_loss": 0.0006775249494239688
+    },
+    {
+      "step": 1950,
+      "recon_loss": 0.03446456789970398,
+      "vq_loss": 0.0007290668436326087
+    }
+  ],
+  "codec_eval_mse": 0.027124574407935143,
+  "baseline_mse": {
+    "silence": 0.028329577296972275,
+    "mean_signal": 0.02840436063706875
+  },
+  "beats_silence": true,
+  "beats_mean_signal": true,
+  "codebook_usage": {
+    "unique_codes_used": 18,
+    "codebook_size": 64,
+    "entropy_ratio": 0.4051345133636252
+  },
+  "per_speaker_mse": {
+    "1462": {
+      "n_clips": 9,
+      "mean_mse": 0.041483809136682086
+    },
+    "2035": {
+      "n_clips": 15,
+      "mean_mse": 0.02891192284102241
+    },
+    "2277": {
+      "n_clips": 13,
+      "mean_mse": 0.021724124295780294
+    },
+    "2428": {
+      "n_clips": 10,
+      "mean_mse": 0.02199400058016181
+    },
+    "3081": {
+      "n_clips": 11,
+      "mean_mse": 0.036660920828580856
+    },
+    "3752": {
+      "n_clips": 9,
+      "mean_mse": 0.02637575442592303
+    },
+    "5694": {
+      "n_clips": 5,
+      "mean_mse": 0.03748370967805385
+    },
+    "5895": {
+      "n_clips": 8,
+      "mean_mse": 0.011707903380738571
+    },
+    "6313": {
+      "n_clips": 5,
+      "mean_mse": 0.01655009835958481
+    },
+    "7976": {
+      "n_clips": 15,
+      "mean_mse": 0.026572428457438946
+    }
+  },
+  "codec_examples": [
+    {
+      "clip_index": 0,
+      "speaker_id": "3081",
+      "utterance_id": "3081-166546-0002",
+      "reference_wav": "example_clips/multi0_reference.wav",
+      "reconstructed_wav": "example_clips/multi0_reconstructed.wav",
+      "per_clip_mse": 0.02671239525079727
+    },
+    {
+      "clip_index": 1,
+      "speaker_id": "6313",
+      "utterance_id": "6313-66125-0001",
+      "reference_wav": "example_clips/multi1_reference.wav",
+      "reconstructed_wav": "example_clips/multi1_reconstructed.wav",
+      "per_clip_mse": 0.027560699731111526
+    },
+    {
+      "clip_index": 2,
+      "speaker_id": "2035",
+      "utterance_id": "2035-147960-0000",
+      "reference_wav": "example_clips/multi2_reference.wav",
+      "reconstructed_wav": "example_clips/multi2_reconstructed.wav",
+      "per_clip_mse": 0.027702543884515762
+    }
+  ],
+  "streaming_correctness": {
+    "max_logit_gap_over_all_clips": 2.2172927856445312e-05,
+    "mean_logit_gap": 7.800012826919556e-06,
+    "all_token_sequences_matched": true,
+    "n_clips_total": 100
+  },
+  "latency_s_local_cpu": {
+    "naive_early_steps": {
+      "p50": 0.0017147078178822994,
+      "p95": 0.003033916000276804,
+      "mean": 0.0018419597526080906
+    },
+    "naive_late_steps": {
+      "p50": 0.001796083990484476,
+      "p95": 0.0029064579866826534,
+      "mean": 0.0019314217017963528
+    },
+    "cached_early_steps": {
+      "p50": 0.0012810418847948313,
+      "p95": 0.0025334160309284925,
+      "mean": 0.0014729550597257911
+    },
+    "cached_late_steps": {
+      "p50": 0.0012014589738100767,
+      "p95": 0.0016562920063734055,
+      "mean": 0.0012732153376564383
+    }
+  },
+  "examples": [
+    {
+      "clip_index": 0,
+      "speaker_id": "3081",
+      "utterance_id": "3081-166546-0002",
+      "tokens_match": true
+    },
+    {
+      "clip_index": 1,
+      "speaker_id": "6313",
+      "utterance_id": "6313-66125-0001",
+      "tokens_match": true
+    },
+    {
+      "clip_index": 2,
+      "speaker_id": "2035",
+      "utterance_id": "2035-147960-0000",
+      "tokens_match": true
+    }
+  ]
+}
