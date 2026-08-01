@@ -48,7 +48,7 @@ test_positive_rate:             5.28%
 Measured scaffold overlap is 0.0, same guarantee as stage 00. Class balance
 shifts across the split even more sharply than SR-MMP's did (2.29% train vs
 5.28% test, a >2x ratio) — a direct, expected consequence of the same
-scaffold-grouping construction on a much rarer positive class: with only 148
+scaffold-grouping construction on a much rarer positive class: with only 118
 positive compounds in the entire training set, whole-scaffold-group
 assignment moves a larger fraction of the minority class's mass at once.
 
@@ -82,7 +82,7 @@ weight than SR-MMP's), same 4-layer/128-d architecture, unchanged.
 
 **Mean 0.6591, spread (max-min) 0.0619** — roughly 4x the trained model's own
 spread on SR-MMP (0.0159), from the same architecture and step count. With
-only ~148 positive training examples (2.29% of 5,154), each seed's minibatch
+only ~118 positive training examples (2.29% of 5,154), each seed's minibatch
 sampling draws a meaningfully different effective positive set over 600
 steps, which is the direct, measurable cause of the wider spread: this is not
 a new instability in the model, it is the same seed-only randomness (batch
@@ -114,7 +114,7 @@ built to allow.** On SR-MMP, the descriptor baseline won clearly and
 repeatably (gap 5x the larger spread). On NR-PPAR-gamma, neither approach
 wins by more than run-to-run noise. The most likely proximate cause is
 directly measurable rather than mysterious: NR-PPAR-gamma's training split
-has only 148 positive compounds, versus SR-MMP's 764 — roughly 5x fewer —
+has only 118 positive compounds, versus SR-MMP's 689 — roughly 6x fewer —
 and the trained model's spread scales with that scarcity in a way the
 convex, closed-form-gradient descriptor baseline's does not (0.0044 vs
 0.0619, a >14x difference in spread between the two endpoints for the same

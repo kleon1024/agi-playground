@@ -64,8 +64,8 @@ nowhere near the bar stage 02 used to call SR-MMP a clear, repeatable
 descriptor-baseline win. This neither replicates nor reverses stage 02's
 finding; it is the third legitimate outcome the mission's own decision
 framing exists to allow. The most likely proximate cause is directly
-measurable: NR-PPAR-gamma's training split has only 148 positive compounds
-(2.29%) versus SR-MMP's 764 (14.8%), and the trained model's spread grows
+measurable: NR-PPAR-gamma's training split has only 118 positive compounds
+(2.29%) versus SR-MMP's 689 (14.8%), and the trained model's spread grows
 roughly 4x between the two endpoints while the descriptor baseline's spread
 barely moves — small-model training variance scales with positive-class
 scarcity in a way a convex descriptor fit does not.

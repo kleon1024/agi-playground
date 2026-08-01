@@ -469,6 +469,11 @@
             "type": "doc",
             "id": "missions/09-bio-pharma-modeling/03-second-endpoint/index",
             "label": "Second endpoint \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/09-bio-pharma-modeling/04-third-endpoint/index",
+            "label": "Third endpoint \u00b7 verified"
           }
         ]
       }
