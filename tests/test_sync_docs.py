@@ -58,7 +58,7 @@ def test_every_chapter_directory_is_listed():
     for section in ("platform", "capabilities"):
         for readme in sorted((ROOT / section).rglob("README.md")):
             chapter = readme.parent.relative_to(ROOT).as_posix()
-            if any(part in ("core", "prod", "runs") for part in Path(chapter).parts):
+            if any(part in ("core", "prod", "runs", "cache") for part in Path(chapter).parts):
                 continue
             if SYNC_DOCS.DIR_NUM_RE.match(readme.parent.name):
                 continue  # a sub-lesson, ordered by its own directory prefix
@@ -237,7 +237,7 @@ def test_no_published_page_is_an_orphan_in_prose():
         page
         for section in sections
         for page in sorted((ROOT / section).rglob("*.md"))
-        if not {"core", "prod", "runs"} & set(page.parts)
+        if not {"core", "prod", "runs", "cache"} & set(page.parts)
     ]
 
     def page_id(path: Path) -> str:

@@ -1,0 +1,13 @@
+diff --git a/more_itertools/more.py b/more_itertools/more.py
+index 4f2cfa9..fa8bcea 100755
+--- a/more_itertools/more.py
++++ b/more_itertools/more.py
+@@ -1337,6 +1337,8 @@ def interleave_evenly(iterables, lengths=None):
+         raise ValueError('Mismatching number of iterables and lengths.')
+ 
+     dims = len(lengths)
++    if dims == 0:
++        return
+ 
+     # sort iterables by length, descending
+     lengths_permute = sorted(

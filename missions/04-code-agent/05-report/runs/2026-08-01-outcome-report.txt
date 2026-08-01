@@ -8,8 +8,8 @@ Mission 04 outcome report
     haiku    harness 6/6 (per-run [1.0, 1.0, 1.0], spread 0.000)  vs no-harness 0/6 (per-run [0.0, 0.0, 0.0], spread 0.000)  margin +1.000  DECISIVE
     opus     harness 6/6 (per-run [1.0, 1.0, 1.0], spread 0.000)  vs no-harness 3/6 (per-run [0.0, 0.5, 1.0], spread 1.000)  margin +0.500  inside spread -- no result
     sonnet   harness 6/6 (per-run [1.0, 1.0, 1.0], spread 0.000)  vs no-harness 1/6 (per-run [0.5, 0.0, 0.0], spread 0.500)  margin +0.833  DECISIVE
-  public set: NOT BUILT. Stage 00 mined only a private task set from this repository's own history; no public benchmark subset was ever admitted alongside it. This bullet cannot be evaluated on 'both task sets' because only one exists.
-  -> CANNOT DETERMINE (public task set was never built by stage 00)
+  public set: harness (haiku, 6 attempts) resolved 6/6. No no-harness control has been run against the public set -- only claude_arm.py's harness arm exists there. The bullet's own comparison ('beats no-harness ... both task sets') cannot complete for the public half without that control; it is not assumed from the private set's result.
+  -> PARTIAL -- private set: decisive on ['haiku', 'sonnet'], inside run-to-run spread on ['opus'] (N=2 tasks limits this). Public set: harness resolved 6/6, but no no-harness control exists to compare against, so the public half of this bullet is CANNOT DETERMINE, not MET.
 
 2. Beats always-frontier on $/resolved without losing resolve rate by more than the spread
 ------------------------------------------------------------------------
@@ -23,21 +23,24 @@ Mission 04 outcome report
 
 3. No guardrail regresses; test-tampering guardrail fires on a real attempt, or is reported as never firing
 ------------------------------------------------------------------------
-  real attempts inspected: 36 (18 harness + 18 no-harness)
+  real attempts inspected: 42 (18 private harness + 18 private no-harness + 6 public harness)
   regressed: 0
-  tampering guardrail: never fired on a real model attempt across all 36 real attempts in this mission. (Stage 02's scripted `--demo tamper` run demonstrates the check mechanically; it used no model and is not counted here.)
+  tampering guardrail: never fired on a real model attempt across all 42 real attempts in this mission. (Stage 02's scripted `--demo tamper` run demonstrates the check mechanically; it used no model and is not counted here.)
   -> MET (guardrail behaved correctly and was explicitly reported either way)
 
 4. Resolve rate reported separately for public and private sets, never pooled
 ------------------------------------------------------------------------
-  Only the private set exists; there is nothing to pool it with, and this report has not pooled anything. Same gap as bullet 1.
-  -> CANNOT DETERMINE (no public set exists)
+  private (harness, stage 03, all tiers pooled for display only): 18/18 resolved
+  public (harness, haiku only): 6/6 resolved
+  reported side by side, never averaged into one figure.
+  -> MET
 
 5. Latency and dollars measured on real runs and inside budget
 ------------------------------------------------------------------------
-  total real spend across stages 01+03: $14.2627 over 36 attempts
-  stage 03 harness: p50=83.3s p95=200.5s over 18 attempts
-  stage 01 no-harness: p50=82.1s p95=250.7s over 18 attempts
+  total real spend across stages 00(public)+01+03: $14.9034 over 42 attempts
+  stage 03 harness (private): p50=83.3s p95=200.5s over 18 attempts
+  stage 01 no-harness (private): p50=82.1s p95=250.7s over 18 attempts
+  stage 00 harness (public): p50=89.8s p95=102.1s over 6 attempts
   2/18 no-harness attempts hit the declared 240s wall-clock cap and are scored as failures, per mission.yaml's guardrail, not retried with a longer cap.
   -> MET (both measured on real runs; see each stage's runs/ entry for the declared ceiling)
 
@@ -52,4 +55,4 @@ Mission 04 outcome report
   -> MET
 
 ========================================================================
-OVERALL: NOT MET / PARTIAL / CANNOT DETERMINE on bullets ['1', '4'] of 7
+OVERALL: NOT MET / PARTIAL / CANNOT DETERMINE on bullets ['1'] of 7

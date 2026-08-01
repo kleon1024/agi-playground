@@ -48,6 +48,7 @@ import scoring
 REPO = Path(__file__).resolve().parents[4]
 AGENT_CORE = REPO / "missions/01-language-model-agent/06-agent/core"
 MINER_PATH = REPO / "missions/04-code-agent/00-task-set/core/mine_history.py"
+PUBLIC_MINER_PATH = REPO / "missions/04-code-agent/00-task-set/core/mine_public.py"
 DEFAULT_MANIFEST = REPO / "missions/04-code-agent/tasks/private.jsonl"
 
 
@@ -68,6 +69,16 @@ sys.path.insert(0, str(AGENT_CORE))
 TOOLS = _load("tools", AGENT_CORE / "tools.py")
 HARNESS = _load("harness", AGENT_CORE / "harness.py")
 MINER = _load("mine_history", MINER_PATH)
+PUBLIC_MINER = _load("mine_public", PUBLIC_MINER_PATH)
+
+
+def _miner_for(task: dict):
+    """The private and public task sets are materialized from different
+    repositories (this one vs. a cached public clone), so each needs its own
+    miner module -- but both produce the identical `Task` shape, and
+    everything past `materialize()` (scoring, the agent loop, cost
+    accounting) reads either one the same way."""
+    return PUBLIC_MINER if task.get("source") == "public" else MINER
 
 
 # ---------------------------------------------------------------------------
@@ -207,14 +218,15 @@ class Attempt:
 
 def attempt(task: dict, backend, *, max_steps: int = 25, keep: Path | None = None) -> Attempt:
     """Materialize, measure, run, measure again, score."""
-    task_obj = MINER.Task(**task)
+    miner = _miner_for(task)
+    task_obj = miner.Task(**task)
     started = time.perf_counter()
     with tempfile.TemporaryDirectory() as tmp:
         work = Path(tmp) / "wt"
         junit = Path(tmp) / "out.xml"
         # A standalone one-commit repository: the base state, with no route to
-        # the fix commit and nothing already modified. See MINER.materialize.
-        MINER.materialize(task_obj, work)
+        # the fix commit and nothing already modified. See miner.materialize.
+        miner.materialize(task_obj, work)
         try:
             target_cmd = scoring.instrument(task_obj.test_command, junit)
             suite_cmd = scoring.instrument(task_obj.test_command, junit, targets=["tests"])
@@ -267,7 +279,7 @@ def attempt(task: dict, backend, *, max_steps: int = 25, keep: Path | None = Non
                 target_failing_after=verdict.target_failing_after,
             )
         finally:
-            MINER.cleanup(work)
+            miner.cleanup(work)
 
 
 def _diff(work: Path) -> str:

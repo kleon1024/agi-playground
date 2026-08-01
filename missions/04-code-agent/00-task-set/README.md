@@ -1,7 +1,7 @@
 ---
 status: verified
 level: applied
-verified: 2026-07-29
+verified: 2026-08-01
 label: The task set
 ---
 
@@ -158,6 +158,30 @@ and it is also the entire content of the guardrail this mission will later point
 at the agent: a scoreboard reading 100% looks identical whether the agent fixed
 the code or deleted the assertion.
 
+## The public companion
+
+`mission.yaml` calls for a public set beside the private one; this chapter's
+first build produced only the latter. [`mine_public.py`](core/mine_public.py)
+applies the identical rule to a public, permissively-licensed repository --
+[more-itertools](https://github.com/more-itertools/more-itertools) (MIT) --
+cloned on demand into a gitignored cache rather than vendored, pinned to one
+commit so re-mining does not chase a moving default branch.
+
+Same rule, same rejections in kind: of 6 lowercase-`fix` candidates that touch
+both `tests/` and a `.py` source file, 2 verified. Three were rejected because
+their target test already passed at the base state -- the same defect class
+this repository's own private-set mining found in its own suite. A fourth
+hung (exit 137) rather than failing cleanly, and was excluded for the same
+reason `PYTEST_NOTHING_COLLECTED` excludes a task here: something other than a
+clean pass or fail is not a result the admission rule can score.
+
+A real haiku run (`claude_arm.py`, 3 repeats per task) resolved both public
+tasks every time -- 6/6, zero tampering. Full mining and run record in
+[`runs/2026-08-01-public-task-set.md`](runs/2026-08-01-public-task-set.md).
+Report it beside the private set, never pooled with it -- the whole reason a
+public set exists is that its history may be inside a model's training data,
+which the private set is built specifically not to be.
+
 ## Run it
 
 ```bash
@@ -165,6 +189,10 @@ cd missions/04-code-agent/00-task-set/core
 uv run python mine_history.py candidates
 uv run python mine_history.py mine            # -> tasks/candidates.jsonl
 uv run python mine_history.py verify --write  # -> tasks/private.jsonl
+
+uv run python mine_public.py candidates
+uv run python mine_public.py mine             # -> tasks/public-candidates.jsonl
+uv run python mine_public.py verify --write   # -> tasks/public.jsonl
 ```
 
 CPU only, no network, no API key, 16 seconds. Each task materializes as a

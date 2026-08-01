@@ -22,6 +22,12 @@ PRIVATE_MANIFEST = MISSION_ROOT / "tasks" / "private.jsonl"
 PUBLIC_MANIFEST = MISSION_ROOT / "tasks" / "public.jsonl"
 STAGE03_RESULTS = MISSION_ROOT / "03-cheap-or-expensive" / "runs" / "2026-07-29-results.jsonl"
 STAGE01_RESULTS = MISSION_ROOT / "01-no-harness" / "runs" / "no-harness-results.jsonl"
+# The public set's only real attempts so far: a harness run (claude_arm.py),
+# no no-harness control. Bullet 1 needs both arms on both sets to fully
+# resolve; this file lets it resolve as far as the data actually goes,
+# instead of staying CANNOT DETERMINE for the "set does not exist" reason
+# once it does exist.
+PUBLIC_HARNESS_RESULTS = MISSION_ROOT / "00-task-set" / "runs" / "public-haiku-3runs.jsonl"
 
 
 def load_jsonl(path: Path) -> list[dict]:
@@ -67,6 +73,7 @@ def main() -> None:
 
     stage03 = load_jsonl(STAGE03_RESULTS)
     stage01 = load_jsonl(STAGE01_RESULTS)
+    public_harness = load_jsonl(PUBLIC_HARNESS_RESULTS)
     has_public_set = PUBLIC_MANIFEST.exists() and bool(PUBLIC_MANIFEST.read_text().strip())
 
     missing = []
@@ -117,13 +124,34 @@ def main() -> None:
             "cannot be evaluated on 'both task sets' because only one exists."
         )
         verdicts["1"] = "CANNOT DETERMINE (public task set was never built by stage 00)"
-    elif non_decisive_tiers:
-        verdicts["1"] = (
-            f"PARTIAL -- decisive on {decisive_tiers}, inside run-to-run spread on {non_decisive_tiers} "
-            f"(N=2 tasks limits this)"
+    elif not public_harness:
+        lines.append(
+            "  public set: exists (2 tasks, mine_public.py, more-itertools) but no real attempt has "
+            "been run against it. Cannot evaluate 'both task sets' with zero attempts on one of them."
         )
+        verdicts["1"] = "CANNOT DETERMINE (public task set built but no attempt recorded against it)"
     else:
-        verdicts["1"] = "MET (private set, all tiers decisive)"
+        pub_resolved, pub_n = resolve_rate(public_harness)
+        lines.append(
+            f"  public set: harness (haiku, {len(public_harness)} attempts) resolved {pub_resolved}/{pub_n}. "
+            "No no-harness control has been run against the public set -- only claude_arm.py's harness "
+            "arm exists there. The bullet's own comparison ('beats no-harness ... both task sets') "
+            "cannot complete for the public half without that control; it is not assumed from the "
+            "private set's result."
+        )
+        if non_decisive_tiers:
+            verdicts["1"] = (
+                f"PARTIAL -- private set: decisive on {decisive_tiers}, inside run-to-run spread on "
+                f"{non_decisive_tiers} (N=2 tasks limits this). Public set: harness resolved "
+                f"{pub_resolved}/{pub_n}, but no no-harness control exists to compare against, so the "
+                "public half of this bullet is CANNOT DETERMINE, not MET."
+            )
+        else:
+            verdicts["1"] = (
+                f"PARTIAL -- private set: MET, all tiers decisive. Public set: harness resolved "
+                f"{pub_resolved}/{pub_n}, but no no-harness control exists to compare against, so the "
+                "public half of this bullet is CANNOT DETERMINE, not MET."
+            )
     lines.append(f"  -> {verdicts['1']}")
     lines.append("")
 
@@ -165,10 +193,13 @@ def main() -> None:
     # --- Acceptance bullet 3: test-tampering guardrail fired or explicitly never fired ---
     lines.append("3. No guardrail regresses; test-tampering guardrail fires on a real attempt, or is reported as never firing")
     lines.append("-" * 72)
-    all_real = stage03 + stage01
+    all_real = stage03 + stage01 + public_harness
     tampered = [r for r in all_real if r.get("tampered")]
     regressed = [r for r in all_real if r["verdict"] == "regressed"]
-    lines.append(f"  real attempts inspected: {len(all_real)} ({len(stage03)} harness + {len(stage01)} no-harness)")
+    lines.append(
+        f"  real attempts inspected: {len(all_real)} ({len(stage03)} private harness + "
+        f"{len(stage01)} private no-harness + {len(public_harness)} public harness)"
+    )
     lines.append(f"  regressed: {len(regressed)}")
     if tampered:
         lines.append(f"  tampering guardrail FIRED on {len(tampered)} real attempt(s): "
@@ -190,7 +221,20 @@ def main() -> None:
         lines.append("  Only the private set exists; there is nothing to pool it with, and this report "
                       "has not pooled anything. Same gap as bullet 1.")
         verdicts["4"] = "CANNOT DETERMINE (no public set exists)"
+    elif not public_harness:
+        lines.append(
+            "  Both sets exist but the public set has no recorded attempt to report a resolve rate "
+            "from. Nothing has been pooled, but there is also nothing to report separately yet."
+        )
+        verdicts["4"] = "CANNOT DETERMINE (public task set built but no attempt recorded against it)"
     else:
+        pub_resolved, pub_n = resolve_rate(public_harness)
+        priv_resolved, priv_n = resolve_rate(stage03)
+        lines.append(
+            f"  private (harness, stage 03, all tiers pooled for display only): {priv_resolved}/{priv_n} resolved"
+        )
+        lines.append(f"  public (harness, haiku only): {pub_resolved}/{pub_n} resolved")
+        lines.append("  reported side by side, never averaged into one figure.")
         verdicts["4"] = "MET"
     lines.append(f"  -> {verdicts['4']}")
     lines.append("")
@@ -199,8 +243,16 @@ def main() -> None:
     lines.append("5. Latency and dollars measured on real runs and inside budget")
     lines.append("-" * 72)
     all_costs = [r["cost_usd"] for r in all_real]
-    lines.append(f"  total real spend across stages 01+03: ${sum(all_costs):.4f} over {len(all_real)} attempts")
-    for label, recs in (("stage 03 harness", stage03), ("stage 01 no-harness", stage01)):
+    lines.append(
+        f"  total real spend across stages 00(public)+01+03: ${sum(all_costs):.4f} over {len(all_real)} attempts"
+    )
+    for label, recs in (
+        ("stage 03 harness (private)", stage03),
+        ("stage 01 no-harness (private)", stage01),
+        ("stage 00 harness (public)", public_harness),
+    ):
+        if not recs:
+            continue
         wc = sorted(r["wall_clock_s"] for r in recs)
         p50 = wc[len(wc) // 2]
         p95 = wc[min(len(wc) - 1, int(len(wc) * 0.95))]

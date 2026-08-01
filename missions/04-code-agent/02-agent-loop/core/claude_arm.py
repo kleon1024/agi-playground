@@ -41,7 +41,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 
 import scoring
-from run_task import DEFAULT_MANIFEST, MINER, PROMPT
+from run_task import DEFAULT_MANIFEST, PROMPT, _miner_for
 
 # Read-only tools plus the two that change files. The web tools are absent by
 # construction and denied explicitly below, because "absent from the allow
@@ -98,12 +98,13 @@ def invoke(prompt: str, work: Path, model: str, timeout: float) -> dict:
 def attempt(
     task: dict, model: str, timeout: float = 900.0, keep: Path | None = None, tag: str = ""
 ) -> ClaudeAttempt:
-    task_obj = MINER.Task(**task)
+    miner = _miner_for(task)
+    task_obj = miner.Task(**task)
     started = time.perf_counter()
     with tempfile.TemporaryDirectory() as tmp:
         work = Path(tmp) / "task"
         junit = Path(tmp) / "out.xml"
-        MINER.materialize(task_obj, work)
+        miner.materialize(task_obj, work)
         try:
             target_cmd = scoring.instrument(task_obj.test_command, junit)
             suite_cmd = scoring.instrument(task_obj.test_command, junit, targets=["tests"])
@@ -165,7 +166,7 @@ def attempt(
                 cli_error=body.get("result") if body.get("is_error") else None,
             )
         finally:
-            MINER.cleanup(work)
+            miner.cleanup(work)
 
 
 def main() -> None:

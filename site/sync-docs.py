@@ -641,6 +641,12 @@ def main() -> None:
         dir_cost: dict[Path, tuple[str, int]] = {}
         for src in sorted(src_dir.rglob("*.md")):
             rel = src.relative_to(ROOT)
+            # A fetched, gitignored cache (mission 04's cloned public-repo
+            # source, mission 05/07/08's dataset caches) is not authored
+            # content -- its own markdown (e.g. an external repo's issue
+            # templates) is not a lesson page.
+            if "cache" in rel.parts:
+                continue
             dest_rel = rel.with_name("index.md") if src.name == "README.md" else rel
             title, position, nav_label, level, minutes = convert(src, OUT / dest_rel, None)
             if src.name == "README.md":
@@ -687,6 +693,8 @@ def main() -> None:
             if img.suffix.lower() not in ASSET_SUFFIXES:
                 continue
             rel = img.relative_to(ROOT)
+            if "cache" in rel.parts:
+                continue
             (OUT / rel).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(img, OUT / rel)
 

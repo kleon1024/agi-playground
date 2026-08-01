@@ -131,10 +131,23 @@ failure across both arms: eleven of stage 01's twelve unresolved attempts never
 produced a diff `git apply` would even accept, and the test-tampering guardrail
 has still never fired on a real model attempt, in either arm, across all 36
 real attempts this mission has now run. [Stage 05](05-report/) holds all of it
-against `mission.yaml` mechanically and finds five of seven acceptance bullets
-met — the other two undecidable, both because stage 00 mined only a private
-task set and never built the public companion `mission.yaml` calls for, not
-because anything resolved worse than declared.
+against `mission.yaml` mechanically and initially found five of seven
+acceptance bullets met — the other two undecidable, both because stage 00
+mined only a private task set and never built the public companion
+`mission.yaml` calls for, not because anything resolved worse than declared.
+
+[Stage 00](00-task-set/) has since built that companion: two tasks mined from
+[more-itertools](https://github.com/more-itertools/more-itertools) (MIT),
+using the identical fail-at-base/pass-at-gold rule pointed at a public,
+permissively-licensed repository instead of this one. A real haiku run
+resolved both, every one of three repeats — 6/6, zero tampering, extending the
+"guardrail never fired on a real attempt" finding to 42 real attempts and a
+second, previously unseen codebase. Re-running stage 05's report against this
+now resolves six of seven bullets MET — the public/private separation bullet
+that was undecidable is now MET — and the seventh moves from undecidable to
+**PARTIAL**: the harness's own resolve rate on the public set is real (6/6),
+but no no-harness control has been run against that set yet, so the "beats
+no-harness, both task sets" bullet cannot fully close without it.
 
 ## What this will not prove
 

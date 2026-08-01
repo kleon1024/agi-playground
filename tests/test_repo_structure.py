@@ -27,6 +27,9 @@ IGNORED_DIRECTORY_NAMES = {
     "__pycache__",
     "build",
     "node_modules",
+    # A fetched, gitignored dataset or source-repo cache (e.g. mission 04's
+    # cloned public repo) is not authored content.
+    "cache",
 }
 IGNORED_SOURCE_PATHS = {
     "site/docs",
@@ -180,7 +183,7 @@ def test_every_published_page_declares_its_level():
     for section in ("foundations", "missions", "capabilities", "platform",
                     "infra", "reference"):
         for page in sorted((ROOT / section).rglob("*.md")):
-            if {"core", "prod", "runs"} & set(page.parts):
+            if {"core", "prod", "runs", "cache"} & set(page.parts):
                 continue
             rel = page.relative_to(ROOT).as_posix()
             head = page.read_text().split("\n---\n", 1)[0]
