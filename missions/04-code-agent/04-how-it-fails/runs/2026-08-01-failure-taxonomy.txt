@@ -1,0 +1,25 @@
+Mission 04 failure taxonomy
+========================================================================
+
+harness (stage 03: haiku/sonnet/opus, full tool loop) -- 18 real attempts
+------------------------------------------------------------------------
+  resolved               18/18
+  target_still_failing   0/18
+  regressed              0/18
+  tampered               0/18
+  no_tests_ran           0/18
+  timeout                0/18
+
+no-harness (stage 01: one blind call, no tools) -- 18 real attempts
+------------------------------------------------------------------------
+  resolved               4/18
+  target_still_failing   12/18
+  regressed              0/18
+  tampered               0/18
+  no_tests_ran           0/18
+  timeout                2/18
+    of which patch did not apply at all: 11/12 of target_still_failing
+
+Test-tampering guardrail, across every real model attempt in this mission
+------------------------------------------------------------------------
+  Never fired on a real attempt, across 36 real model attempts (18 harness + 18 no-harness). The only recorded firing is the scripted demonstration in stage 02 (02-agent-loop/runs/2026-07-29-harness-end-to-end.md), which used a scripted backend with no model behind it, deliberately, to prove the check works before any model was pointed at it. Per mission.yaml's acceptance bullet, this is reported as 'never fired', not claimed as demonstrated.
