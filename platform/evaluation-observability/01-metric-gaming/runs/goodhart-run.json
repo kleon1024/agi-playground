@@ -1,0 +1,95 @@
+{
+  "steps": 2000,
+  "window": 200,
+  "seed": 0,
+  "i_cap": 50.0,
+  "p_cap": 1000000.0,
+  "proxy_optimizer_final": {
+    "step": 1999,
+    "i": 50.0,
+    "p": 752.856611950719,
+    "proxy": 371.85332289894234,
+    "true": -381.0032890517766
+  },
+  "true_optimizer_final": {
+    "step": 1999,
+    "i": 50.0,
+    "p": 0.0,
+    "proxy": 70.71067811865476,
+    "true": 70.71067811865476
+  },
+  "proxy_optimizer_windowed_correlation": [
+    {
+      "start_step": 0,
+      "end_step": 199,
+      "correlation": 0.8066172381235848,
+      "mean_i": 23.222992418568275,
+      "mean_p": 42.80013648570323
+    },
+    {
+      "start_step": 200,
+      "end_step": 399,
+      "correlation": -0.9979431103829766,
+      "mean_i": 49.94657687408594,
+      "mean_p": 105.53658518563911
+    },
+    {
+      "start_step": 400,
+      "end_step": 599,
+      "correlation": -0.9999999999999994,
+      "mean_i": 50.0,
+      "mean_p": 163.7115732989294
+    },
+    {
+      "start_step": 600,
+      "end_step": 799,
+      "correlation": -0.9999999999999994,
+      "mean_i": 50.0,
+      "mean_p": 236.2502389482136
+    },
+    {
+      "start_step": 800,
+      "end_step": 999,
+      "correlation": -1.0000000000000007,
+      "mean_i": 50.0,
+      "mean_p": 317.82869688546106
+    },
+    {
+      "start_step": 1000,
+      "end_step": 1199,
+      "correlation": -1.000000000000002,
+      "mean_i": 50.0,
+      "mean_p": 396.78494826801267
+    },
+    {
+      "start_step": 1200,
+      "end_step": 1399,
+      "correlation": -1.0000000000000018,
+      "mean_i": 50.0,
+      "mean_p": 469.11469825802226
+    },
+    {
+      "start_step": 1400,
+      "end_step": 1599,
+      "correlation": -1.0000000000000009,
+      "mean_i": 50.0,
+      "mean_p": 554.7092335840142
+    },
+    {
+      "start_step": 1600,
+      "end_step": 1799,
+      "correlation": -1.0000000000000009,
+      "mean_i": 50.0,
+      "mean_p": 633.7770337627829
+    },
+    {
+      "start_step": 1800,
+      "end_step": 1999,
+      "correlation": -0.9999999999999971,
+      "mean_i": 50.0,
+      "mean_p": 715.679334267541
+    }
+  ],
+  "first_window_correlation": 0.8066172381235848,
+  "last_window_correlation": -0.9999999999999971
+}

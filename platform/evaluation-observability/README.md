@@ -9,6 +9,10 @@ label: Evaluation
 And when the candidate wins, which part of that evidence belongs to the model,
 which to the harness, and which to the serving configuration?
 
+Start with [metric gaming](01-metric-gaming/) if you have not yet seen why a
+proxy metric's meaning can invert under the optimization pressure the rest of
+this chapter assumes you already trust it against.
+
 Every mission ends here: [language-model system stage 07](../../missions/01-language-model-agent/07-eval/),
 [discovery stage 09](../../missions/02-personalized-discovery/09-report/), and
 [quantitative research stage 05](../../missions/03-quantitative-research/05-report/)
