@@ -193,51 +193,51 @@
   },
   "missions/04-code-agent": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 6
   },
   "missions/04-code-agent/00-task-set": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "missions/04-code-agent/02-agent-loop": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "missions/04-code-agent/03-cheap-or-expensive": {
     "level": "frontier",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/05-vision-language-model": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "missions/05-vision-language-model/00-image-caption-task": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/05-vision-language-model/01-vision-fusion": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/05-vision-language-model/02-report": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "missions/06-game-ai": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/06-game-ai/00-gridworld-baselines": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "missions/06-game-ai/01-grpo": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/06-game-ai/02-report": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "missions/07-realtime-voice": {
     "level": "applied",
@@ -245,19 +245,19 @@
   },
   "missions/07-realtime-voice/00-audio-codec": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "missions/07-realtime-voice/01-streaming-decode": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "missions/07-realtime-voice/02-report": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "missions/08-video-generation": {
     "level": "frontier",
-    "minutes": 6
+    "minutes": 8
   },
   "missions/08-video-generation/00-synthetic-video-dataset": {
     "level": "applied",
@@ -265,15 +265,31 @@
   },
   "missions/08-video-generation/01-video-tokenizer": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/08-video-generation/02-generation-model": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "missions/08-video-generation/03-report": {
     "level": "applied",
     "minutes": 3
   },
   "missions/09-bio-pharma-modeling": {
     "level": "applied",
     "minutes": 4
+  },
+  "missions/09-bio-pharma-modeling/00-dataset-and-property": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "missions/09-bio-pharma-modeling/02-report": {
+    "level": "applied",
+    "minutes": 2
   },
   "platform": {
     "level": "applied",
@@ -367,11 +383,15 @@
     "level": "applied",
     "minutes": 3
   },
-  "research": {
+  "reference": {
     "level": "reference",
     "minutes": 1
   },
-  "standards": {
+  "reference/research": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "reference/standards": {
     "level": "reference",
     "minutes": 1
   }

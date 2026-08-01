@@ -374,13 +374,38 @@
             "type": "doc",
             "id": "missions/08-video-generation/02-generation-model/index",
             "label": "Generation model \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/08-video-generation/03-report/index",
+            "label": "Outcome report \u00b7 verified"
           }
         ]
       },
       {
-        "type": "doc",
-        "id": "missions/09-bio-pharma-modeling/index",
-        "label": "Molecular property prediction"
+        "type": "category",
+        "label": "Molecular property prediction",
+        "link": {
+          "type": "doc",
+          "id": "missions/09-bio-pharma-modeling/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "missions/09-bio-pharma-modeling/00-dataset-and-property/index",
+            "label": "Dataset and property \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/index",
+            "label": "Descriptor baseline and model \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/09-bio-pharma-modeling/02-report/index",
+            "label": "Report \u00b7 verified"
+          }
+        ]
       }
     ]
   },
@@ -681,66 +706,76 @@
   },
   {
     "type": "category",
-    "label": "Standards",
+    "label": "Reference",
     "link": {
       "type": "doc",
-      "id": "standards/index"
+      "id": "reference/index"
     },
     "items": [
       {
-        "type": "doc",
-        "id": "standards/lesson-and-run-contract",
-        "label": "Lesson and run contract"
+        "type": "category",
+        "label": "Research",
+        "link": {
+          "type": "doc",
+          "id": "reference/research/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "reference/research/01-curricula-landscape",
+            "label": "Curricula landscape"
+          },
+          {
+            "type": "doc",
+            "id": "reference/research/02-pretraining-and-data",
+            "label": "Pretraining and data"
+          },
+          {
+            "type": "doc",
+            "id": "reference/research/03-post-training-and-rl",
+            "label": "Post-training and RL"
+          },
+          {
+            "type": "doc",
+            "id": "reference/research/04-infra-and-agent-harness",
+            "label": "Infra and agent harness"
+          },
+          {
+            "type": "doc",
+            "id": "reference/research/05-agent-memory",
+            "label": "Agent memory"
+          },
+          {
+            "type": "doc",
+            "id": "reference/research/06-harness-effects",
+            "label": "Harness effects"
+          },
+          {
+            "type": "doc",
+            "id": "reference/research/synthesis",
+            "label": "Synthesis"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "standards/mission-contract",
-        "label": "Mission contract"
-      }
-    ]
-  },
-  {
-    "type": "category",
-    "label": "Research",
-    "link": {
-      "type": "doc",
-      "id": "research/index"
-    },
-    "items": [
-      {
-        "type": "doc",
-        "id": "research/01-curricula-landscape",
-        "label": "Curricula landscape"
-      },
-      {
-        "type": "doc",
-        "id": "research/02-pretraining-and-data",
-        "label": "Pretraining and data"
-      },
-      {
-        "type": "doc",
-        "id": "research/03-post-training-and-rl",
-        "label": "Post-training and RL"
-      },
-      {
-        "type": "doc",
-        "id": "research/04-infra-and-agent-harness",
-        "label": "Infra and agent harness"
-      },
-      {
-        "type": "doc",
-        "id": "research/05-agent-memory",
-        "label": "Agent memory"
-      },
-      {
-        "type": "doc",
-        "id": "research/06-harness-effects",
-        "label": "Harness effects"
-      },
-      {
-        "type": "doc",
-        "id": "research/synthesis",
-        "label": "Synthesis"
+        "type": "category",
+        "label": "Standards",
+        "link": {
+          "type": "doc",
+          "id": "reference/standards/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "reference/standards/lesson-and-run-contract",
+            "label": "Lesson and run contract"
+          },
+          {
+            "type": "doc",
+            "id": "reference/standards/mission-contract",
+            "label": "Mission contract"
+          }
+        ]
       }
     ]
   }
