@@ -81,6 +81,7 @@ identical to this stage's single-codebook VQ, at a far larger scale.
 | [02 — Report](02-report/) | what does streaming cost in latency, and what does it buy or lose against the offline pass? | verified — MET |
 | [03 — Real speech and network](03-real-speech-and-network/) | does the same codec architecture and the same KV cache hold on real speech, over a real network? | verified |
 | [04 — Multi-speaker](04-multi-speaker/) | does the fix that escaped collapse for 1-2 speakers still work at 10? | verified |
+| [05 — Codebook reset](05-codebook-reset/) | does a standard dead-code reset fix the seed-dependent codebook health stage 04 found? | verified |
 
 [Stage 00](00-audio-codec/) built a small conv encoder / vector-quantization
 / conv decoder codec, trained on synthetic tone-sequence clips (no real
@@ -149,6 +150,17 @@ codebook. The KV-cache mechanism held regardless (max logit gap 2.45e-05,
 same order of magnitude as every prior stage). Full numbers in
 [its run record](04-multi-speaker/runs/2026-08-01-multi-speaker.md).
 
+[Stage 05](05-codebook-reset/) tested the standard fix for exactly the
+seed-dependent codebook problem stage 04 found — periodic dead-code reset
+(VQ-VAE-2, Razavi et al., 2019), reinitializing codebook entries whose EMA
+usage count falls near zero. Retrained on the identical 10-speaker balanced
+mix, same step count, learning rate, and seeds as stage 04, with only the
+vector quantizer changed: all three seeds reached 64 of 64 codes used (vs.
+18-63/64 without reset), and the reconstruction-quality margin over the
+silence baseline tightened from a 4.3%-38.2% spread to a narrow 33.8%-37.6%
+band. Full numbers in
+[its run record](05-codebook-reset/runs/2026-08-01-codebook-reset.md).
+
 Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the baseline and metric
 above cannot be chosen after seeing which ones flatter a result.
@@ -161,8 +173,12 @@ loop runs one direction at a time. Multi-speaker robustness is only
 partially tested: stage 03 uses 1-2 speakers, stage 04 extends this to 10 of
 the corpus's 40+ dev-clean speakers, and neither is the full corpus. Nothing
 here diagnoses *why* stage 04's escape became seed-dependent, only that it
-did. Stage 03 adds a real network round trip, but only over this
-repository's own home Tailscale link — a DERP-relayed hop on this sandbox's
-network path — which does not generalize to arbitrary internet paths or a
-direct (non-relayed) connection. Full boundary in
-[`mission.yaml`](mission.yaml) under `does_not_prove`.
+did. Stage 05 shows dead-code reset closes that specific gap at 10 speakers,
+but only tested the reset mechanism alone, at one `reset_every`/
+`dead_threshold` setting, still on 10 of the corpus's 40+ speakers — not
+whether a full EMA-updated codebook would tighten things further, not a
+parameter sweep, and not the full corpus. Stage 03 adds a real network round
+trip, but only over this repository's own home Tailscale link — a
+DERP-relayed hop on this sandbox's network path — which does not generalize
+to arbitrary internet paths or a direct (non-relayed) connection. Full
+boundary in [`mission.yaml`](mission.yaml) under `does_not_prove`.

@@ -297,7 +297,7 @@
   },
   "missions/07-realtime-voice": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "missions/07-realtime-voice/00-audio-codec": {
     "level": "applied",
@@ -316,6 +316,10 @@
     "minutes": 6
   },
   "missions/07-realtime-voice/04-multi-speaker": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "missions/07-realtime-voice/05-codebook-reset": {
     "level": "applied",
     "minutes": 5
   },

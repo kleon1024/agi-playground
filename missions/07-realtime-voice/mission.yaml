@@ -79,6 +79,12 @@ guardrails:
     KV-cache and scheduling code directly; if a change to that code is
     required to make audio tokens work, the change and the reason for it are
     recorded, not silently folded in as if it were always general enough.
+  - A follow-on stage testing a fix for a previously-found problem (e.g. the
+    codebook dead-code-reset stage following stage 04's seed-dependent
+    utilization finding) changes exactly one mechanism at a time relative to
+    the prior stage's setup, holding dataset, seeds, step count, and learning
+    rate fixed, so the result is attributable to the one change under test
+    rather than confounded with an incidental data or config change.
 
 latency_budget: >
   Unlike mission 04, latency here is a first-class constraint: a listener is
@@ -100,7 +106,10 @@ cost_budget: >
   run against a live account here. A later stage's LibriSpeech dev-clean
   download (one archive, ~338MB, CC BY 4.0) is a one-time, $0 fetch; only
   1-2 speakers' utterances are used for training, keeping wall-clock
-  comparable to the existing procedural-tone runs.
+  comparable to the existing procedural-tone runs. A further follow-on stage
+  retraining the same 10-speaker mix with a dead-code-reset vector quantizer
+  reuses this same cached archive and dataset code, again $0 marginal cost
+  and no new download.
 
 capabilities: []
   # None yet. A shared multimodal-serving capability is not created here —
@@ -144,4 +153,15 @@ does_not_prove: >
   (SoundStream/EnCodec scale). And the later stage's real-network measurement
   is specific to this repository's own home-network Tailscale link, not a
   general internet client's latency — it does not generalize to arbitrary
-  network paths.
+  network paths. A further follow-on stage retested the identical 10-speaker
+  setup with a standard dead-code-reset vector quantizer (VQ-VAE-2's
+  reinitialize-unused-codes mechanism, not its full EMA-updated codebook) and
+  found it does close the seed-to-seed variance gap: all 3 seeds reached
+  64/64 codes used (vs. 18-63/64 without reset) and the reconstruction-margin
+  spread over silence tightened from 4.3%-38.2% to 33.8%-37.6%. This does not
+  establish whether the fuller VQ-VAE-2 mechanism (EMA-updated embeddings, not
+  only reset) would tighten things further, whether the one `reset_every`/
+  `dead_threshold` setting tried is optimal, or what happens beyond 10
+  speakers — the corpus, seed count, and untested full-EMA variant are the
+  same open boundary as before, narrowed only on the one dimension actually
+  tested.
