@@ -1,8 +1,9 @@
 ---
-status: draft
+status: verified
 level: applied
 base: scratch
 label: Vision-token fusion
+verified: 2026-07-31
 ---
 
 # Does a decoder that can see the image actually use it?

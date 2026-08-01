@@ -1,7 +1,8 @@
 ---
-status: draft
+status: verified
 level: foundation
 base: none
+verified: 2026-07-30
 ---
 
 # What has to be true of text before you train on it?

@@ -1,7 +1,8 @@
 ---
-status: draft
+status: verified
 level: applied
 label: Pre-rank
+verified: 2026-07-30
 ---
 
 # What can you afford to score, and what must you drop?

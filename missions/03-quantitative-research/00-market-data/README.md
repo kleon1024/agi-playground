@@ -1,6 +1,7 @@
 ---
-status: draft
+status: verified
 level: foundation
+verified: 2026-07-30
 ---
 
 # What did you actually know on the decision date?

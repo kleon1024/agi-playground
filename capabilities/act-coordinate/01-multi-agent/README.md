@@ -1,7 +1,8 @@
 ---
-status: draft
+status: verified
 level: applied
 label: Multi-agent
+verified: 2026-07-27
 ---
 
 # One agent is stuck. Would a second one help?

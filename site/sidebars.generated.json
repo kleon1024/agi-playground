@@ -28,7 +28,7 @@
           {
             "type": "doc",
             "id": "missions/01-language-model-agent/00-corpus/index",
-            "label": "Corpus"
+            "label": "Corpus \u00b7 verified"
           },
           {
             "type": "category",
@@ -178,7 +178,7 @@
           {
             "type": "doc",
             "id": "missions/02-personalized-discovery/03-pre-rank/index",
-            "label": "Pre-rank"
+            "label": "Pre-rank \u00b7 verified"
           },
           {
             "type": "doc",
@@ -223,7 +223,7 @@
           {
             "type": "doc",
             "id": "missions/03-quantitative-research/00-market-data/index",
-            "label": "Market data"
+            "label": "Market data \u00b7 verified"
           },
           {
             "type": "doc",
@@ -308,7 +308,7 @@
           {
             "type": "doc",
             "id": "missions/05-vision-language-model/01-vision-fusion/index",
-            "label": "Vision-token fusion"
+            "label": "Vision-token fusion \u00b7 verified"
           },
           {
             "type": "doc",
@@ -528,7 +528,7 @@
           {
             "type": "doc",
             "id": "capabilities/act-coordinate/01-multi-agent/index",
-            "label": "Multi-agent"
+            "label": "Multi-agent \u00b7 verified"
           },
           {
             "type": "doc",
