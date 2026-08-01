@@ -1,0 +1,13 @@
+{
+  "seed": 1,
+  "n_train": 4643,
+  "n_test": 1161,
+  "n_train_truncated_over_maxlen": 43,
+  "n_test_truncated_over_maxlen": 56,
+  "vocab_size": 52,
+  "max_len": 128,
+  "n_params": 696065,
+  "steps": 600,
+  "test_roc_auc": 0.7376632869164308,
+  "wall_clock_seconds": 100.02980899810791
+}
