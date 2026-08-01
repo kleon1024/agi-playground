@@ -34,6 +34,19 @@ third-party dependency (`warcio`, for the container format):
 | C4 line filter | Drop boilerplate lines, keep sentences | A document can pass document-level checks and still be 40% cookie banner |
 | MinHash dedup | Near-duplicate detection via LSH banding and union-find | The web is enormously repetitive, and duplicates drive memorization |
 
+<!-- interactive: CorpusCleaningPipeline -->
+
+**A brief history**, since none of these filters is this pipeline's own
+invention: the Gopher quality heuristics trace to Rae et al., *"Scaling
+Language Models: Methods, Analysis & Insights from Training Gopher"*
+(DeepMind, Dec 2021); the C4 line filter to Raffel et al.'s T5 paper,
+*"Exploring the Limits of Transfer Learning with a Unified Text-to-Text
+Transformer"* (Google, 2019); and the combination — plus the educational-
+quality classifier this stage later downloads FineWeb-Edu for — to Penedo et
+al., *"The FineWeb Datasets: Decanting the Web for the Finest Text Data at
+Scale"* (Hugging Face, May 2024). This stage reimplements the same filter
+families from scratch; it does not reimplement their exact thresholds.
+
 ## What we measured
 
 Two WARC files from `CC-MAIN-2026-25` (the June 2026 crawl), 20,000 HTML

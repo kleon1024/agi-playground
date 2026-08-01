@@ -30,6 +30,15 @@ mission has to be correct with respect to.
 
 ## The bias catalogue
 
+These four biases, and the discipline of naming an availability timestamp
+for every fact, are not this stage's own discovery — survivorship bias in
+backtests is documented at least as far back as Elton, Gruber & Blake,
+*"Survivorship Bias and Mutual Fund Performance"* (Review of Financial
+Studies, 1996), and the point-in-time database as a commercial category
+(Compustat's, most notably) exists specifically because this class of error
+was common enough in academic and practitioner backtests to be worth paying
+to eliminate.
+
 **Survivorship bias.** Build a universe from today's index constituents and
 project it backward, and you silently drop every name that was delisted,
 merged away, or went bankrupt during the study period. Because the failures
@@ -144,6 +153,8 @@ were genuinely raw, that ratio would collapse to roughly a tenth across the
 split's ex-date. It doesn't, so `close` already reflects the split, and
 `reconstruct_adjusted_close` correctly leaves it alone instead of dividing
 every pre-split price by ten a second time.
+
+<!-- interactive: PointInTimeJoin -->
 
 ## Reproducing
 

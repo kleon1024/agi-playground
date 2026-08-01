@@ -39,6 +39,13 @@ easiest to optimize.
 
 ## 2. A shared trunk, and the interference it invites
 
+Sharing a trunk across related tasks and reading off task-specific heads is
+not this stage's own idea — it is the architecture Caruana names and
+analyzes in *"Multitask Learning"* (Machine Learning, 1997), including the
+same mechanism this stage measures: gradients from an unrelated task's loss
+can help or hurt a shared representation depending on how the tasks and their
+losses are related and scaled.
+
 `core/fine_rank.py` builds one small network: a shared trunk that turns raw
 features into a hidden representation, and one linear head per task reading
 off that same representation. Sharing is attractive because a feature useful
@@ -123,6 +130,8 @@ from 0.0722 to 0.0552 (default trunk); the `prod/` isotonic-regression lane
 fits the same held-out set to ECE 0.0000, which is overfitting to that set,
 not a better calibration in general. Full output:
 [`runs/2026-07-30-negative-transfer-and-calibration.md`](runs/2026-07-30-negative-transfer-and-calibration.md).
+
+<!-- interactive: MultiTaskBalancing -->
 
 ## Reproducing
 

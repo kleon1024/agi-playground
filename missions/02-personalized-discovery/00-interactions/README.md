@@ -50,13 +50,17 @@ third-party dependency at all:
 | Leakage check | Count test rows whose user has a later train row | Turns "a random split leaks the future" into a number |
 | Popularity ranking | Rank items by train-set frequency | The un-personalized floor every later stage must clear |
 
+<!-- interactive: InteractionSplitPipeline -->
+
 ## Choose a public dataset, and say why
 
 Two genuinely public options fit here, and naming both matters — a curriculum
 built around one dataset dies when that dataset does.
 [MovieLens](https://grouplens.org/datasets/movielens/) (`ml-latest-small` for a
 quick pass, `ml-1m`/`ml-25m` once trusted) ships user, item, rating, and
-timestamp in one file, exactly this stage's expected shape. The
+timestamp in one file, exactly this stage's expected shape — the dataset and
+its collection methodology are documented in Harper & Konstan, *"The
+MovieLens Datasets: History and Context"* (ACM TiiS, 2015). The
 [Amazon Reviews dataset](https://amazon-reviews-2023.github.io/) is larger,
 sparser, with genuinely cold items and a real popularity long tail — a stress
 test once MovieLens stops surfacing failure modes. Build against MovieLens

@@ -161,7 +161,7 @@
   },
   "missions/02-personalized-discovery/04-fine-rank": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "missions/02-personalized-discovery/05-value-tree": {
     "level": "applied",
@@ -189,7 +189,7 @@
   },
   "missions/03-quantitative-research/00-market-data": {
     "level": "foundation",
-    "minutes": 7
+    "minutes": 8
   },
   "missions/03-quantitative-research/01-signal-research": {
     "level": "applied",
