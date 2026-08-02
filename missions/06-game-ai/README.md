@@ -115,6 +115,7 @@ fact.
 | [03 — Fixing the collapse](03-fixing-collapse/) | is stage 01's greedy-decode collapse fixable via group size or an entropy bonus, on the same grid-world? | verified — neither fix worked |
 | [04 — MiniGrid](04-minigrid/) | does a real partially-observed environment change the outcome? | verified — cold-start null result, 0 gradient steps taken |
 | [05 — Full-chain report](05-report/) | baselines, seeds, compute, and an honest verdict across the mission's full approved scope | verified — MET, as an honest null result |
+| [06 — Tool-use decision](06-tool-use-rl/) | does the same GRPO loop learn *when* to pay for a tool, not just what to say? | verified — 1/3 seeds calibrated, 2/3 collapsed |
 
 [Stage 00](00-gridworld-baselines/) built a 5x5 grid-world (deterministic,
 BFS-checked solvable, no dependencies) and measured both required baselines
@@ -174,6 +175,19 @@ result`: stage 01's collapse resisted the two most direct fixes tried in
 stage 03, and stage 04 found a second, mechanistically-explained null
 result in a harder domain. Full verdict in
 [its run record](05-report/runs/2026-08-01-full-chain-report.md).
+
+[Stage 06](06-tool-use-rl/) extends the same GRPO machinery to a new decision
+variable beyond the original grid-world/MiniGrid scope: whether to answer an
+arithmetic problem directly, at a simulated accuracy that degrades with
+digit count, or pay a fixed penalty to invoke a calculator tool that is
+always correct. `mission.yaml`'s `does_not_prove` field was extended, not
+rewritten, to name this stage's own synthetic, single-tool, single-step
+scope boundary before it was built. Its 3-seed result is the mission's first
+that is not a uniform null: one seed's greedy policy matches the
+calibrated-oracle decision at all 5 difficulty levels exactly, while the
+other two collapse to the same context-independent behavior stages 01 and
+04 already documented -- a real, seed-dependent split, not a clean win.
+Full numbers in [its run record](06-tool-use-rl/runs/2026-08-03-grpo-training.md).
 
 Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the environment and

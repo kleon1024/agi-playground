@@ -145,3 +145,19 @@ does_not_prove: >
   A result here does not generalize to game engines or continuous-control
   games, and does not require mission 05's vision work as a prerequisite,
   since MiniGrid's observation is a compact symbolic grid, not pixels.
+
+  A later stage (06-tool-use-rl) extends the same GRPO mechanism to a
+  synthetic tool-invocation decision -- answer an arithmetic problem
+  directly, at a simulated, difficulty-scaled accuracy, or pay a fixed cost
+  to invoke a calculator tool that is always correct. That stage proves
+  nothing about a real LLM's actual arithmetic error rate (the "mental
+  arithmetic" accuracy is a stated, synthetic function of digit count, not a
+  measurement of any model), nothing about multi-tool selection or
+  multi-step tool chains (there is exactly one tool and one decision per
+  episode), and nothing about hosted-model tool-use or real tool-call
+  latency or failure modes (the tool call is a Python function, not a
+  network request). It is a single-step, single-tool, fully-synthetic
+  abstraction of tool-use RL, run entirely on local compute like every other
+  stage in this mission -- not a claim that this result transfers to
+  Toolformer-style learned tool invocation or production agentic RL against
+  real tool APIs.

@@ -1,0 +1,542 @@
+{
+  "seed": 1,
+  "steps": 200,
+  "degenerate_steps": 0,
+  "wall_clock_s": 113.54089708300307,
+  "history": [
+    {
+      "step": 0,
+      "mean_reward": 0.278125,
+      "mean_format": 0.15625,
+      "mean_outcome": 0.24687499999999998,
+      "tool_rate": 0.7,
+      "loss": -0.06489706039428711,
+      "groups_used": 4
+    },
+    {
+      "step": 5,
+      "mean_reward": 0.559375,
+      "mean_format": 0.359375,
+      "mean_outcome": 0.4875,
+      "tool_rate": 0.782608695652174,
+      "loss": -0.07698027044534683,
+      "groups_used": 4
+    },
+    {
+      "step": 10,
+      "mean_reward": 0.7,
+      "mean_format": 0.4375,
+      "mean_outcome": 0.6124999999999999,
+      "tool_rate": 1.0,
+      "loss": -0.22004805505275726,
+      "groups_used": 2
+    },
+    {
+      "step": 15,
+      "mean_reward": 0.6749999999999999,
+      "mean_format": 0.4583333333333333,
+      "mean_outcome": 0.5833333333333334,
+      "tool_rate": 0.9523809523809523,
+      "loss": 0.08264545351266861,
+      "groups_used": 3
+    },
+    {
+      "step": 20,
+      "mean_reward": 0.7,
+      "mean_format": 0.4375,
+      "mean_outcome": 0.6124999999999999,
+      "tool_rate": 1.0,
+      "loss": 0.009878221899271011,
+      "groups_used": 1
+    },
+    {
+      "step": 25,
+      "mean_reward": 0.7291666666666666,
+      "mean_format": 0.4583333333333333,
+      "mean_outcome": 0.6375,
+      "tool_rate": 0.8636363636363636,
+      "loss": -0.08150247484445572,
+      "groups_used": 3
+    },
+    {
+      "step": 30,
+      "mean_reward": 0.7687499999999999,
+      "mean_format": 0.5,
+      "mean_outcome": 0.66875,
+      "tool_rate": 0.6875,
+      "loss": 0.022897694259881973,
+      "groups_used": 4
+    },
+    {
+      "step": 35,
+      "mean_reward": 0.834375,
+      "mean_format": 0.484375,
+      "mean_outcome": 0.7374999999999999,
+      "tool_rate": 0.5806451612903226,
+      "loss": 0.02159363403916359,
+      "groups_used": 4
+    },
+    {
+      "step": 40,
+      "mean_reward": 0.575,
+      "mean_format": 0.484375,
+      "mean_outcome": 0.47812499999999997,
+      "tool_rate": 0.2903225806451613,
+      "loss": 0.02597687765955925,
+      "groups_used": 4
+    },
+    {
+      "step": 45,
+      "mean_reward": 0.8625,
+      "mean_format": 0.484375,
+      "mean_outcome": 0.765625,
+      "tool_rate": 0.16129032258064516,
+      "loss": -0.008006984367966652,
+      "groups_used": 4
+    },
+    {
+      "step": 50,
+      "mean_reward": 0.8625000000000002,
+      "mean_format": 0.4791666666666667,
+      "mean_outcome": 0.7666666666666666,
+      "tool_rate": 0.08695652173913043,
+      "loss": -0.010819469578564167,
+      "groups_used": 3
+    },
+    {
+      "step": 55,
+      "mean_reward": 0.4916666666666667,
+      "mean_format": 0.5,
+      "mean_outcome": 0.39166666666666666,
+      "tool_rate": 0.08333333333333333,
+      "loss": 0.02623504400253296,
+      "groups_used": 3
+    },
+    {
+      "step": 60,
+      "mean_reward": 0.6416666666666667,
+      "mean_format": 0.5,
+      "mean_outcome": 0.5416666666666666,
+      "tool_rate": 0.0,
+      "loss": 0.016104578971862793,
+      "groups_used": 3
+    },
+    {
+      "step": 65,
+      "mean_reward": 0.75,
+      "mean_format": 0.5,
+      "mean_outcome": 0.65,
+      "tool_rate": 0.125,
+      "loss": 0.029645226895809174,
+      "groups_used": 4
+    },
+    {
+      "step": 70,
+      "mean_reward": 0.7718750000000001,
+      "mean_format": 0.5,
+      "mean_outcome": 0.671875,
+      "tool_rate": 0.15625,
+      "loss": 0.023792065680027008,
+      "groups_used": 4
+    },
+    {
+      "step": 75,
+      "mean_reward": 0.875,
+      "mean_format": 0.4791666666666667,
+      "mean_outcome": 0.7791666666666667,
+      "tool_rate": 0.043478260869565216,
+      "loss": -0.02159402333199978,
+      "groups_used": 3
+    },
+    {
+      "step": 80,
+      "mean_reward": 0.6333333333333334,
+      "mean_format": 0.4375,
+      "mean_outcome": 0.5458333333333333,
+      "tool_rate": 0.14285714285714285,
+      "loss": -0.1685340851545334,
+      "groups_used": 3
+    },
+    {
+      "step": 85,
+      "mean_reward": 0.7666666666666667,
+      "mean_format": 0.5,
+      "mean_outcome": 0.6666666666666666,
+      "tool_rate": 0.0,
+      "loss": 0.026344170793890953,
+      "groups_used": 3
+    },
+    {
+      "step": 90,
+      "mean_reward": 0.5416666666666666,
+      "mean_format": 0.4791666666666667,
+      "mean_outcome": 0.4458333333333333,
+      "tool_rate": 0.043478260869565216,
+      "loss": 0.014941836707293987,
+      "groups_used": 3
+    },
+    {
+      "step": 95,
+      "mean_reward": 0.6531250000000001,
+      "mean_format": 0.5,
+      "mean_outcome": 0.553125,
+      "tool_rate": 0.03225806451612903,
+      "loss": 0.05404692888259888,
+      "groups_used": 4
+    },
+    {
+      "step": 100,
+      "mean_reward": 0.6750000000000002,
+      "mean_format": 0.4583333333333333,
+      "mean_outcome": 0.5833333333333334,
+      "tool_rate": 0.0,
+      "loss": 0.022762566804885864,
+      "groups_used": 3
+    },
+    {
+      "step": 105,
+      "mean_reward": 0.7666666666666667,
+      "mean_format": 0.5,
+      "mean_outcome": 0.6666666666666666,
+      "tool_rate": 0.0,
+      "loss": 0.0383220911026001,
+      "groups_used": 3
+    },
+    {
+      "step": 110,
+      "mean_reward": 0.7812500000000001,
+      "mean_format": 0.46875,
+      "mean_outcome": 0.6875,
+      "tool_rate": 0.0,
+      "loss": 0.00039161182940006256,
+      "groups_used": 4
+    },
+    {
+      "step": 115,
+      "mean_reward": 0.925,
+      "mean_format": 0.5,
+      "mean_outcome": 0.825,
+      "tool_rate": 0.0625,
+      "loss": 0.028405098244547844,
+      "groups_used": 4
+    },
+    {
+      "step": 120,
+      "mean_reward": 0.7500000000000001,
+      "mean_format": 0.46875,
+      "mean_outcome": 0.65625,
+      "tool_rate": 0.0,
+      "loss": 0.004523982293903828,
+      "groups_used": 4
+    },
+    {
+      "step": 125,
+      "mean_reward": 0.7250000000000001,
+      "mean_format": 0.5,
+      "mean_outcome": 0.625,
+      "tool_rate": 0.0,
+      "loss": 0.026593588292598724,
+      "groups_used": 2
+    },
+    {
+      "step": 130,
+      "mean_reward": 0.8500000000000001,
+      "mean_format": 0.5,
+      "mean_outcome": 0.75,
+      "tool_rate": 0.0,
+      "loss": 0.025683293119072914,
+      "groups_used": 3
+    },
+    {
+      "step": 135,
+      "mean_reward": 0.6166666666666667,
+      "mean_format": 0.4375,
+      "mean_outcome": 0.5291666666666667,
+      "tool_rate": 0.047619047619047616,
+      "loss": 0.01499949861317873,
+      "groups_used": 3
+    },
+    {
+      "step": 140,
+      "mean_reward": 0.6312500000000001,
+      "mean_format": 0.5,
+      "mean_outcome": 0.53125,
+      "tool_rate": 0.0,
+      "loss": 0.03295787423849106,
+      "groups_used": 4
+    },
+    {
+      "step": 145,
+      "mean_reward": 0.47500000000000003,
+      "mean_format": 0.5,
+      "mean_outcome": 0.375,
+      "tool_rate": 0.0,
+      "loss": 0.019610311836004257,
+      "groups_used": 3
+    },
+    {
+      "step": 150,
+      "mean_reward": 0.8437500000000001,
+      "mean_format": 0.46875,
+      "mean_outcome": 0.75,
+      "tool_rate": 0.0,
+      "loss": 0.018042761832475662,
+      "groups_used": 4
+    },
+    {
+      "step": 155,
+      "mean_reward": 0.7208333333333333,
+      "mean_format": 0.4791666666666667,
+      "mean_outcome": 0.625,
+      "tool_rate": 0.0,
+      "loss": 0.01989000290632248,
+      "groups_used": 3
+    },
+    {
+      "step": 160,
+      "mean_reward": 0.47500000000000003,
+      "mean_format": 0.5,
+      "mean_outcome": 0.375,
+      "tool_rate": 0.0,
+      "loss": 0.03975861519575119,
+      "groups_used": 4
+    },
+    {
+      "step": 165,
+      "mean_reward": 0.65625,
+      "mean_format": 0.46875,
+      "mean_outcome": 0.5625,
+      "tool_rate": 0.0,
+      "loss": -0.08428452908992767,
+      "groups_used": 2
+    },
+    {
+      "step": 170,
+      "mean_reward": 0.5843750000000001,
+      "mean_format": 0.46875,
+      "mean_outcome": 0.490625,
+      "tool_rate": 0.03333333333333333,
+      "loss": 0.0009471811354160309,
+      "groups_used": 4
+    },
+    {
+      "step": 175,
+      "mean_reward": 0.65625,
+      "mean_format": 0.46875,
+      "mean_outcome": 0.5625,
+      "tool_rate": 0.0,
+      "loss": 0.03109528310596943,
+      "groups_used": 4
+    },
+    {
+      "step": 180,
+      "mean_reward": 0.6125,
+      "mean_format": 0.453125,
+      "mean_outcome": 0.521875,
+      "tool_rate": 0.034482758620689655,
+      "loss": -0.04308868572115898,
+      "groups_used": 4
+    },
+    {
+      "step": 185,
+      "mean_reward": 0.6125,
+      "mean_format": 0.5,
+      "mean_outcome": 0.5125,
+      "tool_rate": 0.0625,
+      "loss": 0.022404510527849197,
+      "groups_used": 4
+    },
+    {
+      "step": 190,
+      "mean_reward": 0.7375,
+      "mean_format": 0.5,
+      "mean_outcome": 0.6375,
+      "tool_rate": 0.0625,
+      "loss": 0.022285696119070053,
+      "groups_used": 4
+    },
+    {
+      "step": 195,
+      "mean_reward": 0.61875,
+      "mean_format": 0.484375,
+      "mean_outcome": 0.521875,
+      "tool_rate": 0.03225806451612903,
+      "loss": 0.027889292687177658,
+      "groups_used": 4
+    }
+  ],
+  "eval_greedy": {
+    "trials": 1000,
+    "mean_reward": 0.7430000000000136,
+    "per_level": {
+      "1": {
+        "n": 208,
+        "answer_rate": 1.0,
+        "tool_rate": 0.0,
+        "malformed_rate": 0.0,
+        "mean_reward": 1.0615384615384578
+      },
+      "2": {
+        "n": 174,
+        "answer_rate": 1.0,
+        "tool_rate": 0.0,
+        "malformed_rate": 0.0,
+        "mean_reward": 0.9045977011494225
+      },
+      "3": {
+        "n": 232,
+        "answer_rate": 1.0,
+        "tool_rate": 0.0,
+        "malformed_rate": 0.0,
+        "mean_reward": 0.707758620689652
+      },
+      "4": {
+        "n": 205,
+        "answer_rate": 1.0,
+        "tool_rate": 0.0,
+        "malformed_rate": 0.0,
+        "mean_reward": 0.6365853658536562
+      },
+      "5": {
+        "n": 181,
+        "answer_rate": 1.0,
+        "tool_rate": 0.0,
+        "malformed_rate": 0.0,
+        "mean_reward": 0.3872928176795582
+      }
+    }
+  },
+  "eval_sampled": {
+    "trials": 1000,
+    "mean_reward": 0.7416000000000132,
+    "per_level": {
+      "1": {
+        "n": 205,
+        "answer_rate": 0.975609756097561,
+        "tool_rate": 0.00975609756097561,
+        "malformed_rate": 0.014634146341463415,
+        "mean_reward": 1.0468292682926792
+      },
+      "2": {
+        "n": 177,
+        "answer_rate": 0.9717514124293786,
+        "tool_rate": 0.011299435028248588,
+        "malformed_rate": 0.01694915254237288,
+        "mean_reward": 0.8858757062146866
+      },
+      "3": {
+        "n": 232,
+        "answer_rate": 0.9827586206896551,
+        "tool_rate": 0.008620689655172414,
+        "malformed_rate": 0.008620689655172414,
+        "mean_reward": 0.7129310344827556
+      },
+      "4": {
+        "n": 206,
+        "answer_rate": 0.9660194174757282,
+        "tool_rate": 0.019417475728155338,
+        "malformed_rate": 0.014563106796116505,
+        "mean_reward": 0.6364077669902889
+      },
+      "5": {
+        "n": 180,
+        "answer_rate": 0.9833333333333333,
+        "tool_rate": 0.0,
+        "malformed_rate": 0.016666666666666666,
+        "mean_reward": 0.4094444444444443
+      }
+    }
+  },
+  "examples": [
+    {
+      "prompt": "PROBLEM: 9 * 8 = ? (DIFFICULTY: 1 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 72
+    },
+    {
+      "prompt": "PROBLEM: 9 * 9 = ? (DIFFICULTY: 1 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 81
+    },
+    {
+      "prompt": "PROBLEM: 2 + 3 = ? (DIFFICULTY: 1 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 5
+    },
+    {
+      "prompt": "PROBLEM: 34 + 54 = ? (DIFFICULTY: 2 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 88
+    },
+    {
+      "prompt": "PROBLEM: 96 + 16 = ? (DIFFICULTY: 2 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 112
+    },
+    {
+      "prompt": "PROBLEM: 19 + 70 = ? (DIFFICULTY: 2 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 89
+    },
+    {
+      "prompt": "PROBLEM: 916 + 976 = ? (DIFFICULTY: 3 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 1892
+    },
+    {
+      "prompt": "PROBLEM: 817 * 371 = ? (DIFFICULTY: 3 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 303107
+    },
+    {
+      "prompt": "PROBLEM: 498 + 975 = ? (DIFFICULTY: 3 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 1473
+    },
+    {
+      "prompt": "PROBLEM: 6052 * 4940 = ? (DIFFICULTY: 4 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 29896880
+    },
+    {
+      "prompt": "PROBLEM: 1987 + 6567 = ? (DIFFICULTY: 4 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 8554
+    },
+    {
+      "prompt": "PROBLEM: 3841 * 5673 = ? (DIFFICULTY: 4 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 21789993
+    },
+    {
+      "prompt": "PROBLEM: 37059 * 56973 = ? (DIFFICULTY: 5 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 2111362407
+    },
+    {
+      "prompt": "PROBLEM: 85122 * 35749 = ? (DIFFICULTY: 5 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 3043026378
+    },
+    {
+      "prompt": "PROBLEM: 75779 + 80095 = ? (DIFFICULTY: 5 DIGITS) DECIDE:",
+      "raw_completion": "AAAAAAAA",
+      "decision": "ANSWER",
+      "real_target": 155874
+    }
+  ]
+}

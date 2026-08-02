@@ -1,0 +1,58 @@
+{
+  "trials": 5000,
+  "seed": 0,
+  "tool_cost": 0.3,
+  "digit_levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "accuracy_model": {
+    "1": 0.97,
+    "2": 0.82,
+    "3": 0.6699999999999999,
+    "4": 0.52,
+    "5": 0.37
+  },
+  "wall_clock_s": 0.0242826659232378,
+  "results": {
+    "never_tool": {
+      "policy": "never_tool",
+      "trials": 5000,
+      "mean_reward": 0.8653999999999205,
+      "per_level_mean_reward": {
+        "1": 1.1726720647773494,
+        "2": 1.0216055500495724,
+        "3": 0.8794605809128757,
+        "4": 0.7154228855721465,
+        "5": 0.5520309477756263
+      }
+    },
+    "always_tool": {
+      "policy": "always_tool",
+      "trials": 5000,
+      "mean_reward": 0.9000000000000258,
+      "per_level_mean_reward": {
+        "1": 0.8999999999999846,
+        "2": 0.899999999999985,
+        "3": 0.8999999999999848,
+        "4": 0.8999999999999849,
+        "5": 0.8999999999999851
+      }
+    }
+  },
+  "calibrated_oracle_reference": {
+    "policy": "calibrated_oracle (reference only, not a required baseline; sees simulated_accuracy directly, a real policy sees only the difficulty label)",
+    "mean_reward_outcome_only": 0.7779999999999999,
+    "mean_reward_with_format": 0.978,
+    "per_level_outcome_only": {
+      "1": 0.97,
+      "2": 0.82,
+      "3": 0.7,
+      "4": 0.7,
+      "5": 0.7
+    }
+  }
+}
