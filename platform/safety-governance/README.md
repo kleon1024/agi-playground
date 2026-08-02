@@ -144,6 +144,7 @@ whose authority exceeds the current team.
 | Read this | When you need to decide | It returns |
 |---|---|---|
 | [eval gates](01-eval-gates/) | whether a release-blocking threshold can be computed instead of reviewed by hand | a from-scratch gate mechanism, and a real sweep showing no threshold clears both false blocks and false passes at once |
+| [red-teaming](02-red-teaming/) | whether a fixed test set is enough to trust a gate's own scores | a from-scratch adversarial search, and a real case where search budget cannot substitute for perturbation coverage |
 
 ## Current forcing function
 
