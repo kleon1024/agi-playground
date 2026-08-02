@@ -11,7 +11,10 @@ which to the harness, and which to the serving configuration?
 
 Start with [metric gaming](01-metric-gaming/) if you have not yet seen why a
 proxy metric's meaning can invert under the optimization pressure the rest of
-this chapter assumes you already trust it against.
+this chapter assumes you already trust it against. [Statistical
+significance](02-statistical-significance/) builds the paired-bootstrap
+mechanism behind Section 6's interval below, with a from-scratch toy and a
+real run.
 
 Every mission ends here: [language-model system stage 07](../../missions/01-language-model-agent/07-eval/),
 [discovery stage 09](../../missions/02-personalized-discovery/09-report/), and
@@ -142,6 +145,9 @@ evidence, not with a more confident narrative.
 Report the estimate with an interval and the number of tasks. For paired
 candidate-versus-baseline comparisons, preserve task pairing and inspect the
 disagreements: tasks only the candidate wins, and tasks only the baseline wins.
+[Statistical significance](02-statistical-significance/) works this paired
+case in full, with a from-scratch bootstrap and a real run showing the same
+true effect excluding zero at one sample size and not at another.
 
 Seeds matter when generation or environments are stochastic. Repeat enough to
 estimate variance, and define the evidence threshold before seeing the result.

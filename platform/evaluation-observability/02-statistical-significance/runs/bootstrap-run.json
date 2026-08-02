@@ -1,0 +1,24 @@
+{
+  "seed": 0,
+  "true_effect": 0.06,
+  "large_n": {
+    "n_items": 300,
+    "n_resamples": 2000,
+    "score_a": 0.6933333333333334,
+    "score_b": 0.56,
+    "observed_gap": 0.1333333333333333,
+    "ci_95_low": 0.06000000000000005,
+    "ci_95_high": 0.20666666666666667,
+    "ci_excludes_zero": true
+  },
+  "small_n": {
+    "n_items": 25,
+    "n_resamples": 2000,
+    "score_a": 0.64,
+    "score_b": 0.44,
+    "observed_gap": 0.2,
+    "ci_95_low": -0.040000000000000036,
+    "ci_95_high": 0.44000000000000006,
+    "ci_excludes_zero": false
+  }
+}

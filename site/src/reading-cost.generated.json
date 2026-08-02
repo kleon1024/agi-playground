@@ -35,6 +35,10 @@
     "level": "foundation",
     "minutes": 10
   },
+  "foundations/03-backpropagation": {
+    "level": "foundation",
+    "minutes": 9
+  },
   "infra": {
     "level": "reference",
     "minutes": 3
@@ -62,6 +66,10 @@
   "infra/06-gpu-dedup-at-scale": {
     "level": "reference",
     "minutes": 8
+  },
+  "infra/07-rollout-concurrency": {
+    "level": "applied",
+    "minutes": 7
   },
   "missions": {
     "level": "applied",
@@ -349,7 +357,7 @@
   },
   "missions/08-video-generation/03-report": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 6
   },
   "missions/08-video-generation/04-longer-sequences": {
     "level": "applied",
@@ -435,11 +443,19 @@
     "level": "applied",
     "minutes": 9
   },
+  "platform/evaluation-observability/02-statistical-significance": {
+    "level": "applied",
+    "minutes": 9
+  },
   "platform/safety-governance": {
     "level": "applied",
     "minutes": 6
   },
   "platform/safety-governance/01-eval-gates": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "platform/safety-governance/02-red-teaming": {
     "level": "applied",
     "minutes": 8
   },

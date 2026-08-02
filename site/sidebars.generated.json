@@ -529,6 +529,11 @@
       },
       {
         "type": "doc",
+        "id": "foundations/03-backpropagation/index",
+        "label": "Backpropagation \u00b7 verified"
+      },
+      {
+        "type": "doc",
         "id": "foundations/LANDSCAPE",
         "label": "Landscape"
       }
@@ -762,6 +767,11 @@
           },
           {
             "type": "doc",
+            "id": "platform/evaluation-observability/02-statistical-significance/index",
+            "label": "Statistical significance \u00b7 verified"
+          },
+          {
+            "type": "doc",
             "id": "platform/evaluation-observability/LANDSCAPE",
             "label": "Landscape"
           }
@@ -779,6 +789,11 @@
             "type": "doc",
             "id": "platform/safety-governance/01-eval-gates/index",
             "label": "Evaluation gates"
+          },
+          {
+            "type": "doc",
+            "id": "platform/safety-governance/02-red-teaming/index",
+            "label": "Red-teaming"
           }
         ]
       }
@@ -821,6 +836,11 @@
         "type": "doc",
         "id": "infra/06-gpu-dedup-at-scale/index",
         "label": "GPU dedup at scale \u00b7 verified"
+      },
+      {
+        "type": "doc",
+        "id": "infra/07-rollout-concurrency/index",
+        "label": "Rollout concurrency \u00b7 verified"
       },
       {
         "type": "doc",
