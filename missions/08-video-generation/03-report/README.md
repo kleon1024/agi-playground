@@ -56,6 +56,57 @@ held fixed): `0.0804`, `0.0865`, `0.0882`. The spread this produces (`0.0078`)
 is small relative to the margin over baseline (`0.0430`) -- the result is not
 a coin flip that happened to land favorably once.
 
+## The second baseline this mission's contract also names
+
+`mission.yaml`'s baseline field declares two, not one. The first is the
+frame-repeat control above. The second: "a published toy video-generation
+number, named and dated, from a public benchmark in this problem class (for
+example, a Moving MNIST reconstruction-loss result), cited per this
+repository's rule that external published results are usable when
+attributed — not reproduced, only named as a point of reference." Stage 00
+already names the paper this baseline points at, to justify the dataset's
+own design, but never reports a number from it. This section closes that
+gap.
+
+Srivastava, Mansimov & Salakhutdinov (2015, ICML) — the same paper stage 00
+cites for the toy-synthetic-video precedent — reports exactly this kind of
+number in its Table 2: predicting future frames of Moving MNIST digit
+sequences, its best-performing variant (a Composite Model with a Conditional
+Future Predictor) reaches a test cross entropy of **341.2** against ground
+truth.
+
+That number is named and dated, not reproduced, and not compared numerically
+to this mission's own reconstruction MSE — the metrics are not the same
+unit (their summed cross entropy over grayscale MNIST digit frames against
+this mission's own per-pixel MSE over its own colored-shape RGB frames), and
+the datasets differ in everything but genre. It exists only so a reader has
+one external, same-problem-class point of reference, exactly as this
+mission's top-level README already states this baseline is for — not so the
+two numbers can be read against each other.
+
+## Production systems this mission does not attempt to compare against
+
+Real production video-generation systems moved considerably during the
+period this mission ran. ByteDance's Seedance 2.0 (announced February 2026)
+topped the Artificial Analysis Video Arena leaderboard for both
+text-to-video and image-to-video generation in early 2026. Seedance 2.5,
+announced June 23, 2026 at the Volcano Engine FORCE conference, generates a
+native 30-second clip in a single pass with no stitching, accepts up to 50
+reference inputs, and outputs 4K — it was in global enterprise beta with a
+public rollout targeted for early July 2026, and as of this report no public
+benchmark numbers for it have been published.
+
+No number from either system appears anywhere in this report. `mission.yaml`
+names a same-problem-class synthetic benchmark as its declared second
+baseline for exactly this reason: a production system trained on real-world
+video at production scale answers a different question than this mission's
+own feasibility claim, and citing an unpublished or not-yet-benchmarked
+model version's quality would violate this repository's own rule against
+writing a number that cannot be verified. Both are named here only as
+situational context for a reader asking where production video generation
+stood while this mission ran, never as a comparison point this report draws
+any conclusion from.
+
 ## The caveat the primary metric alone does not show
 
 `predicted_token_sequence_exact_match_rate` per seed: `[0.067, 0.220, 0.193]`
