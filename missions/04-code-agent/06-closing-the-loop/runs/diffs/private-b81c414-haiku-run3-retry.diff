@@ -1,0 +1,22 @@
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -120,7 +120,7 @@ def _cached_attention(attn, cfg: Config, x, cos, sin, cache: KVCache, layer_id
+     if n_rep > 1:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=(T > 1))
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -229,7 +229,7 @@ def _cached_attention_paged(attn, cfg: Config, x, cos, sin, cache: PagedKVCach
+     if n_rep > 1:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=(T > 1))
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 

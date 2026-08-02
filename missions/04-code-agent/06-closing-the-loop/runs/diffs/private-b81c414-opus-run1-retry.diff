@@ -1,0 +1,42 @@
+--- a/missions/01-language-model-agent/05-serve/core/engine.py
++++ b/missions/01-language-model-agent/05-serve/core/engine.py
+@@ -155,10 +155,14 @@
+     - the new token's K/V are written into the cache before reading, and
+       attention runs against the cache's full contents (`start_pos + T`
+       tokens) rather than only the T tokens in `x` — the entire point.
+-    - `is_causal=True` still holds for a 1-query, N-key decode step: SDPA's
+-      causal mask aligns the query block against the *last* T_q positions of
+-      the key block, which for T_q=1 means "attend to everything" — exactly
+-      the single new token attending over all prior cached tokens.
++    - the mask is built explicitly instead of passed as `is_causal=True`.
++      SDPA's causal flag aligns the query block against the *first* T_q
++      positions of the key block, so a 1-query, N-key decode step would
++      attend to position 0 alone and silently produce wrong logits.
++      `tril(diagonal=start_pos)` shifts the diagonal onto this call's
++      absolute positions: query i attends to every key up to
++      `start_pos + i`, which for T=1 is the whole cache.
+     """
+     _, T, _ = x.shape
+     q = attn.q(x).view(1, T, cfg.n_head, cfg.d_head).transpose(1, 2)
+@@ -174,7 +178,9 @@
+     if n_rep > 1:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    mask = torch.ones(T, start_pos + T, dtype=torch.bool, device=x.device)
++    mask = mask.tril(diagonal=start_pos)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=mask)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))
+ 
+ 
+@@ -310,7 +316,9 @@
+     if n_rep > 1:
+         k_full = k_full.repeat_interleave(n_rep, dim=1)
+         v_full = v_full.repeat_interleave(n_rep, dim=1)
+ 
+-    out = F.scaled_dot_product_attention(q, k_full, v_full, is_causal=True)
++    mask = torch.ones(T, start_pos + T, dtype=torch.bool, device=x.device)
++    mask = mask.tril(diagonal=start_pos)
++    out = F.scaled_dot_product_attention(q, k_full, v_full, attn_mask=mask)
+     return attn.o(out.transpose(1, 2).contiguous().view(1, T, -1))

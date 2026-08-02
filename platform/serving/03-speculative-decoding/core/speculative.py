@@ -33,6 +33,7 @@ import sys
 import time
 import urllib.request
 from pathlib import Path
+from typing import Any
 
 import torch
 
@@ -149,7 +150,8 @@ def verify_correctness(target: Transformer, draft: Transformer, prompt_ids: list
     return baseline == spec
 
 
-def bench(label: str, fn, *args) -> tuple[float, object]:
+def bench(label: str, fn, *args) -> tuple[float, Any]:
+    print(f"  running {label}...")
     t0 = time.perf_counter()
     result = fn(*args)
     return time.perf_counter() - t0, result
