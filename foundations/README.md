@@ -24,10 +24,13 @@ you would rather build the mental model before the artifact.
 | [The decoder block](00-attention/) | How does one token find the context it needs, transform it, and still leave a path for learning? | the forward path, and the 88M model's parameter count reconstructed from its own formulas |
 | [The first training loop](01-first-training-loop/) | What actually happens between a loss number and a changed weight? | the backward path, on a model small enough to run on a laptop |
 | [Optimization](02-optimization/) | Why do SGD, momentum, and Adam disagree on the same loss surface? | SGD, momentum, and Adam implemented from scratch, racing on one ill-conditioned bowl: 343 vs. 138 vs. 82 steps to converge |
+| [Backpropagation](03-backpropagation/) | What does `.backward()` actually do? | a from-scratch scalar autodiff engine, checked exactly against hand-derived calculus and against torch's own `.backward()` |
 
-Read them in that order if you are reading both the first two: the second
-chapter trains the thing the first chapter describes, and the third asks why
-that training loop's optimizer was the right choice.
+Read them in that order if you are reading all four: the second chapter
+trains the thing the first chapter describes, the third asks why that
+training loop's optimizer was the right choice, and the fourth opens the one
+line (`loss.backward()`) the first two chapters both call without
+explaining.
 
 ## Where these go next
 
