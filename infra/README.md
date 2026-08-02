@@ -40,7 +40,7 @@ is reserved for the handful of labs that genuinely need more than one GPU.
 | 2–4 GPU parallelism (FSDP2/TP/PP) | Modal | Requires multiple GPUs the local box doesn't have |
 | 7B+ full-parameter SFT/RL | Modal | Exceeds single-4090 memory even with tricks |
 | GPU-accelerated dedup at scale (e.g. NeMo Curator-style) | Modal | Throughput work that benefits from elastic GPU count — see [`06-gpu-dedup-at-scale/`](06-gpu-dedup-at-scale/) for why the bottleneck shifts there in the first place |
-| RL rollout concurrency at scale | Modal | Needs parallel rollout workers beyond one card |
+| RL rollout concurrency at scale | Modal | Needs parallel rollout workers beyond one card — see [`07-rollout-concurrency/`](07-rollout-concurrency/) for why lockstep batching wastes worker time as trajectory length varies |
 
 When a lesson's README doesn't say otherwise, assume the local 4090 lane.
 
@@ -75,6 +75,12 @@ runbooks below document this repository's own two real compute lanes.
   CPU across four corpus sizes, verification overtakes hashing between
   16,000 and 48,000 synthetic documents, which is the real reason
   GPU-accelerated dedup (NeMo Curator-style) exists.
+- [`07-rollout-concurrency/`](07-rollout-concurrency/) — why lockstep
+  rollout batching loses time to stragglers once trajectory length is
+  heavy-tailed instead of fixed: measured across three worker-pool sizes,
+  asynchronous scheduling beats lockstep by 1.73x at 2 workers, shrinking to
+  1.30x at 8, which is the mechanism real asynchronous RLHF systems are
+  built to avoid.
 
 ## Setup docs
 
