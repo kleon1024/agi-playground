@@ -115,6 +115,7 @@ one builds, not before.
 | [03 — Real-photo task](03-real-photo-task/) | does the same leakage-controlled task design hold once images are real photographs instead of rendered shapes? | verified |
 | [04 — Real-photo vision fusion](04-real-photo-vision-fusion/) | does the same vision pathway, unchanged, still separate from text-only on real photographs? | verified — real, narrow margin (+0.0152 vs 0.0101 spread) |
 | [05 — Real-photo report](05-real-photo-report/) | does the real-photo vision pathway hold up against the hosted VLM API too? | verified — NOT MET, hosted API decisively wins on real photographs too |
+| [06 — Warmup stability](06-warmup-stability/) | does a linear LR warmup close stage 01's seed-2 collapse? | verified — confirmed, spread tightened from 0.2309 to 0.0536 |
 
 [Stage 00](00-image-caption-task/) generated 2,000 train and 400 eval
 image+question+answer instances and found two real defects in its own

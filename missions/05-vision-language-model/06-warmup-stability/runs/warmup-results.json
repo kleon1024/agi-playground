@@ -1,0 +1,47 @@
+{
+  "stage": "06-warmup-stability",
+  "base_lr": 0.003,
+  "warmup_frac": 0.1,
+  "total_steps": 1860,
+  "warmup_steps": 186,
+  "epochs": 30,
+  "batch_size": 64,
+  "n_params": 732928,
+  "eval_exact_match": {
+    "mean": 0.497,
+    "spread": 0.0536,
+    "per_seed": [
+      0.4707,
+      0.5242,
+      0.4962
+    ]
+  },
+  "final_train_loss": {
+    "mean": 0.4647,
+    "spread": 0.2302,
+    "per_seed": [
+      0.5708,
+      0.4827,
+      0.3406
+    ]
+  },
+  "wall_clock_s": 1059.9150401670486,
+  "stage01_baseline_eval_exact_match": {
+    "mean": 0.4375,
+    "spread": 0.2309,
+    "per_seed": [
+      0.5128,
+      0.5153,
+      0.2844
+    ]
+  },
+  "stage01_baseline_final_train_loss": {
+    "mean": 0.5689,
+    "spread": 0.1957,
+    "per_seed": [
+      0.5317,
+      0.4896,
+      0.6853
+    ]
+  }
+}

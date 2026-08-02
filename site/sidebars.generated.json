@@ -329,6 +329,11 @@
             "type": "doc",
             "id": "missions/05-vision-language-model/05-real-photo-report/index",
             "label": "Real-photo outcome report \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/05-vision-language-model/06-warmup-stability/index",
+            "label": "Warmup stability \u00b7 verified"
           }
         ]
       },

@@ -144,3 +144,9 @@ does_not_prove: >
   architecture choice (prefix fusion vs. cross-attention, patch size,
   encoder depth) is best in general; this mission measures the specific
   choice its stage 01 run record makes, not the design space around it.
+  Stage 06 tested one specific fix (a 10%-of-steps linear LR warmup) for
+  stage 01's seed-2 collapse, at one warmup fraction, on 3 seeds — it
+  confirms this fix closes that specific collapse, but does not establish
+  that 10% is an optimal fraction, that a 4th or 5th seed could not still
+  reopen a gap, or that the same fix would help (or hurt) the text-only
+  pathway, which was not retested with warmup.
