@@ -229,7 +229,7 @@
   },
   "missions/04-code-agent": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "missions/04-code-agent/00-task-set": {
     "level": "applied",
@@ -257,7 +257,7 @@
   },
   "missions/04-code-agent/06-closing-the-loop": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "missions/05-vision-language-model": {
     "level": "applied",

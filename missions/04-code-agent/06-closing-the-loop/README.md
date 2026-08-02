@@ -1,6 +1,7 @@
 ---
-status: draft
+status: verified
 level: applied
+verified: 2026-08-03
 label: Closing the loop
 ---
 
@@ -94,24 +95,78 @@ the retry prompt.
 `runs/closing-the-loop-results.jsonl` -- twelve real retry attempts, one per
 stage-01 attempt eligible for retry (six haiku, three sonnet, three opus; the
 count per tier follows directly from how many of each tier's stage-01
-attempts were unresolved-and-not-a-timeout).
+attempts were unresolved-and-not-a-timeout). Full command and per-attempt
+detail in [`runs/2026-08-03-closing-the-loop.md`](runs/2026-08-03-closing-the-loop.md).
 
-<!-- RESULTS_TABLE -->
+| Model | Retried | Resolved before (stage 01) | Resolved after one retry | Diff even applied |
+|---|---|---|---|---|
+| haiku | 6 | 0/6 | 0/6 | 0/6 |
+| sonnet | 3 | 0/3 | 1/3 | 1/3 |
+| opus | 3 | 0/3 | 1/3 | 1/3 |
+| **Pooled** | **12** | **0/12** | **2/12** | **2/12** |
+
+("Resolved before" is 0 for every row by construction: these are exactly the
+stage-01 attempts that did not resolve, and the two sonnet timeouts are
+excluded because they never produced a diff to retry.)
+
+The retry step was fully bimodal in this run: **every attempt that resolved
+is exactly the attempt whose corrected diff applied at all.** There is no
+case here of a diff applying but the target test still failing -- the
+opposite of the split stage 04 found in stage 01's own baseline (eleven
+never-applied, one applied-but-wrong). Ten of these twelve retries still
+produced a diff `git apply` rejected, essentially the same failure mode
+stage 04 catalogued, just measured on the retry step instead of the first
+attempt.
 
 ## Verdict
 
-<!-- VERDICT -->
+A genuine, small, mixed result -- not a clean win, not a clean null.
+
+**Haiku: no effect.** Six retries, zero resolved, same as before. Seeing the
+exact `git apply` error text (or, for the one attempt whose prior diff had
+applied, the exact still-failing pytest output) did not change haiku's
+output in a way that got a diff to apply, let alone fix the bug.
+
+**Sonnet and opus: one flip each, out of three.** Both tiers went from 0/3 to
+1/3 resolved on their retried attempts. That is a real, observed change --
+a diff that did not apply the first time applied and fixed the bug the
+second time, after the model saw the real error. It is also a single flip at
+N=3 per tier, and this stage ran each retry once rather than repeating it the
+way stage 01 repeated its own baseline three times per task. There is no
+per-tier spread to compare this margin against, the way stage 01 could report
+"opus's margin sits inside its own run-to-run spread." Reported plainly: this
+is a real positive movement at sonnet and opus, and it is too small a sample
+to call decisive on its own.
+
+**Pooled, the headline number:** 0/12 to 2/12 across all three tiers combined
+-- a real but modest improvement, entirely explained by two diffs that went
+from rejected to applying-and-correct, and by nothing else. Outcome-feedback
+did not turn any "applies but wrong" case into "resolved" (there were none in
+this batch to begin with, on either side), and it did not reduce the rate of
+diffs that fail to apply at all in any way large enough to see at this N (10
+of 12 still didn't apply, against 11 of 12 in stage 01's original baseline
+covering all outcomes, unresolved and resolved together).
 
 ## Cost
 
-<!-- COST -->
+| Model | Cost this stage |
+|---|---|
+| haiku | $0.4852 |
+| sonnet | $1.3057 |
+| opus | $1.2604 |
+| **Total this stage** | **$3.0513** |
+
+Cumulative mission hosted-API spend: **$17.9547** of the **$30** ceiling
+(stage 03's $9.12 + stage 01's $5.1438 + stage 00's public-set run's $0.6407
++ this stage's $3.0513). $12.0453 of headroom remained unused; the ceiling
+was never approached.
 
 ## Run it
 
 ```bash
 cd missions/04-code-agent/06-closing-the-loop/core
 uv run python close_the_loop.py \
-  --ceiling 30 --already-spent <cumulative-before-this-stage> \
+  --ceiling 30 --already-spent 14.9034 \
   --timeout 240 \
   --out ../runs/closing-the-loop-results.jsonl \
   --keep-diffs ../runs/diffs
@@ -136,4 +191,8 @@ already fully resolved on this task set (18/18); this stage does not
 re-open it and does not combine the two variables. And with two private
 tasks and at most six attempts per tier, this stage inherits stage 01's own
 small-N caveat: a gap smaller than that tier's own run-to-run spread is
-reported as no result, exactly as stage 01 and 05 both already do.
+reported as no result, exactly as stage 01 and 05 both already do. Unlike
+stage 01, this stage did not repeat each retry multiple times, so it cannot
+report a run-to-run spread for the retry step itself the way stage 01 could
+for its baseline -- the sonnet and opus 0/3-to-1/3 movements are reported as
+real but statistically thin for exactly that reason.

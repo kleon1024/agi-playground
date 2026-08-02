@@ -136,3 +136,15 @@ does_not_prove: >
   performance on this codebase's idioms and its authors' habits; it is a
   contamination control, not a benchmark, and its small N cannot support a
   significance claim of any kind.
+
+  Stage 06 (closing the loop) adds one further boundary. A single retry turn
+  with real outcome-feedback and no tools is not the "learning from real task
+  attempts, tool-call outcomes, and failures" that current post-training
+  research points toward — no weights are updated, nothing accumulates past
+  one retry, and the model still cannot look at anything beyond what the
+  retry prompt hands it. It does not reopen or combine with the tool-access
+  question stage 02/03 already answered separately. And because each retry
+  ran once rather than being repeated the way stage 01 repeated its own
+  baseline three times per task, stage 06 cannot report a run-to-run spread
+  for the retry step itself — its sonnet and opus movements (0/3 to 1/3) are
+  real but too small a sample to call decisive on their own.

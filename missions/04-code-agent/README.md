@@ -74,6 +74,7 @@ them would hide the only comparison that says which is which.
 | [03 — Cheap or expensive](03-cheap-or-expensive/) | the cheap model resolved everything; should you use it? | verified |
 | [04 — How it fails](04-how-it-fails/) | how does it fail, and does it cheat? | verified |
 | [05 — The report](05-report/) | what did we actually establish? | verified |
+| [06 — Closing the loop](06-closing-the-loop/) | does seeing your own attempt's real outcome help, with still no tools? | verified |
 
 [Stage 00](00-task-set/) has run. It mined this repository's 100 commits down to
 4 candidates and admitted **2**, because a task is admitted only if its test
@@ -148,6 +149,17 @@ that was undecidable is now MET — and the seventh moves from undecidable to
 **PARTIAL**: the harness's own resolve rate on the public set is real (6/6),
 but no no-harness control has been run against that set yet, so the "beats
 no-harness, both task sets" bullet cannot fully close without it.
+
+[Stage 06](06-closing-the-loop/) has since asked the question sitting between
+stage 01's zero feedback and stage 03's full tool loop: for every no-harness
+attempt that failed and produced a diff, show the model its own prior diff
+plus the real `git apply` error or real test failure it caused, and ask for
+one corrected diff -- still no tools. Twelve real retries across the three
+tiers: haiku 0/6 resolved (no change), sonnet 1/3, opus 1/3 — pooled 0/12 to
+2/12. Both tiers that moved did so on a diff that went from rejected to
+applying-and-correct; no attempt in this batch moved from "applies but wrong"
+to resolved, and ten of the twelve retries still produced a diff `git apply`
+rejected. A real, modest, mixed result, not a clean win.
 
 ## What this will not prove
 
