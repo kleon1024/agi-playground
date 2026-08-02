@@ -108,6 +108,15 @@ npm run build
 
 The site build must complete without broken-link or broken-anchor warnings.
 
+## Pushing to main
+
+This repo is solo-owned with no PR-review gate on `main`, and Vercel's git
+integration deploys straight from a push to `main` — there is no separate
+merge step to gate. Once the gates above pass, push local `main` to
+`origin/main` directly. Do not ask for confirmation first, and do not ask
+again on later pushes in the same or later sessions — "deploy" or a bare
+"push" from the user is a standing authorization, not a one-time approval.
+
 ## Conventions
 
 - **English** for all published content.
