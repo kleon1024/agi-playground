@@ -289,6 +289,11 @@
             "type": "doc",
             "id": "missions/04-code-agent/05-report/index",
             "label": "The report \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "missions/04-code-agent/06-closing-the-loop/index",
+            "label": "Closing the loop"
           }
         ]
       },
@@ -749,6 +754,11 @@
             "type": "doc",
             "id": "platform/serving/02-quantization/index",
             "label": "Quantization \u00b7 verified"
+          },
+          {
+            "type": "doc",
+            "id": "platform/serving/03-speculative-decoding/index",
+            "label": "Speculative decoding \u00b7 verified"
           },
           {
             "type": "doc",

@@ -137,7 +137,11 @@ acceptance by request slice, because domain, temperature, and prompt style can
 change it substantially.
 
 The target distribution remains authoritative. Speculation changes execution,
-not the model's intended output distribution.
+not the model's intended output distribution. [Sub-lesson
+03](03-speculative-decoding/) measures exactly that claim: a from-scratch draft
+and target, verified byte-for-byte identical to plain greedy decoding
+regardless of draft quality, with the identical draft architecture crossing
+from a real speedup to a real slowdown as training steps alone change.
 
 ## How much precision can you give up?
 
@@ -209,9 +213,10 @@ a technique exists and knowing what it is worth on a specific card.
 |---|---|---|
 | [graph execution](01-graph-execution/) | whether the card is working or waiting between tokens | a profile that says which of three bottlenecks you have, and roughly 3x from removing launch overhead |
 | [quantization](02-quantization/) | whether a smaller model decodes faster | a measured no, at this batch size — INT8 shrinks the model 2.79x and is slower, both by hand and through a real int8 kernel |
+| [speculative decoding](03-speculative-decoding/) | whether a cheap draft's guesses are worth a target's check | a measured crossover — the identical draft architecture flips from 1.58x speedup to 0.94x slowdown purely on training steps, and both regimes stay byte-identical to plain greedy decoding |
 
-Techniques named above and not yet measured — speculative decoding, latency
-under load — stay named until a run record exists for them.
+Techniques named above and not yet measured — latency under load — stay
+named until a run record exists for them.
 
 ## Run the working path
 

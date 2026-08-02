@@ -255,6 +255,10 @@
     "level": "applied",
     "minutes": 6
   },
+  "missions/04-code-agent/06-closing-the-loop": {
+    "level": "applied",
+    "minutes": 6
+  },
   "missions/05-vision-language-model": {
     "level": "applied",
     "minutes": 8
@@ -472,6 +476,10 @@
     "minutes": 11
   },
   "platform/serving/02-quantization": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "platform/serving/03-speculative-decoding": {
     "level": "applied",
     "minutes": 8
   },
