@@ -105,7 +105,7 @@
   },
   "missions/01-language-model-agent/03-sft/what-it-costs": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 10
   },
   "missions/01-language-model-agent/04-rl": {
     "level": "applied",

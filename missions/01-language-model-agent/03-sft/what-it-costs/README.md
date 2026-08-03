@@ -94,6 +94,44 @@ Easy to lose sight of once a model starts producing chat-shaped output:
 That last distinction is the one most often misread. LIMA says you need less
 data than you thought. It does not say you need less model.
 
+## Does a stronger base need fewer examples? LIMA doesn't test that
+
+LIMA's own numbers are narrower than the folklore that's grown up around them.
+Zhou et al. fine-tuned a single 65B base on 1,000 curated examples and found
+that **doubling that training set did not improve response quality** — more
+data aimed at the same target distribution hit diminishing returns fast.
+Separately, adding a modest number of examples aimed at a genuinely new
+distribution (multi-turn dialogue, which the original 1,000 barely covered)
+raised the rate of "excellent" responses from 45.2% to 76.1%. Read together:
+volume stops helping once it's answering a question the model already knows
+how to answer; volume helps again when it's teaching something the curated set
+never covered.
+
+None of that is a claim about *base-model scale*. LIMA ran one 65B model —
+there is no second, weaker or stronger base in the paper to compare it against,
+so the study cannot show whether a stronger base needs fewer SFT examples than
+a weaker one. The idea that it would is a reasonable **inference** from the
+Superficial Alignment Hypothesis, not something LIMA measured: if pretraining
+is where the knowledge and most of the capability come from, and SFT's job is
+mainly to select a format and a response distribution out of what's already
+there, then a base model that arrives with a sharper distribution should need
+less correction to reach the same target. That's a chain of reasoning from the
+hypothesis, stated here as inference, and it stays unmeasured until someone
+runs the same curated set across bases of different capability and reports
+what changes.
+
+This repo's own run is a curation-over-volume illustration at a much smaller
+scale, not a test of that scaling question either. The 9,500-conversation
+`no_robots` corpus packs into 3,305 blocks of 1,025 tokens at 80.4% real
+tokens (see [stage 03's run record](../runs/)), and three epochs over it
+measurably changed the 88M-parameter base's output shape in 92.5 seconds. That
+shows curated data working at this repo's scale — it says nothing about
+whether a larger base pretrained on more data would need a smaller version of
+that same 9,500-example set to reach an equivalent result. Testing that would
+mean training multiple bases of different capability against matched SFT data
+and comparing how much each needs, which is a cross-base-model comparison this
+repo has no way to run.
+
 ## What the recorded run does and does not show
 
 The 92.5-second run and its 2.7828 validation loss are measured, in
