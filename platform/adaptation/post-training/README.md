@@ -57,6 +57,39 @@ token matters too: without it, the model is not supervised on when to stop.
 The SFT data contract must therefore include template version, role boundaries,
 loss mask, truncation policy, and packed-sequence boundaries.
 
+## What does a real record look like once it is rendered and masked?
+
+Row 137 of `HuggingFaceH4/no_robots`'s `train` split, run through
+[stage 03's `render_and_mask`](../../../missions/01-language-model-agent/03-sft/core/sft.py)
+unmodified:
+
+- user: `What was Phish’s last studio album?`
+- assistant: `Phish’s most recent album was “Sigma Oasis”, which was released on April 2nd of 2020.`
+
+That renders to 45 real tokens. The first 20 — every user token, both turn
+headers, and the closing `<|im_end|>` of the user turn — are masked to
+`-100`. Trained tokens start only at the assistant turn's first content
+token and run through its own closing `<|im_end|>`:
+
+```
+i=0..19   <|im_start|>user\n What was Ph ish ’s last stud io alb um ? <|im_end|>\n <|im_start|>assistant\n   labels: -100 (x20)
+i=20..43  Ph ish ’s most recent alb um was “ S igma O asis ”, which was released on April 2nd of 2020 . <|im_end|>   labels: = ids
+i=44      \n                                                                                                        label: -100
+```
+
+24 of these 45 tokens carry loss — **53.3%** of this one record, before any
+packing. The full 45-row token table, with every id and its decoded piece, is
+in [`03-sft/runs/2026-08-03-render-example.md`](../../../missions/01-language-model-agent/03-sft/runs/2026-08-03-render-example.md).
+This is one record's ratio, not the dataset's: packing across the whole
+corpus lands at a different number, below.
+
+That corpus is 9,500 hand-written training conversations from `no_robots`,
+chosen for LIMA's argument (Zhou et al., 2023) that a small, carefully
+curated instruction set gets most of the way to a much larger, noisier one.
+Packed into 1,025-token blocks, they fill 3,305 blocks at **80.4% real
+(non-padding) tokens** — the run this contract is checked against is
+[`03-sft/runs/2026-07-28-sft-no-robots.md`](../../../missions/01-language-model-agent/03-sft/runs/2026-07-28-sft-no-robots.md).
+
 ## How do you know the template is wired correctly?
 
 SFT mostly changes format, response policy, and style; it does not inject all
