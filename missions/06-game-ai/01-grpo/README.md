@@ -49,6 +49,14 @@ positions (0 and 1) in both vocabularies. That is the entire reason
 module globals, not parameters -- run against a completely different
 character set with no patching at all.
 
+The policy itself is the same `Transformer` class as mission 01's pretraining
+run, imported unmodified, instantiated with a much smaller config for this
+task's 28-character vocabulary:
+`Config(vocab_size=28, n_layer=4, n_head=4, n_kv_head=2, d_model=128,
+d_ff=320, block_size=96)` -- 692,864 parameters total.
+
+<!-- interactive: ModelArchitecturePolicy -->
+
 ## What ran
 
 3 independent seeds, 200 GRPO steps each, 4 sampled grid problems per step,
