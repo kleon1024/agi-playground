@@ -124,6 +124,26 @@ Layered controls include:
 Prompt wording alone cannot enforce these properties. The security invariant
 lives in runtime permissions.
 
+That boundary is not only a policy question; production message schemas
+encode it structurally. Anthropic's Messages API has no separate "tool"
+role — a tool result is a `tool_result` content block (`type`, `tool_use_id`,
+`content`, optional `is_error`) nested inside a `user`-role message, with
+`tool_use_id` matching the `id` of the `tool_use` block the prior
+`assistant` turn proposed. OpenAI's Chat Completions API instead gives tool
+results their own `"role": "tool"` message, keyed by `tool_call_id` against
+the `id` in the model's prior `tool_calls` array — a different shape, not
+just a different name for the same idea. Both choices do the same job:
+isolating tool-result content in a dedicated block or a dedicated role marks
+that span of context as data a mechanism returned, not an instruction from
+whoever holds user authority — the same distinction this section already
+draws between user authority and data being processed, made concrete as an
+implementation choice instead of left abstract.
+[`core/harness.py`](../../missions/01-language-model-agent/06-agent/core/harness.py)'s
+`wire_messages` draws a lighter version of the same contrast: this harness
+folds tool observations into plain `user` turns instead of adopting either
+native shape, which its own docstring calls a compatibility simplification,
+not a change to the trust boundary above.
+
 ## 5. Choose context instead of filling it
 
 More context is not automatically better. Irrelevant or stale evidence can
