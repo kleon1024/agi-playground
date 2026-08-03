@@ -58,6 +58,8 @@ what a real bug cost along the way.
 **Before this:** [stage 00](../00-synthetic-video-dataset/) -- the clips this
 codec is trained against.
 
+<!-- interactive: ModelArchitectureCodec -->
+
 ## What is reused, and what is new
 
 `VectorQuantizer` -- the straight-through nearest-codebook-entry bottleneck

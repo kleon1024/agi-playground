@@ -107,7 +107,35 @@ traces to VideoGPT (Yan et al., 2021), which pairs a 3D VQ-VAE with a causal
 transformer over the resulting token grid -- the same two-stage shape this
 mission's stage 01 and stage 02 follow, at a scale many orders of magnitude
 larger. Video Diffusion Models (Ho et al., 2022) is the alternative lineage
-`mission.yaml` explicitly leaves untried.
+`mission.yaml` explicitly leaves untried -- and the one that produced the
+field's sudden 2024-2026 leap, worth tracing so a reader understands why.
+
+Early video diffusion, like the recurrent and GAN-based frame predictors
+before it, still inherited a U-Net denoiser built for one fixed resolution
+and one fixed clip length. Diffusion's training objective was already more
+stable than a GAN's adversarial min-max game, which collapses whenever the
+discriminator overpowers the generator, but the U-Net's convolutional
+inductive bias kept resolution and aspect ratio locked to whatever the
+architecture was built for. Peebles & Xie's Diffusion Transformers (DiT;
+*Scalable Diffusion Models with Transformers*, ICCV 2023, Paris, October
+2023) replaced that U-Net backbone with a plain transformer over latent
+patches -- the same block family this mission's own stage 02 sequence model
+uses -- and showed image-generation quality kept improving as the transformer
+was simply made bigger, the same compute-scaling relationship that had
+already worked for language models, with the fixed-resolution ceiling a
+convolutional U-Net imposes removed along with it.
+
+OpenAI's Sora, first previewed February 15, 2024, was the first widely-known
+demonstration of that swap applied at video scale: a diffusion transformer
+denoising 3D space-time patches, producing up to a minute of temporally
+coherent video from a single text prompt, at a duration and coherence no
+prior public system had shown. The 2024-2026 wave of production
+video-generation systems -- including ByteDance's Seedance 2.0 (announced
+February 2026) and Seedance 2.5 (announced June 23, 2026; native 30-second
+single-pass clips, up to 50 reference inputs, 4K output -- see
+[stage 03's report](03-report/) for what this mission does and does not
+compare against them) -- extends the same diffusion-transformer recipe with
+more compute and training data, not a new mechanism.
 
 [Stage 00](00-synthetic-video-dataset/) extends [mission 05](../05-vision-language-model/)'s
 synthetic image generator along a time axis, reusing its drawing primitives
