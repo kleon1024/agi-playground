@@ -179,6 +179,71 @@ mission-local code once
 [personalized discovery's rule engine](../../02-personalized-discovery/07-rule-engine/)
 needed the same inputs and objective.
 
+## What does agentic training data actually need to teach?
+
+The real run above did not just fail to solve its two tasks — it failed to
+produce the *shape* of a tool call at all, and that specific failure is the
+teaching example: it shows what a model that never saw agentic-formatted
+training data actually outputs when a harness asks it to follow one.
+
+Here is step 1 of `count-py-files` seed 1001, verbatim from
+[`runs/transcripts/count-py-files-seed1001.json`](runs/transcripts/count-py-files-seed1001.json):
+
+```
+raw_response: "This is a list of 1000 Python files. It is a list of 128000
+files. The name of the file is \":\""
+grounding_triggered: false
+observation: "Observation: could not parse a tool call -- no Action or Final
+Answer found in the response"
+```
+
+That is fluent, on-topic prose — the model "knows" the question is about
+Python files — but it contains no `Thought:`, no `Action:`, no
+`Action Input:`. Every one of the 36 real steps across all 6 rollouts in that
+run reads like this or worse: hedges, repetition loops, and one literal
+`Action:<Tool name>` placeholder (`count-py-files` seed 1002, step 5) that is
+the closest any generation came to the protocol — a template fragment, not a
+call naming a real tool.
+
+Contrast that with what a correctly shaped ReAct turn looks like
+structurally. `harness.py`'s `DEMO_SCRIPT` is the canned script `FakeBackend`
+plays back when `AGENT_BASE_URL` is unset — **scripted text, not model
+output** — but it drives the same `list_dir`/`read_file` tools for real:
+
+```python
+DEMO_SCRIPT = [
+    "Thought: let's see what's in the sandbox root.\nAction: list_dir\n"
+    'Action Input: {"path": "."}',
+    ...
+]
+```
+
+Structurally: `Thought:` -> `Action:` -> `Action Input:` (JSON) -> real tool
+execution -> `Observation:` injected by the harness -> the next `Thought:`.
+Nothing about that shape is exotic; it is exactly what `parse_response`
+looks for. The checkpoint used in the real run was SFT'd on
+`HuggingFaceH4/no_robots` (see [`03-sft`](../03-sft/)) — chat-formatted
+instruction/response pairs, never a single `Thought:`/`Action:`/`Observation:`
+trajectory. It never saw the format, so it never learned to produce it, no
+matter how relevant its prose is to the question being asked.
+
+That is the honest conclusion this gap supports: this is a training-data
+format problem, not a prompting problem. The system prompt handed to the
+model in the real run states the `Action:`/`Action Input:` protocol
+explicitly, so the failure is not a model failing to parse English
+instructions — it is a model with no imitation target for a scaffold it has
+never once seen a labeled example of, regardless of how the prompt is
+worded. Closing this gap is a training-data composition question — mixing
+agentic-formatted trajectories into the SFT corpus — not a harness or
+prompt-engineering fix.
+
+**Evidence boundary:** this shows one 88M-parameter checkpoint, SFT'd on one
+non-agentic instruction dataset, failing at temperature 0.7 across 3 seeds on
+two tool-only tasks. It does not show that agentic-formatted SFT data alone
+would fix it, and it does not isolate training-data format from model scale
+as the cause — both remain open, same as stated in
+[the run log](runs/2026-07-30-real-agent-run.md).
+
 ## Reproducing
 
 Every command below runs with the deterministic `FakeBackend` — no GPU, no

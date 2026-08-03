@@ -129,7 +129,7 @@
   },
   "missions/01-language-model-agent/06-agent": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 11
   },
   "missions/01-language-model-agent/06-agent/prod": {
     "level": "",
