@@ -5,7 +5,7 @@
   },
   "capabilities/act-coordinate": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 10
   },
   "capabilities/act-coordinate/01-multi-agent": {
     "level": "applied",
@@ -425,7 +425,7 @@
   },
   "platform/adaptation/mid-training": {
     "level": "applied",
-    "minutes": 10
+    "minutes": 13
   },
   "platform/adaptation/post-training": {
     "level": "applied",
@@ -433,7 +433,7 @@
   },
   "platform/adaptation/reinforcement-learning": {
     "level": "applied",
-    "minutes": 11
+    "minutes": 13
   },
   "platform/data": {
     "level": "foundation",

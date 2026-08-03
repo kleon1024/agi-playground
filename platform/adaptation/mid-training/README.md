@@ -111,6 +111,18 @@ synthesize from:
   that shows the mismatch, and a corrected step — rather than a single clean
   imitation of the right answer.
 
+A third route skips synthesis-from-a-knowledge-source entirely: distill
+trajectories from a stronger model's real rollouts against agent tasks, then
+fine-tune a smaller model on the captured behavior. AgentTuning (Zeng et al.,
+"AgentTuning: Enabling Generalized Agent Abilities for LLMs," Findings of ACL
+2024, arXiv:2310.12823) curates trajectories this way and fine-tunes a smaller
+model on them; FireAct (Chen et al., "FireAct: Toward Language Agent
+Fine-tuning," 2023, arXiv:2310.05915) reports the same core move, distilling a
+strong prompted model's agent trajectories into a training mix. Both are real,
+dated precedent for "distill from a strong model's agent rollouts" as an
+established data-sourcing route — orthogonal to FAS/HAS, which synthesize
+from a knowledge source rather than from another model's behavior.
+
 Synthesis without live tool execution is not free of quality control just
 because no API call actually ran. The Agentic CPT report puts a number on that:
 passing FAS output through an LLM-based quality check raised the share of
@@ -123,7 +135,30 @@ knowledge base and then a HAS expansion of it, so the difference between one
 clean shot and a decision process with feedback is something you can read
 token by token instead of taking on faith.
 
-## 5. Loss masking on observations
+## 5. A neutral format, not the eventual chat template
+
+`core/mid_training_data.py` marks each step with a plain `<role:kind>` tag —
+`<assistant:think>`, `<assistant:act>`, `<assistant:observe>` — not the
+`<|im_start|>role\n...<|im_end|>` structure post-training's SFT stage renders:
+[the SFT stage's `render_and_mask`](../../../missions/01-language-model-agent/03-sft/core/sft.py)
+reserves three special token ids (`IM_START`, `IM_END`, `PAD_ID`) for exactly
+that ChatML-style template. The gap is not an oversight. Mid-training runs
+long before post-training decides which chat template the shipped assistant
+will actually use, so a model taught to structure trajectories around one
+convention's special tokens has that structure to unlearn if SFT settles on a
+different one. A neutral, portable shape — think, act, observe in plain
+text, the same Thought/Action/Observation loop ReAct describes (Yao et al.,
+"ReAct: Synergizing Reasoning and Acting in Language Models," ICLR 2023,
+arXiv:2210.03629) — survives that later decision unmodified, because it never
+committed to a template SFT might discard.
+
+What actually breaks when that structure is skipped or introduced too early
+is worked out with a real failed run in
+[the language-model system's agent chapter](../../../missions/01-language-model-agent/06-agent/),
+under "What does agentic training data actually need to teach?" — read that
+section for the evidence rather than re-deriving it here.
+
+## 6. Loss masking on observations
 
 Both synthesis routes produce a transcript containing three kinds of text:
 what the model decided (think), what it did (act), and what came back
@@ -147,15 +182,18 @@ observation span, and `prod/chat_template_masking.py` reproduces the same mask
 through a real tokenizer's chat template instead of the toy one, so the
 mechanism is visibly the one instruction-tuning already used.
 
-## 6. Evidence boundary
+## 7. Evidence boundary
 
-This chapter cites two dated, external reports and demonstrates the mechanism
-they describe at a scale a single machine can execute. It does not
-demonstrate: a 300B-token training run — no lane in this repository reaches
-that budget, see [`infra/`](../../../infra/); a measured comparison of
+This chapter cites five dated, external reports and demonstrates the
+mechanism the first two describe at a scale a single machine can execute. It
+does not demonstrate: a 300B-token training run — no lane in this repository
+reaches that budget, see [`infra/`](../../../infra/); a measured comparison of
 "install the prior first" against "train it all during post-training," which
-is the source paper's argument and is not re-derived here; or that FAS/HAS
-filtering generalizes beyond the two programmes that reported it. `core/` and
+is the source paper's argument and is not re-derived here; that FAS/HAS
+filtering generalizes beyond the two programmes that reported it; or the
+AgentTuning/FireAct route to trajectory distillation itself — those two are
+cited as precedent for where such data can come from, not implemented in
+`core/` or `prod/`, which stay on the FAS/HAS synthesis path. `core/` and
 `prod/` synthesize trajectories and mask observations correctly at toy
 scale — they do not show that either technique still behaves the same way at
 hundreds of billions of tokens.
@@ -247,7 +285,24 @@ that includes getting something wrong and recovering from it.
 
 </details>
 
-**5. What failure does masking the loss on observation tokens prevent, and what
+**5. Why does this chapter's trajectory format stay neutral plain text instead
+of adopting the special-token chat template SFT will eventually use?**
+
+<details>
+<summary>Answer</summary>
+
+Because mid-training runs before post-training has decided which chat
+template the shipped assistant will use, and committing to one convention's
+special tokens (`<|im_start|>role\n...<|im_end|>`, as SFT's `render_and_mask`
+renders) early would leave the model with that specific structure to unlearn
+if SFT ends up settling on a different template. A neutral shape — think, act,
+observe as plain text, the same loop ReAct describes — carries the behavioral
+prior without betting on a template choice that has not been made yet, so it
+survives unmodified whatever SFT decides later.
+
+</details>
+
+**6. What failure does masking the loss on observation tokens prevent, and what
 does the model still see despite the mask?**
 
 <details>
@@ -276,4 +331,6 @@ when that same model is trained on a demonstration or a preference pair
 instead.
 
 Primary references: Scaling Agents via Continual Pre-training
-(arXiv:2509.13310, 2025); GLM-5 data story (Kili Technology, 2026).
+(arXiv:2509.13310, 2025); GLM-5 data story (Kili Technology, 2026); AgentTuning
+(Zeng et al., Findings of ACL 2024, arXiv:2310.12823); FireAct (Chen et al.,
+2023, arXiv:2310.05915); ReAct (Yao et al., ICLR 2023, arXiv:2210.03629).
