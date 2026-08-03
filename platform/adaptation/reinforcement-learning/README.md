@@ -29,6 +29,24 @@ next. Reward design, exploration, and stability are now one system.
 sharpens behavior a model already produces sometimes, so it presupposes a policy
 that supervised fine-tuning has already shaped.
 
+Pretraining is a separate, earlier precondition from the SFT one above: it is
+what puts a behavior anywhere in the model's distribution at all. RL cannot
+install a behavior with zero probability under the current policy — it can
+only reweight a behavior that already occurs sometimes under sampling. [Mission
+06's stage 03](../../../missions/06-game-ai/03-fixing-collapse/) shows this
+precondition in miniature, with a cold-start (`base: scratch`) policy and no
+pretrained backbone at all: GRPO training alone produces real board-sensitivity
+under sampled decode (14.4-21.0% success across seeds) — the behavior exists in
+the distribution, sometimes — yet greedy/argmax decode ignores the board
+entirely on every seed, and neither a smaller rollout group nor a direct
+entropy bonus moved the argmax toward it. The entropy bonus measurably widened
+the distribution (1.3-1.7 nats) without ever changing which token wins the
+argmax: the training signal did the one thing it can do, reweight what
+sampling already reaches, and reweighting was not enough to make the
+board-sensitive behavior the deterministic default. Pretrain-to-RL is about
+whether a behavior is present in the distribution at all; SFT-to-RL, above, is
+about which present behavior becomes the default RL then sharpens.
+
 ## Why can you not just take the gradient of a reward?
 
 For language-model RL:
@@ -187,6 +205,24 @@ and process guardrails.
 
 An environment is a software product, not a prompt list. Version it and test it
 before attributing a policy change to the RL algorithm.
+
+## Why does generating rollouts get expensive as trajectories grow?
+
+Every rollout step reruns inference over the trajectory so far: the original
+prompt plus every tool call, observation, and intermediate response the agent
+has already produced. Each new step's forward pass reprocesses that whole
+shared prefix again, multiplied by many rollouts per prompt and many prompts
+per optimizer step. This is a distinct cost from the paged-KV-cache management
+[serving](../../serving/) covers: paging manages GPU memory for the cache
+within one serving session, while the cost here is redundant computation
+across separate calls that happen to share the same leading tokens.
+
+Two provider APIs price this directly. Anthropic's prompt caching went to
+public beta on August 14, 2024. OpenAI's Prompt Caching, announced October 1,
+2024, auto-applies to GPT-4o, GPT-4o mini, and o1-preview/o1-mini with
+discounted pricing on repeated prefix tokens. Both let a rollout generator pay
+full price once for a trajectory's shared prefix and a discount on every later
+step that reuses it, instead of repricing the whole prefix at every turn.
 
 ## Reward went up. Did anything get better?
 
