@@ -101,6 +101,11 @@ const BUILD_PATH: Step[] = [
         label: 'Distillation',
         returns: 'a target format, and the tokenizer constraint that decides it',
       },
+      {
+        href: '/playground/platform/adaptation/mid-training/',
+        label: 'Mid-training',
+        returns: 'why agentic trajectories enter the corpus before SFT, and in what format',
+      },
     ],
     companions: [{ href: `${MISSION}/03-sft/what-it-costs/`, label: 'What it costs' }],
   },
@@ -131,6 +136,16 @@ const BUILD_PATH: Step[] = [
         href: '/playground/platform/serving/01-graph-execution/',
         label: 'Graph execution',
         returns: 'which of three bottlenecks the decode step actually has, and roughly 3x from fixing it',
+      },
+      {
+        href: '/playground/platform/serving/02-quantization/',
+        label: 'Quantization',
+        returns: 'the memory-vs-quality tradeoff of serving the same checkpoint at lower precision',
+      },
+      {
+        href: '/playground/platform/serving/03-speculative-decoding/',
+        label: 'Speculative decoding',
+        returns: 'how many forward passes a cheap draft model saves the target model, verified exactly',
       },
     ],
     companions: [
@@ -192,6 +207,48 @@ const DECISION_PATHS: Array<{
     title: 'Quantitative research',
     question: 'Can a candidate signal survive leakage, search bias, costs, and capacity?',
     route: 'market data → signal search → rank → walk-forward → costs → report',
+  },
+  {
+    href: '/playground/missions/04-code-agent/',
+    index: '04',
+    title: 'Code-fixing agent',
+    question: 'Is a merged patch from an autonomous agent worth what it costs, per task?',
+    route: 'task set → no-harness baseline → agent loop → cheap-or-expensive routing → failure modes → report → closing the loop',
+  },
+  {
+    href: '/playground/missions/05-vision-language-model/',
+    index: '05',
+    title: 'Vision-language model',
+    question: 'Does a self-trained vision pathway beat a hosted VLM and a text-only baseline?',
+    route: 'image+question task → vision fusion → report → real-photo task → real-photo fusion → real-photo report → warmup stability',
+  },
+  {
+    href: '/playground/missions/06-game-ai/',
+    index: '06',
+    title: 'Game-playing policy',
+    question: 'Does RL against a verifiable game reward beat a fixed baseline, and at what cost?',
+    route: 'gridworld baselines → GRPO → report → fixing collapse → MiniGrid → report → tool-use RL',
+  },
+  {
+    href: '/playground/missions/07-realtime-voice/',
+    index: '07',
+    title: 'Real-time voice loop',
+    question: 'Does text-token serving mechanics transfer unchanged to a streaming audio codec?',
+    route: 'audio codec → streaming decode → report → real speech and network → multi-speaker → codebook reset',
+  },
+  {
+    href: '/playground/missions/08-video-generation/',
+    index: '08',
+    title: 'Video generation',
+    question: "Does this repository's compute discipline survive contact with video at all?",
+    route: 'synthetic video dataset → video tokenizer → generation model → report → longer sequences → multi-object',
+  },
+  {
+    href: '/playground/missions/09-bio-pharma-modeling/',
+    index: '09',
+    title: 'Molecular property prediction',
+    question: 'Can a small from-scratch model beat a descriptor baseline on a real toxicity endpoint?',
+    route: 'dataset and property → descriptor baseline and model → report → second endpoint → third endpoint → cross-endpoint analysis',
   },
 ];
 
