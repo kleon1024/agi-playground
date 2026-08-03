@@ -269,7 +269,7 @@
   },
   "missions/05-vision-language-model/01-vision-fusion": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 9
   },
   "missions/05-vision-language-model/02-report": {
     "level": "applied",
@@ -353,7 +353,7 @@
   },
   "missions/08-video-generation": {
     "level": "frontier",
-    "minutes": 10
+    "minutes": 11
   },
   "missions/08-video-generation/00-synthetic-video-dataset": {
     "level": "applied",
@@ -429,7 +429,7 @@
   },
   "platform/adaptation/post-training": {
     "level": "applied",
-    "minutes": 10
+    "minutes": 12
   },
   "platform/adaptation/reinforcement-learning": {
     "level": "applied",

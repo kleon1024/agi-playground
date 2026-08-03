@@ -130,6 +130,34 @@ class FusedAttention(nn.Module):
             out = F.scaled_dot_product_attention(q, k, v, is_causal=True)
         return self.o(out.transpose(1, 2).contiguous().view(B, T, -1))
 
+    def forward_with_weights(
+        self, x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor, attn_mask: torch.Tensor | None
+    ) -> tuple[torch.Tensor, torch.Tensor]:
+        """Diagnostic-only twin of `forward`: recomputes the identical q/k/v/RoPE
+        pipeline but with an explicit `q @ k.T / sqrt(d_head)` + softmax instead
+        of `scaled_dot_product_attention`, which never exposes its weights. Used
+        only by the attention-heatmap script below, never on the training path,
+        so it cannot change training performance or numerics.
+        """
+        B, T, _ = x.shape
+        cfg = self.cfg
+        q = self.q(x).view(B, T, cfg.n_head, cfg.d_head).transpose(1, 2)
+        k = self.k(x).view(B, T, cfg.n_kv_head, cfg.d_head).transpose(1, 2)
+        v = self.v(x).view(B, T, cfg.n_kv_head, cfg.d_head).transpose(1, 2)
+
+        q, k = apply_rope(q, cos, sin), apply_rope(k, cos, sin)
+
+        if self.n_rep > 1:
+            k = k.repeat_interleave(self.n_rep, dim=1)
+            v = v.repeat_interleave(self.n_rep, dim=1)
+
+        scores = (q @ k.transpose(-2, -1)) / math.sqrt(cfg.d_head)
+        if attn_mask is not None:
+            scores = scores + attn_mask
+        weights = F.softmax(scores, dim=-1)
+        out = weights @ v
+        return self.o(out.transpose(1, 2).contiguous().view(B, T, -1)), weights
+
 
 class Block(nn.Module):
     def __init__(self, cfg: Config):
@@ -229,6 +257,41 @@ class VisionLanguageTransformer(nn.Module):
             logits.reshape(-1, logits.size(-1)), targets.reshape(-1), ignore_index=IGNORE_INDEX
         )
         return logits, loss
+
+    def forward_capturing_attention(
+        self,
+        pixels: torch.Tensor | None,
+        text_ids: torch.Tensor,
+        text_valid_lens: torch.Tensor,
+        layer: int,
+    ) -> torch.Tensor:
+        """Diagnostic-only: identical token/vision embedding and mask setup as
+        `forward`, but recomputes exactly one block's attention through
+        `FusedAttention.forward_with_weights` so its post-softmax weights are
+        observable. Every other block still runs the ordinary `forward` path
+        unchanged. Returns `(n_head, T, T)` attention weights for that block.
+        """
+        _batch, text_len = text_ids.shape
+        device = text_ids.device
+        text_tokens = self.tok(text_ids)
+        if self.use_vision:
+            assert pixels is not None
+            x = torch.cat([self.vision(pixels), text_tokens], dim=1)
+        else:
+            x = text_tokens
+        T = x.shape[1]
+        cos, sin = build_rope_cache(T, self.cfg.d_head, self.cfg.rope_theta, device)
+        mask = self.build_mask(text_valid_lens, text_len, device)
+        weights = None
+        for i, block in enumerate(self.blocks):
+            if i == layer:
+                attn_out, weights = block.attn.forward_with_weights(block.n1(x), cos, sin, mask)
+                x = x + attn_out
+                x = x + block.mlp(block.n2(x))
+            else:
+                x = block(x, cos, sin, mask)
+        assert weights is not None
+        return weights[0]
 
     def param_report(self) -> str:
         total = sum(p.numel() for p in self.parameters())
