@@ -29,6 +29,7 @@ platform/adaptation
 platform/adaptation/mid-training
 platform/adaptation/post-training
 platform/adaptation/distillation
+platform/adaptation/distillation/which-teacher-changes-what
 platform/adaptation/distillation/what-path-two-requires
 platform/adaptation/reinforcement-learning
 platform/serving

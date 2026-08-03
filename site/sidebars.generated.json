@@ -720,6 +720,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "platform/adaptation/distillation/which-teacher-changes-what/index",
+                "label": "Which teacher changes what \u00b7 verified"
+              },
+              {
+                "type": "doc",
                 "id": "platform/adaptation/distillation/what-path-two-requires/index",
                 "label": "What path two requires \u00b7 verified"
               }

@@ -417,11 +417,15 @@
   },
   "platform/adaptation/distillation": {
     "level": "frontier",
-    "minutes": 10
+    "minutes": 11
   },
   "platform/adaptation/distillation/what-path-two-requires": {
     "level": "frontier",
     "minutes": 5
+  },
+  "platform/adaptation/distillation/which-teacher-changes-what": {
+    "level": "frontier",
+    "minutes": 7
   },
   "platform/adaptation/mid-training": {
     "level": "applied",

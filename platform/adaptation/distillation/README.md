@@ -193,6 +193,14 @@ Ranking the corpora needs an author-neutral metric, a judge or a downstream
 task. This run has neither, and says so. Full boundary, commands and raw records
 in [`runs/`](runs/2026-07-29-who-wrote-the-answer.md).
 
+If held-out loss cannot rank the corpora, the obvious fallback is to measure
+the corpora directly — length, formatting, entropy — and pick the teacher whose
+output looks best. [Which teacher changes what](which-teacher-changes-what/)
+runs that measurement across four teachers and finds the fallback is worse than
+it looks: the differences it reports at p < 0.005 from one generation per arm
+do not survive a second and third generation. Read it before choosing a teacher
+on the strength of a sample corpus.
+
 Path two remains unrun here, for the reason
 [its requirements page](what-path-two-requires/) gives.
 
