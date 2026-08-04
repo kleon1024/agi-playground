@@ -300,14 +300,40 @@
  *
  * Labels inherit this by leaving their own font-size unset. A component that
  * hardcodes fontSize on the text element opts out and is on its own.
+ *
+ * The defaults below are correct for a viewBox around 520 units wide, which is
+ * what most charts here use. A component drawing into a materially different
+ * viewBox sets the two variables instead, to whatever user-unit size renders at
+ * the same 13-15px — the contract is the rendered size, not the declared one.
  */
 .learning-widget svg {
-  font-size: 14px;
+  font-size: var(--widget-svg-type, 14px);
 }
 
 @container (max-width: 34rem) {
   .learning-widget svg {
-    font-size: 22px;
+    font-size: var(--widget-svg-type-narrow, 22px);
+  }
+}
+
+/*
+ * A chart built on `chart/Chart.tsx` is already sized in rendered pixels: its
+ * width comes from a measured container and its type is literal, not scaled by
+ * a viewBox transform. It therefore opts out of the compensation above, which
+ * would enlarge type that is already the size it asked for.
+ */
+.chart {
+  width: 100%;
+}
+
+.learning-widget .chart__svg {
+  display: block;
+  font-size: var(--type-xs);
+}
+
+@container (max-width: 34rem) {
+  .learning-widget .chart__svg {
+    font-size: var(--type-xs);
   }
 }
 
@@ -371,7 +397,11 @@
     padding: 1rem;
   }
 
-  .learning-widget label {
+  /* A label and its control stack when the control is a slider or a field, which
+     needs the full width. A checkbox does not: stacking it puts an unlabelled
+     box on one line and orphan text on the next, which is what every checkbox
+     widget here was rendering. */
+  .learning-widget label:not(:has(input[type='checkbox'])) {
     align-items: flex-start !important;
     flex-direction: column;
     gap: 0.35rem !important;

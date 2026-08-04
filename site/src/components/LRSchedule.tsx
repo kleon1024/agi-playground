@@ -15,7 +15,10 @@
  * peak at step zero instead of ramping — that discontinuity is exactly the
  * badly-biased-update scenario the warmup phase exists to avoid.
  */
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { scaleLinear } from 'd3-scale';
+import { line as d3line } from 'd3-shape';
+import Chart from './chart/Chart';
 
 interface ScheduleParams {
   totalSteps: number;
@@ -41,15 +44,13 @@ function fmtLR(x: number): string {
   return x.toExponential(2);
 }
 
-const VB_W = 600;
-const VB_H = 220;
-const PAD_L = 50;
-const PAD_R = 12;
-const PAD_T = 12;
-const PAD_B = 26;
-const PLOT_W = VB_W - PAD_L - PAD_R;
-const PLOT_H = VB_H - PAD_T - PAD_B;
-const SAMPLES = 160;
+const CHART_HEIGHT = 230;
+/* The two rates worth reading are the peak and the floor, so those are the y
+   ticks — which is also what makes the min-LR slider's effect visible, where an
+   unlabelled axis made it invisible. Ticks live in a 62px gutter rather than
+   inside the plot: annotated in-plot, they collided with the warmup marker. */
+const PADDING = { top: 26, right: 18, bottom: 30, left: 62 };
+const SAMPLES = 240;
 
 export default function LRSchedule(): React.ReactElement {
   const [totalSteps, setTotalSteps] = useState(10000);
@@ -58,128 +59,222 @@ export default function LRSchedule(): React.ReactElement {
   const [minLRRatio, setMinLRRatio] = useState(0.1);
   const [noWarmup, setNoWarmup] = useState(false);
   const [hoverStep, setHoverStep] = useState<number | null>(null);
-  const svgRef = useRef<SVGSVGElement | null>(null);
 
   const peakLR = 10 ** peakExp;
   const warmup = Math.min(warmupSteps, totalSteps - 1);
   const params: ScheduleParams = { totalSteps, warmupSteps: warmup, peakLR, minLRRatio, noWarmup };
+  const minLR = peakLR * minLRRatio;
 
-  const xScale = (step: number) => PAD_L + (step / totalSteps) * PLOT_W;
-  const yScale = (lr: number) => PAD_T + (1 - lr / peakLR) * PLOT_H;
-
-  const path = useMemo(() => {
-    const pts: string[] = [];
-    for (let i = 0; i <= SAMPLES; i++) {
-      const step = (i / SAMPLES) * totalSteps;
-      const lr = lrAt(step, params);
-      pts.push(`${i === 0 ? 'M' : 'L'} ${xScale(step).toFixed(1)},${yScale(lr).toFixed(1)}`);
-    }
-    return pts.join(' ');
+  const samples = useMemo(
+    () =>
+      Array.from({ length: SAMPLES + 1 }, (_, i) => {
+        const step = (i / SAMPLES) * totalSteps;
+        return [step, lrAt(step, params)] as [number, number];
+      }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalSteps, warmup, peakLR, minLRRatio, noWarmup]);
+    [totalSteps, warmup, peakLR, minLRRatio, noWarmup],
+  );
 
-  const handleMove = (e: React.MouseEvent<SVGSVGElement>) => {
-    const svg = svgRef.current;
-    if (!svg) return;
-    const rect = svg.getBoundingClientRect();
-    const relX = ((e.clientX - rect.left) / rect.width) * VB_W;
-    const step = ((relX - PAD_L) / PLOT_W) * totalSteps;
-    setHoverStep(Math.max(0, Math.min(totalSteps, step)));
-  };
-
-  const hoverLR = hoverStep === null ? null : lrAt(hoverStep, params);
+  /* With nothing being pointed at, the readout still reports a real point of the
+     schedule rather than an instruction, so the widget says something on a
+     device that cannot hover at all. */
+  const readStep = hoverStep ?? (noWarmup ? 0 : warmup);
+  const readLR = lrAt(readStep, params);
 
   return (
     <div className="learning-widget">
-      <div style={{ display: 'grid', gap: '0.6rem', marginBottom: '1rem' }}>
-        <label style={{ display: 'flex', gap: '0.7rem', alignItems: 'center' }}>
-          <span style={{ minWidth: '9rem' }}>total steps <strong>{totalSteps.toLocaleString()}</strong></span>
-          <input type="range" min={500} max={50000} step={100} value={totalSteps}
-                 onChange={(e) => setTotalSteps(Number(e.target.value))}
-                 style={{ flex: 1, maxWidth: 260 }} />
+      {/* Four sliders stacked one per row pushed the chart off the first screen.
+          They pair up as soon as the container can hold two 14rem columns. */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(14rem, 1fr))',
+          gap: '0 1.5rem',
+          marginBottom: '0.5rem',
+        }}
+      >
+        <label style={{ display: 'grid' }}>
+          <span>
+            total steps <strong>{totalSteps.toLocaleString()}</strong>
+          </span>
+          <input
+            type="range"
+            min={500}
+            max={50000}
+            step={100}
+            value={totalSteps}
+            onChange={(e) => setTotalSteps(Number(e.target.value))}
+          />
         </label>
-        <label style={{ display: 'flex', gap: '0.7rem', alignItems: 'center' }}>
-          <span style={{ minWidth: '9rem' }}>warmup steps <strong>{warmup.toLocaleString()}</strong></span>
-          <input type="range" min={0} max={5000} step={50} value={warmupSteps}
-                 onChange={(e) => setWarmupSteps(Number(e.target.value))}
-                 disabled={noWarmup}
-                 style={{ flex: 1, maxWidth: 260, opacity: noWarmup ? 0.4 : 1 }} />
+        <label style={{ display: 'grid' }}>
+          <span>
+            warmup steps <strong>{warmup.toLocaleString()}</strong>
+          </span>
+          <input
+            type="range"
+            min={0}
+            max={5000}
+            step={50}
+            value={warmupSteps}
+            onChange={(e) => setWarmupSteps(Number(e.target.value))}
+            disabled={noWarmup}
+            style={{ opacity: noWarmup ? 0.4 : 1 }}
+          />
         </label>
-        <label style={{ display: 'flex', gap: '0.7rem', alignItems: 'center' }}>
-          <span style={{ minWidth: '9rem' }}>peak LR <strong>{fmtLR(peakLR)}</strong></span>
-          <input type="range" min={-5} max={-2} step={0.02} value={peakExp}
-                 onChange={(e) => setPeakExp(Number(e.target.value))}
-                 style={{ flex: 1, maxWidth: 260 }} />
+        <label style={{ display: 'grid' }}>
+          <span>
+            peak LR <strong>{fmtLR(peakLR)}</strong>
+          </span>
+          <input
+            type="range"
+            min={-5}
+            max={-2}
+            step={0.02}
+            value={peakExp}
+            onChange={(e) => setPeakExp(Number(e.target.value))}
+          />
         </label>
-        <label style={{ display: 'flex', gap: '0.7rem', alignItems: 'center' }}>
-          <span style={{ minWidth: '9rem' }}>min-LR floor <strong>{(minLRRatio * 100).toFixed(0)}%</strong> of peak</span>
-          <input type="range" min={0} max={1} step={0.01} value={minLRRatio}
-                 onChange={(e) => setMinLRRatio(Number(e.target.value))}
-                 style={{ flex: 1, maxWidth: 260 }} />
-        </label>
-        <label style={{ cursor: 'pointer', userSelect: 'none' }}>
-          <input type="checkbox" checked={noWarmup} onChange={(e) => setNoWarmup(e.target.checked)} />{' '}
-          no warmup — jump straight to peak
+        <label style={{ display: 'grid' }}>
+          <span>
+            min-LR floor <strong>{(minLRRatio * 100).toFixed(0)}%</strong> of peak
+          </span>
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.01}
+            value={minLRRatio}
+            onChange={(e) => setMinLRRatio(Number(e.target.value))}
+          />
         </label>
       </div>
 
-      <svg
-        ref={svgRef}
-        viewBox={`0 0 ${VB_W} ${VB_H}`}
-        style={{ width: '100%', height: 'auto', cursor: 'crosshair' }}
-        onMouseMove={handleMove}
-        onMouseLeave={() => setHoverStep(null)}
+      <label style={{ userSelect: 'none' }}>
+        <input type="checkbox" checked={noWarmup} onChange={(e) => setNoWarmup(e.target.checked)} />
+        <span style={{ marginLeft: '0.5rem' }}>no warmup — jump straight to peak</span>
+      </label>
+
+      <Chart
+        height={CHART_HEIGHT}
+        padding={PADDING}
+        label={`Learning-rate schedule over ${totalSteps.toLocaleString()} steps, ${
+          noWarmup ? 'with no warmup' : `warming up over ${warmup.toLocaleString()} steps`
+        }, peaking at ${fmtLR(peakLR)} and decaying to ${fmtLR(minLR)}`}
+        onPointerAt={(x, frame) =>
+          setHoverStep(x === null ? null : (x / frame.innerWidth) * totalSteps)
+        }
       >
-        {/* axes */}
-        <line x1={PAD_L} y1={PAD_T} x2={PAD_L} y2={VB_H - PAD_B} stroke="var(--ifm-color-emphasis-400)" />
-        <line x1={PAD_L} y1={VB_H - PAD_B} x2={VB_W - PAD_R} y2={VB_H - PAD_B} stroke="var(--ifm-color-emphasis-400)" />
-        <text x={PAD_L - 6} y={PAD_T + 4} textAnchor="end" fontSize={13} fill="var(--ifm-font-color-base)" opacity={0.7}>
-          {fmtLR(peakLR)}
-        </text>
-        <text x={PAD_L - 6} y={VB_H - PAD_B} textAnchor="end" fontSize={13} fill="var(--ifm-font-color-base)" opacity={0.7}>
-          0
-        </text>
-        <text x={PAD_L} y={VB_H - 8} fontSize={13} fill="var(--ifm-font-color-base)" opacity={0.7}>0</text>
-        <text x={VB_W - PAD_R} y={VB_H - 8} textAnchor="end" fontSize={13} fill="var(--ifm-font-color-base)" opacity={0.7}>
-          {totalSteps.toLocaleString()}
-        </text>
+        {(frame) => {
+          const { padding, innerWidth, innerHeight } = frame;
+          const x = scaleLinear().domain([0, totalSteps]).range([0, innerWidth]);
+          const y = scaleLinear().domain([0, peakLR]).range([innerHeight, 0]);
+          const path = d3line<[number, number]>()
+            .x((d) => x(d[0]))
+            .y((d) => y(d[1]))(samples);
 
-        {/* warmup boundary marker */}
-        {!noWarmup && warmup > 0 && (
-          <>
-            <line
-              x1={xScale(warmup)} y1={PAD_T} x2={xScale(warmup)} y2={VB_H - PAD_B}
-              stroke="var(--brand-chart-warning)" strokeWidth={1} strokeDasharray="4 3"
-            />
-            <text x={xScale(warmup) + 4} y={PAD_T + 10} fontSize={13} fill="var(--brand-chart-warning)">
-              warmup ends
-            </text>
-          </>
-        )}
+          const floorY = y(minLR);
+          const warmupX = x(warmup);
+          /* Skipped when the floor tick would sit on top of the peak tick above
+             it or the zero tick below it. */
+          const showFloorTick = floorY > 16 && floorY < innerHeight - 16;
 
-        {/* the schedule curve */}
-        <path d={path} fill="none" stroke={noWarmup ? 'var(--brand-chart-danger)' : 'var(--brand-chart-positive)'} strokeWidth={2} />
+          return (
+            <g transform={`translate(${padding.left},${padding.top})`}>
+              <line x1={0} y1={0} x2={0} y2={innerHeight} stroke="var(--rehearse-rule)" />
+              <line
+                x1={0}
+                y1={innerHeight}
+                x2={innerWidth}
+                y2={innerHeight}
+                stroke="var(--rehearse-rule)"
+              />
+              <text x={0} y={innerHeight + 20} fill="var(--rehearse-copy-muted)">
+                step 0
+              </text>
+              <text
+                x={innerWidth}
+                y={innerHeight + 20}
+                textAnchor="end"
+                fill="var(--rehearse-copy-muted)"
+              >
+                {totalSteps.toLocaleString()}
+              </text>
 
-        {/* hover readout */}
-        {hoverStep !== null && hoverLR !== null && (
-          <>
-            <line
-              x1={xScale(hoverStep)} y1={PAD_T} x2={xScale(hoverStep)} y2={VB_H - PAD_B}
-              stroke="var(--ifm-color-emphasis-500)" strokeWidth={1}
-            />
-            <circle cx={xScale(hoverStep)} cy={yScale(hoverLR)} r={3.5} fill="var(--brand-chart-danger)" />
-          </>
-        )}
-      </svg>
+              {/* Peak and floor as y ticks in the gutter. Labelled inside the
+                  plot they collided with the warmup marker, and an unlabelled
+                  axis left the min-LR slider with no visible consequence. */}
+              <line x1={0} y1={0} x2={innerWidth} y2={0} stroke="var(--rehearse-rule)" strokeDasharray="3 4" />
+              <text x={-8} y={4} textAnchor="end" fill="var(--rehearse-copy-muted)">
+                {fmtLR(peakLR)}
+              </text>
+              <line
+                x1={0}
+                y1={floorY}
+                x2={innerWidth}
+                y2={floorY}
+                stroke="var(--rehearse-rule)"
+                strokeDasharray="3 4"
+              />
+              {showFloorTick && (
+                <text x={-8} y={floorY + 4} textAnchor="end" fill="var(--rehearse-copy-muted)">
+                  {fmtLR(minLR)}
+                </text>
+              )}
+              <text x={-8} y={innerHeight + 4} textAnchor="end" fill="var(--rehearse-copy-muted)">
+                0
+              </text>
 
-      <div style={{ display: 'flex', gap: '1.4rem', fontSize: 'var(--type-sm)', flexWrap: 'wrap', minHeight: '1.2rem' }}>
-        {hoverStep !== null && hoverLR !== null ? (
-          <span>
-            step <strong>{Math.round(hoverStep).toLocaleString()}</strong> → lr <strong>{fmtLR(hoverLR)}</strong>
-          </span>
-        ) : (
-          <span style={{ opacity: 0.6 }}>hover the curve to read the LR at a step</span>
-        )}
+              {!noWarmup && warmup > 0 && (
+                <>
+                  <line
+                    x1={warmupX}
+                    y1={0}
+                    x2={warmupX}
+                    y2={innerHeight}
+                    stroke="var(--rehearse-emphasis)"
+                    strokeWidth={1.5}
+                    strokeDasharray="5 4"
+                  />
+                  {/* Above the plot, the one band nothing else occupies: at the
+                      top of the plot this label sat on the curve, which is flat
+                      at peak exactly there, and at the foot it sat on the floor
+                      gridline. */}
+                  <text
+                    x={warmupX > innerWidth * 0.6 ? warmupX - 6 : warmupX + 6}
+                    y={-8}
+                    textAnchor={warmupX > innerWidth * 0.6 ? 'end' : 'start'}
+                    fill="var(--rehearse-emphasis)"
+                  >
+                    warmup ends
+                  </text>
+                </>
+              )}
+
+              <path
+                d={path ?? undefined}
+                fill="none"
+                stroke={noWarmup ? 'var(--rehearse-caution-strong)' : 'var(--rehearse-action)'}
+                strokeWidth={2.5}
+              />
+
+              <line
+                x1={x(readStep)}
+                y1={0}
+                x2={x(readStep)}
+                y2={innerHeight}
+                stroke="var(--rehearse-ink)"
+              />
+              <circle cx={x(readStep)} cy={y(readLR)} r={4.5} fill="var(--rehearse-ink)" />
+            </g>
+          );
+        }}
+      </Chart>
+
+      <div className="widget-controls">
+        <span className="widget-controls__status">
+          step {Math.round(readStep).toLocaleString()} &middot; lr {fmtLR(readLR)}
+          {hoverStep === null && !noWarmup && warmup > 0 ? ' · warmup ends' : ''}
+        </span>
       </div>
 
       <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.75rem' }}>
