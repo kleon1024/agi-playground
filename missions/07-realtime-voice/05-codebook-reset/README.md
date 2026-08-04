@@ -99,9 +99,13 @@ further here.
 
 Only the dead-code-reset half of VQ-VAE-2's fix was tested; whether adding
 full EMA-updated codebook embeddings on top would tighten the entropy-ratio
-spread further (0.79 vs 0.83) is not answered here — testing that would
-require a second variant and risks confounding two mechanisms in one
-experiment, which this stage explicitly avoided. Only one value each of
+spread further (0.79 vs 0.83) is not answered here, because a second two-arm
+comparison would have confounded the two mechanisms. That reasoning holds for
+two arms and not for four:
+[stage 06](../06-which-mechanism-did-it/) runs all four cells of the
+reset-by-EMA grid, which measures each mechanism's effect twice — once at each
+level of the other — and finds EMA's effect changes sign between them. Only one
+value each of
 `reset_every` (50) and `dead_threshold` (1.0) was tried; no sweep establishes
 whether these specific values are optimal or merely sufficient. Still 10
 speakers, not the full 40+-speaker `dev-clean` corpus — whether reset holds
@@ -134,3 +138,9 @@ download), codec training 1256-1259s. \$0 marginal cost. Full per-step
 [`runs/reset-codec-seed0.json`](runs/reset-codec-seed0.json),
 [`runs/reset-codec-seed1.json`](runs/reset-codec-seed1.json), and
 [`runs/reset-codec-seed2.json`](runs/reset-codec-seed2.json).
+
+## Next
+
+[Stage 06](../06-which-mechanism-did-it/) takes up the mechanism question this
+stage set aside, by adding the two cells that turn the confound into a
+measurement.

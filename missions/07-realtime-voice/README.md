@@ -82,6 +82,7 @@ identical to this stage's single-codebook VQ, at a far larger scale.
 | [03 — Real speech and network](03-real-speech-and-network/) | does the same codec architecture and the same KV cache hold on real speech, over a real network? | verified |
 | [04 — Multi-speaker](04-multi-speaker/) | does the fix that escaped collapse for 1-2 speakers still work at 10? | verified |
 | [05 — Codebook reset](05-codebook-reset/) | does a standard dead-code reset fix the seed-dependent codebook health stage 04 found? | verified |
+| [06 — Which mechanism did it](06-which-mechanism-did-it/) | reset, EMA, or the two together — which half of VQ-VAE-2's fix actually did the work? | verified |
 
 [Stage 00](00-audio-codec/) built a small conv encoder / vector-quantization
 / conv decoder codec, trained on synthetic tone-sequence clips (no real
@@ -161,6 +162,22 @@ silence baseline tightened from a 4.3%-38.2% spread to a narrow 33.8%-37.6%
 band. Full numbers in
 [its run record](05-codebook-reset/runs/2026-08-01-codebook-reset.md).
 
+[Stage 06](06-which-mechanism-did-it/) answered the question stage 05
+deliberately left open — whether VQ-VAE-2's other half, the EMA-updated
+codebook, adds anything on top of reset — by running all four cells of the
+reset-by-EMA grid instead of a second two-arm comparison. EMA alone collapses
+the codebook to 1 of 64 codes on every seed and is the only arm in this mission
+that fails `mission.yaml`'s own "beats a naive baseline" bar; EMA on top of
+reset raises the entropy ratio on every seed (0.933/0.872/0.875 against
+`reset-only`'s 0.826/0.814/0.791). The same mechanism, measured twice, changes
+sign — which is why the two-arm study stage 05 declined to run could not have
+answered this either way. Reconstruction quality is a separate matter and stays
+inconclusive: EMA's effect on top of reset spans −0.00065 to +0.00318 in MSE
+across three seeds and contains zero. Both previously published corners
+reproduce their own stages to the full float, so the two new corners are
+measured against this mission's real baselines. Full numbers in
+[its run record](06-which-mechanism-did-it/runs/2026-08-05-factorial-vq.md).
+
 Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the baseline and metric
 above cannot be chosen after seeing which ones flatter a result.
@@ -174,10 +191,12 @@ partially tested: stage 03 uses 1-2 speakers, stage 04 extends this to 10 of
 the corpus's 40+ dev-clean speakers, and neither is the full corpus. Nothing
 here diagnoses *why* stage 04's escape became seed-dependent, only that it
 did. Stage 05 shows dead-code reset closes that specific gap at 10 speakers,
-but only tested the reset mechanism alone, at one `reset_every`/
-`dead_threshold` setting, still on 10 of the corpus's 40+ speakers — not
-whether a full EMA-updated codebook would tighten things further, not a
-parameter sweep, and not the full corpus. Stage 03 adds a real network round
+and stage 06 crosses reset with the EMA codebook update to establish that
+EMA's contribution is real for codebook uniformity, catastrophic on its own,
+and inconclusive for reconstruction quality — but both stages hold
+`reset_every`, `dead_threshold`, `ema_decay`, and `epsilon` at one value each,
+on 10 of the corpus's 40+ speakers, so neither is a parameter sweep and neither
+covers the full corpus. Stage 03 adds a real network round
 trip, but only over this repository's own home Tailscale link — a
 DERP-relayed hop on this sandbox's network path — which does not generalize
 to arbitrary internet paths or a direct (non-relayed) connection. Full

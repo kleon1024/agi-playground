@@ -413,7 +413,7 @@
   },
   "missions/07-realtime-voice": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 9
   },
   "missions/07-realtime-voice/00-audio-codec": {
     "level": "applied",
@@ -438,6 +438,10 @@
   "missions/07-realtime-voice/05-codebook-reset": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/07-realtime-voice/06-which-mechanism-did-it": {
+    "level": "applied",
+    "minutes": 9
   },
   "missions/08-video-generation": {
     "level": "frontier",

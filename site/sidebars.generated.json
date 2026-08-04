@@ -584,6 +584,11 @@
             "type": "doc",
             "id": "missions/07-realtime-voice/05-codebook-reset/index",
             "label": "Codebook dead-code reset"
+          },
+          {
+            "type": "doc",
+            "id": "missions/07-realtime-voice/06-which-mechanism-did-it/index",
+            "label": "Which mechanism did it"
           }
         ]
       },
