@@ -130,6 +130,11 @@ choice, bf16 accumulation order. It is an assumption-free floor bought for
 nothing: any claim resting on less than about 0.002 is resting on the
 allocator, not the architecture.
 
+That floor turns the whole ladder into one question with a dial on it: how
+large a difference are you willing to act on? Set it and see which arms survive.
+
+<!-- interactive: AblationLadder -->
+
 Against that floor a single seed is not a weak result but no result, which is
 why `core/ablate.py` runs `--seeds` seeds and writes every one out.
 
