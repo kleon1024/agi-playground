@@ -19,7 +19,9 @@
  * bottleneck was never the steep axis.
  */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { scaleLinear } from 'd3-scale';
 
+import Chart from './chart/Chart';
 import { useAutoplayOnView, useFrameLoop } from './useMotionClock';
 
 const B = 1;
@@ -145,32 +147,21 @@ const REGIMES: Regime[] = [
  * on screen — the top panel is where the oscillation lives, the bottom panel is
  * where the time goes, and they are not the same panel.
  */
-/*
- * Gutters are sized for the *narrow* case. SVG type is in user units, so the
- * shared floor in widgets.css raises labels to 22 units on a phone-width
- * container; at the 13-unit desktop size these paddings look generous, and at 22
- * they are the difference between a legible axis and titles sitting on top of
- * their own panel borders.
- */
-const W = 520;
-const PAD_L = 62;
-const PAD_R = 12;
-const PAD_T = 30;
+const PADDING = { top: 30, right: 12, bottom: 32, left: 46 };
 const GAP = 48;
 const TOP_H = 86;
 const BOT_H = 132;
-const H = PAD_T + TOP_H + GAP + BOT_H + 32;
+const HEIGHT = PADDING.top + TOP_H + GAP + BOT_H + PADDING.bottom;
 
-const TOP_Y0 = PAD_T;
-const BOT_Y0 = PAD_T + TOP_H + GAP;
+/** Panel offsets inside the plot area. */
+const TOP_Y0 = 0;
+const BOT_Y0 = TOP_H + GAP;
 
 /** Steep-axis panel: clamped so a diverging run leaves the frame instead of flattening it. */
 const X_CLAMP = 1.25;
 /** Loss panel, log10. The floor sits just under the 1e-6 tolerance the run record used. */
 const LOG_HI = 3.2;
 const LOG_LO = -6.6;
-
-const plotW = W - PAD_L - PAD_R;
 
 /**
  * The steep axis is spent long before the run is. At A = 100 all 341 sign flips
@@ -180,9 +171,8 @@ const plotW = W - PAD_L - PAD_R;
  */
 const TOP_STEPS = 60;
 
-const stepX = (i: number, total: number) => PAD_L + (i / Math.max(1, total - 1)) * plotW;
-const topY = (x: number) => TOP_Y0 + ((X_CLAMP - x) / (2 * X_CLAMP)) * TOP_H;
-const botY = (l: number) => BOT_Y0 + ((LOG_HI - l) / (LOG_HI - LOG_LO)) * BOT_H;
+const topY = scaleLinear().domain([-X_CLAMP, X_CLAMP]).range([TOP_Y0 + TOP_H, TOP_Y0]);
+const botY = scaleLinear().domain([LOG_LO, LOG_HI]).range([BOT_Y0 + BOT_H, BOT_Y0]);
 
 /**
  * A polyline over step index that stops where the run leaves the panel.
@@ -196,7 +186,7 @@ const botY = (l: number) => BOT_Y0 + ((LOG_HI - l) / (LOG_HI - LOG_LO)) * BOT_H;
 function series(
   values: number[],
   count: number,
-  total: number,
+  x: (i: number) => number,
   toY: (v: number) => number,
   lo: number,
   hi: number,
@@ -207,9 +197,7 @@ function series(
     const v = values[i];
     if (!Number.isFinite(v)) break;
     const clamped = Math.min(hi, Math.max(lo, v));
-    parts.push(
-      `${parts.length === 0 ? 'M' : 'L'}${stepX(i, total).toFixed(1)} ${toY(clamped).toFixed(1)}`,
-    );
+    parts.push(`${parts.length === 0 ? 'M' : 'L'}${x(i).toFixed(1)} ${toY(clamped).toFixed(1)}`);
     if (clamped !== v) break;
   }
   return parts.join(' ');
@@ -271,7 +259,7 @@ export default function OptimizerTrajectory(): React.ReactElement {
 
   const shownSteps = Math.round(progress * longest);
   const topWindow = Math.min(TOP_STEPS, longest - 1);
-  const axisText = { fill: 'var(--rehearse-copy-muted)' };
+  const axisText = { fill: 'var(--rehearse-copy-muted)', fontSize: 13 };
 
   return (
     <div className="learning-widget" ref={ref}>
@@ -308,116 +296,125 @@ export default function OptimizerTrajectory(): React.ReactElement {
         ))}
       </ul>
 
-      <svg
-        viewBox={`0 0 ${W} ${H}`}
-        role="img"
-        aria-label={`Steep-axis position and loss against step index at condition number ${regime.A}`}
+      <Chart
+        height={HEIGHT}
+        padding={PADDING}
+        label={`Steep-axis position and loss against step index at condition number ${regime.A}`}
       >
-        <title>{`Steep axis and loss against step index, condition number ${regime.A}`}</title>
-        <clipPath id="ot-top">
-          <rect x={PAD_L} y={TOP_Y0} width={plotW} height={TOP_H} />
-        </clipPath>
-        <clipPath id="ot-bot">
-          <rect x={PAD_L} y={BOT_Y0} width={plotW} height={BOT_H} />
-        </clipPath>
+        {(frame) => {
+          const { innerWidth } = frame;
+          const xTop = scaleLinear().domain([0, Math.max(1, topWindow)]).range([0, innerWidth]);
+          const xBot = scaleLinear().domain([0, Math.max(1, longest - 1)]).range([0, innerWidth]);
 
-        <text x={PAD_L} y={TOP_Y0 - 9} {...axisText}>
-          steep axis x &mdash; first {topWindow} steps
-        </text>
-        <rect
-          x={PAD_L}
-          y={TOP_Y0}
-          width={plotW}
-          height={TOP_H}
-          fill="none"
-          stroke="var(--rehearse-rule)"
-        />
-        <line
-          x1={PAD_L}
-          y1={topY(0)}
-          x2={W - PAD_R}
-          y2={topY(0)}
-          stroke="var(--rehearse-rule)"
-          strokeDasharray="3 3"
-        />
-        <text x={PAD_L - 6} y={topY(0) + 4} textAnchor="end" {...axisText}>
-          0
-        </text>
-        <text x={PAD_L - 6} y={TOP_Y0 + 10} textAnchor="end" {...axisText}>
-          +1
-        </text>
-        <g clipPath="url(#ot-top)">
-          {OPTIMIZERS.map((o) => (
-            <path
-              key={o.id}
-              d={series(
-                runs[o.id].history.slice(0, topWindow + 1).map(([x]) => x),
-                shownSteps,
-                topWindow + 1,
-                topY,
-                -X_CLAMP,
-                X_CLAMP,
-              )}
-              fill="none"
-              stroke={o.stroke}
-              strokeWidth="1.6"
-              strokeDasharray={o.dash}
-            />
-          ))}
-        </g>
+          return (
+            <g transform={`translate(${PADDING.left},${PADDING.top})`}>
+              <clipPath id="ot-top">
+                <rect x={0} y={TOP_Y0} width={innerWidth} height={TOP_H} />
+              </clipPath>
+              <clipPath id="ot-bot">
+                <rect x={0} y={BOT_Y0} width={innerWidth} height={BOT_H} />
+              </clipPath>
 
-        <text x={PAD_L} y={BOT_Y0 - 9} {...axisText}>
-          loss (log scale)
-        </text>
-        <rect
-          x={PAD_L}
-          y={BOT_Y0}
-          width={plotW}
-          height={BOT_H}
-          fill="none"
-          stroke="var(--rehearse-rule)"
-        />
-        <line
-          x1={PAD_L}
-          y1={botY(-6)}
-          x2={W - PAD_R}
-          y2={botY(-6)}
-          stroke="var(--rehearse-action)"
-          strokeDasharray="4 3"
-        />
-        <text x={PAD_L - 6} y={botY(-6) + 4} textAnchor="end" {...axisText}>
-          1e-6
-        </text>
-        <text x={PAD_L - 6} y={botY(0) + 4} textAnchor="end" {...axisText}>
-          1
-        </text>
-        <g clipPath="url(#ot-bot)">
-          {OPTIMIZERS.map((o) => (
-            <path
-              key={o.id}
-              d={series(
-                runs[o.id].history.map((p) => Math.log10(Math.max(loss(regime.A, p), 1e-30))),
-                shownSteps,
-                longest,
-                botY,
-                LOG_LO,
-                LOG_HI,
-              )}
-              fill="none"
-              stroke={o.stroke}
-              strokeWidth="1.8"
-              strokeDasharray={o.dash}
-            />
-          ))}
-        </g>
+              <text x={0} y={TOP_Y0 - 9} {...axisText}>
+                steep axis x &mdash; first {topWindow} steps
+              </text>
+              <rect
+                x={0}
+                y={TOP_Y0}
+                width={innerWidth}
+                height={TOP_H}
+                fill="none"
+                stroke="var(--rehearse-rule)"
+              />
+              <line
+                x1={0}
+                x2={innerWidth}
+                y1={topY(0)}
+                y2={topY(0)}
+                stroke="var(--rehearse-rule)"
+                strokeDasharray="3 3"
+              />
+              <text x={-6} y={topY(0) + 4} textAnchor="end" {...axisText}>
+                0
+              </text>
+              <text x={-6} y={TOP_Y0 + 10} textAnchor="end" {...axisText}>
+                +1
+              </text>
+              <g clipPath="url(#ot-top)">
+                {OPTIMIZERS.map((o) => (
+                  <path
+                    key={o.id}
+                    d={series(
+                      runs[o.id].history.slice(0, topWindow + 1).map(([x]) => x),
+                      shownSteps,
+                      xTop,
+                      topY,
+                      -X_CLAMP,
+                      X_CLAMP,
+                    )}
+                    fill="none"
+                    stroke={o.stroke}
+                    strokeWidth="1.6"
+                    strokeDasharray={o.dash}
+                  />
+                ))}
+              </g>
 
-        <text x={PAD_L} y={H - 10} {...axisText}>
-          step 0
-        </text>
-        <text x={W - PAD_R} y={H - 10} textAnchor="end" {...axisText}>
-          step {longest - 1}
-        </text>
-      </svg>
+              <text x={0} y={BOT_Y0 - 9} {...axisText}>
+                loss (log scale)
+              </text>
+              <rect
+                x={0}
+                y={BOT_Y0}
+                width={innerWidth}
+                height={BOT_H}
+                fill="none"
+                stroke="var(--rehearse-rule)"
+              />
+              <line
+                x1={0}
+                x2={innerWidth}
+                y1={botY(-6)}
+                y2={botY(-6)}
+                stroke="var(--rehearse-action)"
+                strokeDasharray="4 3"
+              />
+              <text x={-6} y={botY(-6) + 4} textAnchor="end" {...axisText}>
+                1e-6
+              </text>
+              <text x={-6} y={botY(0) + 4} textAnchor="end" {...axisText}>
+                1
+              </text>
+              <g clipPath="url(#ot-bot)">
+                {OPTIMIZERS.map((o) => (
+                  <path
+                    key={o.id}
+                    d={series(
+                      runs[o.id].history.map((p) => Math.log10(Math.max(loss(regime.A, p), 1e-30))),
+                      shownSteps,
+                      xBot,
+                      botY,
+                      LOG_LO,
+                      LOG_HI,
+                    )}
+                    fill="none"
+                    stroke={o.stroke}
+                    strokeWidth="1.8"
+                    strokeDasharray={o.dash}
+                  />
+                ))}
+              </g>
+
+              <text x={0} y={BOT_Y0 + BOT_H + 22} {...axisText}>
+                step 0
+              </text>
+              <text x={innerWidth} y={BOT_Y0 + BOT_H + 22} textAnchor="end" {...axisText}>
+                step {longest - 1}
+              </text>
+            </g>
+          );
+        }}
+      </Chart>
 
       <div className="widget-controls">
         <button
