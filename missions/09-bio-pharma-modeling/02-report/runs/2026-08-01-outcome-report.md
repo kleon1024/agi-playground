@@ -58,7 +58,7 @@ architecture, the descriptor baseline is the better model to ship.
 `mission.yaml`'s decision was never "does a trained model win" as an assumed
 outcome — it was framed from the start as a real question with a real "no" as
 a valid, complete answer, the same discipline
-`platform/training/02-architecture-ablations` applies to its own ablation
+`missions/01-language-model-agent/02-pretrain/architecture-ablations` applies to its own ablation
 rungs. The honest answer for SR-MMP, this scaffold split, this descriptor set,
 and this architecture is: **ship the descriptor baseline.** A 696K-parameter
 from-scratch character model trained on 4,643 examples with no pretraining

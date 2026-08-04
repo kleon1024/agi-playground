@@ -77,7 +77,7 @@ ROOT = Path(__file__).resolve().parents[4]
 mission_model = _load(
     "mission_model", ROOT / "missions/01-language-model-agent/02-pretrain/core/model.py"
 )
-variants = _load("variant_model", ROOT / "platform/training/02-architecture-ablations/core/model.py")
+variants = _load("variant_model", ROOT / "missions/01-language-model-agent/02-pretrain/architecture-ablations/core/model.py")
 VariantTransformer = variants.Transformer
 VariantConfig = variants.VariantConfig
 active_params = variants.active_params

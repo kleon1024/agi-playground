@@ -39,7 +39,7 @@ comparison does not transfer *for this particular mixture* — it is not telling
 you which size is correct.
 
 This is the same discipline
-[the architecture ladder](../../../training/02-architecture-ablations/) arrives at
+[the architecture ladder](../../../../missions/01-language-model-agent/02-pretrain/architecture-ablations/) arrives at
 from the other direction: trust a ranking only where it is stable across at
 least two sizes at the same budget definition.
 

@@ -51,7 +51,7 @@ random play.
 reported beside both baselines and total training compute, across at least
 3 seeds — RL training is non-deterministic, the same discipline
 [mission 01's task suite](../01-language-model-agent/07-eval/) and
-[the architecture ablation ladder](../../platform/training/02-architecture-ablations/)
+[the architecture ablation ladder](../../missions/01-language-model-agent/02-pretrain/architecture-ablations/)
 already apply: a gap smaller than the run-to-run spread is reported as no
 result.
 

@@ -7,7 +7,7 @@ label: GPU cluster concepts
 
 # Why the cluster's wiring decides the parallelism strategy
 
-**Question:** [`platform/training/01-distributed/`](../../platform/training/01-distributed/)
+**Question:** [`foundations/04-distributed-training/`](../../foundations/04-distributed-training/)
 proves data parallelism's mechanism on one CPU and deliberately reports no
 throughput numbers, because gloo's loopback has none of the bandwidth
 contention that makes real interconnect a design decision. So what part of
@@ -18,7 +18,7 @@ part genuinely cannot?
 mean wall-clock cost of a single `all_reduce` call over a fixed-size tensor,
 at world size 2, 4, and 8, isolated from any model forward or backward pass.
 
-**Before this:** [distributed training, without a cluster](../../platform/training/01-distributed/) —
+**Before this:** [distributed training, without a cluster](../../foundations/04-distributed-training/) —
 you need the correctness mechanism (all-reduce averages gradients, every rank
 ends up identical) before its *cost* means anything.
 
@@ -66,7 +66,7 @@ times each strategy pays the cost above per step.
 ## What is actually measured here
 
 `core/topology_timing.py` reuses this repository's own `setup()` and `log()`
-from `platform/training/01-distributed/core/distributed.py` directly (no
+from `foundations/04-distributed-training/core/distributed.py` directly (no
 duplication), and isolates one collective: it warms up, barriers, then times
 200 repeated `all_reduce` calls over a fixed 4MB tensor and reports the mean
 per-call wall-clock, at world size 2, 4, and 8, all on this machine's CPU via

@@ -429,7 +429,7 @@ def depth_width_arms(control: VariantConfig, candidate_widths: range) -> dict[st
     rotates channel pairs, so an odd `d_head` cannot be split in half) for the
     width whose `analytic_params` lands closest to the control. The match is
     rarely exact — report the miss rather than rounding it away, the same
-    discipline `platform/training/01-distributed` applies to ZeRO's uneven
+    discipline `foundations/04-distributed-training` applies to ZeRO's uneven
     shard split.
     """
     target = analytic_params(control)

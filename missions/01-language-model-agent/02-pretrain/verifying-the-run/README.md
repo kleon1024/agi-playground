@@ -124,7 +124,7 @@ That any of the architecture choices are good ones. There is one arm, one seed,
 and no comparison — so nothing here says RMSNorm beat LayerNorm, or that
 grouped-query attention cost nothing. Those are separate experiments with a
 stated budget definition, in
-[architecture ablations](../../../../platform/training/02-architecture-ablations/).
+[architecture ablations](../architecture-ablations/).
 
 Full command, hardware, software versions, generations, and the two monitoring
 mistakes worth avoiding are in

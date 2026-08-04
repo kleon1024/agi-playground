@@ -38,7 +38,7 @@ explaining.
 
 ## Where these go next
 
-[Pretraining](../platform/training/) joins both paths to real data and a token
+[Pretraining](../missions/01-language-model-agent/02-pretrain/) joins both paths to real data and a token
 budget. [Data](../platform/data/) supplies the distribution that budget is spent
 on. Neither is a foundation — they are decisions with costs, and they assume you
 already know what is being trained.

@@ -57,6 +57,41 @@ flat files of `uint16` token IDs. Three decisions there are load-bearing:
   halves storage and memory traffic at no cost. This is why stage 01's
   vocabulary size was a serving decision as well as a linguistic one.
 
+## Is 3.0B tokens the right amount for 88M parameters?
+
+The corpus is fixed and the model shape is not yet. The two are decided
+together, because a dense decoder's training cost is set almost entirely by
+their product:
+
+$$
+C \approx 6ND
+$$
+
+where $N$ is parameters and $D$ is training tokens. **Worked, on this run:**
+$N = 88{,}197{,}888$ and $D = 3.0 \times 10^{9}$ give
+$C \approx 6 \times 88.2\text{M} \times 3.0\text{B} = 1.59 \times 10^{18}$
+FLOPs — 34 tokens per parameter, against the roughly 20 that Chinchilla's
+compute-optimal result suggests. Being past that ratio is deliberate: the
+optimal ratio minimizes loss for a *training* budget, while a model you intend
+to serve is better spent past it, because inference cost tracks parameters and
+not how long they were trained.
+
+Run the estimate backwards and it becomes a schedule. The card here advertises
+165 TFLOP/s in bf16, so a run converting every advertised FLOP into gradient
+would finish in $1.59 \times 10^{18} / 1.65 \times 10^{14} = 9{,}622$ seconds
+— 2.7 hours. The real run took **4.98 hours**, and nothing was wrong with it.
+That ratio is what utilization means, and it is the subject of
+[the throughput ladder](throughput/).
+
+Move the budget below and keep three questions apart: what fits the training
+compute, what uses the data you have, and what is affordable to serve forever
+after.
+
+<!-- interactive: ChinchillaBudget -->
+
+The number to carry forward is the budget you can actually execute, not the
+largest model that fits in memory for one forward pass.
+
 ## From token IDs to a guess about the next token
 
 A token ID is an integer with no meaning. The first thing the network does is
@@ -134,7 +169,7 @@ starts.
 - **That any architecture choice here is a good one.** RMSNorm, RoPE, SwiGLU,
   and grouped-query attention are stated, not compared. One run with one seed
   cannot rank them.
-  [Architecture ablations](../../../platform/training/02-architecture-ablations/)
+  [Architecture ablations](architecture-ablations/)
   runs the comparison at a smaller size and finds RoPE decisively ahead of the
   alternatives, GQA's cost real and monotone — and RMSNorm and SwiGLU
   indistinguishable from theirs, each losing on one seed of three. Two of these
@@ -146,9 +181,42 @@ starts.
   [The ablation harness](../../../platform/data/01-ablation-harness/) exists
   because answering that needs paired runs across seeds, not one run.
 - **That this architecture is the only way to spend this checkpoint's
-  weights.** [Upcycling](../../../platform/training/05-upcycling/) takes this
+  weights.** [Upcycling](upcycling/) takes this
   exact dense checkpoint and asks whether converting it to a mixture-of-experts
   architecture buys back more capacity than it costs.
+
+## Five more things you could change, and what each returns
+
+Each of these takes one decision this chapter states without testing, and runs
+it far enough to answer. None is a prerequisite; enter from the question.
+
+**[Architecture ablations](architecture-ablations/)** — *did that design choice
+actually help?* Six choices measured at a smaller size, on three seeds. RoPE
+wins decisively, grouped-query attention's cost is real and monotone, and two
+of this model's four choices turn out indistinguishable from the alternatives
+they replaced.
+
+**[The throughput ladder](throughput/)** — *is the run using the card it is
+already on?* 14.69x between the slowest and fastest configuration of an
+identical model, and which change bought which part of it.
+
+**[Upcycling](upcycling/)** — *can a trained checkpoint become a different
+architecture?* This exact dense checkpoint converted to a mixture of experts,
+starting at its parent's loss, with [the follow-up](upcycling/does-it-pay-off/)
+asking whether the added capacity earned back its cost.
+
+**[When the curve goes wrong](when-the-curve-goes-wrong/)** — *the loss turned
+upward and you do not know why.* A rule for deciding which subsystem owns the
+evidence, plus the precision contract that decides whether an update lands at
+all.
+
+**[Latent reasoning](latent-reasoning/)** — *what if the model could think
+without choosing words?* An open question kept honest: a stated hypothesis and
+a comparison that has not yet earned a verdict.
+
+For the case where the model no longer fits one card, the mechanism is
+[distributed training](../../../foundations/04-distributed-training/), which is
+product-independent and lives in foundations.
 
 ## Reproduce it
 
@@ -266,3 +334,7 @@ minutes: [verifying the run](verifying-the-run/) takes this exact configuration
 and asks the operational question — five hours is a long time to be wrong, so
 what can you check in the first minute, and what does the finished curve
 actually license you to say?
+
+[The training landscape](LANDSCAPE.md) pairs each from-scratch implementation
+here with the production trainers and tokenizer libraries that replace it, and
+says which difference is load-bearing at this scale and which is not.

@@ -56,7 +56,7 @@ primary_metric: >
   least 3 independent runs of the same arm — agent runs are non-deterministic,
   and mission 02 already established that a single seed is not a result. A
   difference smaller than the run-to-run spread is reported as no result, the
-  same discipline platform/training/02-architecture-ablations applied to its
+  same discipline missions/01-language-model-agent/02-pretrain/architecture-ablations applied to its
   norm and activation rungs.
 
 guardrails:

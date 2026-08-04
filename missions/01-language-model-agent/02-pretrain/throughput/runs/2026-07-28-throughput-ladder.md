@@ -3,7 +3,7 @@
 ## Command
 
 ```bash
-cd platform/training/03-throughput/core
+cd missions/01-language-model-agent/02-pretrain/throughput/core
 python throughput.py ladder --micro-batch 16 --steps 30 --warmup 10 --out ladder.json
 
 cd ../prod

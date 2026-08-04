@@ -44,7 +44,7 @@ decision: >
   datasets have near-duplicate structures, and a random split silently leaks
   them across train/test). If the gap is smaller than the run-to-run spread,
   the honest answer is "no result," the same discipline
-  platform/training/02-architecture-ablations already applies to its own
+  missions/01-language-model-agent/02-pretrain/architecture-ablations already applies to its own
   ablation rungs.
 
 baseline: >

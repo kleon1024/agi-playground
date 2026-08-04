@@ -67,9 +67,9 @@ taking.
 |---|---|---|---|
 | before 02 | what a decoder block is doing at all | [the decoder block](../../foundations/00-attention/) | the forward path, and this model's 88,197,888 parameters reconstructed from its own formulas |
 | 00 | which documents to keep, and whether the filter is defensible | [platform / data](../../platform/data/) | a versioned dataset with rejection reasons |
-| 02 | whether an architecture choice is worth its cost | [architecture ablations](../../platform/training/02-architecture-ablations/) | six choices measured, two of which flip sign between seeds |
-| 02 | why a run will take ten hours, and whether it should | [the throughput ladder](../../platform/training/03-throughput/) | tokens per second, MFU, and what to change |
-| after 02 | whether to keep the checkpoint or retrain a new shape | [upcycling](../../platform/training/05-upcycling/) | a converted checkpoint that starts at the parent's loss |
+| 02 | whether an architecture choice is worth its cost | [architecture ablations](02-pretrain/architecture-ablations/) | six choices measured, two of which flip sign between seeds |
+| 02 | why a run will take ten hours, and whether it should | [the throughput ladder](02-pretrain/throughput/) | tokens per second, MFU, and what to change |
+| after 02 | whether to keep the checkpoint or retrain a new shape | [upcycling](02-pretrain/upcycling/) | a converted checkpoint that starts at the parent's loss |
 | 03 | whether teacher data beats human data | [distillation](03-sft/distillation/) | a target format and its tokenizer constraint |
 | 03 | whether comparisons can replace demonstrations | [beyond demonstrations](03-sft/beyond-demonstrations/) | what LoRA, reward models, DPO, and merging each cost |
 | 04 | which RL failure you actually have | [what a real loop adds](04-rl/what-a-real-loop-adds/) | the failure each acronym was built for, and why the verifier is the task |
@@ -79,7 +79,7 @@ taking.
 
 Two chapters are deliberately not on this list.
 [Mid-training](../../reference/research/mid-training/) is skipped for the
-reason below. [Latent reasoning](../../platform/training/04-latent-reasoning/)
+reason below. [Latent reasoning](02-pretrain/latent-reasoning/)
 is an open question rather than a decision this mission makes, and it is
 labelled draft until a run says otherwise.
 

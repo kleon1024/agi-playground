@@ -14,13 +14,14 @@ the same model, the same batch, and the same card could have finished in a
 third of the time — and at 88M parameters on one 24GB card, this chapter's
 measurement says it could have finished in a **fourteenth**.
 
-You need one thing from [pretraining](../../../missions/01-language-model-agent/02-pretrain/)
+You need one thing from [pretraining](../)
 before starting: that a training step is a forward pass, a backward pass, and
 an optimizer update over a fixed batch of tokens. This chapter changes nothing
 about any of them. Every configuration below computes the same gradient on the
 same data and produces the same model. Only the wall-clock differs.
 
-**Before this:** [what makes a training run worth its compute](../README.md).
+**Before this:** [what are you actually training](../README.md), for the model
+and token budget this chapter measures the execution of.
 You need a token budget you have committed to before it is worth asking how fast
 it is being spent.
 
@@ -132,7 +133,7 @@ before its throughput column.
   rung was trained to convergence and no rung's loss was compared. bf16
   autocast changes the numerics, and this chapter has nothing to say about
   whether it changes the answer — that is
-  [the ablation ladder's](../02-architecture-ablations/) question, with a
+  [the ablation ladder's](../architecture-ablations/) question, with a
   stated budget definition and multiple seeds.
 - **That 65.9% is good.** It is what this configuration reached. Whether the
   remaining 34% is reachable at all on this hardware is not something a ladder
@@ -141,7 +142,7 @@ before its throughput column.
 ## Reproduce it
 
 ```bash
-cd platform/training/03-throughput/core
+cd missions/01-language-model-agent/02-pretrain/throughput/core
 python throughput.py ladder --micro-batch 16 --steps 30 --warmup 10
 
 cd ../prod
@@ -251,12 +252,12 @@ footprints needs the peak-memory column read before the throughput column.
 ## Next
 
 Take the five flags back to
-[stage 02 of the language-model system](../../../missions/01-language-model-agent/02-pretrain/),
+[stage 02 of the language-model system](../),
 which is where they turn a ten-hour run into a five-hour one against a real
 corpus. That is what this chapter exists to hand back.
 
 If instead you are still choosing the model rather than running it,
-[architecture ablations](../02-architecture-ablations/) asks the question this
+[architecture ablations](../architecture-ablations/) asks the question this
 chapter deliberately refuses: not how fast a configuration runs, but whether it
 produces a better model — and what "equal budget" has to mean before that
 question has an answer.

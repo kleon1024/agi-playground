@@ -183,6 +183,6 @@ before stage 02.
 
 ## Next
 
-[Track 03 — pretraining](../../platform/training/) generalizes every choice made
+[Stage 02 — pretraining](../../missions/01-language-model-agent/02-pretrain/) generalizes every choice made
 here, or jump to [stage 00](../../missions/01-language-model-agent/00-corpus/) to build the corpus
 this model was starved of.

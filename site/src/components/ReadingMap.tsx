@@ -74,22 +74,19 @@ const BUILD_PATH: Step[] = [
         returns: "the forward path, and this model's parameter count derived from its own formulas",
       },
       {
-        href: '/playground/platform/training/03-throughput/',
-        label: 'Throughput',
-        returns: '14.69x between the slowest and fastest run of the same model',
-      },
-      {
-        href: '/playground/platform/training/02-architecture-ablations/',
-        label: 'Architecture ablations',
-        returns: 'six design choices measured, and the two everyone argues about flipping sign between seeds',
-      },
-      {
-        href: '/playground/platform/training/05-upcycling/',
-        label: 'Upcycling',
-        returns: 'a converted checkpoint that starts at its parent’s loss',
+        href: '/playground/foundations/04-distributed-training/',
+        label: 'Distributed training',
+        returns: 'a sharding strategy and what its communication actually costs',
       },
     ],
-    companions: [{ href: `${MISSION}/02-pretrain/verifying-the-run/`, label: 'Verifying the run' }],
+    companions: [
+      { href: `${MISSION}/02-pretrain/verifying-the-run/`, label: 'Verifying the run' },
+      { href: `${MISSION}/02-pretrain/architecture-ablations/`, label: 'Architecture ablations' },
+      { href: `${MISSION}/02-pretrain/throughput/`, label: 'Throughput' },
+      { href: `${MISSION}/02-pretrain/upcycling/`, label: 'Upcycling' },
+      { href: `${MISSION}/02-pretrain/when-the-curve-goes-wrong/`, label: 'When the curve goes wrong' },
+      { href: `${MISSION}/02-pretrain/latent-reasoning/`, label: 'Latent reasoning' },
+    ],
   },
   {
     href: `${MISSION}/03-sft/`,

@@ -16,7 +16,7 @@ move?
 shard-sized files, placed by two different rules, moved on real local disk
 when the node count changes from 4 to 5.
 
-**Before this:** [distributed training, without a cluster](../../platform/training/01-distributed/)
+**Before this:** [distributed training, without a cluster](../../foundations/04-distributed-training/)
 -- that chapter measures what ZeRO's parameter sharding does to per-rank
 memory. This chapter asks the adjacent question: once shards are assigned to
 nodes, what does *changing the number of nodes* cost.
@@ -71,7 +71,7 @@ Full run: [`runs/2026-08-01-modulo-vs-consistent-hashing.md`](runs/2026-08-01-mo
 
 This repository's own checkpoint shards -- the per-rank optimizer-state
 slices measured in
-[`platform/training/01-distributed/`](../../platform/training/01-distributed/) --
+[`foundations/04-distributed-training/`](../../foundations/04-distributed-training/) --
 are exactly this kind of key. If a training job's world size changes between
 runs (more or fewer ranks, or a checkpoint saved at one shard count and
 resumed at another), whatever rule assigned optimizer-state shards to files

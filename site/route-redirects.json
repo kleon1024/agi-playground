@@ -84,6 +84,42 @@
     {
       "from": "/platform/adaptation/distillation/what-path-two-requires",
       "to": "/missions/01-language-model-agent/03-sft/distillation/what-path-two-requires"
+    },
+    {
+      "from": "/platform/training",
+      "to": "/missions/01-language-model-agent/02-pretrain"
+    },
+    {
+      "from": "/platform/training/LANDSCAPE",
+      "to": "/missions/01-language-model-agent/02-pretrain/LANDSCAPE"
+    },
+    {
+      "from": "/platform/training/01-distributed",
+      "to": "/foundations/04-distributed-training"
+    },
+    {
+      "from": "/platform/training/02-architecture-ablations",
+      "to": "/missions/01-language-model-agent/02-pretrain/architecture-ablations"
+    },
+    {
+      "from": "/platform/training/02-architecture-ablations/the-rung-that-flipped",
+      "to": "/missions/01-language-model-agent/02-pretrain/architecture-ablations/the-rung-that-flipped"
+    },
+    {
+      "from": "/platform/training/03-throughput",
+      "to": "/missions/01-language-model-agent/02-pretrain/throughput"
+    },
+    {
+      "from": "/platform/training/04-latent-reasoning",
+      "to": "/missions/01-language-model-agent/02-pretrain/latent-reasoning"
+    },
+    {
+      "from": "/platform/training/05-upcycling",
+      "to": "/missions/01-language-model-agent/02-pretrain/upcycling"
+    },
+    {
+      "from": "/platform/training/05-upcycling/does-it-pay-off",
+      "to": "/missions/01-language-model-agent/02-pretrain/upcycling/does-it-pay-off"
     }
   ]
 }

@@ -57,6 +57,56 @@
                 "type": "doc",
                 "id": "missions/01-language-model-agent/02-pretrain/verifying-the-run/index",
                 "label": "Verifying the run"
+              },
+              {
+                "type": "category",
+                "label": "Architecture ablations",
+                "link": {
+                  "type": "doc",
+                  "id": "missions/01-language-model-agent/02-pretrain/architecture-ablations/index"
+                },
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "missions/01-language-model-agent/02-pretrain/architecture-ablations/the-rung-that-flipped/index",
+                    "label": "The rung that flipped"
+                  }
+                ]
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/02-pretrain/throughput/index",
+                "label": "Throughput"
+              },
+              {
+                "type": "category",
+                "label": "Upcycling",
+                "link": {
+                  "type": "doc",
+                  "id": "missions/01-language-model-agent/02-pretrain/upcycling/index"
+                },
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "missions/01-language-model-agent/02-pretrain/upcycling/does-it-pay-off/index",
+                    "label": "Does it pay off"
+                  }
+                ]
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/02-pretrain/when-the-curve-goes-wrong/index",
+                "label": "When the curve goes wrong"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/02-pretrain/latent-reasoning/index",
+                "label": "Latent reasoning"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/02-pretrain/LANDSCAPE",
+                "label": "Landscape"
               }
             ]
           },
@@ -619,6 +669,11 @@
       },
       {
         "type": "doc",
+        "id": "foundations/04-distributed-training/index",
+        "label": "Distributed training"
+      },
+      {
+        "type": "doc",
         "id": "foundations/LANDSCAPE",
         "label": "Landscape"
       }
@@ -658,66 +713,6 @@
           {
             "type": "doc",
             "id": "platform/data/LANDSCAPE",
-            "label": "Landscape"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Training",
-        "link": {
-          "type": "doc",
-          "id": "platform/training/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "platform/training/01-distributed/index",
-            "label": "Distributed training"
-          },
-          {
-            "type": "category",
-            "label": "Architecture ablations",
-            "link": {
-              "type": "doc",
-              "id": "platform/training/02-architecture-ablations/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "platform/training/02-architecture-ablations/the-rung-that-flipped/index",
-                "label": "The rung that flipped"
-              }
-            ]
-          },
-          {
-            "type": "doc",
-            "id": "platform/training/03-throughput/index",
-            "label": "Throughput"
-          },
-          {
-            "type": "doc",
-            "id": "platform/training/04-latent-reasoning/index",
-            "label": "Latent reasoning"
-          },
-          {
-            "type": "category",
-            "label": "Upcycling",
-            "link": {
-              "type": "doc",
-              "id": "platform/training/05-upcycling/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "platform/training/05-upcycling/does-it-pay-off/index",
-                "label": "Does it pay off"
-              }
-            ]
-          },
-          {
-            "type": "doc",
-            "id": "platform/training/LANDSCAPE",
             "label": "Landscape"
           }
         ]

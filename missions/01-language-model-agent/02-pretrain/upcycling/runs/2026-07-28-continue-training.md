@@ -8,7 +8,7 @@ order, same schedule, same held-out evaluation.
 ## Command
 
 ```bash
-cd platform/training/05-upcycling/core
+cd missions/01-language-model-agent/02-pretrain/upcycling/core
 python continue_training.py --arm dense --checkpoint ckpt.pt \
     --data ~/agi-playground/data/tokens --tokens 2e8 \
     --eval-every 250 --eval-iters 20 --out ~/upcycle-dense.json
@@ -79,7 +79,7 @@ and at 200M tokens it was still improving by roughly 0.005 per 16M tokens.**
 Whether it would close 0.0088 nats in another 186M tokens was not measured, so
 this run reports a result under equal tokens and no result under equal
 wall-clock — the same split the
-[MoE ablation rung](../../02-architecture-ablations/runs/2026-07-28-moe-rung.md)
+[MoE ablation rung](../../architecture-ablations/runs/2026-07-28-moe-rung.md)
 found from the other direction.
 
 This also corrects the earlier smoke measurement. The 244-step run recorded in

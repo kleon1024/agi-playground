@@ -64,7 +64,7 @@ Under an equal *wall-clock* budget the ranking is not settled. The MoE arm took
 improving when the run ended. That arm was not run.
 
 This is the same trap
-[the architecture ladder](../../02-architecture-ablations/the-rung-that-flipped/)
+[the architecture ladder](../../architecture-ablations/the-rung-that-flipped/)
 found on its own feed-forward rung: an equal-token result and an equal-wall-clock
 result are different claims, and only one of them was bought.
 
@@ -160,6 +160,6 @@ by exactly 0.0088 nats, guaranteed."
 ## Next
 
 Return to [what this chapter hands back](../README.md#next). Then
-[architecture ablations](../../02-architecture-ablations/) trains the same block
+[architecture ablations](../../architecture-ablations/) trains the same block
 from scratch against a dense control, and reports the result this pair of runs
 cannot.

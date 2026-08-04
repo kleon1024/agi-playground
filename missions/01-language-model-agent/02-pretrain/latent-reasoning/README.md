@@ -13,13 +13,13 @@ read back. But writing a step forces the model to collapse a whole distribution
 over what it might be thinking into one token. Is that collapse doing useful
 work, or is it a tax the vocabulary charges?
 
-You need one thing from [pretraining](../../../missions/01-language-model-agent/02-pretrain/):
+You need one thing from [pretraining](../):
 that a decoder maps token ids to vectors, transforms those vectors, and turns
 the last one back into a distribution over tokens. This chapter changes exactly
 one link in that loop and measures what happens.
 
-**Before this:** [the decoder block](../../../foundations/00-attention/) and the
-[RL stage](../../../missions/01-language-model-agent/04-rl/). This
+**Before this:** [the decoder block](../../../../foundations/00-attention/) and the
+[RL stage](../../04-rl/). This
 is an open question at the edge of both, not a mechanism either one settles.
 
 ## The loop, and the one link this chapter cuts
@@ -160,7 +160,7 @@ comparison meaningful and exactly what stops it generalising.
 ## Reproduce it
 
 ```bash
-cd platform/training/04-latent-reasoning/core
+cd missions/01-language-model-agent/02-pretrain/latent-reasoning/core
 python task.py                                     # inspect the generated data
 python model.py                                    # parameter count, no training
 python train.py --arms direct cot latent --seeds 3 --out result.json
@@ -279,7 +279,7 @@ statement of its position: it is an open question kept beside the curriculum
 rather than a decision any mission currently makes. It becomes a detour worth
 taking only if the run below produces a separation.
 
-Meanwhile, [architecture ablations](../02-architecture-ablations/) is where a
+Meanwhile, [architecture ablations](../architecture-ablations/) is where a
 result like this one gets its budget definition, and
-[the throughput ladder](../03-throughput/) is where the extra forward passes
+[the throughput ladder](../throughput/) is where the extra forward passes
 this method needs turn into wall-clock you can measure.

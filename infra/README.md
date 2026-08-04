@@ -25,7 +25,7 @@ question.
   measured over real inter-process IPC: ring wins every combination tested
   and the margin widens with world size, plus the two deadlock bugs building
   the toy itself surfaced.
-  Substrate for [`platform/training/01-distributed/`](../platform/training/01-distributed/).
+  Substrate for [`foundations/04-distributed-training/`](../foundations/04-distributed-training/).
 - [`02-storage/`](02-storage/) — modulo vs. consistent-hash shard placement,
   measured by how much data actually moves on real disk when a storage node
   is added: 80% remapped vs. 18%, against a 20% theoretical floor.
@@ -34,7 +34,7 @@ question.
   work, it decides whose work happens first: a real 10-job, 2-slot batch
   measured under FIFO vs priority dispatch, and the cold-start measurement
   artifact the first version of that comparison got wrong.
-  Substrate for [`platform/training/01-distributed/`](../platform/training/01-distributed/).
+  Substrate for [`foundations/04-distributed-training/`](../foundations/04-distributed-training/).
 - [`04-observability/`](04-observability/) — a real training loop
   (the language-model mission's `Transformer`, unmodified) instrumented with
   real per-step timing, and why p50/p95/histogram are different instruments
@@ -45,7 +45,7 @@ question.
   topology (NVLink vs PCIe vs cross-node network) determines which
   parallelism strategy (data, tensor, pipeline) tolerates which link, and
   what part of that claim is measurable without a real cluster.
-  Substrate for [`platform/training/01-distributed/`](../platform/training/01-distributed/).
+  Substrate for [`foundations/04-distributed-training/`](../foundations/04-distributed-training/).
 - [`06-gpu-dedup-at-scale/`](06-gpu-dedup-at-scale/) — MinHash hashing cost
   stays flat per document, but LSH bucket verification does not: measured on
   CPU across four corpus sizes, verification overtakes hashing between

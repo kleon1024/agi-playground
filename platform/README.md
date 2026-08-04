@@ -23,12 +23,13 @@ Four of the six sit on one line, because each produces the input the next one
 needs:
 
 ```text
-data -> training
+data -> a base checkpoint
 ```
 
 **[Data](data/)** turns a raw crawl into a corpus with a manifest and
-disclosed rejection reasons. **[Training](training/)** turns that corpus and a
-token budget into a base checkpoint. Adaptation and serving — closing the gap
+disclosed rejection reasons. **[Pretraining](../missions/01-language-model-agent/02-pretrain/)** turns that
+corpus and a token budget into a base checkpoint, and it was built and measured
+in mission 01 rather than described here. Adaptation and serving — closing the gap
 between a checkpoint that predicts text and one that follows instructions, then
 turning it into a service with a latency budget — are not chapters here: they
 were built and measured in

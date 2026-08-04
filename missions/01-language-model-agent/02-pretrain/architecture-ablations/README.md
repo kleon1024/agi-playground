@@ -9,14 +9,14 @@ verified: 2026-07-28
 
 **Question:** RMSNorm beat LayerNorm — under which definition of "beat"?
 
-[Stage 02](../../../missions/01-language-model-agent/02-pretrain/) chose
+[Stage 02](../) chose
 RMSNorm, RoPE, SwiGLU, and grouped-query attention without comparing any of
 them against an alternative. This chapter is where one of those choices gets
 tested — and the first thing a test needs is a definition of winning, because
 the nine training runs in section 3 support two opposite headlines depending
 on which definition you pick.
 
-**Before this:** [the decoder block](../../../foundations/00-attention/) for what
+**Before this:** [the decoder block](../../../../foundations/00-attention/) for what
 RMSNorm, RoPE, SwiGLU and grouped-query attention each do. This chapter tests
 those choices; it does not explain them.
 
@@ -171,7 +171,7 @@ tokens, a fixed budget, seeds, and a result file that cannot be written without
 a budget definition.
 
 ```bash
-cd platform/training/02-architecture-ablations/core
+cd missions/01-language-model-agent/02-pretrain/architecture-ablations/core
 python model.py                                    # parameter arithmetic, nothing trained
 python ladder.py --rung moe --seeds 3 --steps 20   # CPU smoke test, minutes
 python ablate.py --rung moe --data <token-dir> --seeds 3 --tokens 2e8 \
@@ -275,7 +275,7 @@ experiment's resolution, not a verdict on which activation is better.
 ## Next
 
 What this chapter hands back to
-[stage 02 of the language-model system](../../../missions/01-language-model-agent/02-pretrain/)
+[stage 02 of the language-model system](../)
 is not a winning architecture. It is a floor. Stage 02 chose RMSNorm and SwiGLU
 without comparing them to anything, and this ladder could not separate either
 one from its alternative. That does not make those choices wrong — it makes
@@ -285,9 +285,9 @@ by contrast, are choices stage 02 was right to take seriously.
 
 Two loose ends lead elsewhere. GQA's payoff is invisible on a training-time
 ladder — the parameter delta is all such a comparison sees, and the KV-cache
-arithmetic it was built to change is in [serving](../../../missions/01-language-model-agent/05-serve/). And if this
+arithmetic it was built to change is in [serving](../../05-serve/). And if this
 leaves you wanting a different feed-forward after the checkpoint already
-exists, [upcycling](../05-upcycling/) gets one without retraining.
+exists, [upcycling](../upcycling/) gets one without retraining.
 
 Primary references: Zhang & Sennrich, "Root Mean Square Layer Normalization"
 (2019); Su et al., "RoFormer" (2021); Shazeer, "GLU Variants Improve

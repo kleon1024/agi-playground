@@ -111,7 +111,6 @@ reference/     contributor and evidence-governance surfaces (standards/, researc
 | Layer | Scope | Status |
 |---|---|---|
 | [data](platform/data/) | Pipelines, dedup, filtering, annotation, synthetic data | Seeded by [mission 01 · corpus](missions/01-language-model-agent/00-corpus/) |
-| [training](platform/training/) | Tokenizers, architecture, training loop, scaling laws | Overview draft; 4 of 5 sub-lessons verified by runs |
 | [evaluation & observability](platform/evaluation-observability/) | Static and agentic evals, contamination, harness disclosure | Draft |
 | [safety & governance](platform/safety-governance/) | Enforcing the guardrails missions declare | Draft |
 

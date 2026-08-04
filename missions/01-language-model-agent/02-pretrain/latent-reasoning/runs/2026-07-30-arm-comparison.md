@@ -67,7 +67,7 @@ get there either.
 ## Reproduce
 
 ```bash
-cd platform/training/04-latent-reasoning/core
+cd missions/01-language-model-agent/02-pretrain/latent-reasoning/core
 python train.py --arms direct cot latent --seeds 3 --out ../runs/full.json
 # full run; direct alone takes ~16-17 min/seed on a CPU-only machine, cot and
 # especially latent (n_latent+1 forward passes per step) cost more per step

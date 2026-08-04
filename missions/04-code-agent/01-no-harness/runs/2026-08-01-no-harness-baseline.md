@@ -76,7 +76,7 @@ per attempt.
 
 `mission.yaml`'s discipline: a margin only counts if it exceeds the run-to-run
 spread (`max - min` of each independent run's resolved fraction, the same
-convention `platform/training/02-architecture-ablations` and mission 06's
+convention `missions/01-language-model-agent/02-pretrain/architecture-ablations` and mission 06's
 report use for a continuous metric, applied here to a binary per-attempt
 outcome since that is what this mission's primary metric actually is).
 

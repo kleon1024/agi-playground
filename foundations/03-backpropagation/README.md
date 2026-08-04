@@ -165,7 +165,7 @@ not remotely resemble how a real training step executes. What it does
 establish is the mechanism itself — local derivatives, applied one link at a
 time in reverse topological order, with accumulation at every reused node —
 which is unchanged between this five-node toy and the multi-billion-operation
-graph [pretraining](../../platform/training/) actually walks.
+graph [pretraining](../../missions/01-language-model-agent/02-pretrain/) actually walks.
 
 ## A brief, dated history
 

@@ -50,7 +50,7 @@ Both are measured against a locally-served open-weights model and a hosted
 frontier model, over at least three runs each. Agent runs are non-deterministic;
 [mission 02](../02-personalized-discovery/) already established that a single
 seed is not a result, and
-[the ablation ladder](../../platform/training/02-architecture-ablations/)
+[the ablation ladder](../../missions/01-language-model-agent/02-pretrain/architecture-ablations/)
 established what to do when a gap is smaller than the spread — report no result.
 
 ## Two task sets, never pooled

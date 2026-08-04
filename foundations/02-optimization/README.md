@@ -293,7 +293,7 @@ comparison and renders the trajectories and loss curves in
 
 ## Next
 
-[Pretraining](../../platform/training/) uses Adam (via AdamW) at real
+[Pretraining](../../missions/01-language-model-agent/02-pretrain/) uses Adam (via AdamW) at real
 model scale, where this chapter's toy condition number of 100 is replaced by
 whatever the actual Hessian of a transformer produces — measured, not
 assumed. Or return to [the first training loop](../01-first-training-loop/)

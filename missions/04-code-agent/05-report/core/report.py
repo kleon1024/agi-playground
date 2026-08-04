@@ -56,7 +56,7 @@ def per_run_spread(records: list[dict]) -> tuple[list[float], float]:
     count recovers each run's own resolved fraction without a run-index field
     ever needing to exist in the record. `max - min` across those fractions is
     this repository's own convention for run-to-run spread (mission
-    06/`platform/training/02-architecture-ablations`), applied here to a
+    06/`missions/01-language-model-agent/02-pretrain/architecture-ablations`), applied here to a
     binary per-attempt outcome instead of a continuous one because that is
     what this mission's primary metric actually is.
     """

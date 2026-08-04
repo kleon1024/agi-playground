@@ -15,7 +15,7 @@ produce the identical number. Why does anyone bother with the second one?
 gradient-sized array, allreduced by two different message-passing topologies,
 over real inter-process communication on one machine.
 
-**Before this:** [distributed training, without a cluster](../../platform/training/01-distributed/)
+**Before this:** [distributed training, without a cluster](../../foundations/04-distributed-training/)
 -- that chapter asserts all-reduce as a single opaque collective operation and
 measures what it does to memory. This chapter opens the collective itself and
 measures what it does to the network.
@@ -105,7 +105,7 @@ measurable on one machine and this chapter does not claim otherwise.
 
 **GPU collectives.** Real training frameworks (NCCL, `gloo`) implement
 allreduce with hardware-aware topology selection, not the two fixed
-strategies shown here. [`platform/training/01-distributed/`](../../platform/training/01-distributed/)
+strategies shown here. [`foundations/04-distributed-training/`](../../foundations/04-distributed-training/)
 is where the actual training-relevant collective (via PyTorch's `gloo`
 backend) is measured; this chapter is the topology argument underneath it,
 not a replacement for it.

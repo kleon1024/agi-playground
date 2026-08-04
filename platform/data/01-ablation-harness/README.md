@@ -233,7 +233,7 @@ noise, not these two.
 
 A mixture decision that survives this harness is still an untrained bet until
 it is spent on a real training run. Continue to
-[training](../../training/) to see what a token budget and a model size
+[pretraining](../../../missions/01-language-model-agent/02-pretrain/) to see what a token budget and a model size
 commit you to, or to
 [evaluation and observability](../../evaluation-observability/) for the
 seed-variance and harness-disclosure machinery this chapter assumed.

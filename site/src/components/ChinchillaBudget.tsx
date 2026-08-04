@@ -16,6 +16,14 @@ import React, { useMemo, useState } from 'react';
 const HOURS_PER_GPU_DAY = 24;
 const EFFECTIVE_TFLOPS = 400e12; // a datacentre accelerator at realistic MFU
 
+/** Adaptive exponent: a 1.59e18 budget must not render as "0.00x10^21". */
+function fmtFlops(x: number): string {
+  const exp = Math.floor(Math.log10(x));
+  const digits = '\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079';
+  const sup = String(exp).split('').map((d) => digits[Number(d)]).join('');
+  return `${(x / 10 ** exp).toFixed(2)}\u00d710${sup}`;
+}
+
 function fmt(x: number, unit: string): string {
   if (x >= 1e9) return `${(x / 1e9).toFixed(2)}B ${unit}`;
   if (x >= 1e6) return `${(x / 1e6).toFixed(0)}M ${unit}`;
@@ -82,8 +90,11 @@ export default function ChinchillaBudget(): React.ReactElement {
       </div>
 
       <div style={{ display: 'flex', gap: '1.4rem', flexWrap: 'wrap', fontSize: 'var(--type-sm)' }}>
-        <span>compute <strong>{(flops / 1e21).toFixed(2)}×10²¹ FLOPs</strong></span>
-        <span>≈ <strong>{gpuDays < 1 ? `${(gpuDays * 24).toFixed(1)} GPU-hours` : `${gpuDays.toFixed(1)} GPU-days`}</strong></span>
+        <span>compute <strong>{fmtFlops(flops)} FLOPs</strong></span>
+        <span>
+          ≈ <strong>{gpuDays < 1 ? `${(gpuDays * 24).toFixed(1)} GPU-hours` : `${gpuDays.toFixed(1)} GPU-days`}</strong>{' '}
+          <span style={{ opacity: 0.7 }}>at 400 TFLOP/s effective</span>
+        </span>
         <span>tokens/param <strong>{ratio.toFixed(1)}×</strong> optimal</span>
       </div>
       <p style={{ color: tone, fontSize: 'var(--type-sm)', margin: '0.5rem 0 0' }}>{verdict}</p>

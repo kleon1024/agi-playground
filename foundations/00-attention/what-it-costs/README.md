@@ -196,5 +196,5 @@ measurement. It tells you what the model *must* allocate; it does not tell you
 what a runtime actually allocates, which includes fragmentation, activation
 workspace, optimizer state during training, and allocator padding.
 [Serving](../../../missions/01-language-model-agent/05-serve/) measures the difference, and
-[throughput](../../../platform/training/03-throughput/) shows how far the same
+[throughput](../../../missions/01-language-model-agent/02-pretrain/throughput/) shows how far the same
 model's real utilization can move without any of these numbers changing.

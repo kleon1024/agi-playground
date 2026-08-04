@@ -12,13 +12,13 @@ label: Upcycling
 You now want a different feed-forward design. Do you have to start over?
 
 You need one thing from
-[pretraining](../../../missions/01-language-model-agent/02-pretrain/): that a
+[pretraining](../): that a
 decoder is an embedding table, a stack of blocks, and a tied output head, and
 that its weights are just named tensors in a file. This chapter changes the
 shape of one component in that stack while keeping every trained tensor, and
 measures whether the result is still the same model.
 
-**Before this:** [architecture ablations](../02-architecture-ablations/) for what
+**Before this:** [architecture ablations](../architecture-ablations/) for what
 a mixture-of-experts block is and which budget it should be judged under. This
 chapter converts one; that chapter decides whether it is worth converting.
 
@@ -47,7 +47,7 @@ respect it — quite a lot, as it turns out.
 
 The change is to the feed-forward block. The dense model has one; this chapter
 reuses the mixture-of-experts block from
-[architecture ablations](../02-architecture-ablations/) and configures it with
+[architecture ablations](../architecture-ablations/) and configures it with
 four routed experts, picking two per token. Attention, norms, and embeddings
 are untouched.
 
@@ -116,14 +116,14 @@ Two details follow from the same arithmetic and both look like bugs:
 The upcycled model has 258,104,064 total parameters and 144,838,656 active per
 token: **2.93x the storage, 1.64x the compute.** Both are reported because a
 later quality claim means something different under each, exactly as
-[architecture ablations](../02-architecture-ablations/) argues.
+[architecture ablations](../architecture-ablations/) argues.
 
 Measured wall-clock is worse than either number suggests. Over 200M tokens the
 upcycled model sustained **55,069 tokens per second** against the dense model's
 **106,369** on the same data in the same script: 1.93x slower for 1.64x the
 arithmetic. The gap is not the architecture — it is that `core/` dispatches
 experts with a Python loop rather than a grouped kernel, the same distinction
-[serving](../../../missions/01-language-model-agent/05-serve/why-concurrency-pays/)
+[serving](../../05-serve/why-concurrency-pays/)
 had to draw between a scheduling policy and a fused kernel.
 
 ## Does the extra capacity pay for itself?
@@ -142,7 +142,7 @@ which the ranking reopens.
 ## Reproduce it
 
 ```bash
-cd platform/training/05-upcycling/core
+cd missions/01-language-model-agent/02-pretrain/upcycling/core
 python upcycle.py convert ckpt.pt moe.pt --experts 4 --active 2
 python upcycle.py verify moe.pt --parent ckpt.pt --data ~/tokens
 python continue_training.py --arm moe --checkpoint moe.pt --data ~/tokens --tokens 2e8
@@ -263,15 +263,15 @@ elsewhere in this curriculum.
 ## Next
 
 What this chapter hands back to
-[stage 02 of the language-model system](../../../missions/01-language-model-agent/02-pretrain/)
+[stage 02 of the language-model system](../)
 is a decision that stage cannot otherwise make: once the checkpoint exists,
 changing the architecture is no longer all-or-nothing, and the precondition for
 keeping the weights is a shared tokenizer and a shared `d_model` rather than a
 similar-looking design.
 
-[Architecture ablations](../02-architecture-ablations/) trains that same block
+[Architecture ablations](../architecture-ablations/) trains that same block
 from scratch against a dense control, and reports the result this chapter
 cannot: at 33M parameters, matched on active parameters, the mixture wins by
 0.0901 nats — and matched on total parameters, it does not win at all.
-[The throughput ladder](../03-throughput/) is where the expert-dispatch gap
+[The throughput ladder](../throughput/) is where the expert-dispatch gap
 above turns into a number you can attribute to a kernel.

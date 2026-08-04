@@ -307,7 +307,7 @@ against.
 ## Next
 
 The output is a tokenizable, versioned corpus. Continue to
-[pretraining](../training/), where vocabulary, model size, optimizer state, and
+[pretraining](../../missions/01-language-model-agent/02-pretrain/), where vocabulary, model size, optimizer state, and
 token budget must be chosen against that artifact.
 
 ## The layer underneath this one

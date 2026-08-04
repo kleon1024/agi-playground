@@ -19,7 +19,7 @@ jobs want a slot than there are slots — which is the actual daily condition
 of any shared GPU pool, including a future version of this repository's own
 compute lanes if more than one lesson ever wants the 4090 at once.
 
-**Before this:** [`platform/training/01-distributed/`](../../platform/training/01-distributed/)
+**Before this:** [`foundations/04-distributed-training/`](../../foundations/04-distributed-training/)
 established that distributed *training* mechanics (all-reduce, sharding) are
 CPU-simulable without real GPUs. This chapter asks the same question one
 layer up: is *scheduling* — deciding which job gets a slot next — also

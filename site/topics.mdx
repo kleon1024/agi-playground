@@ -56,11 +56,11 @@ most of itself — is also the same one three times.
 
 - [How does one token find the context it needs?](/playground/foundations/00-attention/)
 - [Where does a transformer actually spend its parameters and its memory?](/playground/foundations/00-attention/what-it-costs/)
-- [Architecture ablations: the budget you hold equal](/playground/platform/training/02-architecture-ablations/)
-- [The rung where the budget definition decided the winner](/playground/platform/training/02-architecture-ablations/the-rung-that-flipped/)
-- [What if the model could think without choosing words?](/playground/platform/training/04-latent-reasoning/)
-- [Can you keep the weights and change the architecture?](/playground/platform/training/05-upcycling/)
-- [Does the extra capacity earn back what it cost?](/playground/platform/training/05-upcycling/does-it-pay-off/)
+- [Architecture ablations: the budget you hold equal](/playground/missions/01-language-model-agent/02-pretrain/architecture-ablations/)
+- [The rung where the budget definition decided the winner](/playground/missions/01-language-model-agent/02-pretrain/architecture-ablations/the-rung-that-flipped/)
+- [What if the model could think without choosing words?](/playground/missions/01-language-model-agent/02-pretrain/latent-reasoning/)
+- [Can you keep the weights and change the architecture?](/playground/missions/01-language-model-agent/02-pretrain/upcycling/)
+- [Does the extra capacity earn back what it cost?](/playground/missions/01-language-model-agent/02-pretrain/upcycling/does-it-pay-off/)
 - [Does a decoder that can see the image actually use it?](/playground/missions/05-vision-language-model/01-vision-fusion/)
 - [Is a video tokenizer plus a small sequence model even buildable here?](/playground/missions/08-video-generation/02-generation-model/)
 - [Does a small trained model beat the descriptor baseline?](/playground/missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/)
@@ -74,7 +74,6 @@ fixed them.
 - [What does `.backward()` actually do?](/playground/foundations/03-backpropagation/)
 - [Why do SGD, momentum, and Adam disagree on the same loss surface?](/playground/foundations/02-optimization/)
 - [Your first training loop](/playground/foundations/01-first-training-loop/)
-- [Training: what makes a run worth the compute it spends?](/playground/platform/training/)
 - [What are you actually training?](/playground/missions/01-language-model-agent/02-pretrain/)
 - [How do you know a five-hour run is working?](/playground/missions/01-language-model-agent/02-pretrain/verifying-the-run/)
 - [Does a learning-rate warmup close the seed-2 collapse?](/playground/missions/05-vision-language-model/06-warmup-stability/)
@@ -87,8 +86,9 @@ The platform chapters own the ML-side decision — which parallelism, what
 throughput. The infrastructure chapters own the layer underneath it: what the
 wiring, the scheduler, and the worker pool do to that decision.
 
-- [Your run will take ten hours. Should it?](/playground/platform/training/03-throughput/)
-- [Distributed training, without a cluster](/playground/platform/training/01-distributed/)
+- [Your run will take ten hours. Should it?](/playground/missions/01-language-model-agent/02-pretrain/throughput/)
+- [The loss curve looks wrong. Which subsystem owns it?](/playground/missions/01-language-model-agent/02-pretrain/when-the-curve-goes-wrong/)
+- [Distributed training, without a cluster](/playground/foundations/04-distributed-training/)
 - [Why does allreduce topology matter, if the sum comes out the same either way?](/playground/infra/01-networking/)
 - [Why the cluster's wiring decides the parallelism strategy](/playground/infra/05-gpu-cluster-concepts/)
 - [A scheduler doesn't do more work. It decides whose work happens first.](/playground/infra/03-orchestration/)

@@ -42,7 +42,6 @@ FOUNDATIONS = ["01-first-training-loop"]
 
 PLATFORM = [
     "data",
-    "training",
     "evaluation-observability",
     "safety-governance",
 ]

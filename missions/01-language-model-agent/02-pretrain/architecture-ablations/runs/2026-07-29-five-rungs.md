@@ -8,7 +8,7 @@ arms, 51 runs, 12.97 GPU-hours, \$0 on the local lane.
 ## Command
 
 ```bash
-cd platform/training/02-architecture-ablations/core
+cd missions/01-language-model-agent/02-pretrain/architecture-ablations/core
 for rung in norm activation gqa depth-width position; do
   python ablate.py --rung $rung --data ~/agi-playground/data/tokens \
       --seeds 3 --tokens 2e8 --budget "<declared per rung>" \

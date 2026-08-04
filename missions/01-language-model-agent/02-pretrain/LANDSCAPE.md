@@ -3,7 +3,7 @@ status: draft
 level: reference
 ---
 
-# Pretraining: Landscape
+# Pretraining: landscape
 
 Source: `reference/research/synthesis.md` anchor table, "Tokenizer" and "Pretraining"
 rows.

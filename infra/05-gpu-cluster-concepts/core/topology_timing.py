@@ -1,6 +1,6 @@
 """What interconnect topology actually costs -- the part you can measure without a cluster.
 
-platform/training/01-distributed/core/distributed.py proves data parallelism
+foundations/04-distributed-training/core/distributed.py proves data parallelism
 is correct on CPU gloo and deliberately reports no throughput numbers, because
 one machine's loopback has none of the bandwidth contention that makes real
 interconnect topology (NVLink inside a node, PCIe to the host, Ethernet or

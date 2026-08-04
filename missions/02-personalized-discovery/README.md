@@ -154,7 +154,7 @@ demonstrated personalization, whatever its nDCG looks like in isolation.
 
 Reuse is the point of the exercise: the data discipline from
 [`platform/data`](../../platform/data/), the training engineering from
-[`platform/training`](../../platform/training/) — gradient accumulation, mixed
+[mission 01's pretraining stage](../01-language-model-agent/02-pretrain/) — gradient accumulation, mixed
 precision, resumable checkpoints — the serving concerns from
 [mission 01's serving stage](../../missions/01-language-model-agent/05-serve/), and the evaluation discipline
 from [`platform/evaluation-observability`](../../platform/evaluation-observability/),
