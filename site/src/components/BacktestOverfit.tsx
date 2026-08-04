@@ -15,8 +15,18 @@
  * real trade, or a single genuine edge, ever enters the picture.
  */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { scaleLinear } from 'd3-scale';
+import { line as d3line } from 'd3-shape';
+
+import Chart from './chart/Chart';
+import { useFrameLoop } from './useMotionClock';
 
 const MAX_STRATEGIES = 500;
+const HEIGHT = 210;
+const PADDING = { top: 24, right: 14, bottom: 34, left: 40 };
+/** The line that climbs is the one that misleads, so it carries the emphasis. */
+const IN_SAMPLE = 'var(--rehearse-emphasis)';
+const OUT_OF_SAMPLE = 'var(--rehearse-action)';
 const DAYS_IN_SAMPLE = 120;
 const DAYS_OUT_OF_SAMPLE = 120;
 const DAILY_VOL = 0.012; // roughly a single-stock daily volatility
@@ -61,7 +71,10 @@ interface CumulativePoint {
 }
 
 export default function BacktestOverfit(): React.ReactElement {
-  const [numStrategies, setNumStrategies] = useState(20);
+  /* Starts at the full pool, not at 20: the static reading has to be the finished
+     comparison. At 20 of 500 the plot is a stub in the left 4% of the frame, which
+     is what a reader with reduced motion or no JavaScript would be left with. */
+  const [numStrategies, setNumStrategies] = useState(MAX_STRATEGIES);
   const [playing, setPlaying] = useState(false);
   const reducedMotion = useRef(false);
 
@@ -111,52 +124,36 @@ export default function BacktestOverfit(): React.ReactElement {
     return { min: min - pad, max: max + pad };
   }, [cumulative]);
 
+  /* Reduced motion asks for no animation, not for no answer: pressing the button
+     jumps straight to the full pool rather than sweeping to it. */
   useEffect(() => {
-    if (!playing) return;
-    if (reducedMotion.current) {
+    if (playing && reducedMotion.current) {
       setNumStrategies(MAX_STRATEGIES);
       setPlaying(false);
-      return;
     }
-    const id = setInterval(() => {
-      setNumStrategies((current) => {
-        const next = current + 6;
-        if (next >= MAX_STRATEGIES) {
-          setPlaying(false);
-          return MAX_STRATEGIES;
-        }
-        return next;
-      });
-    }, 90);
-    return () => clearInterval(id);
   }, [playing]);
+
+  useFrameLoop(playing, (dt) => {
+    setNumStrategies((n) => {
+      const next = Math.min(MAX_STRATEGIES, n + Math.max(1, Math.round(dt / 15)));
+      if (next >= MAX_STRATEGIES) setPlaying(false);
+      return next;
+    });
+  });
 
   const current = cumulative[numStrategies - 1];
   const visible = cumulative.slice(0, numStrategies);
 
-  const width = 300;
-  const height = 130;
-  const margin = { left: 4, right: 4, top: 10, bottom: 10 };
-  const plotWidth = width - margin.left - margin.right;
-  const plotHeight = height - margin.top - margin.bottom;
-
-  const xFor = (n: number) => margin.left + ((n - 1) / (MAX_STRATEGIES - 1)) * plotWidth;
-  const yFor = (v: number) =>
-    margin.top + (1 - (v - yDomain.min) / (yDomain.max - yDomain.min)) * plotHeight;
-
-  const inSamplePath = visible.map((p) => `${xFor(p.n)},${yFor(p.bestInSample)}`).join(' ');
-  const outOfSamplePath = visible.map((p) => `${xFor(p.n)},${yFor(p.outOfSampleOfBest)}`).join(' ');
-  const zeroY = yFor(0);
-
   return (
     <div className="learning-widget">
-      <p style={{ marginTop: 0, fontSize: 'var(--type-xs)', color: 'var(--rehearse-copy-muted)' }}>
-        Simulated: {MAX_STRATEGIES} independent seeded noise series, not market data.
+      <p>
+        Simulated: {MAX_STRATEGIES} independent seeded noise series, not market data. Try more
+        of them against the same history and watch which of the two lines moves.
       </p>
 
-      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', marginBottom: '0.9rem' }}>
-        <label style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-          <span>Strategies tried <strong>{numStrategies}</strong></span>
+      <div className="widget-controls">
+        <label>
+          <span>Strategies tried</span>
           <input
             type="range"
             min={1}
@@ -166,74 +163,151 @@ export default function BacktestOverfit(): React.ReactElement {
               setPlaying(false);
               setNumStrategies(Number(event.target.value));
             }}
-            style={{ width: 160 }}
             aria-label="Number of strategies tried against the same history"
           />
+          <strong>{numStrategies}</strong>
         </label>
         <button
-          onClick={() => setPlaying((p) => !p)}
-          style={{ padding: '0.45rem 0.8rem', borderRadius: 6, cursor: 'pointer', minHeight: '44px' }}
+          type="button"
+          onClick={() => {
+            /* The label promised a replay from 1 and the toggle alone never
+               delivered one: at the full pool the loop starts and stops on the
+               same frame. Rewind first. */
+            if (!playing && numStrategies >= MAX_STRATEGIES) setNumStrategies(1);
+            setPlaying((p) => !p);
+          }}
         >
           {playing ? 'Pause' : numStrategies >= MAX_STRATEGIES ? 'Replay from 1' : 'Try more strategies'}
         </button>
       </div>
 
-      <svg
-        viewBox={`0 0 ${width} ${height}`}
-        role="img"
-        aria-hidden="true"
-        style={{ width: '100%', height: 'auto', display: 'block' }}
-      >
-        <line
-          x1={margin.left}
-          x2={width - margin.right}
-          y1={zeroY}
-          y2={zeroY}
-          stroke="var(--rehearse-rule)"
-          strokeWidth={1}
-          strokeDasharray="3,3"
-        />
-        <polyline
-          points={inSamplePath}
-          fill="none"
-          stroke="var(--brand-chart-danger)"
-          strokeWidth={2}
-          vectorEffect="non-scaling-stroke"
-        />
-        <polyline
-          points={outOfSamplePath}
-          fill="none"
-          stroke="var(--brand-chart-action)"
-          strokeWidth={2}
-          vectorEffect="non-scaling-stroke"
-        />
-        {current && (
-          <>
-            <circle cx={xFor(current.n)} cy={yFor(current.bestInSample)} r={3} fill="var(--brand-chart-danger)" />
-            <circle cx={xFor(current.n)} cy={yFor(current.outOfSampleOfBest)} r={3} fill="var(--brand-chart-action)" />
-          </>
-        )}
-      </svg>
+      <ul className="widget-legend">
+        <li>
+          <svg width="26" height="8" aria-hidden="true">
+            <line x1="0" y1="4" x2="26" y2="4" stroke={IN_SAMPLE} strokeWidth="2.5" />
+          </svg>
+          Best in-sample Sharpe <span>of the {numStrategies} tried</span>
+        </li>
+        <li>
+          <svg width="26" height="8" aria-hidden="true">
+            <line
+              x1="0"
+              y1="4"
+              x2="26"
+              y2="4"
+              stroke={OUT_OF_SAMPLE}
+              strokeWidth="2.5"
+              strokeDasharray="6 4"
+            />
+          </svg>
+          That same pick out of sample <span>data it was never selected against</span>
+        </li>
+      </ul>
 
-      <div style={{ display: 'flex', gap: '1.4rem', fontSize: 'var(--type-sm)', marginTop: '0.6rem', flexWrap: 'wrap' }}>
-        <span>
-          <span style={{ color: 'var(--brand-chart-danger)' }}>&#9632;</span>{' '}
-          best in-sample Sharpe of {numStrategies} tried: <strong>{current?.bestInSample.toFixed(2)}</strong>
-        </span>
-        <span>
-          <span style={{ color: 'var(--brand-chart-action)' }}>&#9632;</span>{' '}
-          that same pick's out-of-sample Sharpe: <strong>{current?.outOfSampleOfBest.toFixed(2)}</strong>
-        </span>
+      <Chart
+        height={HEIGHT}
+        padding={PADDING}
+        label="Best in-sample Sharpe and the same strategy's out-of-sample Sharpe, against the number of strategies tried"
+      >
+        {(frame) => {
+          const { innerWidth, innerHeight } = frame;
+          const x = scaleLinear().domain([1, MAX_STRATEGIES]).range([0, innerWidth]);
+          const y = scaleLinear().domain([yDomain.min, yDomain.max]).range([innerHeight, 0]);
+          const path = (key: 'bestInSample' | 'outOfSampleOfBest') =>
+            d3line<CumulativePoint>().x((p) => x(p.n)).y((p) => y(p[key]))(visible) ?? undefined;
+
+          return (
+            <g transform={`translate(${PADDING.left},${PADDING.top})`}>
+              {[-1, 0, 1, 2, 3, 4].filter((t) => t > yDomain.min && t < yDomain.max).map((tick) => (
+                <g key={tick}>
+                  <line
+                    x1={0}
+                    x2={innerWidth}
+                    y1={y(tick)}
+                    y2={y(tick)}
+                    stroke="var(--rehearse-rule)"
+                    strokeDasharray={tick === 0 ? undefined : '3 3'}
+                  />
+                  <text
+                    x={-8}
+                    y={y(tick) + 4}
+                    textAnchor="end"
+                    fill="var(--rehearse-copy-muted)"
+                    fontSize={13}
+                  >
+                    {tick}
+                  </text>
+                </g>
+              ))}
+
+              <path d={path('bestInSample')} fill="none" stroke={IN_SAMPLE} strokeWidth={2} />
+              <path
+                d={path('outOfSampleOfBest')}
+                fill="none"
+                stroke={OUT_OF_SAMPLE}
+                strokeWidth={2}
+                strokeDasharray="6 4"
+              />
+              {current && (
+                <>
+                  <circle cx={x(current.n)} cy={y(current.bestInSample)} r={4} fill={IN_SAMPLE} />
+                  <circle cx={x(current.n)} cy={y(current.outOfSampleOfBest)} r={4} fill={OUT_OF_SAMPLE} />
+                </>
+              )}
+
+              <text x={0} y={innerHeight + 22} fill="var(--rehearse-copy-muted)" fontSize={13}>
+                1 strategy
+              </text>
+              <text
+                x={innerWidth}
+                y={innerHeight + 22}
+                textAnchor="end"
+                fill="var(--rehearse-copy-muted)"
+                fontSize={13}
+              >
+                {MAX_STRATEGIES} tried &rarr;
+              </text>
+              <text
+                x={-PADDING.left}
+                y={-8}
+                fill="var(--rehearse-copy-muted)"
+                fontSize={13}
+              >
+                Sharpe
+              </text>
+            </g>
+          );
+        }}
+      </Chart>
+
+      <div className="objective-readout">
+        <div>
+          <span>Best in-sample Sharpe</span>
+          <strong>{current?.bestInSample.toFixed(2)}</strong>
+        </div>
+        <div>
+          <span>Same pick, out of sample</span>
+          <strong>{current?.outOfSampleOfBest.toFixed(2)}</strong>
+        </div>
+        <div>
+          <span>Gap the selection bought</span>
+          <strong>
+            {current ? (current.bestInSample - current.outOfSampleOfBest).toFixed(2) : '—'}
+          </strong>
+        </div>
       </div>
 
-      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.7rem' }}>
-        The red line climbs because it is the maximum of more and more independent
-        draws — sampling harder, not discovering skill. The blue line is that
-        exact same strategy's result on data it was never selected against, and
-        it stays flat because the noise in each strategy's two windows is
-        independent by construction. Walk-forward validation, purging, and the
-        deflated Sharpe ratio exist because this gap is invisible from the red
-        line alone.
+      <p className="widget-caption">
+        The solid line climbs because it is the maximum of more and more independent
+        draws — sampling harder, not discovering skill. The dashed line is that
+        exact same strategy&rsquo;s result on data it was never selected against. It does
+        not climb with the solid one; it steps to whatever the new pick happened to score
+        on a window nobody sorted, because the noise in each strategy&rsquo;s two windows is
+        independent by construction. At 50 strategies it reads 1.12 and at 500 it reads
+        0.06 &mdash; movement without direction. The third readout is the whole distance
+        between the two lines: it is not edge, it is what the selection bought.
+        Walk-forward validation, purging, and the deflated Sharpe ratio exist because that
+        gap is invisible from the solid line alone.
       </p>
     </div>
   );
