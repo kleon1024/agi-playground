@@ -384,6 +384,71 @@
 }
 
 /*
+ * One judged comparison per row, for widgets that hold a measured effect against
+ * a rule. Deliberately not a table: five columns of verdict need horizontal
+ * scrolling on a phone, which puts the answer the widget exists to give off the
+ * side of the screen. Stacked rows reflow instead.
+ */
+.verdict-rows {
+  margin: 1rem 0 0.5rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.verdict-rows > li {
+  border: 1px solid var(--rehearse-rule);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  background: var(--rehearse-surface);
+}
+
+.verdict-rows h4 {
+  margin: 0 0 0.2rem;
+  font-size: var(--type-sm);
+  line-height: var(--leading-sm);
+}
+
+.verdict-rows dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1rem;
+  margin: 0;
+}
+
+.verdict-rows div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.verdict-rows dt {
+  margin: 0;
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-xs);
+}
+
+.verdict-rows dd {
+  margin: 0;
+  font-size: var(--type-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.verdict-rows dd[data-verdict] {
+  font-weight: 600;
+}
+
+.verdict-rows dd[data-verdict='decisive'] {
+  color: var(--rehearse-emphasis);
+}
+
+.verdict-rows dd[data-verdict='noise'] {
+  color: var(--rehearse-copy-muted);
+}
+
+/*
  * A dated lineage on a scaled axis. The axis is assembled from the gap bands
  * themselves rather than drawn once down the list, so a gap the scale cannot
  * honour can go dashed on its own segment while the line stays continuous.
