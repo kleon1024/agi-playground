@@ -91,6 +91,26 @@ narrowed "which character comes next" from 65 roughly-equal options to about 5.
 **Peak VRAM was 1.65 GB of the card's 24 GB — 7%.** Almost nothing here is
 limited by the GPU.
 
+## When did it stop learning and start memorizing?
+
+Both losses fall the whole way, so "is it still learning?" cannot be answered by
+watching the training loss. The quantity that answers it is the *distance between
+the two curves*. Step through the nine recorded checkpoints and watch how each
+250-iteration interval divides its improvement between them.
+
+<!-- interactive: TrainingLossCurve -->
+
+Early on the split is even: from iteration 0 to 250 the training loss falls
+1.7891 and the validation loss falls 1.7824, essentially all of it. What the
+model learns there — which letters follow which — is true of English generally,
+so it transfers to text the model has never seen.
+
+By the last interval the split has inverted. From iteration 1750 to 2000 the
+training loss falls 0.0091 while the validation loss falls 0.0064, and the gap
+has grown from 0.0006 to **0.2630**. The remaining improvement is increasingly
+purchased on the training set alone. That is the number the next section is
+about.
+
 ## What the model learned, and what it didn't
 
 ```
