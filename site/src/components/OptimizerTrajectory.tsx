@@ -145,14 +145,21 @@ const REGIMES: Regime[] = [
  * on screen — the top panel is where the oscillation lives, the bottom panel is
  * where the time goes, and they are not the same panel.
  */
+/*
+ * Gutters are sized for the *narrow* case. SVG type is in user units, so the
+ * shared floor in widgets.css raises labels to 22 units on a phone-width
+ * container; at the 13-unit desktop size these paddings look generous, and at 22
+ * they are the difference between a legible axis and titles sitting on top of
+ * their own panel borders.
+ */
 const W = 520;
-const PAD_L = 46;
+const PAD_L = 62;
 const PAD_R = 12;
-const PAD_T = 14;
-const GAP = 34;
+const PAD_T = 30;
+const GAP = 48;
 const TOP_H = 86;
 const BOT_H = 132;
-const H = PAD_T + TOP_H + GAP + BOT_H + 26;
+const H = PAD_T + TOP_H + GAP + BOT_H + 32;
 
 const TOP_Y0 = PAD_T;
 const BOT_Y0 = PAD_T + TOP_H + GAP;
@@ -264,7 +271,7 @@ export default function OptimizerTrajectory(): React.ReactElement {
 
   const shownSteps = Math.round(progress * longest);
   const topWindow = Math.min(TOP_STEPS, longest - 1);
-  const axisText = { fill: 'var(--rehearse-copy-muted)', fontSize: 13 };
+  const axisText = { fill: 'var(--rehearse-copy-muted)' };
 
   return (
     <div className="learning-widget" ref={ref}>
@@ -314,7 +321,7 @@ export default function OptimizerTrajectory(): React.ReactElement {
           <rect x={PAD_L} y={BOT_Y0} width={plotW} height={BOT_H} />
         </clipPath>
 
-        <text x={PAD_L} y={TOP_Y0 - 3} {...axisText}>
+        <text x={PAD_L} y={TOP_Y0 - 9} {...axisText}>
           steep axis x &mdash; first {topWindow} steps
         </text>
         <rect
@@ -359,7 +366,7 @@ export default function OptimizerTrajectory(): React.ReactElement {
           ))}
         </g>
 
-        <text x={PAD_L} y={BOT_Y0 - 3} {...axisText}>
+        <text x={PAD_L} y={BOT_Y0 - 9} {...axisText}>
           loss (log scale)
         </text>
         <rect
@@ -404,10 +411,10 @@ export default function OptimizerTrajectory(): React.ReactElement {
           ))}
         </g>
 
-        <text x={PAD_L} y={H - 8} {...axisText}>
+        <text x={PAD_L} y={H - 10} {...axisText}>
           step 0
         </text>
-        <text x={W - PAD_R} y={H - 8} textAnchor="end" {...axisText}>
+        <text x={W - PAD_R} y={H - 10} textAnchor="end" {...axisText}>
           step {longest - 1}
         </text>
       </svg>

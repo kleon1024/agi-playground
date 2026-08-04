@@ -291,6 +291,26 @@
   height: auto;
 }
 
+/*
+ * Type inside an SVG is in user units, so the viewBox transform scales it along
+ * with the drawing: a label set to 13px in a 520-wide viewBox rendered into a
+ * 322px column arrives at 8.1px, which passes a DOM font-size check and fails a
+ * reader. The floor has to be stated in rendered pixels, so the user-unit size
+ * is raised on narrow containers to cancel the shrink.
+ *
+ * Labels inherit this by leaving their own font-size unset. A component that
+ * hardcodes fontSize on the text element opts out and is on its own.
+ */
+.learning-widget svg {
+  font-size: 14px;
+}
+
+@container (max-width: 34rem) {
+  .learning-widget svg {
+    font-size: 22px;
+  }
+}
+
 /* `display: table` overrides the theme's `display: block` on markdown tables,
    which makes width:100% size the scroll box while the columns shrink-wrap. */
 .learning-widget table {

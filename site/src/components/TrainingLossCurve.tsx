@@ -39,12 +39,14 @@ const RUN: Checkpoint[] = [
 /** Cross-entropy of a uniform distribution over the 65-character vocabulary. */
 const UNIFORM = Math.log(65);
 
+/* Gutters sized for the 22-unit narrow-container type floor, not the 14-unit
+   desktop one — see the SVG type rule in widgets.css. */
 const W = 520;
-const H = 260;
-const PAD_L = 44;
+const H = 276;
+const PAD_L = 56;
 const PAD_R = 14;
-const PAD_T = 16;
-const PAD_B = 34;
+const PAD_T = 18;
+const PAD_B = 44;
 
 const LOSS_LO = 1.1;
 const LOSS_HI = 4.5;
@@ -131,7 +133,7 @@ export default function TrainingLossCurve(): React.ReactElement {
         />
         {/* Parked over the flat stretch of the curves: at the right edge it collided
             with the checkpoint marker, and at the left with the initial descent. */}
-        <text x={px(620)} y={py(UNIFORM) - 7} fill="var(--rehearse-copy-muted)" fontSize="13">
+        <text x={px(620)} y={py(UNIFORM) - 7} fill="var(--rehearse-copy-muted)">
           ln(65) = 4.174, a model that knows nothing
         </text>
 
@@ -156,16 +158,16 @@ export default function TrainingLossCurve(): React.ReactElement {
         <circle cx={px(at.iter)} cy={py(at.val)} r="4" fill="var(--rehearse-caution)" />
 
         <line x1={PAD_L} y1={H - PAD_B} x2={W - PAD_R} y2={H - PAD_B} stroke="var(--rehearse-rule)" />
-        <text x={PAD_L - 6} y={py(4) + 4} textAnchor="end" fill="var(--rehearse-copy-muted)" fontSize="13">
+        <text x={PAD_L - 6} y={py(4) + 4} textAnchor="end" fill="var(--rehearse-copy-muted)">
           4.0
         </text>
-        <text x={PAD_L - 6} y={py(2) + 4} textAnchor="end" fill="var(--rehearse-copy-muted)" fontSize="13">
+        <text x={PAD_L - 6} y={py(2) + 4} textAnchor="end" fill="var(--rehearse-copy-muted)">
           2.0
         </text>
-        <text x={PAD_L} y={H - 10} fill="var(--rehearse-copy-muted)" fontSize="13">
+        <text x={PAD_L} y={H - 14} fill="var(--rehearse-copy-muted)">
           iteration 0
         </text>
-        <text x={W - PAD_R} y={H - 10} textAnchor="end" fill="var(--rehearse-copy-muted)" fontSize="13">
+        <text x={W - PAD_R} y={H - 14} textAnchor="end" fill="var(--rehearse-copy-muted)">
           {LAST}
         </text>
       </svg>
