@@ -32,7 +32,10 @@ export interface Arm {
 
 export interface Group {
   name: string;
-  /** Right-aligned annotation on the group's header row. */
+  /**
+   * Annotation under the group name. Drawn as one unwrapped line, so keep it
+   * under about 45 characters or it runs past the frame on a 390px screen.
+   */
   meta?: string;
   arms: Arm[];
   /** Indices into `arms`: the reference, then the subject. */
@@ -81,7 +84,13 @@ const GROUP_GAP = 26;
 /* Name, then annotation on its own line. Right-aligning the annotation across
    from the name collides with it as soon as the plot is phone-width. */
 const HEADER_H = 40;
-const PADDING = { top: 12, right: 14, bottom: 52, left: 96 };
+/* The left gutter holds arm labels, so it is sized from the longest one rather
+   than fixed. At a fixed 96px "Scripted greedy" was drawn from x = -110 and the
+   SVG clipped its first two characters -- silently, and only at the widths where
+   the label happened not to fit. */
+const GUTTER_MIN = 90;
+const CHAR_W = 6.8;
+const PADDING = { top: 12, right: 14, bottom: 52 };
 
 const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const spread = (xs: number[]) => (xs.length > 1 ? Math.max(...xs) - Math.min(...xs) : 0);
@@ -118,6 +127,11 @@ export default function SpreadComparison({
   const [selected, setSelected] = useState(0);
   const judgement = judge(groups[selected], spreadRule);
 
+  const longest = Math.max(
+    ...groups.flatMap((group) => group.arms.map((arm) => arm.label.length)),
+  );
+  const padding = { ...PADDING, left: Math.max(GUTTER_MIN, Math.ceil(longest * CHAR_W) + 12) };
+
   const offsets: number[] = [];
   let cursor = 0;
   groups.forEach((group) => {
@@ -125,7 +139,7 @@ export default function SpreadComparison({
     cursor += HEADER_H + group.arms.length * ROW_H + GROUP_GAP;
   });
   const plotHeight = cursor - GROUP_GAP;
-  const height = PADDING.top + plotHeight + PADDING.bottom;
+  const height = padding.top + plotHeight + padding.bottom;
 
   return (
     <div className="learning-widget">
@@ -146,9 +160,9 @@ export default function SpreadComparison({
         </div>
       )}
 
-      <Chart height={height} padding={PADDING} label={axisLabel}>
+      <Chart height={height} padding={padding} label={axisLabel}>
         {(frame) => {
-          const { padding, innerWidth, innerHeight } = frame;
+          const { innerWidth, innerHeight } = frame;
           const x = scaleLinear().domain(domain).range([0, innerWidth]);
           const shown = innerWidth < 260
             ? (narrowTicks ?? ticks.filter((_, i) => i % 2 === 0))
@@ -229,16 +243,20 @@ export default function SpreadComparison({
                             />
                           )}
                           {arm.note && (() => {
-                            /* A point near the right edge would push its own
-                               note past the frame, which clips it silently. */
+                            /* A point near either edge would push its own note
+                               past the frame, which clips it silently. Try the
+                               right, then the left, and drop it rather than
+                               render something half visible. */
                             const at = x(mean(arm.values));
-                            const room = innerWidth - at - 10;
-                            const flip = room < arm.note.length * 6.6;
+                            const w = arm.note.length * 6.6;
+                            const fitsRight = innerWidth - at - 10 >= w;
+                            const fitsLeft = at - 10 - w >= -padding.left + 4;
+                            if (!fitsRight && !fitsLeft) return null;
                             return (
                               <text
-                                x={flip ? at - 10 : at + 10}
+                                x={fitsRight ? at + 10 : at - 10}
                                 y={y + 4}
-                                textAnchor={flip ? 'end' : 'start'}
+                                textAnchor={fitsRight ? 'start' : 'end'}
                                 fill="var(--rehearse-copy-muted)"
                                 fontSize={13}
                               >

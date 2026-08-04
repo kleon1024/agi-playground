@@ -37,6 +37,12 @@ Run `uv run python core/report.py` for the full numeric verdict, read
 directly from every upstream `runs/` file:
 [`runs/2026-08-01-full-chain-report.md`](runs/2026-08-01-full-chain-report.md).
 
+"Decisively below both baselines" is a phrase carrying a lot of weight. Put
+every arm on one axis and switch environments to see how far below, and against
+how much seed-to-seed movement:
+
+<!-- interactive: GrpoNullResult -->
+
 ## Verdict
 
 **MET, as an honest null result extended across two environments and one
