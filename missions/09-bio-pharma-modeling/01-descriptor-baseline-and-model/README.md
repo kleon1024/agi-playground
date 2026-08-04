@@ -94,6 +94,15 @@ single logit. [`core/smiles_tokenizer.py`](core/smiles_tokenizer.py) builds
 the character vocabulary from the training split only, with an explicit
 `<unk>` for any character only test contains.
 
+That pooling line is the one architectural decision here that has no obvious
+right answer from reading it. Change which position the head reads from and
+watch what that position has attended to:
+
+<!-- interactive: SmilesPooling -->
+
+The two paths meet again at the same held-out split, and the comparison is what
+the stage is for:
+
 <!-- interactive: MoleculePropertyComparison -->
 
 ## Result
