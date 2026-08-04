@@ -33,7 +33,7 @@
   },
   "foundations/02-optimization": {
     "level": "foundation",
-    "minutes": 10
+    "minutes": 12
   },
   "foundations/03-backpropagation": {
     "level": "foundation",

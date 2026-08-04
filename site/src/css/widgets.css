@@ -291,9 +291,50 @@
   height: auto;
 }
 
+/* `display: table` overrides the theme's `display: block` on markdown tables,
+   which makes width:100% size the scroll box while the columns shrink-wrap. */
 .learning-widget table {
+  display: table;
+  width: 100%;
   max-width: 100%;
   font-size: var(--type-xs) !important;
+}
+
+/*
+ * The widget frame clips its overflow, so anything genuinely wider than the frame
+ * has to carry its own scroller or it is silently truncated rather than reachable.
+ */
+.widget-scroll {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+}
+
+/*
+ * Which line is which, for any widget that plots more than one series. Stroke
+ * pattern carries the identity alongside colour, so the plot still reads without
+ * colour vision; the sample is the same <line> the chart draws.
+ */
+.widget-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.1rem;
+  margin: 0.75rem 0 0.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.widget-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--type-sm);
+  line-height: var(--leading-sm);
+}
+
+.widget-legend span {
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-xs);
 }
 
 .learning-widget code {

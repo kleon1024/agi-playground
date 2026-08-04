@@ -136,6 +136,31 @@ the plot moves almost straight at the minimum from the first few steps.
 | SGD + momentum | 138 | 47 | 9.5e-7 |
 | Adam | 82 | 4 | 2.2e-7 |
 
+## 5. Change the conditioning, and see which number actually moves
+
+The three step counts above were measured on one bowl. The obvious next question
+is which of them the condition number is responsible for — so change $A$ and hold
+everything else, including all three learning rates, exactly where the run record
+set them. Predict first: if oscillation is what makes plain SGD slow, then making
+the bowl gentler should make SGD converge in fewer steps.
+
+<!-- interactive: OptimizerTrajectory -->
+
+It does not. At $A = 10$ plain SGD stops overshooting entirely — zero sign flips
+instead of 341 — and still needs **343 steps**, the same number it needed at
+$A = 100$. The oscillation was never the thing setting the pace. Along the
+shallow axis the update is $y \leftarrow y(1 - \eta B) = 0.981y$, and reaching
+$L < 10^{-6}$ from $y = 1$ takes 343 steps of that decay whether or not the steep
+axis is ringing. Fixing the zigzag alone would have bought nothing; what momentum
+and Adam actually buy is a *larger effective step on the shallow axis*, which is
+why their step counts fall when SGD's does not.
+
+At $A = 1000$ the same fixed learning rates that were stable before now diverge
+for both SGD ($\eta A = 19$) and momentum (whose bound $2(1+\mu)/A = 0.0038$ has
+fallen below its $\eta = 0.01$). Only Adam still converges, because its step size
+is set by the gradients it observes rather than by a constant chosen against a
+curvature that no longer holds.
+
 ## What this does not establish
 
 This is a two-parameter convex bowl with a hand-picked condition number and
@@ -265,8 +290,11 @@ comparison and renders the trajectories and loss curves in
 2. **Raise momentum's $\mu$ toward 1.** Predict whether convergence gets
    faster or slower, then run it. (Too much memory of past velocity fights
    the cancellation that damps the steep axis.)
-3. **Widen the condition number** (try $A = 1000$). Measure how each
-   optimizer's step count changes, and notice which one degrades the least.
+3. **Re-tune each learning rate for $A = 1000$** instead of holding the three
+   the widget above holds fixed. SGD and momentum both diverge at that
+   conditioning on the original settings; find the largest $\eta$ each can
+   survive, then compare step counts again. This is the fair comparison section
+   "What this does not establish" says the chapter deliberately does not run.
 4. **Remove Adam's bias correction** ($\hat m = m$, $\hat v = v$ instead of
    dividing by $1-\beta^{\text{step}}$) and compare the first ~20 steps. The
    uncorrected estimates start at exactly zero, so the first few updates are
