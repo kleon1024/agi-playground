@@ -127,6 +127,16 @@
                 "type": "doc",
                 "id": "missions/01-language-model-agent/06-agent/what-stops-it/index",
                 "label": "What stops it"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/06-agent/would-a-second-agent-help/index",
+                "label": "Would a second agent help"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/06-agent/LANDSCAPE",
+                "label": "Landscape"
               }
             ]
           },
@@ -551,36 +561,6 @@
         "type": "doc",
         "id": "foundations/LANDSCAPE",
         "label": "Landscape"
-      }
-    ]
-  },
-  {
-    "type": "category",
-    "label": "Capabilities",
-    "link": {
-      "type": "doc",
-      "id": "capabilities/index"
-    },
-    "items": [
-      {
-        "type": "category",
-        "label": "Agent systems",
-        "link": {
-          "type": "doc",
-          "id": "capabilities/act-coordinate/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "capabilities/act-coordinate/01-multi-agent/index",
-            "label": "Multi-agent"
-          },
-          {
-            "type": "doc",
-            "id": "capabilities/act-coordinate/LANDSCAPE",
-            "label": "Landscape"
-          }
-        ]
       }
     ]
   },

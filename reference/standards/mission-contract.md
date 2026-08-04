@@ -24,7 +24,7 @@ primary_metric:   # the one number that decides success
 guardrails:       # what must not degrade, with thresholds
 latency_budget:   # p50 and p95
 cost_budget:      # per successful task, not per call
-capabilities:     # which capabilities/ this composes
+capabilities:     # which shared chapters this composes, by stage directory
 acceptance:       # conditions that must all hold
 proves:           # what a passing run establishes
 does_not_prove:   # what it does NOT establish — required
@@ -96,7 +96,15 @@ if **all five** hold:
 5. **Runs on an existing compute lane**, or is explicitly labelled `scale-only`
    with the reason.
 
-This is why `capabilities/` currently holds exactly one entry. Perception,
-generation, ranking, and continual learning are named in the architecture
-because the structure must have somewhere to put them — not because they are
-half-built. An empty folder is a promise; this repo prefers to owe nothing.
+Clearing this gate does **not** move the chapter. It stays in the mission
+that built and measured it, and the second mission links to it — separating an
+explanation from the run beside it is how a chapter ends up making a claim with
+no evidence attached. The gate decides something narrower and more useful:
+whether the chapter now owes a stable contract to somebody other than its
+author, and must be edited as though a second consumer exists.
+
+One chapter has cleared it: [mission 01's agent
+harness](../../missions/01-language-model-agent/06-agent/), reused by personalized discovery's rule engine and by
+the code-agent mission. Perception, generation, ranking, and continual learning
+are named in the architecture because the structure must have somewhere to put
+them — not because they are half-built.

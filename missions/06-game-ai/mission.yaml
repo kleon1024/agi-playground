@@ -107,11 +107,11 @@ cost_budget: >
   CEILING_EXCEEDED rather than silently shrunk, per mission 08's precedent.
 
 capabilities: []
-  # No existing capability reused here beyond the GRPO training loop itself,
-  # which is imported directly from mission 01's 04-rl stage rather than
-  # promoted into capabilities/ — it has not yet cleared the two-consumer
-  # admission gate in standards/mission-contract.md on its own; this mission
-  # is what would make it a candidate, not a foregone promotion.
+  # No existing shared chapter reused here beyond the GRPO training loop
+  # itself, imported directly from mission 01's 04-rl stage. It has not yet
+  # cleared the two-consumer admission gate in
+  # reference/standards/mission-contract.md on its own; this mission is what
+  # would make it a candidate, not a foregone promotion.
 
 acceptance:
   - Beats both baselines on success rate by more than the run-to-run spread,

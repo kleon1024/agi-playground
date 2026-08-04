@@ -110,6 +110,21 @@ functional part of the interface. `run_command`'s description names its
 allowlist explicitly, which is what tells a model to reach for `grep`
 through `run_command` rather than inventing a nonexistent fourth tool.
 
+The schema is doing the same job the description is, one level down: a
+narrow contract makes an invalid call hard to *express*. `run(command:
+string)` accepts everything, so every check has to happen after the model has
+already proposed something arbitrary; `search_text(query, path, file_glob,
+max_results)` narrows the permission, produces a structured result, and turns
+"the model asked for something impossible" into a field-level error message
+instead of a shell string somebody has to reason about. SWE-agent (Yang et
+al., 2024) named this surface — the agent-computer interface — as its own
+design problem rather than a wrapper around a terminal, and it is why the
+three tools here declare arguments, side effects, a timeout, and an output
+limit rather than exposing a shell and hoping. MCP (Anthropic, Nov 2024)
+standardizes how such tools are *exposed* across hosts; it does not decide
+whether a call is safe, and its own spec says so. The host stays the policy
+boundary — which is [what stops it?](what-stops-it/).
+
 Schema adherence is a probabilistic property of the model, not a guarantee,
 so `harness.py` needs a defined recovery path for a malformed call rather
 than crashing on the first bad parse:
@@ -129,6 +144,46 @@ rather than a native function-calling response — it works against any
 model at the cost of the parsing step a native tool-call field would
 remove. See [`prod/README.md`](prod/README.md) for that tradeoff in
 production harnesses.
+
+Retrying is only free before something executed. A parse or validation
+failure never reached a tool, so feeding the error back and letting the model
+try again costs a turn and nothing else. Once a call has actually run and its
+outcome is ambiguous — did the write land, did the request go out — the same
+retry can duplicate the effect rather than correct it. That is why the
+recovery path above stops at "return the error as an observation" and does
+not add a blind retry loop: the boundary between *safe to redo* and *already
+done* belongs to an idempotency key or an explicit state inspection, not to a
+counter.
+
+## The trace is the record, because the harness is the variable
+
+This stage opened with the claim that harness design accounts for more
+benchmark variance than most papers disclose. That has a practical
+consequence for what the loop writes down. A transcript is not just a
+debugging aid here; it is the evidence that a given score belongs to a given
+harness, so it needs stable event types rather than free prose:
+
+```text
+model_request
+model_response
+action_proposed
+action_rejected | action_executed
+observation
+completion | budget_exhausted | human_required
+```
+
+Those names are what make a comparison attributable. To learn anything from
+two runs you change exactly one thing between them — the model with the
+harness fixed, a tool description with the model fixed, the context policy
+with both fixed, the permission policy with everything else fixed — and read
+completion, policy adherence, tool errors, retries, latency, cost, and human
+interventions off the traces. A model comparison that swaps the tool set at
+the same time cannot say which change moved the number. [Stage
+07](../07-eval/) is where this becomes an actual measurement discipline with
+a baseline it refuses to skip; the point here is that the loop has to *emit*
+the record before anything downstream can hold a variable fixed. The best
+trace is not the longest one — it is the shortest one that still shows why
+each action was allowed and how completion was verified.
 
 ## Twenty steps of observations will not fit
 
@@ -155,12 +210,35 @@ the three risk tiers and a default that denies, and why three tools rather than
 thirty is a containment decision before it is an accuracy one. It also states
 the gap the composition leaves open, which is the part worth reading twice.
 
+## One loop is stuck. Would a second one help?
+
+Everything above is one loop answering to one context, one permission ladder,
+one budget. Delegating part of the work to a second loop like itself is the
+obvious next move and the most oversold one in this field, so it gets its own
+chapter rather than a rule of thumb.
+
+The contract is what makes it checkable. A delegated task has to name its
+output artifact, the files or systems it may touch, what it must not do, the
+command that verifies its result, and the format in which it reports what it
+could not resolve. The child returns a *result*, not authority — the parent
+still integrates and verifies. Miss any of those and you have not decomposed
+the task, you have duplicated it with a handoff in the middle.
+
+[Would a second agent help?](would-a-second-agent-help/) takes that further
+than a rule of thumb can, because the question it asks is whether the second
+agent bought anything at all or only doubled the bill — measured, at equal
+total spend, against a supervisor implementation you can run on a CPU.
+
 ## Production notes
 
 [`prod/README.md`](prod/README.md) maps each design decision above — the
 loop, the tools, the grounding rule, context management, permissions — to how
 mini-swe-agent, OpenHands, and Claude Code's published harness-design
 write-ups handle the same decision at production scale.
+[`LANDSCAPE.md`](LANDSCAPE.md) names four production harnesses rather than
+one, deliberately: harness design is the independent variable this stage
+argues about, so anchoring to a single project's choices would beg the
+question.
 
 ## A real run
 
@@ -173,11 +251,12 @@ exhausted `max_steps` without one parseable `Action:`/`Final Answer:` —
 this SFT checkpoint never saw the ReAct scaffold, so grounding never fired.
 [Full transcripts.](runs/2026-07-30-real-agent-run.md)
 
-**Related:** this loop, tools, and permission contract is
-[act and coordinate](../../../capabilities/act-coordinate/) — promoted out of
-mission-local code once
+**Reused elsewhere:** the loop, tool, and permission contract on this page is
+the one
 [personalized discovery's rule engine](../../02-personalized-discovery/07-rule-engine/)
-needed the same inputs and objective.
+and [the code-agent mission](../../04-code-agent/) both adopt — same inputs,
+same objective, different tools. The chapter stays here, where it was worked
+and measured, and those missions link to it.
 
 ## What does agentic training data actually need to teach?
 
@@ -285,8 +364,9 @@ place the harness reads environment variables (`backend_from_env` in
 
 ## Next
 
-[What stops it?](what-stops-it/) covers the sandbox and the permission ladder
-this chapter deliberately set aside. After that,
-[stage 07 — eval](../07-eval/): closing the loop with a harness-disclosed
-evaluation of the agent built here, alongside the model-level evals from
-earlier stages.
+[What stops it?](what-stops-it/) covers the sandbox, the permission ladder,
+and the trust boundary this chapter deliberately set aside. Then
+[would a second agent help?](would-a-second-agent-help/) if you are about to
+add one. After that, [stage 07 — eval](../07-eval/): closing the loop with a
+harness-disclosed evaluation of the agent built here, alongside the
+model-level evals from earlier stages.

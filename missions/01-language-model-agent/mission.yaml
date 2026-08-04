@@ -48,7 +48,7 @@ cost_budget: >
   Total GPU wall-clock is reported per stage.
 
 capabilities:
-  - act-coordinate      # the agent harness, stage 06
+  - 06-agent            # the agent harness: loop, tools, permissions, stop conditions
 
 acceptance:
   - All eight stages complete with a runs/ entry each

@@ -128,10 +128,9 @@ The point-in-time discipline in stage 00 is the same discipline
 know exactly what was knowable when, and do not let anything later leak
 backward. Cross-sectional ranking and position sizing use the same
 scoring-and-decide contract mission 02 built for recommendation and ads. That
-contract has **not** been extracted into
-[`capabilities/`](../../capabilities/) and should not be until this mission's
+contract is **not** treated as shared, and should not be until this mission's
 stages run: the promotion gate in
-[`standards/mission-contract.md`](../../reference/standards/mission-contract.md) asks for
+[`mission-contract.md`](../../reference/standards/mission-contract.md) asks for
 two missions sharing an input/output contract *and* an objective, and a rank
 here maximizes risk-adjusted return where a rank there maximized engagement.
 Naming the shared noun is not evidence that the decision is shared.

@@ -79,9 +79,11 @@ time, queried once, its results placed in context before the agent reasons.
 | Debuggability | every read is in the transcript | retrieval is opaque |
 | What compaction must handle | many small observations | one large block |
 
-Neither is settled among production coding agents, and
-[act and coordinate](../../../../capabilities/act-coordinate/) treats the choice
-on its own terms. What matters here is that a just-in-time harness produces
+Neither is settled among production coding agents. The rule of thumb that
+survives is about addressability: exact filesystem search usually beats
+embedding retrieval over code, because names and paths *can* be named exactly,
+and semantic retrieval earns its cost when the corpus is unstructured and the
+evidence you need cannot be. What matters here is that a just-in-time harness produces
 *many small, individually droppable observations*, which is precisely what
 makes a per-observation compaction policy workable.
 

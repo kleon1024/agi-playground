@@ -280,7 +280,7 @@ tell you whether it's safe to trust, or what to do next if it's borderline.
 ## Next
 
 Evaluation closes one build loop and starts the next. Continue to
-[agent systems](../../capabilities/act-coordinate/) to see how the harness
+[the agent harness](../../missions/01-language-model-agent/06-agent/) to see how the harness
 changes the unit under test, or return to the subsystem that owns the dominant
 failure.
 

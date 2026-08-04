@@ -125,7 +125,7 @@ hand. Ganguli et al., "Red Teaming Language Models to Reduce Harms: Methods,
 Scaling Behaviors, and Lessons Learned" (Anthropic, arXiv, August 23, 2022) is
 the human-red-teaming-at-scale counterpart, studying how manual adversarial
 probing scales with model size and what that reveals about the harms found.
-This repository's own [AgentDojo citation](../../../capabilities/act-coordinate/)
+This repository's own [AgentDojo citation](../../../missions/01-language-model-agent/06-agent/what-stops-it/)
 (Debenedetti et al., June 2024) is a concrete instance of the same idea applied
 to a different system under test — an agent harness rather than a chat model —
 turning "an agent's observations can carry adversarial instructions" into a
@@ -237,4 +237,4 @@ Primary references: Perez et al., *Red Teaming Language Models with Language
 Models* (arXiv, February 2022; EMNLP 2022); Ganguli et al., *Red Teaming
 Language Models to Reduce Harms: Methods, Scaling Behaviors, and Lessons
 Learned* (Anthropic, August 23, 2022); Debenedetti et al., *AgentDojo* (June
-2024), cited here via [capabilities/act-coordinate](../../../capabilities/act-coordinate/).
+2024), cited here via [what stops it?](../../../missions/01-language-model-agent/06-agent/what-stops-it/).

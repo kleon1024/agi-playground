@@ -35,12 +35,11 @@ BASE_URL = "/playground"
 # Missions come first because they are the only reader path. Everything below
 # them is a support library a mission links into at the point where a decision
 # needs it, not a track to be read front to back — so the sidebar must not
-# present foundations, platform, and capabilities as a sequence leading up to a
-# mission. Contributor surfaces sort last.
+# present foundations and platform as a sequence leading up to a mission.
+# Contributor surfaces sort last.
 SECTIONS = [
     ("missions", 20),
     ("foundations", 30),
-    ("capabilities", 40),
     ("platform", 50),
     ("infra", 60),
     ("reference", 70),
@@ -69,7 +68,6 @@ FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 TITLE_OVERRIDES = {
     "foundations": "Foundations",
     "platform": "Platform",
-    "capabilities": "Capabilities",
     "missions": "Missions",
     "infra": "Infrastructure",
     "reference": "Reference",

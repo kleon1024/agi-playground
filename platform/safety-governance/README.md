@@ -24,7 +24,7 @@ definition -> measurement -> enforcement point
            -> audit record -> escalation owner
 ```
 
-**Before this:** [act and coordinate](../../capabilities/act-coordinate/), for
+**Before this:** [the agent harness](../../missions/01-language-model-agent/06-agent/), for
 the permission and stop-condition contract a guardrail has to attach to.
 
 ## 1. Write guardrails as executable conditions

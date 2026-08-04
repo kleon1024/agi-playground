@@ -11,7 +11,7 @@ needed — the "backend" is a Python dict of scripted strings.
 ## Command
 
 ```bash
-cd capabilities/act-coordinate/01-multi-agent/core
+cd missions/01-language-model-agent/06-agent/would-a-second-agent-help/core
 python3 orchestrator.py
 ```
 

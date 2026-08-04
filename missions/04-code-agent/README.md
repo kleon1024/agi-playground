@@ -64,6 +64,16 @@ Scores are reported separately and never averaged together. One set may be in
 the training data of every model tested; the other provably is not. Pooling
 them would hide the only comparison that says which is which.
 
+## What this reuses
+
+The loop, tool schemas, permission ladder, and stop conditions come from
+[mission 01's agent harness](../01-language-model-agent/06-agent/) unchanged
+except for the tools this task set requires — same inputs, same objective, a
+different decision. That reuse is what makes this mission the second consumer
+the [admission gate](../../reference/standards/mission-contract.md) asks for,
+and the harness stays where it was measured rather than moving into a
+directory of its own.
+
 ## Stages
 
 | Stage | Question | Status |

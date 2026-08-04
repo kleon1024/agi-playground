@@ -63,7 +63,7 @@ cost_budget: >
 capabilities:
   - retrieve-ground     # candidate generation over the catalogue
   - rank-decide         # scoring, ordering, and the ads auction
-  # act-coordinate is deliberately NOT used here. The temptation to make this
+  # The agent harness is deliberately NOT used here. The temptation to make this
   # "an agent that recommends" should be resisted until a mission needs it.
 
 acceptance:

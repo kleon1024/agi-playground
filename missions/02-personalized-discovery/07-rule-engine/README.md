@@ -16,7 +16,7 @@ applies constraints that slate assembly has no way to know about, and can
 remove candidates mixing already spent a beam search choosing.
 
 **Related:** the permission and precedence contract here is
-[act and coordinate](../../../capabilities/act-coordinate/) applied to a
+[the agent harness](../../01-language-model-agent/06-agent/) applied to a
 ranking decision rather than an agent's tool call — the same two missions
 that need this contract are what promoted it out of mission-local code.
 

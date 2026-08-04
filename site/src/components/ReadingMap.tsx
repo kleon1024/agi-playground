@@ -157,16 +157,13 @@ const BUILD_PATH: Step[] = [
     href: `${MISSION}/06-agent/`,
     label: 'Agent',
     note: 'Put the model inside a bounded tool loop.',
-    detours: [
-      {
-        href: '/playground/capabilities/act-coordinate/',
-        label: 'Act and coordinate',
-        returns: 'a permission and stop-condition contract',
-      },
-    ],
     companions: [
       { href: `${MISSION}/06-agent/what-fits-in-context/`, label: 'What fits in context' },
       { href: `${MISSION}/06-agent/what-stops-it/`, label: 'What stops it' },
+      {
+        href: `${MISSION}/06-agent/would-a-second-agent-help/`,
+        label: 'Would a second agent help',
+      },
     ],
   },
   {
@@ -257,11 +254,6 @@ const REFERENCE_LAYERS: MapLink[] = [
     href: '/playground/platform/',
     label: 'Platform',
     note: 'Data, training, adaptation, serving, evaluation, and safety.',
-  },
-  {
-    href: '/playground/capabilities/',
-    label: 'Capabilities',
-    note: 'Reusable mechanisms only after more than one mission needs them.',
   },
   {
     href: '/playground/infra/',

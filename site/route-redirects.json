@@ -8,5 +8,26 @@
     "Append here when a chapter moves; never delete an entry, because the old",
     "URL stays in somebody's history forever."
   ],
-  "redirects": []
+  "redirects": [
+    {
+      "from": "/capabilities",
+      "to": "/missions"
+    },
+    {
+      "from": "/capabilities/act-coordinate",
+      "to": "/missions/01-language-model-agent/06-agent"
+    },
+    {
+      "from": "/capabilities/act-coordinate/LANDSCAPE",
+      "to": "/missions/01-language-model-agent/06-agent/LANDSCAPE"
+    },
+    {
+      "from": "/capabilities/act-coordinate/01-multi-agent",
+      "to": "/missions/01-language-model-agent/06-agent/would-a-second-agent-help"
+    },
+    {
+      "from": "/capabilities/act-coordinate/01-multi-agent/prod",
+      "to": "/missions/01-language-model-agent/06-agent/would-a-second-agent-help/prod"
+    }
+  ]
 }

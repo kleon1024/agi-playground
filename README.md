@@ -92,10 +92,9 @@ Missions are added deliberately. Mission 01 finishes before mission 02 starts.
 ## Repository
 
 ```
+missions/      infrastructure through to business outcome
 foundations/   mathematics and mechanism, bound to no product
 platform/      the lifecycle that turns models into reliable capabilities
-capabilities/  composable hammers, admitted only when two missions need them
-missions/      infrastructure through to business outcome
 infra/         local, cloud, and distributed runtime
 reference/     contributor and evidence-governance surfaces (standards/, research/)
 ```
@@ -121,19 +120,25 @@ reference/     contributor and evidence-governance surfaces (standards/, researc
 | [evaluation & observability](platform/evaluation-observability/) | Static and agentic evals, contamination, harness disclosure | Draft |
 | [safety & governance](platform/safety-governance/) | Enforcing the guardrails missions declare | Draft |
 
-### capabilities
+### Chapters two missions share
 
-| Capability | Scope | Status |
-|---|---|---|
-| [act-coordinate](capabilities/act-coordinate/) | Harness engineering: loop, tools, context management, sandboxing, sub-agents | Draft |
+There is no `capabilities/` directory. A chapter that a second mission needs
+stays in the mission that built and measured it, and the second mission links
+to it — because moving it would separate the explanation from the run that
+backs it, and a chapter with no evidence beside it is exactly what this repo
+is trying not to publish. The one chapter that has cleared the bar so far is
+[mission 01's agent harness](missions/01-language-model-agent/06-agent/) —
+loop, tool schemas, context policy, permission ladder — reused by
+[personalized discovery's rule engine](missions/02-personalized-discovery/07-rule-engine/)
+and by [the code-agent mission](missions/04-code-agent/) with the same inputs
+and the same objective, different tools.
 
-`capabilities/` holds exactly one entry on purpose. Perception, retrieval,
-generation, ranking, and continual learning are named in the architecture
-because the structure needs somewhere to put them — not because they are
-half-built. A capability is admitted only when **two** missions need it, it has
-an I/O contract, it is objectively evaluable, it maps toy → production, and it
-runs on an existing compute lane. An empty folder is a promise; this repo
-prefers to owe nothing.
+The bar itself is unchanged and recorded in
+[the admission gate](reference/standards/mission-contract.md): two missions
+need it independently, it has an I/O contract, it is objectively evaluable, it
+maps toy → production, and it runs on an existing compute lane. Reuse of a
+noun is not reuse of a decision — a rank in a recommendation slate and a rank
+in a trading portfolio share a word, not a contract.
 
 ## How lessons work
 

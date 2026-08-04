@@ -14,7 +14,7 @@
 # is an attempt to make that specific failure detectable rather than
 # unthinkable.
 #
-# It is also the mission that gives capabilities/act-coordinate its second
+# It is also the mission that gives mission 01's agent harness its second
 # consumer. Per the admission gate in standards/mission-contract.md, the agent
 # harness stops being local to mission 01 only when a second mission needs the
 # same input/output contract for a different decision. This is that mission:
@@ -94,7 +94,7 @@ cost_budget: >
   $0 marginal on the local lane, with GPU wall-clock reported instead.
 
 capabilities:
-  - act-coordinate   # the agent harness from mission 01 stage 06, reused here
+  - 06-agent         # the agent harness from mission 01 stage 06, reused here
                      # for a different decision. This is the second consumer
                      # the admission gate requires.
 

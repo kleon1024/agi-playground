@@ -5,9 +5,9 @@ level: applied
 
 # Which stakeholder problem do you want to solve?
 
-Start here, not in `foundations/`, `platform/`, or `capabilities/`. Those three
-are support libraries: a mission sends you to one only at the exact point a
-decision needs it, and you come back with an artifact, not a grade.
+Start here, not in `foundations/` or `platform/`. Those two are support
+libraries: a mission sends you to one only at the exact point a decision needs
+it, and you come back with an artifact, not a grade.
 
 Every mission below is the same underlying claim tested against a different
 domain: build one working system end to end, on real data or a disclosed
@@ -46,7 +46,7 @@ discipline than i.i.d. held-out data, not less. Verdict in
 whether a system does its job, it asks what makes an *agent's own claim* that
 it did the job trustworthy — reusing mission 01's agent-loop capability
 verbatim as its second consumer, which is what promotes that loop from
-mission-local code to [a capability](../capabilities/act-coordinate/). Its
+mission-local code to [an agent harness](01-language-model-agent/06-agent/) two other missions reuse. Its
 [report](04-code-agent/05-report/) returns a `PARTIAL`, and says exactly which
 comparison was never run.
 
@@ -98,7 +98,7 @@ that.
 
 Mission 01 first — its stages are what every other mission cites. After that,
 02 through 09 do not depend on each other and can be read in any order; each
-names exactly which platform chapters and capabilities it reuses in its own
+names exactly which platform chapters and mission-01 stages it reuses in its own
 "What this reuses" section, so you can tell what is new to that mission and
 what is the same architecture wearing a different domain.
 
@@ -110,10 +110,10 @@ support libraries together.
 
 ## Where a mission sends you
 
-A mission stage links out to
-[foundations](../foundations/), [platform](../platform/), or
-[capabilities](../capabilities/) only at the point a decision needs the
-mechanism there, and the linked chapter hands back an artifact or a
+A mission stage links out to [foundations](../foundations/), to
+[platform](../platform/), or to an earlier mission's stage only at the point a
+decision needs the mechanism there, and the linked chapter hands back an
+artifact or a
 measurement the next stage consumes — never a parallel course to finish
 first. [Infrastructure](../infra/) sits one layer below platform: it is where
 the wiring, the scheduler, and the storage layout that score those decisions

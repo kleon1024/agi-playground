@@ -15,7 +15,7 @@ do not have yet.
 If you know the decision but not which of the six owns it, the
 [read-by-topic index](https://rehearse.maestro.onl/playground/topics/) lists
 every chapter in this repository — platform, missions, foundations,
-capabilities, infrastructure — under the question it answers.
+infrastructure — under the question it answers.
 
 ## The lifecycle order, when you are tracing one model
 
@@ -49,11 +49,12 @@ from a sentence into something enforced, and a mission reaches for it the
 moment a guardrail needs a real enforcement point, not only at the end of a
 build.
 
-[Capabilities](../capabilities/) sits adjacent to both, for the same reason:
-[act and coordinate](../capabilities/act-coordinate/) is what a model needs
-around it before it can act at all, and it is entered from serving (a model
-that cannot be called cannot act) on the way to evaluation (which then has to
-judge the harness, not only the model).
+[Mission 01's agent harness](../missions/01-language-model-agent/06-agent/) sits adjacent to both, for the
+same reason: it is what a model needs around it before it can act at all, and
+it is entered from serving (a model that cannot be called cannot act) on the
+way to evaluation (which then has to judge the harness, not only the model).
+It stays in the mission that built and measured it; two other missions reuse
+it from there.
 
 ## Before this, and where this returns to
 

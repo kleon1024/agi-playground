@@ -97,7 +97,7 @@ that sequence as a prefix. Repo-wide search confirms there is no image, video,
 or audio tensor pipeline anywhere else in this codebase — this mission is
 where the first one is built and measured.
 
-No new shared capability is created for this. `capabilities/act-coordinate`
+No new shared chapter is created for this. Mission 01's agent harness
 was only promoted out of mission-local code once two missions independently
 needed the same agent-loop contract; the same rule holds here. A future
 `perceive-understand` capability — already anticipated in

@@ -85,7 +85,7 @@ cost_budget: >
   hosted-model spend.
 
 capabilities: []
-  # None yet. This mission does not need capabilities/act-coordinate or any
+  # None yet. This mission does not need mission 01's agent harness or any
   # existing capability; if a future mission needs the same molecular
   # representation contract, that is the second consumer the admission gate
   # in standards/mission-contract.md would require before promoting one.

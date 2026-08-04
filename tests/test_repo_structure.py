@@ -50,8 +50,6 @@ PLATFORM = [
     "safety-governance",
 ]
 
-CAPABILITIES = ["act-coordinate"]
-
 MISSIONS = [
     "01-language-model-agent",
     "02-personalized-discovery",
@@ -99,9 +97,30 @@ def test_platform_layers_exist():
         assert (ROOT / "platform" / name / "README.md").is_file(), f"missing platform/{name}"
 
 
-def test_capabilities_exist():
-    for name in CAPABILITIES:
-        assert (ROOT / "capabilities" / name / "README.md").is_file()
+def test_a_shared_chapter_stays_in_the_mission_that_built_it():
+    """There is no `capabilities/` directory, and reuse does not create one.
+
+    It existed for one chapter -- the agent harness -- and held a second, fuller
+    telling of mission 01 stage 06 with no `core/`, `prod/`, or `runs/` beside
+    it. Separating an explanation from the run that backs it is how a chapter
+    ends up making a claim with no evidence attached, which is the one thing
+    this repository is built not to do. A second consumer now links to the
+    chapter where it was measured.
+    """
+    assert not (ROOT / "capabilities").exists(), (
+        "reuse means a second mission links to the chapter where it was "
+        "measured, not that the chapter moves into a directory of its own"
+    )
+    harness = ROOT / "missions" / "01-language-model-agent" / "06-agent"
+    for consumer in (
+        ROOT / "missions" / "02-personalized-discovery" / "07-rule-engine" / "README.md",
+        ROOT / "missions" / "04-code-agent" / "README.md",
+    ):
+        assert "01-language-model-agent/06-agent" in consumer.read_text(), (
+            f"{consumer.relative_to(ROOT)} reuses the agent harness but does "
+            "not link to it"
+        )
+    assert (harness / "runs").is_dir(), "the shared chapter kept its evidence"
 
 
 def test_missions_declare_a_contract():
@@ -180,7 +199,7 @@ def test_every_published_page_declares_its_level():
     allowed = {"foundation", "applied", "frontier", "reference"}
     pattern = re.compile(r"^level:\s*(\S+)\s*$", re.MULTILINE)
     problems = []
-    for section in ("foundations", "missions", "capabilities", "platform",
+    for section in ("foundations", "missions", "platform",
                     "infra", "reference"):
         for page in sorted((ROOT / section).rglob("*.md")):
             if {"core", "prod", "runs", "cache"} & set(page.parts):
@@ -207,7 +226,7 @@ def test_currency_amounts_are_escaped_in_prose():
     that means to be a formula opens and closes deliberately.
     """
     problems = []
-    for section in ("foundations", "missions", "capabilities", "platform",
+    for section in ("foundations", "missions", "platform",
                     "infra", "reference"):
         for page in sorted((ROOT / section).rglob("*.md")):
             if {"core", "prod", "cache"} & set(page.parts):

@@ -66,7 +66,7 @@ and the reward function (the environment's terminal score, not string-matched
 arithmetic correctness). This is the repo's own cross-mission convention:
 missions reuse each other's `core/` directly via import rather than
 duplicating the mechanism, the same way mission 04's agent harness reuses
-[`capabilities/act-coordinate`](../../capabilities/act-coordinate/) rather
+[mission 01's agent harness](../01-language-model-agent/06-agent/) rather
 than rewriting a tool loop.
 
 GRPO's one departure from PPO is how it computes the advantage `A_i` for each

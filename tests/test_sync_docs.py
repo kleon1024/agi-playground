@@ -11,7 +11,6 @@ SYNC_DOCS_PATH = ROOT / "site" / "sync-docs.py"
 SECTIONS_WITH_CHAPTERS = (
     "missions",
     "foundations",
-    "capabilities",
     "platform",
     "infra",
 )
@@ -66,7 +65,7 @@ def test_every_chapter_directory_is_listed():
     table of contents noticing.
     """
     expected = set(SYNC_DOCS.CHAPTER_ORDER)
-    for section in ("platform", "capabilities"):
+    for section in ("platform",):
         for readme in sorted((ROOT / section).rglob("README.md")):
             chapter = readme.parent.relative_to(ROOT).as_posix()
             if any(part in ("core", "prod", "runs", "cache") for part in Path(chapter).parts):
@@ -85,7 +84,7 @@ def test_headings_do_not_carry_their_own_chapter_number():
     across headings and prose, with nothing failing when one is missed.
     """
     offenders = []
-    for section in ("foundations", "platform", "capabilities", "missions"):
+    for section in ("foundations", "platform", "missions"):
         for path in sorted((ROOT / section).rglob("*.md")):
             first = next(
                 (ln for ln in path.read_text().splitlines() if ln.startswith("# ")), ""
@@ -166,7 +165,7 @@ def test_titles_do_not_carry_a_generated_number():
     only listed one branch, so the platform index read "02, 03, 08, 09" plus
     one entry with no number at all.
     """
-    for section in ("platform", "missions", "capabilities"):
+    for section in ("platform", "missions"):
         index = ROOT / "site" / "docs" / section / "index.md"
         if not index.is_file():
             continue
@@ -242,7 +241,7 @@ def test_no_published_page_is_an_orphan_in_prose():
     requires each one to name two production alternatives, and not one chapter
     pointed at the table it was requiring.
     """
-    sections = ("missions", "foundations", "capabilities", "platform",
+    sections = ("missions", "foundations", "platform",
                 "infra", "reference")
     pages = [
         page

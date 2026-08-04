@@ -1,20 +1,4 @@
 {
-  "capabilities": {
-    "level": "applied",
-    "minutes": 2
-  },
-  "capabilities/act-coordinate": {
-    "level": "applied",
-    "minutes": 10
-  },
-  "capabilities/act-coordinate/01-multi-agent": {
-    "level": "applied",
-    "minutes": 11
-  },
-  "capabilities/act-coordinate/01-multi-agent/prod": {
-    "level": "",
-    "minutes": 1
-  },
   "foundations": {
     "level": "foundation",
     "minutes": 2
@@ -129,7 +113,7 @@
   },
   "missions/01-language-model-agent/06-agent": {
     "level": "applied",
-    "minutes": 11
+    "minutes": 14
   },
   "missions/01-language-model-agent/06-agent/prod": {
     "level": "",
@@ -141,7 +125,15 @@
   },
   "missions/01-language-model-agent/06-agent/what-stops-it": {
     "level": "applied",
-    "minutes": 10
+    "minutes": 14
+  },
+  "missions/01-language-model-agent/06-agent/would-a-second-agent-help": {
+    "level": "applied",
+    "minutes": 11
+  },
+  "missions/01-language-model-agent/06-agent/would-a-second-agent-help/prod": {
+    "level": "",
+    "minutes": 1
   },
   "missions/01-language-model-agent/07-eval": {
     "level": "applied",

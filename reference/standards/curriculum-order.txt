@@ -34,5 +34,3 @@ platform/adaptation/distillation/what-path-two-requires
 platform/adaptation/reinforcement-learning
 platform/serving
 platform/evaluation-observability
-capabilities
-capabilities/act-coordinate

@@ -1,7 +1,8 @@
 ---
 status: verified
 level: applied
-label: Multi-agent
+base: none
+label: Would a second agent help
 verified: 2026-07-27
 ---
 
@@ -9,7 +10,7 @@ verified: 2026-07-27
 
 And how would you know it was not simply twice the cost?
 
-[Agent systems](../README.md) built one bounded loop: observe, decide,
+[The agent harness](../) built one bounded loop: observe, decide,
 propose, validate, execute, record, decide again. Everything in that loop
 answers to a single parent — one context, one permission ladder, one budget.
 This chapter asks what changes the moment a parent delegates part of the work
@@ -19,7 +20,7 @@ second agent is not a free multiplier on capability. It is a specific trade,
 and the trade is only worth it under conditions this chapter tries to name
 precisely.
 
-**Before this:** [what the software around a model must own](../README.md). One
+**Before this:** [what turns a model into something that acts?](../). One
 agent's loop, tools, and stop conditions are the unit this chapter multiplies.
 
 ## 1. What a second agent actually buys
@@ -91,7 +92,7 @@ run in parallel only when they share no output and neither depends on the
 other's intermediate decisions. Anything else is sequential work wearing a
 parallel costume — it will appear to run concurrently and still produce a
 result that depends on execution order, the same silent-corruption failure
-mode the capability README warns about for tool calls, one level up.
+mode the parent chapter warns about for tool calls, one level up.
 
 ## 4. Topologies, and the decision rule for each
 
@@ -137,8 +138,9 @@ system compared against a single agent working with a fraction of the
 budget is not a fair test — of course the smaller-budget agent does worse.
 The honest question is: at the same total spend, does the multi-agent
 version produce a better result than a single agent given that entire
-budget to work with directly? [Section 9 of the parent
-chapter](../README.md) makes the same point about evaluating a harness: a
+budget to work with directly? [The parent chapter's
+record section](../#the-trace-is-the-record-because-the-harness-is-the-variable)
+makes the same point about evaluating a harness: a
 comparison that changes more than one variable at a time cannot attribute
 the result to any of them. Comparing topologies without holding cost fixed
 is that same mistake, applied to agent count instead of tool set.
@@ -228,7 +230,7 @@ prose paragraph a person would read without difficulty is not something a
 program can safely branch on — the parent has to *act* on the child's
 return, not just understand it, and acting requires fields it can check
 programmatically rather than a narrative it has to re-interpret. This is the
-same argument the parent capability README makes for typed tool schemas over
+same argument the parent chapter makes for typed tool schemas over
 free-text commands: the boundary between two processes is where informal
 communication stops being good enough.
 
@@ -273,7 +275,7 @@ benefits.
 
 ## Next
 
-[Mission 01, eval](../../../missions/01-language-model-agent/07-eval/)
+[Stage 07 — eval](../../07-eval/)
 builds the harness-disclosed, baseline-required evaluation discipline this
 chapter's equal-budget comparison depends on. It was built for a
 single-agent harness; extending its refuse-to-emit-without-a-baseline
