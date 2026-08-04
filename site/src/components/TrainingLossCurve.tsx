@@ -15,6 +15,10 @@
  * measured.
  */
 import React, { useState } from 'react';
+import { scaleLinear } from 'd3-scale';
+import { area, line as d3line } from 'd3-shape';
+
+import Chart, { type Frame } from './chart/Chart';
 
 interface Checkpoint {
   iter: number;
@@ -39,32 +43,17 @@ const RUN: Checkpoint[] = [
 /** Cross-entropy of a uniform distribution over the 65-character vocabulary. */
 const UNIFORM = Math.log(65);
 
-/* Gutters sized for the 22-unit narrow-container type floor, not the 14-unit
-   desktop one — see the SVG type rule in widgets.css. */
-const W = 520;
-const H = 276;
-const PAD_L = 56;
-const PAD_R = 14;
-const PAD_T = 18;
-const PAD_B = 44;
+const HEIGHT = 250;
+const PADDING = { top: 18, right: 14, bottom: 44, left: 46 };
 
 const LOSS_LO = 1.1;
 const LOSS_HI = 4.5;
 const LAST = RUN[RUN.length - 1].iter;
 
-const px = (iter: number) => PAD_L + (iter / LAST) * (W - PAD_L - PAD_R);
-const py = (loss: number) =>
-  PAD_T + ((LOSS_HI - loss) / (LOSS_HI - LOSS_LO)) * (H - PAD_T - PAD_B);
-
-const line = (key: 'train' | 'val') =>
-  RUN.map((c, i) => `${i === 0 ? 'M' : 'L'}${px(c.iter).toFixed(1)} ${py(c[key]).toFixed(1)}`).join(' ');
-
-/** The gap is the region between the two curves, so it is drawn as one. */
-const gapBand = [
-  ...RUN.map((c, i) => `${i === 0 ? 'M' : 'L'}${px(c.iter).toFixed(1)} ${py(c.train).toFixed(1)}`),
-  ...[...RUN].reverse().map((c) => `L${px(c.iter).toFixed(1)} ${py(c.val).toFixed(1)}`),
-  'Z',
-].join(' ');
+const scales = (frame: Frame) => ({
+  x: scaleLinear().domain([0, LAST]).range([0, frame.innerWidth]),
+  y: scaleLinear().domain([LOSS_LO, LOSS_HI]).range([frame.innerHeight, 0]),
+});
 
 export default function TrainingLossCurve(): React.ReactElement {
   const [i, setI] = useState(RUN.length - 1);
@@ -91,8 +80,8 @@ export default function TrainingLossCurve(): React.ReactElement {
   return (
     <div className="learning-widget">
       <p>
-        The nine checkpoints this run recorded. Drag to any of them and read the distance
-        between the two curves.
+        The nine checkpoints this run recorded. Point anywhere on the curves, or drag the slider,
+        and read the distance between them.
       </p>
 
       <ul className="widget-legend">
@@ -118,59 +107,113 @@ export default function TrainingLossCurve(): React.ReactElement {
         </li>
       </ul>
 
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Training and validation loss over 2000 iterations">
-        <title>Training and validation loss across the nine recorded checkpoints</title>
+      <Chart
+        height={HEIGHT}
+        padding={PADDING}
+        label="Training and validation loss across the nine recorded checkpoints"
+        onPointerAt={(x, frame) => {
+          if (x === null) return;
+          const iter = scales(frame).x.invert(x);
+          /* Snap: the run evaluated every 250 iterations and nothing between two
+             checkpoints was measured, so there is no value to read there. */
+          setI(RUN.reduce((best, c, n) => (
+            Math.abs(c.iter - iter) < Math.abs(RUN[best].iter - iter) ? n : best
+          ), 0));
+        }}
+      >
+        {(frame) => {
+          const { innerWidth, innerHeight } = frame;
+          const { x, y } = scales(frame);
+          const path = (key: 'train' | 'val') =>
+            d3line<Checkpoint>().x((c) => x(c.iter)).y((c) => y(c[key]))(RUN) ?? undefined;
+          /* The full sentence needs about 250px; below that it would run past the
+             frame, and a clipped annotation reads as a rendering fault. */
+          const note = innerWidth < 270
+            ? 'ln(65) = 4.174'
+            : 'ln(65) = 4.174, a model that knows nothing';
 
-        <path d={gapBand} fill="var(--rehearse-caution-soft)" stroke="none" />
+          return (
+            <g transform={`translate(${PADDING.left},${PADDING.top})`}>
+              {/* The gap between the curves is the thing being read, so it is one
+                  filled region rather than something the eye has to measure. */}
+              <path
+                d={area<Checkpoint>()
+                  .x((c) => x(c.iter))
+                  .y0((c) => y(c.train))
+                  .y1((c) => y(c.val))(RUN) ?? undefined}
+                fill="var(--rehearse-caution-soft)"
+                stroke="none"
+              />
 
-        <line
-          x1={PAD_L}
-          y1={py(UNIFORM)}
-          x2={W - PAD_R}
-          y2={py(UNIFORM)}
-          stroke="var(--rehearse-copy-muted)"
-          strokeDasharray="3 4"
-        />
-        {/* Parked over the flat stretch of the curves: at the right edge it collided
-            with the checkpoint marker, and at the left with the initial descent. */}
-        <text x={px(620)} y={py(UNIFORM) - 7} fill="var(--rehearse-copy-muted)">
-          ln(65) = 4.174, a model that knows nothing
-        </text>
+              <line
+                x1={0}
+                x2={innerWidth}
+                y1={y(UNIFORM)}
+                y2={y(UNIFORM)}
+                stroke="var(--rehearse-copy-muted)"
+                strokeDasharray="3 4"
+              />
+              {/* Parked over the flat stretch of the curves: at the right edge it
+                  collided with the checkpoint marker, and at the left with the
+                  initial descent. */}
+              <text
+                x={innerWidth * 0.31}
+                y={y(UNIFORM) - 7}
+                fill="var(--rehearse-copy-muted)"
+                fontSize={13}
+              >
+                {note}
+              </text>
 
-        <path d={line('train')} fill="none" stroke="var(--rehearse-action)" strokeWidth="2" />
-        <path
-          d={line('val')}
-          fill="none"
-          stroke="var(--rehearse-caution)"
-          strokeWidth="2"
-          strokeDasharray="6 4"
-        />
+              <path d={path('train')} fill="none" stroke="var(--rehearse-action)" strokeWidth="2" />
+              <path
+                d={path('val')}
+                fill="none"
+                stroke="var(--rehearse-caution)"
+                strokeWidth="2"
+                strokeDasharray="6 4"
+              />
 
-        <line
-          x1={px(at.iter)}
-          y1={PAD_T}
-          x2={px(at.iter)}
-          y2={H - PAD_B}
-          stroke="var(--rehearse-ink)"
-          strokeWidth="1"
-        />
-        <circle cx={px(at.iter)} cy={py(at.train)} r="4" fill="var(--rehearse-action)" />
-        <circle cx={px(at.iter)} cy={py(at.val)} r="4" fill="var(--rehearse-caution)" />
+              <line
+                x1={x(at.iter)}
+                x2={x(at.iter)}
+                y1={0}
+                y2={innerHeight}
+                stroke="var(--rehearse-ink)"
+                strokeWidth="1"
+              />
+              <circle cx={x(at.iter)} cy={y(at.train)} r="4" fill="var(--rehearse-action)" />
+              <circle cx={x(at.iter)} cy={y(at.val)} r="4" fill="var(--rehearse-caution)" />
 
-        <line x1={PAD_L} y1={H - PAD_B} x2={W - PAD_R} y2={H - PAD_B} stroke="var(--rehearse-rule)" />
-        <text x={PAD_L - 6} y={py(4) + 4} textAnchor="end" fill="var(--rehearse-copy-muted)">
-          4.0
-        </text>
-        <text x={PAD_L - 6} y={py(2) + 4} textAnchor="end" fill="var(--rehearse-copy-muted)">
-          2.0
-        </text>
-        <text x={PAD_L} y={H - 14} fill="var(--rehearse-copy-muted)">
-          iteration 0
-        </text>
-        <text x={W - PAD_R} y={H - 14} textAnchor="end" fill="var(--rehearse-copy-muted)">
-          {LAST}
-        </text>
-      </svg>
+              <line x1={0} x2={innerWidth} y1={innerHeight} y2={innerHeight} stroke="var(--rehearse-rule)" />
+              {[4, 3, 2].map((tick) => (
+                <text
+                  key={tick}
+                  x={-8}
+                  y={y(tick) + 4}
+                  textAnchor="end"
+                  fill="var(--rehearse-copy-muted)"
+                  fontSize={13}
+                >
+                  {tick.toFixed(1)}
+                </text>
+              ))}
+              <text x={0} y={innerHeight + 22} fill="var(--rehearse-copy-muted)" fontSize={13}>
+                iteration 0
+              </text>
+              <text
+                x={innerWidth}
+                y={innerHeight + 22}
+                textAnchor="end"
+                fill="var(--rehearse-copy-muted)"
+                fontSize={13}
+              >
+                {LAST}
+              </text>
+            </g>
+          );
+        }}
+      </Chart>
 
       <div className="widget-controls">
         <label>
