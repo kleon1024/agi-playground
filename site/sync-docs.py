@@ -75,56 +75,6 @@ TITLE_OVERRIDES = {
     "reference": "Reference",
 }
 
-# A section root used to render as a bare bullet list, which told a reader
-# arriving from a mission link nothing about what they had walked into or when
-# to walk back out. Each section owns a different kind of claim, and saying so
-# is what keeps these from reading as four parallel courses.
-SECTION_INTROS = {
-    "missions": (
-        "**Missions are the reader path.** A mission starts with a stakeholder "
-        "problem, carries one concrete artifact through every stage, and ends "
-        "at a measured outcome with its evidence boundary stated. It links out "
-        "to a foundation, capability, or platform chapter only where a decision "
-        "needs one, and that chapter hands back something the next stage uses.\n\n"
-        "Start here. Everything below this section exists to be linked into."
-    ),
-    "foundations": (
-        "**Prerequisite mechanism, bound to no product.** These chapters explain "
-        "mathematics and mechanics you need in order to reason about a decision "
-        "a mission is about to make. They are scoped to language models, not to "
-        "intelligence in general, and they are not a course to read front to "
-        "back — arrive from the mission stage that sent you, and return to it."
-    ),
-    "capabilities": (
-        "**Reusable decision primitives.** A capability is admitted only after "
-        "at least two missions need the same input/output contract and the same "
-        "objective. Until then the explanation stays local to the first mission "
-        "that needed it, because reuse of a technique is not reuse of a "
-        "decision. Every capability claim is backed by a run."
-    ),
-    "platform": (
-        "**Cross-mission lifecycle reference.** Data, training, adaptation, "
-        "serving, evaluation, and safety — the contracts and tradeoffs that "
-        "recur no matter which mission you are running. Platform owns execution, "
-        "never a stakeholder outcome, and these chapters are reference material "
-        "rather than a linear sequence. Each one is entered from a mission "
-        "decision and returns an artifact, a measurement, or a diagnostic."
-    ),
-    "infra": (
-        "**Where the work runs.** Runbooks for the two compute lanes this "
-        "repository uses, including verified setup paths and the failure modes "
-        "worth knowing before you hit them. Naming specific hardware belongs "
-        "here and in run records, not in curriculum prose."
-    ),
-    "reference": (
-        "**Contributor surface, not a learner path.** The contracts every lesson, "
-        "run record, and mission must satisfy before its numbers mean anything, "
-        "plus the dated landscape research behind why the technical choices "
-        "elsewhere in this repository were made. Read these before contributing; "
-        "skip them if you are here to learn."
-    ),
-}
-
 # Directories that hold supporting material rather than a lesson. Without these
 # the sidebar shows a bare lowercase "runs" or "prod" beside real chapters.
 # The positions push them below the lesson content they support.
@@ -137,7 +87,16 @@ DIR_OVERRIDES = {
 # Reference tables sit beside the lesson they annotate. Their H1s repeat the
 # chapter name ("03 — Pretraining: Landscape"), which reads as a second chapter
 # in the sidebar, so the nav label is shortened and pushed after the evidence.
-FILE_OVERRIDES = {"LANDSCAPE.md": ("Landscape", 90)}
+FILE_OVERRIDES = {
+    "LANDSCAPE.md": ("Landscape", 90),
+    # The three compute-lane guides sat among the mechanism chapters labelled
+    # "Local 4090", "Modal", "Tracking" -- three proper nouns that read as three
+    # more chapters. They are operational documents about this repository's own
+    # machines, so the label says so and the positions park them at the end.
+    "local-4090.md": ("Compute lane: local GPU box", 91),
+    "modal.md": ("Compute lane: Modal", 92),
+    "tracking.md": ("Compute lane: run tracking", 93),
+}
 
 # Chapter order comes from one file, never from the headings. See the comment
 # at the top of that file for why. Sub-lessons inside a chapter still sort by
@@ -180,6 +139,20 @@ def chapter_of(path: Path) -> int | None:
         if position is not None:
             return position
     return None
+
+
+def is_lesson(chapter_dir: Path) -> bool:
+    """Does this directory hold a lesson, or an index of lessons?
+
+    AGENTS.md defines a lesson as `README.md` + `core/` + `prod/` + `runs/`, so
+    a directory with none of those three is a section, branch, or mission index
+    -- it never promised an executable path or a measurement. The distinction
+    only matters for build-status labelling: `status: draft` on a lesson means
+    "the run that would back this has not happened", and on an index it means
+    nothing a reader can act on.
+    """
+    base = chapter_dir if chapter_dir.is_absolute() else ROOT / chapter_dir
+    return any((base / name).is_dir() for name in ("core", "prod", "runs"))
 
 
 def order_from(path: Path) -> int:
@@ -428,9 +401,18 @@ def convert(src: Path, dest: Path, position: int | None) -> tuple[str, int, str,
     lines.append(f"sidebar_position: {position}")
     status = meta.get("status")
     nav_label = label or short_label(src, meta)
-    if status == "verified" and src.name == "README.md":
-        # Build status belongs where a reader chooses what to read next.
-        nav_label = f"{nav_label} \u00b7 verified"
+    if status == "draft" and src.name == "README.md" and is_lesson(src.parent):
+        # Build status belongs where a reader chooses what to read next -- but
+        # only where it discriminates. Marking the verified ones tagged 97 of
+        # 129 sidebar entries with the same seven characters, which told a
+        # reader scanning the tree nothing and cost every label the width. The
+        # exception is the useful signal, so the exception is what is marked.
+        #
+        # And only on a lesson. A section, branch, or mission index has no
+        # `runs/` because it never promised a measurement, so `status: draft`
+        # there is bookkeeping, not a warning -- and "Training \u00b7 draft" reads
+        # as though the whole training branch were unfinished.
+        nav_label = f"{nav_label} \u00b7 draft"
     lines.append(f'sidebar_label: "{nav_label}"')
     lines.append("---")
     lines.append("")
@@ -660,7 +642,13 @@ def main() -> None:
             count += 1
 
         # Section roots are linked to as directories (e.g. ../../platform/) but
-        # have no README of their own, so give them a landing page.
+        # have no README of their own, so give them a landing page. All six
+        # sections currently hand-write that index, so this is the fallback for
+        # a section that loses its README -- a bare listing, no generated prose.
+        # It used to carry a SECTION_INTROS table of hand-written boundary
+        # statements that nothing ever rendered, which is a trap: infra/'s entry
+        # still described it as two compute-lane runbooks long after it became a
+        # seven-chapter track, and no page was wrong because no page showed it.
         if not (src_dir / "README.md").exists():
             children = [
                 (dir_meta.get(Path(section) / d.name, (d.name, DEFAULT_POSITION)), d.name)
@@ -677,8 +665,7 @@ def main() -> None:
                 f"- [{meta[0]}]({name}/){cost_suffix(dir_cost, section, name)}"
                 for meta, name in children
             )
-            intro = SECTION_INTROS.get(section, "")
-            body = f"{intro}\n\n{listing}" if intro else listing
+            body = listing
             (OUT / section / "index.md").write_text(
                 f'---\ntitle: "{TITLE_OVERRIDES[section]}"\n---\n\n{body}\n'
             )
