@@ -51,6 +51,12 @@ makes that split explicit and checks each half on its own.
 | NR-PPAR-gamma | 118 | 0.6554 (±0.0044) | 0.6591 (±0.0620) | +0.0037 | inconclusive |
 | NR-ER | 628 | 0.6413 (±0.0011) | 0.6679 (±0.0227) | +0.0265 | model wins beyond spread |
 
+Those verdicts are a length compared against a length, and the table leaves the
+comparison to be done in your head. Select an endpoint and watch the rule run
+on the seeds themselves:
+
+<!-- interactive: EndpointSpread -->
+
 ## Question 1: does positive-class count predict the model's variance?
 
 Ranking the three endpoints by training positive count and reading off the
