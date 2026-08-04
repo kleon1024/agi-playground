@@ -96,6 +96,11 @@ and [graph execution](../01-graph-execution/) already established that launches,
 set the pace of this decode step. Quantization did not touch the actual bottleneck; it added to
 it.
 
+Both paths through one `Linear`, side by side — the shorter column is the larger
+model:
+
+<!-- interactive: QuantizedDecodePath -->
+
 ## Does a real library kernel do better?
 
 `prod/torchao_quantize.py` applies the identical INT8 weight-only scheme through torchao's
