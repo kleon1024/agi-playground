@@ -169,28 +169,10 @@ graph [pretraining](../../platform/training/) actually walks.
 
 ## A brief, dated history
 
-- **Seppo Linnainmaa, master's thesis (University of Helsinki, 1970)** —
-  the first published description of reverse-mode automatic differentiation:
-  accumulating local derivatives through a computational graph in reverse, the
-  exact mechanism this chapter implements, under the general study of
-  automatic differentiation rather than neural networks.
-- **Rumelhart, Hinton, and Williams, "Learning representations by
-  back-propagating errors" (*Nature*, 1986)** — applies the same mechanism
-  specifically to training multi-layer neural networks, the paper that gave
-  the technique the name most people know it by today.
-- **Theano (Université de Montréal, first released 2010)** — an early
-  widely-used library that builds a symbolic computation graph and
-  differentiates it automatically, ahead of the deep-learning boom that made
-  this a default expectation rather than a research tool.
-- **Chainer (Preferred Networks, 2015) and autograd (HIPS, 2015)** —
-  popularize *define-by-run* autodiff: building the graph dynamically as
-  ordinary code executes (exactly how `Value` above works), rather than
-  requiring a separate symbolic-graph-construction step first.
-- **PyTorch (Meta, first released 2017)** — adopts define-by-run autodiff as
-  its default execution model, which is the reason
-  [`../01-first-training-loop/core/train_gpt.py`](../01-first-training-loop/core/train_gpt.py)
-  can call `.backward()` on ordinary Python control flow with no separate
-  graph-compilation step.
+The `Value` class above is not a modern idea implemented simply. It is a 1970
+mechanism that spent decades waiting for anyone to need it at this scale.
+
+<!-- interactive: AutodiffLineage -->
 
 ## Check your mental model
 

@@ -383,6 +383,95 @@
   font-size: var(--type-xs);
 }
 
+/*
+ * A dated lineage on a scaled axis. The axis is assembled from the gap bands
+ * themselves rather than drawn once down the list, so a gap the scale cannot
+ * honour can go dashed on its own segment while the line stays continuous.
+ *
+ * Vertical at every width. A timeline that reflows to horizontal on a wide
+ * screen has to re-solve label collision at every breakpoint, and the reading
+ * order it produces on a phone is rarely the one it produces on a laptop.
+ */
+.timeline {
+  margin: 1.25rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline__item {
+  position: relative;
+  margin: 0 0 0 5px;
+  border-left: 2px solid var(--rehearse-rule);
+  padding-left: 1.15rem;
+}
+
+.timeline__item--forced {
+  border-left-style: dashed;
+}
+
+/* Height is the years, so the silence is a distance rather than a claim. */
+.timeline__wait {
+  display: flex;
+  align-items: center;
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-xs);
+  line-height: var(--leading-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.learning-widget .timeline__entry {
+  display: flex;
+  align-self: stretch;
+  align-items: baseline;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 2.75rem;
+  margin-bottom: 0.15rem;
+  text-align: left;
+  font-weight: 500;
+}
+
+.learning-widget .timeline__entry[aria-pressed='true'] {
+  border-color: var(--rehearse-action);
+  background: var(--rehearse-action-soft);
+  color: var(--rehearse-action-strong);
+}
+
+/* The marker sits on the axis, not beside it, so the entry reads as a point in
+   time rather than a bullet that happens to have a date attached. */
+.learning-widget .timeline__entry::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  width: 10px;
+  height: 10px;
+  margin-top: 0.5rem;
+  border-radius: 50%;
+  background: var(--rehearse-rule);
+}
+
+.learning-widget .timeline__entry[aria-pressed='true']::before {
+  background: var(--rehearse-action);
+}
+
+.timeline__year {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.timeline__label {
+  flex: 1 1 12rem;
+  font-weight: 500;
+}
+
+.learning-widget .timeline__legend {
+  margin: 0 0 1rem;
+  color: var(--rehearse-copy-muted);
+  font-size: var(--type-xs);
+  line-height: var(--leading-sm);
+}
+
 .learning-widget code {
   font-size: 0.88em;
 }

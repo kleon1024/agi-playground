@@ -33,7 +33,7 @@
   },
   "foundations/02-optimization": {
     "level": "foundation",
-    "minutes": 12
+    "minutes": 11
   },
   "foundations/03-backpropagation": {
     "level": "foundation",
@@ -461,7 +461,7 @@
   },
   "platform/evaluation-observability/02-statistical-significance": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 8
   },
   "platform/safety-governance": {
     "level": "applied",

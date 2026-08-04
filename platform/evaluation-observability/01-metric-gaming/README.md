@@ -106,23 +106,10 @@ be the one the true objective penalizes.
 
 ## Brief history
 
-Charles Goodhart's original observation (1975, in a Bank of England paper on
-UK monetary policy) was about monetary targets, not machine learning. Marilyn
-Strathern's 1997 restatement — "when a measure becomes a target, it ceases to
-be a good measure" (*European Review*, "'Improving ratings': audit in the
-British university system") — is the version usually quoted, and is closer to
-what Section 1 describes: the failure appears specifically once optimization
-pressure targets the measure. Amodei et al., "Concrete Problems in AI
-Safety" (2016, arXiv:1606.06565), names reward hacking as one of several
-concrete, addressable AI safety problems rather than a purely philosophical
-concern. Gao, Schulman, and Hilton, "Scaling Laws for Reward Model
-Overoptimization" (2022, arXiv:2210.10760), is the closest empirical analogue
-to this chapter's toy: they measure a *gold* reward model's score alongside
-the *proxy* reward model actually being optimized against, and show the two
-diverge as optimization (KL distance from the reference policy) increases —
-real proxy-vs-gold divergence under real optimization pressure, at model
-scale, not a constructed example. Singhal et al. (2023, cited above) narrows
-that finding to one concrete, gameable feature: response length in RLHF.
+The quotable version of this failure is fifty years old. The measurement of it
+happening inside a training run is not.
+
+<!-- interactive: GoodhartLineage -->
 
 ## What this toy does not establish
 

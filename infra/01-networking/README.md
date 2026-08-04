@@ -112,16 +112,9 @@ not a replacement for it.
 
 ## A brief history
 
-Ring-allreduce's bandwidth-optimal argument predates deep learning: Patarasuk
-and Yuan formalized it in 2009 ("Bandwidth Optimal All-reduce Algorithms for
-Clusters of Workstations," *Journal of Parallel and Distributed Computing*),
-proving a ring's per-rank bandwidth cost is independent of world size while a
-naive star's is not — the same asymptotic gap this chapter's sweep
-reproduces. It became a fixture of deep learning specifically after Baidu's
-2017 engineering post (Andrew Gibiansky, "Bringing HPC Techniques to Deep
-Learning") applied the same algorithm to multi-GPU gradient synchronization;
-NCCL's ring implementation and PyTorch's `gloo` backend both still default to
-it for many message sizes today.
+The collective this chapter measures was not designed for training at all.
+
+<!-- interactive: AllreduceLineage -->
 
 ## Exercises
 

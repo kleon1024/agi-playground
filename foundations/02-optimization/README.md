@@ -181,22 +181,13 @@ one.
 
 ## A brief, dated history
 
-- **Robbins and Monro, "A Stochastic Approximation Method" (1951)** —
-  establishes that a noisy, stochastic estimate of a gradient (not the exact
-  gradient) can still be used to find a root or minimum, with decaying step
-  sizes, under fairly mild conditions. This is the theoretical origin of
-  training on mini-batches at all, rather than full-batch gradients.
-- **Polyak, "Some Methods of Speeding Up the Convergence of Iteration
-  Methods" (1964)** — introduces the heavy-ball method: exactly the velocity
-  update in section 3, derived from a physical analogy (a ball rolling in the
-  bowl, with momentum, rather than a particle immediately following the local
-  slope).
-- **Kingma and Ba, "Adam: A Method for Stochastic Optimization" (2014,
-  published ICLR 2015)** — combines a momentum-like first moment with the
-  per-parameter second-moment normalization in section 4, plus the bias
-  correction the formulas above include. It remains the default optimizer for
-  most transformer training in this repository and in the field at large,
-  eleven years after publication.
+Three update rules, arriving decades apart, each keeping what the last one
+established.
+
+<!-- interactive: OptimizerLineage -->
+
+One clarification the axis above deliberately leaves out:
+
 - This repository's own later frontier-lineage material (GRPO, GMPO, GSPO in
   [`platform/adaptation/reinforcement-learning/`](../../platform/adaptation/reinforcement-learning/))
   is a distinct, higher layer: those are *policy*-optimization objectives for

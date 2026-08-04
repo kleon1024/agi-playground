@@ -80,24 +80,10 @@ difference at all. Full numbers: [`runs/2026-08-02-bootstrap-significance.md`](r
 
 ## Brief history
 
-Efron's bootstrap (B. Efron, "Bootstrap Methods: Another Look at the
-Jackknife," *Annals of Statistics*, 1979) is the general resampling method
-this chapter's `core/` implements directly: estimate a statistic's sampling
-distribution by resampling the observed data itself, without assuming a
-parametric noise model. Philipp Koehn, "Statistical Significance Tests for
-Machine Translation Evaluation" (EMNLP 2004) is the paper that brought paired
-bootstrap resampling into NLP system comparison specifically — comparing two
-MT systems' BLEU scores on the same test sentences — and is the source of
-this chapter's own small-sample teaching point: Koehn's paper itself shows
-that even a 300-sentence test set can give real assurance a difference is
-not noise, which is why this chapter's "large" condition is also 300 items,
-not an arbitrary round number. Dror, Baumer, Shlomov, and Reichart, "The
-Hitchhiker's Guide to Testing Statistical Significance in Natural Language
-Processing" (ACL 2018), is a later, broader survey making the case that
-significance testing should be standard practice across NLP evaluation, not
-a machine-translation-specific habit — the same argument this chapter makes
-for any close-score comparison, twenty-five years after Efron's original
-method existed to make it possible.
+The resampling loop in `core/` is one of the oldest things in this repository,
+and the argument for running it routinely is one of the newest.
+
+<!-- interactive: BootstrapLineage -->
 
 ## What this toy does not establish
 
