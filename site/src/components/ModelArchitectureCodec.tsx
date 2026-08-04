@@ -136,17 +136,21 @@ type Stage = {
   lines: string[];
 };
 
+/* The funnel narrows to show the collapse, but no box may narrow past its own
+   label: at the old widths the two middle stages held 13px text in 40 units, so
+   the labels were set at 11 and rendered at 10.8px. The tensor shapes on the
+   second line carry the collapse anyway — the box width only illustrates it. */
 const STAGES: Stage[] = [
-  { id: 'input', w: 150, h: 42, lines: ['Frame', '32x32x3'] },
-  { id: 'enc1', w: 116, h: 34, lines: ['Conv2d s2', '16x16x32'] },
-  { id: 'enc2', w: 86, h: 32, lines: ['Conv2d s2', '8x8x32'] },
-  { id: 'enc3', w: 60, h: 30, lines: ['Conv2d s2', '4x4x32'] },
-  { id: 'latent', w: 40, h: 28, lines: ['z', '1x1x32'] },
-  { id: 'quant', w: 40, h: 28, lines: ['z_q', '1x1x32'] },
-  { id: 'dec1', w: 60, h: 30, lines: ['ConvT s2', '4x4x32'] },
-  { id: 'dec2', w: 86, h: 32, lines: ['ConvT s2', '8x8x32'] },
-  { id: 'dec3', w: 116, h: 34, lines: ['ConvT s2', '16x16x32'] },
-  { id: 'output', w: 150, h: 42, lines: ['Reconstruction', '32x32x3'] },
+  { id: 'input', w: 150, h: 44, lines: ['Frame', '32x32x3'] },
+  { id: 'enc1', w: 132, h: 38, lines: ['Conv2d s2', '16x16x32'] },
+  { id: 'enc2', w: 116, h: 36, lines: ['Conv2d s2', '8x8x32'] },
+  { id: 'enc3', w: 100, h: 36, lines: ['Conv2d s2', '4x4x32'] },
+  { id: 'latent', w: 84, h: 34, lines: ['z', '1x1x32'] },
+  { id: 'quant', w: 84, h: 34, lines: ['z_q', '1x1x32'] },
+  { id: 'dec1', w: 100, h: 36, lines: ['ConvT s2', '4x4x32'] },
+  { id: 'dec2', w: 116, h: 36, lines: ['ConvT s2', '8x8x32'] },
+  { id: 'dec3', w: 132, h: 38, lines: ['ConvT s2', '16x16x32'] },
+  { id: 'output', w: 150, h: 44, lines: ['Reconstruction', '32x32x3'] },
 ];
 
 const GAP = 30;
@@ -244,14 +248,14 @@ export default function ModelArchitectureCodec(): React.ReactElement {
           stroke={on ? action : ink}
           strokeWidth={on ? 2 : 1}
         />
-        <text x={p.x + p.w / 2} y={p.y + p.h / 2 - 3} textAnchor="middle" fontSize="11" fill={ink}>
+        <text x={p.x + p.w / 2} y={p.y + p.h / 2 - 4} textAnchor="middle" fontSize="14" fill={ink}>
           {stage.lines[0]}
         </text>
         <text
           x={p.x + p.w / 2}
-          y={p.y + p.h / 2 + 11}
+          y={p.y + p.h / 2 + 14}
           textAnchor="middle"
-          fontSize="11"
+          fontSize="14"
           fill={ink}
           fontWeight={600}
         >
@@ -267,7 +271,9 @@ export default function ModelArchitectureCodec(): React.ReactElement {
   const cellGap = 2;
   const cellSize = 10;
   const codebookBoxW = codebookSide * (cellSize + cellGap) + 16;
-  const codebookBoxH = codebookSide * (cellSize + cellGap) + 30;
+  /* The caption sits above the box, not inside it: inside, it overlapped the
+     first row of cells and ran past the right edge of the drawing. */
+  const codebookBoxH = codebookSide * (cellSize + cellGap) + 20;
   const nearestIndex = 41; // fixed illustrative index within the 8x8 grid
 
   return (
@@ -347,20 +353,20 @@ export default function ModelArchitectureCodec(): React.ReactElement {
             strokeWidth={lit('codebook') ? 2 : 1}
           />
           <text
-            x={codebookX}
-            y={codebookY + 13}
-            textAnchor="middle"
-            fontSize="11"
+            x={codebookX + codebookBoxW / 2}
+            y={codebookY - 8}
+            textAnchor="end"
+            fontSize="14"
             fill={ink}
             fontWeight={600}
           >
-            Codebook, 64 entries
+            Codebook, {MEASURED.codebookSize} entries
           </text>
           {Array.from({ length: codebookSide * codebookSide }).map((_, i) => {
             const row = Math.floor(i / codebookSide);
             const col = i % codebookSide;
             const cx = codebookX - codebookBoxW / 2 + 8 + col * (cellSize + cellGap);
-            const cy = codebookY + 18 + row * (cellSize + cellGap);
+            const cy = codebookY + 10 + row * (cellSize + cellGap);
             const isNearest = i === nearestIndex && lit('codebook');
             return (
               <rect

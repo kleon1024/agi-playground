@@ -147,42 +147,70 @@ function budget(useVision: boolean) {
   return { embedding, attention, swiglu, perLayer, layersTotal, finalNorm, patchProj, patchPos, visionExtra, total, dHead };
 }
 
-function MaskDiagram({ lit }: { lit: boolean }) {
+/**
+ * The attention mask, drawn in the parent diagram's own coordinate system.
+ *
+ * This used to be a nested <svg> inside a <foreignObject> with its own 72-unit
+ * viewBox, which scaled its labels down a second time on top of the parent's
+ * scale: text set at 6 units arrived at 6.1 rendered pixels. Drawn as a plain
+ * group, one unit here is one unit of the parent, so 13 is the 13px floor.
+ */
+function MaskDiagram({ lit, x, y }: { lit: boolean; x: number; y: number }) {
   const open = 'var(--rehearse-action)';
   const blocked = 'var(--rehearse-rule)';
   const ink = 'var(--rehearse-ink)';
+  const cell = 28;
   return (
-    <svg
-      viewBox="0 0 72 80"
-      width="86"
-      height="96"
-      role="img"
-      aria-label="Attention mask: vision queries attend only to vision keys; text queries attend to all vision keys and to earlier text keys; vision queries never attend to text keys"
-    >
-      <text x="36" y="10" textAnchor="middle" fontSize="7" fill={ink}>
+    <g transform={`translate(${x},${y})`}>
+      <title>
+        Attention mask: vision queries attend only to vision keys; text queries attend to all
+        vision keys and to earlier text keys; vision queries never attend to text keys
+      </title>
+      <text x={20 + cell} y={12} textAnchor="middle" fontSize={13} fill={ink}>
         key: V | T
       </text>
-      <g transform="translate(4,14)">
-        <rect x="0" y="0" width="28" height="28" fill={open} opacity={lit ? 0.6 : 0.3} />
-        <rect x="28" y="0" width="28" height="28" fill={blocked} opacity={lit ? 0.45 : 0.2} />
-        <rect x="0" y="28" width="28" height="28" fill={open} opacity={lit ? 0.6 : 0.3} />
-        <rect x="28" y="28" width="28" height="28" fill={blocked} opacity={lit ? 0.25 : 0.12} />
+      <g transform={`translate(20,20)`}>
+        <rect x={0} y={0} width={cell} height={cell} fill={open} opacity={lit ? 0.6 : 0.3} />
+        <rect x={cell} y={0} width={cell} height={cell} fill={blocked} opacity={lit ? 0.45 : 0.2} />
+        <rect x={0} y={cell} width={cell} height={cell} fill={open} opacity={lit ? 0.6 : 0.3} />
+        <rect x={cell} y={cell} width={cell} height={cell} fill={blocked} opacity={lit ? 0.25 : 0.12} />
         <polygon
-          points="28,28 56,28 56,56"
+          points={`${cell},${cell} ${2 * cell},${cell} ${2 * cell},${2 * cell}`}
           fill={open}
           opacity={lit ? 0.6 : 0.3}
         />
-        <line x1="28" y1="0" x2="28" y2="56" stroke={ink} strokeWidth="0.6" />
-        <line x1="0" y1="28" x2="56" y2="28" stroke={ink} strokeWidth="0.6" />
-        <line x1="28" y1="28" x2="56" y2="56" stroke={ink} strokeWidth="0.5" strokeDasharray="1.5,1" />
-        <text x="14" y="17" textAnchor="middle" fontSize="6" fill={ink}>V</text>
-        <text x="14" y="45" textAnchor="middle" fontSize="6" fill={ink}>V</text>
-        <text x="42" y="45" textAnchor="middle" fontSize="6" fill={ink}>T</text>
+        <line x1={cell} y1={0} x2={cell} y2={2 * cell} stroke={ink} strokeWidth={0.8} />
+        <line x1={0} y1={cell} x2={2 * cell} y2={cell} stroke={ink} strokeWidth={0.8} />
+        <line
+          x1={cell}
+          y1={cell}
+          x2={2 * cell}
+          y2={2 * cell}
+          stroke={ink}
+          strokeWidth={0.8}
+          strokeDasharray="2,1.5"
+        />
+        <text x={cell / 2} y={cell / 2 + 5} textAnchor="middle" fontSize={13} fill={ink}>
+          V
+        </text>
+        <text x={cell / 2} y={1.5 * cell + 5} textAnchor="middle" fontSize={13} fill={ink}>
+          V
+        </text>
+        <text x={1.5 * cell} y={1.5 * cell + 5} textAnchor="middle" fontSize={13} fill={ink}>
+          T
+        </text>
       </g>
-      <text x="8" y="78" textAnchor="middle" fontSize="7" fill={ink} transform="rotate(-90 8 60)">
+      <text
+        x={10}
+        y={50}
+        textAnchor="middle"
+        fontSize={13}
+        fill={ink}
+        transform={`rotate(-90 10 50)`}
+      >
         query
       </text>
-    </svg>
+    </g>
   );
 }
 
@@ -262,24 +290,34 @@ export default function ModelArchitectureVLM(): React.ReactElement {
     />
   );
 
-  const box = (id: string, x: number, y: number, w: number, h: number, label: string, fill: string, fontSize = 12) => (
-    <g key={id}>
-      <rect
-        x={x}
-        y={y}
-        width={w}
-        height={h}
-        rx={4}
-        fill={fill}
-        opacity={lit(id) ? 0.34 : 0.12}
-        stroke={lit(id) ? action : fill}
-        strokeWidth={lit(id) ? 2 : 1}
-      />
-      <text x={x + w / 2} y={y + h / 2 + fontSize * 0.35} textAnchor="middle" fontSize={fontSize} fill={ink}>
-        {label}
-      </text>
-    </g>
-  );
+  /* This viewBox is 320 units wide and renders between 322 and 448px, so a user
+     unit is roughly a pixel and 13 units is the 13px metadata floor. Labels too
+     long for their box take a second line rather than a smaller size: the vision
+     box used to shrink its label to 8.5 units, which arrived at 8.6px. */
+  const box = (id: string, x: number, y: number, w: number, h: number, label: string | string[], fill: string) => {
+    const lines = Array.isArray(label) ? label : [label];
+    const top = y + h / 2 - ((lines.length - 1) * 15) / 2 + 5;
+    return (
+      <g key={id}>
+        <rect
+          x={x}
+          y={y}
+          width={w}
+          height={h}
+          rx={4}
+          fill={fill}
+          opacity={lit(id) ? 0.34 : 0.12}
+          stroke={lit(id) ? action : fill}
+          strokeWidth={lit(id) ? 2 : 1}
+        />
+        {lines.map((text, i) => (
+          <text key={text} x={x + w / 2} y={top + i * 15} textAnchor="middle" fontSize={13} fill={ink}>
+            {text}
+          </text>
+        ))}
+      </g>
+    );
+  };
 
   const adder = (id: string, cy: number) => (
     <g key={id}>
@@ -342,21 +380,21 @@ export default function ModelArchitectureVLM(): React.ReactElement {
       >
         {useVision ? (
           <>
-            {box('vision-embed', 8, 8, 118, 32, `${MEASURED.numVisionTokens} vision patches (8x8, 48-d each)`, action, 8.5)}
-            {box('text-embed', 138, 8, 118, 32, 'text tokens', action, 10)}
-            {wire('wire-vision', '67,40 67,58 26,58 26,90')}
-            {wire('wire-text', '197,40 197,66 26,66 26,90')}
+            {box('vision-embed', 8, 6, 128, 38, [`${MEASURED.numVisionTokens} vision patches`, '8×8 grid, 48-d each'], action)}
+            {box('text-embed', 148, 6, 108, 38, 'text tokens', action)}
+            {wire('wire-vision', '72,44 72,58 26,58 26,90')}
+            {wire('wire-text', '202,44 202,66 26,66 26,90')}
             <g opacity={lit('concat-point') ? 1 : 0.55}>
               <circle cx="26" cy="70" r={lit('concat-point') ? 5 : 3.5} fill={action} />
-              <text x="36" y="73" fontSize="8" fill={ink}>
+              <text x="38" y="75" fontSize={13} fill={ink}>
                 concat
               </text>
             </g>
           </>
         ) : (
           <>
-            {box('text-embed', 73, 8, 118, 32, 'text tokens only', action, 10)}
-            {wire('wire-text-only', '132,40 132,58 26,58 26,90')}
+            {box('text-embed', 73, 6, 118, 38, 'text tokens only', action)}
+            {wire('wire-text-only', '132,44 132,58 26,58 26,90')}
           </>
         )}
 
@@ -365,23 +403,21 @@ export default function ModelArchitectureVLM(): React.ReactElement {
         <line x1="26" y1="90" x2="26" y2={streamY} stroke={action} strokeWidth="2.5" />
 
         {box('norm-a', 60, 96, 100, 26, 'RMSNorm', rule)}
-        {box('attn', 60, 140, 170, 44, `Fused attention (${MEASURED.kvHeads} kv heads)`, action, 10)}
+        {box('attn', 60, 138, 152, 46, ['Fused attention', `${MEASURED.kvHeads} kv heads`], action)}
         {wire('branch-a', '26,90 26,112 60,112')}
-        {wire('return-a', '230,162 250,162 250,200 34,200')}
+        {wire('return-a', '212,161 232,161 232,200 34,200')}
         {adder('add-a', 200)}
 
         {box('norm-b', 60, 216, 100, 26, 'RMSNorm', rule)}
-        {box('mlp', 60, 260, 170, 34, 'SwiGLU', action, 11)}
+        {box('mlp', 60, 260, 152, 34, 'SwiGLU', action)}
         {wire('branch-b', '26,216 26,233 60,233')}
-        {wire('return-b', '230,277 250,277 250,312 34,312')}
+        {wire('return-b', '212,277 232,277 232,312 34,312')}
         {adder('add-b', 312)}
 
         <circle cx="26" cy={streamY} r="6" fill={action} />
         <circle cx="26" cy={streamY} r="11" fill={action} opacity="0.2" />
 
-        <foreignObject x="232" y="128" width="86" height="96">
-          <MaskDiagram lit={lit('mask')} />
-        </foreignObject>
+        <MaskDiagram lit={lit('mask')} x={240} y={120} />
       </svg>
 
       <div className="widget-caption widget-swap" aria-live="polite">
