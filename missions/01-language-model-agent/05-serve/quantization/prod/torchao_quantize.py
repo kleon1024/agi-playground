@@ -22,7 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "missions/01-language-model-agent/05-serve/core"))
 sys.path.insert(0, str(ROOT / "missions/01-language-model-agent/02-pretrain/core"))
-sys.path.insert(0, str(ROOT / "platform/serving/01-graph-execution/core"))
+sys.path.insert(0, str(ROOT / "missions/01-language-model-agent/05-serve/graph-execution/core"))
 from engine import load_model
 from graph_decode import _median, _time, decode_eager
 from model import build_rope_cache

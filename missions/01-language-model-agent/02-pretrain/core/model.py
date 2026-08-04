@@ -32,7 +32,7 @@ can be ablated on its own:
    query attention shares one KV head across a group of query heads, shrinking
    the cache by exactly the group ratio. This is a *pretraining* decision made
    to buy *inference* headroom — see the
-   [serving platform](../../../../platform/serving/).
+   [the serving stage](../../05-serve/).
 
 Run `python model.py` to print the parameter budget without training anything.
 """

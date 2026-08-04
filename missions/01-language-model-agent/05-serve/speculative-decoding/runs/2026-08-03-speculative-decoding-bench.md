@@ -3,7 +3,7 @@
 ## Command
 
 ```bash
-cd platform/serving/03-speculative-decoding/core
+cd missions/01-language-model-agent/05-serve/speculative-decoding/core
 python speculative.py
 ```
 

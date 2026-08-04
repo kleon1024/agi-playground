@@ -125,7 +125,7 @@ impressive system that ranks worse than popularity.
 | [`05-value-tree`](05-value-tree/) | Objective combination, calibration, explicit user-value/revenue trade rates | `capabilities/rank-decide` | implementation present; run pending |
 | [`06-mixing`](06-mixing/) | Slate assembly by beam search; diversity; ad interleaving with displacement cost | `capabilities/rank-decide` | verified synthetic mechanism run; mission outcome pending |
 | [`07-rule-engine`](07-rule-engine/) | Declarative constraints, auditable decisions, policy-timescale changes | `platform/safety-governance` | verified synthetic mechanism run; mission outcome pending |
-| [`08-serving`](08-serving/) | Two-stage serving inside p95 300ms; ANN index; measured | `platform/serving` | verified synthetic mechanism run; mission outcome pending |
+| [`08-serving`](08-serving/) | Two-stage serving inside p95 300ms; ANN index; measured | mission 01 · serving | verified synthetic mechanism run; mission outcome pending |
 | [`09-report`](09-report/) | Outcome vs both baselines and all guardrails, with failure cases | `platform/evaluation-observability` | verified evaluator run; outcome cannot determine |
 
 ## What makes this hard to prove
@@ -156,7 +156,7 @@ Reuse is the point of the exercise: the data discipline from
 [`platform/data`](../../platform/data/), the training engineering from
 [`platform/training`](../../platform/training/) — gradient accumulation, mixed
 precision, resumable checkpoints — the serving concerns from
-[`platform/serving`](../../platform/serving/), and the evaluation discipline
+[mission 01's serving stage](../../missions/01-language-model-agent/05-serve/), and the evaluation discipline
 from [`platform/evaluation-observability`](../../platform/evaluation-observability/),
 where harness disclosure and seed variance already live.
 

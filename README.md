@@ -116,7 +116,6 @@ reference/     contributor and evidence-governance surfaces (standards/, researc
 | [adaptation · post-training](platform/adaptation/post-training/) | SFT, LoRA/PEFT, reward models, DPO family, merging | Draft |
 | [adaptation · distillation](platform/adaptation/distillation/) | What you can copy from a better model, and what a measured gain is allowed to mean; [what path two requires](platform/adaptation/distillation/what-path-two-requires/) prices the storage and the tokenizer wall | Verified |
 | [adaptation · RL](platform/adaptation/reinforcement-learning/) | PPO grounding → GRPO/GSPO/DAPO → RLVR → agentic RL | Draft |
-| [serving](platform/serving/) | KV cache, paged attention, batching, speculative decoding, quantization; training infra | Overview draft; [graph execution](platform/serving/01-graph-execution/) verified by a run |
 | [evaluation & observability](platform/evaluation-observability/) | Static and agentic evals, contamination, harness disclosure | Draft |
 | [safety & governance](platform/safety-governance/) | Enforcing the guardrails missions declare | Draft |
 

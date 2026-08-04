@@ -101,15 +101,27 @@
   },
   "missions/01-language-model-agent/05-serve": {
     "level": "foundation",
-    "minutes": 10
+    "minutes": 12
+  },
+  "missions/01-language-model-agent/05-serve/graph-execution": {
+    "level": "applied",
+    "minutes": 11
   },
   "missions/01-language-model-agent/05-serve/paging-the-cache": {
     "level": "foundation",
     "minutes": 6
   },
-  "missions/01-language-model-agent/05-serve/why-concurrency-pays": {
+  "missions/01-language-model-agent/05-serve/quantization": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "missions/01-language-model-agent/05-serve/speculative-decoding": {
     "level": "applied",
     "minutes": 9
+  },
+  "missions/01-language-model-agent/05-serve/why-concurrency-pays": {
+    "level": "applied",
+    "minutes": 11
   },
   "missions/01-language-model-agent/06-agent": {
     "level": "applied",
@@ -464,22 +476,6 @@
     "minutes": 8
   },
   "platform/safety-governance/02-red-teaming": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "platform/serving": {
-    "level": "foundation",
-    "minutes": 9
-  },
-  "platform/serving/01-graph-execution": {
-    "level": "applied",
-    "minutes": 11
-  },
-  "platform/serving/02-quantization": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "platform/serving/03-speculative-decoding": {
     "level": "applied",
     "minutes": 8
   },

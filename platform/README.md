@@ -31,9 +31,10 @@ disclosed rejection reasons. **[Training](training/)** turns that corpus and a
 token budget into a base checkpoint. **[Adaptation](adaptation/)** — four
 chapters, not one, entered by question rather than in sequence — closes the
 gap between a checkpoint that predicts text and one that follows instructions,
-has preferences, or has learned a new capability by exposure. **[Serving](serving/)**
-turns an adapted checkpoint into a service with a request lifecycle and a
-latency budget.
+has preferences, or has learned a new capability by exposure. Serving — turning
+an adapted checkpoint into a service with a request lifecycle and a latency
+budget — is not a chapter here: it was built and measured in
+[mission 01's serving stage](../missions/01-language-model-agent/05-serve/), and stays there with its runs.
 
 ## The two that are not on that line
 

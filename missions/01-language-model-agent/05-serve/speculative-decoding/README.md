@@ -8,15 +8,24 @@ label: Speculative decoding
 
 # Is a cheap draft's guess ever worth the expensive model's check?
 
-**Question:** [the serving overview](../README.md) named speculative decoding and said its
-speedup depends on three quantities — draft cost, target verification cost, and acceptance
-length — and warned that "a fast draft with poor acceptance can be slower than ordinary
-decoding." This chapter measures that crossover directly: the same draft architecture, trained to
-two different qualities, against the same target.
+**Question:** a smaller draft model proposes several tokens; the target model verifies them in
+one pass and accepts the longest matching prefix. Whether that is faster than decoding normally
+depends on three quantities — draft cost, target verification cost, and acceptance length — and a
+fast draft with poor acceptance can be *slower* than plain decoding, because the target still pays
+a full verification pass over every proposal regardless of how many survive it. This chapter
+measures that crossover directly: the same draft architecture, trained to two different qualities,
+against the same target.
 
-**Before this:** [quantization](../02-quantization/), for this platform's running discipline of
-measuring a technique's cost against a real forward pass rather than trusting its argument in the
-abstract.
+Move the three quantities and watch where the crossover lands before reading the measured one.
+
+<!-- interactive: SpeculativeDecoding -->
+
+Acceptance is the quantity that has to be measured per request slice rather than assumed: domain,
+temperature, and prompt style all change how often the draft is right, so a single acceptance
+number averaged over a mixed workload can hide a slice where speculation is a straight loss.
+
+**Before this:** [quantization](../quantization/), for this stage's running discipline of measuring
+a technique's cost against a real forward pass rather than trusting its argument in the abstract.
 
 You will finish able to explain why speculative decoding's correctness does not depend on the
 draft's quality at all, only its speed does — and read a measured example of that speed crossing
@@ -24,15 +33,15 @@ from a win to a loss as one variable, training steps, changes.
 
 ## No checkpoint, no CUDA — so this chapter trains its own
 
-[Graph execution](../01-graph-execution/) and [quantization](../02-quantization/) both measure an
+[Graph execution](../graph-execution/) and [quantization](../quantization/) both measure an
 already-trained 88,197,888-parameter checkpoint on a real GPU. Neither exists in this environment:
 `torch.cuda.is_available()` returns `False` here, and no `.pt` checkpoint is on disk to load. The
 question under test — does a cheap model's guesses save an expensive model's forward passes — does
 not require either model to be good at anything in particular, only that both are trained on the
 same distribution. So `core/speculative.py` trains two tiny transformers from scratch on the local
-CPU lane, reusing [`missions/01`'s `Transformer`/`Config`](../../../missions/01-language-model-agent/02-pretrain/core/model.py)
-class and [`05-serve`'s `generate_naive`](../../../missions/01-language-model-agent/05-serve/core/engine.py)
-baseline, on the same tinyshakespeare corpus [the first training loop](../../../foundations/01-first-training-loop/)
+CPU lane, reusing [the mission's `Transformer`/`Config`](../../02-pretrain/core/model.py)
+class and [`05-serve`'s `generate_naive`](../core/engine.py)
+baseline, on the same tinyshakespeare corpus [the first training loop](../../../../foundations/01-first-training-loop/)
 uses:
 
 ```
@@ -112,22 +121,21 @@ threshold.
   sampling — a materially harder mechanism this chapter does not build or measure.
 - **Anything about GPU speedup.** No CUDA GPU is available in this environment; every number above
   is local CPU wall-clock. The two production systems this platform already measured on a real
-  24GB card ([graph execution](../01-graph-execution/), [quantization](../02-quantization/)) both
+  24GB card ([graph execution](../graph-execution/), [quantization](../quantization/)) both
   found the decode step launch-bound rather than bandwidth-bound at batch 1 — whether that changes
   the draft-vs-verify tradeoff on a GPU is not tested here.
 - **A universal acceptance threshold.** The 15.9%-to-37.9% crossover is specific to this draft
   size, this target size, this `k=4`, and this corpus. A different pairing of model sizes, or a
-  different chunk length, would move where the crossover sits — [the serving overview](../README.md)'s
-  own point that acceptance must be measured per workload, not assumed.
+  different chunk length, would move where the crossover sits, which is why acceptance has to be
+  measured per workload rather than assumed.
 - **Multi-request serving.** This is one sequence, one draft, one target, no batching or
-  scheduling — the [continuous batching](../README.md#when-should-a-waiting-request-be-let-in)
-  mechanism this platform already covers is a separate concern this chapter does not combine with
-  speculation.
+  scheduling — the [continuous batching](../why-concurrency-pays/) mechanism this stage already
+  measures is a separate concern this chapter does not combine with speculation.
 
 ## Reproduce it
 
 ```bash
-cd platform/serving/03-speculative-decoding/core
+cd missions/01-language-model-agent/05-serve/speculative-decoding/core
 python speculative.py
 ```
 
@@ -201,9 +209,9 @@ per one target forward pass, which is exactly why this regime measures slower th
 
 This platform's three sub-lessons now cover the three questions [the overview](../README.md)
 raises without measuring: is the card idle between tokens
-([graph execution](../01-graph-execution/)), does a smaller model decode faster
-([quantization](../02-quantization/)), and is a cheap draft's guess worth the check (this
-chapter). Continue to [evaluation](../../evaluation-observability/) to decide whether a served
+([graph execution](../graph-execution/)), does a smaller model decode faster
+([quantization](../quantization/)), and is a cheap draft's guess worth the check (this
+chapter). Continue to [evaluation](../../../../platform/evaluation-observability/) to decide whether a served
 system, including any of these decode-time techniques, is actually better on a task that matters.
 
 Primary references: Leviathan, Kalman & Matias, *Fast Inference from Transformers via Speculative

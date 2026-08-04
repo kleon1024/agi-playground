@@ -86,7 +86,7 @@ short a sequence for the linear term to matter.
 
 KV caching for autoregressive decoding is standard practice, formalized as a
 systems problem by Orca (Yu et al., 2022) and vLLM's PagedAttention (Kwon et
-al., 2023, the scheme `platform/serving/01-graph-execution` itself models).
+al., 2023, the scheme `05-serve/graph-execution` itself models).
 
 ## Quality: real, partial completion capability
 

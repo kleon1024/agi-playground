@@ -144,9 +144,33 @@ sequence every step while the cache holds only keys and values. Full sweep in
 [`runs/2026-07-29-engine-bench-corrected.md`](runs/2026-07-29-engine-bench-corrected.md).
 
 That diagnosis is a story until someone profiles it.
-[Graph execution](../../../platform/serving/01-graph-execution/) does: 513
-kernel launches per decode step, host time 6.87x device time, and 3.06x from
-removing the launches without touching the arithmetic.
+[Graph execution](graph-execution/) does: 513 kernel launches per decode step,
+host time 6.87x device time, and 3.06x from removing the launches without
+touching the arithmetic.
+
+## Three more things you could change, and what each is worth
+
+The cache and the page table are two of the levers this stage owns. Three
+others each get their own chapter, because each one is a claim that only a run
+can settle — and two of the three come out against the technique on this
+hardware, which is the reason they are worth reading rather than listing.
+
+**[Graph execution](graph-execution/)** — *is the card working, or waiting?*
+Profiles one decode step and names which of three bottlenecks you actually
+have. Roughly 3x from removing launch overhead alone, arithmetic untouched.
+
+**[Quantization](quantization/)** — *does a smaller model decode faster?* A
+measured no at this batch size: INT8 shrinks the model 2.79x and is slower,
+both by hand and through a real int8 kernel.
+
+**[Speculative decoding](speculative-decoding/)** — *is a cheap draft's guess
+worth the target's check?* A measured crossover. The identical draft
+architecture flips from 1.58x speedup to 0.94x slowdown on training steps
+alone, and both regimes stay byte-identical to plain greedy decoding.
+
+Techniques this stage names and has not measured — latency under sustained
+load, prefill/decode disaggregation — stay named until a run record exists for
+them.
 
 ## What this chapter does not establish
 
@@ -262,4 +286,9 @@ the flat 105-135 tokens/second above and asks what happens when sixteen people
 send a prompt at the same time. The answer this engine gives is wrong, in a way
 that is worth 89x — and stage 06 issues one request per step, so the cost model
 it inherits comes from that chapter rather than this one.
+
+Which engine to reach for once you stop writing your own, and what each is
+actually good at, is in [the serving landscape](LANDSCAPE.md) — the readable
+engine you learn the mechanisms from, mapped against the production engines
+that implement them.
 

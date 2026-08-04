@@ -1,6 +1,6 @@
 """Capture one decode step into a CUDA graph, and measure what that is worth.
 
-[Stage 05's engine](../../../../missions/01-language-model-agent/05-serve/core/engine.py)
+[Stage 05's engine](../../core/engine.py)
 generates at a flat rate no matter how long the sequence gets, and that
 chapter explains the flatness as "a fixed per-step cost". This file tests that
 explanation and then acts on it.

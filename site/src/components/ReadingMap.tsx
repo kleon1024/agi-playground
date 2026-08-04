@@ -126,31 +126,15 @@ const BUILD_PATH: Step[] = [
     href: `${MISSION}/05-serve/`,
     label: 'Serve',
     note: 'Measure decoding, cache use, batching, and concurrency.',
-    detours: [
-      {
-        href: '/playground/platform/serving/',
-        label: 'Platform / serving',
-        returns: 'the cost model for one request',
-      },
-      {
-        href: '/playground/platform/serving/01-graph-execution/',
-        label: 'Graph execution',
-        returns: 'which of three bottlenecks the decode step actually has, and roughly 3x from fixing it',
-      },
-      {
-        href: '/playground/platform/serving/02-quantization/',
-        label: 'Quantization',
-        returns: 'the memory-vs-quality tradeoff of serving the same checkpoint at lower precision',
-      },
-      {
-        href: '/playground/platform/serving/03-speculative-decoding/',
-        label: 'Speculative decoding',
-        returns: 'how many forward passes a cheap draft model saves the target model, verified exactly',
-      },
-    ],
     companions: [
       { href: `${MISSION}/05-serve/paging-the-cache/`, label: 'Paging the cache' },
       { href: `${MISSION}/05-serve/why-concurrency-pays/`, label: 'Why concurrency pays' },
+      { href: `${MISSION}/05-serve/graph-execution/`, label: 'Graph execution' },
+      { href: `${MISSION}/05-serve/quantization/`, label: 'Quantization' },
+      {
+        href: `${MISSION}/05-serve/speculative-decoding/`,
+        label: 'Speculative decoding',
+      },
     ],
   },
   {

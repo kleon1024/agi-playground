@@ -45,7 +45,6 @@ PLATFORM = [
     "training",
     "adaptation/post-training",
     "adaptation/reinforcement-learning",
-    "serving",
     "evaluation-observability",
     "safety-governance",
 ]

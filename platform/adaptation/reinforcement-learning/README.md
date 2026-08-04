@@ -213,7 +213,7 @@ prompt plus every tool call, observation, and intermediate response the agent
 has already produced. Each new step's forward pass reprocesses that whole
 shared prefix again, multiplied by many rollouts per prompt and many prompts
 per optimizer step. This is a distinct cost from the paged-KV-cache management
-[serving](../../serving/) covers: paging manages GPU memory for the cache
+[serving](../../../missions/01-language-model-agent/05-serve/) covers: paging manages GPU memory for the cache
 within one serving session, while the cost here is redundant computation
 across separate calls that happen to share the same leading tokens.
 
@@ -358,7 +358,7 @@ against. Trusting training reward alone would miss exactly this failure.
 ## Next
 
 The output is a policy checkpoint and the environment that trained it.
-Continue to [serving](../../serving/) to expose that policy under a latency and
+Continue to [serving](../../../missions/01-language-model-agent/05-serve/) to expose that policy under a latency and
 memory contract, then evaluate the complete system rather than the checkpoint
 alone.
 

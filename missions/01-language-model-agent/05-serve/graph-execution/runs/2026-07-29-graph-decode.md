@@ -7,7 +7,7 @@ is worth.
 ## Command
 
 ```bash
-cd platform/serving/01-graph-execution/core
+cd missions/01-language-model-agent/05-serve/graph-execution/core
 python graph_decode.py profile --checkpoint <ckpt.pt> --steps 50
 python graph_decode.py bench   --checkpoint <ckpt.pt> --max-new-tokens 128 --repeat 15
 ```
@@ -47,7 +47,7 @@ per decode step and nothing else.
 arithmetic. Launch calls alone account for 41.5% of host time; the rest is the
 Python and dispatch that gets to them.
 
-This is what [stage 05](../../../../missions/01-language-model-agent/05-serve/)
+This is what [stage 05](../../)
 inferred from a flat throughput curve and called "a fixed per-step cost". The
 cost is real and now has a name and a number: it is the rate at which work can
 be *issued*, not the rate at which it can be done.
@@ -94,7 +94,7 @@ kernels themselves rather than from how they are issued.
 ## Result 3: the compiler, asked for the same thing
 
 ```bash
-cd platform/serving/01-graph-execution/prod
+cd missions/01-language-model-agent/05-serve/graph-execution/prod
 python compile_decode.py --checkpoint <ckpt.pt> --max-new-tokens 128 --repeat 15
 ```
 

@@ -228,6 +228,62 @@ smaller fraction of the total time than it is at 88M parameters.
 
 </details>
 
+## When should the scheduler say no?
+
+Continuous batching decides *whose token runs next*. It does not decide whether
+a request should have been admitted at all, and those are different questions
+with different failure modes. A scheduler that admits everything eventually
+evicts a request mid-generation, which is the worst outcome available: the work
+already spent is thrown away and the user gets a truncated answer.
+
+So admission is its own check, made before the request joins the batch, against
+what the engine can actually see at that moment:
+
+```text
+prompt tokens
+maximum generation tokens
+KV blocks required
+current active batch
+queue delay
+deadline or priority
+```
+
+Rejecting or queueing early is safer than admitting work that will force
+mid-generation eviction, and a capacity policy has to state which requests may
+be preempted and whether partial output counts as a result. Exercise 1 below
+runs the engine into exactly this wall on purpose.
+
+For mixed workloads the two phases can be split onto different workers — prefill
+is compute-bound, decode is not, so they contend for different resources.
+Disaggregation buys specialization and costs a transfer, a routing decision, and
+a new failure boundary between the halves. It is worth reaching for only after
+phase-specific measurements show a real imbalance, which is not something either
+run on this page establishes.
+
+## Which number tells you the service is healthy?
+
+Everything measured on this page is aggregate throughput, and an average is
+where a latency problem goes to hide. A good median with a bad long-context tail
+violates the user's contract while the throughput chart improves. A serving
+dashboard therefore reports distributions:
+
+- time to first token, and inter-token latency, kept apart — prefill and decode
+  are bound by different resources, so one blended number describes neither;
+- end-to-end latency and output tokens per second;
+- queue delay, active requests, and KV utilization;
+- prefix-cache hit rate, if used;
+- OOM, eviction, cancellation, and error rates.
+
+Slice each by prompt length, output length, and priority. And join the trace
+across admission, scheduling, model execution, and finish reason — without that
+join, a latency spike has no owner, and the next question after "the p99 moved"
+is unanswerable.
+
+That instrumentation is not free and is not this chapter's code.
+[A mean step time hides the step that just took three times as long](../../../../infra/04-observability/)
+builds the p50/p95/histogram machinery every bullet above assumes somebody
+already has.
+
 ## Exercises
 
 1. **Break the block budget on purpose.** Pass a `num_blocks` to

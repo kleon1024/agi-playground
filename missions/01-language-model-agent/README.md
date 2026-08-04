@@ -72,7 +72,7 @@ taking.
 | after 02 | whether to keep the checkpoint or retrain a new shape | [upcycling](../../platform/training/05-upcycling/) | a converted checkpoint that starts at the parent's loss |
 | 03 | whether teacher data beats human data | [distillation](../../platform/adaptation/distillation/) | a target format and its tokenizer constraint |
 | 04 | whether this base can be improved by RL at all | [reinforcement learning](../../platform/adaptation/reinforcement-learning/) | the condition under which the gradient is non-zero |
-| 05 | what the model is doing between tokens | [platform / serving](../../platform/serving/) | the cost model for a request |
+| 05 | what the model is doing between tokens | [why concurrency pays](05-serve/why-concurrency-pays/) | the cost model for a request under load |
 | 06 | how a tool loop stays bounded | [what stops it?](06-agent/what-stops-it/) | a permission and stop-condition contract |
 | 07 | what a number from a harness is worth | [evaluation and observability](../../platform/evaluation-observability/) | variance, and the disclosure a result needs |
 

@@ -3,7 +3,7 @@
 ## Commands
 
 ```bash
-cd platform/serving/02-quantization/core
+cd missions/01-language-model-agent/05-serve/quantization/core
 python quantize.py footprint --checkpoint <ckpt.pt> --device cuda
 python quantize.py verify    --checkpoint <ckpt.pt> --device cuda --tokens 64
 python quantize.py bench     --checkpoint <ckpt.pt> --device cuda --max-new-tokens 128 --repeat 7
@@ -18,7 +18,7 @@ PYTHONPATH=../core python torchao_quantize.py bench --checkpoint <ckpt.pt> --dev
 
 | | |
 |---|---|
-| GPU | NVIDIA GeForce RTX 4090, 24,564 MiB, driver 591.86 (same box as `platform/serving/01-graph-execution`'s recorded run) |
+| GPU | NVIDIA GeForce RTX 4090, 24,564 MiB, driver 591.86 (same box as `missions/01-language-model-agent/05-serve/graph-execution`'s recorded run) |
 | Host | WSL2 Ubuntu, reached over Tailscale |
 | torch | 2.13.0+cu130 |
 | torchao | 0.17.0 (`Int8WeightOnlyConfig`, version 1 — the package warns this config is deprecated in favor of a version-2 API, noted for anyone reproducing this later) |

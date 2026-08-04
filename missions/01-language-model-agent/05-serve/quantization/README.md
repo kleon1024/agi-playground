@@ -8,18 +8,32 @@ label: Quantization
 
 # Does a smaller model decode faster?
 
-**Question:** [graph execution](../01-graph-execution/) balanced the decode step at 1.05x
+**Question:** [graph execution](../graph-execution/) balanced the decode step at 1.05x
 host-to-device and pointed at what comes next: "decode streams every weight once per token, so
 halving the bytes should halve the time. The reason it usually does not is a kernel boundary
 rather than a bandwidth one." This chapter tests that prediction directly, on the same model, the
 same card.
 
-**Before this:** [graph execution](../01-graph-execution/), for the profiling method this chapter
+**Before this:** [graph execution](../graph-execution/), for the profiling method this chapter
 reuses and the balanced step this chapter starts from.
 
 You will finish able to quantize a model's weights to INT8 by hand, verify the result with a check
 that actually tells you something (greedy exact match does not), and read a profile that explains
 why a 2.79x smaller model can still decode slower.
+
+The decision quantization presents is never "which format is smallest". It is which combination of
+these axes preserves the quality the deployed workload needs, and these axes move independently:
+
+- weight-only versus weight-and-activation quantization;
+- post-training quantization versus quantization-aware training;
+- how well the calibration corpus covers the real input distribution;
+- kernel support on the target hardware;
+- model footprint, throughput, and latency;
+- accuracy on the outlier slices, not only the average.
+
+This chapter fixes five of those and varies one — weight-only INT8, post-training, on one card —
+because the last axis is the one that decides the answer here, and a smaller checkpoint that falls
+back to a slow kernel is not a serving win. Benchmark the complete runtime, never the file size.
 
 ## Shrink the weight, not the activation
 
@@ -92,7 +106,7 @@ Device time went **up** 35%, not down. Dequantizing materializes a full-width fp
 the matmul reads it, so the kernel that reads weights from HBM now runs *in addition to* an
 elementwise multiply-and-cast the fp32 path never pays — smaller bytes on disk, more work at
 runtime. Host time rose too, because that dequant is one more distinct kernel launch per `Linear`,
-and [graph execution](../01-graph-execution/) already established that launches, not arithmetic,
+and [graph execution](../graph-execution/) already established that launches, not arithmetic,
 set the pace of this decode step. Quantization did not touch the actual bottleneck; it added to
 it.
 
@@ -124,7 +138,7 @@ no implementation of the same technique fixes a bottleneck it was never aimed at
 
 - **That INT8 weight-only quantization never helps.** It helps when decode is genuinely
   bandwidth-bound — a larger model, a larger batch, where AI = B (arithmetic intensity, from the
-  [serving chapter](../../../missions/01-language-model-agent/05-serve/)) sits closer to the
+  [serving chapter](../)) sits closer to the
   ridge point and bytes moved actually gates the step. This model at batch 1 is nowhere near that
   regime.
 - **That activation quantization, or a fused int8 kernel written for this exact architecture,
@@ -137,7 +151,7 @@ no implementation of the same technique fixes a bottleneck it was never aimed at
 ## Reproduce it
 
 ```bash
-cd platform/serving/02-quantization/core
+cd missions/01-language-model-agent/05-serve/quantization/core
 python quantize.py footprint --checkpoint <ckpt.pt>
 python quantize.py verify    --checkpoint <ckpt.pt>
 python quantize.py bench     --checkpoint <ckpt.pt> --max-new-tokens 128
@@ -229,7 +243,7 @@ existing dequant-based paths were actually measured here.
 
 The step is now proven launch-bound at this scale, and a technique aimed at bandwidth cannot fix
 that — the remaining lever is [why concurrency
-pays](../../../missions/01-language-model-agent/05-serve/why-concurrency-pays/): batching multiple
+pays](../why-concurrency-pays/): batching multiple
 requests raises arithmetic intensity directly, which is the axis this chapter's bottleneck actually
 lives on.
 

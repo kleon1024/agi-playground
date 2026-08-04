@@ -112,5 +112,5 @@ production codec quality, per `mission.yaml`'s own `does_not_prove`.
 
 **Next:** stage 01 hands this codec's token sequences to the KV-cache and
 continuous-batching decode loop imported from
-[`platform/serving/01-graph-execution`](../../../platform/serving/01-graph-execution/),
+[`05-serve/graph-execution`](../../../missions/01-language-model-agent/05-serve/graph-execution/),
 and measures whether it works unchanged for audio tokens.

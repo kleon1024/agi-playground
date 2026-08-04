@@ -10,7 +10,7 @@ label: Graph execution
 
 **Question:** an 88M model generates about 120 tokens per second at batch 1, and
 that number barely moves whatever you do to the algorithm. The
-[serving chapter](../../../missions/01-language-model-agent/05-serve/) measured
+[serving chapter](../) measured
 it, found the KV cache buying almost nothing, and named the culprit "a fixed
 per-step cost". That is a hypothesis wearing a finding's clothes. This chapter
 puts a profiler on one decode step, and then acts on what it says.
@@ -166,7 +166,7 @@ construction, that mutating those buffers is safe.
 ## Run the working path
 
 ```bash
-cd platform/serving/01-graph-execution/core
+cd missions/01-language-model-agent/05-serve/graph-execution/core
 python graph_decode.py profile --checkpoint <ckpt.pt> --steps 50
 python graph_decode.py bench   --checkpoint <ckpt.pt> --max-new-tokens 128
 cd ../prod && python compile_decode.py --checkpoint <ckpt.pt>
@@ -301,7 +301,7 @@ is not written yet, and this one does not assume its result.
 
 Two loose ends from the profile are worth naming. Batch 1 is the worst case for
 launch overhead, and [why concurrency
-pays](../../../missions/01-language-model-agent/05-serve/why-concurrency-pays/)
+pays](../why-concurrency-pays/)
 already measured what batching is worth on this engine. And nothing here
 touched latency percentiles: every number above is a median over whole
 generations, which is the wrong statistic for a server.

@@ -69,7 +69,7 @@ attempt"** — the collapse resists the two most obvious training-signal fixes,
 one of which makes it worse, and nothing was rescaled or warm-started to
 manufacture a positive number.
 
-**[Real-time voice](07-realtime-voice/)** asks whether platform/serving's
+**[Real-time voice](07-realtime-voice/)** asks whether the serving stage's
 KV-cache and continuous-batching mechanics, built and measured against text,
 transfer unchanged to a from-scratch audio codec's token stream. They do, with
 zero quality gap between offline and streaming decode, and no change to the

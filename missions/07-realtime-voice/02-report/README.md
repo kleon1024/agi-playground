@@ -76,7 +76,7 @@ both are reported, rather than picking whichever one flatters the mechanism.
 
 ## No change to the reused serving code
 
-Acceptance also requires naming any change made to `platform/serving`'s
+Acceptance also requires naming any change made to the serving stage's
 KV-cache or scheduling code to support audio tokens. None was needed:
 `Config`, `Transformer`, `KVCache`, `_forward_with_cache`, and
 `build_rope_cache` were imported from `engine.py` and called exactly as

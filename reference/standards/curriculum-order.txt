@@ -16,6 +16,14 @@
 # `tests/test_sync_docs.py` fails if a listed path is missing, if a chapter
 # directory is absent from this file, or if a heading starts carrying its own
 # number again.
+#
+# A mission's own stages sort by their numeric prefix (`05-serve`), which is
+# also their URL, so they are not listed here. A stage's *sub-chapters* have no
+# prefix -- renaming `what-stops-it` to `03-what-stops-it` would change a
+# published URL to buy nothing -- so an unlisted sub-chapter falls into the
+# default bucket and sorts alphabetically by its sidebar label, which is not a
+# reading order. List every sub-chapter of a stage that has more than one, or
+# none of them; a half-listed stage sorts worse than an unlisted one.
 
 missions
 foundations
@@ -32,5 +40,18 @@ platform/adaptation/distillation
 platform/adaptation/distillation/which-teacher-changes-what
 platform/adaptation/distillation/what-path-two-requires
 platform/adaptation/reinforcement-learning
-platform/serving
 platform/evaluation-observability
+
+# Mission 01, stage 05 -- serving. The engine, then the two mechanisms it is
+# built from, then the three techniques each of which needed its own run.
+missions/01-language-model-agent/05-serve/paging-the-cache
+missions/01-language-model-agent/05-serve/why-concurrency-pays
+missions/01-language-model-agent/05-serve/graph-execution
+missions/01-language-model-agent/05-serve/quantization
+missions/01-language-model-agent/05-serve/speculative-decoding
+
+# Mission 01, stage 06 -- the agent harness. Capability, then containment, then
+# whether a second agent is worth its handoff.
+missions/01-language-model-agent/06-agent/what-fits-in-context
+missions/01-language-model-agent/06-agent/what-stops-it
+missions/01-language-model-agent/06-agent/would-a-second-agent-help

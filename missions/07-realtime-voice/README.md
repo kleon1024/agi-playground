@@ -19,7 +19,7 @@ waveform out, decoded one chunk at a time instead of all at once.
 
 ## Why this mission exists
 
-[Platform / serving](../../platform/serving/) built and measured a KV cache,
+[Mission 01's serving stage](../../missions/01-language-model-agent/05-serve/) built and measured a KV cache,
 paged allocation, and continuous batching against text — the currency of
 every other mission here. Those mechanisms are described in terms general
 enough to sound modality-free: a cache of past keys and values, indexed by
@@ -50,14 +50,14 @@ rather than let a bare percentage stand in for it.
 **Reconstruction quality** (a computable distance between the reconstructed
 and reference waveform) is reported beside **per-chunk decode latency**, p50
 and p95 — never a single average, matching
-[platform/serving](../../platform/serving/)'s own latency-distribution rule,
+[the serving stage](../../missions/01-language-model-agent/05-serve/why-concurrency-pays/)'s own latency-distribution rule,
 since a good median with a bad tail still breaks a real-time contract.
 
 ## What is genuinely new here
 
 The KV-cache, paged-allocation, and continuous-batching code is imported
 directly from
-[`platform/serving/01-graph-execution/core/`](../../platform/serving/01-graph-execution/),
+[`05-serve/graph-execution/core/`](../../missions/01-language-model-agent/05-serve/graph-execution/),
 not reimplemented — the same cross-mission import pattern mission 01 stage 06
 uses for its harness. The only new code this mission needs is at the boundary
 that code has never seen: a codec that turns a waveform into the discrete

@@ -10,7 +10,7 @@ label: Observability
 
 **Goal:** instrument a real training loop with real per-step timing, and
 compute the distribution — not a single average — the same way
-[`platform/serving`](../../platform/serving/) already insists on for
+[the serving stage](../../missions/01-language-model-agent/05-serve/why-concurrency-pays/) already insists on for
 inference latency: p50 and p95, always, never a lone mean.
 
 Every mission in this repository reports wall-clock in its `runs/` entries.

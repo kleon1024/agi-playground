@@ -285,7 +285,7 @@ by contrast, are choices stage 02 was right to take seriously.
 
 Two loose ends lead elsewhere. GQA's payoff is invisible on a training-time
 ladder — the parameter delta is all such a comparison sees, and the KV-cache
-arithmetic it was built to change is in [serving](../../serving/). And if this
+arithmetic it was built to change is in [serving](../../../missions/01-language-model-agent/05-serve/). And if this
 leaves you wanting a different feed-forward after the checkpoint already
 exists, [upcycling](../05-upcycling/) gets one without retraining.
 

@@ -107,6 +107,26 @@
                 "type": "doc",
                 "id": "missions/01-language-model-agent/05-serve/why-concurrency-pays/index",
                 "label": "Why concurrency pays"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/05-serve/graph-execution/index",
+                "label": "Graph execution"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/05-serve/quantization/index",
+                "label": "Quantization"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/05-serve/speculative-decoding/index",
+                "label": "Speculative decoding"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/05-serve/LANDSCAPE",
+                "label": "Landscape"
               }
             ]
           },
@@ -724,36 +744,6 @@
                 "label": "Landscape"
               }
             ]
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Serving",
-        "link": {
-          "type": "doc",
-          "id": "platform/serving/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "platform/serving/01-graph-execution/index",
-            "label": "Graph execution"
-          },
-          {
-            "type": "doc",
-            "id": "platform/serving/02-quantization/index",
-            "label": "Quantization"
-          },
-          {
-            "type": "doc",
-            "id": "platform/serving/03-speculative-decoding/index",
-            "label": "Speculative decoding"
-          },
-          {
-            "type": "doc",
-            "id": "platform/serving/LANDSCAPE",
-            "label": "Landscape"
           }
         ]
       },

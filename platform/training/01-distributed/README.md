@@ -132,7 +132,7 @@ engineering difference between this file and the real thing.
 FSDP2 is ZeRO-3 built on DTensor: parameters, gradients, and optimizer state
 are all sharded per-parameter, and each layer's full weights are gathered
 just-in-time for its forward and freed immediately after. Read
-[`platform/serving`](../../serving/) for the inference-side counterpart, where
+[the serving stage](../../../missions/01-language-model-agent/05-serve/) for the inference-side counterpart, where
 the same memory pressure reappears as KV cache rather than optimizer state.
 
 ## Exercises

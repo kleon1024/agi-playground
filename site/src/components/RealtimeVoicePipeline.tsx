@@ -13,7 +13,7 @@ export default function RealtimeVoicePipeline(): React.ReactElement {
       eyebrow="Mission 07 dependency chain"
       question="Does a mechanism proven for text tokens transfer unchanged to audio tokens?"
       steps={STEPS}
-      loop="If streaming decode ever needs a new serving primitive, that finding routes back to the codec's token contract, not to platform/serving's cache logic."
+      loop="If streaming decode ever needs a new serving primitive, that finding routes back to the codec's token contract, not to the serving stage's cache logic."
     />
   );
 }

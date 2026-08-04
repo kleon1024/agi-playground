@@ -84,7 +84,7 @@ from 104.7 to 132.8 as sequences lengthen, which is the signature: it is not
 being limited by the quadratic work it is redoing.
 
 That is a launch-rate problem rather than an arithmetic problem, and
-[`platform/serving/01-graph-execution/`](../../../../platform/serving/01-graph-execution/)
+[`missions/01-language-model-agent/05-serve/graph-execution/`](../../../../missions/01-language-model-agent/05-serve/graph-execution/)
 profiles it directly: 513 launches per decode step, host time 6.87x device time.
 
 Memory behaves as designed. Past 256 new tokens the naive path's peak exceeds

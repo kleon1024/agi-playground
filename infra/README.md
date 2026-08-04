@@ -40,7 +40,7 @@ question.
   real per-step timing, and why p50/p95/histogram are different instruments
   than a mean.
   Substrate for [`platform/evaluation-observability/`](../platform/evaluation-observability/)
-  and [`platform/serving/`](../platform/serving/).
+  and [the serving stage](../missions/01-language-model-agent/05-serve/).
 - [`05-gpu-cluster-concepts/`](05-gpu-cluster-concepts/) — why interconnect
   topology (NVLink vs PCIe vs cross-node network) determines which
   parallelism strategy (data, tensor, pipeline) tolerates which link, and

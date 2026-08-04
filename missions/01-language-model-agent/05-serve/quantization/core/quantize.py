@@ -1,5 +1,5 @@
 """Quantize this model's attention and SwiGLU weights to INT8, and test the
-prediction [graph execution](../../01-graph-execution/)'s own "Next" section
+prediction [graph execution](../../graph-execution/)'s own "Next" section
 made: halving the weight bytes should halve decode time, and usually does
 not, because dequantizing to full width and calling an ordinary matmul
 materializes the wide weight anyway and pays the dequant on top of it.
@@ -8,7 +8,7 @@ materializes the wide weight anyway and pays the dequant on top of it.
 correctness gate -- greedy decoding must agree with the fp32 baseline before
 any speed number means anything. `bench` measures eager and CUDA-graph decode
 at both precisions, so the quantization effect and the launch-overhead effect
-(platform/serving/01-graph-execution's own chapter) can be told apart instead
+(missions/01-language-model-agent/05-serve/graph-execution's own chapter) can be told apart instead
 of conflated.
 
 Usage:
@@ -31,7 +31,7 @@ from torch.nn import functional as F
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "missions/01-language-model-agent/05-serve/core"))
 sys.path.insert(0, str(ROOT / "missions/01-language-model-agent/02-pretrain/core"))
-sys.path.insert(0, str(ROOT / "platform/serving/01-graph-execution/core"))
+sys.path.insert(0, str(ROOT / "missions/01-language-model-agent/05-serve/graph-execution/core"))
 from engine import KVCache, _forward_with_cache, load_model
 from graph_decode import GraphedDecoder, _median, _time, decode_eager
 from model import Transformer, build_rope_cache

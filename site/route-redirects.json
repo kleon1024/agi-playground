@@ -28,6 +28,26 @@
     {
       "from": "/capabilities/act-coordinate/01-multi-agent/prod",
       "to": "/missions/01-language-model-agent/06-agent/would-a-second-agent-help/prod"
+    },
+    {
+      "from": "/platform/serving",
+      "to": "/missions/01-language-model-agent/05-serve"
+    },
+    {
+      "from": "/platform/serving/LANDSCAPE",
+      "to": "/missions/01-language-model-agent/05-serve/LANDSCAPE"
+    },
+    {
+      "from": "/platform/serving/01-graph-execution",
+      "to": "/missions/01-language-model-agent/05-serve/graph-execution"
+    },
+    {
+      "from": "/platform/serving/02-quantization",
+      "to": "/missions/01-language-model-agent/05-serve/quantization"
+    },
+    {
+      "from": "/platform/serving/03-speculative-decoding",
+      "to": "/missions/01-language-model-agent/05-serve/speculative-decoding"
     }
   ]
 }

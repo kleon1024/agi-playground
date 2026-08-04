@@ -84,7 +84,7 @@ directions. Dropping from 12 KV heads to 4 costs 9,437,184 parameters of
 attention capacity and divides the KV cache by three, from 36,864 to 12,288
 bytes per token. That trade is paid once at training time and collected on
 every request for the life of the model, which is why
-[serving](../../../platform/serving/) cares about it more than training does.
+[serving](../05-serve/) cares about it more than training does.
 
 ## What "wrong" means
 
