@@ -317,6 +317,13 @@ The output is a service with traces and SLO candidates. Continue to
 [evaluation](../evaluation-observability/) to decide whether the served system,
 including its harness and decoding configuration, is actually better.
 
+## The layer underneath this one
+
+An SLO is a statement about a tail, and a tail is invisible in an average.
+[A mean step time hides the step that just took three times as long](../../infra/04-observability/)
+builds the p50/p95/histogram instrumentation this chapter's latency targets
+assume somebody already has.
+
 Primary references: vLLM and PagedAttention, continuous batching work,
 speculative decoding, FlashAttention, and modern inference runtimes such as
 vLLM, SGLang, TensorRT-LLM, and llama.cpp.

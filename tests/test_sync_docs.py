@@ -5,6 +5,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SYNC_DOCS_PATH = ROOT / "site" / "sync-docs.py"
 
+# Sections that hold learner-facing chapters. `reference/` is deliberately
+# absent: it is the contributor surface, and routing a learner into it from a
+# topic index would contradict what its own section intro says it is for.
+SECTIONS_WITH_CHAPTERS = (
+    "missions",
+    "foundations",
+    "capabilities",
+    "platform",
+    "infra",
+)
+
 SPEC = importlib.util.spec_from_file_location("sync_docs", SYNC_DOCS_PATH)
 assert SPEC is not None and SPEC.loader is not None
 SYNC_DOCS = importlib.util.module_from_spec(SPEC)
@@ -318,3 +329,89 @@ def test_a_tag_shaped_token_in_prose_is_left_for_mdx_to_read_as_jsx():
     here, and it never was.
     """
     assert SYNC_DOCS.escape_mdx("a bare <UNK> token") == "a bare <UNK> token"
+
+
+def test_every_chapter_appears_in_at_least_one_topic():
+    """`site/topics.mdx` is the only index that cuts across sections.
+
+    The sidebar groups chapters by which section owns them, which answers
+    "where does a new chapter belong" and not "where is the chapter about the
+    thing I am stuck on". Read-by-topic answers the second question -- and it
+    silently stopped answering it, because nothing enforced coverage: it was
+    written when the repository ended at mission 04 and, by the time anyone
+    checked, it named 62 of 129 chapters. Missions 05-09 and the whole of
+    `infra/` were unfindable from any cross-cutting page.
+
+    Section roots are exempt: they are the sidebar's own top-level entries and
+    the topic page links into their chapters instead.
+    """
+    topics = (ROOT / "site" / "topics.mdx").read_text()
+    linked = {
+        route.strip("/")
+        for route in re.findall(r"\(/playground/([^)]*?)\)", topics)
+    }
+
+    missing = []
+    for section in SECTIONS_WITH_CHAPTERS:
+        for readme in sorted((ROOT / section).rglob("README.md")):
+            chapter = readme.parent.relative_to(ROOT)
+            if set(chapter.parts) & SYNC_DOCS.UNLISTED_DIRS:
+                continue
+            route = chapter.as_posix()
+            if route == section or route in linked:
+                continue
+            missing.append(route)
+
+    assert not missing, (
+        "published but named by no topic in site/topics.mdx:\n  "
+        + "\n  ".join(missing)
+    )
+
+
+def test_read_by_topic_links_all_resolve_to_a_real_chapter():
+    """A topic entry that points at nothing is worse than a missing one.
+
+    The coverage test above only proves every chapter is named somewhere. It
+    cannot catch a link to a route that was renamed or never existed, which is
+    exactly what happens when a chapter directory is renumbered.
+    """
+    topics = (ROOT / "site" / "topics.mdx").read_text()
+    broken = []
+    for route in re.findall(r"\(/playground/([^)]+?)\)", topics):
+        target = ROOT / route.strip("/")
+        if (target / "README.md").is_file() or target.with_suffix(".md").is_file():
+            continue
+        broken.append(route)
+
+    assert not broken, "site/topics.mdx points at routes that do not exist:\n  " + (
+        "\n  ".join(broken)
+    )
+
+
+def test_only_a_lesson_carries_a_build_status_badge():
+    """The sidebar badge marks the exception, not the rule.
+
+    It used to append "· verified" to every backed chapter, which tagged 97 of
+    129 entries with the same seven characters: a label that fires almost
+    always discriminates nothing and costs every entry the width. Inverted, it
+    marks drafts -- but only on a lesson. A section, branch, or mission index
+    has no `runs/` because it never promised a measurement, and "Training ·
+    draft" reads as though the whole training branch were unfinished.
+    """
+    assert SYNC_DOCS.is_lesson(Path("platform/safety-governance/01-eval-gates"))
+    assert not SYNC_DOCS.is_lesson(Path("platform/training"))
+    assert not SYNC_DOCS.is_lesson(Path("missions"))
+
+    docs = ROOT / "site" / "docs"
+    if not docs.is_dir():
+        return  # site not synced in this environment
+
+    badged = [
+        page.relative_to(docs).as_posix()
+        for page in sorted(docs.rglob("index.md*"))
+        if "· draft" in page.read_text()[:400]
+    ]
+    for page in badged:
+        chapter = Path(page).parent
+        source = ROOT / chapter
+        assert SYNC_DOCS.is_lesson(source), f"{page} is an index, not a lesson"

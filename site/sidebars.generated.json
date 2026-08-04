@@ -28,11 +28,11 @@
           {
             "type": "doc",
             "id": "missions/01-language-model-agent/00-corpus/index",
-            "label": "Corpus \u00b7 verified"
+            "label": "Corpus"
           },
           {
             "type": "category",
-            "label": "Tokenizer \u00b7 verified",
+            "label": "Tokenizer",
             "link": {
               "type": "doc",
               "id": "missions/01-language-model-agent/01-tokenizer/index"
@@ -41,13 +41,13 @@
               {
                 "type": "doc",
                 "id": "missions/01-language-model-agent/01-tokenizer/is-it-the-same-tokenizer/index",
-                "label": "Is it the same tokenizer \u00b7 verified"
+                "label": "Is it the same tokenizer"
               }
             ]
           },
           {
             "type": "category",
-            "label": "Pretraining \u00b7 verified",
+            "label": "Pretraining",
             "link": {
               "type": "doc",
               "id": "missions/01-language-model-agent/02-pretrain/index"
@@ -56,13 +56,13 @@
               {
                 "type": "doc",
                 "id": "missions/01-language-model-agent/02-pretrain/verifying-the-run/index",
-                "label": "Verifying the run \u00b7 verified"
+                "label": "Verifying the run"
               }
             ]
           },
           {
             "type": "category",
-            "label": "SFT \u00b7 verified",
+            "label": "SFT",
             "link": {
               "type": "doc",
               "id": "missions/01-language-model-agent/03-sft/index"
@@ -77,7 +77,7 @@
           },
           {
             "type": "category",
-            "label": "RL (GRPO) \u00b7 verified",
+            "label": "RL (GRPO)",
             "link": {
               "type": "doc",
               "id": "missions/01-language-model-agent/04-rl/index"
@@ -86,13 +86,13 @@
               {
                 "type": "doc",
                 "id": "missions/01-language-model-agent/04-rl/reward-went-up/index",
-                "label": "The reward went up \u00b7 verified"
+                "label": "The reward went up"
               }
             ]
           },
           {
             "type": "category",
-            "label": "Serving \u00b7 verified",
+            "label": "Serving",
             "link": {
               "type": "doc",
               "id": "missions/01-language-model-agent/05-serve/index"
@@ -101,18 +101,18 @@
               {
                 "type": "doc",
                 "id": "missions/01-language-model-agent/05-serve/paging-the-cache/index",
-                "label": "Paging the cache \u00b7 verified"
+                "label": "Paging the cache"
               },
               {
                 "type": "doc",
                 "id": "missions/01-language-model-agent/05-serve/why-concurrency-pays/index",
-                "label": "Why concurrency pays \u00b7 verified"
+                "label": "Why concurrency pays"
               }
             ]
           },
           {
             "type": "category",
-            "label": "Agent harness \u00b7 verified",
+            "label": "Agent harness",
             "link": {
               "type": "doc",
               "id": "missions/01-language-model-agent/06-agent/index"
@@ -121,18 +121,18 @@
               {
                 "type": "doc",
                 "id": "missions/01-language-model-agent/06-agent/what-fits-in-context/index",
-                "label": "What fits in context \u00b7 verified"
+                "label": "What fits in context"
               },
               {
                 "type": "doc",
                 "id": "missions/01-language-model-agent/06-agent/what-stops-it/index",
-                "label": "What stops it \u00b7 verified"
+                "label": "What stops it"
               }
             ]
           },
           {
             "type": "category",
-            "label": "Eval \u00b7 verified",
+            "label": "Eval",
             "link": {
               "type": "doc",
               "id": "missions/01-language-model-agent/07-eval/index"
@@ -163,52 +163,52 @@
           {
             "type": "doc",
             "id": "missions/02-personalized-discovery/00-interactions/index",
-            "label": "Interactions \u00b7 verified"
+            "label": "Interactions"
           },
           {
             "type": "doc",
             "id": "missions/02-personalized-discovery/01-content-understanding/index",
-            "label": "Content understanding \u00b7 verified"
+            "label": "Content understanding"
           },
           {
             "type": "doc",
             "id": "missions/02-personalized-discovery/02-recall/index",
-            "label": "Recall \u00b7 verified"
+            "label": "Recall"
           },
           {
             "type": "doc",
             "id": "missions/02-personalized-discovery/03-pre-rank/index",
-            "label": "Pre-rank \u00b7 verified"
+            "label": "Pre-rank"
           },
           {
             "type": "doc",
             "id": "missions/02-personalized-discovery/04-fine-rank/index",
-            "label": "Fine-rank \u00b7 verified"
+            "label": "Fine-rank"
           },
           {
             "type": "doc",
             "id": "missions/02-personalized-discovery/05-value-tree/index",
-            "label": "Value tree \u00b7 verified"
+            "label": "Value tree"
           },
           {
             "type": "doc",
             "id": "missions/02-personalized-discovery/06-mixing/index",
-            "label": "Mixing \u00b7 verified"
+            "label": "Mixing"
           },
           {
             "type": "doc",
             "id": "missions/02-personalized-discovery/07-rule-engine/index",
-            "label": "Rule engine \u00b7 verified"
+            "label": "Rule engine"
           },
           {
             "type": "doc",
             "id": "missions/02-personalized-discovery/08-serving/index",
-            "label": "Serving \u00b7 verified"
+            "label": "Serving"
           },
           {
             "type": "doc",
             "id": "missions/02-personalized-discovery/09-report/index",
-            "label": "Outcome report \u00b7 verified"
+            "label": "Outcome report"
           }
         ]
       },
@@ -223,32 +223,32 @@
           {
             "type": "doc",
             "id": "missions/03-quantitative-research/00-market-data/index",
-            "label": "Market data \u00b7 verified"
+            "label": "Market data"
           },
           {
             "type": "doc",
             "id": "missions/03-quantitative-research/01-signal-research/index",
-            "label": "Signal research \u00b7 verified"
+            "label": "Signal research"
           },
           {
             "type": "doc",
             "id": "missions/03-quantitative-research/02-cross-sectional-rank/index",
-            "label": "Cross-sectional rank \u00b7 verified"
+            "label": "Cross-sectional rank"
           },
           {
             "type": "doc",
             "id": "missions/03-quantitative-research/03-walk-forward-validation/index",
-            "label": "Walk-forward validation \u00b7 verified"
+            "label": "Walk-forward validation"
           },
           {
             "type": "doc",
             "id": "missions/03-quantitative-research/04-cost-and-capacity/index",
-            "label": "Cost and capacity \u00b7 verified"
+            "label": "Cost and capacity"
           },
           {
             "type": "doc",
             "id": "missions/03-quantitative-research/05-report/index",
-            "label": "Outcome report \u00b7 verified"
+            "label": "Outcome report"
           }
         ]
       },
@@ -263,37 +263,37 @@
           {
             "type": "doc",
             "id": "missions/04-code-agent/00-task-set/index",
-            "label": "The task set \u00b7 verified"
+            "label": "The task set"
           },
           {
             "type": "doc",
             "id": "missions/04-code-agent/01-no-harness/index",
-            "label": "No harness \u00b7 verified"
+            "label": "No harness"
           },
           {
             "type": "doc",
             "id": "missions/04-code-agent/02-agent-loop/index",
-            "label": "Scoring the attempt \u00b7 verified"
+            "label": "Scoring the attempt"
           },
           {
             "type": "doc",
             "id": "missions/04-code-agent/03-cheap-or-expensive/index",
-            "label": "Cheap or expensive \u00b7 verified"
+            "label": "Cheap or expensive"
           },
           {
             "type": "doc",
             "id": "missions/04-code-agent/04-how-it-fails/index",
-            "label": "How it fails \u00b7 verified"
+            "label": "How it fails"
           },
           {
             "type": "doc",
             "id": "missions/04-code-agent/05-report/index",
-            "label": "The report \u00b7 verified"
+            "label": "The report"
           },
           {
             "type": "doc",
             "id": "missions/04-code-agent/06-closing-the-loop/index",
-            "label": "Closing the loop \u00b7 verified"
+            "label": "Closing the loop"
           }
         ]
       },
@@ -308,37 +308,37 @@
           {
             "type": "doc",
             "id": "missions/05-vision-language-model/00-image-caption-task/index",
-            "label": "The image-caption task \u00b7 verified"
+            "label": "The image-caption task"
           },
           {
             "type": "doc",
             "id": "missions/05-vision-language-model/01-vision-fusion/index",
-            "label": "Vision-token fusion \u00b7 verified"
+            "label": "Vision-token fusion"
           },
           {
             "type": "doc",
             "id": "missions/05-vision-language-model/02-report/index",
-            "label": "Outcome report \u00b7 verified"
+            "label": "Outcome report"
           },
           {
             "type": "doc",
             "id": "missions/05-vision-language-model/03-real-photo-task/index",
-            "label": "The real-photo task \u00b7 verified"
+            "label": "The real-photo task"
           },
           {
             "type": "doc",
             "id": "missions/05-vision-language-model/04-real-photo-vision-fusion/index",
-            "label": "Real-photo vision fusion \u00b7 verified"
+            "label": "Real-photo vision fusion"
           },
           {
             "type": "doc",
             "id": "missions/05-vision-language-model/05-real-photo-report/index",
-            "label": "Real-photo outcome report \u00b7 verified"
+            "label": "Real-photo outcome report"
           },
           {
             "type": "doc",
             "id": "missions/05-vision-language-model/06-warmup-stability/index",
-            "label": "Warmup stability \u00b7 verified"
+            "label": "Warmup stability"
           }
         ]
       },
@@ -353,37 +353,37 @@
           {
             "type": "doc",
             "id": "missions/06-game-ai/00-gridworld-baselines/index",
-            "label": "Grid-world environment and baselines \u00b7 verified"
+            "label": "Grid-world environment and baselines"
           },
           {
             "type": "doc",
             "id": "missions/06-game-ai/01-grpo/index",
-            "label": "GRPO against the grid-world \u00b7 verified"
+            "label": "GRPO against the grid-world"
           },
           {
             "type": "doc",
             "id": "missions/06-game-ai/02-report/index",
-            "label": "Outcome report \u00b7 verified"
+            "label": "Outcome report"
           },
           {
             "type": "doc",
             "id": "missions/06-game-ai/03-fixing-collapse/index",
-            "label": "Fixing the collapse \u00b7 verified"
+            "label": "Fixing the collapse"
           },
           {
             "type": "doc",
             "id": "missions/06-game-ai/04-minigrid/index",
-            "label": "A real partially-observed environment \u00b7 verified"
+            "label": "A real partially-observed environment"
           },
           {
             "type": "doc",
             "id": "missions/06-game-ai/05-report/index",
-            "label": "Full-chain report \u00b7 verified"
+            "label": "Full-chain report"
           },
           {
             "type": "doc",
             "id": "missions/06-game-ai/06-tool-use-rl/index",
-            "label": "Tool-use decision (calculator) \u00b7 verified"
+            "label": "Tool-use decision (calculator)"
           }
         ]
       },
@@ -398,32 +398,32 @@
           {
             "type": "doc",
             "id": "missions/07-realtime-voice/00-audio-codec/index",
-            "label": "Audio codec \u00b7 verified"
+            "label": "Audio codec"
           },
           {
             "type": "doc",
             "id": "missions/07-realtime-voice/01-streaming-decode/index",
-            "label": "Streaming decode \u00b7 verified"
+            "label": "Streaming decode"
           },
           {
             "type": "doc",
             "id": "missions/07-realtime-voice/02-report/index",
-            "label": "Outcome report \u00b7 verified"
+            "label": "Outcome report"
           },
           {
             "type": "doc",
             "id": "missions/07-realtime-voice/03-real-speech-and-network/index",
-            "label": "Real speech and network \u00b7 verified"
+            "label": "Real speech and network"
           },
           {
             "type": "doc",
             "id": "missions/07-realtime-voice/04-multi-speaker/index",
-            "label": "Multi-speaker generalization \u00b7 verified"
+            "label": "Multi-speaker generalization"
           },
           {
             "type": "doc",
             "id": "missions/07-realtime-voice/05-codebook-reset/index",
-            "label": "Codebook dead-code reset \u00b7 verified"
+            "label": "Codebook dead-code reset"
           }
         ]
       },
@@ -438,32 +438,32 @@
           {
             "type": "doc",
             "id": "missions/08-video-generation/00-synthetic-video-dataset/index",
-            "label": "Synthetic video dataset \u00b7 verified"
+            "label": "Synthetic video dataset"
           },
           {
             "type": "doc",
             "id": "missions/08-video-generation/01-video-tokenizer/index",
-            "label": "Video tokenizer \u00b7 verified"
+            "label": "Video tokenizer"
           },
           {
             "type": "doc",
             "id": "missions/08-video-generation/02-generation-model/index",
-            "label": "Generation model \u00b7 verified"
+            "label": "Generation model"
           },
           {
             "type": "doc",
             "id": "missions/08-video-generation/03-report/index",
-            "label": "Outcome report \u00b7 verified"
+            "label": "Outcome report"
           },
           {
             "type": "doc",
             "id": "missions/08-video-generation/04-longer-sequences/index",
-            "label": "Longer sequences \u00b7 verified"
+            "label": "Longer sequences"
           },
           {
             "type": "doc",
             "id": "missions/08-video-generation/05-multi-object/index",
-            "label": "Multi-object scenes \u00b7 verified"
+            "label": "Multi-object scenes"
           }
         ]
       },
@@ -478,32 +478,32 @@
           {
             "type": "doc",
             "id": "missions/09-bio-pharma-modeling/00-dataset-and-property/index",
-            "label": "Dataset and property \u00b7 verified"
+            "label": "Dataset and property"
           },
           {
             "type": "doc",
             "id": "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/index",
-            "label": "Descriptor baseline and model \u00b7 verified"
+            "label": "Descriptor baseline and model"
           },
           {
             "type": "doc",
             "id": "missions/09-bio-pharma-modeling/02-report/index",
-            "label": "Report \u00b7 verified"
+            "label": "Report"
           },
           {
             "type": "doc",
             "id": "missions/09-bio-pharma-modeling/03-second-endpoint/index",
-            "label": "Second endpoint \u00b7 verified"
+            "label": "Second endpoint"
           },
           {
             "type": "doc",
             "id": "missions/09-bio-pharma-modeling/04-third-endpoint/index",
-            "label": "Third endpoint \u00b7 verified"
+            "label": "Third endpoint"
           },
           {
             "type": "doc",
             "id": "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/index",
-            "label": "Cross-endpoint analysis \u00b7 verified"
+            "label": "Cross-endpoint analysis"
           }
         ]
       }
@@ -535,17 +535,17 @@
       {
         "type": "doc",
         "id": "foundations/01-first-training-loop/index",
-        "label": "First training loop \u00b7 verified"
+        "label": "First training loop"
       },
       {
         "type": "doc",
         "id": "foundations/02-optimization/index",
-        "label": "Optimization \u00b7 verified"
+        "label": "Optimization"
       },
       {
         "type": "doc",
         "id": "foundations/03-backpropagation/index",
-        "label": "Backpropagation \u00b7 verified"
+        "label": "Backpropagation"
       },
       {
         "type": "doc",
@@ -573,7 +573,7 @@
           {
             "type": "doc",
             "id": "capabilities/act-coordinate/01-multi-agent/index",
-            "label": "Multi-agent \u00b7 verified"
+            "label": "Multi-agent"
           },
           {
             "type": "doc",
@@ -602,7 +602,7 @@
         "items": [
           {
             "type": "category",
-            "label": "Ablation harness \u00b7 verified",
+            "label": "Ablation harness",
             "link": {
               "type": "doc",
               "id": "platform/data/01-ablation-harness/index"
@@ -633,11 +633,11 @@
           {
             "type": "doc",
             "id": "platform/training/01-distributed/index",
-            "label": "Distributed training \u00b7 verified"
+            "label": "Distributed training"
           },
           {
             "type": "category",
-            "label": "Architecture ablations \u00b7 verified",
+            "label": "Architecture ablations",
             "link": {
               "type": "doc",
               "id": "platform/training/02-architecture-ablations/index"
@@ -646,23 +646,23 @@
               {
                 "type": "doc",
                 "id": "platform/training/02-architecture-ablations/the-rung-that-flipped/index",
-                "label": "The rung that flipped \u00b7 verified"
+                "label": "The rung that flipped"
               }
             ]
           },
           {
             "type": "doc",
             "id": "platform/training/03-throughput/index",
-            "label": "Throughput \u00b7 verified"
+            "label": "Throughput"
           },
           {
             "type": "doc",
             "id": "platform/training/04-latent-reasoning/index",
-            "label": "Latent reasoning \u00b7 verified"
+            "label": "Latent reasoning"
           },
           {
             "type": "category",
-            "label": "Upcycling \u00b7 verified",
+            "label": "Upcycling",
             "link": {
               "type": "doc",
               "id": "platform/training/05-upcycling/index"
@@ -671,7 +671,7 @@
               {
                 "type": "doc",
                 "id": "platform/training/05-upcycling/does-it-pay-off/index",
-                "label": "Does it pay off \u00b7 verified"
+                "label": "Does it pay off"
               }
             ]
           },
@@ -693,7 +693,7 @@
           {
             "type": "doc",
             "id": "platform/adaptation/mid-training/index",
-            "label": "Mid-training"
+            "label": "Mid-training \u00b7 draft"
           },
           {
             "type": "category",
@@ -712,7 +712,7 @@
           },
           {
             "type": "category",
-            "label": "Distillation \u00b7 verified",
+            "label": "Distillation",
             "link": {
               "type": "doc",
               "id": "platform/adaptation/distillation/index"
@@ -721,12 +721,12 @@
               {
                 "type": "doc",
                 "id": "platform/adaptation/distillation/which-teacher-changes-what/index",
-                "label": "Which teacher changes what \u00b7 verified"
+                "label": "Which teacher changes what"
               },
               {
                 "type": "doc",
                 "id": "platform/adaptation/distillation/what-path-two-requires/index",
-                "label": "What path two requires \u00b7 verified"
+                "label": "What path two requires"
               }
             ]
           },
@@ -758,17 +758,17 @@
           {
             "type": "doc",
             "id": "platform/serving/01-graph-execution/index",
-            "label": "Graph execution \u00b7 verified"
+            "label": "Graph execution"
           },
           {
             "type": "doc",
             "id": "platform/serving/02-quantization/index",
-            "label": "Quantization \u00b7 verified"
+            "label": "Quantization"
           },
           {
             "type": "doc",
             "id": "platform/serving/03-speculative-decoding/index",
-            "label": "Speculative decoding \u00b7 verified"
+            "label": "Speculative decoding"
           },
           {
             "type": "doc",
@@ -788,12 +788,12 @@
           {
             "type": "doc",
             "id": "platform/evaluation-observability/01-metric-gaming/index",
-            "label": "Metric gaming \u00b7 verified"
+            "label": "Metric gaming"
           },
           {
             "type": "doc",
             "id": "platform/evaluation-observability/02-statistical-significance/index",
-            "label": "Statistical significance \u00b7 verified"
+            "label": "Statistical significance"
           },
           {
             "type": "doc",
@@ -813,12 +813,12 @@
           {
             "type": "doc",
             "id": "platform/safety-governance/01-eval-gates/index",
-            "label": "Evaluation gates"
+            "label": "Evaluation gates \u00b7 draft"
           },
           {
             "type": "doc",
             "id": "platform/safety-governance/02-red-teaming/index",
-            "label": "Red-teaming"
+            "label": "Red-teaming \u00b7 draft"
           }
         ]
       }
@@ -835,52 +835,52 @@
       {
         "type": "doc",
         "id": "infra/01-networking/index",
-        "label": "Networking \u00b7 verified"
+        "label": "Networking"
       },
       {
         "type": "doc",
         "id": "infra/02-storage/index",
-        "label": "Storage \u00b7 verified"
+        "label": "Storage"
       },
       {
         "type": "doc",
         "id": "infra/03-orchestration/index",
-        "label": "Orchestration \u00b7 verified"
+        "label": "Orchestration"
       },
       {
         "type": "doc",
         "id": "infra/04-observability/index",
-        "label": "Observability \u00b7 verified"
+        "label": "Observability"
       },
       {
         "type": "doc",
         "id": "infra/05-gpu-cluster-concepts/index",
-        "label": "GPU cluster concepts \u00b7 verified"
+        "label": "GPU cluster concepts"
       },
       {
         "type": "doc",
         "id": "infra/06-gpu-dedup-at-scale/index",
-        "label": "GPU dedup at scale \u00b7 verified"
+        "label": "GPU dedup at scale"
       },
       {
         "type": "doc",
         "id": "infra/07-rollout-concurrency/index",
-        "label": "Rollout concurrency \u00b7 verified"
+        "label": "Rollout concurrency"
       },
       {
         "type": "doc",
         "id": "infra/local-4090",
-        "label": "Local 4090"
+        "label": "Compute lane: local GPU box"
       },
       {
         "type": "doc",
         "id": "infra/modal",
-        "label": "Modal"
+        "label": "Compute lane: Modal"
       },
       {
         "type": "doc",
         "id": "infra/tracking",
-        "label": "Tracking"
+        "label": "Compute lane: run tracking"
       }
     ]
   },

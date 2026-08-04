@@ -17,7 +17,7 @@
   },
   "foundations": {
     "level": "foundation",
-    "minutes": 1
+    "minutes": 2
   },
   "foundations/00-attention": {
     "level": "foundation",
@@ -73,7 +73,7 @@
   },
   "missions": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "missions/01-language-model-agent": {
     "level": "foundation",
@@ -441,7 +441,7 @@
   },
   "platform/data": {
     "level": "foundation",
-    "minutes": 9
+    "minutes": 10
   },
   "platform/data/01-ablation-harness": {
     "level": "applied",
@@ -453,7 +453,7 @@
   },
   "platform/evaluation-observability": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 9
   },
   "platform/evaluation-observability/01-metric-gaming": {
     "level": "applied",
@@ -497,7 +497,7 @@
   },
   "platform/training/01-distributed": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "platform/training/02-architecture-ablations": {
     "level": "applied",

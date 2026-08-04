@@ -1,134 +1,235 @@
 ---
 title: Read by topic
-description: Every chapter that touches one recurring decision, in reading order, across every mission and platform area.
+description: Every chapter in this repository, grouped by the decision it helps you make, across missions, foundations, capabilities, platform, and infrastructure.
 ---
 
-# Which topic are you actually trying to understand?
+# Which decision are you actually trying to make?
 
-The [build path](/playground/) reads one mission top to bottom. This page cuts
-the other way: pick a decision you care about and follow every chapter that
-touches it, in the order that makes the argument build, regardless of which
-mission or platform area it lives in.
+The sidebar groups chapters by who owns them: a mission owns an outcome, a
+foundation owns a mechanism, a capability owns a reused contract, platform owns
+lifecycle execution, infrastructure owns where the work runs. That is the right
+way to decide *where a new chapter belongs*. It is the wrong way to find
+something when you already have a question.
 
-Each topic below names the chapters in the order to read them. A chapter that
-appears in more than one topic is not duplicated content — it is one chapter
-answering more than one question, and the topic list tells you which question
-you are reading it for this time.
+This page cuts the other way. Pick the decision you are facing and read every
+chapter that touches it, in the order that makes the argument build, no matter
+which section it lives in. **Every published chapter appears here at least
+once**, and a test fails the build if one stops appearing. A chapter listed
+under two topics is not duplicated content — it is one chapter answering two
+questions, and the topic heading tells you which one you are reading it for.
 
-## Data provenance and leakage
+If you would rather start from a stakeholder problem than from a decision, the
+last topic on this page lists the nine missions.
 
-Getting a split wrong makes every later number a lie, in three different
-domains.
+## Where does the data come from, and does the split actually hold?
+
+Getting a split wrong makes every later number a lie. Five domains make the same
+mistake in five different disguises, and two infrastructure chapters explain what
+happens to that data once there is too much of it for one machine.
 
 - [Corpus filtering: how does a raw crawl become a corpus you can defend?](/playground/platform/data/)
-- [Stage 00 — the corpus](/playground/missions/01-language-model-agent/00-corpus/)
+- [The corpus — what has to be true of text before you train on it?](/playground/missions/01-language-model-agent/00-corpus/)
 - [The ablation harness: does this data help?](/playground/platform/data/01-ablation-harness/)
 - [The two confounds a proxy run can hide](/playground/platform/data/01-ablation-harness/the-two-confounds/)
-- [Mission 02, stage 00 — what does a click actually tell you?](/playground/missions/02-personalized-discovery/00-interactions/)
-- [Mission 03, stage 00 — what did you actually know on the decision date?](/playground/missions/03-quantitative-research/00-market-data/)
+- [What does a click actually tell you?](/playground/missions/02-personalized-discovery/00-interactions/)
+- [What did you actually know on the decision date?](/playground/missions/03-quantitative-research/00-market-data/)
+- [What makes a synthetic image+question pair require looking at the image?](/playground/missions/05-vision-language-model/00-image-caption-task/)
+- [Does that leakage discipline survive real photographs?](/playground/missions/05-vision-language-model/03-real-photo-task/)
+- [What makes a short clip scoreable without a frame of real footage?](/playground/missions/08-video-generation/00-synthetic-video-dataset/)
+- [Which endpoint, and does a scaffold split actually hold one out?](/playground/missions/09-bio-pharma-modeling/00-dataset-and-property/)
+- [When a storage node is added, how much data actually has to move?](/playground/infra/02-storage/)
+- [Why does dedup reach for a GPU once the corpus gets big enough?](/playground/infra/06-gpu-dedup-at-scale/)
 
-## Tokenization identity
+## How does a raw signal become the discrete tokens a decoder can attend over?
 
-- [Stage 01 — how does text become the numbers a model sees?](/playground/missions/01-language-model-agent/01-tokenizer/)
-- [Is it the same tokenizer?](/playground/missions/01-language-model-agent/01-tokenizer/is-it-the-same-tokenizer/)
+Text, audio, and video all end up as integer sequences. The mechanism is the
+same one three times, and the failure mode — a codebook that quietly stops using
+most of itself — is also the same one three times.
 
-## Model architecture and what it costs
+- [How does text become the numbers a model sees?](/playground/missions/01-language-model-agent/01-tokenizer/)
+- [How do you know the fast version learned the same vocabulary?](/playground/missions/01-language-model-agent/01-tokenizer/is-it-the-same-tokenizer/)
+- [How does a waveform become a discrete token sequence at all?](/playground/missions/07-realtime-voice/00-audio-codec/)
+- [Does a standard dead-code reset fix a seed-dependent codebook?](/playground/missions/07-realtime-voice/05-codebook-reset/)
+- [How do frames become a token sequence a decoder can attend over?](/playground/missions/08-video-generation/01-video-tokenizer/)
 
-- [The decoder block](/playground/foundations/00-attention/)
-- [What a block costs](/playground/foundations/00-attention/what-it-costs/)
+## What is inside the model, and what does the architecture cost?
+
+- [How does one token find the context it needs?](/playground/foundations/00-attention/)
+- [Where does a transformer actually spend its parameters and its memory?](/playground/foundations/00-attention/what-it-costs/)
 - [Architecture ablations: the budget you hold equal](/playground/platform/training/02-architecture-ablations/)
 - [The rung where the budget definition decided the winner](/playground/platform/training/02-architecture-ablations/the-rung-that-flipped/)
-
-## Training-run verification and throughput
-
-- [Your first training loop](/playground/foundations/01-first-training-loop/)
-- [Stage 02 — what are you actually training?](/playground/missions/01-language-model-agent/02-pretrain/)
-- [Verifying the run](/playground/missions/01-language-model-agent/02-pretrain/verifying-the-run/)
-- [Training: what makes a run worth the compute it spends?](/playground/platform/training/)
-- [Distributed training, without a cluster](/playground/platform/training/01-distributed/)
-- [Your run will take ten hours. Should it?](/playground/platform/training/03-throughput/)
-
-## Post-training: loss masking, preferences, and reward
-
-From a text predictor to something that follows instructions and improves
-from a signal instead of a label.
-
-- [Stage 03 — how does a text predictor learn to answer?](/playground/missions/01-language-model-agent/03-sft/)
-- [What SFT costs](/playground/missions/01-language-model-agent/03-sft/what-it-costs/)
-- [Mid-training: where does a base model learn to call a tool?](/playground/platform/adaptation/mid-training/)
-- [Post-training: how does a continuation model become an assistant?](/playground/platform/adaptation/post-training/)
-- [Stage 04 — how do you improve a model with no correct answer to copy?](/playground/missions/01-language-model-agent/04-rl/)
-- [The reward went up. Did the model get better?](/playground/missions/01-language-model-agent/04-rl/reward-went-up/)
-- [Reinforcement learning: how does a model improve with no answer to copy?](/playground/platform/adaptation/reinforcement-learning/)
-
-## Distillation
-
-- [What can you actually copy from a better model?](/playground/platform/adaptation/distillation/)
-- [What path two requires](/playground/platform/adaptation/distillation/what-path-two-requires/)
-
-## Frontier architecture bets
-
-Open questions this repository states rather than settles.
-
 - [What if the model could think without choosing words?](/playground/platform/training/04-latent-reasoning/)
 - [Can you keep the weights and change the architecture?](/playground/platform/training/05-upcycling/)
 - [Does the extra capacity earn back what it cost?](/playground/platform/training/05-upcycling/does-it-pay-off/)
+- [Does a decoder that can see the image actually use it?](/playground/missions/05-vision-language-model/01-vision-fusion/)
+- [Is a video tokenizer plus a small sequence model even buildable here?](/playground/missions/08-video-generation/02-generation-model/)
+- [Does a small trained model beat the descriptor baseline?](/playground/missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/)
 
-## Serving cost and latency
+## Why does the loss go down — and what do you do when it stops?
 
-- [Stage 05 — what is the model actually doing between tokens?](/playground/missions/01-language-model-agent/05-serve/)
-- [Paging the cache](/playground/missions/01-language-model-agent/05-serve/paging-the-cache/)
-- [Why concurrency pays](/playground/missions/01-language-model-agent/05-serve/why-concurrency-pays/)
+Start with the two mechanisms every training run rests on, then watch a real run
+being verified, then read three chapters about runs that went wrong and what
+fixed them.
+
+- [What does `.backward()` actually do?](/playground/foundations/03-backpropagation/)
+- [Why do SGD, momentum, and Adam disagree on the same loss surface?](/playground/foundations/02-optimization/)
+- [Your first training loop](/playground/foundations/01-first-training-loop/)
+- [Training: what makes a run worth the compute it spends?](/playground/platform/training/)
+- [What are you actually training?](/playground/missions/01-language-model-agent/02-pretrain/)
+- [How do you know a five-hour run is working?](/playground/missions/01-language-model-agent/02-pretrain/verifying-the-run/)
+- [Does a learning-rate warmup close the seed-2 collapse?](/playground/missions/05-vision-language-model/06-warmup-stability/)
+- [Is a greedy-decode collapse fixable by tuning the training signal alone?](/playground/missions/06-game-ai/03-fixing-collapse/)
+- [Does the same fix still work when the problem gets ten times harder?](/playground/missions/07-realtime-voice/04-multi-speaker/)
+
+## Making the run faster, and making it span more than one card
+
+The platform chapters own the ML-side decision — which parallelism, what
+throughput. The infrastructure chapters own the layer underneath it: what the
+wiring, the scheduler, and the worker pool do to that decision.
+
+- [Your run will take ten hours. Should it?](/playground/platform/training/03-throughput/)
+- [Distributed training, without a cluster](/playground/platform/training/01-distributed/)
+- [Why does allreduce topology matter, if the sum comes out the same either way?](/playground/infra/01-networking/)
+- [Why the cluster's wiring decides the parallelism strategy](/playground/infra/05-gpu-cluster-concepts/)
+- [A scheduler doesn't do more work. It decides whose work happens first.](/playground/infra/03-orchestration/)
+- [Why does an RL update step wait on its slowest rollout?](/playground/infra/07-rollout-concurrency/)
+- [The local lane: a 24GB card over Tailscale and WSL2](/playground/infra/local-4090/)
+- [The cloud lane: when a lesson genuinely needs more than one GPU](/playground/infra/modal/)
+- [Run tracking: what a `runs/` entry has to record](/playground/infra/tracking/)
+
+## From a text predictor to something that answers, and then improves
+
+- [How does a text predictor learn to answer?](/playground/missions/01-language-model-agent/03-sft/)
+- [It answers questions now. What did that cost?](/playground/missions/01-language-model-agent/03-sft/what-it-costs/)
+- [Adaptation: what closes the gap between predicting text and answering a person?](/playground/platform/adaptation/)
+- [Mid-training: where does a base model learn to call a tool?](/playground/platform/adaptation/mid-training/)
+- [Post-training: how does a continuation model become an assistant?](/playground/platform/adaptation/post-training/)
+- [How do you improve a model with no correct answer to copy?](/playground/missions/01-language-model-agent/04-rl/)
+- [The reward went up. Did the model get better?](/playground/missions/01-language-model-agent/04-rl/reward-went-up/)
+- [Reinforcement learning: how does a model improve with no answer to copy?](/playground/platform/adaptation/reinforcement-learning/)
+
+## Reinforcement learning against an environment, not a preference set
+
+Mission 06 is the same RL machinery pointed at a world that gives back a score,
+which is where the cold-start problem lives.
+
+- [What does a policy have to beat before RL is worth trying?](/playground/missions/06-game-ai/00-gridworld-baselines/)
+- [Does GRPO produce a policy that beats the baselines it must clear?](/playground/missions/06-game-ai/01-grpo/)
+- [What happens when GRPO's cold start meets partial observability?](/playground/missions/06-game-ai/04-minigrid/)
+- [Does GRPO learn *when* to pay for a tool, not just what to say?](/playground/missions/06-game-ai/06-tool-use-rl/)
+
+## What can you actually copy from a better model?
+
+- [Distillation: what can you actually copy from a better model?](/playground/platform/adaptation/distillation/)
+- [If you swap the teacher, what actually changes in the corpus?](/playground/platform/adaptation/distillation/which-teacher-changes-what/)
+- [What does it take to actually run distribution distillation?](/playground/platform/adaptation/distillation/what-path-two-requires/)
+
+## Serving: latency, memory, and why concurrency changes the answer
+
+- [What is the model actually doing between tokens?](/playground/missions/01-language-model-agent/05-serve/)
+- [Why does reserving the KV cache waste most of it?](/playground/missions/01-language-model-agent/05-serve/paging-the-cache/)
+- [Why should sixteen requests cost less than sixteen times one?](/playground/missions/01-language-model-agent/05-serve/why-concurrency-pays/)
 - [Serving: how does a checkpoint become a responsive service?](/playground/platform/serving/)
 - [Is the card working, or waiting?](/playground/platform/serving/01-graph-execution/)
 - [Does a smaller model decode faster?](/playground/platform/serving/02-quantization/)
+- [Is a cheap draft's guess ever worth the expensive model's check?](/playground/platform/serving/03-speculative-decoding/)
+- [Does the KV cache built for text work unchanged for audio tokens?](/playground/missions/07-realtime-voice/01-streaming-decode/)
+- [Does it hold on real speech over a real network?](/playground/missions/07-realtime-voice/03-real-speech-and-network/)
+- [Which stage do you cut to fit the request budget?](/playground/missions/02-personalized-discovery/08-serving/)
 
-## Agent harness mechanics
+## The software around the model: what must the harness own?
 
-- [Stage 06 — what turns a model into something that acts?](/playground/missions/01-language-model-agent/06-agent/)
-- [What fits in context](/playground/missions/01-language-model-agent/06-agent/what-fits-in-context/)
+- [What turns a model into something that acts?](/playground/missions/01-language-model-agent/06-agent/)
+- [What do you throw away when the transcript stops fitting?](/playground/missions/01-language-model-agent/06-agent/what-fits-in-context/)
 - [The agent can act. What stops it?](/playground/missions/01-language-model-agent/06-agent/what-stops-it/)
 - [Act and coordinate: what must the software around a model own before it can act?](/playground/capabilities/act-coordinate/)
 - [One agent is stuck. Would a second one help?](/playground/capabilities/act-coordinate/01-multi-agent/)
+- [What makes a bug report into a task an agent can be scored on?](/playground/missions/04-code-agent/00-task-set/)
+- [Is the loop worth anything over one blind call?](/playground/missions/04-code-agent/01-no-harness/)
+- [The agent says it fixed the bug. What would change your mind?](/playground/missions/04-code-agent/02-agent-loop/)
+- [Does showing a model its own failed attempt help it fix the bug?](/playground/missions/04-code-agent/06-closing-the-loop/)
+- [Who can answer why this item was shown?](/playground/missions/02-personalized-discovery/07-rule-engine/)
 
-## Evaluation and evidence discipline
+## Would you believe the number?
 
-- [Stage 07 — how would you know if any of this worked?](/playground/missions/01-language-model-agent/07-eval/)
-- [Whose harness produced it](/playground/missions/01-language-model-agent/07-eval/whose-harness/)
-- [Why believe the number](/playground/missions/01-language-model-agent/07-eval/why-believe-the-number/)
+The repository's evidence discipline, read as one argument: what a score belongs
+to, when a difference is real, what a metric stops measuring once it is targeted,
+and why a mean hides the step that took three times as long.
+
+- [How would you know if any of this worked?](/playground/missions/01-language-model-agent/07-eval/)
+- [Which part of a score belongs to the model?](/playground/missions/01-language-model-agent/07-eval/whose-harness/)
+- [The report is correct. Why should anyone believe it?](/playground/missions/01-language-model-agent/07-eval/why-believe-the-number/)
 - [Evaluation: what evidence justifies replacing what you already run?](/playground/platform/evaluation-observability/)
+- [The score went up. Did the thing you actually wanted?](/playground/platform/evaluation-observability/01-metric-gaming/)
+- [Model A scored 74%. Model B scored 71%. Is that a real difference?](/playground/platform/evaluation-observability/02-statistical-significance/)
+- [A mean step time hides the step that just took three times as long](/playground/infra/04-observability/)
+- [How many ideas may you try before the winner means nothing?](/playground/missions/03-quantitative-research/01-signal-research/)
+- [What Sharpe would survive an honest split?](/playground/missions/03-quantitative-research/03-walk-forward-validation/)
+- [The cheap model resolved everything. Should you use it?](/playground/missions/04-code-agent/03-cheap-or-expensive/)
+- [How does it fail, and does it cheat?](/playground/missions/04-code-agent/04-how-it-fails/)
 
-## Safety enforcement and guardrails
+## Does the finding survive a harder case?
+
+A result that only holds on the setting it was tuned on is not a result yet.
+These chapters take a finished finding and push one variable until it breaks or
+doesn't.
+
+- [Does the same vision pathway, unchanged, still work on real photographs?](/playground/missions/05-vision-language-model/04-real-photo-vision-fusion/)
+- [Does the feasibility finding survive doubling the clip length?](/playground/missions/08-video-generation/04-longer-sequences/)
+- [Does it survive two occluding objects instead of one?](/playground/missions/08-video-generation/05-multi-object/)
+- [Does the SR-MMP finding generalize to a different endpoint?](/playground/missions/09-bio-pharma-modeling/03-second-endpoint/)
+- [Does the scarcity-drives-variance hypothesis hold at a third endpoint?](/playground/missions/09-bio-pharma-modeling/04-third-endpoint/)
+
+## Writing the verdict: what is a mission allowed to claim?
+
+Every mission ends in a report stage that decides, against a bar declared before
+the work started, whether anything was established. Read two or three of these
+together and the shape of an honest null result becomes obvious.
+
+- [Did the mission earn the right to claim anything?](/playground/missions/02-personalized-discovery/09-report/)
+- [Can this mission claim anything at all?](/playground/missions/03-quantitative-research/05-report/)
+- [What did this mission actually establish?](/playground/missions/04-code-agent/05-report/)
+- [Did building the vision pathway pay for itself?](/playground/missions/05-vision-language-model/02-report/)
+- [Does it hold up against a hosted VLM, not just a text-only guess?](/playground/missions/05-vision-language-model/05-real-photo-report/)
+- [Did GRPO produce a policy worth deploying over either baseline?](/playground/missions/06-game-ai/02-report/)
+- [Does mission 06's full chain meet its own acceptance bar?](/playground/missions/06-game-ai/05-report/)
+- [Does the serving mechanism built for text transfer to audio, cleanly?](/playground/missions/07-realtime-voice/02-report/)
+- [Does video generation clear this repository's own bar?](/playground/missions/08-video-generation/03-report/)
+- [Does a small trained model beat the descriptor baseline — verdict](/playground/missions/09-bio-pharma-modeling/02-report/)
+- [What does the three-endpoint pattern actually say, and what does it not say?](/playground/missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/)
+
+## Ranking a slate: why discovery is a cascade, not one model
+
+- [What retrieves an item nobody has touched?](/playground/missions/02-personalized-discovery/01-content-understanding/)
+- [How do you find candidates without scoring everything?](/playground/missions/02-personalized-discovery/02-recall/)
+- [What can you afford to score, and what must you drop?](/playground/missions/02-personalized-discovery/03-pre-rank/)
+- [Which objective are you actually ranking by?](/playground/missions/02-personalized-discovery/04-fine-rank/)
+- [How do you trade user value against revenue on purpose?](/playground/missions/02-personalized-discovery/05-value-tree/)
+- [Why is the best slate not the top ten items?](/playground/missions/02-personalized-discovery/06-mixing/)
+
+## Turning a score into a position you could actually hold
+
+- [What turns a score into a portfolio?](/playground/missions/03-quantitative-research/02-cross-sectional-rank/)
+- [How much can the paper return actually carry?](/playground/missions/03-quantitative-research/04-cost-and-capacity/)
+
+## Guardrails: turning a policy into something that stops you
 
 - [How does a guardrail become something that actually stops you?](/playground/platform/safety-governance/)
+- [How does a release get blocked before a person has to eyeball it?](/playground/platform/safety-governance/01-eval-gates/)
+- [Where do the test cases that make a gate meaningful come from?](/playground/platform/safety-governance/02-red-teaming/)
 
-## Ranking and recommendation: the funnel arc
+## Or start from the stakeholder problem
 
-Mission 02's stage-by-stage argument for why a discovery system is a cascade,
-not one model.
+Each mission opens with someone who has a decision to make, declares its bar
+before any code is written, and ends at a measured outcome with its evidence
+boundary stated.
 
-- [Content understanding — what retrieves an item nobody has touched?](/playground/missions/02-personalized-discovery/01-content-understanding/)
-- [Recall — how do you find candidates without scoring everything?](/playground/missions/02-personalized-discovery/02-recall/)
-- [Pre-rank — what can you afford to score, and what must you drop?](/playground/missions/02-personalized-discovery/03-pre-rank/)
-- [Fine-rank — which objective are you actually ranking by?](/playground/missions/02-personalized-discovery/04-fine-rank/)
-- [The value tree — how do you trade user value against revenue on purpose?](/playground/missions/02-personalized-discovery/05-value-tree/)
-- [Mixing — why is the best slate not the top ten items?](/playground/missions/02-personalized-discovery/06-mixing/)
-- [The rule engine — who can answer why this item was shown?](/playground/missions/02-personalized-discovery/07-rule-engine/)
-- [Serving — which stage do you cut to fit the request budget?](/playground/missions/02-personalized-discovery/08-serving/)
-
-## Quantitative research: the validity arc
-
-Mission 03's argument for why "it backtested well" is the wrong question.
-
-- [Signal research — how many ideas may you try before the winner means nothing?](/playground/missions/03-quantitative-research/01-signal-research/)
-- [Cross-sectional rank — what turns a score into a portfolio?](/playground/missions/03-quantitative-research/02-cross-sectional-rank/)
-- [Walk-forward validation — what Sharpe would survive an honest split?](/playground/missions/03-quantitative-research/03-walk-forward-validation/)
-- [Cost and capacity — how much can the paper return actually carry?](/playground/missions/03-quantitative-research/04-cost-and-capacity/)
-
-## Verifying an agent's own success claim
-
-Mission 04's argument for why a green test is not evidence of a correct fix.
-
-- [The task set — what makes a bug report into a task an agent can be scored on?](/playground/missions/04-code-agent/00-task-set/)
-- [Scoring the attempt — what would change your mind?](/playground/missions/04-code-agent/02-agent-loop/)
-- [Cheap or expensive — the cheap model resolved everything. Should you use it?](/playground/missions/04-code-agent/03-cheap-or-expensive/)
+- [Raw text to a tool-using model](/playground/missions/01-language-model-agent/)
+- [Personalized discovery](/playground/missions/02-personalized-discovery/)
+- [Quantitative research](/playground/missions/03-quantitative-research/)
+- [When an agent says it fixed the bug, what makes that true?](/playground/missions/04-code-agent/)
+- [Does the picture add anything a hosted API or a blind guess couldn't?](/playground/missions/05-vision-language-model/)
+- [Does RL sharpen a policy that already wins sometimes?](/playground/missions/06-game-ai/)
+- [Does the KV cache care whether the tokens are words or sound?](/playground/missions/07-realtime-voice/)
+- [Before the video is good, is it even affordable to make?](/playground/missions/08-video-generation/)
+- [Does structure alone predict whether a compound is toxic?](/playground/missions/09-bio-pharma-modeling/)

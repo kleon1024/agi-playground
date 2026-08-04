@@ -384,6 +384,15 @@ relevant: RLVR work and agent-environment evaluation literature, which this
 chapter's later sections on verifiable rewards and agent trajectories draw on
 without dating to one paper.
 
+## The layer underneath this one
+
+Every method above assumes the rollouts arrive. [Why an RL update step waits on
+its slowest rollout](../../../infra/07-rollout-concurrency/) measures what
+lockstep batching costs once trajectory length is heavy-tailed instead of
+fixed — the mechanism asynchronous RLHF systems exist to avoid, and the reason
+the sampler half of the loop, not the trainer half, is usually what you are
+paying for.
+
 [The RL landscape](LANDSCAPE.md) names the production frameworks that own the
 sampler-plus-trainer loop this chapter builds by hand, and what each assumes
 about who owns the environment.

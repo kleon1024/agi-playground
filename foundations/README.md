@@ -19,6 +19,10 @@ claims to be the base of a broader pyramid, and **nothing here has to be read
 before you start a mission**. Come when a mission sends you, or come first if
 you would rather build the mental model before the artifact.
 
+If you are not sure which mechanism you are missing, the
+[read-by-topic index](https://rehearse.maestro.onl/playground/topics/) lists
+every chapter in this repository under the question it answers.
+
 | Chapter | The question it answers | It returns |
 |---|---|---|
 | [The decoder block](00-attention/) | How does one token find the context it needs, transform it, and still leave a path for learning? | the forward path, and the 88M model's parameter count reconstructed from its own formulas |

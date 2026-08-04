@@ -310,6 +310,15 @@ The output is a tokenizable, versioned corpus. Continue to
 [pretraining](../training/), where vocabulary, model size, optimizer state, and
 token budget must be chosen against that artifact.
 
+## The layer underneath this one
+
+Every filter here is written as if the corpus fits on one machine. Two
+infrastructure chapters measure what changes when it does not:
+[why dedup reaches for a GPU once the corpus gets big enough](../../infra/06-gpu-dedup-at-scale/)
+puts a number on where MinHash bucket verification overtakes hashing, and
+[how much data has to move when a storage node is added](../../infra/02-storage/)
+is what the shard layout of this pipeline's output costs you later.
+
 Primary references: Common Crawl, FineWeb, DataTrove, Lee et al. on deduplication,
 Gopher data filtering, Dolma, DataComp-LM, DPO, and Tulu 3.
 

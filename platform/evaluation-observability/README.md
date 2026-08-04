@@ -300,5 +300,13 @@ this chapter argues for: from scoring an output to scoring a trajectory.
 Also relevant: standard binomial and paired-test methods, which are older
 than any tool named here and unchanged by this history.
 
+## The layer underneath this one
+
+This chapter judges a model. [A mean step time hides the step that just took
+three times as long](../../infra/04-observability/) judges the *run*, on a real
+training loop instrumented with real per-step timing — the reason a p95 and a
+histogram are different instruments than the average this chapter's tables
+report.
+
 [The evaluation landscape](LANDSCAPE.md) sets those harnesses side by side —
 what each one fixes for you, and what it therefore stops you from disclosing.

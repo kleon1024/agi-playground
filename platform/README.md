@@ -12,6 +12,11 @@ chapter, take the artifact or measurement back, and return to the mission.
 Reading all six front to back before starting a mission answers questions you
 do not have yet.
 
+If you know the decision but not which of the six owns it, the
+[read-by-topic index](https://rehearse.maestro.onl/playground/topics/) lists
+every chapter in this repository — platform, missions, foundations,
+capabilities, infrastructure — under the question it answers.
+
 ## The lifecycle order, when you are tracing one model
 
 Four of the six sit on one line, because each produces the input the next one
