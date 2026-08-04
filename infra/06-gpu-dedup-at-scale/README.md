@@ -7,7 +7,7 @@ label: GPU dedup at scale
 
 # Why does dedup reach for a GPU once the corpus gets big enough?
 
-**Question:** [`platform/data/README.md`](../../platform/data/README.md) section 4
+**Question:** [the corpus release policy](../../missions/01-language-model-agent/00-corpus/what-a-release-needs/#the-duplicate-threshold-you-set-without-meaning-to)
 already explains MinHash + LSH banding as a CPU-bound mechanism, and
 [mission 01's corpus pipeline](../../missions/01-language-model-agent/00-corpus/)
 runs it from scratch on 20,000 real pages. Both stop at the same place: LSH
@@ -22,7 +22,7 @@ hashing time versus within-bucket verification time, at four corpus sizes
 (1,000 / 4,000 / 16,000 / 48,000 synthetic documents), showing the exact
 point where verification overtakes hashing.
 
-**Before this:** [how a raw crawl becomes a corpus](../../platform/data/README.md)
+**Before this:** [what has to be true of text before you train on it?](../../missions/01-language-model-agent/00-corpus/)
 — you need the MinHash/LSH mechanism itself (shingles, signatures, banding,
 the S-curve threshold) before this chapter's timing split means anything.
 This chapter does not re-derive that mechanism; it measures the one step the
@@ -34,7 +34,7 @@ mechanism chapter left unmeasured.
 `MinHashDeduper` unions any two documents that share a full band signature
 and stops there — it accepts the LSH threshold's false-positive rate
 implicitly. A production pipeline cannot: the whole point of the S-curve in
-[`platform/data/README.md`](../../platform/data/README.md) is that a band
+[the corpus release policy](../../missions/01-language-model-agent/00-corpus/what-a-release-needs/) is that a band
 match at Jaccard 0.5 is a coin flip, not a duplicate. So real corpus-dedup
 pipelines (Lee et al., "Deduplicating Training Data Makes Language Models
 Better," ACL 2022; the RefinedWeb pipeline, Penedo et al. 2023) add a
@@ -47,7 +47,7 @@ document once is `O(n)`. Verification is not — it is `O(k^2)` **per bucket**,
 where `k` is however many documents happen to land in that bucket. Most
 buckets are small (unrelated pages rarely share a full band by chance). But
 templated, boilerplate-heavy web content — the exact case
-[`platform/data/README.md`](../../platform/data/README.md) names as the reason
+[the corpus release policy](../../missions/01-language-model-agent/00-corpus/what-a-release-needs/) names as the reason
 exact-hash dedup is not enough — produces buckets whose size scales *with*
 the corpus, not independently of it. That is what this chapter's `core/`
 measures directly.
@@ -56,7 +56,7 @@ measures directly.
 
 [`core/dedup_scaling.py`](core/dedup_scaling.py) mirrors `MinHashDeduper`'s
 exact mechanism (shingle sets, 64-permutation signatures, 16 bands of 4 rows
-— the same settings [`platform/data/README.md`](../../platform/data/README.md)'s
+— the same settings [the corpus release policy](../../missions/01-language-model-agent/00-corpus/what-a-release-needs/)'s
 worked table uses) and adds the missing step: for every LSH bucket with more
 than one member, it computes true pairwise Jaccard over the full shingle
 sets and times that pass separately from signature generation.
@@ -173,7 +173,7 @@ step this chapter isolates.
 1. **Change `--cluster-frac`.** Halve it to 0.05 and double it to 0.20, at
    the same four sizes. Does the crossover point move in the direction the
    `O(k^2)`-per-bucket explanation predicts?
-2. **Change the bands/rows split.** `platform/data/README.md`'s S-curve table
+2. **Change the bands/rows split.** The corpus release policy's S-curve table
    shows that 16 bands of 4 rows puts the 50% recall threshold at Jaccard
    0.5. Try `--bands 8` (8 rows per band, a stricter threshold) at the same
    sizes — does `max_bucket` shrink, and does that measurably delay the

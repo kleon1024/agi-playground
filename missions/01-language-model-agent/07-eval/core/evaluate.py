@@ -471,7 +471,7 @@ def validate_harness_disclosure(transcript: dict) -> None:
         raise ValueError(
             f"transcript {transcript.get('task_id', '?')!r} has no 'harness' block; an "
             "agent-eval result without harness disclosure cannot be reported (see "
-            "platform/evaluation-observability's harness-disclosure discipline)."
+            "07-eval/whose-harness/ for why)."
         )
     missing = [f for f in REQUIRED_HARNESS_FIELDS if f not in harness]
     if missing:

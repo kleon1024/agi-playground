@@ -168,7 +168,7 @@ def evaluate_primary_metric(artifact: dict) -> list[BaselineResult]:
     """acceptance: "Beats BOTH baselines on net-of-cost Sharpe by more than
     the fold-to-fold standard deviation." The fold-to-fold standard deviation
     used here is the candidate's own net-Sharpe spread across folds — the
-    same nuisance quantity `platform/data/01-ablation-harness` measures for a
+    same nuisance quantity `foundations/05-is-the-difference-real` measures for a
     data-mixture decision, applied here to a trading-signal decision instead.
     A margin no larger than that spread is exactly the "this could just be
     the fold you happened to draw" case the harness exists to catch.

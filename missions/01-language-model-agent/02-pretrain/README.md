@@ -174,11 +174,15 @@ starts.
   alternatives, GQA's cost real and monotone — and RMSNorm and SwiGLU
   indistinguishable from theirs, each losing on one seed of three. Two of these
   four choices are so far unjustified by evidence, which is worth knowing.
+- **That you could derive this update by hand.** Every gradient here comes
+  from `loss.backward()`, which this chapter calls and never opens.
+  [Backpropagation](../../../foundations/03-backpropagation/) builds the
+  autodiff engine underneath it and checks it against hand-derived calculus.
 - **That the model knows anything.** A falling loss measures next-token
   agreement with held-out web text, not truth. The next chapter shows what
   3.0689 looks like when you read it.
 - **That this data mixture is right.** No alternative mixture was trained.
-  [The ablation harness](../../../platform/data/01-ablation-harness/) exists
+  [The ablation harness](../../../foundations/05-is-the-difference-real/) exists
   because answering that needs paired runs across seeds, not one run.
 - **That this architecture is the only way to spend this checkpoint's
   weights.** [Upcycling](upcycling/) takes this

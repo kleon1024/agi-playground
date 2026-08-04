@@ -120,6 +120,54 @@
     {
       "from": "/platform/training/05-upcycling/does-it-pay-off",
       "to": "/missions/01-language-model-agent/02-pretrain/upcycling/does-it-pay-off"
+    },
+    {
+      "from": "/platform",
+      "to": "/missions/01-language-model-agent/00-corpus"
+    },
+    {
+      "from": "/platform/data",
+      "to": "/missions/01-language-model-agent/00-corpus"
+    },
+    {
+      "from": "/platform/data/LANDSCAPE",
+      "to": "/missions/01-language-model-agent/00-corpus/LANDSCAPE"
+    },
+    {
+      "from": "/platform/data/01-ablation-harness",
+      "to": "/foundations/05-is-the-difference-real"
+    },
+    {
+      "from": "/platform/data/01-ablation-harness/the-two-confounds",
+      "to": "/foundations/05-is-the-difference-real/the-two-confounds"
+    },
+    {
+      "from": "/platform/evaluation-observability",
+      "to": "/missions/01-language-model-agent/07-eval"
+    },
+    {
+      "from": "/platform/evaluation-observability/LANDSCAPE",
+      "to": "/missions/01-language-model-agent/07-eval/LANDSCAPE"
+    },
+    {
+      "from": "/platform/evaluation-observability/01-metric-gaming",
+      "to": "/missions/01-language-model-agent/07-eval/metric-gaming"
+    },
+    {
+      "from": "/platform/evaluation-observability/02-statistical-significance",
+      "to": "/foundations/06-significance"
+    },
+    {
+      "from": "/platform/safety-governance",
+      "to": "/missions/01-language-model-agent/07-eval/who-decides-to-ship"
+    },
+    {
+      "from": "/platform/safety-governance/01-eval-gates",
+      "to": "/missions/01-language-model-agent/07-eval/eval-gates"
+    },
+    {
+      "from": "/platform/safety-governance/02-red-teaming",
+      "to": "/missions/01-language-model-agent/07-eval/red-teaming"
     }
   ]
 }

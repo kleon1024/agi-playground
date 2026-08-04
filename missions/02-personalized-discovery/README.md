@@ -25,9 +25,9 @@ Mission 01 proved the platform layers compose. It did not prove they
 This mission is the test of the architecture's central claim. Ranking is a
 genuinely different decision loop: the objective is not next-token likelihood,
 the model is usually not a transformer, and the failure modes — feedback loops,
-popularity collapse, position bias — are ones text generation never has. If
-`platform/` is a real set of layers rather than a relabelled LLM pipeline, this
-should reuse it.
+popularity collapse, position bias — are ones text generation never has. If mission 01's stages
+are genuinely reusable machinery rather than a relabelled LLM pipeline, this
+mission should reuse them.
 
 ## The funnel, and why it has this shape
 
@@ -117,16 +117,16 @@ impressive system that ranks worse than popularity.
 
 | Stage | Deliverable | Layer | Status |
 |---|---|---|---|
-| [`00-interactions`](00-interactions/) | Public interaction dataset, cleaned, split **by time** — a random split leaks the future | `platform/data` | implementation present; run pending |
-| [`01-content-understanding`](01-content-understanding/) | VLM labelling of items into taxonomy + embeddings; cold-item coverage measured | `capabilities/perceive-understand` | verified synthetic mechanism run; mission outcome pending |
-| [`02-recall`](02-recall/) | Multi-queue: two-tower, lexical, i2i, fresh; union and dedup; recall@1000 vs exhaustive | `capabilities/retrieve-ground` | implementation present; run pending |
-| [`03-pre-rank`](03-pre-rank/) | Lightweight scorer, 1000→100, with pre-rank/fine-rank agreement analysis | `capabilities/rank-decide` | implementation present; run pending |
-| [`04-fine-rank`](04-fine-rank/) | Multi-objective model: click, dwell, completion, satisfaction | `capabilities/rank-decide` | implementation present; run pending |
-| [`05-value-tree`](05-value-tree/) | Objective combination, calibration, explicit user-value/revenue trade rates | `capabilities/rank-decide` | implementation present; run pending |
-| [`06-mixing`](06-mixing/) | Slate assembly by beam search; diversity; ad interleaving with displacement cost | `capabilities/rank-decide` | verified synthetic mechanism run; mission outcome pending |
-| [`07-rule-engine`](07-rule-engine/) | Declarative constraints, auditable decisions, policy-timescale changes | `platform/safety-governance` | verified synthetic mechanism run; mission outcome pending |
+| [`00-interactions`](00-interactions/) | Public interaction dataset, cleaned, split **by time** — a random split leaks the future | mission 01 · corpus | implementation present; run pending |
+| [`01-content-understanding`](01-content-understanding/) | VLM labelling of items into taxonomy + embeddings; cold-item coverage measured | mission 01 · agent harness | verified synthetic mechanism run; mission outcome pending |
+| [`02-recall`](02-recall/) | Multi-queue: two-tower, lexical, i2i, fresh; union and dedup; recall@1000 vs exhaustive | new to this mission | implementation present; run pending |
+| [`03-pre-rank`](03-pre-rank/) | Lightweight scorer, 1000→100, with pre-rank/fine-rank agreement analysis | new to this mission | implementation present; run pending |
+| [`04-fine-rank`](04-fine-rank/) | Multi-objective model: click, dwell, completion, satisfaction | new to this mission | implementation present; run pending |
+| [`05-value-tree`](05-value-tree/) | Objective combination, calibration, explicit user-value/revenue trade rates | new to this mission | implementation present; run pending |
+| [`06-mixing`](06-mixing/) | Slate assembly by beam search; diversity; ad interleaving with displacement cost | new to this mission | verified synthetic mechanism run; mission outcome pending |
+| [`07-rule-engine`](07-rule-engine/) | Declarative constraints, auditable decisions, policy-timescale changes | mission 01 · eval gates | verified synthetic mechanism run; mission outcome pending |
 | [`08-serving`](08-serving/) | Two-stage serving inside p95 300ms; ANN index; measured | mission 01 · serving | verified synthetic mechanism run; mission outcome pending |
-| [`09-report`](09-report/) | Outcome vs both baselines and all guardrails, with failure cases | `platform/evaluation-observability` | verified evaluator run; outcome cannot determine |
+| [`09-report`](09-report/) | Outcome vs both baselines and all guardrails, with failure cases | mission 01 · eval | verified evaluator run; outcome cannot determine |
 
 ## What makes this hard to prove
 
@@ -153,11 +153,11 @@ demonstrated personalization, whatever its nDCG looks like in isolation.
 ## What this reuses
 
 Reuse is the point of the exercise: the data discipline from
-[`platform/data`](../../platform/data/), the training engineering from
+[mission 01's corpus stage](../../missions/01-language-model-agent/00-corpus/), the training engineering from
 [mission 01's pretraining stage](../01-language-model-agent/02-pretrain/) — gradient accumulation, mixed
 precision, resumable checkpoints — the serving concerns from
 [mission 01's serving stage](../../missions/01-language-model-agent/05-serve/), and the evaluation discipline
-from [`platform/evaluation-observability`](../../platform/evaluation-observability/),
+from [mission 01's evaluation stage](../../missions/01-language-model-agent/07-eval/),
 where harness disclosure and seed variance already live.
 
 New capabilities live inside this mission until a **second** mission needs them,

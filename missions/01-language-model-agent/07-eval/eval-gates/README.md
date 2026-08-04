@@ -7,13 +7,13 @@ label: Evaluation gates
 
 # How does a release get blocked before a person has to eyeball it?
 
-**Question:** [the safety-governance framework](../) says every guardrail
+**Question:** [who decides to ship](../who-decides-to-ship/) says every guardrail
 must become `definition -> measurement -> enforcement point`. A release gate
 is where that chain has to close for the single highest-stakes decision this
 layer makes: does this candidate ship. What does it take for that decision to
 be a computation instead of a meeting?
 
-**Before this:** [the safety-governance framework](../), for why "do not harm
+**Before this:** [who decides to ship](../who-decides-to-ship/), for why "do not harm
 quality" fails as a guardrail and what an executable one needs instead — a
 population, a metric, a direction, a tolerance, and a decision. This chapter
 takes exactly one guardrail of that shape — a capability-eval threshold — and
@@ -157,7 +157,7 @@ are entirely synthetic.
   correct taxonomy — real frameworks name and revise their own categories as
   new capabilities emerge.
 - **Nothing about enforcement, escalation, or audit** — the other four links
-  in [the framework's chain](../) (`measurement -> enforcement point ->
+  in [the release chain](../who-decides-to-ship/) (`measurement -> enforcement point ->
   audit record -> escalation owner`) are outside this chapter's scope; this
   chapter is only the `definition -> measurement` half, computed as a
   pass/fail decision.
@@ -241,7 +241,7 @@ principle once categories aren't perfectly correlated.
 The framework's remaining links — `measurement -> enforcement point`, then
 `audit record -> escalation owner` — are where a gate decision like this one
 actually stops a deployment pipeline and gets recorded, rather than staying a
-number a script prints. [The safety-governance framework](../) names both;
+number a script prints. [Who decides to ship](../who-decides-to-ship/) names both;
 neither has a from-scratch `core/` chapter here yet.
 
 Primary references: Anthropic, *Responsible Scaling Policy* (September 19,

@@ -29,7 +29,7 @@ question.
 - [`02-storage/`](02-storage/) — modulo vs. consistent-hash shard placement,
   measured by how much data actually moves on real disk when a storage node
   is added: 80% remapped vs. 18%, against a 20% theoretical floor.
-  Substrate for [`platform/data/`](../platform/data/).
+  Substrate for [mission 01's corpus stage](../missions/01-language-model-agent/00-corpus/).
 - [`03-orchestration/`](03-orchestration/) — a scheduler doesn't do more
   work, it decides whose work happens first: a real 10-job, 2-slot batch
   measured under FIFO vs priority dispatch, and the cold-start measurement
@@ -39,7 +39,7 @@ question.
   (the language-model mission's `Transformer`, unmodified) instrumented with
   real per-step timing, and why p50/p95/histogram are different instruments
   than a mean.
-  Substrate for [`platform/evaluation-observability/`](../platform/evaluation-observability/)
+  Substrate for [mission 01's evaluation stage](../missions/01-language-model-agent/07-eval/)
   and [the serving stage](../missions/01-language-model-agent/05-serve/).
 - [`05-gpu-cluster-concepts/`](05-gpu-cluster-concepts/) — why interconnect
   topology (NVLink vs PCIe vs cross-node network) determines which
@@ -51,7 +51,7 @@ question.
   CPU across four corpus sizes, verification overtakes hashing between
   16,000 and 48,000 synthetic documents, which is the real reason
   GPU-accelerated dedup (NeMo Curator-style) exists.
-  Substrate for [`platform/data/`](../platform/data/).
+  Substrate for [mission 01's corpus stage](../missions/01-language-model-agent/00-corpus/).
 - [`07-rollout-concurrency/`](07-rollout-concurrency/) — why lockstep
   rollout batching loses time to stragglers once trajectory length is
   heavy-tailed instead of fixed: measured across three worker-pool sizes,

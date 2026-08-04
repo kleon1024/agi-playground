@@ -46,7 +46,7 @@ then one turned. Its three candidate owners are the data (approaching one full
 epoch), the schedule (a cosine floor too high to settle into), and the
 measurement itself (each point samples the held-out set rather than consuming
 it). Ruling any of them out takes paired runs across seeds, which is what
-[the ablation harness](../../../../platform/data/01-ablation-harness/) is for.
+[the ablation harness](../../../../foundations/05-is-the-difference-real/) is for.
 
 ## When the arithmetic is the owner
 

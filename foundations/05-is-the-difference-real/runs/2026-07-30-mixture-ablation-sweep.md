@@ -8,7 +8,7 @@ anywhere in this stage.
 ## Command — core
 
 ```bash
-cd platform/data/01-ablation-harness/core
+cd foundations/05-is-the-difference-real/core
 python3 ablation.py --sweep 1,2,4,8,16,32,64
 ```
 
@@ -77,7 +77,7 @@ B the winner, with the point estimate stable across that range (-0.027 to
 ## Command — prod
 
 ```bash
-cd platform/data/01-ablation-harness
+cd foundations/05-is-the-difference-real
 python3 prod/torch_ablation.py --mixture-a 0.38 --mixture-b 0.43 --seeds 16
 ```
 

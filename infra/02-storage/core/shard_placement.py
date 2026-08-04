@@ -2,8 +2,7 @@
 how much data actually has to move when the storage-node count changes.
 
 This is not an abstract exercise: this repository's own checkpoint shards
-(platform/training/*'s optimizer-state slices, see
-foundations/04-distributed-training/) are exactly this kind of key -> node
+(the optimizer-state slices of foundations/04-distributed-training/) are exactly this kind of key -> node
 assignment. Adding or removing a storage node is routine; how much data
 moves in response is a real, measurable cost, not a theoretical one.
 

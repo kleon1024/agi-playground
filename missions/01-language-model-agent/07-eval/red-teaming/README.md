@@ -7,14 +7,14 @@ label: Red-teaming
 
 # Where do the test cases that make a gate meaningful actually come from?
 
-**Question:** [eval gates](../01-eval-gates/) answers "given a candidate's
+**Question:** [eval gates](../eval-gates/) answers "given a candidate's
 scores on a fixed eval suite, how does a pass/fail decision get computed" —
 and takes the scores as given. This chapter takes a step back to the question
 the gate never asks: where did the test cases that produced those scores come
 from, and why can't a fixed, one-time-authored test set alone establish that a
 system resists a class of failures?
 
-**Before this:** [eval gates](../01-eval-gates/), for the gate-decision
+**Before this:** [eval gates](../eval-gates/), for the gate-decision
 mechanism this chapter does not re-derive — a gate computes a decision from
 scores; this chapter is about how you find the inputs that produce scores
 worth gating on in the first place.
@@ -30,7 +30,7 @@ A test set authored once, by people who could only think of the failures they
 already imagined, tests exactly those failures and nothing past their
 boundary. A system can pass every case in that set while a nearby,
 undiscovered variant still breaks it — the same generalization gap
-[eval-observability's metric-gaming chapter](../../evaluation-observability/01-metric-gaming/)
+[the metric-gaming chapter](../metric-gaming/)
 already names for metrics that get optimized against directly, applied here
 to the test *cases* themselves rather than the score they produce.
 
@@ -125,7 +125,7 @@ hand. Ganguli et al., "Red Teaming Language Models to Reduce Harms: Methods,
 Scaling Behaviors, and Lessons Learned" (Anthropic, arXiv, August 23, 2022) is
 the human-red-teaming-at-scale counterpart, studying how manual adversarial
 probing scales with model size and what that reveals about the harms found.
-This repository's own [AgentDojo citation](../../../missions/01-language-model-agent/06-agent/what-stops-it/)
+This repository's own [AgentDojo citation](../../06-agent/what-stops-it/)
 (Debenedetti et al., June 2024) is a concrete instance of the same idea applied
 to a different system under test — an agent harness rather than a chat model —
 turning "an agent's observations can carry adversarial instructions" into a
@@ -207,7 +207,7 @@ about the system searched.
 
 </details>
 
-**4. What is the actual difference between what this chapter tests and what an eval gate ([01-eval-gates](../01-eval-gates/)) tests?**
+**4. What is the actual difference between what this chapter tests and what an eval gate ([eval gates](../eval-gates/)) tests?**
 
 <details>
 <summary>Answer</summary>
@@ -228,13 +228,13 @@ the other.
 
 Automated red-teaming at real scale needs its own generation model (as in
 Perez et al.) or its own scaling study (as in Ganguli et al.) — neither has a
-from-scratch `core/` chapter here yet. [The safety-governance
-framework](../) names the remaining links — `enforcement point -> audit
-record -> escalation owner` — that turn a discovered failure into a stopped
-deployment, which is also outside this chapter's scope.
+from-scratch `core/` chapter here yet. [The release chain](../who-decides-to-ship/)
+names the remaining links — `enforcement point -> audit record -> escalation
+owner` — that turn a discovered failure into a stopped deployment, which is
+also outside this chapter's scope.
 
 Primary references: Perez et al., *Red Teaming Language Models with Language
 Models* (arXiv, February 2022; EMNLP 2022); Ganguli et al., *Red Teaming
 Language Models to Reduce Harms: Methods, Scaling Behaviors, and Lessons
 Learned* (Anthropic, August 23, 2022); Debenedetti et al., *AgentDojo* (June
-2024), cited here via [what stops it?](../../../missions/01-language-model-agent/06-agent/what-stops-it/).
+2024), cited here via [what stops it?](../../06-agent/what-stops-it/).

@@ -91,13 +91,22 @@ Missions are added deliberately. Mission 01 finishes before mission 02 starts.
 
 ## Repository
 
-```
-missions/      infrastructure through to business outcome
-foundations/   mathematics and mechanism, bound to no product
-platform/      the lifecycle that turns models into reliable capabilities
-infra/         local, cloud, and distributed runtime
-reference/     contributor and evidence-governance surfaces (standards/, research/)
-```
+Four sections, and one sentence each is enough to place any chapter:
+
+| Section | What it owns |
+|---|---|
+| [`missions/`](missions/) | an outcome, its evidence, and every deep-dive the stage consumed |
+| [`foundations/`](foundations/) | mechanism that holds regardless of which mission you run |
+| [`infra/`](infra/) | the machine underneath, and this repository's compute lanes |
+| [`reference/`](reference/) | contracts, governance, and dated survey material with no run |
+
+There is no `platform/` and no `capabilities/`. Both existed and both were
+deleted: each had become a second telling of mission 01 over the same
+lifecycle, sixteen of seventeen chapters serving exactly one mission while
+navigation offered them as a parallel curriculum. A deep-dive now lives in the
+stage whose decision it changes, and the cross-cutting view is an index —
+[read by topic](https://rehearse.maestro.onl/playground/topics/) — rather than
+a directory.
 
 ### foundations
 
@@ -105,14 +114,6 @@ reference/     contributor and evidence-governance surfaces (standards/, researc
 |---|---|
 | [The decoder block](foundations/00-attention/) — how one token finds the context it needs, and [what that block costs](foundations/00-attention/what-it-costs/) | Draft |
 | [First training loop](foundations/01-first-training-loop/) — the smallest complete pretraining loop, and why its failure is a *data* failure | Verified |
-
-### platform
-
-| Layer | Scope | Status |
-|---|---|---|
-| [data](platform/data/) | Pipelines, dedup, filtering, annotation, synthetic data | Seeded by [mission 01 · corpus](missions/01-language-model-agent/00-corpus/) |
-| [evaluation & observability](platform/evaluation-observability/) | Static and agentic evals, contamination, harness disclosure | Draft |
-| [safety & governance](platform/safety-governance/) | Enforcing the guardrails missions declare | Draft |
 
 ### Chapters two missions share
 

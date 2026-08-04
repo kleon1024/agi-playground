@@ -9,7 +9,7 @@ catalogue the failures. "The system works" is not a claim anyone can check;
 this script is what turns the contract's prose into something that is.
 
 The central design constraint is the same one
-`platform/data/01-ablation-harness/core/ablation.py` teaches for a single data
+`foundations/05-is-the-difference-real/core/ablation.py` teaches for a single data
 decision, applied here to a whole mission: a report that always returns a
 winner has hidden the problem rather than solved it. Below, the verdict space
 is not {met, not met} but {met, not met, CANNOT DETERMINE}, and the third

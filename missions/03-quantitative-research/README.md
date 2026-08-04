@@ -114,17 +114,17 @@ on top of it.
 
 | Stage | Deliverable | Layer | Status |
 |---|---|---|---|
-| [`00-market-data`](00-market-data/) | Point-in-time, corporate-action-adjusted, survivorship-bias-aware public market data panel | `platform/data` | Implementation present; run pending |
+| [`00-market-data`](00-market-data/) | Point-in-time, corporate-action-adjusted, survivorship-bias-aware public market data panel | mission 01 · corpus | Implementation present; run pending |
 | [`01-signal-research`](01-signal-research/) | Candidate signal construction from point-in-time-only inputs, with a disclosed search log of every variant tried | new capability, mission-local | verified local run; mission outcome pending |
-| [`02-cross-sectional-rank`](02-cross-sectional-rank/) | Rank the universe by signal and size target weights | `capabilities/rank-decide` | verified local run; mission outcome pending |
-| [`03-walk-forward-validation`](03-walk-forward-validation/) | Purged, embargoed cross-validation folds; deflated Sharpe against the disclosed search log | `platform/evaluation-observability` | verified local run; mission outcome pending |
-| [`04-cost-and-capacity`](04-cost-and-capacity/) | Transaction-cost and market-impact model; capacity-constrained position sizing | `platform/evaluation-observability` | verified local run with assumed costs; mission outcome pending |
-| [`05-report`](05-report/) | Outcome versus both baselines and every guardrail, with regime-level failure cases | `platform/evaluation-observability` | verified evaluator run; outcome cannot determine |
+| [`02-cross-sectional-rank`](02-cross-sectional-rank/) | Rank the universe by signal and size target weights | new to this mission | verified local run; mission outcome pending |
+| [`03-walk-forward-validation`](03-walk-forward-validation/) | Purged, embargoed cross-validation folds; deflated Sharpe against the disclosed search log | mission 01 · eval | verified local run; mission outcome pending |
+| [`04-cost-and-capacity`](04-cost-and-capacity/) | Transaction-cost and market-impact model; capacity-constrained position sizing | mission 01 · eval | verified local run with assumed costs; mission outcome pending |
+| [`05-report`](05-report/) | Outcome versus both baselines and every guardrail, with regime-level failure cases | mission 01 · eval | verified evaluator run; outcome cannot determine |
 
 ## What this reuses
 
 The point-in-time discipline in stage 00 is the same discipline
-[`platform/data`](../../platform/data/) already teaches for training corpora:
+[mission 01's corpus stage](../../missions/01-language-model-agent/00-corpus/) already teaches for training corpora:
 know exactly what was knowable when, and do not let anything later leak
 backward. Cross-sectional ranking and position sizing use the same
 scoring-and-decide contract mission 02 built for recommendation and ads. That
@@ -135,7 +135,7 @@ two missions sharing an input/output contract *and* an objective, and a rank
 here maximizes risk-adjusted return where a rank there maximized engagement.
 Naming the shared noun is not evidence that the decision is shared.
 Walk-forward evaluation, harness disclosure, and variance reporting extend
-[`platform/evaluation-observability`](../../platform/evaluation-observability/),
+[mission 01's evaluation stage](../../missions/01-language-model-agent/07-eval/),
 which already insists on seed variance and disclosed harnesses before mission
 02's ranking numbers were credible; this mission adds purge, embargo, and
 multiple-testing correction because financial evaluation needs strictly more

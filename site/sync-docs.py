@@ -37,10 +37,15 @@ BASE_URL = "/playground"
 # needs it, not a track to be read front to back — so the sidebar must not
 # present foundations and platform as a sequence leading up to a mission.
 # Contributor surfaces sort last.
+# Four sections, and a reader can state each boundary in one sentence:
+# missions own an outcome and its evidence, foundations own mechanism that
+# holds regardless of mission, infra owns the machine underneath, reference
+# owns contracts and dated survey material with no run. A fifth section is a
+# boundary nobody has written down yet -- `tests/test_sync_docs.py` fails if
+# this list stops matching the four documented in AGENTS.md.
 SECTIONS = [
     ("missions", 20),
     ("foundations", 30),
-    ("platform", 50),
     ("infra", 60),
     ("reference", 70),
 ]
@@ -67,7 +72,6 @@ FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 
 TITLE_OVERRIDES = {
     "foundations": "Foundations",
-    "platform": "Platform",
     "missions": "Missions",
     "infra": "Infrastructure",
     "reference": "Reference",
@@ -567,8 +571,8 @@ def write_category_files(section: str, dir_meta: dict[Path, tuple[str, int]]) ->
         elif rel in dir_meta:
             label, position = dir_meta[rel]
         else:
-            # An intermediate directory with no lesson of its own, such as
-            # `platform/adaptation/`. Name it from the directory and sort it
+            # An intermediate directory with no lesson of its own. Name it
+            # from the directory and sort it
             # with the chapters it contains.
             label = name.replace("-", " ").replace("_", " ").capitalize()
             nested = [
@@ -639,8 +643,8 @@ def main() -> None:
                 dir_meta[rel.parent] = (title, position)
             count += 1
 
-        # Section roots are linked to as directories (e.g. ../../platform/) but
-        # have no README of their own, so give them a landing page. All six
+        # Section roots are linked to as directories (e.g. ../../foundations/)
+        # but have no README of their own, so give them a landing page. All four
         # sections currently hand-write that index, so this is the fallback for
         # a section that loses its README -- a bare listing, no generated prose.
         # It used to carry a SECTION_INTROS table of hand-written boundary

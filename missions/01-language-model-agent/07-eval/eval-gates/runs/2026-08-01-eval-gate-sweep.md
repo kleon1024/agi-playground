@@ -3,7 +3,7 @@
 ## Commands
 
 ```bash
-cd platform/safety-governance/01-eval-gates/core
+cd missions/01-language-model-agent/07-eval/eval-gates/core
 python3 eval_gate.py demo                        # candidate-0000, seed 0, n=200
 python3 eval_gate.py demo --candidate-index 42   # candidate-0042, seed 0, n=200
 python3 eval_gate.py sweep                       # n=2000, seed 0, category ceiling disabled (1.10)

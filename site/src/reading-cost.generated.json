@@ -27,6 +27,18 @@
     "level": "applied",
     "minutes": 6
   },
+  "foundations/05-is-the-difference-real": {
+    "level": "applied",
+    "minutes": 10
+  },
+  "foundations/05-is-the-difference-real/the-two-confounds": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "foundations/06-significance": {
+    "level": "applied",
+    "minutes": 8
+  },
   "infra": {
     "level": "reference",
     "minutes": 3
@@ -69,6 +81,10 @@
   },
   "missions/01-language-model-agent/00-corpus": {
     "level": "foundation",
+    "minutes": 8
+  },
+  "missions/01-language-model-agent/00-corpus/what-a-release-needs": {
+    "level": "applied",
     "minutes": 7
   },
   "missions/01-language-model-agent/01-tokenizer": {
@@ -201,7 +217,23 @@
   },
   "missions/01-language-model-agent/07-eval": {
     "level": "applied",
+    "minutes": 9
+  },
+  "missions/01-language-model-agent/07-eval/eval-gates": {
+    "level": "applied",
     "minutes": 8
+  },
+  "missions/01-language-model-agent/07-eval/metric-gaming": {
+    "level": "applied",
+    "minutes": 9
+  },
+  "missions/01-language-model-agent/07-eval/red-teaming": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "missions/01-language-model-agent/07-eval/who-decides-to-ship": {
+    "level": "applied",
+    "minutes": 7
   },
   "missions/01-language-model-agent/07-eval/whose-harness": {
     "level": "applied",
@@ -462,46 +494,6 @@
   "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis": {
     "level": "applied",
     "minutes": 4
-  },
-  "platform": {
-    "level": "applied",
-    "minutes": 2
-  },
-  "platform/data": {
-    "level": "foundation",
-    "minutes": 10
-  },
-  "platform/data/01-ablation-harness": {
-    "level": "applied",
-    "minutes": 10
-  },
-  "platform/data/01-ablation-harness/the-two-confounds": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "platform/evaluation-observability": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "platform/evaluation-observability/01-metric-gaming": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "platform/evaluation-observability/02-statistical-significance": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "platform/safety-governance": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "platform/safety-governance/01-eval-gates": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "platform/safety-governance/02-red-teaming": {
-    "level": "applied",
-    "minutes": 8
   },
   "reference": {
     "level": "reference",

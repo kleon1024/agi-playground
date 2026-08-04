@@ -66,7 +66,7 @@ taking.
 | At this stage | You need to decide | So read | And bring back |
 |---|---|---|---|
 | before 02 | what a decoder block is doing at all | [the decoder block](../../foundations/00-attention/) | the forward path, and this model's 88,197,888 parameters reconstructed from its own formulas |
-| 00 | which documents to keep, and whether the filter is defensible | [platform / data](../../platform/data/) | a versioned dataset with rejection reasons |
+| 00 | which documents to keep, and whether the filter is defensible | [what a release needs](00-corpus/what-a-release-needs/) | a versioned dataset with rejection reasons |
 | 02 | whether an architecture choice is worth its cost | [architecture ablations](02-pretrain/architecture-ablations/) | six choices measured, two of which flip sign between seeds |
 | 02 | why a run will take ten hours, and whether it should | [the throughput ladder](02-pretrain/throughput/) | tokens per second, MFU, and what to change |
 | after 02 | whether to keep the checkpoint or retrain a new shape | [upcycling](02-pretrain/upcycling/) | a converted checkpoint that starts at the parent's loss |
@@ -75,7 +75,7 @@ taking.
 | 04 | which RL failure you actually have | [what a real loop adds](04-rl/what-a-real-loop-adds/) | the failure each acronym was built for, and why the verifier is the task |
 | 05 | what the model is doing between tokens | [why concurrency pays](05-serve/why-concurrency-pays/) | the cost model for a request under load |
 | 06 | how a tool loop stays bounded | [what stops it?](06-agent/what-stops-it/) | a permission and stop-condition contract |
-| 07 | what a number from a harness is worth | [evaluation and observability](../../platform/evaluation-observability/) | variance, and the disclosure a result needs |
+| 07 | what a number from a harness is worth | [why believe the number](07-eval/why-believe-the-number/) | variance, and the disclosure a result needs |
 
 Two chapters are deliberately not on this list.
 [Mid-training](../../reference/research/mid-training/) is skipped for the

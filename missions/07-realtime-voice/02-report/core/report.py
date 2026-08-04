@@ -86,7 +86,7 @@ def main() -> None:
     lines.append(f"  latency gap: not visible at native length (48 steps); a real {naive_growth:.1f}x divergence at 500 steps")
 
     lines.append("")
-    lines.append("4. Acceptance: any required change to platform/serving's KV-cache/scheduling code, named and justified")
+    lines.append("4. Acceptance: any required change to mission 01's serving stage's KV-cache/scheduling code, named and justified")
     lines.append("-" * 72)
     lines.append("  no change was required -- engine.py's Config/Transformer/KVCache/_forward_with_cache/")
     lines.append("  build_rope_cache were imported and called unmodified for this audio-token vocabulary")

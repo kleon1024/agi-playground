@@ -60,7 +60,9 @@ fixed, board-independent completion (a repeated `RRRRRRRRRRRR`-style string
 for the baseline shape, or, for small-group, a single-character `L`
 followed immediately by EOS -- a strictly worse collapse than stage 01's).
 
-<!-- interactive: DecodeModeCollapse -->
+That is the same divergence [stage 01](../01-grpo/#why-greedy-decode-collapsed-to-one-constant-board-independent-action)
+lets you drive directly — and this stage's contribution is that none of the
+three interventions moved it.
 
 Full numbers, per-seed detail, and the collapsed examples themselves:
 [`runs/2026-08-01-collapse-fix-sweep.md`](runs/2026-08-01-collapse-fix-sweep.md).

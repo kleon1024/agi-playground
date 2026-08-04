@@ -15,7 +15,7 @@ this report demands alongside quality and guardrails — the funnel above it
 in the mission's stage table supplies the rest.
 
 **Related:** the variance and disclosure discipline this stage enforces is
-[evaluation and observability](../../../platform/evaluation-observability/),
+[mission 01's evaluation stage](../../../missions/01-language-model-agent/07-eval/),
 the same discipline mission 01's [stage 07](../../01-language-model-agent/07-eval/)
 and mission 03's [stage 05](../../03-quantitative-research/05-report/) apply
 to a language model and a trading signal respectively.
@@ -34,7 +34,7 @@ Failure cases are also required evidence. A report with none has either not look
 
 ## The honest default is refusal
 
-Run the evaluator with no artifact. It scans actual `runs/` directories and returns `CANNOT DETERMINE`, naming the missing seed-level primary metric, guardrails, cost, and failure catalogue. That refusal is the core lesson. It follows `platform/data/01-ablation-harness`: a tool that always returns a winner has hidden uncertainty rather than resolved it. A serving-only latency run is not an end-to-end mission outcome.
+Run the evaluator with no artifact. It scans actual `runs/` directories and returns `CANNOT DETERMINE`, naming the missing seed-level primary metric, guardrails, cost, and failure catalogue. That refusal is the core lesson. It follows `foundations/05-is-the-difference-real`: a tool that always returns a winner has hidden uncertainty rather than resolved it. A serving-only latency run is not an end-to-end mission outcome.
 
 ```bash
 uv run python core/report.py

@@ -7,67 +7,76 @@ Working notes for AI agents and human contributors. Read this before editing.
 Build AI systems from infrastructure to measurable outcomes. **Missions are the
 only curriculum spine.** A learner starts with a stakeholder problem and stays
 on that mission until it links to a mechanism or engineering reference needed
-for the next decision. Foundations and platform are support libraries, not
-parallel tracks and not prerequisites to read front to back.
+for the next decision. Foundations and infrastructure are support libraries,
+not parallel tracks and not prerequisites to read front to back.
 
-The ownership model is business goal → mission → platform → infrastructure,
-but this is not the reading order. A mission proves a problem got solved; a
-support chapter proves a mechanism behaves the way the mission assumed.
+A mission proves a problem got solved; a support chapter proves a mechanism
+behaves the way the mission assumed.
 
 ## Layout
 
+Four sections, and each boundary fits in one sentence.
+
 ```
-missions/      primary reader paths: stakeholder problem through measured outcome
-foundations/   scoped prerequisite mathematics and mechanisms, bound to no product
-platform/      cross-mission lifecycle reference: data, training, serving, evaluation, safety
-infra/         runtime and compute-lane runbooks
-reference/     contributor and evidence-governance surfaces (standards/, research/)
+missions/      what was built, what it proved, and every deep-dive the stage consumed
+foundations/   mechanism that holds regardless of product or mission
+infra/         the machine underneath, and this repository's compute lanes
+reference/     contracts, governance, and dated survey material with no run
 ```
+
+There is no `platform/` and no `capabilities/`. Both existed and both were a
+second telling of mission 01 over the same lifecycle — sixteen of seventeen
+platform chapters served exactly one mission, nine interactives appeared on
+both a mission stage and a platform twin, and roughly 2,100 lines of branch
+prose owned no `core/`, `prod/`, or `runs/`. Cross-cutting views are an
+**index**, not a directory: `site/topics.mdx` lists every chapter under the
+decision it serves.
 
 ## Curriculum ownership
 
 The landing page, Start here page, and sidebar route readers to Missions before
 support libraries. A mission introduces one concrete artifact and links to a
-foundation chapter, a platform chapter, or an earlier mission's stage only at
-the point where that chapter is required. The linked chapter must return an
-artifact, decision, or diagnostic that the next mission stage consumes.
+foundation chapter, an infrastructure chapter, or an earlier mission's stage
+only at the point where that chapter is required. The linked chapter must
+return an artifact, decision, or diagnostic that the next mission stage
+consumes.
 
-- **Mission owns the outcome.** It owns the stakeholder, job, decision,
-  baseline, concrete artifact chain, integration handoffs, budgets, proxy,
-  result, and evidence boundary.
-- **Foundation owns prerequisite mechanism.** It explains product-independent
-  mathematics or mechanics needed to reason about the next decision. Scope the
-  name honestly: attention, decoders, and a first language-model training loop
-  are language-model foundations, not universal AGI prerequisites.
+- **Mission owns the outcome and the evidence for it.** It owns the
+  stakeholder, job, decision, baseline, concrete artifact chain, integration
+  handoffs, budgets, proxy, result, and evidence boundary. A deep-dive belongs
+  to the stage whose decision it changes, even when other missions cite it.
+- **Foundation owns mechanism that survives the mission.** Test: could this
+  chapter be written without naming a mission's artifact? If not, it is a
+  mission deep-dive and belongs beside the run. Scope the name honestly:
+  attention, decoders, and a first language-model training loop are
+  language-model foundations, not universal AGI prerequisites.
+  `level: foundation` may appear only inside `foundations/`.
 - **A shared chapter stays where it was built.** When a second mission needs
   the same input/output contract and objective, it links to the chapter in the
-  mission that built and measured it; there is no `capabilities/` directory to
-  promote it into. Moving an explanation away from the run that backs it is
-  how a chapter ends up making a claim with no evidence beside it. The
-  admission bar survives as a promotion criterion in
+  mission that built and measured it. Moving an explanation away from the run
+  that backs it is how a chapter ends up making a claim with no evidence beside
+  it. The admission bar survives as a promotion criterion in
   `reference/standards/mission-contract.md`, and reuse of a noun or technique
   still does not clear it.
-- **Platform owns lifecycle execution.** It explains cross-mission contracts
-  and tradeoffs for data, training, adaptation, serving, evaluation,
-  observability, and safety. It does not own stakeholder outcomes or form a
-  mandatory linear course.
-- **Infrastructure owns where work runs.** `reference/standards/` and
-  `reference/research/` explain how claims are governed and why choices were
-  made; they are contributor and reference surfaces, not the learner's
-  opening path.
+- **Infrastructure owns the machine underneath**, and names the mission stage
+  or foundation it is the substrate for.
+- **Reference owns contracts, governance, and dated survey material.** It is
+  the only place a page may have no run and not be a defect.
+
+A widget belongs to one page. After a fold, no `<!-- interactive: X -->` marker
+may appear in two chapter READMEs; a test enforces it.
 
 Use the central-question test when content overlaps. If a chapter's central
-question, inputs, outputs, and acceptance remain the same in a second mission,
-move the reusable explanation to Foundations or Platform and keep only the
+question, inputs, outputs, and acceptance are the same wherever it is read,
+move the reusable explanation to Foundations and keep only the
 mission-specific choice, handoff, and evidence in the Mission. Do not duplicate
-the same tutorial under Mission and Platform.
+the same tutorial in two places.
 
-Do not call any foundations → platform sequence the global
-curriculum spine. Such ordering may organize a scoped reference collection, but
-it must not determine the homepage, sidebar, prerequisites, or learner path.
-The language-model mission is labeled **Language-model system** in reader-facing
-navigation; an agent is one stage of that system, not the scope of the
-playground.
+Do not call any support-chapter sequence the global curriculum spine. Such
+ordering may organize a scoped reference collection, but it must not determine
+the homepage, sidebar, prerequisites, or learner path. The language-model
+mission is labeled **Language-model system** in reader-facing navigation; an
+agent is one stage of that system, not the scope of the playground.
 
 ## The two invariants
 

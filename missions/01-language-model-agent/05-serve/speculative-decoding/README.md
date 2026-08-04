@@ -211,7 +211,7 @@ This platform's three sub-lessons now cover the three questions [the overview](.
 raises without measuring: is the card idle between tokens
 ([graph execution](../graph-execution/)), does a smaller model decode faster
 ([quantization](../quantization/)), and is a cheap draft's guess worth the check (this
-chapter). Continue to [evaluation](../../../../platform/evaluation-observability/) to decide whether a served
+chapter). Continue to [evaluation](../../07-eval/) to decide whether a served
 system, including any of these decode-time techniques, is actually better on a task that matters.
 
 Primary references: Leviathan, Kalman & Matias, *Fast Inference from Transformers via Speculative

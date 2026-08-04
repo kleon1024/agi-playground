@@ -3,13 +3,13 @@
 # Every other mission in this repository moves discrete text tokens through a
 # transformer. This mission asks whether the serving mechanism built for that
 # job — a KV cache, paged allocation, continuous batching, all described in
-# platform/serving — is actually about tokens, or about text. The way to find
+# mission 01's serving stage — is actually about tokens, or about text. The way to find
 # out is to point the same mechanism at a different discrete-token stream and
 # see what breaks.
 #
 # The new work here is narrow on purpose: a small from-scratch audio codec
 # that turns a waveform into a discrete token sequence, and a decode loop that
-# reuses platform/serving/01-graph-execution's KV-cache and scheduling code
+# reuses mission 01's 05-serve/graph-execution's KV-cache and scheduling code
 # unchanged. If the serving layer needs new mechanism to handle audio tokens,
 # that is itself the finding — the mission does not assume the answer is yes.
 
@@ -35,7 +35,7 @@ job: >
   infra/local-4090.md) alongside local compute time.
 
 decision: >
-  Whether platform/serving's KV-cache, paged-allocation, and continuous-
+  Whether mission 01's serving stage's KV-cache, paged-allocation, and continuous-
   batching mechanics, built and measured against text tokens in mission 01,
   transfer unchanged to a different discrete-token modality (audio codec
   tokens), with only a new codec at the input/output boundary — or whether
@@ -64,7 +64,7 @@ primary_metric: >
   measured against the reference waveform — for example mean-squared
   reconstruction error or a simple spectral distance on held-out clips)
   reported beside per-chunk decode latency (p50 and p95, matching
-  platform/serving's own latency-distribution discipline, never a single
+  mission 01's serving stage's own latency-distribution discipline, never a single
   average), both from real runs on the declared hardware.
 
 guardrails:
@@ -75,7 +75,7 @@ guardrails:
     construction, and the report says so beside every metric.
   - Latency is measured on a real decode run, never estimated or assumed
     from the offline baseline's cost.
-  - The streaming loop reuses platform/serving/01-graph-execution/core/'s
+  - The streaming loop reuses mission 01's 05-serve/graph-execution/core/'s
     KV-cache and scheduling code directly; if a change to that code is
     required to make audio tokens work, the change and the reason for it are
     recorded, not silently folded in as if it were always general enough.
@@ -90,7 +90,7 @@ latency_budget: >
   Unlike mission 04, latency here is a first-class constraint: a listener is
   waiting on each chunk. The toy target is a declared, measured per-chunk
   decode time on the local GPU lane (specific figure set once stage 01 has a
-  real profile to set it against, per platform/serving's own practice of
+  real profile to set it against, per mission 01's serving stage's own practice of
   measuring before declaring a number) — reported as p50/p95 from an actual
   run, not assumed from FLOPs. A later stage adds a second declared figure:
   real Tailscale round-trip p50/p95 (Mac client to the 4090 host, per
@@ -126,7 +126,7 @@ acceptance:
     not implied
   - Every stage has a runs/ entry with command, hardware, wall-clock, and
     metrics before being marked verified
-  - Any change required to platform/serving's KV-cache or scheduling code to
+  - Any change required to mission 01's serving stage's KV-cache or scheduling code to
     support audio tokens is named and justified, not silently made
 
 proves: >

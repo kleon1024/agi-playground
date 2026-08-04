@@ -10,7 +10,7 @@ label: Metric gaming
 
 An automated grader, a benchmark pass rate, a reward model score: all three
 are proxies, standing in for a quality you cannot cheaply measure directly.
-[Evaluation](../README.md) already asks you to quantify uncertainty and
+[The evaluation stage](../README.md) already asks you to quantify uncertainty and
 convert failures into owned actions before trusting a score. This chapter
 asks a different question about that same score: what happens to its meaning
 once something is optimizing against it on purpose?
@@ -136,7 +136,7 @@ happening inside a training run is not.
 ## Reproduce it
 
 ```bash
-cd platform/evaluation-observability/01-metric-gaming/core
+cd missions/01-language-model-agent/07-eval/metric-gaming/core
 python goodhart.py --steps 2000 --window 200 --seed 0 --out ../runs/goodhart-run.json
 ```
 
@@ -218,7 +218,7 @@ is a structural risk here rather than an avoidable oversight.
 
 ## Next
 
-[Section 6 of the evaluation chapter](../README.md#6-quantify-uncertainty-before-comparing-close-scores)
+[Why should anyone believe the report?](../why-believe-the-number/)
 already asks you to distrust a single point estimate; this chapter asks you
 to distrust a metric's *meaning* once something is searching against it on
 purpose. If you are choosing which proxy to trust for a live decision, return

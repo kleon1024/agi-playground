@@ -83,7 +83,8 @@ grid-world run does not: only 1 of 200 steps per seed came back degenerate
 credit plus a terminal goal bit gives the policy enough surface area to
 produce variance within almost every group.
 
-<!-- interactive: GRPOAdvantage -->
+The advantage arithmetic behind that degeneracy is derived, and made
+drivable, in [mission 01's RL stage](/playground/missions/01-language-model-agent/04-rl#the-group-relative-trick).
 
 Group Relative Policy Optimization was introduced by Shao et al. in the
 DeepSeekMath paper (2024) to drop PPO's value network for LLM RL

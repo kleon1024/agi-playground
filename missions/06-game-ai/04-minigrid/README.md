@@ -77,7 +77,9 @@ group-relative advantage was exactly zero throughout, and not one gradient
 step was ever taken. Both greedy and sampled evaluation success are
 exactly 0.0 on all 3 seeds.
 
-<!-- interactive: DecodeModeCollapse -->
+There is no greedy-versus-sampled gap to inspect here, because there is no
+learned policy: [stage 01's decode comparison](../01-grpo/) needs a policy
+that took at least one gradient step, and this run took none.
 
 Full commands, per-seed numbers, and the mechanistic explanation:
 [`runs/2026-08-01-minigrid-cold-start.md`](runs/2026-08-01-minigrid-cold-start.md).

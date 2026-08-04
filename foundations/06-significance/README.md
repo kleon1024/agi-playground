@@ -8,14 +8,14 @@ label: Statistical significance
 
 # Model A scored 74%. Model B scored 71%. Is that a real difference?
 
-[Section 6 of the evaluation chapter](../README.md#6-quantify-uncertainty-before-comparing-close-scores)
+[why should anyone believe the report?](../../missions/01-language-model-agent/07-eval/why-believe-the-number/)
 already tells you not to trust a bare point estimate and gives you a
 single-model confidence interval to prove it. This chapter answers the
 question that actually decides a ship/reject call: when you have two scores
 on the same task set, how much of their difference is signal, and how much is
 the sampling noise of a finite eval set?
 
-**Before this:** [metric gaming](../01-metric-gaming/) asks whether a score's
+**Before this:** [metric gaming](../../missions/01-language-model-agent/07-eval/metric-gaming/) asks whether a score's
 *meaning* survives optimization pressure. This chapter assumes the metric
 means what you think it does, and asks a narrower question: given two
 measured scores, is their gap distinguishable from chance?
@@ -24,7 +24,7 @@ measured scores, is their gap distinguishable from chance?
 
 A pass rate on N held-out items is an estimate of the true, unobservable
 pass rate a system would show over infinite items — same idea [Section
-6](../README.md#6-quantify-uncertainty-before-comparing-close-scores) already
+the evaluation stage](../../missions/01-language-model-agent/07-eval/why-believe-the-number/) already
 applies to a single score. Two systems scored on the same N items each carry
 their own sampling noise, and their *difference* carries the combination of
 both. A 3-point gap on 30 items and a 3-point gap on 3,000 items are not
@@ -111,7 +111,7 @@ and the argument for running it routinely is one of the newest.
 ## Reproduce it
 
 ```bash
-cd platform/evaluation-observability/02-statistical-significance/core
+cd foundations/06-significance/core
 python3 bootstrap_significance.py --seed 0 --out ../runs/bootstrap-run.json
 ```
 
@@ -197,11 +197,11 @@ have.
 
 ## Next
 
-Return to [Section 6 of the evaluation chapter](../README.md#6-quantify-uncertainty-before-comparing-close-scores)
+Return to [why should anyone believe the report?](../../missions/01-language-model-agent/07-eval/why-believe-the-number/)
 to see this same discipline applied to a single model's score before ever
 reaching a two-system comparison. If you are comparing more than two systems
 or configurations at once, the multiple-comparisons problem named above is
 the next open question this chapter does not answer.
 
-[The evaluation landscape](../LANDSCAPE.md) names the production libraries
+[The evaluation landscape](../../missions/01-language-model-agent/07-eval/LANDSCAPE.md) names the production libraries
 that implement paired bootstrap and other significance tests at scale.

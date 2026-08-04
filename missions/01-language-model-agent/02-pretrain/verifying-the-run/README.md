@@ -91,7 +91,7 @@ full epoch over the corpus (0.95 at the end); the cosine floor is too high to
 settle; or it is evaluation noise, since each point samples the validation set
 rather than consuming it. **This run cannot distinguish them**, because it is one
 run. Separating them needs the paired multi-seed comparison in
-[the data-ablation harness](../../../../platform/data/01-ablation-harness/).
+[the data-ablation harness](../../../../foundations/05-is-the-difference-real/).
 
 Reported at both numbers rather than the better one, and the saved checkpoint is
 the final one, not the best-scoring one.

@@ -100,7 +100,8 @@ why seed2's exact-match (28.67%) is so much higher than seed0's (0.67%)
 while their MSE values are close (0.1533 vs 0.1429) — that is reported as an
 open, unexplained finding, not resolved here.
 
-<!-- interactive: SequenceLengthScaling -->
+The length-scaling curve this sits on is [stage 04's](../04-longer-sequences/);
+this stage holds length fixed and adds a second object instead.
 
 **Verdict:** `MET` (all 3 seeds) — `lm_completion` beats frame-repeat by a
 margin more than 6x the run-to-run spread in every seed, and every run

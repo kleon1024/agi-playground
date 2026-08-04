@@ -1,15 +1,16 @@
 ---
 title: Read by topic
-description: Every chapter in this repository, grouped by the decision it helps you make, across missions, foundations, platform, and infrastructure.
+description: Every chapter in this repository, grouped by the decision it helps you make, across missions, foundations, infrastructure, and reference.
 ---
 
 # Which decision are you actually trying to make?
 
-The sidebar groups chapters by who owns them: a mission owns an outcome, a
-foundation owns a mechanism, a capability owns a reused contract, platform owns
-lifecycle execution, infrastructure owns where the work runs. That is the right
-way to decide *where a new chapter belongs*. It is the wrong way to find
-something when you already have a question.
+The sidebar groups chapters by who owns them: a mission owns an outcome and the
+evidence for it, a foundation owns mechanism that holds regardless of which
+mission you are running, infrastructure owns the machine underneath, and
+reference owns contracts and dated survey material. That is the right way to
+decide *where a new chapter belongs*. It is the wrong way to find something
+when you already have a question.
 
 This page cuts the other way. Pick the decision you are facing and read every
 chapter that touches it, in the order that makes the argument build, no matter
@@ -27,10 +28,10 @@ Getting a split wrong makes every later number a lie. Five domains make the same
 mistake in five different disguises, and two infrastructure chapters explain what
 happens to that data once there is too much of it for one machine.
 
-- [Corpus filtering: how does a raw crawl become a corpus you can defend?](/playground/platform/data/)
+- [You have the text. What decides whether anyone can trust it?](/playground/missions/01-language-model-agent/00-corpus/what-a-release-needs/)
 - [The corpus — what has to be true of text before you train on it?](/playground/missions/01-language-model-agent/00-corpus/)
-- [The ablation harness: does this data help?](/playground/platform/data/01-ablation-harness/)
-- [The two confounds a proxy run can hide](/playground/platform/data/01-ablation-harness/the-two-confounds/)
+- [The ablation harness: does this data help?](/playground/foundations/05-is-the-difference-real/)
+- [The two confounds a proxy run can hide](/playground/foundations/05-is-the-difference-real/the-two-confounds/)
 - [What does a click actually tell you?](/playground/missions/02-personalized-discovery/00-interactions/)
 - [What did you actually know on the decision date?](/playground/missions/03-quantitative-research/00-market-data/)
 - [What makes a synthetic image+question pair require looking at the image?](/playground/missions/05-vision-language-model/00-image-caption-task/)
@@ -82,9 +83,10 @@ fixed them.
 
 ## Making the run faster, and making it span more than one card
 
-The platform chapters own the ML-side decision — which parallelism, what
-throughput. The infrastructure chapters own the layer underneath it: what the
-wiring, the scheduler, and the worker pool do to that decision.
+The mission and foundation chapters own the ML-side decision — which
+parallelism, what throughput. The infrastructure chapters own the layer
+underneath it: what the wiring, the scheduler, and the worker pool do to that
+decision.
 
 - [Your run will take ten hours. Should it?](/playground/missions/01-language-model-agent/02-pretrain/throughput/)
 - [The loss curve looks wrong. Which subsystem owns it?](/playground/missions/01-language-model-agent/02-pretrain/when-the-curve-goes-wrong/)
@@ -156,9 +158,9 @@ and why a mean hides the step that took three times as long.
 - [How would you know if any of this worked?](/playground/missions/01-language-model-agent/07-eval/)
 - [Which part of a score belongs to the model?](/playground/missions/01-language-model-agent/07-eval/whose-harness/)
 - [The report is correct. Why should anyone believe it?](/playground/missions/01-language-model-agent/07-eval/why-believe-the-number/)
-- [Evaluation: what evidence justifies replacing what you already run?](/playground/platform/evaluation-observability/)
-- [The score went up. Did the thing you actually wanted?](/playground/platform/evaluation-observability/01-metric-gaming/)
-- [Model A scored 74%. Model B scored 71%. Is that a real difference?](/playground/platform/evaluation-observability/02-statistical-significance/)
+- [The report is in. What has to be true before it ships?](/playground/missions/01-language-model-agent/07-eval/who-decides-to-ship/)
+- [The score went up. Did the thing you actually wanted?](/playground/missions/01-language-model-agent/07-eval/metric-gaming/)
+- [Model A scored 74%. Model B scored 71%. Is that a real difference?](/playground/foundations/06-significance/)
 - [A mean step time hides the step that just took three times as long](/playground/infra/04-observability/)
 - [How many ideas may you try before the winner means nothing?](/playground/missions/03-quantitative-research/01-signal-research/)
 - [What Sharpe would survive an honest split?](/playground/missions/03-quantitative-research/03-walk-forward-validation/)
@@ -211,9 +213,9 @@ together and the shape of an honest null result becomes obvious.
 
 ## Guardrails: turning a policy into something that stops you
 
-- [How does a guardrail become something that actually stops you?](/playground/platform/safety-governance/)
-- [How does a release get blocked before a person has to eyeball it?](/playground/platform/safety-governance/01-eval-gates/)
-- [Where do the test cases that make a gate meaningful come from?](/playground/platform/safety-governance/02-red-teaming/)
+- [The report is in. What has to be true before it ships?](/playground/missions/01-language-model-agent/07-eval/who-decides-to-ship/)
+- [How does a release get blocked before a person has to eyeball it?](/playground/missions/01-language-model-agent/07-eval/eval-gates/)
+- [Where do the test cases that make a gate meaningful come from?](/playground/missions/01-language-model-agent/07-eval/red-teaming/)
 
 ## Or start from the stakeholder problem
 

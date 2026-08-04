@@ -7,7 +7,7 @@ label: Paired bootstrap significance
 **Command:**
 
 ```bash
-cd platform/evaluation-observability/02-statistical-significance/core
+cd foundations/06-significance/core
 python3 bootstrap_significance.py --seed 0 --out ../runs/bootstrap-run.json
 ```
 

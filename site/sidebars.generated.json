@@ -26,9 +26,24 @@
         },
         "items": [
           {
-            "type": "doc",
-            "id": "missions/01-language-model-agent/00-corpus/index",
-            "label": "Corpus"
+            "type": "category",
+            "label": "Corpus",
+            "link": {
+              "type": "doc",
+              "id": "missions/01-language-model-agent/00-corpus/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/00-corpus/what-a-release-needs/index",
+                "label": "What a release needs"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/00-corpus/LANDSCAPE",
+                "label": "Landscape"
+              }
+            ]
           },
           {
             "type": "category",
@@ -267,6 +282,31 @@
                 "type": "doc",
                 "id": "missions/01-language-model-agent/07-eval/why-believe-the-number/index",
                 "label": "Why believe the number"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/07-eval/metric-gaming/index",
+                "label": "Metric gaming"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/07-eval/who-decides-to-ship/index",
+                "label": "Who decides to ship"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/07-eval/eval-gates/index",
+                "label": "Evaluation gates \u00b7 draft"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/07-eval/red-teaming/index",
+                "label": "Red-teaming \u00b7 draft"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/07-eval/LANDSCAPE",
+                "label": "Landscape"
               }
             ]
           }
@@ -673,94 +713,29 @@
         "label": "Distributed training"
       },
       {
+        "type": "category",
+        "label": "Is the difference real",
+        "link": {
+          "type": "doc",
+          "id": "foundations/05-is-the-difference-real/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "foundations/05-is-the-difference-real/the-two-confounds/index",
+            "label": "The two confounds"
+          }
+        ]
+      },
+      {
+        "type": "doc",
+        "id": "foundations/06-significance/index",
+        "label": "Statistical significance"
+      },
+      {
         "type": "doc",
         "id": "foundations/LANDSCAPE",
         "label": "Landscape"
-      }
-    ]
-  },
-  {
-    "type": "category",
-    "label": "Platform",
-    "link": {
-      "type": "doc",
-      "id": "platform/index"
-    },
-    "items": [
-      {
-        "type": "category",
-        "label": "Data",
-        "link": {
-          "type": "doc",
-          "id": "platform/data/index"
-        },
-        "items": [
-          {
-            "type": "category",
-            "label": "Ablation harness",
-            "link": {
-              "type": "doc",
-              "id": "platform/data/01-ablation-harness/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "platform/data/01-ablation-harness/the-two-confounds/index",
-                "label": "The two confounds"
-              }
-            ]
-          },
-          {
-            "type": "doc",
-            "id": "platform/data/LANDSCAPE",
-            "label": "Landscape"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Evaluation",
-        "link": {
-          "type": "doc",
-          "id": "platform/evaluation-observability/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "platform/evaluation-observability/01-metric-gaming/index",
-            "label": "Metric gaming"
-          },
-          {
-            "type": "doc",
-            "id": "platform/evaluation-observability/02-statistical-significance/index",
-            "label": "Statistical significance"
-          },
-          {
-            "type": "doc",
-            "id": "platform/evaluation-observability/LANDSCAPE",
-            "label": "Landscape"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Safety and governance",
-        "link": {
-          "type": "doc",
-          "id": "platform/safety-governance/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "platform/safety-governance/01-eval-gates/index",
-            "label": "Evaluation gates \u00b7 draft"
-          },
-          {
-            "type": "doc",
-            "id": "platform/safety-governance/02-red-teaming/index",
-            "label": "Red-teaming \u00b7 draft"
-          }
-        ]
       }
     ]
   },

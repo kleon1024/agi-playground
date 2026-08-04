@@ -5,7 +5,7 @@
 **Command:**
 
 ```bash
-cd platform/safety-governance/02-red-teaming/core
+cd missions/01-language-model-agent/07-eval/red-teaming/core
 python3 adversarial_search.py demo --case-index 0
 python3 adversarial_search.py sweep --n 500 --seed 0
 ```

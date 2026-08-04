@@ -27,10 +27,11 @@
 
 missions
 foundations
-platform
-platform/data
-platform/data/01-ablation-harness/the-two-confounds
-platform/evaluation-observability
+foundations/05-is-the-difference-real/the-two-confounds
+
+# Mission 01, stage 00 -- the corpus. The pipeline, then the policies that
+# decide whether anyone can trust what came out of it.
+missions/01-language-model-agent/00-corpus/what-a-release-needs
 
 # Mission 01, stage 02 -- pretraining. The mechanism, then the run, then the
 # four decisions the run states without testing, then the open question.
@@ -63,6 +64,15 @@ missions/01-language-model-agent/05-serve/why-concurrency-pays
 missions/01-language-model-agent/05-serve/graph-execution
 missions/01-language-model-agent/05-serve/quantization
 missions/01-language-model-agent/05-serve/speculative-decoding
+
+# Mission 01, stage 07 -- evaluation. Whose number it is, whether to believe
+# it, how it gets gamed, then the decision and the gates around it.
+missions/01-language-model-agent/07-eval/whose-harness
+missions/01-language-model-agent/07-eval/why-believe-the-number
+missions/01-language-model-agent/07-eval/metric-gaming
+missions/01-language-model-agent/07-eval/who-decides-to-ship
+missions/01-language-model-agent/07-eval/eval-gates
+missions/01-language-model-agent/07-eval/red-teaming
 
 # Mission 01, stage 06 -- the agent harness. Capability, then containment, then
 # whether a second agent is worth its handoff.

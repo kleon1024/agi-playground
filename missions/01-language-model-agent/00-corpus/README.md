@@ -251,3 +251,10 @@ your training data.
 
 [Stage 01 — tokenizer](../01-tokenizer/): turn this text into the integers a
 model can consume, with a byte-level BPE you train yourself.
+
+Two detours from here, both optional. [What a release needs](what-a-release-needs/)
+takes the four policy decisions this pipeline made implicitly — the duplicate
+threshold, the mixture weights, the label contract, and what ships beside the
+tokens — and makes each one explicit. [The data landscape](LANDSCAPE.md) pairs
+every `core/` component above against the production tool that does the same
+job at scale.

@@ -256,7 +256,11 @@ Two directions from here, and they are different kinds of work:
 - **[Why believe the number?](why-believe-the-number/)** — the companion to
   this chapter, and the one to read before quoting anything produced here.
   Contamination, judge bias, and differences smaller than the noise all
-  survive every check on this page.
+  survive every check on this page. When the question is specifically whether
+  a gap is larger than the noise,
+  [is a difference significant?](../../../foundations/06-significance/) is the
+  arithmetic, and [who decides to ship](who-decides-to-ship/) is what a release
+  decision needs on top of the number.
 - **[Mission 02 — personalized discovery](../../02-personalized-discovery/)** —
   a different decision loop entirely. This mission proved the language-model
   layers compose; it proved nothing about whether they generalize when the

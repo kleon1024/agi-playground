@@ -49,10 +49,13 @@ const BUILD_PATH: Step[] = [
     note: 'Turn raw web text into a training-ready shard you can defend.',
     detours: [
       {
-        href: '/playground/platform/data/',
-        label: 'Platform / data',
-        returns: 'a manifest and per-stage rejection reasons',
+        href: '/playground/foundations/05-is-the-difference-real/',
+        label: 'Is the difference real',
+        returns: 'why one run per arm cannot rank two data mixtures',
       },
+    ],
+    companions: [
+      { href: `${MISSION}/00-corpus/what-a-release-needs/`, label: 'What a release needs' },
     ],
   },
   {
@@ -155,14 +158,18 @@ const BUILD_PATH: Step[] = [
     note: 'Decide what the complete system earned the right to claim.',
     detours: [
       {
-        href: '/playground/platform/evaluation-observability/',
-        label: 'Evaluation and observability',
-        returns: 'variance, and the disclosure a result has to carry',
+        href: '/playground/foundations/06-significance/',
+        label: 'Statistical significance',
+        returns: 'whether the gap you measured survives its own noise',
       },
     ],
     companions: [
       { href: `${MISSION}/07-eval/whose-harness/`, label: 'Whose harness produced it' },
       { href: `${MISSION}/07-eval/why-believe-the-number/`, label: 'Why believe the number' },
+      { href: `${MISSION}/07-eval/metric-gaming/`, label: 'Metric gaming' },
+      { href: `${MISSION}/07-eval/who-decides-to-ship/`, label: 'Who decides to ship' },
+      { href: `${MISSION}/07-eval/eval-gates/`, label: 'Evaluation gates' },
+      { href: `${MISSION}/07-eval/red-teaming/`, label: 'Red-teaming' },
     ],
   },
 ];
@@ -234,9 +241,9 @@ const DECISION_PATHS: Array<{
 
 const REFERENCE_LAYERS: MapLink[] = [
   {
-    href: '/playground/platform/',
-    label: 'Platform',
-    note: 'Data, training, adaptation, serving, evaluation, and safety.',
+    href: '/playground/foundations/',
+    label: 'Foundations',
+    note: 'Mechanism that holds regardless of which mission you are running.',
   },
   {
     href: '/playground/infra/',

@@ -35,16 +35,10 @@ IGNORED_SOURCE_PATHS = {
     "site/docs",
 }
 
-# The five layers. "Business goal" and "outcome telemetry" are not directories —
+# The four sections. "Business goal" and "outcome telemetry" are not directories —
 # they live inside each mission's contract, which is why the mission test below
 # checks for a contract rather than for more folders.
 FOUNDATIONS = ["01-first-training-loop"]
-
-PLATFORM = [
-    "data",
-    "evaluation-observability",
-    "safety-governance",
-]
 
 MISSIONS = [
     "01-language-model-agent",
@@ -88,9 +82,86 @@ def test_foundations_lessons_exist():
         assert (ROOT / "foundations" / name / "README.md").is_file()
 
 
-def test_platform_layers_exist():
-    for name in PLATFORM:
-        assert (ROOT / "platform" / name / "README.md").is_file(), f"missing platform/{name}"
+def test_only_the_four_documented_sections_exist():
+    """A fifth top-level section is a boundary nobody has written down.
+
+    `platform/` and `capabilities/` were both that: directories a reader
+    could not tell apart from the ones beside them, each holding a second
+    telling of a mission over the same lifecycle. The four that remain each
+    have a one-sentence boundary in AGENTS.md, and adding a fifth means
+    writing its boundary there first.
+    """
+    documented = {"missions", "foundations", "infra", "reference"}
+    for gone in ("platform", "capabilities"):
+        assert not (ROOT / gone).exists(), (
+            f"{gone}/ is back; AGENTS.md says a shared chapter stays in the "
+            "mission that built and measured it"
+        )
+    # `site/` is the Docusaurus application that publishes the four; it has a
+    # README because contributors build it, not because readers read it.
+    top = {
+        d.name
+        for d in ROOT.iterdir()
+        if d.is_dir()
+        and (d / "README.md").is_file()
+        and not d.name.startswith(".")
+        and d.name != "site"
+    }
+    assert top == documented, (
+        f"top-level content directories are {sorted(top)}, AGENTS.md documents "
+        f"{sorted(documented)} -- write the fifth boundary down first"
+    )
+
+
+def test_no_foundation_chapter_is_an_orphan():
+    """A support chapter nobody links from a stage is a chapter nobody reads.
+
+    Ten of the twenty-two chapters in the old support tree were never linked
+    from any mission, which is how a second curriculum grew beside the first
+    without anyone noticing. A foundation earns its place by being the detour
+    some stage actually sends the reader on -- from a *stage* README, not a
+    mission overview, because an overview can list anything.
+    """
+    stage_text = "\n".join(
+        readme.read_text()
+        for readme in sorted((ROOT / "missions").rglob("README.md"))
+        if len(readme.relative_to(ROOT / "missions").parts) > 2
+        and not {"core", "prod", "runs", "cache"} & set(readme.parts)
+    )
+    orphans = []
+    for readme in sorted((ROOT / "foundations").glob("*/README.md")):
+        chapter = readme.parent.name
+        if f"foundations/{chapter}" not in stage_text:
+            orphans.append(f"foundations/{chapter}")
+    assert not orphans, (
+        "every foundations chapter must be linked from at least one mission "
+        "stage README -- these are reachable only from the sidebar:\n"
+        + "\n".join(orphans)
+    )
+
+
+INTERACTIVE_MARKER = re.compile(r"^<!--\s*interactive:\s*(\w+)\s*-->$", re.MULTILINE)
+
+
+def test_a_widget_belongs_to_one_chapter():
+    """A widget on two pages means two pages are teaching the same thing.
+
+    Nine interactives appeared on both a mission 01 stage and its platform
+    twin, which is the clearest single symptom of the duplicate curriculum
+    that used to sit beside the missions. The rule that replaces it: one
+    widget, one owning chapter, and every other chapter links to it.
+    """
+    owners: dict[str, list[str]] = {}
+    for section in ("missions", "foundations", "infra", "reference"):
+        for page in sorted((ROOT / section).rglob("*.md")):
+            if {"core", "prod", "runs", "cache"} & set(page.parts):
+                continue
+            for widget in INTERACTIVE_MARKER.findall(page.read_text()):
+                owners.setdefault(widget, []).append(page.relative_to(ROOT).as_posix())
+    shared = {w: pages for w, pages in owners.items() if len(pages) > 1}
+    assert not shared, "each interactive belongs to exactly one chapter:\n" + "\n".join(
+        f"{w}: {', '.join(pages)}" for w, pages in sorted(shared.items())
+    )
 
 
 def test_a_shared_chapter_stays_in_the_mission_that_built_it():
@@ -154,7 +225,7 @@ def test_mission_01_stages_exist():
 # therefore say which weights its claims rest on. Mission 02 and 03 stages are
 # recommender and quantitative work with no language-model base, so the
 # declaration would be noise there rather than a check.
-BASE_DECLARING_TREES = ["foundations", "platform", "missions/01-language-model-agent"]
+BASE_DECLARING_TREES = ["foundations", "missions/01-language-model-agent"]
 BASE_PATTERN = re.compile(r"^base: (scratch|none|external:\S+)$", re.MULTILINE)
 
 
@@ -195,8 +266,7 @@ def test_every_published_page_declares_its_level():
     allowed = {"foundation", "applied", "frontier", "reference"}
     pattern = re.compile(r"^level:\s*(\S+)\s*$", re.MULTILINE)
     problems = []
-    for section in ("foundations", "missions", "platform",
-                    "infra", "reference"):
+    for section in ("foundations", "missions", "infra", "reference"):
         for page in sorted((ROOT / section).rglob("*.md")):
             if {"core", "prod", "runs", "cache"} & set(page.parts):
                 continue
@@ -222,8 +292,7 @@ def test_currency_amounts_are_escaped_in_prose():
     that means to be a formula opens and closes deliberately.
     """
     problems = []
-    for section in ("foundations", "missions", "platform",
-                    "infra", "reference"):
+    for section in ("foundations", "missions", "infra", "reference"):
         for page in sorted((ROOT / section).rglob("*.md")):
             if {"core", "prod", "cache"} & set(page.parts):
                 continue

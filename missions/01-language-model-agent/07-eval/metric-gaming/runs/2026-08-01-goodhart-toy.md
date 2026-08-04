@@ -3,7 +3,7 @@
 ## Command
 
 ```bash
-cd platform/evaluation-observability/01-metric-gaming/core
+cd missions/01-language-model-agent/07-eval/metric-gaming/core
 python goodhart.py --steps 2000 --window 200 --seed 0 --out ../runs/goodhart-run.json
 ```
 

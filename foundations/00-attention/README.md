@@ -311,7 +311,7 @@ learned language. That requires a corpus, an optimization budget, and a run.
 
 Continue to [what a block costs](what-it-costs/) to price everything above and
 find out where a transformer really keeps what it knows. Then to
-[data](../../platform/data/) to construct the input distribution, or to
+[the corpus stage](../../missions/01-language-model-agent/00-corpus/) to construct the input distribution, or to
 [pretraining](../../missions/01-language-model-agent/02-pretrain/) if you already have a clean shard.
 
 Primary references, in the order the mechanism actually accumulated:

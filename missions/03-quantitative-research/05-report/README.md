@@ -11,7 +11,7 @@ label: Outcome report
 last input this report demands, alongside the validation, search-log, and
 sizing evidence the funnel above it produced.
 
-**Related:** [evaluation and observability](../../../platform/evaluation-observability/)
+**Related:** [mission 01's evaluation stage](../../../missions/01-language-model-agent/07-eval/)
 is the shared discipline behind this refusal-shaped report, mission 01's
 [stage 07](../../01-language-model-agent/07-eval/), and mission 02's
 [stage 09](../../02-personalized-discovery/09-report/) — this mission adds
@@ -37,7 +37,7 @@ current-state output is recorded in
 [`runs/2026-07-27-report-refusal.md`](runs/2026-07-27-report-refusal.md).
 
 That refusal is the chapter’s artifact. It is the same discipline taught by
-`platform/data/01-ablation-harness`: an experiment with missing inputs does
+`foundations/05-is-the-difference-real`: an experiment with missing inputs does
 not get a plausible conclusion merely because the missing values would be
 inconvenient. A blank report is not conservative; a verdict drawn from it is
 wrong.

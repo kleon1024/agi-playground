@@ -12,14 +12,14 @@ previous chapter — a new source, a re-weighted domain, a synthetic
 supplement. Does it make the model better, and how many runs are you allowed
 to run before you are entitled to answer either way?
 
-[Data](../) produced a versioned corpus and an explicit set of mixture
+[The corpus stage](../../missions/01-language-model-agent/00-corpus/) produced a versioned corpus and an explicit set of mixture
 weights. It could not tell you whether those weights were the right ones.
 That question needs a comparison: train the same model twice, once on the
 current mixture and once with the candidate substituted in, and read the
 difference. This chapter is about what has to be true of that comparison
 before the difference means anything.
 
-**Before this:** [how a raw crawl becomes a corpus](../README.md). You need a
+**Before this:** [what has to be true of text before you train on it?](../../missions/01-language-model-agent/00-corpus/). You need a
 pipeline whose stages you could change before it is worth measuring whether a
 change helped.
 
@@ -105,7 +105,7 @@ Nothing above establishes that any particular mixture change is a good idea.
 No ablation has been run against this repository's own corpus or model; the
 harness below demonstrates the mechanics — seed handling, interval
 arithmetic, the "not detectable" verdict — on a synthetic task built for that
-purpose, not on the dataset from [Data](../). A live result needs a fixed
+purpose, not on the dataset from [the corpus stage](../../missions/01-language-model-agent/00-corpus/). A live result needs a fixed
 proxy architecture, a committed seed count, and both confounds above checked
 before the comparison is trusted at target scale.
 
@@ -233,9 +233,9 @@ noise, not these two.
 
 A mixture decision that survives this harness is still an untrained bet until
 it is spent on a real training run. Continue to
-[pretraining](../../../missions/01-language-model-agent/02-pretrain/) to see what a token budget and a model size
+[pretraining](../../missions/01-language-model-agent/02-pretrain/) to see what a token budget and a model size
 commit you to, or to
-[evaluation and observability](../../evaluation-observability/) for the
+[evaluation](../../missions/01-language-model-agent/07-eval/) for the
 seed-variance and harness-disclosure machinery this chapter assumed.
 
 Primary references: DoReMi, DataComp-LM, Chinchilla-style scaling-law

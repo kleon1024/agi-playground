@@ -5,7 +5,7 @@ level: applied
 
 # Which stakeholder problem do you want to solve?
 
-Start here, not in `foundations/` or `platform/`. Those two are support
+Start here, not in `foundations/` or `infra/`. Those two are support
 libraries: a mission sends you to one only at the exact point a decision needs
 it, and you come back with an artifact, not a grade.
 
@@ -18,12 +18,11 @@ which is what declaring the acceptance bar before the work is for.
 
 ## Read mission 01 first
 
-**[Language-model system](01-language-model-agent/)** builds the platform
-layers for the first time — corpus, tokenizer, pretraining, SFT, RL, serving,
-an agent harness, evaluation — against one model, end to end. Every later
-mission cites a chapter this mission built rather than re-deriving it, so its
-stages are what "platform" means concretely before you read the reference layer
-in the abstract.
+**[Language-model system](01-language-model-agent/)** walks the whole lifecycle
+for the first time — corpus, tokenizer, pretraining, SFT, RL, serving, an agent
+harness, evaluation — against one model, end to end. Every later mission cites
+a chapter this mission built rather than re-deriving it, which is why its
+stages, not a separate reference tree, are where each mechanism lives.
 
 ## The other eight, and what each one is actually testing
 
@@ -98,7 +97,7 @@ that.
 
 Mission 01 first — its stages are what every other mission cites. After that,
 02 through 09 do not depend on each other and can be read in any order; each
-names exactly which platform chapters and mission-01 stages it reuses in its own
+names exactly which foundations chapters and mission-01 stages it reuses in its own
 "What this reuses" section, so you can tell what is new to that mission and
 what is the same architecture wearing a different domain.
 
@@ -111,10 +110,11 @@ support libraries together.
 ## Where a mission sends you
 
 A mission stage links out to [foundations](../foundations/), to
-[platform](../platform/), or to an earlier mission's stage only at the point a
-decision needs the mechanism there, and the linked chapter hands back an
-artifact or a
-measurement the next stage consumes — never a parallel course to finish
-first. [Infrastructure](../infra/) sits one layer below platform: it is where
-the wiring, the scheduler, and the storage layout that score those decisions
-get measured.
+[infrastructure](../infra/), or to an earlier mission's stage only at the point
+a decision needs the mechanism there, and the linked chapter hands back an
+artifact or a measurement the next stage consumes — never a parallel course to
+finish first. Foundations owns mechanism that holds regardless of which mission
+you run; infrastructure owns the machine underneath, where the wiring, the
+scheduler, and the storage layout that score those decisions get measured; and
+[reference](../reference/) owns the contracts and the dated survey material
+that has no run behind it.
