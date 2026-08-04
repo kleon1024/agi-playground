@@ -3,6 +3,7 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import routeRedirects from './route-redirects.json';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -48,6 +49,19 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
+  // A chapter that changes owners changes its URL. Somebody has the old one
+  // bookmarked, and a search engine has it indexed, so the old one has to keep
+  // working -- `onBrokenLinks: 'throw'` above only protects links inside this
+  // site. The map lives in its own file so a move is a data edit, and the
+  // plugin validates every `to` against the built routes, so a redirect cannot
+  // silently start pointing at nothing.
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {redirects: routeRedirects.redirects},
+    ],
+  ],
 
   presets: [
     [

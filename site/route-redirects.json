@@ -1,0 +1,12 @@
+{
+  "_why": [
+    "Routes that moved. Every entry keeps a URL that was published and indexed",
+    "resolving after a chapter changed owners.",
+    "`from` is the route as it was served, without the /playground/ baseUrl --",
+    "the plugin prepends it. `to` must resolve in the current build or the build",
+    "fails, which is the point: a redirect that rots is worse than none.",
+    "Append here when a chapter moves; never delete an entry, because the old",
+    "URL stays in somebody's history forever."
+  ],
+  "redirects": []
+}
