@@ -94,6 +94,24 @@ reason: each of `a`'s two consumers pushes its own contribution, and the
 final `a.grad` is correct only because both additions land in the same
 accumulator.
 
+Step the walk below and watch where `a`'s two contributions arrive, then flip
+the operator and run it again.
+
+<!-- interactive: GradientFlow -->
+
+Flipping it changes one number. `b` comes out at 0.3505 and `c` at 0.5008
+either way, because each is consumed once and a single write is a correct
+write. Only `a` moves — from **0.3577** to **−0.2504**, because `d`'s push
+arrives second and overwrites `f`'s. The magnitude is wrong, but the sign is
+what makes this expensive: `a` would be pushed in the opposite direction on
+every step, and the backward pass would complete, report no error, and produce
+gradients that look entirely plausible for the other two leaves.
+
+That is the shape of the failure to expect. A dropped contribution does not
+crash a training run; it quietly corrupts the parameters that happen to be
+reused, which in a transformer means every tied embedding and every weight
+shared across positions.
+
 ## 4. Two independent checks, not one
 
 **Check 1 — does the engine agree with calculus done by hand?** Write
