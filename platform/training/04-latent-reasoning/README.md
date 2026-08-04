@@ -46,6 +46,11 @@ That is the entire mechanism. Same weights, same attention, same objective. The
 model still takes a sequence of vectors and still predicts a next token at the
 end. Some of the vectors in the middle were simply never words.
 
+Switch the arm below to see which boxes the state still has to pass through,
+and what arrives at the next step in each case.
+
+<!-- interactive: LatentThoughtCycle -->
+
 ## A task where the answer can mean something
 
 Testing this on a general small language model would answer nothing. A model
