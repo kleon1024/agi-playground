@@ -30,6 +30,11 @@ vs hosted API: margin -0.2222 vs spread 0.0101 -> does NOT beat the noise band
 VERDICT: NOT MET
 ```
 
+One arm, two comparisons, opposite verdicts. Switch between them and the vision
+row does not move — only what it is held against:
+
+<!-- interactive: RealPhotoMargins -->
+
 `gpt-4o-mini`, called with no training at all, nearly doubles the from-scratch
 858K-parameter model's accuracy on real photographs. This is not a surprise
 in direction -- a production hosted model trained on internet-scale
