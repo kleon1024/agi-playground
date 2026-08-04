@@ -339,14 +339,12 @@ it.
 
 The output is a base model that predicts continuations over general text. It has
 never made a tool call, and its context window is as short as the one it trained
-on. [Adaptation](../adaptation/) is the branch that closes that gap, and it is
-four chapters rather than one because the techniques work at different scales on
-different data — its index asks which of them your model actually needs. If you
-are building the full pipeline, that order is
-[mid-training](../adaptation/mid-training/), which keeps this same next-token
-objective but changes the documents, then
-[post-training](../adaptation/post-training/) to define the behavioral contract
-that turns continuations into assistant answers.
+on. Adaptation is what closes that gap, and mission 01 is where it was
+built and measured. If you are following the full pipeline, that order is
+[mid-training](../../reference/research/mid-training/), which keeps this same
+next-token objective but changes the documents, then
+[stage 03 — SFT](../../missions/01-language-model-agent/03-sft/) to define the
+behavioral contract that turns continuations into assistant answers.
 
 [The training landscape](LANDSCAPE.md) pairs each toy implementation here with
 the production trainers and tokenizer libraries that replace it, and says which

@@ -72,6 +72,36 @@
                 "type": "doc",
                 "id": "missions/01-language-model-agent/03-sft/what-it-costs/index",
                 "label": "What it costs"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/03-sft/beyond-demonstrations/index",
+                "label": "Beyond demonstrations"
+              },
+              {
+                "type": "category",
+                "label": "Distillation",
+                "link": {
+                  "type": "doc",
+                  "id": "missions/01-language-model-agent/03-sft/distillation/index"
+                },
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "missions/01-language-model-agent/03-sft/distillation/which-teacher-changes-what/index",
+                    "label": "Which teacher changes what"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "missions/01-language-model-agent/03-sft/distillation/what-path-two-requires/index",
+                    "label": "What path two requires"
+                  }
+                ]
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/03-sft/LANDSCAPE",
+                "label": "Landscape"
               }
             ]
           },
@@ -87,6 +117,16 @@
                 "type": "doc",
                 "id": "missions/01-language-model-agent/04-rl/reward-went-up/index",
                 "label": "The reward went up"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/04-rl/what-a-real-loop-adds/index",
+                "label": "What a real loop adds"
+              },
+              {
+                "type": "doc",
+                "id": "missions/01-language-model-agent/04-rl/LANDSCAPE",
+                "label": "Landscape"
               }
             ]
           },
@@ -684,71 +724,6 @@
       },
       {
         "type": "category",
-        "label": "Adaptation",
-        "link": {
-          "type": "doc",
-          "id": "platform/adaptation/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "platform/adaptation/mid-training/index",
-            "label": "Mid-training \u00b7 draft"
-          },
-          {
-            "type": "category",
-            "label": "Post-training",
-            "link": {
-              "type": "doc",
-              "id": "platform/adaptation/post-training/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "platform/adaptation/post-training/LANDSCAPE",
-                "label": "Landscape"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Distillation",
-            "link": {
-              "type": "doc",
-              "id": "platform/adaptation/distillation/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "platform/adaptation/distillation/which-teacher-changes-what/index",
-                "label": "Which teacher changes what"
-              },
-              {
-                "type": "doc",
-                "id": "platform/adaptation/distillation/what-path-two-requires/index",
-                "label": "What path two requires"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Reinforcement learning",
-            "link": {
-              "type": "doc",
-              "id": "platform/adaptation/reinforcement-learning/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "platform/adaptation/reinforcement-learning/LANDSCAPE",
-                "label": "Landscape"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "category",
         "label": "Evaluation",
         "link": {
           "type": "doc",
@@ -899,6 +874,11 @@
             "type": "doc",
             "id": "reference/research/06-harness-effects",
             "label": "Harness effects"
+          },
+          {
+            "type": "doc",
+            "id": "reference/research/mid-training/index",
+            "label": "Mid-training \u00b7 draft"
           },
           {
             "type": "doc",

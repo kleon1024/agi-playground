@@ -57,9 +57,9 @@ declared path actually executed.
 
 ## Where the mission leaves the path, and what comes back
 
-This mission is the path. Foundations, capabilities, and platform are libraries
-it reaches into, and it reaches into them at a specific stage for a specific
-decision — never as reading you do first. Each detour below returns something
+This mission is the path. Foundations, infrastructure, and this mission's own
+deep-dive chapters are libraries it reaches into, and it reaches into them at a
+specific stage for a specific decision — never as reading you do first. Each detour below returns something
 the next stage consumes, which is the test for whether the detour was worth
 taking.
 
@@ -70,14 +70,15 @@ taking.
 | 02 | whether an architecture choice is worth its cost | [architecture ablations](../../platform/training/02-architecture-ablations/) | six choices measured, two of which flip sign between seeds |
 | 02 | why a run will take ten hours, and whether it should | [the throughput ladder](../../platform/training/03-throughput/) | tokens per second, MFU, and what to change |
 | after 02 | whether to keep the checkpoint or retrain a new shape | [upcycling](../../platform/training/05-upcycling/) | a converted checkpoint that starts at the parent's loss |
-| 03 | whether teacher data beats human data | [distillation](../../platform/adaptation/distillation/) | a target format and its tokenizer constraint |
-| 04 | whether this base can be improved by RL at all | [reinforcement learning](../../platform/adaptation/reinforcement-learning/) | the condition under which the gradient is non-zero |
+| 03 | whether teacher data beats human data | [distillation](03-sft/distillation/) | a target format and its tokenizer constraint |
+| 03 | whether comparisons can replace demonstrations | [beyond demonstrations](03-sft/beyond-demonstrations/) | what LoRA, reward models, DPO, and merging each cost |
+| 04 | which RL failure you actually have | [what a real loop adds](04-rl/what-a-real-loop-adds/) | the failure each acronym was built for, and why the verifier is the task |
 | 05 | what the model is doing between tokens | [why concurrency pays](05-serve/why-concurrency-pays/) | the cost model for a request under load |
 | 06 | how a tool loop stays bounded | [what stops it?](06-agent/what-stops-it/) | a permission and stop-condition contract |
 | 07 | what a number from a harness is worth | [evaluation and observability](../../platform/evaluation-observability/) | variance, and the disclosure a result needs |
 
 Two chapters are deliberately not on this list.
-[Mid-training](../../platform/adaptation/mid-training/) is skipped for the
+[Mid-training](../../reference/research/mid-training/) is skipped for the
 reason below. [Latent reasoning](../../platform/training/04-latent-reasoning/)
 is an open question rather than a decision this mission makes, and it is
 labelled draft until a run says otherwise.
@@ -85,7 +86,7 @@ labelled draft until a run says otherwise.
 ## The stage this mission deliberately skips
 
 Between pretraining and SFT the platform describes a third training stage,
-[mid-training](../../platform/adaptation/mid-training/), where a base model
+[mid-training](../../reference/research/mid-training/), where a base model
 first sees tool calls and long contexts. This mission has no such stage, and the
 reason is a constraint rather than an oversight: mid-training installs behavior
 by exposure at pretraining scale, and a base this small trained on this much

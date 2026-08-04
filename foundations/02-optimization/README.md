@@ -189,7 +189,7 @@ established.
 One clarification the axis above deliberately leaves out:
 
 - This repository's own later frontier-lineage material (GRPO, GMPO, GSPO in
-  [`platform/adaptation/reinforcement-learning/`](../../platform/adaptation/reinforcement-learning/))
+  [mission 01's RL stage](../../missions/01-language-model-agent/04-rl/what-a-real-loop-adds/))
   is a distinct, higher layer: those are *policy*-optimization objectives for
   RL-style post-training, not base optimizers. They are typically paired with
   Adam (or AdamW) underneath them, not built to replace it — this chapter is

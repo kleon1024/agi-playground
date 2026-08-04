@@ -34,6 +34,23 @@ demonstrated — it emerged from optimizing the reward (DeepSeek-AI,
 *DeepSeek-R1*, 2025). Imitation learning cannot produce that structurally; it
 requires generating, being scored, and updating on your own outputs.
 
+Pretraining is a separate, earlier precondition from the SFT one. It is what
+puts a behaviour anywhere in the model's distribution at all, and RL cannot
+install a behaviour with zero probability under the current policy — it can only
+reweight one that already occurs sometimes under sampling.
+[Mission 06's stage 03](../../06-game-ai/03-fixing-collapse/) shows that
+precondition in miniature, with a cold-start policy and no pretrained backbone:
+GRPO training alone produces real board-sensitivity under sampled decode
+(14.4-21.0% success across seeds), yet greedy decode ignores the board entirely
+on every seed, and neither a smaller rollout group nor a direct entropy bonus
+moved the argmax toward it. The entropy bonus measurably widened the
+distribution (1.3-1.7 nats) without changing which token wins — the training
+signal did the one thing it can do, reweight what sampling already reaches, and
+reweighting was not enough to make the behaviour the deterministic default.
+Pretrain-to-RL is about whether a behaviour is in the distribution at all;
+SFT-to-RL is about which present behaviour becomes the default that RL then
+sharpens.
+
 ## What you build
 
 `core/grpo.py` — GRPO from scratch, on a verifiable arithmetic task
@@ -200,6 +217,27 @@ start first, per the run above.
    ratio never leaves 1.0, so `clip` is provably a no-op (log
    `ratio.min()`/`ratio.max()` in `grpo_loss`). At what `--inner-epochs`
    count does the ratio leave `[1-eps, 1+eps]`?
+
+## What a production loop has that this one does not
+
+The loop above is complete and it is small. A real run spends most of its
+engineering on parts this toy leaves implicit: the clip GRPO inherited from PPO
+without deriving it, which failure each of GSPO and DAPO was actually built for,
+why the verifier *defines* the task rather than measuring it, the sampler
+becoming a training-loop component, what an environment owns once the model can
+act, and why rollouts get expensive faster than group size alone suggests.
+
+[What a real loop adds](what-a-real-loop-adds/) takes those in order. Read it
+before choosing an acronym off a publication date.
+
+Every method there also assumes the rollouts arrive.
+[Why an RL update step waits on its slowest rollout](../../../infra/07-rollout-concurrency/)
+measures what lockstep batching costs once trajectory length is heavy-tailed
+instead of fixed — the reason the sampler half of the loop, not the trainer
+half, is usually what you are paying for. And
+[the RL landscape](LANDSCAPE.md) names the production frameworks that own the
+sampler-plus-trainer loop this stage builds by hand, and what each assumes about
+who owns the environment.
 
 ## Next
 

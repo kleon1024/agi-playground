@@ -48,7 +48,9 @@ const GRID_ROWS = 5;
 const GRID_COLS = 12;
 
 export default function LoRARank(): React.ReactElement {
-  const [d, setD] = useState(512);
+  // 768 is this repository's own `d_model` — the chapter works its arithmetic
+  // on the 88,197,888-parameter checkpoint, so the widget opens on that shape.
+  const [d, setD] = useState(768);
   const [r, setR] = useState(8);
   const [alpha, setAlpha] = useState(16);
 

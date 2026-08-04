@@ -148,6 +148,32 @@ starts. The inverted-U result is external, attributed, and measured on
 reward *models* rather than the verifiable rewards this stage uses; the
 mechanism transfers, the specific coefficients do not.
 
+## Which signals have to disagree before you believe the curve
+
+One number cannot catch reward hacking, because the hacked reward is the number
+going up. What catches it is a set of signals that are *allowed to disagree*,
+watched together:
+
+```text
+training reward
+held-out verifier success
+response length and format
+KL from reference
+diversity within each group
+manual high-reward failure rate
+baseline capability regressions
+```
+
+Rising training reward with flat held-out success is not slow progress. It is
+evidence the policy found a feature of the training reward that does not
+transfer — the inverted-U above, caught early rather than at the far side.
+
+Which is why the stop conditions belong in the run contract, written before the
+run: a maximum KL, a regression tolerance on the baseline capabilities, an
+invalid-output rate, and the manual-audit threshold that says how many
+high-reward completions a human reads before the number is allowed to count.
+None of those can be chosen honestly once you are looking at the curve.
+
 ## Exercises
 
 1. **Remove the leash, after a warm start.** The run above shows `--kl-beta 0`

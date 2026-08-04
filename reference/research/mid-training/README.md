@@ -28,9 +28,9 @@ over web text         over synthesized agentic       loss over assistant turns
 All three stages train the same next-token objective on different documents.
 Mid-training is the stage that decides whether the model has already seen a
 think, call a tool, read the result, continue episode before
-[post-training](../post-training/) ever asks it to behave like an assistant.
+[SFT](../../../missions/01-language-model-agent/03-sft/) ever asks it to behave like an assistant.
 
-**Before this:** [what closes the gap](../README.md), for the three-stage split.
+**Before this:** [pretraining](../../../missions/01-language-model-agent/02-pretrain/), for the base checkpoint this stage would start from.
 This chapter is about the stage between pretraining and post-training, so both
 of its neighbours have to be in view.
 
@@ -168,7 +168,7 @@ observations has learned to fabricate them at inference time, when no real
 result exists yet to condition on.
 
 The standard mitigation in agentic SFT is the same idea
-[post-training](../post-training/) already established for user turns: mask
+[SFT](../../../missions/01-language-model-agent/03-sft/) already established for user turns: mask
 the loss on observation tokens. The model still sees them in context —
 conditioning on a real or synthesized tool result is exactly the skill being
 trained — but no gradient asks it to reproduce them. Only the think and act
@@ -326,7 +326,7 @@ index) over every observation span.
 
 The output of mid-training is a base model that has already seen tool calls,
 long dependency chains, and corrected mistakes under the plain next-token
-objective. Continue to [post-training](../post-training/) to see what changes
+objective. Continue to [SFT](../../../missions/01-language-model-agent/03-sft/) to see what changes
 when that same model is trained on a demonstration or a preference pair
 instead.
 

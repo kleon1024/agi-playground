@@ -170,7 +170,7 @@ in absolute terms — only within this run, across rows.
 Raw records: [`seeded-results.json`](seeded-results.json) (scaffolding rates
 and median lengths per generation), [`ppl-seeded.json`](ppl-seeded.json)
 (per-generation mean NLL). The 13 corpora themselves are checked in under
-`platform/adaptation/distillation/fixtures/four-authors/`.
+`missions/01-language-model-agent/03-sft/distillation/fixtures/four-authors/`.
 
 ## Notes
 

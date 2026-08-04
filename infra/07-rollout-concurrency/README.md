@@ -8,7 +8,7 @@ label: Rollout concurrency
 
 # Why does an RL update step wait on its slowest rollout?
 
-**Question:** [`platform/adaptation/reinforcement-learning/README.md`](../../platform/adaptation/reinforcement-learning/README.md)
+**Question:** [mission 01's RL stage](../../missions/01-language-model-agent/04-rl/what-a-real-loop-adds/#the-sampler-is-part-of-the-training-loop-now)
 already covers why the sampler is part of the training loop — temperature,
 top-p, and group size decide what enters the advantage estimate. That
 chapter stops at the algorithm boundary: it does not ask how the *many*

@@ -18,12 +18,12 @@ below is about how much of that answer you are able to keep.
 situation permits, what the cheaper one costs you in transferred signal, and
 what control has to be in place before "distillation helped" means anything.
 
-[Stage 03 of the language-model system](../../../missions/01-language-model-agent/03-sft/)
+[Stage 03 of the language-model system](../)
 arrives here when the question becomes where its supervision should come from.
 Take back the target format and the tokenizer constraint; both decide what the
 stage can and cannot buy.
 
-**Before this:** [post-training](../post-training/), for what supervised
+**Before this:** [stage 03 — SFT](../), for what supervised
 fine-tuning already does with a fixed dataset. This chapter only changes who
 wrote the answers in it.
 
@@ -60,7 +60,7 @@ Find your row; the rest of this chapter is what it costs.
 If you see text and not logits, you generate completions from the teacher and
 train the student on them with ordinary next-token cross-entropy. There is no
 new mechanism: this is the chat-JSONL shape and the loss masking that
-[stage 03](../../../missions/01-language-model-agent/03-sft/README.md#loss-masking-worked)
+[stage 03](../README.md#loss-masking-worked)
 already covers. Mask the prompt, train the assistant tokens, imitate style
 rather than correctness. The only thing that changed is who wrote the assistant
 turn.
@@ -126,7 +126,7 @@ vocabulary as the teacher, because a divergence between two tokenizers compares
 unrelated strings and returns a number anyway.
 
 This student fails the second test. Its tokenizer was trained from scratch in
-[stage 01](../../../missions/01-language-model-agent/01-tokenizer/), 16,512
+[stage 01](../../01-tokenizer/), 16,512
 entries, shared with no public model in existence.
 [What path two requires](what-path-two-requires/) prices the storage, lists the
 three escapes from the tokenizer wall, and shows why that constraint makes
@@ -299,7 +299,7 @@ it cannot.
 ## Next
 
 Distillation compresses a fixed teacher into a policy the student can run
-alone. [Reinforcement learning](../reinforcement-learning/) is the
+alone. [Reinforcement learning](../../04-rl/) is the
 complementary move: instead of copying a teacher, the policy generates its own
 attempts and improves from a reward computed on them. Continue there when the
 ceiling is no longer "how much of this teacher can we keep" but "can the policy

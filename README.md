@@ -112,10 +112,6 @@ reference/     contributor and evidence-governance surfaces (standards/, researc
 |---|---|---|
 | [data](platform/data/) | Pipelines, dedup, filtering, annotation, synthetic data | Seeded by [mission 01 · corpus](missions/01-language-model-agent/00-corpus/) |
 | [training](platform/training/) | Tokenizers, architecture, training loop, scaling laws | Overview draft; 4 of 5 sub-lessons verified by runs |
-| [adaptation · mid-training](platform/adaptation/mid-training/) | The stage between pretraining and SFT: agentic and tool-use priors at pretraining scale, long-context extension, observation masking | Draft |
-| [adaptation · post-training](platform/adaptation/post-training/) | SFT, LoRA/PEFT, reward models, DPO family, merging | Draft |
-| [adaptation · distillation](platform/adaptation/distillation/) | What you can copy from a better model, and what a measured gain is allowed to mean; [what path two requires](platform/adaptation/distillation/what-path-two-requires/) prices the storage and the tokenizer wall | Verified |
-| [adaptation · RL](platform/adaptation/reinforcement-learning/) | PPO grounding → GRPO/GSPO/DAPO → RLVR → agentic RL | Draft |
 | [evaluation & observability](platform/evaluation-observability/) | Static and agentic evals, contamination, harness disclosure | Draft |
 | [safety & governance](platform/safety-governance/) | Enforcing the guardrails missions declare | Draft |
 

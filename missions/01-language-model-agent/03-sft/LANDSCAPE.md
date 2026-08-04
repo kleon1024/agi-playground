@@ -3,7 +3,7 @@ status: draft
 level: reference
 ---
 
-# Post-training: Landscape
+# Supervised fine-tuning: landscape
 
 Source: `reference/research/synthesis.md` anchor table, "SFT/PEFT" and "RM/DPO family"
 rows.

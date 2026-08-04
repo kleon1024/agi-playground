@@ -97,17 +97,16 @@ const BUILD_PATH: Step[] = [
     note: 'Teach the checkpoint to answer, with loss on assistant turns only.',
     detours: [
       {
-        href: '/playground/platform/adaptation/distillation/',
-        label: 'Distillation',
-        returns: 'a target format, and the tokenizer constraint that decides it',
-      },
-      {
-        href: '/playground/platform/adaptation/mid-training/',
+        href: '/playground/reference/research/mid-training/',
         label: 'Mid-training',
         returns: 'why agentic trajectories enter the corpus before SFT, and in what format',
       },
     ],
-    companions: [{ href: `${MISSION}/03-sft/what-it-costs/`, label: 'What it costs' }],
+    companions: [
+      { href: `${MISSION}/03-sft/what-it-costs/`, label: 'What it costs' },
+      { href: `${MISSION}/03-sft/beyond-demonstrations/`, label: 'Beyond demonstrations' },
+      { href: `${MISSION}/03-sft/distillation/`, label: 'Distillation' },
+    ],
   },
   {
     href: `${MISSION}/04-rl/`,
@@ -115,12 +114,15 @@ const BUILD_PATH: Step[] = [
     note: 'Improve behavior only where a verifiable reward exists.',
     detours: [
       {
-        href: '/playground/platform/adaptation/reinforcement-learning/',
-        label: 'Reinforcement learning',
-        returns: 'the condition under which the gradient is non-zero at all',
+        href: '/playground/infra/07-rollout-concurrency/',
+        label: 'Rollout concurrency',
+        returns: 'why an update step waits on its slowest trajectory',
       },
     ],
-    companions: [{ href: `${MISSION}/04-rl/reward-went-up/`, label: 'Did the model get better?' }],
+    companions: [
+      { href: `${MISSION}/04-rl/reward-went-up/`, label: 'Did the model get better?' },
+      { href: `${MISSION}/04-rl/what-a-real-loop-adds/`, label: 'What a real loop adds' },
+    ],
   },
   {
     href: `${MISSION}/05-serve/`,

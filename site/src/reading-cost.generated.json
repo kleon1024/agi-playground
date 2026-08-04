@@ -85,7 +85,23 @@
   },
   "missions/01-language-model-agent/03-sft": {
     "level": "foundation",
-    "minutes": 8
+    "minutes": 10
+  },
+  "missions/01-language-model-agent/03-sft/beyond-demonstrations": {
+    "level": "applied",
+    "minutes": 9
+  },
+  "missions/01-language-model-agent/03-sft/distillation": {
+    "level": "frontier",
+    "minutes": 11
+  },
+  "missions/01-language-model-agent/03-sft/distillation/what-path-two-requires": {
+    "level": "frontier",
+    "minutes": 5
+  },
+  "missions/01-language-model-agent/03-sft/distillation/which-teacher-changes-what": {
+    "level": "frontier",
+    "minutes": 7
   },
   "missions/01-language-model-agent/03-sft/what-it-costs": {
     "level": "applied",
@@ -93,11 +109,15 @@
   },
   "missions/01-language-model-agent/04-rl": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 10
   },
   "missions/01-language-model-agent/04-rl/reward-went-up": {
     "level": "applied",
     "minutes": 10
+  },
+  "missions/01-language-model-agent/04-rl/what-a-real-loop-adds": {
+    "level": "applied",
+    "minutes": 9
   },
   "missions/01-language-model-agent/05-serve": {
     "level": "foundation",
@@ -415,34 +435,6 @@
     "level": "applied",
     "minutes": 2
   },
-  "platform/adaptation": {
-    "level": "applied",
-    "minutes": 2
-  },
-  "platform/adaptation/distillation": {
-    "level": "frontier",
-    "minutes": 11
-  },
-  "platform/adaptation/distillation/what-path-two-requires": {
-    "level": "frontier",
-    "minutes": 5
-  },
-  "platform/adaptation/distillation/which-teacher-changes-what": {
-    "level": "frontier",
-    "minutes": 7
-  },
-  "platform/adaptation/mid-training": {
-    "level": "applied",
-    "minutes": 13
-  },
-  "platform/adaptation/post-training": {
-    "level": "applied",
-    "minutes": 12
-  },
-  "platform/adaptation/reinforcement-learning": {
-    "level": "applied",
-    "minutes": 13
-  },
   "platform/data": {
     "level": "foundation",
     "minutes": 10
@@ -518,6 +510,10 @@
   "reference/research": {
     "level": "reference",
     "minutes": 1
+  },
+  "reference/research/mid-training": {
+    "level": "applied",
+    "minutes": 13
   },
   "reference/standards": {
     "level": "reference",

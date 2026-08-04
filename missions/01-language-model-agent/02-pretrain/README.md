@@ -19,7 +19,7 @@ about nearly everything. It will not beat a hosted model at any task. That is
 the expected outcome at 88M parameters, and it is not the point. The point is
 that every mechanism downstream — loss masking in [SFT](../03-sft/), the KV
 cache in [serving](../05-serve/), the capacity argument that decides where
-[reinforcement learning](../../../platform/adaptation/reinforcement-learning/)
+[reinforcement learning](../04-rl/)
 can honestly be taught — becomes something you can run and falsify instead of
 something you read about. A model small enough to train in an afternoon is the
 only one where that is true.

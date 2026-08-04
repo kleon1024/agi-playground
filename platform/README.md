@@ -23,18 +23,19 @@ Four of the six sit on one line, because each produces the input the next one
 needs:
 
 ```text
-data -> training -> adaptation -> serving
+data -> training
 ```
 
 **[Data](data/)** turns a raw crawl into a corpus with a manifest and
 disclosed rejection reasons. **[Training](training/)** turns that corpus and a
-token budget into a base checkpoint. **[Adaptation](adaptation/)** — four
-chapters, not one, entered by question rather than in sequence — closes the
-gap between a checkpoint that predicts text and one that follows instructions,
-has preferences, or has learned a new capability by exposure. Serving — turning
-an adapted checkpoint into a service with a request lifecycle and a latency
-budget — is not a chapter here: it was built and measured in
-[mission 01's serving stage](../missions/01-language-model-agent/05-serve/), and stays there with its runs.
+token budget into a base checkpoint. Adaptation and serving — closing the gap
+between a checkpoint that predicts text and one that follows instructions, then
+turning it into a service with a latency budget — are not chapters here: they
+were built and measured in
+[mission 01's SFT stage](../missions/01-language-model-agent/03-sft/),
+[its RL stage](../missions/01-language-model-agent/04-rl/), and
+[its serving stage](../missions/01-language-model-agent/05-serve/), and stay
+there with their runs.
 
 ## The two that are not on that line
 

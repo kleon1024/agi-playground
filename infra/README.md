@@ -58,7 +58,7 @@ question.
   asynchronous scheduling beats lockstep by 1.73x at 2 workers, shrinking to
   1.30x at 8, which is the mechanism real asynchronous RLHF systems are
   built to avoid.
-  Substrate for [`platform/adaptation/reinforcement-learning/`](../platform/adaptation/reinforcement-learning/).
+  Substrate for [mission 01's RL stage](../missions/01-language-model-agent/04-rl/).
 
 ## Compute lanes: where this repository's own runs happen
 

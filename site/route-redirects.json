@@ -48,6 +48,42 @@
     {
       "from": "/platform/serving/03-speculative-decoding",
       "to": "/missions/01-language-model-agent/05-serve/speculative-decoding"
+    },
+    {
+      "from": "/platform/adaptation",
+      "to": "/missions/01-language-model-agent/03-sft"
+    },
+    {
+      "from": "/platform/adaptation/post-training",
+      "to": "/missions/01-language-model-agent/03-sft"
+    },
+    {
+      "from": "/platform/adaptation/post-training/LANDSCAPE",
+      "to": "/missions/01-language-model-agent/03-sft/LANDSCAPE"
+    },
+    {
+      "from": "/platform/adaptation/reinforcement-learning",
+      "to": "/missions/01-language-model-agent/04-rl"
+    },
+    {
+      "from": "/platform/adaptation/reinforcement-learning/LANDSCAPE",
+      "to": "/missions/01-language-model-agent/04-rl/LANDSCAPE"
+    },
+    {
+      "from": "/platform/adaptation/mid-training",
+      "to": "/reference/research/mid-training"
+    },
+    {
+      "from": "/platform/adaptation/distillation",
+      "to": "/missions/01-language-model-agent/03-sft/distillation"
+    },
+    {
+      "from": "/platform/adaptation/distillation/which-teacher-changes-what",
+      "to": "/missions/01-language-model-agent/03-sft/distillation/which-teacher-changes-what"
+    },
+    {
+      "from": "/platform/adaptation/distillation/what-path-two-requires",
+      "to": "/missions/01-language-model-agent/03-sft/distillation/what-path-two-requires"
     }
   ]
 }

@@ -3,7 +3,7 @@ status: draft
 level: reference
 ---
 
-# RL: Landscape
+# Reinforcement learning: landscape
 
 Source: `reference/research/synthesis.md` anchor table, "GRPO/RLVR" and "Agentic RL"
 rows, plus the "Key 2025-2026 shifts" notes on RLVR/GRPO/GSPO/DAPO status.

@@ -54,7 +54,7 @@ two unrelated strings and calls the result a divergence.
 
 This is not a detail — it is why the language-model system's student cannot
 take path two at all. Its tokenizer was trained from scratch in
-[stage 01](../../../../missions/01-language-model-agent/01-tokenizer/), 16,512
+[stage 01](../../../01-tokenizer/), 16,512
 entries, shared with no public model in existence. Any teacher you could reach
 speaks a different vocabulary.
 

@@ -37,9 +37,9 @@ mechanism rather than a detail of it.
 It follows that SFT cannot fix what pretraining did not put there. If the base
 model never encountered a fact, formatting the question as a chat turn will not
 produce it. SFT surfaces knowledge and reframes behavior; it does not add
-capability the base model lacked. See the post-training chapter's
-[supervision contract](../../../platform/adaptation/post-training/README.md#what-exactly-is-the-model-being-taught-to-produce)
-for the boundary between visible context and learned output.
+capability the base model lacked — installing a behaviour the base has never
+produced at all is a pretraining-scale problem, surveyed in
+[mid-training](../../../reference/research/mid-training/).
 
 ## The chat template is a learned convention, not a magic string
 
@@ -183,6 +183,40 @@ subcommand), not the pure-Python `tokenizer.json` — SFT needs `tokenizers`'
 Rust encoder for speed on a real dataset, the same substitution stage 02's
 `prepare_data.py` already made and verified.
 
+## Check the wiring before you add examples
+
+The first evidence that this worked is not a benchmark average. It is a
+before-and-after set of fixed prompts showing the model enters, answers, and
+exits the assistant turn correctly — which is what the samples above are. Four
+failure modes are worth checking on a new dataset before deciding you need more
+of it, because each one produces a plausible loss curve:
+
+- an answer is truncated at the block limit but still trained on as if complete;
+- the user prompt leaks into the supervised region (exercise 1 induces this);
+- duplicate templates dominate, so the model learns one house style rather than
+  the task;
+- validation prompts are paraphrases of training records, so the held-out loss
+  is measuring memorization.
+
+## Three things to do with a checkpoint that are not this
+
+This stage moved every weight, using demonstrations somebody wrote. Three other
+adaptation methods start from different constraints, and mission 01 ran exactly
+one of them.
+
+**[Beyond demonstrations](beyond-demonstrations/)** — *what if nobody wrote the
+answer, or the model is too big to fine-tune whole?* LoRA and QLoRA, reward
+models, the DPO family, and task-vector merging, worked against this model's real
+shapes. No run: this checkpoint is small enough that full fine-tuning is cheap.
+
+**[Distillation](distillation/)** — *what can you copy from a better model?* The
+one that was run here, and the answer turned out to constrain the student's
+tokenizer rather than only its weights.
+
+**[Stage 04 — RL](../04-rl/)** — *what if the model has to generate the answer
+and be scored on it?* Everything above stays offline; none of it can prefer a
+response that is absent from the dataset.
+
 ## Exercises
 
 1. **Break the mask on purpose.** Comment out the loss-masking branch in
@@ -209,6 +243,9 @@ Rust encoder for speed on a real dataset, the same substitution stage 02's
 
 [What did that cost?](what-it-costs/) covers packing's attention leak, the
 thirtyfold learning-rate drop, and the four limits better data does not move.
+[The post-training landscape](LANDSCAPE.md) pairs the from-scratch trainer here
+with the libraries that ship these algorithms, and says where their defaults
+disagree with what this stage argues.
 Then [stage 04 — RL](../04-rl/): GRPO on a verifiable task, starting from this
 stage's chat-tuned checkpoint. Everything here that stopped at imitating a
 fixed dataset is the on-ramp — RL replaces "imitate this response" with
