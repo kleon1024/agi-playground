@@ -93,24 +93,18 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'Rehearse',
+      // The logo stays inside the Playground. It used to point at the
+      // marketing home, so the only way back to this site's own landing page
+      // was the sidebar -- and "Practice" appeared twice, once as a link and
+      // once as the call to action beside it.
+      title: 'Rehearse Playground',
       logo: {
-        alt: 'Rehearse',
+        alt: 'Rehearse Playground',
         src: 'img/rehearse-mark.svg',
-        href: 'https://rehearse.maestro.onl',
+        href: '/',
         target: '_self',
       },
       items: [
-        {
-          to: '/',
-          label: 'Playground',
-          position: 'left',
-        },
-        {
-          href: 'https://rehearse.maestro.onl/practice',
-          label: 'Practice',
-          position: 'right',
-        },
         {
           href: 'https://rehearse.maestro.onl/pricing',
           label: 'Pricing',
