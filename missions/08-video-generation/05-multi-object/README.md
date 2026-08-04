@@ -121,7 +121,7 @@ uv run --group torch python train_multi_object.py --train-clips 800 --eval-clips
 ```
 
 Repeat with `--seed 1` and `--seed 2` for the other two seeds. CPU only,
-203.8-528.8s wall-clock per seed, $0. Full traces:
+203.8-528.8s wall-clock per seed, \$0. Full traces:
 [`runs/multi-object-seed0.json`](runs/multi-object-seed0.json),
 [`runs/multi-object-seed1.json`](runs/multi-object-seed1.json),
 [`runs/multi-object-seed2.json`](runs/multi-object-seed2.json).

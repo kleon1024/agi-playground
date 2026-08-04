@@ -18,7 +18,7 @@ torchrun --standalone --nproc_per_node=8 topology_timing.py --tensor-mb 4 --iter
 metric is the per-call mean over 200 timed iterations after 20 warmup calls
 and a `dist.barrier()`, not the total script wall-clock.
 
-**Cost:** $0 (local lane, CPU only).
+**Cost:** \$0 (local lane, CPU only).
 
 **Metrics:**
 

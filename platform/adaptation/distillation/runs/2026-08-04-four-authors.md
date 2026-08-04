@@ -38,7 +38,7 @@ python core/score_predictability.py     # mean NLL under a fixed base scorer
 | Scorer | `Qwen/Qwen2.5-0.5B` — a **base** model, not instruct, held fixed across arms |
 | Scoring hardware | local lane, one 24GB card, WSL2 kernel 6.18.33.2 |
 | Scoring wall-clock | under 2 minutes for all 13 corpora |
-| Cost | $0 for scoring (local hardware); generation billed as normal model usage |
+| Cost | \$0 for scoring (local hardware); generation billed as normal model usage |
 
 ## Pass one: one generation per arm
 

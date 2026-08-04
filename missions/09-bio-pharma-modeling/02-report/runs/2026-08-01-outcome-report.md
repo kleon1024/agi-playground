@@ -10,7 +10,7 @@ cd missions/09-bio-pharma-modeling/02-report/core
 uv run python report.py
 ```
 
-Repository HEAD `9844b61`. CPU only, <1s, $0 — this stage only reads JSON
+Repository HEAD `9844b61`. CPU only, <1s, \$0 — this stage only reads JSON
 files stage 00 and 01 already produced; it runs no model.
 
 ## Full output

@@ -141,7 +141,7 @@ more compute and training data, not a new mechanism.
 synthetic image generator along a time axis, reusing its drawing primitives
 unmodified and adding only the temporal part: a shape moving in one of 8
 fixed directions at constant speed, bounded so it stays on-canvas for all 8
-frames of a clip. 800 train / 150 eval clips generated in 2.7s CPU, $0, with
+frames of a clip. 800 train / 150 eval clips generated in 2.7s CPU, \$0, with
 the same train/eval collision guardrail mission 05 stage 00 established —
 this time rejecting a single eval candidate out of 150, since a per-clip
 render space multiplying shape, color, size, direction, and start position

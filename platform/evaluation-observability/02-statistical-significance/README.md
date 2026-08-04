@@ -129,7 +129,7 @@ cd platform/evaluation-observability/02-statistical-significance/core
 python3 bootstrap_significance.py --seed 0 --out ../runs/bootstrap-run.json
 ```
 
-Deterministic given `--seed`. CPU only, well under 1 second, $0 cost.
+Deterministic given `--seed`. CPU only, well under 1 second, \$0 cost.
 
 ## Check your mental model
 

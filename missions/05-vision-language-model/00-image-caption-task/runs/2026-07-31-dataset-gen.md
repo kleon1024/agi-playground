@@ -26,7 +26,7 @@ uv run python generate_dataset.py fixtures --fixtures 8 --fixtures-seed-start 0 
 | Dependencies | none beyond the standard library (`random`, `hashlib`, `json`) |
 | Repository HEAD | `e88f5cc` |
 
-CPU only, no network, no GPU, $0.
+CPU only, no network, no GPU, \$0.
 
 ## Attempt 1: disjoint seed ranges are not disjoint images
 

@@ -110,7 +110,7 @@ uv run --group chem python prepare_dataset.py \
     --endpoint SR-MMP --train-frac 0.8 --split-seed 0 --out ../data
 ```
 
-CPU only, ~28s (network fetch + RDKit parse), $0.
+CPU only, ~28s (network fetch + RDKit parse), \$0.
 `data/raw/` (the downloaded Tox21 CSV) is git-ignored and re-downloads on
 each run; `data/train.csv`, `data/test.csv`, and `data/split_summary.json`
 are committed directly, since stage 01 reads them and they are small (356KB

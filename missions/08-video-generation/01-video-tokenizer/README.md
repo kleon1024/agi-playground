@@ -161,7 +161,7 @@ uv run --group torch python train_video_codec.py --steps 800 --batch-size 16 --l
 
 CPU only -- no CUDA GPU was available in this environment, a real deviation
 from `mission.yaml`'s "local GPU lane" framing, stated plainly rather than
-assumed away. ~136s wall-clock, $0.
+assumed away. ~136s wall-clock, \$0.
 
 ## What this stage does not establish
 

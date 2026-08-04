@@ -141,5 +141,5 @@ cd infra/01-networking/core
 python3 network_sim.py --world-sizes 2 4 8 --payload-mb 1.0 8.0 32.0
 ```
 
-CPU only, ~35s wall-clock, $0. Full trace:
+CPU only, ~35s wall-clock, \$0. Full trace:
 [`runs/2026-08-01-star-vs-ring.md`](runs/2026-08-01-star-vs-ring.md).

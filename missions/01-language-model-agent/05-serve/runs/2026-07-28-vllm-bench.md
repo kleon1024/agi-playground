@@ -43,7 +43,7 @@ Run twice: once with CUDA graphs enabled (vLLM's default) and once with
 | Host | WSL2 on Windows, reached over Tailscale |
 | vLLM | 0.26.0, torch 2.11.0+cu130, separate venv from the training environment |
 | Model | the stage-03 chat checkpoint, converted to `LlamaForCausalLM` naming |
-| Cost | $0 (local lane) |
+| Cost | \$0 (local lane) |
 
 vLLM reported 13.71 GiB of KV cache after loading the 88M model, or 1,152,061
 tokens — enough for 5,760 concurrent requests at this sequence length. Nothing

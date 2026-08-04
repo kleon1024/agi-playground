@@ -25,7 +25,7 @@ PYTHONPATH=../core python torchao_quantize.py bench --checkpoint <ckpt.pt> --dev
 | Checkpoint | the 88,197,888-parameter stage 03 chat model, same file `01-graph-execution`'s run used |
 | Shape | 64-token prompt, batch 1, cache sized 1024, greedy decoding |
 | Total GPU time | well under 5 minutes across all commands |
-| Cost | $0 (local lane) |
+| Cost | \$0 (local lane) |
 
 ## Result 1: footprint
 

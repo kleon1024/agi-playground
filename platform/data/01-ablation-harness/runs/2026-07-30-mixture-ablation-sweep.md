@@ -3,7 +3,7 @@
 **Date:** 2026-07-30
 **Hardware:** Apple Silicon (arm64), macOS 24.6.0, CPU-only. No GPU involved
 anywhere in this stage.
-**Cost:** $0 (local lane, stdlib + torch/scipy already in the repo's uv env).
+**Cost:** \$0 (local lane, stdlib + torch/scipy already in the repo's uv env).
 
 ## Command — core
 

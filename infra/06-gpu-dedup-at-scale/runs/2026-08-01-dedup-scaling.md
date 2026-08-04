@@ -11,7 +11,7 @@ python3 dedup_scaling.py --sizes 1000,4000,16000,48000 --cluster-frac 0.10 --thr
 15.6.1, local SSD.
 **Software:** Python 3.11.14, stdlib only.
 **Wall-clock:** 3m25.63s total (all four sizes, one process, no parallelism).
-**Cost:** $0 (local lane, CPU only, no GPU used).
+**Cost:** \$0 (local lane, CPU only, no GPU used).
 
 **Metrics (real output, unedited):**
 

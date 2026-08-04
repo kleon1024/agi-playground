@@ -4,7 +4,7 @@
 - Hardware: local macOS lane
 - Software: Python via uv; standard library; public Yahoo chart endpoint
 - Wall-clock: 0.3 seconds
-- Cost: $0 (local lane; public endpoint)
+- Cost: \$0 (local lane; public endpoint)
 - Metrics: 500 bars; ADV USD 12,578,055,538; daily volatility 1.7839%; assumed Y 0.6, spread 2.0 bps, commission 0.5 bps; at a USD 10m book, 0.0398% participation and 0.2780% annual cost; on the declared 12% paper-return scenario, discrete-sweep peak USD 25,156,111,076 and total-return breakeven USD 125,780,555,379.
 - Notes: ADV and volatility are measured inputs. All spread, commission, gross-return, rebalance cadence, and impact assumptions are not fitted execution evidence.
 

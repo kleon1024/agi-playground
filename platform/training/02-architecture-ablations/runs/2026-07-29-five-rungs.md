@@ -3,7 +3,7 @@
 The [MoE rung](2026-07-28-moe-rung.md) ran first and alone. This record covers
 the other five, trained back to back on the same card overnight: 14 arms, three
 seeds each, 42 runs, 9.55 GPU-hours. With the MoE rung the full ladder is 17
-arms, 51 runs, 12.97 GPU-hours, $0 on the local lane.
+arms, 51 runs, 12.97 GPU-hours, \$0 on the local lane.
 
 ## Command
 

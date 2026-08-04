@@ -15,7 +15,7 @@ prior real-speech stage in this mission recorded). All three seeds launched
 concurrently on a 10-core machine. Per-seed wall-clock: data build under
 0.1s (reuses stage 04's `multi_speaker_data.build_balanced_dataset`, which
 reuses stage 03's already-downloaded, git-ignored LibriSpeech `dev-clean`
-cache — no new download), codec training 1256-1259s. $0 marginal cost.
+cache — no new download), codec training 1256-1259s. \$0 marginal cost.
 
 ## Codec: dead-code reset (every 50 steps, dead_threshold=1.0) vs stage 04's plain VQ
 

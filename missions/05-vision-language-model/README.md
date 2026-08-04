@@ -46,8 +46,8 @@ report a false win.
 
 The build-vs-buy question is a two-axis tradeoff: accuracy against dollar
 cost per question. Three real points: the vision pathway (mean exact-match
-0.4375, $0 marginal), the text-only baseline (0.3270, $0), and the hosted API
-(0.8329, $0.00128/question, `openai/gpt-4o-mini` via OpenRouter). The hosted
+0.4375, \$0 marginal), the text-only baseline (0.3270, \$0), and the hosted API
+(0.8329, \$0.00128/question, `openai/gpt-4o-mini` via OpenRouter). The hosted
 point dominates both self-trained points on both axes at once, which is why
 this mission's verdict is a clean NOT MET rather than a "depends on your
 budget" judgment call. The aggregate hides where the vision pathway's signal
@@ -139,7 +139,7 @@ that one seed in three failed to. Full numbers in
 
 [Stage 02](02-report/) added the third baseline mission.yaml required — a
 real hosted VLM API call, `openai/gpt-4o-mini` via OpenRouter, on the
-identical 784-question eval set, $1.00 total — and mechanically checked all
+identical 784-question eval set, \$1.00 total — and mechanically checked all
 three pathways against the mission's own acceptance bar. Verdict: **NOT
 MET**. The hosted API scored 0.833 exact-match against the vision pathway's
 0.4375 mean, a decisive build-vs-buy loss, not a close one. A per-category
@@ -179,7 +179,7 @@ text-only is the noisier pathway here (spread 0.0707), the opposite of stage
 [its run record](04-real-photo-vision-fusion/runs/2026-08-01-real-photo-vision-vs-text-only.md).
 
 [Stage 05](05-real-photo-report/) added the hosted VLM API baseline on the
-same real-photo eval set, $0.2534 total. Verdict: **NOT MET** — hosted API
+same real-photo eval set, \$0.2534 total. Verdict: **NOT MET** — hosted API
 scored 0.4596 exact-match against vision's 0.2374 mean, a gap roughly 22x
 vision's own seed spread, not a close call. The real-photo result matches the
 synthetic one on the underlying build-vs-buy answer: buy, not build, at this

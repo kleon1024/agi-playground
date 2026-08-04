@@ -37,7 +37,7 @@ short answers) makes text-only's blind guess noisier across seeds than the
 image-conditioned model, the opposite pattern from stage 01's synthetic
 result, where vision was the noisier pathway.
 
-**Cost:** $0 — local CPU training, no hosted API calls in this stage.
+**Cost:** \$0 — local CPU training, no hosted API calls in this stage.
 
 **What this does not settle:** whether this narrow real-photo margin beats
 the hosted VLM API baseline is stage 05's question, not this stage's — this

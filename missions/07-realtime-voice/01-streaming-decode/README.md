@@ -111,7 +111,7 @@ uv run --group torch python streaming_decode.py --n-eval-clips 30 --prompt-len 1
 
 CPU only -- no CUDA GPU was available in this environment, a real deviation
 from `mission.yaml`'s "local GPU lane" framing, stated plainly rather than
-assumed away. ~190s wall-clock, $0 marginal cost.
+assumed away. ~190s wall-clock, \$0 marginal cost.
 
 ## What this stage does not establish
 

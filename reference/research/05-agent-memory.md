@@ -140,7 +140,7 @@ start cold on every run.
 
 [Mission 04](../../missions/04-code-agent/) is the natural first consumer, because
 it already has the baseline the question needs: eighteen attempts across three
-model tiers, every one starting from nothing, at $0.16 to $0.82 per resolved
+model tiers, every one starting from nothing, at \$0.16 to \$0.82 per resolved
 task. "Does memory carried between attempts change resolve rate or cost per
 resolved task?" is answerable against that with the scorer that already exists,
 and it would produce the edge-density and attachment numbers section (d) is

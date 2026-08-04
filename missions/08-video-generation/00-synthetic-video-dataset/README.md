@@ -98,7 +98,7 @@ uv run python generate_video_dataset.py dataset --train 800 --eval 150 --out ../
 uv run python generate_video_dataset.py fixtures --fixtures 6 --out ../fixtures
 ```
 
-CPU only, no network, no GPU, ~3s wall-clock, $0.
+CPU only, no network, no GPU, ~3s wall-clock, \$0.
 
 ## What this stage does not establish
 

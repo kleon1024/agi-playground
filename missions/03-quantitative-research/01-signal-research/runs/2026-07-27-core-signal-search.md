@@ -6,7 +6,7 @@
 **Software:** Python managed by uv; standard-library core plus the stage 00
 Yahoo Finance and SEC EDGAR HTTP clients.
 **Wall-clock:** 16.53 seconds.
-**Cost:** $0 (local lane).
+**Cost:** \$0 (local lane).
 
 ## Metrics
 

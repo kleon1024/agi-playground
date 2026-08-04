@@ -25,7 +25,7 @@ uv run python run_task.py --demo tamper --out tamper.jsonl
 | Python | 3.12.9 (uv-managed) |
 | Repository HEAD | `650c7ad` |
 | Model | none — `FakeBackend`, scripted, deterministic |
-| Cost | $0. No GPU, no API key, no network. |
+| Cost | \$0. No GPU, no API key, no network. |
 
 ## Results
 

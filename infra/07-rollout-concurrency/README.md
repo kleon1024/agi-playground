@@ -174,5 +174,5 @@ cd infra/07-rollout-concurrency/core
 python3 rollout_scheduling.py --workers 2,4,8 --n-trajectories 40 --trials 3 --out ../runs
 ```
 
-CPU only, stdlib + NumPy, under 1 second total wall-clock, $0. Full trace:
+CPU only, stdlib + NumPy, under 1 second total wall-clock, \$0. Full trace:
 [`runs/2026-08-02-rollout-scheduling.md`](runs/2026-08-02-rollout-scheduling.md).

@@ -126,5 +126,5 @@ cd infra/02-storage/core
 python3 shard_placement.py --num-keys 2000 --old-nodes 4 --new-nodes 5 --shard-bytes 65536
 ```
 
-CPU + local disk only, under 1s wall-clock, $0. Full trace:
+CPU + local disk only, under 1s wall-clock, \$0. Full trace:
 [`runs/2026-08-01-modulo-vs-consistent-hashing.md`](runs/2026-08-01-modulo-vs-consistent-hashing.md).

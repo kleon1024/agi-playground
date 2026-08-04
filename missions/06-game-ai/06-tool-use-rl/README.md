@@ -163,8 +163,8 @@ selection, multi-step tool chains, real tool-call latency or failure modes
 actual arithmetic error rate -- `simulated_accuracy` is a stated, synthetic
 function of digit count, not a measurement of any model. It does not use
 mission 04's hosted-API agent harness, which is deliberate: mission 04's
-$30 budget is nearly exhausted and it is not a training mission, so this
-stage stays inside mission 06's own $0-marginal-cost, verifiable-reward
+\$30 budget is nearly exhausted and it is not a training mission, so this
+stage stays inside mission 06's own \$0-marginal-cost, verifiable-reward
 frame instead. Full boundary in [`mission.yaml`](../mission.yaml) under
 `does_not_prove`.
 

@@ -15,7 +15,7 @@ uv run --group torch python train_warmup.py --seeds 3 --epochs 30 --batch-size 6
 | Python | 3.12.9 (uv-managed), torch 2.13.0 |
 | Device | CPU. 3 vision-pathway runs (seeds 0, 1, 2), 30 epochs, 3,924 train QA pairs / 784 eval QA pairs, batch size 64. |
 
-$0 marginal cost, no hosted API calls.
+\$0 marginal cost, no hosted API calls.
 
 ## What changed relative to stage 01
 

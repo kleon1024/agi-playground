@@ -22,7 +22,7 @@ uv run --group torch --group chem python run_third_endpoint.py
 | Python | 3.12.9 (uv-managed) |
 | Dependencies | `rdkit` (`--group chem`), `torch` (`--group torch`) |
 | Repository HEAD | `1bdec84` |
-| Compute | CPU only, $0 |
+| Compute | CPU only, \$0 |
 | Dataset SHA-256 | `7d7e7facd853a63e79ddce4e9c3fcb7a0d83a1c300b603031c0f2c64fbe77761` (same Tox21 file as stages 00/03) |
 | Wall-clock | data prep 3.4s; descriptor baseline 1.7s/1.7s/1.7s (3 seeds); trained model 130.0s/135.3s/132.6s (3 seeds) |
 

@@ -126,8 +126,8 @@ real attempt this mission has recorded:
 
 | Task | Run 1 | Run 2 | Run 3 |
 |---|---|---|---|
-| `public-f51a53b` | resolved, 12 turns, 89.8s, $0.1046 | resolved, 14 turns, 102.1s, $0.1861 | resolved, 9 turns, 79.6s, $0.0842 |
-| `public-cca3294` | resolved, 7 turns, 100.9s, $0.1051 | resolved, 11 turns, 70.6s, $0.0916 | resolved, 6 turns, 59.7s, $0.0691 |
+| `public-f51a53b` | resolved, 12 turns, 89.8s, \$0.1046 | resolved, 14 turns, 102.1s, \$0.1861 | resolved, 9 turns, 79.6s, \$0.0842 |
+| `public-cca3294` | resolved, 7 turns, 100.9s, \$0.1051 | resolved, 11 turns, 70.6s, \$0.0916 | resolved, 6 turns, 59.7s, \$0.0691 |
 
 6/6 resolved, 0 tampered, 0 regressions. `$0.6407` total across all six
 attempts (list-price equivalent, per `claude -p`'s own `total_cost_usd`, same
@@ -137,9 +137,9 @@ extending the "never fired on a real model attempt" finding from
 [stage 04](../../04-how-it-fails/) across a second, previously unseen
 repository — 42 real attempts total across this mission now, none tampered.
 
-Cumulative mission hosted-API spend: **$14.9045** of the **$30** ceiling
+Cumulative mission hosted-API spend: **\$14.9045** of the **\$30** ceiling
 ([stage 01](../../01-no-harness/runs/2026-08-01-no-harness-baseline.md) had
-already spent $14.2638; this run added $0.6407).
+already spent \$14.2638; this run added \$0.6407).
 
 ## What this run does not establish
 

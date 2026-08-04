@@ -20,7 +20,7 @@ sandbox, same deviation from `mission.yaml`'s local-GPU-lane framing stage
 after first download), codec training 620-630s, LM training 70-90s. Real
 network measurement: <1s of actual pinging (200 round trips at ~10-40ms
 each), plus one-time SSH setup. LibriSpeech `dev-clean` download (338MB,
-one-time, $0, CC BY 4.0) cached under a git-ignored `core/.cache/`.
+one-time, \$0, CC BY 4.0) cached under a git-ignored `core/.cache/`.
 
 ## Codec: collapses at 600 steps on real speech, escapes at 2000 -- same learning rate
 

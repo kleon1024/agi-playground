@@ -126,7 +126,7 @@ The defaults above at full budget (6000 steps for `direct`/`cot`, five
 where `direct` alone took 16-17 minutes per seed and the full sweep never
 finished in one sitting — a partial `direct`-only result converged to **0.502
 mean accuracy**, chance. The same command then ran to completion on an RTX
-4090 (19.4 minutes total, all three arms, $0, local lane):
+4090 (19.4 minutes total, all three arms, \$0, local lane):
 
 ```
 direct   mean 0.502  spread 0.012   -- chance, matches the CPU-only result exactly

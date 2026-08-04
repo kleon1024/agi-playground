@@ -28,7 +28,7 @@ python continue_training.py --arm moe --checkpoint moe-upcycled.pt \
 | Learning rate | 1e-4 peak, cosine, identical schedule |
 | GPU | NVIDIA GeForce RTX 4090, driver 591.86, WSL2 on Ubuntu 22.04.3 |
 | torch | 2.13.0+cu130, bf16 autocast |
-| Cost | $0 (local lane) |
+| Cost | \$0 (local lane) |
 
 ## Result
 

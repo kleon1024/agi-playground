@@ -12,7 +12,7 @@ python3 network_sim.py --world-sizes 2 4 8 --payload-mb 1.0 8.0 32.0
 process/IPC overhead over `multiprocessing.Queue`.
 
 **Wall-clock:** ~35s total for the 9-combination sweep.
-**Cost:** $0 (local lane, no cloud resources).
+**Cost:** \$0 (local lane, no cloud resources).
 
 **Metrics (real output, unedited):**
 

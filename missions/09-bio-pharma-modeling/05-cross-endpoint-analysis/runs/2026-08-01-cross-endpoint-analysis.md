@@ -20,7 +20,7 @@ uv run python 05-cross-endpoint-analysis/core/analyze_cross_endpoint.py
 | Machine | Apple silicon laptop, macOS 24.6.0, arm64 |
 | Python | 3.12.9 (uv-managed) |
 | Dependencies | standard library only (`json`, `statistics`) — no `torch`/`rdkit` needed, since nothing is retrained |
-| Compute | CPU, sub-second, $0 |
+| Compute | CPU, sub-second, \$0 |
 | Inputs | `00-dataset-and-property/data/split_summary.json`, `03-second-endpoint/data/split_summary.json`, `04-third-endpoint/data/split_summary.json`, and each stage's six `runs/*-seed{0,1,2}.json` files (unmodified) |
 
 ## Output

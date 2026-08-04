@@ -34,7 +34,7 @@ change weights, so the numbers below describe the engine, not the model.
 | Host | WSL2 on Windows, reached over Tailscale |
 | Repository | commit `b3bce17` |
 | torch | 2.13.0+cu130 |
-| Cost | $0 (local lane) |
+| Cost | \$0 (local lane) |
 
 Greedy decoding, bf16, no `torch.compile`, no CUDA graphs.
 

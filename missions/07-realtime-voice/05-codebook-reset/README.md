@@ -129,7 +129,7 @@ prior real-speech stage in this mission recorded). Run 2026-08-01, all three
 seeds launched concurrently on a 10-core machine: per-seed wall-clock, data
 build under 0.1s (reuses stage 03's already-downloaded, git-ignored
 LibriSpeech `dev-clean` cache via stage 04's `multi_speaker_data.py`, no new
-download), codec training 1256-1259s. $0 marginal cost. Full per-step
+download), codec training 1256-1259s. \$0 marginal cost. Full per-step
 `codec_history` and `reset_log` in
 [`runs/reset-codec-seed0.json`](runs/reset-codec-seed0.json),
 [`runs/reset-codec-seed1.json`](runs/reset-codec-seed1.json), and

@@ -29,8 +29,8 @@ Full output: [`2026-08-01-outcome-report.txt`](2026-08-01-outcome-report.txt).
    run against it. The bullet's comparison cannot complete for the public half
    without that control, so it stays short of MET, but it is no longer
    CANNOT DETERMINE for the reason it was before (a set that did not exist).
-2. **Beats always-frontier on $/resolved without losing resolve rate -- MET.**
-   `haiku` ($0.1604/resolved) beats `opus` ($0.8226/resolved) with identical
+2. **Beats always-frontier on \$/resolved without losing resolve rate -- MET.**
+   `haiku` (\$0.1604/resolved) beats `opus` (\$0.8226/resolved) with identical
    6/6 resolve rate. Scope note carried forward honestly: the three tiers
    stage 03 ran are three hosted-subscription tiers of one CLI, not an actual
    local-lane open-weights model against a hosted frontier one, as
@@ -45,9 +45,9 @@ Full output: [`2026-08-01-outcome-report.txt`](2026-08-01-outcome-report.txt).
    tiers) 18/18 resolved; public (haiku only) 6/6 resolved. Reported side by
    side above, never averaged into one figure.
 5. **Latency and dollars measured on real runs, inside budget -- MET.** p50/p95
-   wall-clock reported per arm from real records; $14.9034 real spend across
-   42 attempts against the $30 ceiling this stage declared (the public run
-   added $0.6407 on top of the $14.2627 already spent by stages 01+03).
+   wall-clock reported per arm from real records; \$14.9034 real spend across
+   42 attempts against the \$30 ceiling this stage declared (the public run
+   added \$0.6407 on top of the \$14.2627 already spent by stages 01+03).
 6. **Failures catalogued by category -- MET.** See
    [stage 04](../../04-how-it-fails/).
 7. **Every number traceable to a runs/ entry -- MET.** This script reads only

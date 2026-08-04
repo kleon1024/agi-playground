@@ -11,7 +11,7 @@ python3 shard_placement.py --num-keys 2000 --old-nodes 4 --new-nodes 5 --shard-b
 15.6.1, local SSD.
 **Software:** Python 3.11.14, stdlib only (`hashlib`, `bisect`, `shutil`).
 **Wall-clock:** under 1s total.
-**Cost:** $0 (local lane, local disk only).
+**Cost:** \$0 (local lane, local disk only).
 
 **Metrics (real output, unedited):**
 

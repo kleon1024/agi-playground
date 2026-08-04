@@ -17,7 +17,7 @@ python core/grpo.py train --steps 200 --group-size 8 --prompts-per-step 4 \
 
 ## Hardware and software
 
-Identical to the base run: local CPU, no GPU, torch 2.10.0, $0 cost.
+Identical to the base run: local CPU, no GPU, torch 2.10.0, \$0 cost.
 
 ## Result: identical to the base run — every group still degenerate
 

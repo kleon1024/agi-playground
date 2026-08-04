@@ -44,7 +44,7 @@ python sft.py score --tokenizer tokenizer_hf.json \
 | Train rows | 3,000 prompts; 3,000 / 2,999 / 2,999 answers kept |
 | Eval rows | 446 test prompts, answered by all three authors |
 | Seeds | 1337, 20260729, 7 |
-| Cost | $0 — local hardware, no API calls |
+| Cost | \$0 — local hardware, no API calls |
 
 Each fine-tune took about 40 seconds. Trace generation took 45.8 s for the
 0.5B teacher and 416.8 s for the 7B, at concurrency 64 and 48.

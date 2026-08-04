@@ -10,7 +10,7 @@ python3 adversarial_search.py demo --case-index 0
 python3 adversarial_search.py sweep --n 500 --seed 0
 ```
 
-**Wall-clock:** sweep over 500 cases x 7 budgets x 4 operator-space sizes: 0.105s total. Dollar cost: $0.
+**Wall-clock:** sweep over 500 cases x 7 budgets x 4 operator-space sizes: 0.105s total. Dollar cost: \$0.
 
 ## demo output (one case, full detail)
 

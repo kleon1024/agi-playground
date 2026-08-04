@@ -31,11 +31,11 @@ Two tasks, three tiers, three independent runs each. Every attempt resolved:
 target test green, nothing that passed before failing after, no patch touching
 a test file.
 
-| Model | Resolve | $/resolved | Median wall-clock |
+| Model | Resolve | \$/resolved | Median wall-clock |
 |---|---|---|---|
-| haiku | 6/6 | **$0.1604** | 64 s / 120 s |
-| sonnet | 6/6 | $0.5369 | 41 s / 98 s |
-| opus | 6/6 | $0.8226 | 75 s / 85 s |
+| haiku | 6/6 | **\$0.1604** | 64 s / 120 s |
+| sonnet | 6/6 | \$0.5369 | 41 s / 98 s |
+| opus | 6/6 | \$0.8226 | 75 s / 85 s |
 
 Read on its own, this settles the mission's decision: route everything to the
 cheapest tier and spend a fifth as much. It also makes the more expensive tiers

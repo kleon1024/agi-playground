@@ -13,7 +13,7 @@ Apple silicon laptop, macOS, CPU only (no CUDA GPU available in this
 sandbox, same deviation from `mission.yaml`'s local-GPU-lane framing stages
 01/03 already recorded). Per-seed wall-clock: data build 1-2s (reuses stage
 03's already-downloaded, git-ignored LibriSpeech `dev-clean` cache, no new
-download), codec training 780-861s, LM training 83-87s. $0 marginal cost.
+download), codec training 780-861s, LM training 83-87s. \$0 marginal cost.
 
 ## Codec: no full collapse in any seed, but codebook health becomes seed-dependent
 

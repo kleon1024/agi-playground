@@ -24,7 +24,7 @@ uv run --group torch python train_generation.py --codec-steps 800 --lm-steps 400
 CPU only, no CUDA GPU available in this environment -- a real deviation from
 `mission.yaml`'s "local GPU lane" framing, stated plainly rather than
 assumed away, matching every other mission built this session. Local CPU
-only, $0 real dollar cost -- no Modal spend for this stage.
+only, \$0 real dollar cost -- no Modal spend for this stage.
 
 ## The declared compute ceiling, checked before it could be crossed
 

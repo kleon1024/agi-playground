@@ -119,7 +119,7 @@ uv run --group torch python train_longer_sequences.py --frames 16 --speed 1 \
 ```
 
 Repeat with `--seed 1` and `--seed 2` for the other two seeds. CPU only,
-567-709s wall-clock per seed, $0. Full traces:
+567-709s wall-clock per seed, \$0. Full traces:
 [`runs/longer-sequences-frames16-seed0.json`](runs/longer-sequences-frames16-seed0.json),
 [`runs/longer-sequences-frames16-seed1.json`](runs/longer-sequences-frames16-seed1.json),
 [`runs/longer-sequences-frames16-seed2.json`](runs/longer-sequences-frames16-seed2.json).

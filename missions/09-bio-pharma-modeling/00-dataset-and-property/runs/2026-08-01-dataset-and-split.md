@@ -22,7 +22,7 @@ uv run --group chem python prepare_dataset.py \
 | Python | 3.12.9 (uv-managed, via `--group chem`) |
 | Dependencies | `rdkit` 2023.9+ (new opt-in `chem` group in `pyproject.toml`) |
 | Repository HEAD | `9844b61` |
-| Wall-clock | 28.3s (network download + RDKit parse + split), $0, CPU only |
+| Wall-clock | 28.3s (network download + RDKit parse + split), \$0, CPU only |
 
 ## Why SR-MMP
 

@@ -29,7 +29,7 @@ done
 | Python | 3.12.9 (uv-managed) |
 | Dependencies | `rdkit` (`--group chem`), `torch` (`--group torch`) |
 | Repository HEAD | `9844b61` |
-| Compute | CPU only, $0 |
+| Compute | CPU only, \$0 |
 
 ## Descriptor baseline: logistic regression over 10 RDKit descriptors
 

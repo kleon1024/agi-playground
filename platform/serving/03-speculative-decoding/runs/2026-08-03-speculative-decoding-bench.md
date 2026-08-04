@@ -17,7 +17,7 @@ python speculative.py
 | torch | 2.10.0 |
 | Data | tinyshakespeare (`karpathy/char-rnn`), same corpus and download path `foundations/01-first-training-loop` uses, character-level tokenizer, 65 symbols |
 | Total wall-clock | 187.6s for the whole script (train both models, verify, benchmark) |
-| Cost | $0 (local CPU lane) |
+| Cost | \$0 (local CPU lane) |
 
 ## Models trained from scratch for this run
 

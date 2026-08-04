@@ -22,7 +22,7 @@ python graph_decode.py bench   --checkpoint <ckpt.pt> --max-new-tokens 128 --rep
 | Checkpoint | the 88,197,888-parameter stage 03 chat model, fp32 weights and cache |
 | Shape | 64-token prompt, batch 1, cache sized 1024, greedy decoding |
 | Total GPU time | under 10 minutes |
-| Cost | $0 (local lane) |
+| Cost | \$0 (local lane) |
 
 Both engines are correct: `bench` refuses to report a speedup until the graphed
 decoder has reproduced the eager decoder's tokens exactly, and it printed

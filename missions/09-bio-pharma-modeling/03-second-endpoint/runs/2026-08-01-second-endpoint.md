@@ -20,7 +20,7 @@ uv run --group torch --group chem python run_second_endpoint.py
 | Python | 3.12.9 (uv-managed) |
 | Dependencies | `rdkit` (`--group chem`), `torch` (`--group torch`) |
 | Repository HEAD | `d087c50` |
-| Compute | CPU only, $0 |
+| Compute | CPU only, \$0 |
 | Dataset SHA-256 | `7d7e7facd853a63e79ddce4e9c3fcb7a0d83a1c300b603031c0f2c64fbe77761` (same Tox21 file as stage 00) |
 
 ## The split: NR-PPAR-gamma

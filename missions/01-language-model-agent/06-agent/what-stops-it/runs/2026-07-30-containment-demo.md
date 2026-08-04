@@ -10,7 +10,7 @@ crossing that boundary, then exercises every control this chapter documents.
 ## Hardware and environment
 
 CPU only, no GPU or model involved -- this is pure sandbox-mechanism testing.
-macOS (Darwin 24.6.0, arm64), Python 3.11.14. Cost: $0.
+macOS (Darwin 24.6.0, arm64), Python 3.11.14. Cost: \$0.
 
 ## Command
 

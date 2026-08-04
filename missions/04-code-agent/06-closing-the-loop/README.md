@@ -151,14 +151,14 @@ covering all outcomes, unresolved and resolved together).
 
 | Model | Cost this stage |
 |---|---|
-| haiku | $0.4852 |
-| sonnet | $1.3057 |
-| opus | $1.2604 |
-| **Total this stage** | **$3.0513** |
+| haiku | \$0.4852 |
+| sonnet | \$1.3057 |
+| opus | \$1.2604 |
+| **Total this stage** | **\$3.0513** |
 
-Cumulative mission hosted-API spend: **$17.9547** of the **$30** ceiling
-(stage 03's $9.12 + stage 01's $5.1438 + stage 00's public-set run's $0.6407
-+ this stage's $3.0513). $12.0453 of headroom remained unused; the ceiling
+Cumulative mission hosted-API spend: **\$17.9547** of the **\$30** ceiling
+(stage 03's \$9.12 + stage 01's \$5.1438 + stage 00's public-set run's \$0.6407
++ this stage's \$3.0513). \$12.0453 of headroom remained unused; the ceiling
 was never approached.
 
 ## Run it

@@ -165,7 +165,7 @@ CPU only for the codec/LM training -- no CUDA GPU was available in this
 sandbox, the same real deviation from `mission.yaml`'s local-GPU-lane
 framing stage 01 already recorded. Per-seed wall-clock: data build under 1s
 (cached after first download), codec training about 620-630s, LM training
-about 70-90s. $0 marginal cost -- the LibriSpeech download is a one-time,
+about 70-90s. \$0 marginal cost -- the LibriSpeech download is a one-time,
 free fetch (CC BY 4.0), and only 1-2 speakers' utterances are used, keeping
 wall-clock comparable to the procedural-tone runs.
 

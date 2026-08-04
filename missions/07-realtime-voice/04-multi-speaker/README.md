@@ -116,7 +116,7 @@ uv run --group torch python train_multi_speaker.py --codec-steps 2000 --lm-steps
 CPU only, no CUDA GPU available in this sandbox, the same real deviation
 stages 01/03 already recorded. Per-seed wall-clock: data build 1-2s (cached
 after first extraction, reusing stage 03's already-downloaded LibriSpeech
-archive), codec training 780-861s, LM training 83-87s. $0 marginal cost --
+archive), codec training 780-861s, LM training 83-87s. \$0 marginal cost --
 no new download; all 10 speakers come from the `dev-clean` archive stage 03
 already fetched.
 

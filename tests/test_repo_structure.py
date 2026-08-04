@@ -195,6 +195,87 @@ def test_every_published_page_declares_its_level():
     assert not problems, "\n".join(problems)
 
 
+def test_currency_amounts_are_escaped_in_prose():
+    """A bare `$` opens KaTeX math, and the next one closes it.
+
+    Two dollar amounts in the same chapter -- "$0.16 per resolved task on the
+    cheapest tier against $0.82 on the most expensive" -- render as one
+    unbreakable math run reading `0.16perresolvedtaskonthecheapestieragainst`,
+    which also overflows the page on a phone. Six published pages shipped this
+    way, because the site builds cleanly and the damage is only visible in a
+    browser. Escape money as `\\$`; real math is unaffected because a formula
+    that means to be a formula opens and closes deliberately.
+    """
+    problems = []
+    for section in ("foundations", "missions", "capabilities", "platform",
+                    "infra", "reference"):
+        for page in sorted((ROOT / section).rglob("*.md")):
+            if {"core", "prod", "cache"} & set(page.parts):
+                continue
+            text = page.read_text()
+            rel = page.relative_to(ROOT).as_posix()
+            for offset in _bare_currency_offsets(text):
+                line = text.count("\n", 0, offset) + 1
+                problems.append(f"{rel}:{line}: unescaped currency `$` -- write `\\$`")
+    assert not problems, "\n".join(problems)
+
+
+_FENCE = re.compile(r"^\s*```")
+_INLINE_CODE = re.compile(r"`[^`]*`")
+_UNESCAPED_DOLLAR = re.compile(r"(?<!\\)\$")
+_PROSE_WORD = re.compile(r"[A-Za-z]{2}")
+
+
+def _mask_code(text):
+    """Blank out fenced blocks and inline code, preserving every offset."""
+    masked, in_fence = [], False
+    for line in text.split("\n"):
+        if _FENCE.match(line):
+            in_fence = not in_fence
+            masked.append(" " * len(line))
+        elif in_fence:
+            masked.append(" " * len(line))
+        else:
+            masked.append(_INLINE_CODE.sub(lambda m: " " * len(m.group()), line))
+    return "\n".join(masked)
+
+
+def _bare_currency_offsets(text):
+    """Offsets of `$` characters that open an amount rather than a formula.
+
+    Two things separate them. A formula is symbols: it carries a LaTeX escape,
+    a subscript or a superscript, or it holds no prose word at all. The text
+    between two prices is a sentence. Pairing runs over the whole document
+    rather than line by line, because both a display formula and the sentence
+    this test exists to protect can span several lines.
+    """
+    masked = _mask_code(text)
+    marks = [m.start() for m in _UNESCAPED_DOLLAR.finditer(masked)]
+    found, index = [], 0
+    while index < len(marks):
+        start = marks[index]
+        if index + 1 < len(marks) and marks[index + 1] == start + 1:
+            close = next((j for j in range(index + 2, len(marks) - 1)
+                          if marks[j + 1] == marks[j] + 1), None)
+            index = close + 2 if close is not None else index + 2
+            continue
+        after = masked[start + 1:start + 3].lstrip()[:1]
+        money_shaped = after.isdigit() or after == "/"
+        if index + 1 < len(marks):
+            span = masked[start + 1:marks[index + 1]]
+            if any(ch in span for ch in "\\^_{") or not _PROSE_WORD.search(span):
+                index += 2
+                continue
+            if money_shaped:
+                found.append(start)
+            index += 1
+            continue
+        if money_shaped:
+            found.append(start)
+        index += 1
+    return found
+
+
 def test_top_level_docs_exist():
     for rel in [
         "README.md",

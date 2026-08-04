@@ -13,7 +13,7 @@ python scheduler.py --slots 2 --trials 3 --out ../runs
 
 **Wall-clock:** ~0.2s total (6 trials x ~0.02-0.04s each, plus warmup).
 
-**Cost:** $0 (local lane, CPU only).
+**Cost:** \$0 (local lane, CPU only).
 
 **Metrics** (see `scheduler-result.json` in this directory for the full
 per-trial, per-job breakdown):

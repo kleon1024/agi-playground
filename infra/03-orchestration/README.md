@@ -117,4 +117,4 @@ this comparison.
 ## Run record
 
 [`runs/2026-08-01-scheduler-comparison.md`](runs/2026-08-01-scheduler-comparison.md)
-— 2 slots, 3 alternating trials, CPU (local dev box), $0.
+— 2 slots, 3 alternating trials, CPU (local dev box), \$0.

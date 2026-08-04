@@ -60,7 +60,7 @@ vision + text-only training: $0 (local CPU, 497.3s wall-clock, stage 04)
 ```
 
 Same per-question rate stage 02 measured on the synthetic set
-($0.00128/question) -- the hosted API's pricing does not depend on whether
+(\$0.00128/question) -- the hosted API's pricing does not depend on whether
 the images are synthetic renders or real photographs, only on token count,
 which stayed essentially fixed (fixed prompt template, fixed 32x32 image
 size).

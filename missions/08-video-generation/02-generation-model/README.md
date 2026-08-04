@@ -111,7 +111,7 @@ cd missions/08-video-generation/02-generation-model/core
 uv run --group torch python train_generation.py --codec-steps 800 --lm-steps 400 --prompt-frames 4 --seed 0 --out ../runs
 ```
 
-CPU only, ~153s wall-clock, $0. Full trace:
+CPU only, ~153s wall-clock, \$0. Full trace:
 [`runs/2026-07-31-generation-training.md`](runs/2026-07-31-generation-training.md).
 
 Two further seeds confirm this is not a lucky single draw:

@@ -38,7 +38,7 @@ since these are real photographs, not procedurally generated) — 0 overlap, con
 above by the script's own assertion (`assert not (set(train_ids) & set(eval_ids))`)
 plus a second post-hoc check on the written records.
 
-**Cost:** $0 — public dataset mirrors, no paid API calls in this stage.
+**Cost:** \$0 — public dataset mirrors, no paid API calls in this stage.
 
 **License note:** VQA v2 annotations are CC BY 4.0 (Goyal et al., 2017); COCO images
 follow Flickr ToU — non-commercial research/educational use only. This mission makes

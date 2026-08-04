@@ -16,7 +16,7 @@ network, fully deterministic.
 | Machine | local (macOS, arm64), no GPU needed |
 | Code under test | `missions/01-language-model-agent/06-agent/core/harness.py`'s `ContextManager` and `drop_oldest_tool_results`, imported unmodified via `sys.path.insert` |
 | Script | [`core/demo_compaction.py`](../core/demo_compaction.py) |
-| Cost | $0 |
+| Cost | \$0 |
 
 ## Demo A: collapse a superseded read before dropping any turn
 

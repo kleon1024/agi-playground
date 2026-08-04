@@ -89,8 +89,8 @@ model, and the test-tampering guardrail is demonstrated firing on a patch whose
 every other signal reads as a clean fix.
 
 [Stage 03](03-cheap-or-expensive/) put three model tiers through the task set,
-three runs each. All eighteen attempts resolved, at $0.16 per resolved task on
-the cheapest tier against $0.82 on the most expensive — and reading the patches
+three runs each. All eighteen attempts resolved, at \$0.16 per resolved task on
+the cheapest tier against \$0.82 on the most expensive — and reading the patches
 showed the cheapest tier had produced three latent defects the resolve rate
 cannot see. The primary metric says route everything cheap; the diffs say
 otherwise. That gap is the mission's own thesis pointed at the mission.

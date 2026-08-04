@@ -12,7 +12,7 @@ python3 bootstrap_significance.py --seed 0 --out ../runs/bootstrap-run.json
 ```
 
 **Hardware:** CPU only (pure Python, stdlib `random`), local machine, wall-clock
-well under 1 second for 2,000 resamples at each of two item-set sizes. $0 cost.
+well under 1 second for 2,000 resamples at each of two item-set sizes. \$0 cost.
 
 **Construction:** both item sets are drawn from the same generator
 (`generate_paired_outcomes`) with the identical `true_effect = 0.06` — Model A

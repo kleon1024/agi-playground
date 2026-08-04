@@ -34,7 +34,7 @@ rollouts -- the effective values are what is recorded in each transcript's
 | Checkpoint | `stage03/ckpt/ckpt.pt`, the chat-tuned SFT model (not the base pretrain checkpoint -- the harness needs instruction-following behavior) |
 | Tokenizer | `stage01/tokenizer_hf.json` |
 | Sandbox root | a fresh `task_root/` containing exactly two files, `harness.py` and `tools.py` (copies) -- chosen so "how many Python files" has an unambiguous, pre-stated answer |
-| Cost | $0 (local lane); total GPU time across all 6 rollouts under 3 minutes |
+| Cost | \$0 (local lane); total GPU time across all 6 rollouts under 3 minutes |
 
 ## The tasks, and their ground truth, stated before running anything
 

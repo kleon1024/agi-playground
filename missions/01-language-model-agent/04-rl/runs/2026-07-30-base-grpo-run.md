@@ -21,7 +21,7 @@ Default seed (0), default `--kl-beta 0.04`, default `--clip-eps 0.2`.
 | Machine | local CPU (Apple Silicon, macOS), no GPU used or needed |
 | Python / torch | 3.11, torch 2.10.0 |
 | Wall-clock | 7m01s (348s user, 297s system — torch's CPU thread pool, 153% average utilization) |
-| Cost | $0 (local lane) |
+| Cost | \$0 (local lane) |
 
 ## Result: zero gradient steps, in 200 out of 200
 

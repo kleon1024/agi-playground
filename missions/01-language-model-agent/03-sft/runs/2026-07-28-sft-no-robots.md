@@ -32,7 +32,7 @@ fine-tuned are the ones the previous stage produced.
 | torch | 2.13.0+cu130 |
 | datasets | 5.0.0 |
 | tokenizers | 0.23.1 |
-| Cost | $0 (local lane) |
+| Cost | \$0 (local lane) |
 
 ## Data
 

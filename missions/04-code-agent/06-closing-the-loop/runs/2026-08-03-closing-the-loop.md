@@ -16,7 +16,7 @@ uv run python3 close_the_loop.py \
 ```
 
 (`--already-spent 15.0023` already includes one smoke-tested attempt run
-separately before the batch, at $0.0989 -- `haiku`/`private-b81c414`/run1 --
+separately before the batch, at \$0.0989 -- `haiku`/`private-b81c414`/run1 --
 recorded as the first line of `closing-the-loop-results.jsonl`.)
 
 ## Resolve rate: before (stage 01, by construction 0) vs after one retry
@@ -41,16 +41,16 @@ ratio (10/12 here) on a smaller, retry-specific sample.
 
 | Model | Cost this stage | Cumulative mission spend |
 |---|---|---|
-| haiku | $0.4852 | -- |
-| sonnet | $1.3057 | -- |
-| opus | $1.2604 | -- |
+| haiku | \$0.4852 | -- |
+| sonnet | \$1.3057 | -- |
+| opus | \$1.2604 | -- |
 | **Total this stage** | **$3.0513** | **$17.9547** |
 
-Cost ceiling: $30 total mission hosted-API spend (unchanged from stage 01's
-declaration). Cumulative spend entering this stage was $14.9034 (stage 03's
-$9.12 + stage 01's $5.1438 + stage 00's public-set run's $0.6407, per
-`05-report`'s reconciled figure). This stage added $3.0513, bringing the
-cumulative total to $17.9547 against the $30 ceiling -- $12.0453 of headroom
+Cost ceiling: \$30 total mission hosted-API spend (unchanged from stage 01's
+declaration). Cumulative spend entering this stage was \$14.9034 (stage 03's
+\$9.12 + stage 01's \$5.1438 + stage 00's public-set run's \$0.6407, per
+`05-report`'s reconciled figure). This stage added \$3.0513, bringing the
+cumulative total to \$17.9547 against the \$30 ceiling -- \$12.0453 of headroom
 remained unused; the ceiling was never approached.
 
 ## Guardrails

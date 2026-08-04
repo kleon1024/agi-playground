@@ -23,7 +23,7 @@ uv run python generate_video_dataset.py fixtures --fixtures 6 --fixtures-seed-st
 | Dependencies | none beyond the standard library (`random`, `hashlib`, `json`) plus a direct import of mission 05's `generate_dataset.py` for the drawing primitives |
 | Repository HEAD | `7bcbcfe` |
 
-CPU only, no network, no GPU, $0.
+CPU only, no network, no GPU, \$0.
 
 ## Why the collision problem is smaller here than in mission 05
 

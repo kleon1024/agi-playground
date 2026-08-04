@@ -30,10 +30,10 @@ other       34/93  (36.6%)
 yes_no      51/80  (63.8%)
 ```
 
-**Cost:** $0.2534 total over 198 questions ($0.00128/question, matching stage
+**Cost:** \$0.2534 total over 198 questions (\$0.00128/question, matching stage
 02's per-question rate on the synthetic set) — hosted API cost is the only
 non-zero cost in the whole mission-05 rescope; vision/text-only training was
-$0 on local CPU.
+\$0 on local CPU.
 
 **Verdict: NOT MET.** The real-photo vision pathway beats the text-only
 baseline by a real (if narrow) margin, replicating the direction of stage

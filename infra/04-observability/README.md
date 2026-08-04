@@ -116,4 +116,4 @@ without the fan-out.
 ## Run record
 
 [`runs/2026-08-01-instrumented-training.md`](runs/2026-08-01-instrumented-training.md)
-— 200 steps, CPU (local dev box), $0.
+— 200 steps, CPU (local dev box), \$0.

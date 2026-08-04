@@ -13,7 +13,7 @@ run uses the chapter's own full step budget, unmodified, on a GPU.
 | Python / torch | remote `.venv` (uv), torch 2.13.0+cu130 |
 | Model | 1,235,712 parameters, `d_model=128`, 6 layers (`core/model.py`) |
 | Task | `core/task.py`, 40 entities, 4 hops, vocab 51 |
-| Cost | $0 (local lane over Tailscale, not a billed cloud run) |
+| Cost | \$0 (local lane over Tailscale, not a billed cloud run) |
 
 ## Command
 

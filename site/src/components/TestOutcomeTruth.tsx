@@ -38,6 +38,10 @@ export default function TestOutcomeTruth(): React.ReactElement {
         <strong>{admits ? 'admits' : 'rejects'}</strong> the candidate
         {note ? ` -- ${note}` : ''}
       </p>
+      {/* The widget frame clips its overflow, so this four-column truth table --
+          which cannot fit "DID_NOT_RUN" three times across a 390px column --
+          carries its own scroller rather than losing its last column. */}
+      <div className="widget-scroll">
       <table style={{ borderCollapse: 'collapse', width: '100%', fontSize: 'var(--type-sm)', marginTop: '0.5rem' }}>
         <thead>
           <tr>
@@ -58,9 +62,9 @@ export default function TestOutcomeTruth(): React.ReactElement {
                   <td
                     key={g}
                     style={{
-                      border: selected ? '2px solid var(--brand-chart-positive)' : '1px solid var(--rehearse-rule)',
+                      border: selected ? '2px solid var(--rehearse-success)' : '1px solid var(--rehearse-rule)',
                       padding: '0.4rem',
-                      background: cellAdmits ? 'var(--brand-chart-positive-fill)' : undefined,
+                      background: cellAdmits ? 'var(--rehearse-success-soft)' : undefined,
                     }}
                   >
                     {CELL_NOTES[`${b},${g}`] ?? ''}
@@ -71,6 +75,7 @@ export default function TestOutcomeTruth(): React.ReactElement {
           ))}
         </tbody>
       </table>
+      </div>
       <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.6rem' }}>
         A candidate is admitted iff f(base)=FAIL and f(gold)=PASS. Both of this chapter's real
         historical rejections are the same failure: collapsing DID_NOT_RUN into FAIL or PASS.

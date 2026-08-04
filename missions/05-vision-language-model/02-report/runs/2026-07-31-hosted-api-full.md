@@ -15,7 +15,7 @@ uv run python call_hosted_api.py --resume
 | Machine | Apple silicon laptop, macOS 24.6.0, arm64 (network-bound, not compute-bound) |
 | Model | `openai/gpt-4o-mini` via OpenRouter (`https://openrouter.ai/api/v1/chat/completions`) |
 | Repository HEAD | `93489a4` |
-| Real dollar cost | $1.0033 total, $0.00128/question (from OpenRouter's `usage.cost`, not estimated from token counts) |
+| Real dollar cost | \$1.0033 total, \$0.00128/question (from OpenRouter's `usage.cost`, not estimated from token counts) |
 
 Preceded by an 8-call pilot (see
 [`2026-07-31-hosted-api-pilot.md`](2026-07-31-hosted-api-pilot.md)) that

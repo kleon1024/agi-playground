@@ -46,27 +46,27 @@ scored as a failure, not retried with a longer cap.
 | Models | `haiku`, `sonnet`, `opus` as resolved by the CLI on 2026-08-01 |
 | Wall-clock cap | 240s per attempt, declared once, applied to every attempt |
 | Task isolation | one-commit repository per attempt, no route to the fix commit |
-| Cost ceiling | $30 total mission hosted-API spend, declared before this stage's first run (mission.yaml names a ceiling qualitatively but stage 03 never printed a number; this is the first stage to fix one). Stage 03 had already spent $9.12; this stage spent $5.1438; cumulative $14.2638. |
+| Cost ceiling | \$30 total mission hosted-API spend, declared before this stage's first run (mission.yaml names a ceiling qualitatively but stage 03 never printed a number; this is the first stage to fix one). Stage 03 had already spent \$9.12; this stage spent \$5.1438; cumulative \$14.2638. |
 
 ## Resolve rate and cost
 
-| Model | Task | Resolved | Patch applied at all | $/attempt (mean) |
+| Model | Task | Resolved | Patch applied at all | \$/attempt (mean) |
 |---|---|---|---|---|
 | haiku | `354c352` | 0/3 | 0/3 | 0.0749 |
 | haiku | `b81c414` | 0/3 | 1/3 | 0.0892 |
 | sonnet | `354c352` | 0/3 | 0/3 | 0.2824 |
-| sonnet | `b81c414` | 1/3 (2/3 timeout) | 1/3 | 0.1757 (mean over 3 attempts; 2 timed out at $0) |
+| sonnet | `b81c414` | 1/3 (2/3 timeout) | 1/3 | 0.1757 (mean over 3 attempts; 2 timed out at \$0) |
 | opus | `354c352` | 2/3 | 3/3 | 0.5340 |
 | opus | `b81c414` | 1/3 | 1/3 | 0.5584 |
 
-| Model | Resolve | Total cost | $/resolved |
+| Model | Resolve | Total cost | \$/resolved |
 |---|---|---|---|
-| haiku | 0/6 | $0.4921 | n/a (0 resolved) |
+| haiku | 0/6 | \$0.4921 | n/a (0 resolved) |
 | sonnet | 1/6 | $1.3744 | $1.3744 |
 | opus | 3/6 | $3.2773 | $1.0924 |
 
-Total for this stage: **$5.1438** over 18 attempts (cumulative mission spend
-$14.2638, against the $30 ceiling).
+Total for this stage: **\$5.1438** over 18 attempts (cumulative mission spend
+\$14.2638, against the \$30 ceiling).
 
 Raw records: [`no-harness-results.jsonl`](no-harness-results.jsonl). Diffs
 (where a patch was produced) are kept alongside these records in `diffs/`, one
@@ -98,9 +98,9 @@ a win.
 ## Why the model that resolved fewer tasks still cost more per success
 
 Cost per resolved task is *higher* for every no-harness tier than the matching
-harness tier (haiku n/a vs $0.1604; sonnet $1.3744 vs $0.5369; opus $1.0924 vs
-$0.8226) -- despite each individual no-harness call costing less than a full
-tool-loop attempt. The reason is the denominator: a $0 timeout and five wrong
+harness tier (haiku n/a vs \$0.1604; sonnet \$1.3744 vs \$0.5369; opus \$1.0924 vs
+\$0.8226) -- despite each individual no-harness call costing less than a full
+tool-loop attempt. The reason is the denominator: a \$0 timeout and five wrong
 patches still cost real dollars, and dividing by a much smaller resolved count
 punishes cost-per-resolved harder than it helps cost-per-attempt. This is
 exactly the distinction `mission.yaml` names cost-per-attempt as the wrong

@@ -6,7 +6,7 @@
 **Software:** Python managed by uv; standard-library core and Yahoo Finance's
 public chart endpoint.
 **Wall-clock:** 4.43 seconds.
-**Cost:** $0 (local lane).
+**Cost:** \$0 (local lane).
 
 ## Metrics
 

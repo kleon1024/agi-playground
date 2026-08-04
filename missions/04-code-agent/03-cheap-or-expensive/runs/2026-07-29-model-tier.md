@@ -36,7 +36,7 @@ It is measured, not estimated, and it is per attempt.
 
 ## Resolve rate and cost
 
-| Model | Task | Resolved | $/attempt | Turns | Median wall-clock |
+| Model | Task | Resolved | \$/attempt | Turns | Median wall-clock |
 |---|---|---|---|---|---|
 | haiku | `354c352` | 3/3 | 0.1239 | 7.7 | 63.9 s |
 | haiku | `b81c414` | 3/3 | 0.1969 | 13.3 | 119.6 s |
@@ -45,13 +45,13 @@ It is measured, not estimated, and it is per attempt.
 | opus | `354c352` | 3/3 | 0.7163 | 9.7 | 75.0 s |
 | opus | `b81c414` | 3/3 | 0.9288 | 12.7 | 84.9 s |
 
-| Model | Resolve | Total | $/resolved |
+| Model | Resolve | Total | \$/resolved |
 |---|---|---|---|
 | haiku | 6/6 | $0.96 | **$0.1604** |
 | sonnet | 6/6 | $3.22 | $0.5369 |
 | opus | 6/6 | $4.94 | $0.8226 |
 
-Total for the matrix: **$9.12**. No attempt was scored `tampered`,
+Total for the matrix: **\$9.12**. No attempt was scored `tampered`,
 `regressed`, or `no_tests_ran`; the guardrail did not fire on any real model.
 
 Raw records: [`2026-07-29-results.jsonl`](2026-07-29-results.jsonl).

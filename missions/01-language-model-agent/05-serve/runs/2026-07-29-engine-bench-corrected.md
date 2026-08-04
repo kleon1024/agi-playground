@@ -50,7 +50,7 @@ Swept twice: `N` over 32/64/128/256/512 at `R=8`, then `R` over 1/2/4/8/16 at
 | Host | WSL2 on Windows, reached over Tailscale |
 | torch | 2.13.0+cu130 |
 | Checkpoint | the 88,197,888-parameter stage 03 chat model |
-| Cost | $0 (local lane) |
+| Cost | \$0 (local lane) |
 
 ## Result 1: generation length
 

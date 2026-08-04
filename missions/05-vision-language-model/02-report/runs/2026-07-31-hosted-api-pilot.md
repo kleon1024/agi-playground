@@ -34,7 +34,7 @@ scoring without a parsing layer.
 
 ## Decision
 
-$1 and 20 minutes is well inside mission 05's own cost_budget for a synthetic,
+\$1 and 20 minutes is well inside mission 05's own cost_budget for a synthetic,
 small-by-design task, and using the full 784-row eval set rather than a
 sub-sample means the hosted-API baseline is scored on literally the same set
 stage 01's vision and text-only models were scored on — no sampling caveat

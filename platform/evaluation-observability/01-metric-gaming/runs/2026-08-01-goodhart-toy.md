@@ -15,7 +15,7 @@ no GPU involved).
 **Wall-clock:** under 0.1s (4,000 objective evaluations across two 2,000-step
 hill-climbs).
 
-**Cost:** $0.
+**Cost:** \$0.
 
 ## Setup
 

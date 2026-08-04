@@ -92,7 +92,7 @@ seed 1: 118.1s CPU, 200 steps
 seed 2: 123.9s CPU, 200 steps
 ```
 
-$0 marginal cost -- local CPU lane only, no hosted-API spend, matching
+\$0 marginal cost -- local CPU lane only, no hosted-API spend, matching
 `mission.yaml`'s `cost_budget`.
 
 ## Run it

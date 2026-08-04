@@ -55,11 +55,11 @@ outcome [stage 04](../04-how-it-fails/) needs a category for.
 
 ## The result
 
-| Model | Resolved | $/resolved | Compare: harness (stage 03) |
+| Model | Resolved | \$/resolved | Compare: harness (stage 03) |
 |---|---|---|---|
-| haiku | 0/6 | n/a | 6/6, $0.1604 |
-| sonnet | 1/6 | $1.3744 | 6/6, $0.5369 |
-| opus | 3/6 | $1.0924 | 6/6, $0.8226 |
+| haiku | 0/6 | n/a | 6/6, \$0.1604 |
+| sonnet | 1/6 | \$1.3744 | 6/6, \$0.5369 |
+| opus | 3/6 | \$1.0924 | 6/6, \$0.8226 |
 
 Pooled: 4/18 resolved without a loop, against 18/18 with one. At `haiku` and
 `sonnet` the gap is decisive against the run-to-run spread of the no-harness
@@ -73,9 +73,9 @@ result, not a smaller win. Full numbers, including the wall-clock cap two
 ## The number that flatters neither arm
 
 A lower resolve rate does not mean a cheaper one. `sonnet`'s no-harness arm
-resolves 1/6 at $1.3744 per resolved task — *more* than its own harness
-arm's $0.5369, despite each individual call costing less than a full tool
-loop. The five unresolved attempts (one timeout at $0, four real spends on
+resolves 1/6 at \$1.3744 per resolved task — *more* than its own harness
+arm's \$0.5369, despite each individual call costing less than a full tool
+loop. The five unresolved attempts (one timeout at \$0, four real spends on
 wrong or non-applying patches) still cost money, and dividing a similar total
 spend by a much smaller resolved count punishes cost-per-resolved harder than
 cheap-but-wrong attempts help cost-per-attempt. This is the exact distinction
@@ -114,7 +114,7 @@ which.
 
 `$/resolved` divides total spend by resolved *count*, not by attempt count,
 so a tier that fails often still spends money on every failed attempt —
-sonnet's five unresolved attempts (one timeout at $0, four real spends on
+sonnet's five unresolved attempts (one timeout at \$0, four real spends on
 wrong or non-applying patches) get divided across only one success, which
 punishes the ratio harder than opus's fewer, costlier-per-call failures
 divided across three successes. "Cheaper tiers resolve less" describes the

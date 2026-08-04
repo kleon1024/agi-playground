@@ -14,7 +14,7 @@ batch_size=8, seq_len=64.
 
 **Wall-clock:** ~3.7s for 200 measured steps plus 5 warmup steps.
 
-**Cost:** $0 (local lane, CPU only).
+**Cost:** \$0 (local lane, CPU only).
 
 **Metrics** (full per-step samples and histogram in
 `instrumented-train-result.json` in this directory):

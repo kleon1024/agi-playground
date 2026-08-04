@@ -16,7 +16,7 @@ uv run --group torch python train.py --seeds 3 --epochs 30 --batch-size 64
 | Device | CPU. A single-seed pilot at these settings ran in 424.6s; MPS is available on this machine but was not needed — the full 3-seed, 2-model run completed in 19.7 minutes on CPU alone, and this stage's own mission.yaml does not budget for GPU time, so there was nothing to buy by moving it. |
 | Repository HEAD | `9ab6faf` |
 
-$0 marginal cost, no hosted API calls.
+\$0 marginal cost, no hosted API calls.
 
 ## What ran
 

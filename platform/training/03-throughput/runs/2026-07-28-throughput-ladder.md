@@ -28,7 +28,7 @@ not the data pipeline.
 | Host | WSL2 on Windows, reached over Tailscale |
 | torch | 2.13.0+cu130 |
 | MFU denominator | 165 TFLOP/s, bf16 dense |
-| Cost | $0 (local lane) |
+| Cost | \$0 (local lane) |
 
 ## Result: the ladder
 

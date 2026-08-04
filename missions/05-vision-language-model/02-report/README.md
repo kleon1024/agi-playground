@@ -36,7 +36,7 @@ VERDICT: NOT MET
 ```
 
 The hosted API result is the sharper of the two failures: a stock call to
-`openai/gpt-4o-mini`, no training, $1.00 total, scores almost twice this
+`openai/gpt-4o-mini`, no training, \$1.00 total, scores almost twice this
 mission's self-trained vision pathway. Building the vision pathway was the
 right thing to try -- stage 01 showed it can learn to use pixels -- but at
 this scale, buying beat building outright. That is exactly the build-vs-buy
@@ -63,8 +63,8 @@ total_count       37.3%        20.3%         53.0%
 `total_count` is the hardest category for every pathway, including the
 hosted API (53.0%, its own single worst category, against a 96.9% peak on
 `shape_color`) -- a floor set by the task, not by any one architecture. The
-per-question economics: $1.0033 over 784 questions is $0.00128/question; the
-vision pathway's own training cost was $0 marginal (CPU only, ~20 minutes
+per-question economics: \$1.0033 over 784 questions is \$0.00128/question; the
+vision pathway's own training cost was \$0 marginal (CPU only, ~20 minutes
 wall-clock) -- there is no volume of hosted-API questions that reaches that
 floor, since any nonzero per-question price already exceeds it; the real
 tradeoff is entirely on the accuracy axis, where hosted still leads
@@ -145,6 +145,6 @@ transfer to a new modality with only a genuinely new input path, not a
 rewrite. That claim held -- stage 01's patch embedding and fused-attention
 mask are the only new mechanism this mission needed to write. A `NOT MET`
 verdict on the build-vs-buy question does not undo that; it says the vision
-pathway this mission built is not yet worth deploying over a $0.00128/question
+pathway this mission built is not yet worth deploying over a \$0.00128/question
 API call, which is a real, useful, and unflattering answer to a real
 question a stakeholder would have asked before writing any training code.

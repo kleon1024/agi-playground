@@ -8,7 +8,7 @@ python3 rollout_scheduling.py --workers 2,4,8 --n-trajectories 40 --trials 3 --s
 ```
 
 **Hardware:** local dev box, CPU only (thread pool over NumPy BLAS matmul),
-no GPU, $0. Total wall-clock for all three worker counts: under 1 second.
+no GPU, \$0. Total wall-clock for all three worker counts: under 1 second.
 
 **What ran:** 40 synthetic "trajectories" per trial, each doing 1-40 real
 `200x200` matmul reps (80% drawn from 2-4 reps, 20% from a 20-40 rep long
