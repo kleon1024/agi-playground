@@ -56,6 +56,13 @@ held fixed): `0.0804`, `0.0865`, `0.0882`. The spread this produces (`0.0078`)
 is small relative to the margin over baseline (`0.0430`) -- the result is not
 a coin flip that happened to land favorably once.
 
+Those same three seed files carry a second number the acceptance line never
+used: the MSE you get by decoding the *true* future tokens through the same
+codec. Put both comparisons on one axis and switch between them -- the arm
+under test does not move, only what it is measured against:
+
+<!-- interactive: VideoGenCeiling -->
+
 ## The second baseline this mission's contract also names
 
 `mission.yaml`'s baseline field declares two, not one. The first is the
