@@ -85,6 +85,7 @@ picked after the fact to flatter whichever outcome actually happened.
 | [03 — Report](03-report/) | what did this cost, and did it clear the declared ceiling? | verified |
 | [04 — Longer sequences](04-longer-sequences/) | does the feasibility finding survive doubling the clip length? | verified |
 | [05 — Multi-object scenes](05-multi-object/) | does the feasibility finding survive two occluding objects instead of one? | verified |
+| [06 — Both axes at once](06-longer-and-multi-object/) | do two hard axes add up, or does one of them dominate? | verified |
 
 <!-- interactive: Mission08ComputePipeline -->
 
@@ -234,6 +235,20 @@ one object) — the tokenizer's one-token-per-frame capacity, not compute, is
 the binding constraint along this axis too, the same pattern stage 04 found
 along the frame-count axis. Full traces in
 [its three run records](05-multi-object/runs/).
+
+[Stage 06](06-longer-and-multi-object/) runs both axes together, so all four
+corners of the frames-by-objects grid exist and any two of them differ by one
+change. In pixel space the difficulties do not add: 16 frames with 2 objects
+lands at 0.1375-0.1456 MSE, inside the range the second object alone already
+cost, and doubling the frame count is close to free once the codec is
+per-frame. In token space they compound to the floor -- exact-match falls to
+0.00%-0.67%, and its seed-to-seed spread collapses with it, which reframes the
+noisy exact-match both earlier stages reported as a mid-range artifact of an
+all-or-nothing metric rather than a property of the task. All 3 seeds closed
+`MET` at 22%-27% of the declared ceiling, and the model-to-oracle gap of
+0.0001 on one seed says again that the tokenizer, not the sequence model, is
+what is missing. Full traces in
+[its run record](06-longer-and-multi-object/runs/2026-08-05-longer-and-multi-object.md).
 
 ## What this will not prove
 

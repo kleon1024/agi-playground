@@ -1,0 +1,68 @@
+{
+  "stage": "06-longer-and-multi-object",
+  "frames": 16,
+  "n_objects": 2,
+  "frame_count_bindings": {
+    "generate_video_dataset": 16,
+    "generate_multi_object_dataset": 16,
+    "video_codec": 16,
+    "train_video_codec": 16,
+    "train_generation": 16
+  },
+  "dataset": {
+    "n_objects": 2,
+    "n_frames": 16,
+    "clip_frame_counts_written": [
+      16
+    ],
+    "train_clips": 800,
+    "eval_clips": 150,
+    "wall_clock_s": 11.30083475005813,
+    "train_internal_duplicates": 0,
+    "eval_rejected_for_collision": 0,
+    "train_eval_collisions": 0,
+    "train_occlusion": {
+      "n_clips": 800,
+      "clips_with_any_occluded_frame": 661,
+      "clips_with_any_occluded_frame_fraction": 0.82625,
+      "mean_overlapping_pixel_fraction": 0.009559173583984375,
+      "max_overlapping_pixel_fraction": 0.0712890625
+    },
+    "eval_occlusion": {
+      "n_clips": 150,
+      "clips_with_any_occluded_frame": 128,
+      "clips_with_any_occluded_frame_fraction": 0.8533333333333334,
+      "mean_overlapping_pixel_fraction": 0.0077335611979166665,
+      "max_overlapping_pixel_fraction": 0.046875
+    }
+  },
+  "generation": {
+    "seed": 2,
+    "codec_steps": 800,
+    "lm_steps": 400,
+    "lm_lr": 0.003,
+    "prompt_frames": 8,
+    "n_new_frames": 8,
+    "n_eval_clips": 150,
+    "reconstruction_mse": {
+      "lm_completion": 0.1456201672554016,
+      "oracle_tokens": 0.14551901817321777,
+      "frame_repeat_baseline": 0.19977250695228577
+    },
+    "beats_frame_repeat_baseline": true,
+    "predicted_token_sequence_exact_match_rate": 0.006666666828095913,
+    "vocab_size_including_bos": 65,
+    "compute": {
+      "codec_wall_clock_s": 377.7991530839354,
+      "lm_train_wall_clock_s": 17.98995208297856,
+      "generation_wall_clock_s": 0.19660775014199317,
+      "total_wall_clock_s": 408.2748671248555,
+      "compute_ceiling_s": 1800.0,
+      "ceiling_exceeded": false,
+      "compute_lane": "local CPU (no CUDA GPU available in this environment)",
+      "dollar_cost": 0.0
+    },
+    "verdict": "MET"
+  },
+  "tokenizer_still_binding_constraint": true
+}

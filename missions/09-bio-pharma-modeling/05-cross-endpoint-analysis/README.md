@@ -96,9 +96,12 @@ identification of what does decide the winner. Neither claim generalizes to
 a different dataset or molecular representation without re-running this
 comparison from scratch.
 
-**Next:** none planned. Stage 04 closed the endpoint-coverage question for
-this dataset, and this stage closes the "is variance-vs-scarcity the same
-claim as win/loss-vs-scarcity" question the first three stages left
-implicit. A genuinely new stage would need either a different dataset or a
-different candidate explanatory variable, not another endpoint from this
-same panel.
+**Next:** [stage 06](../06-model-or-representation/) takes the second of those
+two routes. Stage 04 closed the endpoint-coverage question for this dataset,
+and this stage closes the "is variance-vs-scarcity the same claim as
+win/loss-vs-scarcity" question the first three stages left implicit. A
+genuinely new stage needed either a different dataset or a different candidate
+explanatory variable, not another endpoint from this same panel — so stage 06
+swaps the molecular representation while holding the learner fixed, and finds
+that ten physicochemical descriptors beat 2048 substructure bits even at the
+bit width most favourable to the fingerprint.

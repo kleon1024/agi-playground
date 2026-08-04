@@ -28,3 +28,6 @@ site/node_modules/
 site/build/
 site/.docusaurus/
 .vercel
+
+# Per-seed stdout captured while a stage runs; the JSON beside it is the record
+**/runs/seed*.log

@@ -441,7 +441,7 @@
   },
   "missions/08-video-generation": {
     "level": "frontier",
-    "minutes": 11
+    "minutes": 12
   },
   "missions/08-video-generation/00-synthetic-video-dataset": {
     "level": "applied",
@@ -466,6 +466,10 @@
   "missions/08-video-generation/05-multi-object": {
     "level": "applied",
     "minutes": 6
+  },
+  "missions/08-video-generation/06-longer-and-multi-object": {
+    "level": "applied",
+    "minutes": 8
   },
   "missions/09-bio-pharma-modeling": {
     "level": "applied",
@@ -494,6 +498,10 @@
   "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis": {
     "level": "applied",
     "minutes": 4
+  },
+  "missions/09-bio-pharma-modeling/06-model-or-representation": {
+    "level": "applied",
+    "minutes": 6
   },
   "reference": {
     "level": "reference",

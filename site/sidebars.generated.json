@@ -624,6 +624,11 @@
             "type": "doc",
             "id": "missions/08-video-generation/05-multi-object/index",
             "label": "Multi-object scenes"
+          },
+          {
+            "type": "doc",
+            "id": "missions/08-video-generation/06-longer-and-multi-object/index",
+            "label": "Both axes at once"
           }
         ]
       },
@@ -664,6 +669,11 @@
             "type": "doc",
             "id": "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/index",
             "label": "Cross-endpoint analysis"
+          },
+          {
+            "type": "doc",
+            "id": "missions/09-bio-pharma-modeling/06-model-or-representation/index",
+            "label": "Model or representation"
           }
         ]
       }

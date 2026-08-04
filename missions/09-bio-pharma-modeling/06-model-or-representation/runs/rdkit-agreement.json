@@ -1,0 +1,15 @@
+{
+  "csv": "test.csv",
+  "n_molecules": 60,
+  "n_unparsed": 0,
+  "n_pairs": 1770,
+  "radius": 2,
+  "n_bits": 2048,
+  "mean_bits_set_core": 47.35,
+  "mean_bits_set_rdkit": 42.96666666666667,
+  "identical_bit_sets": 0,
+  "tanimoto_spearman_core_vs_rdkit": 0.9011921590083648,
+  "tanimoto_mean_abs_difference": 0.017122670133049144,
+  "tanimoto_max_abs_difference": 0.12259615384615385,
+  "wall_clock_s": 0.6909556251484901
+}

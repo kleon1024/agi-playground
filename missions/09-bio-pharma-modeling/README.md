@@ -85,6 +85,7 @@ isn't.
 | [03 — Second endpoint](03-second-endpoint/) | does the SR-MMP finding generalize to a second, more imbalanced endpoint? | verified |
 | [04 — Third endpoint](04-third-endpoint/) | does stage 03's scarcity-drives-variance hypothesis hold at a third endpoint? | verified |
 | [05 — Cross-endpoint analysis](05-cross-endpoint-analysis/) | across all three endpoints, does one variable explain both the variance pattern and who wins? | verified |
+| [06 — Model or representation](06-model-or-representation/) | does the descriptor baseline win because of its features or because of its learner? | verified |
 
 Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the endpoint, baseline, and
