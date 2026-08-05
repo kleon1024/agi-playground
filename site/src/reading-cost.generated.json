@@ -323,6 +323,10 @@
     "level": "foundation",
     "minutes": 8
   },
+  "missions/03-quantitative-research/00-market-data/asof-vs-naive": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/03-quantitative-research/01-signal-research": {
     "level": "applied",
     "minutes": 5

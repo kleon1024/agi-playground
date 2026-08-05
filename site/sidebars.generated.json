@@ -416,9 +416,19 @@
         },
         "items": [
           {
-            "type": "doc",
-            "id": "missions/03-quantitative-research/00-market-data/index",
-            "label": "Market data"
+            "type": "category",
+            "label": "Market data",
+            "link": {
+              "type": "doc",
+              "id": "missions/03-quantitative-research/00-market-data/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/03-quantitative-research/00-market-data/asof-vs-naive/index",
+                "label": "The as-of join"
+              }
+            ]
           },
           {
             "type": "category",

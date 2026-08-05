@@ -214,3 +214,8 @@ Stage 01 (planned): candidate signal construction, drawing only on values this
 stage's point-in-time discipline certifies as knowable on each decision date —
 with a disclosed log of every variant tried, since that log is what stage 03
 needs to compute a deflated Sharpe ratio honestly.
+
+A detour from here: [the as-of join, and the restatement it
+catches](asof-vs-naive/) — the naive join measured across all 69 fiscal
+periods: 4% silently wrong, mean error 1.65%, worst case 3.83% of equity —
+always in the look-ahead direction.
