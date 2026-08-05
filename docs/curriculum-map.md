@@ -30,14 +30,14 @@ the stage consumes.
 | 03 quantitative research | 6 (00..05) | when-breadth-inflates-the-winner, when-purge-matters | 03-quantitative-research.md | none | market-data, cross-sectional-rank, cost-and-capacity |
 | 04 code agent | 7 (00..06) | none | 04-code-agent.md | none | task-set, agent-loop, cheap-or-expensive, how-it-fails, closing-the-loop |
 | 05 vision-language | 7 (00..06) | none | 05-vision-language.md | none | vision-fusion, warmup-stability |
-| 06 game AI | 7 (00..06) | none | 06-game-ai.md | none | grpo advantage, fixing-collapse, tool-use-rl |
+| 06 game AI | 7 (00..06) | the-diversity-direction | 06-game-ai.md | none | fixing-collapse (deepen), tool-use-rl |
 | 07 realtime voice | 7 (00..06) | why-codebooks-collapse | 07-realtime-voice.md | codebook usage (VQ anatomy) | codebook-reset (deepen) |
 | 08 video generation | 7 (00..06) | none | 08-video-generation.md | none | video-tokenizer, generation-model |
 | 09 bio-pharma | 7 (00..06) | none | 09-bio-pharma.md | none | descriptor baseline, model-or-representation |
 
 ## Foundations and infra
 
-Foundations (7 chapters, 2 detours): 00-attention (+ what-it-costs),
+Foundations (7 chapters, 3 detours): 00-attention (+ what-it-costs, + rope),
 01-first-training-loop, 02-optimization, 03-backpropagation,
 04-distributed-training, 05-is-the-difference-real (+ the-two-confounds),
 06-significance. These own the mechanism; missions link at the decision that
