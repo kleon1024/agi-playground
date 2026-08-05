@@ -285,7 +285,11 @@
   },
   "missions/02-personalized-discovery/03-pre-rank": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
+  },
+  "missions/02-personalized-discovery/03-pre-rank/when-the-cheap-cut-fails": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/02-personalized-discovery/04-fine-rank": {
     "level": "applied",
@@ -390,6 +394,10 @@
   "missions/04-code-agent/02-agent-loop": {
     "level": "applied",
     "minutes": 7
+  },
+  "missions/04-code-agent/02-agent-loop/when-the-guardrail-refuses": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/04-code-agent/03-cheap-or-expensive": {
     "level": "frontier",

@@ -361,9 +361,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/02-personalized-discovery/03-pre-rank/index",
-            "label": "Pre-rank"
+            "type": "category",
+            "label": "Pre-rank",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/03-pre-rank/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/03-pre-rank/when-the-cheap-cut-fails/index",
+                "label": "When the cheap cut fails"
+              }
+            ]
           },
           {
             "type": "doc",
@@ -546,9 +556,19 @@
             "label": "No harness"
           },
           {
-            "type": "doc",
-            "id": "missions/04-code-agent/02-agent-loop/index",
-            "label": "Scoring the attempt"
+            "type": "category",
+            "label": "Scoring the attempt",
+            "link": {
+              "type": "doc",
+              "id": "missions/04-code-agent/02-agent-loop/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/04-code-agent/02-agent-loop/when-the-guardrail-refuses/index",
+                "label": "When the guardrail refuses"
+              }
+            ]
           },
           {
             "type": "category",

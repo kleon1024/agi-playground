@@ -168,3 +168,9 @@ show. Full record in
 **Next:** stage 01 strips this to a single blind model call, which is the
 control that decides whether the loop is worth its complexity. Stage 03 runs
 both against a local and a frontier model and puts dollars beside the rate.
+
+A detour from here: [when does the test-file guardrail refuse a
+patch?](when-the-guardrail-refuses/) — the decision boundary demonstrated
+on miniature worktrees: test edits and *created* test files are refused
+(the untracked-file check closes the escape hatch), source-only changes
+pass.

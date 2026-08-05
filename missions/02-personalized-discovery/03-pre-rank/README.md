@@ -166,3 +166,9 @@ python prod/lgbm_pre_rank.py
 protecting. It predicts several objectives at once, which raises a different
 problem — whether a shared model trained on all of them helps or hurts each
 one individually.
+
+A detour from here: [when does the cheap cut fail?](when-the-cheap-cut-fails/)
+— the surface-rate sweep across keep sizes: the proxy needs keep 200 to
+surface all of the true top-20, and popularity-only is structurally
+long-tail-blind (0.000 at every keep), which is why pre-rank must be a real
+proxy.
