@@ -112,6 +112,11 @@ example MLflow or a versioned Parquet dataset); neither replaces the disclosure
 requirement, and both are production alternatives rather than evidence by
 themselves.
 
+A detour from here: [when breadth inflates the winner](when-breadth-inflates-the-winner/)
+measures the same null at 256, 1,024, and 4,096 candidates — what searching a
+thousand ideas does to the winner's meaning, and why the search denominator
+has to know whether candidates were independent or correlated.
+
 ## Evidence boundary and next question
 
 This stage establishes no working signal, no expected return, and no live
