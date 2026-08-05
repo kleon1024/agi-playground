@@ -467,6 +467,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "missions/05-vision-language-model/04-real-photo-vision-fusion/when-the-margin-is-narrow": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/05-vision-language-model/05-real-photo-report": {
     "level": "applied",
     "minutes": 3
@@ -646,6 +650,10 @@
   "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis": {
     "level": "applied",
     "minutes": 4
+  },
+  "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/when-scarcity-decides": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/09-bio-pharma-modeling/06-model-or-representation": {
     "level": "applied",

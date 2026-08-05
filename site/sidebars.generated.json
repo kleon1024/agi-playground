@@ -691,9 +691,19 @@
             "label": "The real-photo task"
           },
           {
-            "type": "doc",
-            "id": "missions/05-vision-language-model/04-real-photo-vision-fusion/index",
-            "label": "Real-photo vision fusion"
+            "type": "category",
+            "label": "Real-photo vision fusion",
+            "link": {
+              "type": "doc",
+              "id": "missions/05-vision-language-model/04-real-photo-vision-fusion/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/05-vision-language-model/04-real-photo-vision-fusion/when-the-margin-is-narrow/index",
+                "label": "When the margin is narrow"
+              }
+            ]
           },
           {
             "type": "doc",
@@ -996,9 +1006,19 @@
             "label": "Third endpoint"
           },
           {
-            "type": "doc",
-            "id": "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/index",
-            "label": "Cross-endpoint analysis"
+            "type": "category",
+            "label": "Cross-endpoint analysis",
+            "link": {
+              "type": "doc",
+              "id": "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/when-scarcity-decides/index",
+                "label": "When scarcity decides"
+              }
+            ]
           },
           {
             "type": "category",

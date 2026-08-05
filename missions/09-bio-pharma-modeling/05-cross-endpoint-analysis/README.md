@@ -105,3 +105,8 @@ explanatory variable, not another endpoint from this same panel — so stage 06
 swaps the molecular representation while holding the learner fixed, and finds
 that ten physicochemical descriptors beat 2048 substructure bits even at the
 bit width most favourable to the fingerprint.
+
+A detour from here: [what does scarcity decide, and what does it
+not?](when-scarcity-decides/) — the two recorded directions read: variance
+grows monotonically as positives shrink (scarcity explains where a winner
+can be seen), while the gap is not monotonic (it does not explain who wins).
