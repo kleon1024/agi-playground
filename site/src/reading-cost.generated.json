@@ -43,6 +43,10 @@
     "level": "applied",
     "minutes": 8
   },
+  "foundations/07-moe": {
+    "level": "foundation",
+    "minutes": 4
+  },
   "infra": {
     "level": "reference",
     "minutes": 3

@@ -29,6 +29,7 @@ every chapter in this repository under the question it answers.
 | [The first training loop](01-first-training-loop/) | What actually happens between a loss number and a changed weight? | the backward path, on a model small enough to run on a laptop |
 | [Optimization](02-optimization/) | Why do SGD, momentum, and Adam disagree on the same loss surface? | SGD, momentum, and Adam implemented from scratch, racing on one ill-conditioned bowl: 343 vs. 138 vs. 82 steps to converge |
 | [Backpropagation](03-backpropagation/) | What does `.backward()` actually do? | a from-scratch scalar autodiff engine, checked exactly against hand-derived calculus and against torch's own `.backward()` |
+| [Mixture of experts](07-moe/) | Why route at all? What does keeping many experts and routing each input buy, and what breaks? | a tiny MoE with the routing statistics the production line is about: compute for accuracy, the top-1 dead expert, and the entropy-versus-imbalance gap |
 
 Read them in that order if you are reading all four: the second chapter
 trains the thing the first chapter describes, the third asks why that

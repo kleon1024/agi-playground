@@ -859,6 +859,11 @@
       },
       {
         "type": "doc",
+        "id": "foundations/07-moe/index",
+        "label": "Mixture of experts"
+      },
+      {
+        "type": "doc",
         "id": "foundations/LANDSCAPE",
         "label": "Landscape"
       }

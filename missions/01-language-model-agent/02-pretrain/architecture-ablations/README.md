@@ -69,7 +69,9 @@ parameter count fall as KV heads shrink, because that fall *is* GQA's entire
 pretraining-time cost, traded for a smaller KV cache at serving time. The
 feed-forward rung cannot pick: a mixture-of-experts block has *two* parameter
 counts — what it stores and what a token passes through — so `moe_arms()`
-returns one arm matched on each.
+returns one arm matched on each. The mechanism behind that rung — routing,
+the top-1 dead expert, and the entropy-versus-imbalance gap — is worked out
+in [the mixture-of-experts foundation](../../../../foundations/07-moe/).
 
 ## 3. What the ladder found
 
