@@ -75,6 +75,13 @@ and presenting that as the plan all along. Per
 metric were declared before any run, specifically so a result cannot be
 picked after the fact to flatter whichever outcome actually happened.
 
+## Model lineage
+
+The tokenizer and generation model are points on the video line — VQ-VAE for
+video, DiT, Sora, and the autoregressive alternative. The
+[open-source line behind video generation](../../reference/research/lineages/08-video-generation.md)
+traces it, including why the cost question came first.
+
 ## Stages
 
 | Stage | Question | Status |

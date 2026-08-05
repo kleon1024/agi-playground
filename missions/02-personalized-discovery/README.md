@@ -113,6 +113,13 @@ Each version must beat the previous one on the declared metric, or the added
 complexity is not paid for. That rule is the entire defence against building an
 impressive system that ranks worse than popularity.
 
+## Model lineage
+
+The stages above are points on the recommender line — matrix factorization,
+two-tower retrieval, sequence models, cascade ranking, slate assembly. The
+[open-source line behind personalized discovery](../../reference/research/lineages/02-personalized-discovery.md)
+traces each predecessor and the tradeoff it made.
+
 ## Stages
 
 | Stage | Deliverable | Layer | Status |

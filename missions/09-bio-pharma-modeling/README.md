@@ -75,6 +75,13 @@ structural clustering) — different domain, same principle: a held-out set
 that silently isn't held out produces a number that looks like evidence and
 isn't.
 
+## Model lineage
+
+The descriptor baseline and the trained model are points on the molecular
+line — SMILES, ECFP, Murcko scaffolds, graph nets, SMILES language models.
+The [open-source line behind bio-pharma modeling](../../reference/research/lineages/09-bio-pharma.md)
+traces it, including why the scaffold split decides what a number means.
+
 ## Stages
 
 | Stage | Question | Status |

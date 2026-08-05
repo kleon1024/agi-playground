@@ -13,14 +13,17 @@ own the context.
 | Mission | Lineage |
 |---|---|
 | 01 — language-model system | [01-language-model-system.md](01-language-model-system.md) |
-| 02 — personalized discovery | queued — see the depth-pass spec |
-| 03 — quantitative research | queued — see the depth-pass spec |
-| 04 — code agent | queued — see the depth-pass spec |
-| 05 — vision-language model | queued — see the depth-pass spec |
-| 06 — game AI | queued — see the depth-pass spec |
-| 07 — realtime voice | queued — see the depth-pass spec |
-| 08 — video generation | queued — see the depth-pass spec |
-| 09 — bio-pharma modeling | queued — see the depth-pass spec |
+| 02 — personalized discovery | [02-personalized-discovery.md](02-personalized-discovery.md) |
+| 03 — quantitative research | [03-quantitative-research.md](03-quantitative-research.md) |
+| 04 — code agent | [04-code-agent.md](04-code-agent.md) |
+| 05 — vision-language model | [05-vision-language.md](05-vision-language.md) |
+| 06 — game AI | [06-game-ai.md](06-game-ai.md) |
+| 07 — realtime voice | [07-realtime-voice.md](07-realtime-voice.md) |
+| 08 — video generation | [08-video-generation.md](08-video-generation.md) |
+| 09 — bio-pharma modeling | [09-bio-pharma.md](09-bio-pharma.md) |
 
-The queue and the per-mission format live in
+The per-mission anatomy-chapter queue, the deep-dive-per-chapter rule, and
+the style standards live in
 [the depth-pass spec](https://github.com/kleon1024/agi-playground/blob/main/docs/superpowers/specs/2026-08-05-curriculum-depth-pass.md).
+The full chapter-relationship index is in
+[the curriculum map](https://github.com/kleon1024/agi-playground/blob/main/docs/curriculum-map.md).

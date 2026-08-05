@@ -105,6 +105,13 @@ needed the same agent-loop contract; the same rule holds here. A future
 only once a second mission needs the identical vision-encoder contract this
 one builds, not before.
 
+## Model lineage
+
+The vision pathway is a point on the VLM line — contrastive pretraining
+(CLIP, SigLIP), fusion (BLIP-2, LLaVA), native vision tokens (Qwen2-VL). The
+[open-source line behind the vision-language model](../../reference/research/lineages/05-vision-language.md)
+traces it, including the economic shift that made the hosted API dominant.
+
 ## Stages
 
 | Stage | Question | Status |

@@ -72,6 +72,13 @@ language model can be trained over trace to SoundStream (Zeghidour et al.,
 2022) -- both use a residual/vector-quantization bottleneck conceptually
 identical to this stage's single-codebook VQ, at a far larger scale.
 
+## Model lineage
+
+The codec is a point on the neural-audio line — VQ-VAE, SoundStream, EnCodec,
+DAC, and the codebook-collapse fixes. The
+[open-source line behind realtime voice](../../reference/research/lineages/07-realtime-voice.md)
+traces it.
+
 ## Stages
 
 | Stage | Question | Status |

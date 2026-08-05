@@ -361,7 +361,7 @@
   },
   "missions/05-vision-language-model": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 9
   },
   "missions/05-vision-language-model/00-image-caption-task": {
     "level": "applied",

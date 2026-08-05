@@ -74,6 +74,13 @@ the [admission gate](../../reference/standards/mission-contract.md) asks for,
 and the harness stays where it was measured rather than moving into a
 directory of its own.
 
+## Model lineage
+
+The artifact and its guardrails sit on two lines: code models (Codex,
+CodeLlama, DeepSeek-Coder) and honest scoreboards (SWE-bench, test-gaming
+guardrails). The [open-source line behind the code agent](../../reference/research/lineages/04-code-agent.md)
+traces both.
+
 ## Stages
 
 | Stage | Question | Status |

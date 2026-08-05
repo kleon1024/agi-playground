@@ -892,6 +892,46 @@
                 "type": "doc",
                 "id": "reference/research/lineages/01-language-model-system",
                 "label": "Language model system"
+              },
+              {
+                "type": "doc",
+                "id": "reference/research/lineages/02-personalized-discovery",
+                "label": "Personalized discovery"
+              },
+              {
+                "type": "doc",
+                "id": "reference/research/lineages/03-quantitative-research",
+                "label": "Quantitative research"
+              },
+              {
+                "type": "doc",
+                "id": "reference/research/lineages/04-code-agent",
+                "label": "Code agent"
+              },
+              {
+                "type": "doc",
+                "id": "reference/research/lineages/05-vision-language",
+                "label": "Vision language"
+              },
+              {
+                "type": "doc",
+                "id": "reference/research/lineages/06-game-ai",
+                "label": "Game ai"
+              },
+              {
+                "type": "doc",
+                "id": "reference/research/lineages/07-realtime-voice",
+                "label": "Realtime voice"
+              },
+              {
+                "type": "doc",
+                "id": "reference/research/lineages/08-video-generation",
+                "label": "Video generation"
+              },
+              {
+                "type": "doc",
+                "id": "reference/research/lineages/09-bio-pharma",
+                "label": "Bio pharma"
               }
             ]
           },

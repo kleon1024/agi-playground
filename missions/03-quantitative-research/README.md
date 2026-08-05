@@ -110,6 +110,13 @@ that means something and one that has quietly already seen the future.
 [Stage 00](00-market-data/) is where this gets fixed before anything is built
 on top of it.
 
+## Model lineage
+
+The guardrails above — walk-forward, purge and embargo, deflated Sharpe,
+cost and capacity — are points on the backtesting methodology line. The
+[open-source line behind quantitative research](../../reference/research/lineages/03-quantitative-research.md)
+traces where each guardrail came from.
+
 ## Stages
 
 | Stage | Deliverable | Layer | Status |

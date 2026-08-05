@@ -106,6 +106,12 @@ that is reported exactly the way mission 01 reported its own zero-gradient
 run — as a real finding, not a bug to quietly fix by rescaling after the
 fact.
 
+## Model lineage
+
+The GRPO loop is a point on the policy-RL line — DQN, PPO, GRPO, RLVR. The
+[open-source line behind game AI](../../reference/research/lineages/06-game-ai.md)
+traces it, including where the cold-start wall came from.
+
 ## Stages
 
 | Stage | Question | Status |

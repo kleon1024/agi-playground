@@ -113,18 +113,23 @@ fork re-runs the audit against its own stages as it deepens them.
 | Mission | Lineage chapter | Line it traces |
 |---|---|---|
 | 01 | `01-language-model-system.md` (shipped 2026-08-06) + attention-variants anatomy | data/scale, BPE vocab, architecture (RoPE/GQA/MLA/KDA/MoE), SFT, RL, serving, agents |
-| 02 | `02-personalized-discovery.md` | recommenders: collaborative filtering, matrix factorization, two-tower, retrieval-cascade, reranking |
-| 03 | `03-quantitative-research.md` | signal search, multiple testing, walk-forward, cross-validation, backtest-overfit literature |
-| 04 | `04-code-agent.md` | code LMs (Codex/CodeLlama/DeepSeek-Coder), agent loops, SWE-bench, verifier/RL for code |
-| 05 | `05-vision-language.md` | CLIP/SigLIP, LLaVA-style fusion, Qwen2-VL, captioning-to-VQA |
-| 06 | `06-game-ai.md` | value/policy RL: DQN, PPO, GRPO, R1-Zero's verifiable-reward games |
-| 07 | `07-realtime-voice.md` | VQ-VAE, SoundStream, EnCodec, DAC, streaming decode, codebook-reset line |
-| 08 | `08-video-generation.md` | VQ-VAE for video, VideoPoet/DiT, W.A.L.T., autoregressive video limits |
-| 09 | `09-bio-pharma.md` | molecular fingerprints (ECFP/Murcko), graph nets, SMILES LMs, property prediction |
+| 02 | `02-personalized-discovery.md` (shipped 2026-08-06) | recommenders: collaborative filtering, matrix factorization, two-tower, retrieval-cascade, reranking |
+| 03 | `03-quantitative-research.md` (shipped 2026-08-06) | signal search, multiple testing, walk-forward, cross-validation, backtest-overfit literature |
+| 04 | `04-code-agent.md` (shipped 2026-08-06) | code LMs (Codex/CodeLlama/DeepSeek-Coder), agent loops, SWE-bench, verifier/RL for code |
+| 05 | `05-vision-language.md` (shipped 2026-08-06) | CLIP/SigLIP, LLaVA-style fusion, Qwen2-VL, captioning-to-VQA |
+| 06 | `06-game-ai.md` (shipped 2026-08-06) | value/policy RL: DQN, PPO, GRPO, R1-Zero's verifiable-reward games |
+| 07 | `07-realtime-voice.md` (shipped 2026-08-06) | VQ-VAE, SoundStream, EnCodec, DAC, streaming decode, codebook-reset line |
+| 08 | `08-video-generation.md` (shipped 2026-08-06) | VQ-VAE for video, VideoPoet/DiT, W.A.L.T., autoregressive video limits |
+| 09 | `09-bio-pharma.md` (shipped 2026-08-06) | molecular fingerprints (ECFP/Murcko), graph nets, SMILES LMs, property prediction |
 
 Each lineage chapter is `level: reference`, dated, and linked from its
 mission's detour table and the research index — the mission owns the runs,
 the lineage owns the context.
+
+The complete chapter-relationship index — every mission stage, its detours,
+its lineage survey, and its deep-dive gap — is the
+[curriculum map](../../../docs/curriculum-map.md), updated as each queue is
+worked.
 
 ## Sequencing
 
