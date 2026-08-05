@@ -198,6 +198,11 @@ representation-by-learner grid rather than one row of it. Return to
 [the mission report](../02-report/) for what the whole chain does and does not
 license you to claim.
 
+A detour from here: [when does representation width start
+memorizing?](when-width-memorizes/) — the recorded grid's bit-width sweep
+laid out: test AUC peaks at 256 bits and declines beyond, while train AUC
+climbs to 1.000 and the memorization gap grows to 0.346.
+
 Primary reference: Rogers & Hahn, *Extended-Connectivity Fingerprints*
 (J. Chem. Inf. Model., 2010), for the circular-fingerprint algorithm implemented
 in `core/`.
