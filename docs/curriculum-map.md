@@ -28,11 +28,11 @@ the stage consumes.
 | 01 language-model system | 8 (00-corpus..07-eval) | 36 detours across every stage | 01-language-model-system.md | attention-variants (KV anatomy) | stages already detoured; deepen on audit findings |
 | 02 personalized discovery | 10 (00..09) | when-the-trade-weight-moves | 02-personalized-discovery.md | none | recall, pre-rank, fine-rank, value-tree, rule-engine, serving |
 | 03 quantitative research | 6 (00..05) | when-breadth-inflates-the-winner, when-purge-matters | 03-quantitative-research.md | none | market-data, cross-sectional-rank, cost-and-capacity |
-| 04 code agent | 7 (00..06) | none | 04-code-agent.md | none | task-set, agent-loop, cheap-or-expensive, how-it-fails, closing-the-loop |
+| 04 code agent | 7 (00..06) | when-the-patch-cannot-apply | 04-code-agent.md | none | task-set, agent-loop, cheap-or-expensive, closing-the-loop |
 | 05 vision-language | 7 (00..06) | none | 05-vision-language.md | none | vision-fusion, warmup-stability |
 | 06 game AI | 7 (00..06) | the-diversity-direction | 06-game-ai.md | none | fixing-collapse (deepen), tool-use-rl |
 | 07 realtime voice | 7 (00..06) | why-codebooks-collapse | 07-realtime-voice.md | codebook usage (VQ anatomy) | codebook-reset (deepen) |
-| 08 video generation | 7 (00..06) | none | 08-video-generation.md | none | video-tokenizer, generation-model |
+| 08 video generation | 7 (00..06) | what-a-video-token-is | 08-video-generation.md | video token (VQ anatomy) | generation-model |
 | 09 bio-pharma | 7 (00..06) | none | 09-bio-pharma.md | none | descriptor baseline, model-or-representation |
 
 ## Foundations and infra
