@@ -526,9 +526,19 @@
             "label": "The image-caption task"
           },
           {
-            "type": "doc",
-            "id": "missions/05-vision-language-model/01-vision-fusion/index",
-            "label": "Vision-token fusion"
+            "type": "category",
+            "label": "Vision-token fusion",
+            "link": {
+              "type": "doc",
+              "id": "missions/05-vision-language-model/01-vision-fusion/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/05-vision-language-model/01-vision-fusion/where-the-decoder-looks/index",
+                "label": "Where the decoder looks"
+              }
+            ]
           },
           {
             "type": "doc",
@@ -761,9 +771,19 @@
             "label": "Cross-endpoint analysis"
           },
           {
-            "type": "doc",
-            "id": "missions/09-bio-pharma-modeling/06-model-or-representation/index",
-            "label": "Model or representation"
+            "type": "category",
+            "label": "Model or representation",
+            "link": {
+              "type": "doc",
+              "id": "missions/09-bio-pharma-modeling/06-model-or-representation/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/06-model-or-representation/when-width-memorizes/index",
+                "label": "When width memorizes"
+              }
+            ]
           }
         ]
       }

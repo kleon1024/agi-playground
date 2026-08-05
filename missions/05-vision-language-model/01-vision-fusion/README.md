@@ -220,3 +220,9 @@ set — nothing here says anything about real photographs.
 
 **Next:** stage 02 adds the hosted-VLM-API baseline and reports whether either
 trained pathway was worth building over a single external call.
+
+A detour from here: [where does the decoder look when the image
+matters?](where-the-decoder-looks/) — attention mass on the vision prefix,
+measured by question type. The naive mechanism fails: the decoder spends
+*less* mass on the image for the leak-proof color questions (0.84x), which
+is the attention-is-not-explanation result measured on this model.
