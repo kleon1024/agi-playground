@@ -104,3 +104,8 @@ raw numbers in
 **Next:** stage 02 adds the hosted-VLM-API baseline stage 01 deferred; this
 stage's tightened, seed-stable vision result is the pathway stage 02
 compares against.
+
+A detour from here: [what the warmup changed, and what it did
+not](when-warmup-closed-the-collapse/) — the eval spread fell 0.2309 to
+0.0536 while train-loss spread stayed 0.2302: the collapse was an
+optimization-path divergence, not an irreducible seed difference.

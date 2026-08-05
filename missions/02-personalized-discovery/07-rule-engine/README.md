@@ -55,3 +55,8 @@ Do not use the rule layer as a hiding place for model defects. A temporary rule 
 
 [Stage 08 — serving](../08-serving/) has to fit everything upstream of it,
 rule engine included, inside one request's latency budget.
+
+A detour from here: [when does the rule engine return an empty
+set?](when-the-rules-collide/) — the frontier swept across region and cap:
+EU empties at every cap, US never does, and the audit record is what makes
+the emptiness diagnosable and the policy conversational.

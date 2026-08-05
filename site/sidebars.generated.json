@@ -411,9 +411,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/02-personalized-discovery/07-rule-engine/index",
-            "label": "Rule engine"
+            "type": "category",
+            "label": "Rule engine",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/07-rule-engine/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/07-rule-engine/when-the-rules-collide/index",
+                "label": "When the rules collide"
+              }
+            ]
           },
           {
             "type": "category",
@@ -671,9 +681,19 @@
             "label": "Real-photo outcome report"
           },
           {
-            "type": "doc",
-            "id": "missions/05-vision-language-model/06-warmup-stability/index",
-            "label": "Warmup stability"
+            "type": "category",
+            "label": "Warmup stability",
+            "link": {
+              "type": "doc",
+              "id": "missions/05-vision-language-model/06-warmup-stability/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/05-vision-language-model/06-warmup-stability/when-warmup-closed-the-collapse/index",
+                "label": "When warmup closed the collapse"
+              }
+            ]
           }
         ]
       },
