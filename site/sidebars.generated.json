@@ -766,9 +766,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/08-video-generation/02-generation-model/index",
-            "label": "Generation model"
+            "type": "category",
+            "label": "Generation model",
+            "link": {
+              "type": "doc",
+              "id": "missions/08-video-generation/02-generation-model/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/08-video-generation/02-generation-model/when-wrong-tokens-still-reconstruct/index",
+                "label": "When wrong tokens still reconstruct"
+              }
+            ]
           },
           {
             "type": "doc",
@@ -801,9 +811,19 @@
         },
         "items": [
           {
-            "type": "doc",
-            "id": "missions/09-bio-pharma-modeling/00-dataset-and-property/index",
-            "label": "Dataset and property"
+            "type": "category",
+            "label": "Dataset and property",
+            "link": {
+              "type": "doc",
+              "id": "missions/09-bio-pharma-modeling/00-dataset-and-property/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/00-dataset-and-property/the-split-that-decides/index",
+                "label": "The split that decides"
+              }
+            ]
           },
           {
             "type": "doc",

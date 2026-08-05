@@ -129,3 +129,8 @@ against it.
 
 **Next:** [stage 01](../01-descriptor-baseline-and-model/) fits the descriptor
 baseline and the trained model against this exact split.
+
+A detour from here: [does the split decide who wins?](the-split-that-decides/)
+— the scaffold split's label shift across the three endpoints: test is more
+positive in all three (0.5 to 4.9pp), and the largest shift sits exactly on
+the endpoint whose verdict is inconclusive.

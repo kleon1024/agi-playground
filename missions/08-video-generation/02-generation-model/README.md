@@ -137,3 +137,9 @@ video task stays this cheap.
 
 **Next:** stage 03 holds every result across this mission against
 `mission.yaml`'s acceptance bar and reports a verdict.
+
+A detour from here: [when the tokens are wrong but the frames still
+reconstruct](when-wrong-tokens-still-reconstruct/) — the recorded 7-22%
+exact-match spread reconciled: wrong tokens reconstruct at +0.0008 MSE from
+the oracle's, an order of magnitude below the frame-repeat baseline, so the
+token metric and the pixel metric disagree on purpose.

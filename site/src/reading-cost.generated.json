@@ -535,6 +535,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/08-video-generation/02-generation-model/when-wrong-tokens-still-reconstruct": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/08-video-generation/03-report": {
     "level": "applied",
     "minutes": 6
@@ -558,6 +562,10 @@
   "missions/09-bio-pharma-modeling/00-dataset-and-property": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/09-bio-pharma-modeling/00-dataset-and-property/the-split-that-decides": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model": {
     "level": "applied",
