@@ -78,19 +78,41 @@ Not in this queue: chapters already deep (missions 01's corpus/tokenizer/
 pretrain, 07-eval's metric-gaming, mid-training), which only get deepened if
 a real gap shows up during the pass.
 
-## Per-mission model-lineage chapters
+## Per-mission model lineage, in the repo's own style
 
-Every mission gets one lineage chapter under `reference/research/lineages/`,
-in the K3-post format: (1) the line — each open-source predecessor and what
-the successor kept, changed, and dropped; (2) the tradeoffs — the
-effect/efficiency/stability axis each choice moved along, with the numbers
-the papers or the repo's own runs provide; (3) paper interpretations — what
-the key paper claims, what the repo verified at its own scale, and where the
-two diverge; (4) evidence boundary — dated and attributed, no unrun numbers.
+The lineage content follows the existing tutorial conventions (English,
+first-viewport contract, causal spine, evidence boundary, no emoji, no
+unrun numbers), not the blog voice of the source that inspired it. Two
+surfaces, both dated and attributed:
+
+- **One lineage survey per mission** under `reference/research/lineages/`
+  (reference: the line, the tradeoffs, the paper interpretations). Mission 01
+  shipped 2026-08-06 in the repo's teaching voice.
+- **Per-model anatomy chapters** for the structure itself: one chapter per
+  model or family, describing the mechanism, comparing it against its
+  predecessor and successor, with a drawn structure — an interactive widget
+  on the `learning-widget` contract or the shared `ProcessDiagram` grammar,
+  never new Mermaid. The first is the attention-variants detour under
+  mission 01 stage 02 (MHA/GQA/MQA/MLA with a KV-cache anatomy widget). The
+  queue below lists the rest, owned by the mission whose stage makes the
+  choice.
+
+The 2026-08-06 correction that produced this: the lineage is context, and
+context must not be written as a blog post. A learner reaches it from a
+mission decision, reads the line, and returns with the tradeoff named.
+
+## Every chapter gets deep-dive chapters
+
+Mission 01 is the pattern, not the exception: a stage states a decision, and
+one or more detour chapters under it answer the decisions the main path
+asserts without showing. The rule going forward: **a stage that asserts a
+mechanism or a tradeoff without a detour that walks it has a gap.** The
+16-chapter queue above is the audit's start, not its extent; each mission
+fork re-runs the audit against its own stages as it deepens them.
 
 | Mission | Lineage chapter | Line it traces |
 |---|---|---|
-| 01 | `01-language-model-system.md` (shipped 2026-08-06) | data/scale, BPE vocab, architecture (RoPE/GQA/MLA/KDA/MoE), SFT, RL, serving, agents |
+| 01 | `01-language-model-system.md` (shipped 2026-08-06) + attention-variants anatomy | data/scale, BPE vocab, architecture (RoPE/GQA/MLA/KDA/MoE), SFT, RL, serving, agents |
 | 02 | `02-personalized-discovery.md` | recommenders: collaborative filtering, matrix factorization, two-tower, retrieval-cascade, reranking |
 | 03 | `03-quantitative-research.md` | signal search, multiple testing, walk-forward, cross-validation, backtest-overfit literature |
 | 04 | `04-code-agent.md` | code LMs (Codex/CodeLlama/DeepSeek-Coder), agent loops, SWE-bench, verifier/RL for code |
