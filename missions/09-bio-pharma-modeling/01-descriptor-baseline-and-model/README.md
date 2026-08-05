@@ -124,3 +124,9 @@ split itself (only the training seed is varied, 3 times, per `mission.yaml`).
 
 **Next:** [stage 02](../02-report/) holds both results against
 `mission.yaml`'s acceptance bar and reports a verdict.
+
+A detour from here: [when does a ten-number baseline beat a trained
+model?](when-the-baseline-holds/) — the three-endpoint scoreboard assembled
+from the recorded runs: descriptor wins on SR-MMP, the model wins on NR-ER,
+and the PPAR no-verdict row is the one with the largest split shift and the
+scarcest positives.

@@ -173,3 +173,8 @@ sum of its items, and the ad auction above gets folded into a real
 permutation search rather than a single insert-or-not decision. See the
 stage table in the [mission README](../README.md) for where that fits in the
 funnel.
+
+A detour from here: [the weight IS the strategy](when-the-weight-moves/) —
+the combination sweep on the stage's own item set: weights reorder the
+slate, the two functions disagree in the middle of the weight range, and
+the click-shaped item collapses under the product.

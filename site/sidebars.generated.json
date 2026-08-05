@@ -371,9 +371,19 @@
             "label": "Fine-rank"
           },
           {
-            "type": "doc",
-            "id": "missions/02-personalized-discovery/05-value-tree/index",
-            "label": "Value tree"
+            "type": "category",
+            "label": "Value tree",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/05-value-tree/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/05-value-tree/when-the-weight-moves/index",
+                "label": "When the weight moves"
+              }
+            ]
           },
           {
             "type": "category",
@@ -876,9 +886,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/index",
-            "label": "Descriptor baseline and model"
+            "type": "category",
+            "label": "Descriptor baseline and model",
+            "link": {
+              "type": "doc",
+              "id": "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/when-the-baseline-holds/index",
+                "label": "When the baseline holds"
+              }
+            ]
           },
           {
             "type": "doc",

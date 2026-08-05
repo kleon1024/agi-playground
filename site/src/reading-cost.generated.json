@@ -295,6 +295,10 @@
     "level": "applied",
     "minutes": 7
   },
+  "missions/02-personalized-discovery/05-value-tree/when-the-weight-moves": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/02-personalized-discovery/06-mixing": {
     "level": "applied",
     "minutes": 5
@@ -590,6 +594,10 @@
   "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/when-the-baseline-holds": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/09-bio-pharma-modeling/02-report": {
     "level": "applied",
