@@ -85,7 +85,7 @@
   },
   "missions/01-language-model-agent/00-corpus/what-a-release-needs": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "missions/01-language-model-agent/01-tokenizer": {
     "level": "foundation",
@@ -154,6 +154,10 @@
   "missions/01-language-model-agent/03-sft/what-it-costs": {
     "level": "applied",
     "minutes": 10
+  },
+  "missions/01-language-model-agent/03-sft/what-model-size-changes": {
+    "level": "applied",
+    "minutes": 6
   },
   "missions/01-language-model-agent/04-rl": {
     "level": "applied",
@@ -517,7 +521,7 @@
   },
   "reference/research/mid-training": {
     "level": "applied",
-    "minutes": 13
+    "minutes": 18
   },
   "reference/standards": {
     "level": "reference",

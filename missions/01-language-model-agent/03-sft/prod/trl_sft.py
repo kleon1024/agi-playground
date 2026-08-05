@@ -57,6 +57,12 @@ What TRL does that `core/sft.py` does by hand:
   point, which is not true of a from-scratch implementation.
 
 Run:  python trl_sft.py --model HuggingFaceTB/SmolLM2-135M --out ckpt-trl
+
+One schema note: `no_robots` ships a `messages` column *and* a bare string
+`prompt` column. TRL 1.9's conversational detection treats the string
+`prompt` as a prompt/completion dataset and then fails on the missing
+`completion` column, so this script keeps only `messages` — the shape TRL's
+conversational path (chat template + assistant-only loss) actually consumes.
 """
 
 from __future__ import annotations
@@ -64,6 +70,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+import torch
 from datasets import load_dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from trl import SFTConfig, SFTTrainer
@@ -132,6 +139,15 @@ def main() -> None:
     train_dataset = load_dataset(args.dataset, split=args.train_split)
     eval_dataset = load_dataset(args.dataset, split=args.eval_split)
 
+    if "messages" in train_dataset.column_names:
+        # See the docstring: TRL 1.9+ needs the conversational shape, and the
+        # dataset's extra string `prompt` column derails its detection.
+        train_dataset = train_dataset.select_columns(["messages"])
+        eval_dataset = eval_dataset.select_columns(["messages"])
+
+    # bf16 autocast is a CUDA convenience (and the repo's from-scratch
+    # `train.py` gates it the same way); on MPS or CPU it can hang, so it is
+    # enabled only when a CUDA device is actually present.
     config = SFTConfig(
         output_dir=str(args.out),
         num_train_epochs=args.epochs,
@@ -141,7 +157,7 @@ def main() -> None:
         lr_scheduler_type="cosine",
         warmup_steps=30,
         max_grad_norm=1.0,
-        bf16=True,
+        bf16=torch.cuda.is_available(),
         max_length=args.max_length,
         packing=not args.no_packing,
         assistant_only_loss=True,

@@ -156,6 +156,14 @@ Command, hardware, software versions, the full curve, all six generations, and
 the two setup defects worth knowing about are in
 [`runs/2026-07-28-sft-no-robots.md`](runs/2026-07-28-sft-no-robots.md).
 
+**Is that result a size effect?** The run shows form-yes, content-no at 88M,
+but one point cannot tell you whether that is what SFT does at every scale or
+what 88M specifically can and cannot hold. [What model size changes](what-model-size-changes/)
+runs the same recipe at 5M — from a pretrained base and from random init —
+and reads the resulting axis against dated results at 65B-plus. Both arms
+produce word fragments, which is the low end of the story the main run's
+fluent-but-wrong output belongs to.
+
 ## Reproducing
 
 ```bash

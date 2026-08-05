@@ -72,6 +72,7 @@ taking.
 | after 02 | whether to keep the checkpoint or retrain a new shape | [upcycling](02-pretrain/upcycling/) | a converted checkpoint that starts at the parent's loss |
 | 03 | whether teacher data beats human data | [distillation](03-sft/distillation/) | a target format and its tokenizer constraint |
 | 03 | whether comparisons can replace demonstrations | [beyond demonstrations](03-sft/beyond-demonstrations/) | what LoRA, reward models, DPO, and merging each cost |
+| 03 | whether SFT changes with model size | [what model size changes](03-sft/what-model-size-changes/) | a measured 5M-to-88M axis against dated large-scale results |
 | 04 | which RL failure you actually have | [what a real loop adds](04-rl/what-a-real-loop-adds/) | the failure each acronym was built for, and why the verifier is the task |
 | 05 | what the model is doing between tokens | [why concurrency pays](05-serve/why-concurrency-pays/) | the cost model for a request under load |
 | 06 | how a tool loop stays bounded | [what stops it?](06-agent/what-stops-it/) | a permission and stop-condition contract |

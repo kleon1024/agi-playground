@@ -70,6 +70,23 @@ def lr_at(step: int, warmup: int, total: int, peak: float, floor_ratio: float = 
     return peak * (floor_ratio + (1 - floor_ratio) * 0.5 * (1 + math.cos(math.pi * progress)))
 
 
+def add_model_size_args(ap: argparse.ArgumentParser) -> None:
+    """Scale the architecture away from the default 88M shape.
+
+    Defaults match `Config()` exactly, so omitting every flag reproduces the
+    recorded pretraining run. The flags exist so a single script can train
+    small bases (e.g. the ~8M base the SFT model-size chapter uses) instead of
+    forking a second trainer.
+    """
+    g = ap.add_argument_group("model size")
+    g.add_argument("--n-layer", type=int, default=12)
+    g.add_argument("--n-head", type=int, default=12)
+    g.add_argument("--n-kv-head", type=int, default=4)
+    g.add_argument("--d-model", type=int, default=768)
+    g.add_argument("--d-ff", type=int, default=2048)
+    g.add_argument("--block-size", type=int, default=1024)
+
+
 @torch.no_grad()
 def evaluate(model, data, batch, block, device, iters, autocast) -> float:
     model.eval()
@@ -126,6 +143,7 @@ def main() -> None:
     ap.add_argument("--device", default="cuda")
     ap.add_argument("--resume", action="store_true",
                     help="continue from ckpt.pt in --out if it exists")
+    add_model_size_args(ap)
     args = ap.parse_args()
 
     torch.manual_seed(1337)
@@ -133,7 +151,14 @@ def main() -> None:
     torch.backends.cudnn.allow_tf32 = True
     args.out.mkdir(parents=True, exist_ok=True)
 
-    cfg = Config()
+    cfg = Config(
+        n_layer=args.n_layer,
+        n_head=args.n_head,
+        n_kv_head=args.n_kv_head,
+        d_model=args.d_model,
+        d_ff=args.d_ff,
+        block_size=args.block_size,
+    )
     model = Transformer(cfg).to(args.device)
     n_params = sum(p.numel() for p in model.parameters())
     print(model.param_report(), flush=True)

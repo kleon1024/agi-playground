@@ -72,6 +72,33 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "02-pretrain" / "co
 from model import Config, Transformer
 from train import lr_at, save_checkpoint
 
+
+def add_model_size_args(ap: argparse.ArgumentParser) -> None:
+    """Scale the architecture away from the default 88M shape.
+
+    Defaults match `Config()` exactly. The flags exist so SFT can fine-tune a
+    small pretrained base (the ~8M model the what-model-size-changes chapter
+    trains) through this same script rather than a forked trainer.
+    """
+    g = ap.add_argument_group("model size")
+    g.add_argument("--n-layer", type=int, default=12)
+    g.add_argument("--n-head", type=int, default=12)
+    g.add_argument("--n-kv-head", type=int, default=4)
+    g.add_argument("--d-model", type=int, default=768)
+    g.add_argument("--d-ff", type=int, default=2048)
+    g.add_argument("--block-size", type=int, default=1024)
+
+
+def config_from_args(args: argparse.Namespace) -> Config:
+    return Config(
+        n_layer=args.n_layer,
+        n_head=args.n_head,
+        n_kv_head=args.n_kv_head,
+        d_model=args.d_model,
+        d_ff=args.d_ff,
+        block_size=args.block_size,
+    )
+
 # ---------------------------------------------------------------------------
 # Special tokens
 #
@@ -347,7 +374,7 @@ def cmd_train(args: argparse.Namespace) -> None:
     args.out.mkdir(parents=True, exist_ok=True)
 
     tok = Tokenizer.from_file(str(args.tokenizer))
-    cfg = Config()
+    cfg = config_from_args(args)
     model = Transformer(cfg).to(args.device)
 
     init_ckpt = torch.load(args.init_checkpoint, map_location=args.device, weights_only=False)
@@ -486,7 +513,7 @@ def _first_user_turns(dataset: str, split: str, n: int):
 
 def cmd_sample(args: argparse.Namespace) -> None:
     tok = Tokenizer.from_file(str(args.tokenizer))
-    cfg = Config()
+    cfg = config_from_args(args)
     model = Transformer(cfg).to(args.device)
     ckpt = torch.load(args.checkpoint, map_location=args.device, weights_only=False)
     model.load_state_dict(ckpt["model"])
@@ -515,7 +542,7 @@ def cmd_score(args: argparse.Namespace) -> None:
     random.seed(args.seed)
 
     tok = Tokenizer.from_file(str(args.tokenizer))
-    cfg = Config()
+    cfg = config_from_args(args)
     model = Transformer(cfg).to(args.device)
     ckpt = torch.load(args.checkpoint, map_location=args.device, weights_only=False)
     model.load_state_dict(ckpt["model"])
@@ -572,6 +599,7 @@ def main() -> None:
     t.add_argument("--device", default="cuda")
     t.add_argument("--seed", type=int, default=1337)
     t.add_argument("--resume", action="store_true")
+    add_model_size_args(t)
     t.set_defaults(func=cmd_train)
 
     s = sub.add_parser("sample")
@@ -582,6 +610,7 @@ def main() -> None:
     s.add_argument("--system", default=None)
     s.add_argument("--max-new-tokens", type=int, default=200)
     s.add_argument("--device", default="cuda")
+    add_model_size_args(s)
     s.set_defaults(func=cmd_sample)
 
     e = sub.add_parser("score")
@@ -595,6 +624,7 @@ def main() -> None:
     e.add_argument("--eval-iters", type=int, default=20)
     e.add_argument("--device", default="cuda")
     e.add_argument("--seed", type=int, default=1337)
+    add_model_size_args(e)
     e.set_defaults(func=cmd_score)
 
     args = ap.parse_args()
