@@ -831,9 +831,19 @@
             "label": "Real speech and network"
           },
           {
-            "type": "doc",
-            "id": "missions/07-realtime-voice/04-multi-speaker/index",
-            "label": "Multi-speaker generalization"
+            "type": "category",
+            "label": "Multi-speaker generalization",
+            "link": {
+              "type": "doc",
+              "id": "missions/07-realtime-voice/04-multi-speaker/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/07-realtime-voice/04-multi-speaker/when-the-fix-did-not-generalize/index",
+                "label": "When the fix did not generalize"
+              }
+            ]
           },
           {
             "type": "category",
@@ -916,9 +926,19 @@
             "label": "Multi-object scenes"
           },
           {
-            "type": "doc",
-            "id": "missions/08-video-generation/06-longer-and-multi-object/index",
-            "label": "Both axes at once"
+            "type": "category",
+            "label": "Both axes at once",
+            "link": {
+              "type": "doc",
+              "id": "missions/08-video-generation/06-longer-and-multi-object/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/08-video-generation/06-longer-and-multi-object/when-the-metric-hits-zero/index",
+                "label": "When the metric hits zero"
+              }
+            ]
           }
         ]
       },

@@ -551,6 +551,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/07-realtime-voice/04-multi-speaker/when-the-fix-did-not-generalize": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/07-realtime-voice/05-codebook-reset": {
     "level": "applied",
     "minutes": 6
@@ -602,6 +606,10 @@
   "missions/08-video-generation/06-longer-and-multi-object": {
     "level": "applied",
     "minutes": 8
+  },
+  "missions/08-video-generation/06-longer-and-multi-object/when-the-metric-hits-zero": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/09-bio-pharma-modeling": {
     "level": "applied",

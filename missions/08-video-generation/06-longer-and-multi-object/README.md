@@ -199,3 +199,9 @@ corner of it independently identified as the binding constraint — and which no
 stage in this mission has yet varied. Return to
 [the mission report](../03-report/) for what the whole chain does and does not
 license you to claim.
+
+A detour from here: [which axis costs the generation — and when does the
+metric hit zero?](when-the-metric-hits-zero/) — the four grid corners
+assembled: objects dominate (MSE roughly doubles), length barely moves it,
+and the 16x2 corner's exact-match hits 0.00% while reconstruction still
+beats frame-repeat.

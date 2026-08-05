@@ -136,3 +136,8 @@ numbers; the codec ran on CPU throughout.
 would need to fold this stage's seed-dependent result into the mission's
 overall acceptance verdict rather than treating stage 03's cleaner 1-2
 speaker result as the mission's last word on real speech.
+
+A detour from here: [the fix that did not generalize](when-the-fix-did-not-generalize/)
+— the three seeds' codebook health at 10 speakers: 18/63/32 of 64 codes,
+with MSE tracking usage (0.027 vs 0.017) — the seed-dependence returns at
+the frontier.
