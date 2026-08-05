@@ -125,6 +125,11 @@
               },
               {
                 "type": "doc",
+                "id": "missions/01-language-model-agent/02-pretrain/the-gate-that-beats-relu/index",
+                "label": "The gate that beats ReLU"
+              },
+              {
+                "type": "doc",
                 "id": "missions/01-language-model-agent/02-pretrain/LANDSCAPE",
                 "label": "Landscape"
               }

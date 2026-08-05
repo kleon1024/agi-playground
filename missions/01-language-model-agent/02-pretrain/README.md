@@ -124,6 +124,10 @@ here: [why is the KV cache the architecture's tax?](attention-variants/) walks
 the same trade across the whole line — MHA, GQA, MQA, MLA — and draws each
 variant's sharing pattern.
 
+Another detour: [the gate that beats ReLU](the-gate-that-beats-relu/) —
+SwiGLU's multiplicative mechanism measured against ReLU and GELU: no dead
+zone, zero-mean output, and what the gate's form buys downstream.
+
 ## What "wrong" means
 
 Scores are not probabilities. Softmax turns the 16,512 scores into a
