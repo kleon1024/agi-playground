@@ -107,3 +107,8 @@ working strategy. Regime change, transaction costs, capacity, point-in-time
 fundamentals, and survivorship remain separate claims. `04-cost-and-capacity`
 is next: it takes a paper portfolio and asks whether any economically useful
 book can survive its own trading bill.
+
+A detour from here: [when purge matters](when-purge-matters/) measures
+fold-specific fit against strategy fit and the boundary rows the purge
+removes — including the honest null this stage's recorded run noted but could
+not make.

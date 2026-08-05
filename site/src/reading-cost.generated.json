@@ -171,6 +171,10 @@
     "level": "applied",
     "minutes": 10
   },
+  "missions/01-language-model-agent/04-rl/the-group-relative-trick": {
+    "level": "applied",
+    "minutes": 4
+  },
   "missions/01-language-model-agent/04-rl/what-a-real-loop-adds": {
     "level": "applied",
     "minutes": 9
@@ -322,6 +326,10 @@
   "missions/03-quantitative-research/03-walk-forward-validation": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/03-quantitative-research/03-walk-forward-validation/when-purge-matters": {
+    "level": "applied",
+    "minutes": 4
   },
   "missions/03-quantitative-research/04-cost-and-capacity": {
     "level": "applied",

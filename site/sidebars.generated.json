@@ -200,6 +200,11 @@
               },
               {
                 "type": "doc",
+                "id": "missions/01-language-model-agent/04-rl/the-group-relative-trick/index",
+                "label": "The group-relative trick"
+              },
+              {
+                "type": "doc",
                 "id": "missions/01-language-model-agent/04-rl/LANDSCAPE",
                 "label": "Landscape"
               }
@@ -426,9 +431,19 @@
             "label": "Cross-sectional rank"
           },
           {
-            "type": "doc",
-            "id": "missions/03-quantitative-research/03-walk-forward-validation/index",
-            "label": "Walk-forward validation"
+            "type": "category",
+            "label": "Walk-forward validation",
+            "link": {
+              "type": "doc",
+              "id": "missions/03-quantitative-research/03-walk-forward-validation/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/03-quantitative-research/03-walk-forward-validation/when-purge-matters/index",
+                "label": "When purge matters"
+              }
+            ]
           },
           {
             "type": "doc",
