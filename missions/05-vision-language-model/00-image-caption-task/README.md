@@ -181,3 +181,8 @@ in [`../mission.yaml`](../mission.yaml)'s `does_not_prove`.
 **Next:** stage 01 builds the patch-embedding and vision-token fusion path that
 turns these images into something the decoder can condition on, and measures
 whether it beats a decoder that never sees them.
+
+A detour from here: [why does a leakage guardrail need to check pixels, not
+seeds?](seed-vs-pixels/) — the two recorded defects reproduced on the current
+generator: disjoint seeds still collide (17 without rejection), and the
+rejection sampler that fixed it can silently distort the eval distribution.

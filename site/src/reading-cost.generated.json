@@ -403,6 +403,10 @@
     "level": "applied",
     "minutes": 6
   },
+  "missions/05-vision-language-model/00-image-caption-task/seed-vs-pixels": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/05-vision-language-model/01-vision-fusion": {
     "level": "applied",
     "minutes": 9

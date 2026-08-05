@@ -551,9 +551,19 @@
         },
         "items": [
           {
-            "type": "doc",
-            "id": "missions/05-vision-language-model/00-image-caption-task/index",
-            "label": "The image-caption task"
+            "type": "category",
+            "label": "The image-caption task",
+            "link": {
+              "type": "doc",
+              "id": "missions/05-vision-language-model/00-image-caption-task/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/05-vision-language-model/00-image-caption-task/seed-vs-pixels/index",
+                "label": "Seeds vs pixels"
+              }
+            ]
           },
           {
             "type": "category",
