@@ -29,7 +29,7 @@ the stage consumes.
 | 02 personalized discovery | 10 (00..09) | when-the-trade-weight-moves, when-the-cut-bites | 02-personalized-discovery.md | none | recall, pre-rank, fine-rank, value-tree, rule-engine |
 | 03 quantitative research | 6 (00..05) | when-breadth-inflates-the-winner, when-purge-matters, when-the-cap-bites | 03-quantitative-research.md | none | market-data, cost-and-capacity |
 | 04 code agent | 7 (00..06) | when-the-patch-cannot-apply, the-tier-that-won | 04-code-agent.md | none | task-set, agent-loop, closing-the-loop |
-| 05 vision-language | 7 (00..06) | where-the-decoder-looks | 05-vision-language.md | none | warmup-stability (deepen) |
+| 05 vision-language | 7 (00..06) | where-the-decoder-looks, seed-vs-pixels | 05-vision-language.md | none | warmup-stability (deepen) |
 | 06 game AI | 7 (00..06) | the-diversity-direction, when-two-seeds-stopped-paying | 06-game-ai.md | none | fixing-collapse (deepen) |
 | 07 realtime voice | 7 (00..06) | why-codebooks-collapse, when-the-reset-never-stops | 07-realtime-voice.md | codebook usage (VQ anatomy) | — |
 | 08 video generation | 7 (00..06) | what-a-video-token-is | 08-video-generation.md | video token (VQ anatomy) | generation-model |
