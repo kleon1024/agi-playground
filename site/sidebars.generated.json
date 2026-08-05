@@ -981,9 +981,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/08-video-generation/03-report/index",
-            "label": "Outcome report"
+            "type": "category",
+            "label": "Outcome report",
+            "link": {
+              "type": "doc",
+              "id": "missions/08-video-generation/03-report/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/08-video-generation/03-report/when-the-cost-ceiling-is-roomy/index",
+                "label": "When the cost ceiling is roomy"
+              }
+            ]
           },
           {
             "type": "doc",
