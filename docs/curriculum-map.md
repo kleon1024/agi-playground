@@ -31,8 +31,8 @@ the stage consumes.
 | 04 code agent | 7 (00..06) | when-the-patch-cannot-apply, the-tier-that-won, what-the-task-set-contains, when-the-guardrail-refuses, does-feedback-help | 04-code-agent.md | none | — |
 | 05 vision-language | 7 (00..06) | where-the-decoder-looks, seed-vs-pixels, when-warmup-closed-the-collapse | 05-vision-language.md | none | — |
 | 06 game AI | 7 (00..06) | the-diversity-direction, when-two-seeds-stopped-paying, when-the-cold-start-is-total | 06-game-ai.md | none | fixing-collapse (deepen) |
-| 07 realtime voice | 7 (00..06) | why-codebooks-collapse, when-the-reset-never-stops | 07-realtime-voice.md | codebook usage (VQ anatomy) | — |
-| 08 video generation | 7 (00..06) | what-a-video-token-is, when-wrong-tokens-still-reconstruct | 08-video-generation.md | video token (VQ anatomy) | — |
+| 07 realtime voice | 7 (00..06) | why-codebooks-collapse, when-the-reset-never-stops, when-the-fix-did-not-generalize | 07-realtime-voice.md | codebook usage (VQ anatomy) | — |
+| 08 video generation | 7 (00..06) | what-a-video-token-is, when-wrong-tokens-still-reconstruct, when-the-metric-hits-zero | 08-video-generation.md | video token (VQ anatomy) | — |
 | 09 bio-pharma | 7 (00..06) | when-width-memorizes, the-split-that-decides, when-the-baseline-holds | 09-bio-pharma.md | none | — |
 
 ## Foundations and infra
