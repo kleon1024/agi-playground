@@ -77,6 +77,7 @@ taking.
 | 05 | what the model is doing between tokens | [why concurrency pays](05-serve/why-concurrency-pays/) | the cost model for a request under load |
 | 06 | how a tool loop stays bounded | [what stops it?](06-agent/what-stops-it/) | a permission and stop-condition contract |
 | 07 | what a number from a harness is worth | [why believe the number](07-eval/why-believe-the-number/) | variance, and the disclosure a result needs |
+| whenever | which open-source line is this stage on, and what did each successor trade | [the language-model lineage](../../reference/research/lineages/01-language-model-system/) | where this stage's mechanism sits in the evolution, with the dated paper interpretations |
 
 Two chapters are deliberately not on this list.
 [Mid-training](../../reference/research/mid-training/) is skipped for the

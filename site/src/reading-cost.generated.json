@@ -303,6 +303,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/03-quantitative-research/01-signal-research/when-breadth-inflates-the-winner": {
+    "level": "applied",
+    "minutes": 4
+  },
   "missions/03-quantitative-research/02-cross-sectional-rank": {
     "level": "applied",
     "minutes": 5
@@ -516,6 +520,10 @@
     "minutes": 1
   },
   "reference/research": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "reference/research/lineages": {
     "level": "reference",
     "minutes": 1
   },

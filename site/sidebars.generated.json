@@ -391,9 +391,19 @@
             "label": "Market data"
           },
           {
-            "type": "doc",
-            "id": "missions/03-quantitative-research/01-signal-research/index",
-            "label": "Signal research"
+            "type": "category",
+            "label": "Signal research",
+            "link": {
+              "type": "doc",
+              "id": "missions/03-quantitative-research/01-signal-research/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/03-quantitative-research/01-signal-research/when-breadth-inflates-the-winner/index",
+                "label": "When breadth inflates the winner"
+              }
+            ]
           },
           {
             "type": "doc",
@@ -864,6 +874,21 @@
             "type": "doc",
             "id": "reference/research/06-harness-effects",
             "label": "Harness effects"
+          },
+          {
+            "type": "category",
+            "label": "Lineages",
+            "link": {
+              "type": "doc",
+              "id": "reference/research/lineages/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "reference/research/lineages/01-language-model-system",
+                "label": "Language model system"
+              }
+            ]
           },
           {
             "type": "doc",

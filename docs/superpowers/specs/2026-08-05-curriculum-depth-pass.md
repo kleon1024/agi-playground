@@ -18,6 +18,15 @@ are a teaching instrument, not the depth. The depth deliverable is **new
 chapters that answer a decision the main stage asserts without showing**, each
 backed by a run executed here.
 
+On 2026-08-06 the user added a second, parallel requirement: every mission
+gets the **evolution of the historical open-source models behind it** — the
+lineage, the tradeoffs each successor made, and the paper interpretations —
+in the style of [Su Jianlin's K3 post](https://kexue.fm/archives/11848)
+(2026-08-04): model iteration as inheritance-and-upgrade rather than
+reinvention, with the effect/efficiency/stability axis explicit at every
+step. The first instance (mission 01) ships with this revision; the other
+eight are queued below.
+
 ## The method (applied to every chapter in the repo)
 
 1. Read the chapter's causal spine. Mark every place a mechanism is asserted
@@ -68,6 +77,32 @@ the practice run that answers it.
 Not in this queue: chapters already deep (missions 01's corpus/tokenizer/
 pretrain, 07-eval's metric-gaming, mid-training), which only get deepened if
 a real gap shows up during the pass.
+
+## Per-mission model-lineage chapters
+
+Every mission gets one lineage chapter under `reference/research/lineages/`,
+in the K3-post format: (1) the line — each open-source predecessor and what
+the successor kept, changed, and dropped; (2) the tradeoffs — the
+effect/efficiency/stability axis each choice moved along, with the numbers
+the papers or the repo's own runs provide; (3) paper interpretations — what
+the key paper claims, what the repo verified at its own scale, and where the
+two diverge; (4) evidence boundary — dated and attributed, no unrun numbers.
+
+| Mission | Lineage chapter | Line it traces |
+|---|---|---|
+| 01 | `01-language-model-system.md` (shipped 2026-08-06) | data/scale, BPE vocab, architecture (RoPE/GQA/MLA/KDA/MoE), SFT, RL, serving, agents |
+| 02 | `02-personalized-discovery.md` | recommenders: collaborative filtering, matrix factorization, two-tower, retrieval-cascade, reranking |
+| 03 | `03-quantitative-research.md` | signal search, multiple testing, walk-forward, cross-validation, backtest-overfit literature |
+| 04 | `04-code-agent.md` | code LMs (Codex/CodeLlama/DeepSeek-Coder), agent loops, SWE-bench, verifier/RL for code |
+| 05 | `05-vision-language.md` | CLIP/SigLIP, LLaVA-style fusion, Qwen2-VL, captioning-to-VQA |
+| 06 | `06-game-ai.md` | value/policy RL: DQN, PPO, GRPO, R1-Zero's verifiable-reward games |
+| 07 | `07-realtime-voice.md` | VQ-VAE, SoundStream, EnCodec, DAC, streaming decode, codebook-reset line |
+| 08 | `08-video-generation.md` | VQ-VAE for video, VideoPoet/DiT, W.A.L.T., autoregressive video limits |
+| 09 | `09-bio-pharma.md` | molecular fingerprints (ECFP/Murcko), graph nets, SMILES LMs, property prediction |
+
+Each lineage chapter is `level: reference`, dated, and linked from its
+mission's detour table and the research index — the mission owns the runs,
+the lineage owns the context.
 
 ## Sequencing
 

@@ -23,6 +23,7 @@ RL post-training, exercise-driven inference infra, and agent harness engineering
 | [04-infra-and-agent-harness.md](04-infra-and-agent-harness.md) | Inference engine internals, training infra, agent harness engineering, evals, solo-builder infra |
 | [05-agent-memory.md](05-agent-memory.md) | Agent memory storage shapes, what Anthropic actually ships, the provenance of the "graph engineering" claim, and the edge-density measurement nobody publishes |
 | [06-harness-effects.md](06-harness-effects.md) | The published case where two harness settings tripled an ARC-AGI-3 score with the model unchanged, what it establishes, and what the encrypted half of it does not |
+| [lineages/](lineages/) | Per-mission model lineage: how the open-source line behind each mission evolved, what each successor traded, and the dated paper interpretations |
 
 > Passes 01-04 were conducted 2026-07-24; pass 05 on 2026-07-29; pass 06 on
 > 2026-07-30. Landscape facts
