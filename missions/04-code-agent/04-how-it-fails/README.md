@@ -152,3 +152,9 @@ that cheating had no efficiency advantage.
 **Next:** [stage 05](../05-report/) holds every number across all five real
 stages against `mission.yaml`'s acceptance list, mechanically, and says which
 bullets are met.
+
+A detour from here: [when the patch cannot even be applied, what is the loop
+buying?](when-the-patch-cannot-apply/) — the same logs, second cut: 11 of 12
+failures never produced an applicable patch, the failures concentrate on the
+identity checks, and the harness is cheaper per resolved task than the blind
+call.
