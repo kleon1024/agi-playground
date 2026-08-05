@@ -202,3 +202,8 @@ python prod/faiss_recall.py --catalogue-size 5000 --ef-search 64
 and narrows it further with a lightweight scorer cheap enough to run on all of
 them, before the expensive fine-ranker ever sees a candidate. It is not yet
 built.
+
+A detour from here: [the queue you disable is the target you
+lose](when-you-lose-a-queue/) — the disable sweep across all four queues:
+no loss is fully recovered, and item_to_item's blind spot is the deepest
+(only 4/20 targets recovered elsewhere).

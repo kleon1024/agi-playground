@@ -346,9 +346,19 @@
             "label": "Content understanding"
           },
           {
-            "type": "doc",
-            "id": "missions/02-personalized-discovery/02-recall/index",
-            "label": "Recall"
+            "type": "category",
+            "label": "Recall",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/02-recall/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/02-recall/when-you-lose-a-queue/index",
+                "label": "When you lose a queue"
+              }
+            ]
           },
           {
             "type": "doc",
@@ -496,9 +506,19 @@
         },
         "items": [
           {
-            "type": "doc",
-            "id": "missions/04-code-agent/00-task-set/index",
-            "label": "The task set"
+            "type": "category",
+            "label": "The task set",
+            "link": {
+              "type": "doc",
+              "id": "missions/04-code-agent/00-task-set/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/04-code-agent/00-task-set/what-the-task-set-contains/index",
+                "label": "What the task set contains"
+              }
+            ]
           },
           {
             "type": "doc",

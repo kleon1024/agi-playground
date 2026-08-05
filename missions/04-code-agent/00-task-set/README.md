@@ -227,3 +227,8 @@ of a bug report — the boundary stated in full under `does_not_prove` in
 **Next:** the agent has a task set and cannot yet attempt one. Stage 02 runs the
 harness from mission 01 against these tasks and adds the scorer, including the
 check on the produced diff that refuses a patch touching a test file.
+
+A detour from here: [what does the mined task set actually
+contain?](what-the-task-set-contains/) — the funnel read end to end: 2,423
+commits -> 2 survivors (0.08%), both resolvable by a blind call, which is
+the point of the contamination-prone public control.

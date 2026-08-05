@@ -279,6 +279,10 @@
     "level": "foundation",
     "minutes": 8
   },
+  "missions/02-personalized-discovery/02-recall/when-you-lose-a-queue": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/02-personalized-discovery/03-pre-rank": {
     "level": "applied",
     "minutes": 6
@@ -366,6 +370,10 @@
   "missions/04-code-agent/00-task-set": {
     "level": "applied",
     "minutes": 8
+  },
+  "missions/04-code-agent/00-task-set/what-the-task-set-contains": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/04-code-agent/01-no-harness": {
     "level": "applied",
