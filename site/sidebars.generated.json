@@ -200,6 +200,11 @@
               },
               {
                 "type": "doc",
+                "id": "missions/01-language-model-agent/04-rl/the-kl-leash/index",
+                "label": "The KL leash"
+              },
+              {
+                "type": "doc",
                 "id": "missions/01-language-model-agent/04-rl/the-group-relative-trick/index",
                 "label": "The group-relative trick"
               },

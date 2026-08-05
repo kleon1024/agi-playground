@@ -76,6 +76,7 @@ taking.
 | 03 | whether SFT changes with model size | [what model size changes](03-sft/what-model-size-changes/) | a measured 5M-to-88M axis against dated large-scale results |
 | 04 | which RL failure you actually have | [what a real loop adds](04-rl/what-a-real-loop-adds/) | the failure each acronym was built for, and why the verifier is the task |
 | 04 | what the group-relative trick actually changes | [the group-relative trick](04-rl/the-group-relative-trick/) | the advantage arithmetic on real groups, with the degenerate 0/0 case |
+| 04 | what the KL leash actually computes | [the leash that keeps the policy close](04-rl/the-kl-leash/) | the k3 estimator: non-negative, asymmetric, soft |
 | 05 | what the model is doing between tokens | [why concurrency pays](05-serve/why-concurrency-pays/) | the cost model for a request under load |
 | 06 | how a tool loop stays bounded | [what stops it?](06-agent/what-stops-it/) | a permission and stop-condition contract |
 | 07 | what a number from a harness is worth | [why believe the number](07-eval/why-believe-the-number/) | variance, and the disclosure a result needs |

@@ -140,6 +140,11 @@ A detour from here: [what does the group-relative trick actually change?](the-gr
 degenerate case, a sparse group, a healthy spread), with the clip's one-sided
 brake computed and the zero-sum property named.
 
+A second detour: [the leash that keeps the policy close](the-kl-leash/) —
+the k3 KL estimator's arithmetic: always non-negative, asymmetric (reducing
+probability mass costs more than increasing it), and soft at the repo's
+beta 0.04.
+
 ## The reward is going up. Is that good?
 
 Notice what the reward here is *not*: a learned model. `compute_reward` is a
