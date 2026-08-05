@@ -196,3 +196,9 @@ stage 01, this stage did not repeat each retry multiple times, so it cannot
 report a run-to-run spread for the retry step itself the way stage 01 could
 for its baseline -- the sonnet and opus 0/3-to-1/3 movements are reported as
 real but statistically thin for exactly that reason.
+
+A detour from here: [does seeing the real outcome help — with still no
+tools?](does-feedback-help/) — the recorded 12 attempts read as a
+comparison: feedback does not raise the resolve rate, it converts the
+dominant blind failure (non-applicable patches) into tryable ones, at one
+more priced turn per task.

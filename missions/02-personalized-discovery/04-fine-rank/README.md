@@ -173,3 +173,8 @@ PYTHONPATH=core python prod/torch_fine_rank.py
 numbers per item become the one scalar an item is actually ranked by — and
 the arithmetic of that collapse is where product strategy stops being a
 slide and starts being a formula.
+
+A detour from here: [when does the shared model hurt an
+objective?](when-sharing-hurts/) — the transfer grid, shared trunk versus
+single-task: negative transfer is per-task and direction-dependent, and the
+loss weighting decides which task pays.

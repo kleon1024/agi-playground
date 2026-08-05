@@ -376,9 +376,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/02-personalized-discovery/04-fine-rank/index",
-            "label": "Fine-rank"
+            "type": "category",
+            "label": "Fine-rank",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/04-fine-rank/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/04-fine-rank/when-sharing-hurts/index",
+                "label": "When sharing hurts"
+              }
+            ]
           },
           {
             "type": "category",
@@ -616,9 +626,19 @@
             "label": "The report"
           },
           {
-            "type": "doc",
-            "id": "missions/04-code-agent/06-closing-the-loop/index",
-            "label": "Closing the loop"
+            "type": "category",
+            "label": "Closing the loop",
+            "link": {
+              "type": "doc",
+              "id": "missions/04-code-agent/06-closing-the-loop/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/04-code-agent/06-closing-the-loop/does-feedback-help/index",
+                "label": "Does feedback help"
+              }
+            ]
           }
         ]
       },
