@@ -31,7 +31,7 @@ the stage consumes.
 | 04 code agent | 7 (00..06) | none | 04-code-agent.md | none | task-set, agent-loop, cheap-or-expensive, how-it-fails, closing-the-loop |
 | 05 vision-language | 7 (00..06) | none | 05-vision-language.md | none | vision-fusion, warmup-stability |
 | 06 game AI | 7 (00..06) | none | 06-game-ai.md | none | grpo advantage, fixing-collapse, tool-use-rl |
-| 07 realtime voice | 7 (00..06) | none | 07-realtime-voice.md | none | audio-codec, codebook-reset |
+| 07 realtime voice | 7 (00..06) | why-codebooks-collapse | 07-realtime-voice.md | codebook usage (VQ anatomy) | codebook-reset (deepen) |
 | 08 video generation | 7 (00..06) | none | 08-video-generation.md | none | video-tokenizer, generation-model |
 | 09 bio-pharma | 7 (00..06) | none | 09-bio-pharma.md | none | descriptor baseline, model-or-representation |
 
