@@ -37,11 +37,11 @@ the stage consumes.
 
 ## Foundations and infra
 
-Foundations (7 chapters, 3 detours): 00-attention (+ what-it-costs, + rope),
+Foundations (8 chapters, 3 detours): 00-attention (+ what-it-costs, + rope),
 01-first-training-loop, 02-optimization, 03-backpropagation,
 04-distributed-training, 05-is-the-difference-real (+ the-two-confounds),
-06-significance. These own the mechanism; missions link at the decision that
-needs it.
+06-significance, 07-moe. These own the mechanism; missions link at the
+decision that needs it.
 
 Infra (7 chapters): 01-networking, 02-storage, 03-orchestration,
 04-observability, 05-gpu-cluster-concepts, 06-gpu-dedup-at-scale,
