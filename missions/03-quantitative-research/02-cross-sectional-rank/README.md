@@ -117,3 +117,8 @@ implementability. [Stage 03](../03-walk-forward-validation/) first asks whether
 any such result survives the disclosed search and a purged, embargoed
 out-of-sample evaluation. Only then does it make sense to ask how much survives
 trading costs and market impact.
+
+A detour from here: [what does the position cap actually
+cost?](when-the-cap-bites/) — the cap swept across five values: it binds
+only below 0.25 on this universe, trades exposure for diversification
+without improving Sharpe, and taxes tightness with re-breach violations.

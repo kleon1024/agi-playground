@@ -331,6 +331,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/03-quantitative-research/02-cross-sectional-rank/when-the-cap-bites": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/03-quantitative-research/03-walk-forward-validation": {
     "level": "applied",
     "minutes": 5
@@ -485,7 +489,11 @@
   },
   "missions/07-realtime-voice/05-codebook-reset": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
+  },
+  "missions/07-realtime-voice/05-codebook-reset/when-the-reset-never-stops": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/07-realtime-voice/06-which-mechanism-did-it": {
     "level": "applied",

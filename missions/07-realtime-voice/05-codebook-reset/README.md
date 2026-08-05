@@ -144,3 +144,8 @@ download), codec training 1256-1259s. \$0 marginal cost. Full per-step
 [Stage 06](../06-which-mechanism-did-it/) takes up the mechanism question this
 stage set aside, by adding the two cells that turn the confound into a
 measurement.
+
+A detour from here: [is a dead-code reset a cure, or a maintenance
+loop?](when-the-reset-never-stops/) — the reset logs' trajectory across
+three seeds: 1,388-1,893 codes reset per run, health arriving only in the
+last ~400 steps, and the reset bill stage 06's 2x2 exists to cut.

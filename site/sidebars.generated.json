@@ -426,9 +426,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/03-quantitative-research/02-cross-sectional-rank/index",
-            "label": "Cross-sectional rank"
+            "type": "category",
+            "label": "Cross-sectional rank",
+            "link": {
+              "type": "doc",
+              "id": "missions/03-quantitative-research/02-cross-sectional-rank/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/03-quantitative-research/02-cross-sectional-rank/when-the-cap-bites/index",
+                "label": "When the cap bites"
+              }
+            ]
           },
           {
             "type": "category",
@@ -666,9 +676,19 @@
             "label": "Multi-speaker generalization"
           },
           {
-            "type": "doc",
-            "id": "missions/07-realtime-voice/05-codebook-reset/index",
-            "label": "Codebook dead-code reset"
+            "type": "category",
+            "label": "Codebook dead-code reset",
+            "link": {
+              "type": "doc",
+              "id": "missions/07-realtime-voice/05-codebook-reset/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/07-realtime-voice/05-codebook-reset/when-the-reset-never-stops/index",
+                "label": "When the reset never stops"
+              }
+            ]
           },
           {
             "type": "doc",
