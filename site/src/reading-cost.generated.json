@@ -425,6 +425,10 @@
   },
   "missions/06-game-ai/03-fixing-collapse": {
     "level": "applied",
+    "minutes": 4
+  },
+  "missions/06-game-ai/03-fixing-collapse/the-diversity-direction": {
+    "level": "applied",
     "minutes": 3
   },
   "missions/06-game-ai/04-minigrid": {

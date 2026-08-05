@@ -92,3 +92,9 @@ a promising direction would need the full 3-seed treatment before any claim.
 partially-observed environment, and reports what happens to a cold-start
 policy there -- interpreting the result knowing this stage found no fix for
 stage 01's collapse.
+
+A detour from here: [the one direction the collapse sweep never tried](the-diversity-direction/)
+— the two missing cells of the same grid (group 16, entropy 0.05). Group 16
+is the first variant that moves the collapse (greedy success 0.078 to
+0.156), on one seed, which is exactly the kind of promising direction this
+stage's boundary says would need the full 3-seed treatment next.

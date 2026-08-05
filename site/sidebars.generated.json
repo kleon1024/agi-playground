@@ -571,9 +571,19 @@
             "label": "Outcome report"
           },
           {
-            "type": "doc",
-            "id": "missions/06-game-ai/03-fixing-collapse/index",
-            "label": "Fixing the collapse"
+            "type": "category",
+            "label": "Fixing the collapse",
+            "link": {
+              "type": "doc",
+              "id": "missions/06-game-ai/03-fixing-collapse/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/06-game-ai/03-fixing-collapse/the-diversity-direction/index",
+                "label": "The diversity direction"
+              }
+            ]
           },
           {
             "type": "doc",
