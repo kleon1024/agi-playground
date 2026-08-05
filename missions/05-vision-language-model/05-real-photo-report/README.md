@@ -105,3 +105,9 @@ matches the synthetic-shapes result from stage 01/02. The build-vs-buy answer
 mission 05 set out to test is the same on real photographs as it was on
 synthetic shapes -- buy, not build, at this scale -- which is now confirmed
 on real data instead of only on rendered shapes.
+
+A detour from here: [the build-vs-buy verdict, on real
+photos](when-the-api-still-wins/) — the hosted API's accuracy recomputed
+from the raw log (0.460, matching the recorded 0.4596) and the three-arm
+comparison read: real photos do not change the NOT MET answer, and the
+API's edge is answer-type-shaped.

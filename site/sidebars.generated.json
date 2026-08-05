@@ -726,9 +726,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/05-vision-language-model/05-real-photo-report/index",
-            "label": "Real-photo outcome report"
+            "type": "category",
+            "label": "Real-photo outcome report",
+            "link": {
+              "type": "doc",
+              "id": "missions/05-vision-language-model/05-real-photo-report/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/05-vision-language-model/05-real-photo-report/when-the-api-still-wins/index",
+                "label": "When the API still wins"
+              }
+            ]
           },
           {
             "type": "category",
@@ -811,9 +821,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/06-game-ai/05-report/index",
-            "label": "Full-chain report"
+            "type": "category",
+            "label": "Full-chain report",
+            "link": {
+              "type": "doc",
+              "id": "missions/06-game-ai/05-report/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/06-game-ai/05-report/when-the-null-is-elevated/index",
+                "label": "When the null is elevated"
+              }
+            ]
           },
           {
             "type": "category",

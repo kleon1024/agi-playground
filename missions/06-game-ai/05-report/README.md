@@ -68,3 +68,8 @@ compact symbolic grid, not pixels.
 stage could test whether a warm start, a shaped reward, or a longer run
 produces a non-degenerate MiniGrid training step -- none of which were
 tried here.
+
+A detour from here: [the honest null, elevated to a
+verdict](when-the-null-is-elevated/) — the acceptance bar's second
+disjunct read: a rigorous negative is a deliverable, NOT MET would misread
+the bar, and the two-environment null is the mission's actual result.

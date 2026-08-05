@@ -487,6 +487,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "missions/05-vision-language-model/05-real-photo-report/when-the-api-still-wins": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/05-vision-language-model/06-warmup-stability": {
     "level": "applied",
     "minutes": 4
@@ -534,6 +538,10 @@
   "missions/06-game-ai/05-report": {
     "level": "applied",
     "minutes": 2
+  },
+  "missions/06-game-ai/05-report/when-the-null-is-elevated": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/06-game-ai/06-tool-use-rl": {
     "level": "applied",
