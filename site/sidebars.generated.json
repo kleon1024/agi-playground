@@ -386,9 +386,19 @@
             "label": "Rule engine"
           },
           {
-            "type": "doc",
-            "id": "missions/02-personalized-discovery/08-serving/index",
-            "label": "Serving"
+            "type": "category",
+            "label": "Serving",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/08-serving/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/08-serving/when-the-cut-bites/index",
+                "label": "When the cut bites"
+              }
+            ]
           },
           {
             "type": "doc",

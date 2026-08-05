@@ -53,3 +53,8 @@ Give every timeout its own degradation semantics. Let the lexical queue time out
 Capacity planning is a separate question from a single-request histogram. At production load, queueing can dominate model execution and turn a healthy isolated p95 into an unhealthy service p95. Measure arrival rate, saturation, batch size, cancellation rate, and tail latency under representative concurrency. A model speedup may raise throughput but still worsen latency if it changes batching or contention. The core deliberately makes none of those claims; it establishes why the complete critical path, rather than a stage benchmark, owns the budget.
 
 Watch cache correctness too. Key a personalised slate on the user or cohort, relevant context, policy version, inventory freshness, and experiment arm. Widen that key and you get an impressive timing graph by serving the wrong page; narrow it too far and you get little hit rate. The measured trade is therefore not "cache versus no cache," but correctness-preserving hit rate versus the miss path that still determines tail experience.
+
+A detour from here: [what does the pre-rank cut buy, and when does it stop
+paying?](when-the-cut-bites/) — the cut swept across six values: its cost
+lands on fine-rank, and the latency curve flattens below ~100 so recall
+quality is nearly free.
