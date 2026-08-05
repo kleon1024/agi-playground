@@ -100,3 +100,9 @@ outcomes; those are the data needed to fit the absolute level. The curve teaches
 the shape and the ownership boundary. `05-report` next refuses to call the
 mission met until net outcomes, both baselines, every guardrail, and regime
 failures arrive as a complete artifact.
+
+A detour from here: [where does the book stop making
+money?](when-the-book-stops-making-money/) — the capacity curve swept across
+the full book-size range: net dollar return peaks near \$31.6B, turns
+negative at \$100B, and the cliff is where participation crosses 100% of
+daily volume.

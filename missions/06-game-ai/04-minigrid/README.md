@@ -114,3 +114,8 @@ update here.
 **Next:** [stage 05](../05-report/) holds this result, stage 03's, and the
 original stage 00-02 finding together against the mission's updated
 acceptance bar.
+
+A detour from here: [why is the cold start total on
+MiniGrid?](when-the-cold-start-is-total/) — the sparsity gradient across
+three environments: 22.2% baseline -> 1/200 degenerate, 0.4% -> 80/80,
+~0% -> 200/200; degeneracy tracks baseline success by construction.

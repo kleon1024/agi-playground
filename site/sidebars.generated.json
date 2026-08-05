@@ -486,9 +486,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/03-quantitative-research/04-cost-and-capacity/index",
-            "label": "Cost and capacity"
+            "type": "category",
+            "label": "Cost and capacity",
+            "link": {
+              "type": "doc",
+              "id": "missions/03-quantitative-research/04-cost-and-capacity/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/03-quantitative-research/04-cost-and-capacity/when-the-book-stops-making-money/index",
+                "label": "When the book stops making money"
+              }
+            ]
           },
           {
             "type": "doc",
@@ -676,9 +686,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/06-game-ai/04-minigrid/index",
-            "label": "A real partially-observed environment"
+            "type": "category",
+            "label": "A real partially-observed environment",
+            "link": {
+              "type": "doc",
+              "id": "missions/06-game-ai/04-minigrid/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/06-game-ai/04-minigrid/when-the-cold-start-is-total/index",
+                "label": "When the cold start is total"
+              }
+            ]
           },
           {
             "type": "doc",
