@@ -367,6 +367,10 @@
     "level": "applied",
     "minutes": 6
   },
+  "missions/04-code-agent/04-how-it-fails/when-the-patch-cannot-apply": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/04-code-agent/05-report": {
     "level": "applied",
     "minutes": 6
@@ -490,6 +494,10 @@
   "missions/08-video-generation/01-video-tokenizer": {
     "level": "applied",
     "minutes": 6
+  },
+  "missions/08-video-generation/01-video-tokenizer/what-a-video-token-is": {
+    "level": "applied",
+    "minutes": 4
   },
   "missions/08-video-generation/02-generation-model": {
     "level": "applied",

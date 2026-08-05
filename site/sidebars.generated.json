@@ -486,9 +486,19 @@
             "label": "Cheap or expensive"
           },
           {
-            "type": "doc",
-            "id": "missions/04-code-agent/04-how-it-fails/index",
-            "label": "How it fails"
+            "type": "category",
+            "label": "How it fails",
+            "link": {
+              "type": "doc",
+              "id": "missions/04-code-agent/04-how-it-fails/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/04-code-agent/04-how-it-fails/when-the-patch-cannot-apply/index",
+                "label": "When the patch cannot apply"
+              }
+            ]
           },
           {
             "type": "doc",
@@ -671,9 +681,19 @@
             "label": "Synthetic video dataset"
           },
           {
-            "type": "doc",
-            "id": "missions/08-video-generation/01-video-tokenizer/index",
-            "label": "Video tokenizer"
+            "type": "category",
+            "label": "Video tokenizer",
+            "link": {
+              "type": "doc",
+              "id": "missions/08-video-generation/01-video-tokenizer/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/08-video-generation/01-video-tokenizer/what-a-video-token-is/index",
+                "label": "What a video token is"
+              }
+            ]
           },
           {
             "type": "doc",
