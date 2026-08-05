@@ -32,8 +32,8 @@ the stage consumes.
 | 05 vision-language | 7 (00..06) | where-the-decoder-looks, seed-vs-pixels | 05-vision-language.md | none | warmup-stability (deepen) |
 | 06 game AI | 7 (00..06) | the-diversity-direction, when-two-seeds-stopped-paying | 06-game-ai.md | none | fixing-collapse (deepen) |
 | 07 realtime voice | 7 (00..06) | why-codebooks-collapse, when-the-reset-never-stops | 07-realtime-voice.md | codebook usage (VQ anatomy) | — |
-| 08 video generation | 7 (00..06) | what-a-video-token-is | 08-video-generation.md | video token (VQ anatomy) | generation-model |
-| 09 bio-pharma | 7 (00..06) | when-width-memorizes | 09-bio-pharma.md | none | descriptor baseline (deepen) |
+| 08 video generation | 7 (00..06) | what-a-video-token-is, when-wrong-tokens-still-reconstruct | 08-video-generation.md | video token (VQ anatomy) | — |
+| 09 bio-pharma | 7 (00..06) | when-width-memorizes, the-split-that-decides | 09-bio-pharma.md | none | descriptor baseline (deepen) |
 
 ## Foundations and infra
 
