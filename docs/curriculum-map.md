@@ -27,10 +27,10 @@ the stage consumes.
 |---|---|---|---|---|---|
 | 01 language-model system | 8 (00-corpus..07-eval) | 36 detours across every stage | 01-language-model-system.md | attention-variants (KV anatomy) | stages already detoured; deepen on audit findings |
 | 02 personalized discovery | 10 (00..09) | when-the-trade-weight-moves, when-the-cut-bites, when-you-lose-a-queue | 02-personalized-discovery.md | none | pre-rank, fine-rank, value-tree, rule-engine |
-| 03 quantitative research | 6 (00..05) | when-breadth-inflates-the-winner, when-purge-matters, when-the-cap-bites, asof-vs-naive | 03-quantitative-research.md | none | cost-and-capacity |
+| 03 quantitative research | 6 (00..05) | when-breadth-inflates-the-winner, when-purge-matters, when-the-cap-bites, asof-vs-naive, when-the-book-stops-making-money | 03-quantitative-research.md | none | no-gap |
 | 04 code agent | 7 (00..06) | when-the-patch-cannot-apply, the-tier-that-won, what-the-task-set-contains | 04-code-agent.md | none | agent-loop, closing-the-loop |
 | 05 vision-language | 7 (00..06) | where-the-decoder-looks, seed-vs-pixels | 05-vision-language.md | none | warmup-stability (deepen) |
-| 06 game AI | 7 (00..06) | the-diversity-direction, when-two-seeds-stopped-paying | 06-game-ai.md | none | fixing-collapse (deepen) |
+| 06 game AI | 7 (00..06) | the-diversity-direction, when-two-seeds-stopped-paying, when-the-cold-start-is-total | 06-game-ai.md | none | fixing-collapse (deepen) |
 | 07 realtime voice | 7 (00..06) | why-codebooks-collapse, when-the-reset-never-stops | 07-realtime-voice.md | codebook usage (VQ anatomy) | — |
 | 08 video generation | 7 (00..06) | what-a-video-token-is, when-wrong-tokens-still-reconstruct | 08-video-generation.md | video token (VQ anatomy) | — |
 | 09 bio-pharma | 7 (00..06) | when-width-memorizes, the-split-that-decides | 09-bio-pharma.md | none | descriptor baseline (deepen) |
