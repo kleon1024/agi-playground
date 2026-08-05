@@ -178,3 +178,8 @@ apply.
 **Next:** stage 02 trains a sequence model over this codec's token
 vocabulary and checks whether the compute cost of doing so clears the
 ceiling `mission.yaml` declared before any of this was built.
+
+A detour from here: [what is the discrete thing a video model conditions
+on?](what-a-video-token-is/) — a second seed measures the token stream and
+the codebook health the revival fixes bought: 49/64 versus 63/64, with
+reconstruction quality tracking it.
