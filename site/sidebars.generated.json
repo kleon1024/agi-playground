@@ -826,9 +826,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/07-realtime-voice/01-streaming-decode/index",
-            "label": "Streaming decode"
+            "type": "category",
+            "label": "Streaming decode",
+            "link": {
+              "type": "doc",
+              "id": "missions/07-realtime-voice/01-streaming-decode/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/07-realtime-voice/01-streaming-decode/when-the-cache-pays/index",
+                "label": "When the cache pays"
+              }
+            ]
           },
           {
             "type": "doc",

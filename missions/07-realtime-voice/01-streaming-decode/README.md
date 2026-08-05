@@ -122,3 +122,8 @@ speech, longer utterances, or multi-speaker audio, per `mission.yaml`'s own
 
 **Next:** stage 02 holds this result against `mission.yaml`'s acceptance bar
 and reports a verdict.
+
+A detour from here: [the KV cache on audio tokens: same answer, flat
+latency](when-the-cache-pays/) — the recorded correctness (3/3 token match)
+and the latency stress (naive 6.9x degradation vs cached flat) read as the
+two halves of the mission's central claim.
