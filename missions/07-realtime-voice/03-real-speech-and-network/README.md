@@ -182,3 +182,8 @@ connection. No GPU-lane numbers for training; the codec ran on CPU.
 
 **Next:** a report stage, if this mission adds one, would hold both this
 result and stage 01/02's against `mission.yaml`'s acceptance bar together.
+
+A detour from here: [the real network is where the realtime margin
+goes](when-the-network-is-the-tail/) — the recorded Tailscale round trip
+read beside the decode budget: the cache keeps decode flat, and the
+network's p95/max (42/85ms) are where the realtime tail lives.

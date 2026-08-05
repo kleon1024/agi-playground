@@ -569,7 +569,11 @@
   },
   "missions/07-realtime-voice/03-real-speech-and-network": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
+  },
+  "missions/07-realtime-voice/03-real-speech-and-network/when-the-network-is-the-tail": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/07-realtime-voice/04-multi-speaker": {
     "level": "applied",

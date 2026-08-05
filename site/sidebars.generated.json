@@ -876,9 +876,19 @@
             "label": "Outcome report"
           },
           {
-            "type": "doc",
-            "id": "missions/07-realtime-voice/03-real-speech-and-network/index",
-            "label": "Real speech and network"
+            "type": "category",
+            "label": "Real speech and network",
+            "link": {
+              "type": "doc",
+              "id": "missions/07-realtime-voice/03-real-speech-and-network/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/07-realtime-voice/03-real-speech-and-network/when-the-network-is-the-tail/index",
+                "label": "When the network is the tail"
+              }
+            ]
           },
           {
             "type": "category",
