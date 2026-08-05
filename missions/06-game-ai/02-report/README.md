@@ -130,3 +130,8 @@ decode mode that matters. A `NOT MET` verdict on the deployment question does
 not undo the reuse finding -- it says this particular training budget, on
 this particular environment, produced a policy not worth deploying over
 either baseline, which is a real, useful, and unflattering answer.
+
+A detour from here: [the honest NOT MET: how the verdict is
+built](when-the-verdict-is-not-met/) — the margins recomputed from the
+committed JSONs against the policy's own spread, and the failure catalogue
+that makes the verdict a diagnosis instead of a number.

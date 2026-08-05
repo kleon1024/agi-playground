@@ -471,6 +471,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "missions/05-vision-language-model/03-real-photo-task/the-real-photo-guardrail": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/05-vision-language-model/04-real-photo-vision-fusion": {
     "level": "applied",
     "minutes": 3
@@ -506,6 +510,10 @@
   "missions/06-game-ai/02-report": {
     "level": "applied",
     "minutes": 4
+  },
+  "missions/06-game-ai/02-report/when-the-verdict-is-not-met": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/06-game-ai/03-fixing-collapse": {
     "level": "applied",

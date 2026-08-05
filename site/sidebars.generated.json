@@ -696,9 +696,19 @@
             "label": "Outcome report"
           },
           {
-            "type": "doc",
-            "id": "missions/05-vision-language-model/03-real-photo-task/index",
-            "label": "The real-photo task"
+            "type": "category",
+            "label": "The real-photo task",
+            "link": {
+              "type": "doc",
+              "id": "missions/05-vision-language-model/03-real-photo-task/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/05-vision-language-model/03-real-photo-task/the-real-photo-guardrail/index",
+                "label": "The real-photo guardrail"
+              }
+            ]
           },
           {
             "type": "category",
@@ -756,9 +766,19 @@
             "label": "GRPO against the grid-world"
           },
           {
-            "type": "doc",
-            "id": "missions/06-game-ai/02-report/index",
-            "label": "Outcome report"
+            "type": "category",
+            "label": "Outcome report",
+            "link": {
+              "type": "doc",
+              "id": "missions/06-game-ai/02-report/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/06-game-ai/02-report/when-the-verdict-is-not-met/index",
+                "label": "When the verdict is NOT MET"
+              }
+            ]
           },
           {
             "type": "category",

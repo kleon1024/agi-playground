@@ -98,3 +98,8 @@ answers. Full boundary in [`../mission.yaml`](../mission.yaml)'s
 **Next:** stage 04 retrains the same vision-token-prefix architecture from
 stage 01 on this real-photo data and measures whether it still beats a
 text-only decoder and a hosted VLM API.
+
+A detour from here: [the real-photo guardrail: why image ID, not pixel
+hash](the-real-photo-guardrail/) — the recorded dataset build read: the
+exact-match filter and the ID-based disjointness check that real data
+actually needs.
