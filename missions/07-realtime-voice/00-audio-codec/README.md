@@ -114,3 +114,9 @@ production codec quality, per `mission.yaml`'s own `does_not_prove`.
 continuous-batching decode loop imported from
 [`05-serve/graph-execution`](../../../missions/01-language-model-agent/05-serve/graph-execution/),
 and measures whether it works unchanged for audio tokens.
+
+A detour from here: [why does a VQ codebook collapse — and can you watch it
+happen?](why-codebooks-collapse/) measures codebook usage at 25-step
+intervals on a fresh seed — the whole batch on one code at step 0, a slow
+non-monotonic recovery, and the seed-dependence the mission's later stages
+investigate.

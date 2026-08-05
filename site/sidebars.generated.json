@@ -601,9 +601,19 @@
         },
         "items": [
           {
-            "type": "doc",
-            "id": "missions/07-realtime-voice/00-audio-codec/index",
-            "label": "Audio codec"
+            "type": "category",
+            "label": "Audio codec",
+            "link": {
+              "type": "doc",
+              "id": "missions/07-realtime-voice/00-audio-codec/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/07-realtime-voice/00-audio-codec/why-codebooks-collapse/index",
+                "label": "Why codebooks collapse"
+              }
+            ]
           },
           {
             "type": "doc",

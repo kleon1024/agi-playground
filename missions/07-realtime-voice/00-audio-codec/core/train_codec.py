@@ -75,6 +75,11 @@ def train(args: argparse.Namespace) -> dict:
 
         if step % args.log_every == 0:
             record = {"step": step, "recon_loss": recon_loss.item(), "vq_loss": vq_loss.item()}
+            if args.usage_every and step % args.usage_every == 0:
+                usage = codebook_usage(_tokens, cfg.codebook_size)
+                flat = _tokens.reshape(-1)
+                usage["counts"] = torch.bincount(flat, minlength=cfg.codebook_size).tolist()
+                record["usage"] = usage
             history.append(record)
             print(json.dumps(record), flush=True)
     elapsed = time.perf_counter() - t0
@@ -129,6 +134,9 @@ def build_argparser() -> argparse.ArgumentParser:
     p.add_argument("--n-eval", type=int, default=100)
     p.add_argument("--lr", type=float, default=3e-4)
     p.add_argument("--commitment-weight", type=float, default=0.25)
+    p.add_argument("--usage-every", type=int, default=None,
+                   help="log codebook usage on the batch every N steps, for "
+                   "the codebook-anatomy trajectory")
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--log-every", type=int, default=20)
     p.add_argument("--out", type=Path, default=None)

@@ -443,6 +443,10 @@
     "level": "applied",
     "minutes": 4
   },
+  "missions/07-realtime-voice/00-audio-codec/why-codebooks-collapse": {
+    "level": "applied",
+    "minutes": 4
+  },
   "missions/07-realtime-voice/01-streaming-decode": {
     "level": "applied",
     "minutes": 4
