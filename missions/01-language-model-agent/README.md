@@ -68,6 +68,7 @@ taking.
 | before 02 | what a decoder block is doing at all | [the decoder block](../../foundations/00-attention/) | the forward path, and this model's 88,197,888 parameters reconstructed from its own formulas |
 | 00 | which documents to keep, and whether the filter is defensible | [what a release needs](00-corpus/what-a-release-needs/) | a versioned dataset with rejection reasons |
 | 02 | whether an architecture choice is worth its cost | [architecture ablations](02-pretrain/architecture-ablations/) | six choices measured, two of which flip sign between seeds |
+| 02 | whether attention variants change the serving bill | [why is the KV cache the architecture's tax?](02-pretrain/attention-variants/) | the MHA/GQA/MQA/MLA trade, drawn and computed |
 | 02 | why a run will take ten hours, and whether it should | [the throughput ladder](02-pretrain/throughput/) | tokens per second, MFU, and what to change |
 | after 02 | whether to keep the checkpoint or retrain a new shape | [upcycling](02-pretrain/upcycling/) | a converted checkpoint that starts at the parent's loss |
 | 03 | whether teacher data beats human data | [distillation](03-sft/distillation/) | a target format and its tokenizer constraint |

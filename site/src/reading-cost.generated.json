@@ -107,6 +107,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/01-language-model-agent/02-pretrain/attention-variants": {
+    "level": "applied",
+    "minutes": 5
+  },
   "missions/01-language-model-agent/02-pretrain/latent-reasoning": {
     "level": "frontier",
     "minutes": 10

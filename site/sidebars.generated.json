@@ -120,6 +120,11 @@
               },
               {
                 "type": "doc",
+                "id": "missions/01-language-model-agent/02-pretrain/attention-variants/index",
+                "label": "Attention variants"
+              },
+              {
+                "type": "doc",
                 "id": "missions/01-language-model-agent/02-pretrain/LANDSCAPE",
                 "label": "Landscape"
               }
