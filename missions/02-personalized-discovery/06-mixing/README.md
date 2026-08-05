@@ -38,6 +38,10 @@ uv run python core/slate_mixing.py
 uv run python prod/mmr_assignment.py
 ```
 
+A detour from here: [what does a mixing weight actually trade off?](when-the-trade-weight-moves/)
+measures the constraint-versus-penalty price and the ad curve's knee on the
+same catalogue — the two tradeoffs this stage names in prose, run as numbers.
+
 The production path demonstrates maximal marginal relevance with NumPy; other production alternatives are a determinantal point process and an LP/ILP allocation solved by OR-Tools or a commercial solver. All retain the same required accounting: candidate source, slate constraints, position model, ad revenue, and displacement.
 
 This run is a synthetic optimization exercise. Fine-rank values are not calibrated production estimates, and no offline slate metric here has been shown to predict online satisfaction. Stage 07 applies non-negotiable constraints after mixing and records which candidates were removed.

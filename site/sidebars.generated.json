@@ -361,9 +361,19 @@
             "label": "Value tree"
           },
           {
-            "type": "doc",
-            "id": "missions/02-personalized-discovery/06-mixing/index",
-            "label": "Mixing"
+            "type": "category",
+            "label": "Mixing",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/06-mixing/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/06-mixing/when-the-trade-weight-moves/index",
+                "label": "When the trade weight moves"
+              }
+            ]
           },
           {
             "type": "doc",
