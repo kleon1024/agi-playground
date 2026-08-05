@@ -26,7 +26,7 @@ the stage consumes.
 | Mission | Stages | Existing detours | Lineage survey | Anatomy chapters | Deep-dive gap |
 |---|---|---|---|---|---|
 | 01 language-model system | 8 (00-corpus..07-eval) | 36 detours across every stage | 01-language-model-system.md | attention-variants (KV anatomy) | stages already detoured; deepen on audit findings |
-| 02 personalized discovery | 10 (00..09) | when-the-trade-weight-moves | 02-personalized-discovery.md | none | recall, pre-rank, fine-rank, value-tree, rule-engine, serving |
+| 02 personalized discovery | 10 (00..09) | when-the-trade-weight-moves, when-the-cut-bites | 02-personalized-discovery.md | none | recall, pre-rank, fine-rank, value-tree, rule-engine |
 | 03 quantitative research | 6 (00..05) | when-breadth-inflates-the-winner, when-purge-matters, when-the-cap-bites | 03-quantitative-research.md | none | market-data, cost-and-capacity |
 | 04 code agent | 7 (00..06) | when-the-patch-cannot-apply, the-tier-that-won | 04-code-agent.md | none | task-set, agent-loop, closing-the-loop |
 | 05 vision-language | 7 (00..06) | where-the-decoder-looks | 05-vision-language.md | none | warmup-stability (deepen) |
