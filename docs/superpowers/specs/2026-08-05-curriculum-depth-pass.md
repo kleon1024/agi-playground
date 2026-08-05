@@ -1,0 +1,94 @@
+# Design — Repo-wide depth pass: new chapters first, verification second
+
+## Context
+
+The user's asks across sessions, in order of appearance: "每个mission的每个
+章节的深度都不够，差的远" (every mission's chapters are not deep enough);
+"各种实际样本数据都没有体现，需要大规模下钻丰富" (none of the actual sample
+data is reflected — needs large-scale deep-dive enrichment); "sft在模型大小上
+的区别也没有" (the SFT model-size distinction is missing); "验证是一方面，
+内容深度也是，需要下加更多章节" (verification is one thing, content depth is
+another — we need to ADD more chapters); "通过实践上来" (ground it in
+practice).
+
+This spec replaces the earlier 04-09-only widget-parity spec
+(`2026-07-31-mission-04-09-depth-pass-design.md`) as the governing plan. The
+earlier spec's error was treating widgets as the depth deliverable; widgets
+are a teaching instrument, not the depth. The depth deliverable is **new
+chapters that answer a decision the main stage asserts without showing**, each
+backed by a run executed here.
+
+## The method (applied to every chapter in the repo)
+
+1. Read the chapter's causal spine. Mark every place a mechanism is asserted
+   rather than shown — a formula stated, a number cited, a failure mode named
+   with no worked example.
+2. For each such place, decide by the central-question test:
+   - **New detour chapter** when the missing depth answers a different
+     decision than the main stage (e.g., "does SFT's effect change with model
+     size?" is not the main stage's question, which is "how does SFT work?").
+   - **Deepen in place** when the mechanism belongs to the main path and only
+     needs a worked example or real sample data.
+3. Practice first: write the run before the prose. A claim with no `runs/`
+   entry stays out of the README (the repo's own invariant).
+4. Sample data comes from the run's own output, not from a generic example —
+   the agentic-format run (2026-08-05) is the pattern: the chapter shows the
+   rendered trajectories, and the `runs/` record holds the full output and
+   metrics.
+5. External results are allowed and must be dated and attributed, and may
+   never sit beside this repo's measured numbers as if measured the same way.
+
+## The new-chapter queue (audited 2026-08-05)
+
+The audit counted headings per chapter: mission 02 stages 06-09 and mission 03
+stages 03-05 are the thinnest (3-6 headings), and every mission has at least
+one stage that asserts a mechanism with no worked practice. The queue below
+is the "add more chapters" list; each entry names the central question and
+the practice run that answers it.
+
+| Mission | Where | New chapter / deepening | Central question | Practice run |
+|---|---|---|---|---|
+| 01 | 03-sft | `what-model-size-changes` | Does SFT's effect scale with model size? | 5M pretrained-SFT vs 5M random-init-SFT vs recorded 88M SFT (this spec's pilot) |
+| 01 | 00-corpus | mixture + agentic component | Where does agentic data enter the mix, and at what share? | agentic-format render run (2026-08-05) |
+| 01 | 02-pretrain | `when-the-curve-goes-wrong` (deepen, draft) | What can a loss curve tell you, and what can it not? | a seeded bad-run sweep |
+| 01 | 07-eval | `why-believe-the-number` (deepen, draft) | What is one number from a harness worth? | variance re-runs across seeds |
+| 02 | 06-mixing | mixing-weight chapter | What does a mixing weight actually trade off? | a two-weight ablation on the recall stage |
+| 02 | 01-content-understanding | cold-start / sparse-interaction chapter | What can you recommend before a user has history? | popularity baseline vs the fine-rank stage |
+| 03 | 01-signal-research | false-discovery chapter | Why does a search over 1,000 signals find losers? | permutation-null run at higher trial counts |
+| 03 | 03-walk-forward | fold-fit chapter (deepen) | Why is fold-specific fit not strategy fit? | the existing runs' per-fold curves |
+| 04 | 04-how-it-fails | failure taxonomy (deepen) | Which failure modes are structural vs fixable? | re-run the agent at three temperatures |
+| 04 | 03-cheap-or-expensive | cost curve (deepen) | Where is the cost-quality knee? | token-count curve from the recorded runs |
+| 05 | 01-vision-fusion | fusion mechanism | What does cross-attention actually fuse? | a weight/ablation study on the small VLM |
+| 06 | 01-grpo | advantage normalization (deepen) | What does GRPO's advantage normalization change? | the recorded GRPO run, recomputed by hand |
+| 07 | 00-audio-codec | codebook math (deepen) | Why does a VQ codebook collapse? | the recorded codec run's codebook statistics |
+| 08 | 01-video-tokenizer | codebook collapse (deepen) | What are the three failure modes, mechanistically? | the recorded codec run's three failure stats |
+| 09 | 01-descriptor-baseline | descriptor semantics | What does a fingerprint measure, and what does it miss? | the recorded grid's RDKit agreement |
+| foundations | 01-first-training-loop | worked backward pass | What does one backward pass compute, line by line? | a hand-traced backward pass vs autograd |
+
+Not in this queue: chapters already deep (missions 01's corpus/tokenizer/
+pretrain, 07-eval's metric-gaming, mid-training), which only get deepened if
+a real gap shows up during the pass.
+
+## Sequencing
+
+One fork per mission, oldest-built first: 01 (this pilot), then 04-09
+(upgrading the earlier widget-parity list to run-grounded chapters), then
+02-03, then foundations. Each fork proposes its specific new chapter and
+practice run before writing anything, then runs the repo gates and commits
+per mission.
+
+## Acceptance
+
+For every new or deepened chapter:
+
+- a `runs/` record with command, hardware, wall-clock, cost, and the numbers;
+- real sample data rendered from that run's output, not generic examples;
+- the mechanism's failure boundary stated, and what the run does not prove;
+- a check-your-mental-model question that the chapter's own evidence answers;
+- `uv run ruff check .`, `uv run pytest -q`, and the site sync/typecheck/build
+  with no broken-link or broken-anchor warnings;
+- the generated route and at least one interactive state change checked at
+  390px before the chapter is called done.
+
+Verification (`status: verified`) is the floor. A chapter that is verified but
+shallow is a defect this pass exists to remove.

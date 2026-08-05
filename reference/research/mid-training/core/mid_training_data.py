@@ -21,8 +21,8 @@ first.
 Either route produces a transcript with three kinds of assistant-side text:
 what the model decided (think), what it did (act), and what came back
 (observe). Training loss on all three teaches the model to generate
-convincing tool output, which is the failure section 5 describes. The fix —
-also section 5 — is to mask the loss on observation tokens: the model still
+convincing tool output, which is the failure section 8 describes. The fix —
+also section 8 — is to mask the loss on observation tokens: the model still
 reads them, so it still learns to condition its next think/act step on real
 tool results, but no gradient asks it to have produced that text itself.
 `render_and_mask` below builds exactly that (ids, labels) pair, with `-100`
@@ -133,7 +133,7 @@ def high_order_action_synthesis(key: str, wrong_key: str) -> list[Turn]:
 
 def is_trainable(turn: Turn) -> bool:
     """Assistant-authored spans get loss; the user's turn and every
-    observation do not — see the module docstring and README section 5."""
+    observation do not — see the module docstring and README section 8."""
     return turn.role == "assistant" and turn.kind != "observe"
 
 
@@ -167,7 +167,7 @@ def render_and_mask(trajectory: list[Turn]) -> tuple[list[int], list[int]]:
 
 def describe(name: str, trajectory: list[Turn]) -> None:
     """Print a trajectory and the mask it produces, so the mechanism in
-    sections 4 and 5 is something you read rather than take on faith."""
+    sections 4 and 8 is something you read rather than take on faith."""
     print(f"--- {name} ---")
     for turn in trajectory:
         tag = "loss  " if is_trainable(turn) else "masked"

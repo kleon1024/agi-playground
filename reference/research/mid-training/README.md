@@ -1,5 +1,6 @@
 ---
-status: draft
+status: verified
+verified: 2026-08-05
 level: applied
 base: none
 label: Mid-training
@@ -29,6 +30,10 @@ All three stages train the same next-token objective on different documents.
 Mid-training is the stage that decides whether the model has already seen a
 think, call a tool, read the result, continue episode before
 [SFT](../../../missions/01-language-model-agent/03-sft/) ever asks it to behave like an assistant.
+The boundary between the first two columns is a budget line, not a hard wall:
+programmes also mix a small agentic slice into general pretraining itself,
+concentrated in the annealing phase, at a single-digit share of tokens —
+section 7 puts numbers and sources on that.
 
 **Before this:** [pretraining](../../../missions/01-language-model-agent/02-pretrain/), for the base checkpoint this stage would start from.
 This chapter is about the stage between pretraining and post-training, so both
@@ -135,7 +140,99 @@ knowledge base and then a HAS expansion of it, so the difference between one
 clean shot and a decision process with feedback is something you can read
 token by token instead of taking on faith.
 
-## 5. A neutral format, not the eventual chat template
+## 5. What the trajectories actually look like
+
+Both synthesis routes in section 4 produce think/act/observe transcripts, but
+a corpus team receives agentic data in three shapes, and only one of them is
+synthesized by hand. `core/format_agentic_text.py` renders all three the way a
+pipeline would emit them; the full output and the metrics are in
+[the run record](runs/2026-08-05-agentic-formats.md).
+
+**Natural corpus text.** Jupyter notebook cell transcripts already sit in the
+web crawl. The `# In[n]:` / `# Out[n]:` markers carry an action, an error, an
+inspection, and a retry without any scaffolding:
+
+```text
+# In[3]:
+df = pd.read_csv("sales.csv")
+df.groupby("region")["revenue"].sum()
+
+# Out[3]:
+KeyError: 'revenue'
+
+# In[4]:
+df.columns
+# Out[4]:
+Index(['region', 'rev_usd', 'date'], dtype='object')
+
+# In[5]:
+df.groupby("region")["rev_usd"].sum()
+# Out[5]:
+region
+APAC    1284000
+EMEA     957000
+```
+
+This is the quasi-agentic family: the action -> error -> inspect -> fix arc is
+real, but the model absorbs it as ambient text by volume, not as a deliberate
+curriculum. Nothing separates code from its output, so the pattern is learned
+statistically rather than from an explicit tool contract.
+
+**Synthetic tool-use trajectories.** A declared tool schema, a user request, a
+structured call, a result, and a final answer:
+
+```text
+<|user|>
+Can you find flights from Singapore to Tokyo on Friday, and check the Tokyo weather that day?
+<|tool_call|>
+{"name": "search_flights", "arguments": {"origin": "SIN", "dest": "NRT", "date": "2026-08-07"}}
+<|tool_result|>
+{"flights": [{"flight": "SQ638", "dep": "09:30", "arr": "17:15", "price_usd": 412}, ...]}
+<|tool_call|>
+{"name": "get_weather", "arguments": {"city": "Tokyo", "date": "2026-08-07"}}
+<|tool_result|>
+{"forecast": "rain", "temp_c": [24, 29]}
+<|assistant|>
+Two flights on Friday: SQ638 departs 09:30 ($412) and JL712 departs 14:20 ($388). Tokyo has rain, 24-29 C.
+```
+
+Nothing goes wrong here. This is the clean-success shape: it teaches the loop
+— call a tool, read what comes back, answer from it — and that is all it
+teaches.
+
+**SWE-style trajectories.** The same loop over shell and file tools, with the
+failure left in: a test fails, the agent reads the offending code, edits it,
+and re-runs:
+
+```text
+<|tool_call|>
+{"name": "bash", "arguments": {"command": "python -m pytest test_parser.py -x"}}
+<|tool_result|>
+FAILED test_parser.py::test_empty_input - AttributeError: 'NoneType' object has no attribute 'strip'
+<|tool_call|>
+{"name": "read_file", "arguments": {"path": "parser.py", "lines": "40-55"}}
+<|tool_result|>
+42  def parse(text):
+43      text = text.strip()
+...
+<|assistant|>
+parse() does not handle a None input. Fix it.
+<|tool_call|>
+{"name": "str_replace", "arguments": {"path": "parser.py", "old": "def parse(text):\n    text = text.strip()", "new": "def parse(text):\n    if text is None:\n        return []\n    text = text.strip()"}}
+<|tool_result|>
+Edit applied.
+<|tool_call|>
+{"name": "bash", "arguments": {"command": "python -m pytest test_parser.py -x"}}
+<|tool_result|>
+1 passed in 0.12s
+```
+
+This is the highest-value family: it contains the recovery step the other two
+lack. The run record's metrics make the difference legible — the clean
+tool-use trajectory has no recovery; the SWE trajectory does, and it survives
+the truncation and noise that section 7 describes.
+
+## 6. A neutral format, not the eventual chat template
 
 `core/mid_training_data.py` marks each step with a plain `<role:kind>` tag —
 `<assistant:think>`, `<assistant:act>`, `<assistant:observe>` — not the
@@ -152,13 +249,62 @@ text, the same Thought/Action/Observation loop ReAct describes (Yao et al.,
 arXiv:2210.03629) — survives that later decision unmodified, because it never
 committed to a template SFT might discard.
 
+The trajectories in section 5 were recorded with `<|assistant|>`,
+`<|tool_call|>`, and `<|tool_result|>` special tokens, and a corpus team has
+two defensible options: convert them to neutral separators, or keep the
+original format — never mix conventions. `core/format_agentic_text.py` renders
+both (`--separators chat` vs `--separators neutral`), and the run record shows
+the result: the neutral rendering is 22 characters shorter and identical in
+token count, because the conversion changes the format contract, not the
+content. The one thing that breaks a model is a vocabulary collision —
+reserving special-token ids for a convention post-training later discards
+(SFT's `render_and_mask` spends ids `16385`-`16387` on ChatML markers; a
+pretraining mix that already committed those ids to `<|tool_call|>` would hand
+the fine-tune an identity conflict to resolve).
+
 What actually breaks when that structure is skipped or introduced too early
 is worked out with a real failed run in
 [the language-model system's agent chapter](../../../missions/01-language-model-agent/06-agent/),
 under "What does agentic training data actually need to teach?" — read that
 section for the evidence rather than re-deriving it here.
 
-## 6. Loss masking on observations
+## 7. Length, noise, and the mix
+
+Two pipeline decisions and one corpus-level decision sit between "we have
+trajectories" and "the model has seen them."
+
+**Truncation is a budget, not a choice.** Real tool output is longer than any
+fixed budget, so a pipeline caps every result — the run record renders a
+60-character cap and the read_file result ends mid-sentence, and the
+trajectory still resolves, which is exactly what a production token budget
+does to a long log. The learner can change the cap and watch the rendered
+trajectory change (`--max-result-chars`).
+
+**Noise is what teaches recovery.** A corpus of clean-success trajectories
+teaches the loop but never teaches what to do when a tool returns something
+unexpected, because the model never sees an unexpected result. Real pipelines
+inject the three failures a live tool actually returns — real errors,
+timeouts, and empty results — and the format script's `--noise` flag
+replaces the first tool result with one of them while keeping the fix-and-
+recover arc (error -> inspect -> correct -> success). Noise on every result
+instead of the first collapses the trajectory into all-failures and teaches
+nothing; placement is part of the design.
+
+**The mix is small and it is annealed.** Reported practice across programmes
+is a single-digit-percent share of the corpus, concentrated in the annealing
+phase rather than spread evenly over training — the closest dated published
+anchor in this chapter is GLM-5's mid-training at roughly 5% of its
+pretraining budget (section 3). Neither number is a measured optimum from this
+repository; both are reported practice, stated as such. The corpus-level view
+— what the mixture weights are, and how a deliberate agentic component
+differs from the weak notebook traces the web funnel happens to keep — is
+[the corpus stage's mixture chapter](../../../missions/01-language-model-agent/00-corpus/what-a-release-needs/).
+The downstream cost of getting the mix wrong is measured, not hypothetical:
+the language-model system's agent run scored 0/6 against a checkpoint that
+never saw an agentic-formatted example
+([stage 06](../../../missions/01-language-model-agent/06-agent/)).
+
+## 8. Loss masking on observations
 
 Both synthesis routes produce a transcript containing three kinds of text:
 what the model decided (think), what it did (act), and what came back
@@ -182,7 +328,7 @@ observation span, and `prod/chat_template_masking.py` reproduces the same mask
 through a real tokenizer's chat template instead of the toy one, so the
 mechanism is visibly the one instruction-tuning already used.
 
-## 7. Evidence boundary
+## 9. Evidence boundary
 
 This chapter cites five dated, external reports and demonstrates the
 mechanism the first two describe at a scale a single machine can execute. It
@@ -198,16 +344,28 @@ cited as precedent for where such data can come from, not implemented in
 scale — they do not show that either technique still behaves the same way at
 hundreds of billions of tokens.
 
+The new run in this chapter (2026-08-05) demonstrates the three trajectory
+shapes, separator conversion, truncation, and noise injection as rendered
+output. It does not demonstrate: that any particular mix ratio or noise rate
+improves a trained model (a training-run claim no single machine here can
+make, and the mixing figures above are labeled practice, not measurement); or
+that these scripted formats match what a specific production pipeline emits —
+they are representative shapes, rendered by this repository's own code.
+
 ## Run the working path
 
 `core/mid_training_data.py` builds a first-order trajectory from a toy
 knowledge base, expands it into a high-order one with an explicit correction
 step, and renders both with observation tokens masked out of the loss.
+`core/format_agentic_text.py` renders the three trajectory families from
+section 5 and demonstrates the separator, truncation, and noise decisions
+from sections 6 and 7 with flags.
 `prod/chat_template_masking.py` renders the same trajectories through a real
 tokenizer's chat template, which is closer to how a production pipeline would
-actually compute the mask. Neither script trains a model — there is no
-`runs/` directory yet, and this chapter stays `status: draft` until one
-exists.
+actually compute the mask. Neither script trains a model — the
+[run record](runs/2026-08-05-agentic-formats.md) covers all three scripts, and
+this chapter is `status: verified` for the mechanisms it demonstrates, not
+for a training run (see the evidence boundary above).
 
 ## Check your mental model
 
@@ -319,6 +477,38 @@ conditioning on a real or synthesized tool result is exactly the skill being
 trained — the mask only removes the gradient that would otherwise reward
 reproducing that text, via `-100` in the loss (`CrossEntropyLoss`'s ignored
 index) over every observation span.
+
+</details>
+
+**7. Why does a corpus of only clean-success trajectories fail to teach
+recovery, and what does the format script's `--noise` flag do about it?**
+
+<details>
+<summary>Answer</summary>
+
+Because the model never sees the thing it has to recover from. A clean-success
+corpus teaches the loop — call a tool, read a valid result, continue — but
+there is no example of an error, a timeout, or an empty result, so there is
+nothing to condition a corrective step on. `--noise` replaces the *first*
+tool result with one of those failures and leaves the rest clean, so the
+rendered trajectory keeps its recovery shape (error -> inspect -> correct ->
+success). Replacing every result instead collapses the trajectory into
+all-failures, which is the degenerate version of the same design.
+
+</details>
+
+**8. Where in the training schedule does a small agentic slice usually sit,
+and at roughly what share?**
+
+<details>
+<summary>Answer</summary>
+
+Concentrated in the annealing phase, at a single-digit-percent share of the
+corpus, per reported practice across programmes. The closest dated published
+anchor in this chapter is GLM-5's mid-training at roughly 5% of its
+pretraining budget. Neither figure is a measured optimum from this repository
+— the chapter's own run renders formats and demonstrates the mechanics, and
+the evidence boundary says so explicitly.
 
 </details>
 

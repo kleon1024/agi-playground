@@ -87,6 +87,19 @@ the schedule answers a stated hypothesis — "high-quality reference text late i
 training improves factuality without erasing coverage" — otherwise it is one
 more uncontrolled variable in a run you will want to attribute later.
 
+**Agentic data is a deliberate component, not a residue of this funnel.** The
+gates above keep English prose; notebook cells, shell transcripts, and
+tool-call logs are exactly the code- and list-heavy documents the language and
+quality filters drop, so the web funnel produces almost none of the
+action->error->inspect->fix arcs an agent needs. Programmes add those as a
+separate, small component of the mix — reported practice is a single-digit
+share of tokens, concentrated in the annealing phase, sourced from notebook
+text already in the crawl plus synthesized or distilled tool-use and
+SWE-style trajectories. [Mid-training](../../../../reference/research/mid-training/)
+owns the trajectory formats, the separator and noise decisions, and the
+evidence boundary; here it is one row of the mixture table, with a weight
+that has to be named like any other.
+
 ## Labels are a second data product
 
 Pretraining text needs a source and a filter record. Supervised, preference,

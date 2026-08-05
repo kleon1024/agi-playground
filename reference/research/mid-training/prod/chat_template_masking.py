@@ -22,7 +22,7 @@ message role (`"tool"`), the way most production chat templates already do
 for function-calling. Masking then falls out of one rule instead of two:
 *mask every token whose message role is not `"assistant"`.* User turns and
 tool observations both disappear from the loss the same way, for the same
-reason — see README section 5.
+reason — see README section 8.
 
 This script never calls a live tool and never downloads a pretrained
 tokenizer; the "real tool" here is the tokenizer and templating libraries, not
