@@ -369,7 +369,11 @@
   },
   "missions/04-code-agent/03-cheap-or-expensive": {
     "level": "frontier",
-    "minutes": 8
+    "minutes": 9
+  },
+  "missions/04-code-agent/03-cheap-or-expensive/the-tier-that-won": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/04-code-agent/04-how-it-fails": {
     "level": "applied",
@@ -457,7 +461,11 @@
   },
   "missions/06-game-ai/06-tool-use-rl": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
+  },
+  "missions/06-game-ai/06-tool-use-rl/when-two-seeds-stopped-paying": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/07-realtime-voice": {
     "level": "applied",

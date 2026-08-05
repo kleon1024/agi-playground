@@ -491,9 +491,19 @@
             "label": "Scoring the attempt"
           },
           {
-            "type": "doc",
-            "id": "missions/04-code-agent/03-cheap-or-expensive/index",
-            "label": "Cheap or expensive"
+            "type": "category",
+            "label": "Cheap or expensive",
+            "link": {
+              "type": "doc",
+              "id": "missions/04-code-agent/03-cheap-or-expensive/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/04-code-agent/03-cheap-or-expensive/the-tier-that-won/index",
+                "label": "The tier that won"
+              }
+            ]
           },
           {
             "type": "category",
@@ -626,9 +636,19 @@
             "label": "Full-chain report"
           },
           {
-            "type": "doc",
-            "id": "missions/06-game-ai/06-tool-use-rl/index",
-            "label": "Tool-use decision (calculator)"
+            "type": "category",
+            "label": "Tool-use decision (calculator)",
+            "link": {
+              "type": "doc",
+              "id": "missions/06-game-ai/06-tool-use-rl/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/06-game-ai/06-tool-use-rl/when-two-seeds-stopped-paying/index",
+                "label": "When two seeds stopped paying"
+              }
+            ]
           }
         ]
       },

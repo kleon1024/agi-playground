@@ -176,3 +176,8 @@ ran for a different collapse and is not repeated here.
 **Next question:** whether a calibrated tool-invocation policy, once (or if)
 one is found, survives a difficulty distribution it was not trained on --
 not attempted here.
+
+A detour from here: [why did two seeds stop paying for the
+tool?](when-two-seeds-stopped-paying/) — the recorded tool-rate
+trajectories: the calibrated seed's rate oscillates, the collapsed seeds'
+rates die to zero, and the divergence shows up by mid-training.

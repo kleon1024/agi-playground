@@ -238,3 +238,8 @@ thing the mission was built to decide between.
 control that says whether tools and test feedback are worth their complexity.
 Stage 04 catalogues failures by category — and this chapter has just supplied
 the first category that the scorer cannot detect on its own.
+
+A detour from here: [when every tier resolves everything, which tier
+won?](the-tier-that-won/) — the recorded 18/18 laid out as economics: haiku
+at 10.6% of total cost, working harder (more tokens, more turns) to get
+there.
