@@ -911,9 +911,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/07-realtime-voice/06-which-mechanism-did-it/index",
-            "label": "Which mechanism did it"
+            "type": "category",
+            "label": "Which mechanism did it",
+            "link": {
+              "type": "doc",
+              "id": "missions/07-realtime-voice/06-which-mechanism-did-it/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/07-realtime-voice/06-which-mechanism-did-it/the-half-that-did-the-work/index",
+                "label": "The half that did the work"
+              }
+            ]
           }
         ]
       },

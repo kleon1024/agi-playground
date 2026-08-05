@@ -244,3 +244,8 @@ Primary references: van den Oord, Vinyals & Kavukcuoglu, *Neural Discrete
 Representation Learning* (NeurIPS 2017), for the EMA codebook update; Razavi,
 van den Oord & Vinyals, *Generating Diverse High-Fidelity Images with VQ-VAE-2*
 (NeurIPS 2019), for the dead-code reset this stage crosses it with.
+
+A detour from here: [which half of the fix did the work?](the-half-that-did-the-work/)
+— the 2x2 grid read across three seeds: the reset carried the work
+(EMA-only is worse than plain in every seed), and EMA only enhances when
+the reset is present.

@@ -589,7 +589,11 @@
   },
   "missions/07-realtime-voice/06-which-mechanism-did-it": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 10
+  },
+  "missions/07-realtime-voice/06-which-mechanism-did-it/the-half-that-did-the-work": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/08-video-generation": {
     "level": "frontier",
