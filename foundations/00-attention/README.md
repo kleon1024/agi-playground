@@ -332,3 +332,7 @@ Every mechanism above has a production implementation that computes the same
 thing faster. [The foundations landscape](../LANDSCAPE.md) pairs them off, so
 you know which of these files you would keep and which you would delete the
 moment the model has to be fast.
+
+A detour from here: [how does a position encoding that never adds a vector
+work?](rope/) — rotary position encoding, measured at the repo's own head
+geometry, with the wavelength ladder and the rope_theta knob drawn.

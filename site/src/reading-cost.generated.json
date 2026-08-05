@@ -7,6 +7,10 @@
     "level": "foundation",
     "minutes": 10
   },
+  "foundations/00-attention/rope": {
+    "level": "foundation",
+    "minutes": 4
+  },
   "foundations/00-attention/what-it-costs": {
     "level": "foundation",
     "minutes": 6

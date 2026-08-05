@@ -757,6 +757,11 @@
         "items": [
           {
             "type": "doc",
+            "id": "foundations/00-attention/rope/index",
+            "label": "Rotary position encoding"
+          },
+          {
+            "type": "doc",
             "id": "foundations/00-attention/what-it-costs/index",
             "label": "What a block costs"
           }
