@@ -282,3 +282,9 @@ the Theano/Chainer/autograd/PyTorch lineage dated above.
 [The foundations landscape](../LANDSCAPE.md) already pairs this mechanism
 with PyTorch `autograd` and JAX `grad`/`vjp` as the production implementations
 of the same idea.
+
+A detour from here: [what each of the three gradient checks
+establishes](the-backward-pass-three-ways/) — the recorded checks read:
+engine-vs-analytical validates the implementation (0.0 diff), engine-vs-
+torch validates compatibility (1.1e-16), two questions answered by two
+reference points.

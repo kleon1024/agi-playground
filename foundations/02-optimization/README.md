@@ -299,3 +299,9 @@ whatever the actual Hessian of a transformer produces — measured, not
 assumed. Or return to [the first training loop](../01-first-training-loop/)
 and change its optimizer to plain SGD to see this chapter's mechanism affect
 a real, if tiny, GPT.
+
+A detour from here: [fewer flips is what makes fewer steps
+possible](the-flips-that-separate-optimizers/) — the recorded comparison
+read: SGD flips across the steep axis on 341 of 343 steps, momentum damps
+it (47/138), Adam nearly removes it (4/82), and the flip count is why the
+step counts differ.

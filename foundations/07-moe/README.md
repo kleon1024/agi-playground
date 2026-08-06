@@ -129,3 +129,9 @@ Back to the foundations index, or forward to
 [the language-model lineage](../../reference/research/lineages/01-language-model-system.md)
 where this mechanism's frontier forms (LatentMoE, SiTU, Quantile Balancing)
 are traced to the papers that introduced them.
+
+A detour from here: [the dead expert: what load balancing exists to
+fight](when-the-expert-goes-dead/) — the recorded routing sweep read:
+top-1 under a 4:1 skew leaves one expert at 0/200 (the routing analog of
+codebook collapse), and accuracy stays 1.000 in every cell because routing
+buys compute, not accuracy.

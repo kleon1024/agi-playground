@@ -205,3 +205,9 @@ the next open question this chapter does not answer.
 
 [The evaluation landscape](../../missions/01-language-model-agent/07-eval/LANDSCAPE.md) names the production libraries
 that implement paired bootstrap and other significance tests at scale.
+
+A detour from here: [the bigger gap is not the more certain
+one](when-the-interval-decides/) — the recorded bootstrap read: n=25 shows
+the larger gap (0.200) and the interval that includes zero, while n=300's
+narrower interval decides — point-estimate size and confidence are
+different axes.

@@ -186,3 +186,9 @@ before stage 02.
 [Stage 02 — pretraining](../../missions/01-language-model-agent/02-pretrain/) generalizes every choice made
 here, or jump to [stage 00](../../missions/01-language-model-agent/00-corpus/) to build the corpus
 this model was starved of.
+
+A detour from here: [the descent and the overfitting are the same
+curve](the-curve-that-takes-34-seconds/) — the recorded 2000-iteration
+curve read: the loop learns fast (val 4.327 -> 1.538) and the train/val
+gap grows monotonically (+0.001 to +0.263), so the health check and the
+overfitting signal are the same table.

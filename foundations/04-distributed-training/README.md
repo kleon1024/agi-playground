@@ -169,3 +169,9 @@ comparison on hardware you already have:
   what happens to a multi-rank job when it has to queue for slots.
 - [How much data actually moves when a storage node is added](../../infra/02-storage/) —
   where the sharded checkpoints this chapter writes end up living.
+
+A detour from here: [the all-reduce that makes ranks
+agree](when-the-ranks-agree/) — the recorded 4-rank simulation read: the
+0.000119 pre-reduction delta is the point of DDP, the asserted zero
+divergence is the proof it merged, and the 2x optimizer ratio is why ZeRO
+exists.
