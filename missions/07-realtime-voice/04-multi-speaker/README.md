@@ -141,3 +141,5 @@ A detour from here: [the fix that did not generalize](when-the-fix-did-not-gener
 — the three seeds' codebook health at 10 speakers: 18/63/32 of 64 codes,
 with MSE tracking usage (0.027 vs 0.017) — the seed-dependence returns at
 the frontier.
+
+Another detour: [no collapse — and a seed-dependent codebook](when-codebook-health-is-seed-dependent/) — the recorded seeds read: 18, 63, and 32 of 64 codes from the same recipe, which is the generalization gap stage 05 targets.

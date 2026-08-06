@@ -149,3 +149,5 @@ A detour from here: [is a dead-code reset a cure, or a maintenance
 loop?](when-the-reset-never-stops/) — the reset logs' trajectory across
 three seeds: 1,388-1,893 codes reset per run, health arriving only in the
 last ~400 steps, and the reset bill stage 06's 2x2 exists to cut.
+
+Another detour: [the mechanism that fixed utilization in every seed](when-reset-reaches-64-64/) — the recorded before/after read: 64/64 codes in all three seeds with resets tapering as the codebook stabilizes.

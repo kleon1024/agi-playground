@@ -249,3 +249,5 @@ A detour from here: [which half of the fix did the work?](the-half-that-did-the-
 — the 2x2 grid read across three seeds: the reset carried the work
 (EMA-only is worse than plain in every seed), and EMA only enhances when
 the reset is present.
+
+Another detour: [the 2x2 is trustworthy because its corners are already published](when-the-corners-reproduce/) — the recorded grid read: plain and reset-only reproduce stage 04/05 bit-for-bit, and the ema-only corner shows the EMA is not the fix.

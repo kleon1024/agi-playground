@@ -1150,6 +1150,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/07-realtime-voice/00-audio-codec/when-silence-is-a-local-minimum/index",
+                "label": "When silence is a local minimum"
+              },
+              {
+                "type": "doc",
                 "id": "missions/07-realtime-voice/00-audio-codec/why-codebooks-collapse/index",
                 "label": "Why codebooks collapse"
               }
@@ -1167,6 +1172,11 @@
                 "type": "doc",
                 "id": "missions/07-realtime-voice/01-streaming-decode/when-the-cache-pays/index",
                 "label": "When the cache pays"
+              },
+              {
+                "type": "doc",
+                "id": "missions/07-realtime-voice/01-streaming-decode/when-the-logits-match/index",
+                "label": "When the logits match"
               }
             ]
           },
@@ -1178,6 +1188,11 @@
               "id": "missions/07-realtime-voice/02-report/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/07-realtime-voice/02-report/the-five-acceptance-lines/index",
+                "label": "The five acceptance lines"
+              },
               {
                 "type": "doc",
                 "id": "missions/07-realtime-voice/02-report/when-the-transfer-is-clean/index",
@@ -1210,6 +1225,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/07-realtime-voice/04-multi-speaker/when-codebook-health-is-seed-dependent/index",
+                "label": "When codebook health is seed-dependent"
+              },
+              {
+                "type": "doc",
                 "id": "missions/07-realtime-voice/04-multi-speaker/when-the-fix-did-not-generalize/index",
                 "label": "When the fix did not generalize"
               }
@@ -1223,6 +1243,11 @@
               "id": "missions/07-realtime-voice/05-codebook-reset/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/07-realtime-voice/05-codebook-reset/when-reset-reaches-64-64/index",
+                "label": "When reset reaches 64/64"
+              },
               {
                 "type": "doc",
                 "id": "missions/07-realtime-voice/05-codebook-reset/when-the-reset-never-stops/index",
@@ -1242,6 +1267,11 @@
                 "type": "doc",
                 "id": "missions/07-realtime-voice/06-which-mechanism-did-it/the-half-that-did-the-work/index",
                 "label": "The half that did the work"
+              },
+              {
+                "type": "doc",
+                "id": "missions/07-realtime-voice/06-which-mechanism-did-it/when-the-corners-reproduce/index",
+                "label": "When the corners reproduce"
               }
             ]
           }

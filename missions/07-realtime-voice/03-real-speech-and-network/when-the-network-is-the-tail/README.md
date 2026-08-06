@@ -6,90 +6,84 @@ label: When the network is the tail
 verified: 2026-08-06
 ---
 
-# The real network is where the realtime margin goes
+# The realtime margin is the network's tail
 
-**Question:** [stage 03](../) measured a real Tailscale round trip beside
-the KV-cache correctness on real speech. A realtime voice contract has two
-terms — decode and network — and this chapter reads which one owns the
-tail.
+**Question:** [stage 03's real speech and network](../) moved the mission
+from synthetic tones to real speech over a real network. This chapter
+reads the recorded ping timing and asks where the realtime budget goes.
 
-**Before this:** [stage 03's real-speech run](../) and the streaming-decode
-latency from stage 01.
+**Before this:** [stage 03's real speech and network](../) and its recorded
+ping run.
 
 ## The round trip, read
 
-The run ([record](runs/2026-08-06-network-reading.md)) reads the recorded
-round-trip JSON:
+The run ([record](runs/2026-08-06-network-tail-read.md)) reads the
+recorded distribution:
 
-| | |
-|---|---|
-| path | Mac -> Tailscale (DERP-relayed) -> remote host |
-| pings | 200, 64 bytes each way |
-| p50 | 9.66ms |
-| p95 | 42.46ms |
-| max | 85.25ms |
+| metric | value |
+|---|---:|
+| p50 | 9.7 ms |
+| p95 | 42.5 ms |
+| max | 85.3 ms |
+| p95/p50 | 4.4x |
+
+200 pings, 64 bytes each way.
 
 ## Two readings
 
-**The decode side is flat and trustworthy; the network owns the tail.** The
-cached path decodes at ~1.5ms/token (stage 01's measured curve), so a
-48-token completion is ~72ms of decode with a small, flat network p50
-addition (~10ms). But the network's p95 (42.5ms) and max (85.3ms) are
-large fractions of the budget — over a DERP-relayed Tailscale path, the
-realtime margin is consumed by the network's tail, not by decode. The
-realtime contract is a tail contract, and the tail is the network's.
+**A 48-token completion decodes in ~72ms on this lane; the network is the
+variable part.** The codec and LM are millisecond-scale and mostly flat;
+the network round-trip spans 6-85ms. The p50 (9.7ms) is a small addition
+to the decode, but the p95 (42.5ms) and max (85.3ms) are a significant
+fraction of any realtime budget. The tail is where the realtime contract
+lives — and the p95/p50 ratio of 4.4x is the variance a budget must
+absorb.
 
-**The correctness check makes the budget question legitimate.** The
-KV-cache comparison held on the real-speech vocabulary — max logit gap
-~3e-05, 60/60 token sequences matched, the same order as the text
-vocabulary — so the decode side is not a correctness risk. The stage can
-ask "does the round trip fit the budget" without the cache silently
-changing the answer.
+**The network, not the codec, decides whether realtime is met.** Stage 02's
+MET was about the serving mechanism on synthetic tones; stage 03 adds the
+real-world constraint the mechanism sits under. The recorded distribution
+is the evidence that the bottleneck moved: local decode is tight, the
+network is not, and any end-to-end latency claim has to be made against
+the tail, not the mean.
 
 ## Evidence boundary
 
-One live round-trip measurement (200 pings, DERP-relayed Tailscale); the
-decode budget is stage 01's measured curve, cited. It reads the network's
-tail against the budget; it does not re-run the round trip and does not
-measure a different network path (a direct connection or a different relay
-would have different tails).
+The recorded ping run (200 pings, one host, 64 bytes each way, one
+session). It reads that artifact; it does not re-ping and the numbers
+characterize this network path on this day.
 
 ## Check your mental model
 
 Answer each before opening it.
 
-**1. Why does the realtime budget care about the p95 and max more than the
-p50?**
+**1. Why does the p95 matter more than the mean here?**
 
 <details>
 <summary>Answer</summary>
 
-Because a realtime voice interface is per-call: a single slow round trip is
-a broken turn for the user who experiences it, not an average. The p50
-(9.7ms) suggests the network is cheap; the p95 (42.5ms) and max (85.3ms)
-show the tail where a turn actually stalls. The mission's p50/p95 reporting
-rule exists precisely because the tail is what the user meets, and here the
-tail is an order of magnitude above the p50.
+Because a realtime service fails on the slow requests, not the typical
+one. The mean round trip (15.1ms) looks fine beside the decode; the p95
+(42.5ms) and max (85.3ms) are where requests actually break a latency
+budget. A budget set from the mean would miss the 5% of requests that
+take 4.4x the median — the tail is the contract.
 
 </details>
 
-**2. The decode is ~72ms for a 48-token completion. Where does the network
-fit in a real turn?**
+**2. What does the decode-vs-network split imply for an optimization?**
 
 <details>
 <summary>Answer</summary>
 
-Per token, the network is cheap — a 9.7ms p50 round trip per 8-token chunk
-is small against the chunk's decode. But a turn involves several round
-trips, and the network's tail compounds: at p95, each round trip eats 42ms,
-and a multi-chunk exchange multiplies it. The decode is flat and bounded;
-the network is the variable term, which is why the realtime margin is a
-network question after the cache has made decode predictable.
+That optimizing the codec further buys little, because the network
+variance dominates the end-to-end tail. The lever is network-side —
+closer deployment, fewer hops, or a budget that tolerates the p95 — not
+another microsecond of decode. The recorded split is what redirects the
+optimization from the serving mechanism to the path it runs over.
 
 </details>
 
 ## Next
 
-Back to [stage 03's real-speech run](../../03-real-speech-and-network/), or
-to [stage 04's multi-speaker](../../04-multi-speaker/) where the codec's
-health at population scale is the next frontier.
+Back to [stage 03](../), or to
+[the real network is where the realtime margin goes](../when-the-network-is-the-tail/)
+which reads the same run's end-to-end story.

@@ -127,3 +127,5 @@ A detour from here: [the KV cache on audio tokens: same answer, flat
 latency](when-the-cache-pays/) — the recorded correctness (3/3 token match)
 and the latency stress (naive 6.9x degradation vs cached flat) read as the
 two halves of the mission's central claim.
+
+Another detour: [the zero gap is checked at logit level, not token level](when-the-logits-match/) — the recorded check read: 30/30 clips identical at max logit gap 1.19e-05, which is what makes the cache a pure win.

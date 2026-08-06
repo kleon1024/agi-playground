@@ -106,3 +106,5 @@ A detour from here: [the transfer that needed no new serving
 code](when-the-transfer-is-clean/) — the committed stage 00/01 JSONs read
 line by line: zero quality gap (logit-level 1.19e-05), latency 6.9x vs 1.3x
 growth at 500 steps, zero lines of reused code changed.
+
+Another detour: [MET rests on five lines, each independently](the-five-acceptance-lines/) — the recorded report read: codec and LM each beat both baselines, the gap is a true zero, latency is measured at two scales, and no reused code changes.

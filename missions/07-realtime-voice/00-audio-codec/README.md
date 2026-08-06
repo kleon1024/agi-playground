@@ -120,3 +120,5 @@ happen?](why-codebooks-collapse/) measures codebook usage at 25-step
 intervals on a fresh seed — the whole batch on one code at step 0, a slow
 non-monotonic recovery, and the seed-dependence the mission's later stages
 investigate.
+
+Another detour: [the collapse that looked like success](when-silence-is-a-local-minimum/) — the recorded pilot read: silence is locally optimal against a zero-mean signal (MSE 0.325, 1-2/64 codes), and the escape (0.32 -> 0.03) is why the recipe matters.

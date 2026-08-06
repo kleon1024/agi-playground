@@ -190,6 +190,7 @@ contract is declared before any stage is built, so the baseline and metric
 above cannot be chosen after seeing which ones flatter a result.
 
 
+
 ## Where each stage leaves the path
 
 A stage states a decision; these deep-dive chapters answer the decisions
@@ -198,14 +199,19 @@ artifact or a measurement the next stage consumes.
 
 | At this stage | You need to decide | So read |
 |---|---|---|
+| `00-audio-codec` | The collapse that looked like success | [when-silence-is-a-local-minimum](00-audio-codec/when-silence-is-a-local-minimum/) |
 | `00-audio-codec` | Why does a VQ codebook collapse — and can you watch it happen? | [why-codebooks-collapse](00-audio-codec/why-codebooks-collapse/) |
 | `01-streaming-decode` | The KV cache on audio tokens: same answer, flat latency | [when-the-cache-pays](01-streaming-decode/when-the-cache-pays/) |
+| `01-streaming-decode` | The zero gap is checked at logit level, not token level | [when-the-logits-match](01-streaming-decode/when-the-logits-match/) |
+| `02-report` | MET rests on five lines, each independently | [the-five-acceptance-lines](02-report/the-five-acceptance-lines/) |
 | `02-report` | The transfer that needed no new serving code | [when-the-transfer-is-clean](02-report/when-the-transfer-is-clean/) |
-| `03-real-speech-and-network` | The real network is where the realtime margin goes | [when-the-network-is-the-tail](03-real-speech-and-network/when-the-network-is-the-tail/) |
+| `03-real-speech-and-network` | The realtime margin is the network's tail | [when-the-network-is-the-tail](03-real-speech-and-network/when-the-network-is-the-tail/) |
+| `04-multi-speaker` | No collapse — and a seed-dependent codebook | [when-codebook-health-is-seed-dependent](04-multi-speaker/when-codebook-health-is-seed-dependent/) |
 | `04-multi-speaker` | The fix that did not generalize | [when-the-fix-did-not-generalize](04-multi-speaker/when-the-fix-did-not-generalize/) |
+| `05-codebook-reset` | The mechanism that fixed utilization in every seed | [when-reset-reaches-64-64](05-codebook-reset/when-reset-reaches-64-64/) |
 | `05-codebook-reset` | Is a dead-code reset a cure, or a maintenance loop? | [when-the-reset-never-stops](05-codebook-reset/when-the-reset-never-stops/) |
 | `06-which-mechanism-did-it` | Which half of the fix did the work? | [the-half-that-did-the-work](06-which-mechanism-did-it/the-half-that-did-the-work/) |
-
+| `06-which-mechanism-did-it` | The 2x2 is trustworthy because its corners are already published | [when-the-corners-reproduce](06-which-mechanism-did-it/when-the-corners-reproduce/) |
 
 ## What this will not prove
 

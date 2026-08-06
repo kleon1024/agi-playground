@@ -799,6 +799,10 @@
     "level": "applied",
     "minutes": 4
   },
+  "missions/07-realtime-voice/00-audio-codec/when-silence-is-a-local-minimum": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/07-realtime-voice/00-audio-codec/why-codebooks-collapse": {
     "level": "applied",
     "minutes": 4
@@ -811,9 +815,17 @@
     "level": "applied",
     "minutes": 3
   },
+  "missions/07-realtime-voice/01-streaming-decode/when-the-logits-match": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/07-realtime-voice/02-report": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
+  },
+  "missions/07-realtime-voice/02-report/the-five-acceptance-lines": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/07-realtime-voice/02-report/when-the-transfer-is-clean": {
     "level": "applied",
@@ -825,11 +837,15 @@
   },
   "missions/07-realtime-voice/03-real-speech-and-network/when-the-network-is-the-tail": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 2
   },
   "missions/07-realtime-voice/04-multi-speaker": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/07-realtime-voice/04-multi-speaker/when-codebook-health-is-seed-dependent": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/07-realtime-voice/04-multi-speaker/when-the-fix-did-not-generalize": {
     "level": "applied",
@@ -838,6 +854,10 @@
   "missions/07-realtime-voice/05-codebook-reset": {
     "level": "applied",
     "minutes": 6
+  },
+  "missions/07-realtime-voice/05-codebook-reset/when-reset-reaches-64-64": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/07-realtime-voice/05-codebook-reset/when-the-reset-never-stops": {
     "level": "applied",
@@ -850,6 +870,10 @@
   "missions/07-realtime-voice/06-which-mechanism-did-it/the-half-that-did-the-work": {
     "level": "applied",
     "minutes": 3
+  },
+  "missions/07-realtime-voice/06-which-mechanism-did-it/when-the-corners-reproduce": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/08-video-generation": {
     "level": "frontier",
