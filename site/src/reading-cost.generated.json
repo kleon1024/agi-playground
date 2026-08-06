@@ -143,6 +143,10 @@
     "level": "foundation",
     "minutes": 8
   },
+  "missions/01-language-model-agent/00-corpus/the-funnel-shape": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/01-language-model-agent/00-corpus/what-a-release-needs": {
     "level": "applied",
     "minutes": 8
@@ -154,6 +158,10 @@
   "missions/01-language-model-agent/01-tokenizer/is-it-the-same-tokenizer": {
     "level": "foundation",
     "minutes": 5
+  },
+  "missions/01-language-model-agent/01-tokenizer/the-merges-that-build-the-vocab": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/01-language-model-agent/02-pretrain": {
     "level": "foundation",
@@ -836,6 +844,10 @@
     "minutes": 7
   },
   "missions/07-realtime-voice/03-real-speech-and-network/when-the-network-is-the-tail": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/07-realtime-voice/03-real-speech-and-network/when-the-recipe-broke-then-fixed": {
     "level": "applied",
     "minutes": 2
   },

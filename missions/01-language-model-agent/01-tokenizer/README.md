@@ -185,3 +185,5 @@ mode; it does not remove the *cost* the number controls.
 tokens. Take two things with you: the vocabulary needs one id more than it has
 tokens, for the document separator, and padding that count up to a multiple of
 128 is nearly free while making every matrix multiplication faster.
+
+Another detour: [the merge sequence IS the tokenizer's logic](the-merges-that-build-the-vocab/) — the recorded BPE run read: early merges collapse frequent bigrams, late merges keep rare words, and 4.497 chars/token is the compression it buys.

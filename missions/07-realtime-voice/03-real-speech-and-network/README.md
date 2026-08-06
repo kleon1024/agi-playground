@@ -189,3 +189,5 @@ read beside the decode budget: the cache keeps decode flat, and the
 network's p95/max (42/85ms) are where the realtime tail lives.
 
 Another detour: [the realtime margin is the network's tail](when-the-network-is-the-tail/) — the recorded ping distribution read: p50 9.7ms but p95 42.5ms and max 85.3ms, a 4.4x p95/p50 the budget must absorb.
+
+Another detour: [the escape window is input-dependent](when-the-recipe-broke-then-fixed/) — the recorded sweep read: the synthetic recipe collapses on real speech at 600 steps and escapes by 2000, while a higher LR never escapes.

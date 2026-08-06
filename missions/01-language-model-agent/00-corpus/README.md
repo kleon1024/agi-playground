@@ -258,3 +258,5 @@ threshold, the mixture weights, the label contract, and what ships beside the
 tokens — and makes each one explicit. [The data landscape](LANDSCAPE.md) pairs
 every `core/` component above against the production tool that does the same
 job at scale.
+
+Another detour: [18.3% of the raw web survives — and that is the point](the-funnel-shape/) — the recorded 3,000-doc funnel read: English removes 31.6%, and the drop-reason table makes each gate accountable.

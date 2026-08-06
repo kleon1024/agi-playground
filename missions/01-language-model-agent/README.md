@@ -67,6 +67,8 @@ taking.
 |---|---|---|---|
 | before 02 | what a decoder block is doing at all | [the decoder block](../../foundations/00-attention/) | the forward path, and this model's 88,197,888 parameters reconstructed from its own formulas |
 | 00 | which documents to keep, and whether the filter is defensible | [what a release needs](00-corpus/what-a-release-needs/) | a versioned dataset with rejection reasons |
+| 00 | what the funnel's shape actually is | [the funnel shape](00-corpus/the-funnel-shape/) | the per-gate survival rates and the drop-reason table that audits them |
+| 01 | what the merge sequence shows about the vocabulary | [the merges that build the vocab](01-tokenizer/the-merges-that-build-the-vocab/) | the frequency logic of the 16,384 merges and the chars/token compression |
 | 02 | whether an architecture choice is worth its cost | [architecture ablations](02-pretrain/architecture-ablations/) | six choices measured, two of which flip sign between seeds |
 | 02 | whether attention variants change the serving bill | [why is the KV cache the architecture's tax?](02-pretrain/attention-variants/) | the MHA/GQA/MQA/MLA trade, drawn and computed |
 | 02 | why SwiGLU instead of a plain ReLU block | [the gate that beats ReLU](02-pretrain/the-gate-that-beats-relu/) | the activation's form, measured: no dead zone, zero-mean output |
