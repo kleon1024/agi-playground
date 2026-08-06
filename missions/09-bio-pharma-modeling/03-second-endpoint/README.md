@@ -91,3 +91,5 @@ result](when-the-verdict-is-inconclusive/) — the recorded seeds read: the
 model's nominal lead (+0.0037) is ~1/17th of its own spread (0.0620), so
 the verdict is INCONCLUSIVE by the mission's declared bar, with scarcity as
 the measurable cause.
+
+Another detour: [the scarcest endpoint carries the largest split shift](the-split-shift-at-the-scarcest/) — the recorded split read: 2.29% train vs 5.28% test (2.3x), the data-side cause of the inconclusive verdict's variance.

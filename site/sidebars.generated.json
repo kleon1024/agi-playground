@@ -1445,6 +1445,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/00-dataset-and-property/the-12-endpoint-balance/index",
+                "label": "The 12-endpoint balance"
+              },
+              {
+                "type": "doc",
                 "id": "missions/09-bio-pharma-modeling/00-dataset-and-property/the-split-that-decides/index",
                 "label": "The split that decides"
               }
@@ -1480,6 +1485,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/02-report/the-three-met-items/index",
+                "label": "The three MET items"
+              },
+              {
+                "type": "doc",
                 "id": "missions/09-bio-pharma-modeling/02-report/when-the-baseline-refuses-to-lose/index",
                 "label": "When the baseline refuses to lose"
               }
@@ -1493,6 +1503,11 @@
               "id": "missions/09-bio-pharma-modeling/03-second-endpoint/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/03-second-endpoint/the-split-shift-at-the-scarcest/index",
+                "label": "The split shift at the scarcest"
+              },
               {
                 "type": "doc",
                 "id": "missions/09-bio-pharma-modeling/03-second-endpoint/when-the-verdict-is-inconclusive/index",
@@ -1510,6 +1525,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/04-third-endpoint/the-model-first-win/index",
+                "label": "The model's first win"
+              },
+              {
+                "type": "doc",
                 "id": "missions/09-bio-pharma-modeling/04-third-endpoint/when-the-mid-range-point-lands/index",
                 "label": "When the mid-range point lands"
               }
@@ -1525,6 +1545,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/the-n3-directional-read/index",
+                "label": "The n=3 directional read"
+              },
+              {
+                "type": "doc",
                 "id": "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/when-scarcity-decides/index",
                 "label": "When scarcity decides"
               }
@@ -1538,6 +1563,11 @@
               "id": "missions/09-bio-pharma-modeling/06-model-or-representation/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/06-model-or-representation/the-rdkit-agreement/index",
+                "label": "The RDKit agreement"
+              },
               {
                 "type": "doc",
                 "id": "missions/09-bio-pharma-modeling/06-model-or-representation/when-width-memorizes/index",

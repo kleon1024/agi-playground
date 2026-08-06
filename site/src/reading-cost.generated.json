@@ -971,6 +971,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/09-bio-pharma-modeling/00-dataset-and-property/the-12-endpoint-balance": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/09-bio-pharma-modeling/00-dataset-and-property/the-split-that-decides": {
     "level": "applied",
     "minutes": 3
@@ -991,6 +995,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "missions/09-bio-pharma-modeling/02-report/the-three-met-items": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/09-bio-pharma-modeling/02-report/when-the-baseline-refuses-to-lose": {
     "level": "applied",
     "minutes": 3
@@ -998,6 +1006,10 @@
   "missions/09-bio-pharma-modeling/03-second-endpoint": {
     "level": "applied",
     "minutes": 4
+  },
+  "missions/09-bio-pharma-modeling/03-second-endpoint/the-split-shift-at-the-scarcest": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/09-bio-pharma-modeling/03-second-endpoint/when-the-verdict-is-inconclusive": {
     "level": "applied",
@@ -1007,13 +1019,21 @@
     "level": "applied",
     "minutes": 4
   },
+  "missions/09-bio-pharma-modeling/04-third-endpoint/the-model-first-win": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/09-bio-pharma-modeling/04-third-endpoint/when-the-mid-range-point-lands": {
     "level": "applied",
     "minutes": 2
   },
   "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
+  },
+  "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/the-n3-directional-read": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/when-scarcity-decides": {
     "level": "applied",
@@ -1022,6 +1042,10 @@
   "missions/09-bio-pharma-modeling/06-model-or-representation": {
     "level": "applied",
     "minutes": 7
+  },
+  "missions/09-bio-pharma-modeling/06-model-or-representation/the-rdkit-agreement": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/09-bio-pharma-modeling/06-model-or-representation/when-width-memorizes": {
     "level": "applied",

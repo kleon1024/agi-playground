@@ -69,3 +69,5 @@ A detour from here: [the baseline that refused to lose: a decisive gap, read
 honestly](when-the-baseline-refuses-to-lose/) — the verdict structure read
 from the recorded numbers: the gap (0.083) is 5x the larger spread, so this
 is a decisive descriptor win on a scaffold-checked split, not a near-tie.
+
+Another detour: [a failing verdict can still be a disciplined one](the-three-met-items/) — the recorded report read: three of four acceptance items hold (overlap 0.0, runs entries, does_not_prove stated) while the headline is a clear loss.

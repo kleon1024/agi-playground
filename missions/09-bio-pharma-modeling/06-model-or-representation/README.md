@@ -206,3 +206,5 @@ climbs to 1.000 and the memorization gap grows to 0.346.
 Primary reference: Rogers & Hahn, *Extended-Connectivity Fingerprints*
 (J. Chem. Inf. Model., 2010), for the circular-fingerprint algorithm implemented
 in `core/`.
+
+Another detour: [the reimplementation that ranks like RDKit](the-rdkit-agreement/) — the recorded check read: Tanimoto Spearman 0.90, so the representation comparison's conclusions are not an artifact.

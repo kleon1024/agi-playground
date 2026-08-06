@@ -102,6 +102,7 @@ dataset version, split seed, and per-seed results — the same bar every other
 mission in this repository holds itself to.
 
 
+
 ## Where each stage leaves the path
 
 A stage states a decision; these deep-dive chapters answer the decisions
@@ -110,15 +111,20 @@ artifact or a measurement the next stage consumes.
 
 | At this stage | You need to decide | So read |
 |---|---|---|
+| `00-dataset-and-property` | Why the endpoint was chosen from balance, not convenience | [the-12-endpoint-balance](00-dataset-and-property/the-12-endpoint-balance/) |
 | `00-dataset-and-property` | Does the split decide who wins? | [the-split-that-decides](00-dataset-and-property/the-split-that-decides/) |
 | `01-descriptor-baseline-and-model` | Ten numbers, or 696,065 parameters | [two-ways-to-read-a-molecule](01-descriptor-baseline-and-model/two-ways-to-read-a-molecule/) |
 | `01-descriptor-baseline-and-model` | When does a ten-number baseline beat a trained model? | [when-the-baseline-holds](01-descriptor-baseline-and-model/when-the-baseline-holds/) |
+| `02-report` | A failing verdict can still be a disciplined one | [the-three-met-items](02-report/the-three-met-items/) |
 | `02-report` | The baseline that refused to lose: a decisive gap, read honestly | [when-the-baseline-refuses-to-lose](02-report/when-the-baseline-refuses-to-lose/) |
+| `03-second-endpoint` | The scarcest endpoint carries the largest split shift | [the-split-shift-at-the-scarcest](03-second-endpoint/the-split-shift-at-the-scarcest/) |
 | `03-second-endpoint` | The no-result that is a real result | [when-the-verdict-is-inconclusive](03-second-endpoint/when-the-verdict-is-inconclusive/) |
+| `04-third-endpoint` | The mid-range endpoint gives the model its first clean win | [the-model-first-win](04-third-endpoint/the-model-first-win/) |
 | `04-third-endpoint` | The third point that fills the range | [when-the-mid-range-point-lands](04-third-endpoint/when-the-mid-range-point-lands/) |
+| `05-cross-endpoint-analysis` | Three endpoints, two directions, and the ceiling stated | [the-n3-directional-read](05-cross-endpoint-analysis/the-n3-directional-read/) |
 | `05-cross-endpoint-analysis` | What does scarcity decide, and what does it not? | [when-scarcity-decides](05-cross-endpoint-analysis/when-scarcity-decides/) |
+| `06-model-or-representation` | The reimplementation that ranks like RDKit | [the-rdkit-agreement](06-model-or-representation/the-rdkit-agreement/) |
 | `06-model-or-representation` | When does representation width start memorizing? | [when-width-memorizes](06-model-or-representation/when-width-memorizes/) |
-
 
 ## What this will not prove
 

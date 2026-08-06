@@ -98,3 +98,5 @@ range](when-the-mid-range-point-lands/) — the recorded NR-ER seeds read:
 the model wins beyond its own spread (+0.0265 vs 0.0227), so the
 three-point pattern is variance up as positives shrink, with the winner
 decided by enough data.
+
+Another detour: [the mid-range endpoint gives the model its first clean win](the-model-first-win/) — the recorded seeds read: margin +0.0265 vs spread 0.0227, the third point that separates who wins from where a winner can be seen.

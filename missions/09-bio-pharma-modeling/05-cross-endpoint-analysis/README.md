@@ -110,3 +110,5 @@ A detour from here: [what does scarcity decide, and what does it
 not?](when-scarcity-decides/) — the two recorded directions read: variance
 grows monotonically as positives shrink (scarcity explains where a winner
 can be seen), while the gap is not monotonic (it does not explain who wins).
+
+Another detour: [three endpoints, two directions, and the ceiling stated](the-n3-directional-read/) — the recorded JSON read: variance is monotonic with scarcity, the gap is not, and n=3 is the stated limit.

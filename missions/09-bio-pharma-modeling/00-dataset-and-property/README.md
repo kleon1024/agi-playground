@@ -134,3 +134,5 @@ A detour from here: [does the split decide who wins?](the-split-that-decides/)
 — the scaffold split's label shift across the three endpoints: test is more
 positive in all three (0.5 to 4.9pp), and the largest shift sits exactly on
 the endpoint whose verdict is inconclusive.
+
+Another detour: [why the endpoint was chosen from balance, not convenience](the-12-endpoint-balance/) — the recorded table read: SR-MMP (15.8%) is the best-balanced endpoint with a single statable mechanism, fixed before any model sees data.
