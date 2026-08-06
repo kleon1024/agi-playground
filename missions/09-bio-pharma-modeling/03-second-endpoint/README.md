@@ -85,3 +85,9 @@ program.
 
 **Next:** none planned; this stage closes the generality question stage 02's
 own `does_not_prove` opened.
+
+A detour from here: [the no-result that is a real
+result](when-the-verdict-is-inconclusive/) — the recorded seeds read: the
+model's nominal lead (+0.0037) is ~1/17th of its own spread (0.0620), so
+the verdict is INCONCLUSIVE by the mission's declared bar, with scarcity as
+the measurable cause.

@@ -64,3 +64,8 @@ would close or reverse this gap on the same endpoint, and nothing about any
 other Tox21 endpoint. Nothing here is evidence about anti-aging biology, drug
 efficacy, or the outcome of any real screening program, per `mission.yaml`'s
 `does_not_prove`, restated in the [mission README](../README.md).
+
+A detour from here: [the baseline that refused to lose: a decisive gap, read
+honestly](when-the-baseline-refuses-to-lose/) — the verdict structure read
+from the recorded numbers: the gap (0.083) is 5x the larger spread, so this
+is a decisive descriptor win on a scaffold-checked split, not a near-tie.

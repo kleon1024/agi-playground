@@ -92,3 +92,9 @@ screening program.
 **Next:** none planned; this stage closes the generality question stage 03's
 own hypothesis opened, with an honest "holds directionally, not precisely"
 verdict rather than a forced confirm or deny.
+
+A detour from here: [the third point that fills the
+range](when-the-mid-range-point-lands/) — the recorded NR-ER seeds read:
+the model wins beyond its own spread (+0.0265 vs 0.0227), so the
+three-point pattern is variance up as positives shrink, with the winner
+decided by enough data.
