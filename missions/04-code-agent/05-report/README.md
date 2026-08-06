@@ -159,3 +159,9 @@ the exact comparison bullet 1 asks for.
 asks which arm to route a task to. Nothing in stages 00-05 builds or measures
 an actual router; this mission establishes the resolve-rate/cost/generality
 numbers a router would need, not the router itself.
+
+A detour from here: [the PARTIAL, read bullet by
+bullet](when-the-partial-verdict/) — the recorded bullet-1 structure: two
+tiers decisive, one a no-result inside spread, and the public half
+CANNOT DETERMINE because no no-harness control exists there. PARTIAL is
+narrower than NOT MET, and it names its own gap.

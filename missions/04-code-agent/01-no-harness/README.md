@@ -148,3 +148,8 @@ doesn't support.
 **Next:** [stage 04](../04-how-it-fails/) catalogues every real failure this
 mission has produced, across both arms, by category — including the
 malformed-diff failure mode this stage's own attempts supplied most of.
+
+A detour from here: [the blind call, read: what one attempt without a loop
+costs](when-the-blind-call-fails/) — the recorded 18-attempt matrix read per
+tier: resolve is the number (haiku 0/6 buys nothing), and a more-expensive
+arm can be cheapest per success (opus \$1.09 vs sonnet \$1.37).
