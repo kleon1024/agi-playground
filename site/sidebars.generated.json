@@ -346,14 +346,34 @@
         },
         "items": [
           {
-            "type": "doc",
-            "id": "missions/02-personalized-discovery/00-interactions/index",
-            "label": "Interactions"
+            "type": "category",
+            "label": "Interactions",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/00-interactions/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/00-interactions/when-the-split-leaks/index",
+                "label": "When the split leaks"
+              }
+            ]
           },
           {
-            "type": "doc",
-            "id": "missions/02-personalized-discovery/01-content-understanding/index",
-            "label": "Content understanding"
+            "type": "category",
+            "label": "Content understanding",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/01-content-understanding/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/01-content-understanding/when-the-threshold-rescues-the-tail/index",
+                "label": "When the threshold rescues the tail"
+              }
+            ]
           },
           {
             "type": "category",
@@ -461,9 +481,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/02-personalized-discovery/09-report/index",
-            "label": "Outcome report"
+            "type": "category",
+            "label": "Outcome report",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/09-report/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/09-report/when-the-guardrail-vetoes/index",
+                "label": "When the guardrail vetoes"
+              }
+            ]
           }
         ]
       },
@@ -551,9 +581,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/03-quantitative-research/05-report/index",
-            "label": "Outcome report"
+            "type": "category",
+            "label": "Outcome report",
+            "link": {
+              "type": "doc",
+              "id": "missions/03-quantitative-research/05-report/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/03-quantitative-research/05-report/when-the-refusal-names-everything/index",
+                "label": "When the refusal names everything"
+              }
+            ]
           }
         ]
       },
@@ -581,9 +621,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/04-code-agent/01-no-harness/index",
-            "label": "No harness"
+            "type": "category",
+            "label": "No harness",
+            "link": {
+              "type": "doc",
+              "id": "missions/04-code-agent/01-no-harness/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/04-code-agent/01-no-harness/when-the-blind-call-fails/index",
+                "label": "When the blind call fails"
+              }
+            ]
           },
           {
             "type": "category",
@@ -631,9 +681,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/04-code-agent/05-report/index",
-            "label": "The report"
+            "type": "category",
+            "label": "The report",
+            "link": {
+              "type": "doc",
+              "id": "missions/04-code-agent/05-report/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/04-code-agent/05-report/when-the-partial-verdict/index",
+                "label": "When the verdict is partial"
+              }
+            ]
           },
           {
             "type": "category",
@@ -691,9 +751,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/05-vision-language-model/02-report/index",
-            "label": "Outcome report"
+            "type": "category",
+            "label": "Outcome report",
+            "link": {
+              "type": "doc",
+              "id": "missions/05-vision-language-model/02-report/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/05-vision-language-model/02-report/when-the-category-breaks-down/index",
+                "label": "When the category breaks down"
+              }
+            ]
           },
           {
             "type": "category",
@@ -766,14 +836,34 @@
         },
         "items": [
           {
-            "type": "doc",
-            "id": "missions/06-game-ai/00-gridworld-baselines/index",
-            "label": "Grid-world environment and baselines"
+            "type": "category",
+            "label": "Grid-world environment and baselines",
+            "link": {
+              "type": "doc",
+              "id": "missions/06-game-ai/00-gridworld-baselines/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/06-game-ai/00-gridworld-baselines/when-random-gets-22-percent/index",
+                "label": "When random gets 22 percent"
+              }
+            ]
           },
           {
-            "type": "doc",
-            "id": "missions/06-game-ai/01-grpo/index",
-            "label": "GRPO against the grid-world"
+            "type": "category",
+            "label": "GRPO against the grid-world",
+            "link": {
+              "type": "doc",
+              "id": "missions/06-game-ai/01-grpo/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/06-game-ai/01-grpo/when-the-policy-collapses/index",
+                "label": "When the policy collapses"
+              }
+            ]
           },
           {
             "type": "category",
@@ -891,9 +981,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/07-realtime-voice/02-report/index",
-            "label": "Outcome report"
+            "type": "category",
+            "label": "Outcome report",
+            "link": {
+              "type": "doc",
+              "id": "missions/07-realtime-voice/02-report/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/07-realtime-voice/02-report/when-the-transfer-is-clean/index",
+                "label": "When the transfer is clean"
+              }
+            ]
           },
           {
             "type": "category",
@@ -966,9 +1066,19 @@
         },
         "items": [
           {
-            "type": "doc",
-            "id": "missions/08-video-generation/00-synthetic-video-dataset/index",
-            "label": "Synthetic video dataset"
+            "type": "category",
+            "label": "Synthetic video dataset",
+            "link": {
+              "type": "doc",
+              "id": "missions/08-video-generation/00-synthetic-video-dataset/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/08-video-generation/00-synthetic-video-dataset/when-the-seed-is-the-answer/index",
+                "label": "When the seed is the answer"
+              }
+            ]
           },
           {
             "type": "category",
@@ -1016,14 +1126,34 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/08-video-generation/04-longer-sequences/index",
-            "label": "Longer sequences"
+            "type": "category",
+            "label": "Longer sequences",
+            "link": {
+              "type": "doc",
+              "id": "missions/08-video-generation/04-longer-sequences/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/08-video-generation/04-longer-sequences/when-the-frames-double/index",
+                "label": "When the frames double"
+              }
+            ]
           },
           {
-            "type": "doc",
-            "id": "missions/08-video-generation/05-multi-object/index",
-            "label": "Multi-object scenes"
+            "type": "category",
+            "label": "Multi-object scenes",
+            "link": {
+              "type": "doc",
+              "id": "missions/08-video-generation/05-multi-object/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/08-video-generation/05-multi-object/when-two-shapes-share-a-token/index",
+                "label": "When two shapes share a token"
+              }
+            ]
           },
           {
             "type": "category",
@@ -1081,19 +1211,49 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "missions/09-bio-pharma-modeling/02-report/index",
-            "label": "Report"
+            "type": "category",
+            "label": "Report",
+            "link": {
+              "type": "doc",
+              "id": "missions/09-bio-pharma-modeling/02-report/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/02-report/when-the-baseline-refuses-to-lose/index",
+                "label": "When the baseline refuses to lose"
+              }
+            ]
           },
           {
-            "type": "doc",
-            "id": "missions/09-bio-pharma-modeling/03-second-endpoint/index",
-            "label": "Second endpoint"
+            "type": "category",
+            "label": "Second endpoint",
+            "link": {
+              "type": "doc",
+              "id": "missions/09-bio-pharma-modeling/03-second-endpoint/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/03-second-endpoint/when-the-verdict-is-inconclusive/index",
+                "label": "When the verdict is inconclusive"
+              }
+            ]
           },
           {
-            "type": "doc",
-            "id": "missions/09-bio-pharma-modeling/04-third-endpoint/index",
-            "label": "Third endpoint"
+            "type": "category",
+            "label": "Third endpoint",
+            "link": {
+              "type": "doc",
+              "id": "missions/09-bio-pharma-modeling/04-third-endpoint/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/04-third-endpoint/when-the-mid-range-point-lands/index",
+                "label": "When the mid-range point lands"
+              }
+            ]
           },
           {
             "type": "category",

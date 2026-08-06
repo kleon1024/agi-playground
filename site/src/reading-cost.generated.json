@@ -277,11 +277,19 @@
   },
   "missions/02-personalized-discovery/00-interactions": {
     "level": "foundation",
-    "minutes": 7
+    "minutes": 8
+  },
+  "missions/02-personalized-discovery/00-interactions/when-the-split-leaks": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/02-personalized-discovery/01-content-understanding": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/02-personalized-discovery/01-content-understanding/when-the-threshold-rescues-the-tail": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/02-personalized-discovery/02-recall": {
     "level": "foundation",
@@ -343,6 +351,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/02-personalized-discovery/09-report/when-the-guardrail-vetoes": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/03-quantitative-research": {
     "level": "applied",
     "minutes": 7
@@ -391,6 +403,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/03-quantitative-research/05-report/when-the-refusal-names-everything": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/04-code-agent": {
     "level": "applied",
     "minutes": 8
@@ -406,6 +422,10 @@
   "missions/04-code-agent/01-no-harness": {
     "level": "applied",
     "minutes": 6
+  },
+  "missions/04-code-agent/01-no-harness/when-the-blind-call-fails": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/04-code-agent/02-agent-loop": {
     "level": "applied",
@@ -434,6 +454,10 @@
   "missions/04-code-agent/05-report": {
     "level": "applied",
     "minutes": 6
+  },
+  "missions/04-code-agent/05-report/when-the-partial-verdict": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/04-code-agent/06-closing-the-loop": {
     "level": "applied",
@@ -466,6 +490,10 @@
   "missions/05-vision-language-model/02-report": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/05-vision-language-model/02-report/when-the-category-breaks-down": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/05-vision-language-model/03-real-photo-task": {
     "level": "applied",
@@ -507,9 +535,17 @@
     "level": "applied",
     "minutes": 4
   },
+  "missions/06-game-ai/00-gridworld-baselines/when-random-gets-22-percent": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/06-game-ai/01-grpo": {
     "level": "applied",
     "minutes": 6
+  },
+  "missions/06-game-ai/01-grpo/when-the-policy-collapses": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/06-game-ai/02-report": {
     "level": "applied",
@@ -575,6 +611,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "missions/07-realtime-voice/02-report/when-the-transfer-is-clean": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/07-realtime-voice/03-real-speech-and-network": {
     "level": "applied",
     "minutes": 7
@@ -613,7 +653,11 @@
   },
   "missions/08-video-generation/00-synthetic-video-dataset": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
+  },
+  "missions/08-video-generation/00-synthetic-video-dataset/when-the-seed-is-the-answer": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/08-video-generation/01-video-tokenizer": {
     "level": "applied",
@@ -643,9 +687,17 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/08-video-generation/04-longer-sequences/when-the-frames-double": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/08-video-generation/05-multi-object": {
     "level": "applied",
     "minutes": 6
+  },
+  "missions/08-video-generation/05-multi-object/when-two-shapes-share-a-token": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/08-video-generation/06-longer-and-multi-object": {
     "level": "applied",
@@ -677,15 +729,27 @@
   },
   "missions/09-bio-pharma-modeling/02-report": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
+  },
+  "missions/09-bio-pharma-modeling/02-report/when-the-baseline-refuses-to-lose": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/09-bio-pharma-modeling/03-second-endpoint": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
+  },
+  "missions/09-bio-pharma-modeling/03-second-endpoint/when-the-verdict-is-inconclusive": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/09-bio-pharma-modeling/04-third-endpoint": {
     "level": "applied",
     "minutes": 4
+  },
+  "missions/09-bio-pharma-modeling/04-third-endpoint/when-the-mid-range-point-lands": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis": {
     "level": "applied",
