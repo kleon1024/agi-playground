@@ -135,6 +135,34 @@ traces each predecessor and the tradeoff it made.
 | [`08-serving`](08-serving/) | Two-stage serving inside p95 300ms; ANN index; measured | mission 01 · serving | verified synthetic mechanism run; mission outcome pending |
 | [`09-report`](09-report/) | Outcome vs both baselines and all guardrails, with failure cases | mission 01 · eval | verified evaluator run; outcome cannot determine |
 
+### The search track (stages 10-13)
+
+Search is the same decision loop with an explicit query. The four stages
+below take the query from raw string to a ranked, evaluated result — the
+search analogue of recommendation's recall-to-report funnel.
+
+| Stage | Deliverable | Layer | Status |
+|---|---|---|---|
+| [`10-query-understanding`](10-query-understanding/) | Tokenize, normalize, and classify the query; the key space retrieval must serve | new to this mission | verified mechanism run |
+| [`11-search-retrieval`](11-search-retrieval/) | BM25 lexical index; the vocabulary-mismatch gap dense retrieval must close | new to this mission | verified mechanism run |
+| [`12-search-ranking`](12-search-ranking/) | Pointwise vs pairwise ranking over the candidate set; NDCG as arbiter | new to this mission | verified mechanism run |
+| [`13-search-evaluation`](13-search-evaluation/) | NDCG@k and MRR; the metric blind spots that force the declared choice | mission 01 · eval | verified mechanism run |
+
+### The ads track (stages 14-18)
+
+Ads insert a paid item into either surface, and every ad displaces an
+organic result. The five stages below run the economics: allocation,
+revenue ranking, calibration, delivery, and the displacement trade.
+
+| Stage | Deliverable | Layer | Status |
+|---|---|---|---|
+| [`14-ad-auction`](14-ad-auction/) | Second-price auction; truthful bidding as the dominant strategy | new to this mission | verified mechanism run |
+| [`15-ecpm-ranking`](15-ecpm-ranking/) | Bid x pCTR revenue ranking; the lower bid that wins | new to this mission | verified mechanism run |
+| [`16-ctr-calibration`](16-ctr-calibration/) | pCTR calibration (ECE) and the correction that makes the estimate honest | new to this mission | verified mechanism run |
+| [`17-budget-pacing`](17-budget-pacing/) | Budget delivery under a per-hour cap; the feedback signal | new to this mission | verified mechanism run |
+| [`18-ad-externality`](18-ad-externality/) | The displacement trade; scarcity amplifies the externality | mission 02 · value tree | verified mechanism run |
+
+
 
 
 ## Where each stage leaves the path
@@ -165,6 +193,15 @@ artifact or a measurement the next stage consumes.
 | `08-serving` | What does the pre-rank cut buy, and when does it stop paying? | [when-the-cut-bites](08-serving/when-the-cut-bites/) |
 | `09-report` | A headline win that still loses, seed by seed | [the-variance-that-decides](09-report/the-variance-that-decides/) |
 | `09-report` | A headline win that is still NOT MET | [when-the-guardrail-vetoes](09-report/when-the-guardrail-vetoes/) |
+| `10-query-understanding` | Where normalization stops and correction must begin | [when-the-query-is-misspelled](10-query-understanding/when-the-query-is-misspelled/) |
+| `11-search-retrieval` | The document that means the same but scores less | [when-the-synonym-is-invisible](11-search-retrieval/when-the-synonym-is-invisible/) |
+| `12-search-ranking` | The label that carries the position's bias | [when-the-label-is-a-click](12-search-ranking/when-the-label-is-a-click/) |
+| `13-search-evaluation` | The metric chooses the winner | [when-mrr-and-ndcg-disagree](13-search-evaluation/when-mrr-and-ndcg-disagree/) |
+| `14-ad-auction` | The floor that can also kill the sale | [when-the-reserve-price-bites](14-ad-auction/when-the-reserve-price-bites/) |
+| `15-ecpm-ranking` | The knife-edge the click estimate sits on | [when-pctr-moves-the-rank](15-ecpm-ranking/when-pctr-moves-the-rank/) |
+| `16-ctr-calibration` | The fix that makes the estimate honest | [when-the-correction-is-needed](16-ctr-calibration/when-the-correction-is-needed/) |
+| `17-budget-pacing` | The cap that binds when demand spikes | [when-delivery-varies](17-budget-pacing/when-delivery-varies/) |
+| `18-ad-externality` | Scarcity amplifies the externality | [when-the-slot-is-scarce](18-ad-externality/when-the-slot-is-scarce/) |
 
 ## What makes this hard to prove
 

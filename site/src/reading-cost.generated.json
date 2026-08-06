@@ -459,6 +459,78 @@
     "level": "applied",
     "minutes": 2
   },
+  "missions/02-personalized-discovery/10-query-understanding": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/10-query-understanding/when-the-query-is-misspelled": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/11-search-retrieval": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/11-search-retrieval/when-the-synonym-is-invisible": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/12-search-ranking": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/12-search-ranking/when-the-label-is-a-click": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/13-search-evaluation": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/13-search-evaluation/when-mrr-and-ndcg-disagree": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/14-ad-auction": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/14-ad-auction/when-the-reserve-price-bites": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/15-ecpm-ranking": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/15-ecpm-ranking/when-pctr-moves-the-rank": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/16-ctr-calibration": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/16-ctr-calibration/when-the-correction-is-needed": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/17-budget-pacing": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/17-budget-pacing/when-delivery-varies": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/18-ad-externality": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/18-ad-externality/when-the-slot-is-scarce": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/03-quantitative-research": {
     "level": "applied",
     "minutes": 7

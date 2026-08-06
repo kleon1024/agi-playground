@@ -559,6 +559,141 @@
                 "label": "When the guardrail vetoes"
               }
             ]
+          },
+          {
+            "type": "category",
+            "label": "Query understanding",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/10-query-understanding/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/10-query-understanding/when-the-query-is-misspelled/index",
+                "label": "When the query is misspelled"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Search retrieval",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/11-search-retrieval/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/11-search-retrieval/when-the-synonym-is-invisible/index",
+                "label": "When the synonym is invisible"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Search ranking",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/12-search-ranking/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/12-search-ranking/when-the-label-is-a-click/index",
+                "label": "When the label is a click"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Search evaluation",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/13-search-evaluation/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/13-search-evaluation/when-mrr-and-ndcg-disagree/index",
+                "label": "When MRR and NDCG disagree"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Ad auction",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/14-ad-auction/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/14-ad-auction/when-the-reserve-price-bites/index",
+                "label": "When the reserve price bites"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "ECPM ranking",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/15-ecpm-ranking/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/15-ecpm-ranking/when-pctr-moves-the-rank/index",
+                "label": "When pCTR moves the rank"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "pCTR calibration",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/16-ctr-calibration/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/16-ctr-calibration/when-the-correction-is-needed/index",
+                "label": "When the correction is needed"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Budget pacing",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/17-budget-pacing/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/17-budget-pacing/when-delivery-varies/index",
+                "label": "When delivery varies"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Ad externality",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/18-ad-externality/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/18-ad-externality/when-the-slot-is-scarce/index",
+                "label": "When the slot is scarce"
+              }
+            ]
           }
         ]
       },
