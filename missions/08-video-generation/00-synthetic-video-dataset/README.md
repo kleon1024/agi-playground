@@ -114,3 +114,8 @@ feasibility on first, per `mission.yaml`'s own compute-feasibility framing.
 **Next:** stage 01 turns this frame sequence into a discrete token sequence a
 decoder can condition on — the first genuinely new mechanism this mission
 needs.
+
+A detour from here: [the seed is the answer
+key](when-the-seed-is-the-answer/) — the fixture manifest read: the seed,
+prompt, and motion dict together pin the exact correct frames, which is
+what makes a completion checkable mechanically instead of by eye.

@@ -137,3 +137,8 @@ neither compute cost nor the ceiling was the binding constraint at 16.
 **Next:** a multi-object extension (2+ independently moving shapes with
 occlusion) is the natural companion experiment this stage did not attempt,
 left for a later stage.
+
+A detour from here: [doubling the frames: what the same recipe says at
+16](when-the-frames-double/) — the recorded 8f vs 16f axis read: MSE holds
+inside seed noise (0.0851 vs 0.0856) while exact-match gets far noisier and
+cost grows ~4x, so the tokenizer, not compute, is the binding constraint.

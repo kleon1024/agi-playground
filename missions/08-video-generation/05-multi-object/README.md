@@ -148,3 +148,9 @@ the two do not add in pixel space (MSE lands inside the range the second object
 alone already cost) but compound to the floor in token space, and that the
 unexplained exact-match variance above disappears there because the metric has
 nowhere left to fall.
+
+A detour from here: [one token per frame, two objects: where the capacity
+limit shows](when-two-shapes-share-a-token/) — the recorded 1-obj vs 2-obj
+axis read: the second object costs ~74% more reconstruction MSE (0.0851 ->
+0.1483) with exact-match collapsing, so the tokenizer, not compute, is the
+binding constraint.
