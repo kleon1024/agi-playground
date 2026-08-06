@@ -144,3 +144,9 @@ measure honestly, which is future work, not assumed here.
 document this repository's own two real compute lanes — neither currently
 has the multi-node, multi-GPU topology this chapter's bandwidth-bound
 question would need to close.
+
+A detour from here: [the coordination tax that grows with the
+graph](when-the-topology-costs/) — the recorded all-reduce timings read:
+4 MB per call in every cell, and the per-call time still grows x1.98 at
+world 4 and x4.57 at world 8, because coordination, not data, is what the
+topology costs.

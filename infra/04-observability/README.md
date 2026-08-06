@@ -117,3 +117,8 @@ without the fan-out.
 
 [`runs/2026-08-01-instrumented-training.md`](runs/2026-08-01-instrumented-training.md)
 — 200 steps, CPU (local dev box), \$0.
+
+A detour from here: [the step that the mean hides](when-the-tail-waits/) —
+the recorded distribution read: p50 18.45ms and mean 18.72ms hide the
+29.94ms max (1.6x the mean), which is why p95 exists as the metric a
+latency budget actually needs.

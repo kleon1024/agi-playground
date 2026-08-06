@@ -176,3 +176,8 @@ python3 rollout_scheduling.py --workers 2,4,8 --n-trajectories 40 --trials 3 --o
 
 CPU only, stdlib + NumPy, under 1 second total wall-clock, \$0. Full trace:
 [`runs/2026-08-02-rollout-scheduling.md`](runs/2026-08-02-rollout-scheduling.md).
+
+A detour from here: [async wins because a finished worker does not
+wait](when-the-heavy-tail-waits/) — the recorded same-trajectory comparison
+read: async beats lockstep at every worker count (1.73x at 2, 1.30x at 8),
+and the shrinking speedup is the heavy tail being diluted, not removed.

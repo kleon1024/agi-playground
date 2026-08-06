@@ -194,3 +194,8 @@ python3 dedup_scaling.py --sizes 1000,4000,16000,48000 --cluster-frac 0.10 --thr
 CPU only, stdlib only (`hashlib`-free — reuses Python's built-in `hash()` the
 same way `MinHashDeduper` does), about 3.5 minutes total wall-clock, \$0. Full
 trace: [`runs/2026-08-01-dedup-scaling.md`](runs/2026-08-01-dedup-scaling.md).
+
+A detour from here: [hashing scales linearly; verification scales
+quadratically](when-verification-goes-quadratic/) — the recorded scaling
+read: corpus x4 grows hash time x4.01 and verify time x16.22, because
+verification checks pairs (n^2), not documents (n) — the LSH trade.

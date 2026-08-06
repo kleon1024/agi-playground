@@ -123,3 +123,9 @@ python3 shard_placement.py --num-keys 2000 --old-nodes 4 --new-nodes 5 --shard-b
 
 CPU + local disk only, under 1s wall-clock, \$0. Full trace:
 [`runs/2026-08-01-modulo-vs-consistent-hashing.md`](runs/2026-08-01-modulo-vs-consistent-hashing.md).
+
+A detour from here: [the remap that adding one node
+costs](when-a-node-joins/) — the recorded placement read: modulo remaps
+0.802 (4x the ideal 0.200) and moves 105 MB versus consistent hashing's
+0.180 and 24 MB, so the placement fraction and the disk cost are the same
+story measured twice.

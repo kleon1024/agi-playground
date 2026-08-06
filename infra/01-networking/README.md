@@ -136,3 +136,8 @@ python3 network_sim.py --world-sizes 2 4 8 --payload-mb 1.0 8.0 32.0
 
 CPU only, ~35s wall-clock, \$0. Full trace:
 [`runs/2026-08-01-star-vs-ring.md`](runs/2026-08-01-star-vs-ring.md).
+
+A detour from here: [why the ring wins every cell of the
+sweep](when-the-ring-beats-the-star/) — the recorded 9-combination sweep
+read: ring halves the bytes each rank moves and wins time everywhere, by
+more at larger payload, because bandwidth is what the topology trades.

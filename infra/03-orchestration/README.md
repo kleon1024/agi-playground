@@ -118,3 +118,9 @@ this comparison.
 
 [`runs/2026-08-01-scheduler-comparison.md`](runs/2026-08-01-scheduler-comparison.md)
 — 2 slots, 3 alternating trials, CPU (local dev box), \$0.
+
+A detour from here: [a scheduler doesn't do more work — it decides whose
+work waits](when-the-scheduler-chooses/) — the recorded comparison read:
+makespan barely moves (0.0182 vs 0.0187s) while priority cuts high-priority
+wait ~6x at the cost of low-priority wait — the wait distribution is the
+entire difference.
