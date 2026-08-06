@@ -126,3 +126,5 @@ survivorship-limited public-data exercise, not a proof that real market returns
 are exchangeable. Next, [stage 02](../02-cross-sectional-rank/) turns a score
 into a paper portfolio. That translation has its own choices and its own search
 surface: the same signal with another sizing rule is another strategy.
+
+Another detour: [the winner that did not survive the search](the-search-log-read/) — the recorded search read: best IC 0.0947 among 32 candidates, 95/300 null searches matched it, so p=0.317 — not a result.

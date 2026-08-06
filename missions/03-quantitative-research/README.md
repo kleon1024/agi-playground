@@ -129,6 +129,7 @@ traces where each guardrail came from.
 | [`05-report`](05-report/) | Outcome versus both baselines and every guardrail, with regime-level failure cases | mission 01 · eval | verified evaluator run; outcome cannot determine |
 
 
+
 ## Where each stage leaves the path
 
 A stage states a decision; these deep-dive chapters answer the decisions
@@ -138,13 +139,17 @@ artifact or a measurement the next stage consumes.
 | At this stage | You need to decide | So read |
 |---|---|---|
 | `00-market-data` | The as-of join, and the restatement it catches | [asof-vs-naive](00-market-data/asof-vs-naive/) |
+| `00-market-data` | The same period, two values, filed a year apart | [the-restatement-gap](00-market-data/the-restatement-gap/) |
+| `01-signal-research` | The winner that did not survive the search | [the-search-log-read](01-signal-research/the-search-log-read/) |
 | `01-signal-research` | When does a search over 1,000 signals find a loser that looks like a winner? | [when-breadth-inflates-the-winner](01-signal-research/when-breadth-inflates-the-winner/) |
 | `02-cross-sectional-rank` | The sizing rule IS the strategy | [the-rank-that-becomes-a-position](02-cross-sectional-rank/the-rank-that-becomes-a-position/) |
 | `02-cross-sectional-rank` | What does the position cap actually cost? | [when-the-cap-bites](02-cross-sectional-rank/when-the-cap-bites/) |
 | `03-walk-forward-validation` | Why is fold-specific fit not strategy fit — and when does purge matter? | [when-purge-matters](03-walk-forward-validation/when-purge-matters/) |
+| `03-walk-forward-validation` | The negative result that is still the lesson | [when-the-shuffle-does-not-move](03-walk-forward-validation/when-the-shuffle-does-not-move/) |
+| `04-cost-and-capacity` | Where the book stops: liquidity, then cost | [the-capacity-ceiling](04-cost-and-capacity/the-capacity-ceiling/) |
 | `04-cost-and-capacity` | Where does the book stop making money? | [when-the-book-stops-making-money](04-cost-and-capacity/when-the-book-stops-making-money/) |
+| `05-report` | CANNOT DETERMINE is a first-class result | [the-three-way-verdict](05-report/the-three-way-verdict/) |
 | `05-report` | The refusal that names everything | [when-the-refusal-names-everything](05-report/when-the-refusal-names-everything/) |
-
 
 ## What this reuses
 

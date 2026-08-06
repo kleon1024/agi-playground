@@ -125,3 +125,5 @@ problem. Report stages are where generalization temptation is strongest:
 two-mission gate preserves the distinction. Even a future MET report would not
 prove live performance, durable alpha, investment suitability, or that the
 assumed impact model matches the market’s response to real orders.
+
+Another detour: [CANNOT DETERMINE is a first-class result](the-three-way-verdict/) — the re-run refusal read: the third verdict names exactly what would turn it into MET or NOT MET, and a verdict from missing inputs is wrong, not cautious.

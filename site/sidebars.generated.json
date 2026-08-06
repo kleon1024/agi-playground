@@ -572,6 +572,11 @@
                 "type": "doc",
                 "id": "missions/03-quantitative-research/00-market-data/asof-vs-naive/index",
                 "label": "The as-of join"
+              },
+              {
+                "type": "doc",
+                "id": "missions/03-quantitative-research/00-market-data/the-restatement-gap/index",
+                "label": "The restatement gap"
               }
             ]
           },
@@ -583,6 +588,11 @@
               "id": "missions/03-quantitative-research/01-signal-research/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/03-quantitative-research/01-signal-research/the-search-log-read/index",
+                "label": "The search log, read"
+              },
               {
                 "type": "doc",
                 "id": "missions/03-quantitative-research/01-signal-research/when-breadth-inflates-the-winner/index",
@@ -622,6 +632,11 @@
                 "type": "doc",
                 "id": "missions/03-quantitative-research/03-walk-forward-validation/when-purge-matters/index",
                 "label": "When purge matters"
+              },
+              {
+                "type": "doc",
+                "id": "missions/03-quantitative-research/03-walk-forward-validation/when-the-shuffle-does-not-move/index",
+                "label": "When the shuffle does not move"
               }
             ]
           },
@@ -633,6 +648,11 @@
               "id": "missions/03-quantitative-research/04-cost-and-capacity/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/03-quantitative-research/04-cost-and-capacity/the-capacity-ceiling/index",
+                "label": "The capacity ceiling"
+              },
               {
                 "type": "doc",
                 "id": "missions/03-quantitative-research/04-cost-and-capacity/when-the-book-stops-making-money/index",
@@ -648,6 +668,11 @@
               "id": "missions/03-quantitative-research/05-report/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/03-quantitative-research/05-report/the-three-way-verdict/index",
+                "label": "The three-way verdict"
+              },
               {
                 "type": "doc",
                 "id": "missions/03-quantitative-research/05-report/when-the-refusal-names-everything/index",

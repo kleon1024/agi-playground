@@ -112,3 +112,5 @@ A detour from here: [when purge matters](when-purge-matters/) measures
 fold-specific fit against strategy fit and the boundary rows the purge
 removes — including the honest null this stage's recorded run noted but could
 not make.
+
+Another detour: [the negative result that is still the lesson](when-the-shuffle-does-not-move/) — the recorded three paths read: shuffled 0.7393 vs chronological and purged both 0.9722, because this rule never used its training indices.

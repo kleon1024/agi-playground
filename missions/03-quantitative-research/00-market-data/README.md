@@ -219,3 +219,5 @@ A detour from here: [the as-of join, and the restatement it
 catches](asof-vs-naive/) — the naive join measured across all 69 fiscal
 periods: 4% silently wrong, mean error 1.65%, worst case 3.83% of equity —
 always in the look-ahead direction.
+
+Another detour: [the same period, two values, filed a year apart](the-restatement-gap/) — the recorded point-in-time check read: FY2015 carries two values (176.2B filed 2015, 174.5B restated 2016), and the naive join silently uses the restatement.

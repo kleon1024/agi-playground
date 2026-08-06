@@ -106,3 +106,5 @@ money?](when-the-book-stops-making-money/) — the capacity curve swept across
 the full book-size range: net dollar return peaks near \$31.6B, turns
 negative at \$100B, and the cliff is where participation crosses 100% of
 daily volume.
+
+Another detour: [where the book stops: liquidity, then cost](the-capacity-ceiling/) — the recorded run read: participation peaks the book at USD 25bn, cost breaks it even at USD 125bn, and both rest on declared assumptions.
