@@ -45,7 +45,9 @@ happens to that data once there is too much of it for one machine.
 - [Which endpoint, and does a scaffold split actually hold one out?](/playground/missions/09-bio-pharma-modeling/00-dataset-and-property/)
 - [Does the split decide who wins?](/playground/missions/09-bio-pharma-modeling/00-dataset-and-property/the-split-that-decides/)
 - [When a storage node is added, how much data actually has to move?](/playground/infra/02-storage/)
+- [The remap that adding one node costs](/playground/infra/02-storage/when-a-node-joins/)
 - [Why does dedup reach for a GPU once the corpus gets big enough?](/playground/infra/06-gpu-dedup-at-scale/)
+- [Hashing scales linearly; verification scales quadratically](/playground/infra/06-gpu-dedup-at-scale/when-verification-goes-quadratic/)
 
 ## How does a raw signal become the discrete tokens a decoder can attend over?
 
@@ -77,10 +79,12 @@ most of itself — is also the same one three times.
 - [Does the extra capacity earn back what it cost?](/playground/missions/01-language-model-agent/02-pretrain/upcycling/does-it-pay-off/)
 - [Does a decoder that can see the image actually use it?](/playground/missions/05-vision-language-model/01-vision-fusion/)
 - [Where does the decoder look when the image matters?](/playground/missions/05-vision-language-model/01-vision-fusion/where-the-decoder-looks/)
+- [There is no cross-attention module](/playground/missions/05-vision-language-model/01-vision-fusion/the-fused-attention-anatomy/)
 - [Is a video tokenizer plus a small sequence model even buildable here?](/playground/missions/08-video-generation/02-generation-model/)
 - [When the tokens are wrong but the frames still reconstruct](/playground/missions/08-video-generation/02-generation-model/when-wrong-tokens-still-reconstruct/)
 - [Does a small trained model beat the descriptor baseline?](/playground/missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/)
 - [When does a ten-number baseline beat a trained model?](/playground/missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/when-the-baseline-holds/)
+- [Ten numbers, or 696,065 parameters](/playground/missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/two-ways-to-read-a-molecule/)
 
 ## Why does the loss go down — and what do you do when it stops?
 
@@ -89,8 +93,11 @@ being verified, then read three chapters about runs that went wrong and what
 fixed them.
 
 - [What does `.backward()` actually do?](/playground/foundations/03-backpropagation/)
+- [What each of the three gradient checks establishes](/playground/foundations/03-backpropagation/the-backward-pass-three-ways/)
 - [Why do SGD, momentum, and Adam disagree on the same loss surface?](/playground/foundations/02-optimization/)
+- [Fewer flips is what makes fewer steps possible](/playground/foundations/02-optimization/the-flips-that-separate-optimizers/)
 - [Your first training loop](/playground/foundations/01-first-training-loop/)
+- [The descent and the overfitting are the same curve](/playground/foundations/01-first-training-loop/the-curve-that-takes-34-seconds/)
 - [What are you actually training?](/playground/missions/01-language-model-agent/02-pretrain/)
 - [How do you know a five-hour run is working?](/playground/missions/01-language-model-agent/02-pretrain/verifying-the-run/)
 - [Does a learning-rate warmup close the seed-2 collapse?](/playground/missions/05-vision-language-model/06-warmup-stability/)
@@ -110,10 +117,15 @@ decision.
 - [Your run will take ten hours. Should it?](/playground/missions/01-language-model-agent/02-pretrain/throughput/)
 - [The loss curve looks wrong. Which subsystem owns it?](/playground/missions/01-language-model-agent/02-pretrain/when-the-curve-goes-wrong/)
 - [Distributed training, without a cluster](/playground/foundations/04-distributed-training/)
+- [The all-reduce that makes ranks agree](/playground/foundations/04-distributed-training/when-the-ranks-agree/)
 - [Why does allreduce topology matter, if the sum comes out the same either way?](/playground/infra/01-networking/)
+- [Why the ring wins every cell of the sweep](/playground/infra/01-networking/when-the-ring-beats-the-star/)
 - [Why the cluster's wiring decides the parallelism strategy](/playground/infra/05-gpu-cluster-concepts/)
+- [The coordination tax that grows with the graph](/playground/infra/05-gpu-cluster-concepts/when-the-topology-costs/)
 - [A scheduler doesn't do more work. It decides whose work happens first.](/playground/infra/03-orchestration/)
+- [A scheduler doesn't do more work — it decides whose work waits](/playground/infra/03-orchestration/when-the-scheduler-chooses/)
 - [Why does an RL update step wait on its slowest rollout?](/playground/infra/07-rollout-concurrency/)
+- [Async wins because a finished worker does not wait](/playground/infra/07-rollout-concurrency/when-the-heavy-tail-waits/)
 - [The local lane: a 24GB card over Tailscale and WSL2](/playground/infra/local-4090/)
 - [The cloud lane: when a lesson genuinely needs more than one GPU](/playground/infra/modal/)
 - [Run tracking: what a `runs/` entry has to record](/playground/infra/tracking/)
@@ -140,6 +152,7 @@ which is where the cold-start problem lives.
 - [Why the no-learning floor is not near zero](/playground/missions/06-game-ai/00-gridworld-baselines/when-random-gets-22-percent/)
 - [Does GRPO produce a policy that beats the baselines it must clear?](/playground/missions/06-game-ai/01-grpo/)
 - [The policy that learned one direction](/playground/missions/06-game-ai/01-grpo/when-the-policy-collapses/)
+- [The same decoder, a reward that rewards the wrong thing](/playground/missions/06-game-ai/01-grpo/the-policy-anatomy/)
 - [What happens when GRPO's cold start meets partial observability?](/playground/missions/06-game-ai/04-minigrid/)
 - [Why is the cold start total on MiniGrid?](/playground/missions/06-game-ai/04-minigrid/when-the-cold-start-is-total/)
 - [Does GRPO learn *when* to pay for a tool, not just what to say?](/playground/missions/06-game-ai/06-tool-use-rl/)
@@ -178,6 +191,7 @@ which is where the cold-start problem lives.
 - [The blind call, read: what one attempt without a loop costs](/playground/missions/04-code-agent/01-no-harness/when-the-blind-call-fails/)
 - [The agent says it fixed the bug. What would change your mind?](/playground/missions/04-code-agent/02-agent-loop/)
 - [When does the test-file guardrail refuse a patch?](/playground/missions/04-code-agent/02-agent-loop/when-the-guardrail-refuses/)
+- [The harness, drawn as its steps and checks](/playground/missions/04-code-agent/02-agent-loop/the-loop-that-scores-a-patch/)
 - [Does showing a model its own failed attempt help it fix the bug?](/playground/missions/04-code-agent/06-closing-the-loop/)
 - [Does seeing the real outcome help — with still no tools?](/playground/missions/04-code-agent/06-closing-the-loop/does-feedback-help/)
 - [Who can answer why this item was shown?](/playground/missions/02-personalized-discovery/07-rule-engine/)
@@ -195,10 +209,13 @@ and why a mean hides the step that took three times as long.
 - [The report is in. What has to be true before it ships?](/playground/missions/01-language-model-agent/07-eval/who-decides-to-ship/)
 - [The score went up. Did the thing you actually wanted?](/playground/missions/01-language-model-agent/07-eval/metric-gaming/)
 - [Model A scored 74%. Model B scored 71%. Is that a real difference?](/playground/foundations/06-significance/)
+- [The bigger gap is not the more certain one](/playground/foundations/06-significance/when-the-interval-decides/)
 - [Why route at all? The mixture-of-experts mechanism](/playground/foundations/07-moe/)
+- [The dead expert: what load balancing exists to fight](/playground/foundations/07-moe/when-the-expert-goes-dead/)
 - [Two mechanisms, one result. Which one did the work?](/playground/missions/07-realtime-voice/06-which-mechanism-did-it/)
 - [Which half of the fix did the work?](/playground/missions/07-realtime-voice/06-which-mechanism-did-it/the-half-that-did-the-work/)
 - [A mean step time hides the step that just took three times as long](/playground/infra/04-observability/)
+- [The step that the mean hides](/playground/infra/04-observability/when-the-tail-waits/)
 - [How many ideas may you try before the winner means nothing?](/playground/missions/03-quantitative-research/01-signal-research/)
 - [When does a search over 1,000 signals find a loser that looks like a winner?](/playground/missions/03-quantitative-research/01-signal-research/when-breadth-inflates-the-winner/)
 - [Why is fold-specific fit not strategy fit — and when does purge matter?](/playground/missions/03-quantitative-research/03-walk-forward-validation/when-purge-matters/)
@@ -277,6 +294,7 @@ together and the shape of an honest null result becomes obvious.
 
 - [What turns a score into a portfolio?](/playground/missions/03-quantitative-research/02-cross-sectional-rank/)
 - [What does the position cap actually cost?](/playground/missions/03-quantitative-research/02-cross-sectional-rank/when-the-cap-bites/)
+- [The sizing rule IS the strategy](/playground/missions/03-quantitative-research/02-cross-sectional-rank/the-rank-that-becomes-a-position/)
 - [How much can the paper return actually carry?](/playground/missions/03-quantitative-research/04-cost-and-capacity/)
 - [Where does the book stop making money?](/playground/missions/03-quantitative-research/04-cost-and-capacity/when-the-book-stops-making-money/)
 

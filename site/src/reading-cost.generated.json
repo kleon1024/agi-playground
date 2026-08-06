@@ -19,17 +19,33 @@
     "level": "foundation",
     "minutes": 6
   },
+  "foundations/01-first-training-loop/the-curve-that-takes-34-seconds": {
+    "level": "foundation",
+    "minutes": 2
+  },
   "foundations/02-optimization": {
     "level": "foundation",
     "minutes": 11
+  },
+  "foundations/02-optimization/the-flips-that-separate-optimizers": {
+    "level": "foundation",
+    "minutes": 2
   },
   "foundations/03-backpropagation": {
     "level": "foundation",
     "minutes": 9
   },
+  "foundations/03-backpropagation/the-backward-pass-three-ways": {
+    "level": "foundation",
+    "minutes": 2
+  },
   "foundations/04-distributed-training": {
     "level": "applied",
     "minutes": 6
+  },
+  "foundations/04-distributed-training/when-the-ranks-agree": {
+    "level": "foundation",
+    "minutes": 2
   },
   "foundations/05-is-the-difference-real": {
     "level": "applied",
@@ -43,9 +59,17 @@
     "level": "applied",
     "minutes": 8
   },
+  "foundations/06-significance/when-the-interval-decides": {
+    "level": "applied",
+    "minutes": 2
+  },
   "foundations/07-moe": {
     "level": "foundation",
     "minutes": 4
+  },
+  "foundations/07-moe/when-the-expert-goes-dead": {
+    "level": "foundation",
+    "minutes": 2
   },
   "infra": {
     "level": "reference",
@@ -55,29 +79,57 @@
     "level": "reference",
     "minutes": 5
   },
+  "infra/01-networking/when-the-ring-beats-the-star": {
+    "level": "applied",
+    "minutes": 2
+  },
   "infra/02-storage": {
     "level": "reference",
     "minutes": 4
+  },
+  "infra/02-storage/when-a-node-joins": {
+    "level": "applied",
+    "minutes": 2
   },
   "infra/03-orchestration": {
     "level": "applied",
     "minutes": 4
   },
+  "infra/03-orchestration/when-the-scheduler-chooses": {
+    "level": "applied",
+    "minutes": 2
+  },
   "infra/04-observability": {
     "level": "applied",
     "minutes": 4
+  },
+  "infra/04-observability/when-the-tail-waits": {
+    "level": "applied",
+    "minutes": 2
   },
   "infra/05-gpu-cluster-concepts": {
     "level": "applied",
     "minutes": 6
   },
+  "infra/05-gpu-cluster-concepts/when-the-topology-costs": {
+    "level": "applied",
+    "minutes": 2
+  },
   "infra/06-gpu-dedup-at-scale": {
     "level": "reference",
     "minutes": 8
   },
+  "infra/06-gpu-dedup-at-scale/when-verification-goes-quadratic": {
+    "level": "applied",
+    "minutes": 2
+  },
   "infra/07-rollout-concurrency": {
     "level": "applied",
     "minutes": 7
+  },
+  "infra/07-rollout-concurrency/when-the-heavy-tail-waits": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions": {
     "level": "applied",
@@ -379,6 +431,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/03-quantitative-research/02-cross-sectional-rank/the-rank-that-becomes-a-position": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/03-quantitative-research/02-cross-sectional-rank/when-the-cap-bites": {
     "level": "applied",
     "minutes": 3
@@ -431,6 +487,10 @@
     "level": "applied",
     "minutes": 7
   },
+  "missions/04-code-agent/02-agent-loop/the-loop-that-scores-a-patch": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/04-code-agent/02-agent-loop/when-the-guardrail-refuses": {
     "level": "applied",
     "minutes": 3
@@ -482,6 +542,10 @@
   "missions/05-vision-language-model/01-vision-fusion": {
     "level": "applied",
     "minutes": 9
+  },
+  "missions/05-vision-language-model/01-vision-fusion/the-fused-attention-anatomy": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/05-vision-language-model/01-vision-fusion/where-the-decoder-looks": {
     "level": "applied",
@@ -541,7 +605,11 @@
   },
   "missions/06-game-ai/01-grpo": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
+  },
+  "missions/06-game-ai/01-grpo/the-policy-anatomy": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/06-game-ai/01-grpo/when-the-policy-collapses": {
     "level": "applied",
@@ -721,7 +789,11 @@
   },
   "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
+  },
+  "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/two-ways-to-read-a-molecule": {
+    "level": "applied",
+    "minutes": 3
   },
   "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/when-the-baseline-holds": {
     "level": "applied",

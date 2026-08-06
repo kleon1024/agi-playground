@@ -545,6 +545,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/03-quantitative-research/02-cross-sectional-rank/the-rank-that-becomes-a-position/index",
+                "label": "The rank that becomes a position"
+              },
+              {
+                "type": "doc",
                 "id": "missions/03-quantitative-research/02-cross-sectional-rank/when-the-cap-bites/index",
                 "label": "When the cap bites"
               }
@@ -645,6 +650,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/04-code-agent/02-agent-loop/the-loop-that-scores-a-patch/index",
+                "label": "The loop that scores a patch"
+              },
+              {
+                "type": "doc",
                 "id": "missions/04-code-agent/02-agent-loop/when-the-guardrail-refuses/index",
                 "label": "When the guardrail refuses"
               }
@@ -743,6 +753,11 @@
               "id": "missions/05-vision-language-model/01-vision-fusion/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/05-vision-language-model/01-vision-fusion/the-fused-attention-anatomy/index",
+                "label": "The fused-attention anatomy"
+              },
               {
                 "type": "doc",
                 "id": "missions/05-vision-language-model/01-vision-fusion/where-the-decoder-looks/index",
@@ -858,6 +873,11 @@
               "id": "missions/06-game-ai/01-grpo/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/06-game-ai/01-grpo/the-policy-anatomy/index",
+                "label": "The policy anatomy"
+              },
               {
                 "type": "doc",
                 "id": "missions/06-game-ai/01-grpo/when-the-policy-collapses/index",
@@ -1205,6 +1225,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/two-ways-to-read-a-molecule/index",
+                "label": "Two ways to read a molecule"
+              },
+              {
+                "type": "doc",
                 "id": "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/when-the-baseline-holds/index",
                 "label": "When the baseline holds"
               }
@@ -1318,24 +1343,64 @@
         ]
       },
       {
-        "type": "doc",
-        "id": "foundations/01-first-training-loop/index",
-        "label": "First training loop"
+        "type": "category",
+        "label": "First training loop",
+        "link": {
+          "type": "doc",
+          "id": "foundations/01-first-training-loop/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "foundations/01-first-training-loop/the-curve-that-takes-34-seconds/index",
+            "label": "The curve that takes 34 seconds"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "foundations/02-optimization/index",
-        "label": "Optimization"
+        "type": "category",
+        "label": "Optimization",
+        "link": {
+          "type": "doc",
+          "id": "foundations/02-optimization/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "foundations/02-optimization/the-flips-that-separate-optimizers/index",
+            "label": "The flips that separate the optimizers"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "foundations/03-backpropagation/index",
-        "label": "Backpropagation"
+        "type": "category",
+        "label": "Backpropagation",
+        "link": {
+          "type": "doc",
+          "id": "foundations/03-backpropagation/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "foundations/03-backpropagation/the-backward-pass-three-ways/index",
+            "label": "The backward pass, three ways"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "foundations/04-distributed-training/index",
-        "label": "Distributed training"
+        "type": "category",
+        "label": "Distributed training",
+        "link": {
+          "type": "doc",
+          "id": "foundations/04-distributed-training/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "foundations/04-distributed-training/when-the-ranks-agree/index",
+            "label": "When the ranks agree"
+          }
+        ]
       },
       {
         "type": "category",
@@ -1353,14 +1418,34 @@
         ]
       },
       {
-        "type": "doc",
-        "id": "foundations/06-significance/index",
-        "label": "Statistical significance"
+        "type": "category",
+        "label": "Statistical significance",
+        "link": {
+          "type": "doc",
+          "id": "foundations/06-significance/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "foundations/06-significance/when-the-interval-decides/index",
+            "label": "When the interval decides"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "foundations/07-moe/index",
-        "label": "Mixture of experts"
+        "type": "category",
+        "label": "Mixture of experts",
+        "link": {
+          "type": "doc",
+          "id": "foundations/07-moe/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "foundations/07-moe/when-the-expert-goes-dead/index",
+            "label": "When the expert goes dead"
+          }
+        ]
       },
       {
         "type": "doc",
@@ -1378,39 +1463,109 @@
     },
     "items": [
       {
-        "type": "doc",
-        "id": "infra/01-networking/index",
-        "label": "Networking"
+        "type": "category",
+        "label": "Networking",
+        "link": {
+          "type": "doc",
+          "id": "infra/01-networking/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "infra/01-networking/when-the-ring-beats-the-star/index",
+            "label": "When the ring beats the star"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "infra/02-storage/index",
-        "label": "Storage"
+        "type": "category",
+        "label": "Storage",
+        "link": {
+          "type": "doc",
+          "id": "infra/02-storage/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "infra/02-storage/when-a-node-joins/index",
+            "label": "When a node joins"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "infra/03-orchestration/index",
-        "label": "Orchestration"
+        "type": "category",
+        "label": "Orchestration",
+        "link": {
+          "type": "doc",
+          "id": "infra/03-orchestration/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "infra/03-orchestration/when-the-scheduler-chooses/index",
+            "label": "When the scheduler chooses"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "infra/04-observability/index",
-        "label": "Observability"
+        "type": "category",
+        "label": "Observability",
+        "link": {
+          "type": "doc",
+          "id": "infra/04-observability/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "infra/04-observability/when-the-tail-waits/index",
+            "label": "When the tail waits"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "infra/05-gpu-cluster-concepts/index",
-        "label": "GPU cluster concepts"
+        "type": "category",
+        "label": "GPU cluster concepts",
+        "link": {
+          "type": "doc",
+          "id": "infra/05-gpu-cluster-concepts/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "infra/05-gpu-cluster-concepts/when-the-topology-costs/index",
+            "label": "When the topology costs"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "infra/06-gpu-dedup-at-scale/index",
-        "label": "GPU dedup at scale"
+        "type": "category",
+        "label": "GPU dedup at scale",
+        "link": {
+          "type": "doc",
+          "id": "infra/06-gpu-dedup-at-scale/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "infra/06-gpu-dedup-at-scale/when-verification-goes-quadratic/index",
+            "label": "When verification goes quadratic"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "infra/07-rollout-concurrency/index",
-        "label": "Rollout concurrency"
+        "type": "category",
+        "label": "Rollout concurrency",
+        "link": {
+          "type": "doc",
+          "id": "infra/07-rollout-concurrency/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "infra/07-rollout-concurrency/when-the-heavy-tail-waits/index",
+            "label": "When the heavy tail waits"
+          }
+        ]
       },
       {
         "type": "doc",
