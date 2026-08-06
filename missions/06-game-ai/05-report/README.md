@@ -73,3 +73,5 @@ A detour from here: [the honest null, elevated to a
 verdict](when-the-null-is-elevated/) — the acceptance bar's second
 disjunct read: a rigorous negative is a deliverable, NOT MET would misread
 the bar, and the two-environment null is the mission's actual result.
+
+Another detour: [the null that repeated is the finding](the-two-environment-null/) — the recorded report read: the acceptance bar's second disjunct turns two failures into one pattern, and MET-as-null is the correct reading over NOT MET.

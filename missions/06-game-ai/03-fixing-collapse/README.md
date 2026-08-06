@@ -98,3 +98,5 @@ A detour from here: [the one direction the collapse sweep never tried](the-diver
 is the first variant that moves the collapse (greedy success 0.078 to
 0.156), on one seed, which is exactly the kind of promising direction this
 stage's boundary says would need the full 3-seed treatment next.
+
+Another detour: [both fixes failed, and one made the collapse strictly worse](when-the-fix-makes-it-worse/) — the recorded sweep read: small-group produces single-character completions (worse than baseline) and the entropy bonus reproduces the exact failure, so the training signal is the wall.

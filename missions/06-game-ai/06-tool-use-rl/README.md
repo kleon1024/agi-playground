@@ -181,3 +181,5 @@ A detour from here: [why did two seeds stop paying for the
 tool?](when-two-seeds-stopped-paying/) — the recorded tool-rate
 trajectories: the calibrated seed's rate oscillates, the collapsed seeds'
 rates die to zero, and the divergence shows up by mid-training.
+
+Another detour: [the reward half that can be earned without the outcome](the-format-credit-trap/) — the recorded seeds read: the policy answers easy levels directly in every seed, but only seed 0 pays for the tool at the hard level.

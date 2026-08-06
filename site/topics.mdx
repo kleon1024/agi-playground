@@ -109,6 +109,7 @@ fixed them.
 - [The seed-2 outlier, closed by a training-dynamics fix](/playground/missions/05-vision-language-model/06-warmup-stability/the-collapse-that-warmup-closed/)
 - [Is a greedy-decode collapse fixable by tuning the training signal alone?](/playground/missions/06-game-ai/03-fixing-collapse/)
 - [The one direction the collapse sweep never tried](/playground/missions/06-game-ai/03-fixing-collapse/the-diversity-direction/)
+- [Both fixes failed, and one made the collapse strictly worse](/playground/missions/06-game-ai/03-fixing-collapse/when-the-fix-makes-it-worse/)
 - [Does the same fix still work when the problem gets ten times harder?](/playground/missions/07-realtime-voice/04-multi-speaker/)
 - [The fix that did not generalize](/playground/missions/07-realtime-voice/04-multi-speaker/when-the-fix-did-not-generalize/)
 
@@ -155,13 +156,16 @@ which is where the cold-start problem lives.
 
 - [What does a policy have to beat before RL is worth trying?](/playground/missions/06-game-ai/00-gridworld-baselines/)
 - [Why the no-learning floor is not near zero](/playground/missions/06-game-ai/00-gridworld-baselines/when-random-gets-22-percent/)
+- [The 82.4% ceiling of one-step lookahead](/playground/missions/06-game-ai/00-gridworld-baselines/when-greedy-is-not-perfect/)
 - [Does GRPO produce a policy that beats the baselines it must clear?](/playground/missions/06-game-ai/01-grpo/)
 - [The policy that learned one direction](/playground/missions/06-game-ai/01-grpo/when-the-policy-collapses/)
 - [The same decoder, a reward that rewards the wrong thing](/playground/missions/06-game-ai/01-grpo/the-policy-anatomy/)
 - [What happens when GRPO's cold start meets partial observability?](/playground/missions/06-game-ai/04-minigrid/)
 - [Why is the cold start total on MiniGrid?](/playground/missions/06-game-ai/04-minigrid/when-the-cold-start-is-total/)
+- [The task is solvable — so the cold start is the training](/playground/missions/06-game-ai/04-minigrid/the-solvability-check/)
 - [Does GRPO learn *when* to pay for a tool, not just what to say?](/playground/missions/06-game-ai/06-tool-use-rl/)
 - [Why did two seeds stop paying for the tool?](/playground/missions/06-game-ai/06-tool-use-rl/when-two-seeds-stopped-paying/)
+- [The reward half that can be earned without the outcome](/playground/missions/06-game-ai/06-tool-use-rl/the-format-credit-trap/)
 
 ## What can you actually copy from a better model?
 
@@ -284,8 +288,10 @@ together and the shape of an honest null result becomes obvious.
 - [The API's edge is shaped like the answer type](/playground/missions/05-vision-language-model/05-real-photo-report/the-answer-type-shaped-edge/)
 - [Did GRPO produce a policy worth deploying over either baseline?](/playground/missions/06-game-ai/02-report/)
 - [The honest NOT MET: how the verdict is built](/playground/missions/06-game-ai/02-report/when-the-verdict-is-not-met/)
+- [The verdict is honest because the margin is checked against the spread](/playground/missions/06-game-ai/02-report/when-the-margin-is-the-spread/)
 - [Does mission 06's full chain meet its own acceptance bar?](/playground/missions/06-game-ai/05-report/)
 - [The honest null, elevated to a verdict](/playground/missions/06-game-ai/05-report/when-the-null-is-elevated/)
+- [The null that repeated is the finding](/playground/missions/06-game-ai/05-report/the-two-environment-null/)
 - [Does the serving mechanism built for text transfer to audio, cleanly?](/playground/missions/07-realtime-voice/02-report/)
 - [The transfer that needed no new serving code](/playground/missions/07-realtime-voice/02-report/when-the-transfer-is-clean/)
 - [Does video generation clear this repository's own bar?](/playground/missions/08-video-generation/03-report/)

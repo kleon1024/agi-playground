@@ -119,3 +119,5 @@ A detour from here: [why is the cold start total on
 MiniGrid?](when-the-cold-start-is-total/) — the sparsity gradient across
 three environments: 22.2% baseline -> 1/200 degenerate, 0.4% -> 80/80,
 ~0% -> 200/200; degeneracy tracks baseline success by construction.
+
+Another detour: [the task is solvable — so the cold start is the training](the-solvability-check/) — the recorded checks read: wall-following solves 500/500 while random solves 2/500, which is what makes the total cold start attributable.

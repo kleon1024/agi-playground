@@ -135,3 +135,5 @@ A detour from here: [the honest NOT MET: how the verdict is
 built](when-the-verdict-is-not-met/) — the margins recomputed from the
 committed JSONs against the policy's own spread, and the failure catalogue
 that makes the verdict a diagnosis instead of a number.
+
+Another detour: [the verdict is honest because the margin is checked against the spread](when-the-margin-is-the-spread/) — the recorded outcome read: the policy loses to both baselines by far more than its own seed spread, so NOT MET is decisive, and the fixed action strings are the mechanism.

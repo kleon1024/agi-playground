@@ -711,6 +711,10 @@
     "level": "applied",
     "minutes": 4
   },
+  "missions/06-game-ai/00-gridworld-baselines/when-greedy-is-not-perfect": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/06-game-ai/00-gridworld-baselines/when-random-gets-22-percent": {
     "level": "applied",
     "minutes": 2
@@ -731,6 +735,10 @@
     "level": "applied",
     "minutes": 4
   },
+  "missions/06-game-ai/02-report/when-the-margin-is-the-spread": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/06-game-ai/02-report/when-the-verdict-is-not-met": {
     "level": "applied",
     "minutes": 3
@@ -743,15 +751,27 @@
     "level": "applied",
     "minutes": 3
   },
+  "missions/06-game-ai/03-fixing-collapse/when-the-fix-makes-it-worse": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/06-game-ai/04-minigrid": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/06-game-ai/04-minigrid/the-solvability-check": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/06-game-ai/04-minigrid/when-the-cold-start-is-total": {
     "level": "applied",
     "minutes": 3
   },
   "missions/06-game-ai/05-report": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/06-game-ai/05-report/the-two-environment-null": {
     "level": "applied",
     "minutes": 2
   },
@@ -762,6 +782,10 @@
   "missions/06-game-ai/06-tool-use-rl": {
     "level": "applied",
     "minutes": 8
+  },
+  "missions/06-game-ai/06-tool-use-rl/the-format-credit-trap": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/06-game-ai/06-tool-use-rl/when-two-seeds-stopped-paying": {
     "level": "applied",

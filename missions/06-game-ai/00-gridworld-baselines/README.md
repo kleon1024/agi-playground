@@ -122,3 +122,5 @@ A detour from here: [why the no-learning floor is not near
 zero](when-random-gets-22-percent/) — the recorded baselines read: random
 solves 22.2% (5.43 mean steps) and greedy one-step solves 82.4% (3.15),
 so a trained policy has a real, non-degenerate space to earn.
+
+Another detour: [the 82.4% ceiling of one-step lookahead](when-greedy-is-not-perfect/) — the recorded baselines read: greedy can commit to a dead end the step it enters, so 82.4% is the horizon's ceiling, and the random-to-greedy gap is the bar a trained policy must clear.
