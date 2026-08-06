@@ -101,3 +101,8 @@ is a GPU-lane latency number. Nothing about the paged/continuous-batching
 layer specifically, only the single-sequence `KVCache` path. Nothing about
 real speech, multi-speaker audio, or sequence lengths beyond the 500-step
 synthetic stress test, per `mission.yaml`'s own `does_not_prove`.
+
+A detour from here: [the transfer that needed no new serving
+code](when-the-transfer-is-clean/) — the committed stage 00/01 JSONs read
+line by line: zero quality gap (logit-level 1.19e-05), latency 6.9x vs 1.3x
+growth at 500 steps, zero lines of reused code changed.
