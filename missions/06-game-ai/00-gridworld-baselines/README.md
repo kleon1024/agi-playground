@@ -117,3 +117,8 @@ check for on a different reward source.
 
 **Next:** stage 01 imports mission 01's GRPO mechanism unmodified and trains
 a policy against this environment's terminal reward.
+
+A detour from here: [why the no-learning floor is not near
+zero](when-random-gets-22-percent/) — the recorded baselines read: random
+solves 22.2% (5.43 mean steps) and greedy one-step solves 82.4% (3.15),
+so a trained policy has a real, non-degenerate space to earn.

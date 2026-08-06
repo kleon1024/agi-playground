@@ -168,3 +168,9 @@ acceptance bar is stage 02's job, not this stage's.
 **Next:** stage 02 applies mission 06's acceptance bar to these per-seed
 results against both stage 00 baselines and reports MET, NOT MET, or an
 honest null result.
+
+A detour from here: [the policy that learned one
+direction](when-the-policy-collapses/) — the collapse read from the three
+recorded seeds: each emits a constant direction string and greedy success
+(0.062-0.078) sits below even the random floor (0.222), the mechanism
+behind the honest null.
