@@ -200,6 +200,25 @@ Per [the mission contract](../../reference/standards/mission-contract.md), this
 contract is declared before any stage is built, so the environment and
 baseline cannot be chosen after seeing which ones flatter a result.
 
+
+## Where each stage leaves the path
+
+A stage states a decision; these deep-dive chapters answer the decisions
+the main path asserts without showing, mission-01 style — each returns an
+artifact or a measurement the next stage consumes.
+
+| At this stage | You need to decide | So read |
+|---|---|---|
+| `00-gridworld-baselines` | Why the no-learning floor is not near zero | [when-random-gets-22-percent](00-gridworld-baselines/when-random-gets-22-percent/) |
+| `01-grpo` | The same decoder, a reward that rewards the wrong thing | [the-policy-anatomy](01-grpo/the-policy-anatomy/) |
+| `01-grpo` | The policy that learned one direction | [when-the-policy-collapses](01-grpo/when-the-policy-collapses/) |
+| `02-report` | The honest NOT MET: how the verdict is built | [when-the-verdict-is-not-met](02-report/when-the-verdict-is-not-met/) |
+| `03-fixing-collapse` | The one direction the collapse sweep never tried | [the-diversity-direction](03-fixing-collapse/the-diversity-direction/) |
+| `04-minigrid` | Why is the cold start total on MiniGrid? | [when-the-cold-start-is-total](04-minigrid/when-the-cold-start-is-total/) |
+| `05-report` | The honest null, elevated to a verdict | [when-the-null-is-elevated](05-report/when-the-null-is-elevated/) |
+| `06-tool-use-rl` | Why did two seeds stop paying for the tool? | [when-two-seeds-stopped-paying](06-tool-use-rl/when-two-seeds-stopped-paying/) |
+
+
 ## What this will not prove
 
 Stages 00-02 (fully observed, short-horizon grid-world) prove nothing about

@@ -135,6 +135,37 @@ traces each predecessor and the tradeoff it made.
 | [`08-serving`](08-serving/) | Two-stage serving inside p95 300ms; ANN index; measured | mission 01 · serving | verified synthetic mechanism run; mission outcome pending |
 | [`09-report`](09-report/) | Outcome vs both baselines and all guardrails, with failure cases | mission 01 · eval | verified evaluator run; outcome cannot determine |
 
+
+
+## Where each stage leaves the path
+
+A stage states a decision; these deep-dive chapters answer the decisions
+the main path asserts without showing, mission-01 style — each returns an
+artifact or a measurement the next stage consumes.
+
+| At this stage | You need to decide | So read |
+|---|---|---|
+| `00-interactions` | The filter that catches users it did not aim at | [the-eligibility-cascade](00-interactions/the-eligibility-cascade/) |
+| `00-interactions` | The 99.1% leak: what the wrong split actually buys | [when-the-split-leaks](00-interactions/when-the-split-leaks/) |
+| `01-content-understanding` | The behavioural floor the threshold cannot touch | [the-63-percent-that-never-moves](01-content-understanding/the-63-percent-that-never-moves/) |
+| `01-content-understanding` | The confidence threshold: precision for the head, or reach for the tail? | [when-the-threshold-rescues-the-tail](01-content-understanding/when-the-threshold-rescues-the-tail/) |
+| `02-recall` | Recall bought back at a measured latency cost | [the-price-of-approximate](02-recall/the-price-of-approximate/) |
+| `02-recall` | The queue you disable is the target you lose | [when-you-lose-a-queue](02-recall/when-you-lose-a-queue/) |
+| `03-pre-rank` | When does the cheap cut fail? | [when-the-cheap-cut-fails](03-pre-rank/when-the-cheap-cut-fails/) |
+| `03-pre-rank` | The zero that is structural, not a tuning miss | [when-the-long-tail-is-invisible](03-pre-rank/when-the-long-tail-is-invisible/) |
+| `04-fine-rank` | Why ECE is a gate, not a polish step | [the-calibration-that-decides](04-fine-rank/the-calibration-that-decides/) |
+| `04-fine-rank` | When does the shared model hurt an objective? | [when-sharing-hurts](04-fine-rank/when-sharing-hurts/) |
+| `05-value-tree` | The same strategy, different calibration, different slate | [the-calibration-break](05-value-tree/the-calibration-break/) |
+| `05-value-tree` | The weight IS the strategy | [when-the-weight-moves](05-value-tree/when-the-weight-moves/) |
+| `06-mixing` | A narrow beam finding the optimum is not proof a beam is enough | [when-the-beam-is-wide-enough](06-mixing/when-the-beam-is-wide-enough/) |
+| `06-mixing` | What does a mixing weight actually trade off? | [when-the-trade-weight-moves](06-mixing/when-the-trade-weight-moves/) |
+| `07-rule-engine` | A rule engine's failure mode is interaction, not any single rule | [the-empty-set-was-two-rules](07-rule-engine/the-empty-set-was-two-rules/) |
+| `07-rule-engine` | When does the rule engine return an empty set? | [when-the-rules-collide](07-rule-engine/when-the-rules-collide/) |
+| `08-serving` | Means add for the serial path; tail percentiles do not | [when-p95s-do-not-add](08-serving/when-p95s-do-not-add/) |
+| `08-serving` | What does the pre-rank cut buy, and when does it stop paying? | [when-the-cut-bites](08-serving/when-the-cut-bites/) |
+| `09-report` | A headline win that still loses, seed by seed | [the-variance-that-decides](09-report/the-variance-that-decides/) |
+| `09-report` | A headline win that is still NOT MET | [when-the-guardrail-vetoes](09-report/when-the-guardrail-vetoes/) |
+
 ## What makes this hard to prove
 
 Mission 01 could claim "the stages ran". This mission wants to claim "users

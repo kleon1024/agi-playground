@@ -58,3 +58,8 @@ A detour from here: [what does the pre-rank cut buy, and when does it stop
 paying?](when-the-cut-bites/) — the cut swept across six values: its cost
 lands on fine-rank, and the latency curve flattens below ~100 so recall
 quality is nearly free.
+
+Another detour: [means add for the serial path; tail percentiles do
+not](when-p95s-do-not-add/) — the recorded latency read: the p95-sum
+(54.74ms) over the measured p95 (49.31ms) is the trap, and the 80% cache
+row collapses p95 to 34.52ms.

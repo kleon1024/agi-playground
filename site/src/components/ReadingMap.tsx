@@ -97,7 +97,7 @@ const BUILD_PATH: Step[] = [
     note: 'Teach the checkpoint to answer, with loss on assistant turns only.',
     detours: [
       {
-        href: '/playground/reference/research/mid-training/',
+        href: '/playground/missions/01-language-model-agent/02-pretrain/mid-training/',
         label: 'Mid-training',
         returns: 'why agentic trajectories enter the corpus before SFT, and in what format',
       },

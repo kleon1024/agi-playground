@@ -193,6 +193,25 @@ synthetic one on the underlying build-vs-buy answer: buy, not build, at this
 scale. Full numbers in
 [its run record](05-real-photo-report/runs/2026-08-01-real-photo-report.md).
 
+
+## Where each stage leaves the path
+
+A stage states a decision; these deep-dive chapters answer the decisions
+the main path asserts without showing, mission-01 style — each returns an
+artifact or a measurement the next stage consumes.
+
+| At this stage | You need to decide | So read |
+|---|---|---|
+| `00-image-caption-task` | Why does a leakage guardrail need to check pixels, not seeds? | [seed-vs-pixels](00-image-caption-task/seed-vs-pixels/) |
+| `01-vision-fusion` | There is no cross-attention module | [the-fused-attention-anatomy](01-vision-fusion/the-fused-attention-anatomy/) |
+| `01-vision-fusion` | Where does the decoder look when the image matters? | [where-the-decoder-looks](01-vision-fusion/where-the-decoder-looks/) |
+| `02-report` | Where the NOT MET verdict hides the pathway's real signal | [when-the-category-breaks-down](02-report/when-the-category-breaks-down/) |
+| `03-real-photo-task` | The real-photo guardrail: why image ID, not pixel hash | [the-real-photo-guardrail](03-real-photo-task/the-real-photo-guardrail/) |
+| `04-real-photo-vision-fusion` | The margin is narrow, real, and noisy on the control side | [when-the-margin-is-narrow](04-real-photo-vision-fusion/when-the-margin-is-narrow/) |
+| `05-real-photo-report` | The build-vs-buy verdict, on real photos | [when-the-api-still-wins](05-real-photo-report/when-the-api-still-wins/) |
+| `06-warmup-stability` | What the warmup changed, and what it did not | [when-warmup-closed-the-collapse](06-warmup-stability/when-warmup-closed-the-collapse/) |
+
+
 ## What this will not prove
 
 Nothing about frontier-scale vision-language capability — the model here

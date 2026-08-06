@@ -172,3 +172,8 @@ A detour from here: [when does the cheap cut fail?](when-the-cheap-cut-fails/)
 surface all of the true top-20, and popularity-only is structurally
 long-tail-blind (0.000 at every keep), which is why pre-rank must be a real
 proxy.
+
+Another detour: [the zero that is structural, not a tuning
+miss](when-the-long-tail-is-invisible/) — the recorded surface rates read:
+popularity-only's long-tail rate is 0.000 on every seed because a cold
+item's popularity is noise by construction.

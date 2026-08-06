@@ -84,7 +84,7 @@ taking.
 | whenever | which open-source line is this stage on, and what did each successor trade | [the language-model lineage](../../reference/research/lineages/01-language-model-system/) | where this stage's mechanism sits in the evolution, with the dated paper interpretations |
 
 Two chapters are deliberately not on this list.
-[Mid-training](../../reference/research/mid-training/) is skipped for the
+[Mid-training](02-pretrain/mid-training/) is skipped for the
 reason below. [Latent reasoning](02-pretrain/latent-reasoning/)
 is an open question rather than a decision this mission makes, and it is
 labelled draft until a run says otherwise.
@@ -92,7 +92,7 @@ labelled draft until a run says otherwise.
 ## The stage this mission deliberately skips
 
 Between pretraining and SFT the platform describes a third training stage,
-[mid-training](../../reference/research/mid-training/), where a base model
+[mid-training](02-pretrain/mid-training/), where a base model
 first sees tool calls and long contexts. This mission has no such stage, and the
 reason is a constraint rather than an oversight: mid-training installs behavior
 by exposure at pretraining scale, and a base this small trained on this much

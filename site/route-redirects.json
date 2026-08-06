@@ -71,7 +71,7 @@
     },
     {
       "from": "/platform/adaptation/mid-training",
-      "to": "/reference/research/mid-training"
+      "to": "/missions/01-language-model-agent/02-pretrain/mid-training"
     },
     {
       "from": "/platform/adaptation/distillation",
@@ -168,6 +168,10 @@
     {
       "from": "/platform/safety-governance/02-red-teaming",
       "to": "/missions/01-language-model-agent/07-eval/red-teaming"
+    },
+    {
+      "from": "/reference/research/mid-training",
+      "to": "/missions/01-language-model-agent/02-pretrain/mid-training"
     }
   ]
 }

@@ -34,6 +34,7 @@ happens to that data once there is too much of it for one machine.
 - [The two confounds a proxy run can hide](/playground/foundations/05-is-the-difference-real/the-two-confounds/)
 - [What does a click actually tell you?](/playground/missions/02-personalized-discovery/00-interactions/)
 - [The 99.1% leak: what the wrong split actually buys](/playground/missions/02-personalized-discovery/00-interactions/when-the-split-leaks/)
+- [The filter that catches users it did not aim at](/playground/missions/02-personalized-discovery/00-interactions/the-eligibility-cascade/)
 - [What did you actually know on the decision date?](/playground/missions/03-quantitative-research/00-market-data/)
 - [The as-of join, and the restatement it catches](/playground/missions/03-quantitative-research/00-market-data/asof-vs-naive/)
 - [What makes a synthetic image+question pair require looking at the image?](/playground/missions/05-vision-language-model/00-image-caption-task/)
@@ -136,7 +137,7 @@ decision.
 - [It answers questions now. What did that cost?](/playground/missions/01-language-model-agent/03-sft/what-it-costs/)
 - [You have comparisons, not demonstrations. What changes?](/playground/missions/01-language-model-agent/03-sft/beyond-demonstrations/)
 - [What does model size change about SFT?](/playground/missions/01-language-model-agent/03-sft/what-model-size-changes/)
-- [Mid-training: where does a base model learn to call a tool?](/playground/reference/research/mid-training/)
+- [Mid-training: where does a base model learn to call a tool?](/playground/missions/01-language-model-agent/02-pretrain/mid-training/)
 - [How do you improve a model with no correct answer to copy?](/playground/missions/01-language-model-agent/04-rl/)
 - [The reward went up. Did the model get better?](/playground/missions/01-language-model-agent/04-rl/reward-went-up/)
 - [Your toy loop runs. What does a real one have that it does not?](/playground/missions/01-language-model-agent/04-rl/what-a-real-loop-adds/)
@@ -178,6 +179,7 @@ which is where the cold-start problem lives.
 - [The real network is where the realtime margin goes](/playground/missions/07-realtime-voice/03-real-speech-and-network/when-the-network-is-the-tail/)
 - [Which stage do you cut to fit the request budget?](/playground/missions/02-personalized-discovery/08-serving/)
 - [What does the pre-rank cut buy, and when does it stop paying?](/playground/missions/02-personalized-discovery/08-serving/when-the-cut-bites/)
+- [Means add for the serial path; tail percentiles do not](/playground/missions/02-personalized-discovery/08-serving/when-p95s-do-not-add/)
 
 ## The software around the model: what must the harness own?
 
@@ -196,6 +198,7 @@ which is where the cold-start problem lives.
 - [Does seeing the real outcome help — with still no tools?](/playground/missions/04-code-agent/06-closing-the-loop/does-feedback-help/)
 - [Who can answer why this item was shown?](/playground/missions/02-personalized-discovery/07-rule-engine/)
 - [When does the rule engine return an empty set?](/playground/missions/02-personalized-discovery/07-rule-engine/when-the-rules-collide/)
+- [A rule engine's failure mode is interaction, not any single rule](/playground/missions/02-personalized-discovery/07-rule-engine/the-empty-set-was-two-rules/)
 
 ## Would you believe the number?
 
@@ -254,6 +257,7 @@ together and the shape of an honest null result becomes obvious.
 
 - [Did the mission earn the right to claim anything?](/playground/missions/02-personalized-discovery/09-report/)
 - [A headline win that is still NOT MET](/playground/missions/02-personalized-discovery/09-report/when-the-guardrail-vetoes/)
+- [A headline win that still loses, seed by seed](/playground/missions/02-personalized-discovery/09-report/the-variance-that-decides/)
 - [Can this mission claim anything at all?](/playground/missions/03-quantitative-research/05-report/)
 - [The refusal that names everything](/playground/missions/03-quantitative-research/05-report/when-the-refusal-names-everything/)
 - [What did this mission actually establish?](/playground/missions/04-code-agent/05-report/)
@@ -279,16 +283,22 @@ together and the shape of an honest null result becomes obvious.
 
 - [What retrieves an item nobody has touched?](/playground/missions/02-personalized-discovery/01-content-understanding/)
 - [The confidence threshold: precision for the head, or reach for the tail?](/playground/missions/02-personalized-discovery/01-content-understanding/when-the-threshold-rescues-the-tail/)
+- [The behavioural floor the threshold cannot touch](/playground/missions/02-personalized-discovery/01-content-understanding/the-63-percent-that-never-moves/)
 - [How do you find candidates without scoring everything?](/playground/missions/02-personalized-discovery/02-recall/)
 - [The queue you disable is the target you lose](/playground/missions/02-personalized-discovery/02-recall/when-you-lose-a-queue/)
+- [Recall bought back at a measured latency cost](/playground/missions/02-personalized-discovery/02-recall/the-price-of-approximate/)
 - [What can you afford to score, and what must you drop?](/playground/missions/02-personalized-discovery/03-pre-rank/)
 - [When does the cheap cut fail?](/playground/missions/02-personalized-discovery/03-pre-rank/when-the-cheap-cut-fails/)
+- [The zero that is structural, not a tuning miss](/playground/missions/02-personalized-discovery/03-pre-rank/when-the-long-tail-is-invisible/)
 - [Which objective are you actually ranking by?](/playground/missions/02-personalized-discovery/04-fine-rank/)
 - [When does the shared model hurt an objective?](/playground/missions/02-personalized-discovery/04-fine-rank/when-sharing-hurts/)
+- [Why ECE is a gate, not a polish step](/playground/missions/02-personalized-discovery/04-fine-rank/the-calibration-that-decides/)
 - [How do you trade user value against revenue on purpose?](/playground/missions/02-personalized-discovery/05-value-tree/)
 - [The weight IS the strategy](/playground/missions/02-personalized-discovery/05-value-tree/when-the-weight-moves/)
+- [The same strategy, different calibration, different slate](/playground/missions/02-personalized-discovery/05-value-tree/the-calibration-break/)
 - [Why is the best slate not the top ten items?](/playground/missions/02-personalized-discovery/06-mixing/)
 - [What does a mixing weight actually trade off?](/playground/missions/02-personalized-discovery/06-mixing/when-the-trade-weight-moves/)
+- [A narrow beam finding the optimum is not proof a beam is enough](/playground/missions/02-personalized-discovery/06-mixing/when-the-beam-is-wide-enough/)
 
 ## Turning a score into a position you could actually hold
 

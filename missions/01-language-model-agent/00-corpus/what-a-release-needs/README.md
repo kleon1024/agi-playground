@@ -95,7 +95,7 @@ action->error->inspect->fix arcs an agent needs. Programmes add those as a
 separate, small component of the mix — reported practice is a single-digit
 share of tokens, concentrated in the annealing phase, sourced from notebook
 text already in the crawl plus synthesized or distilled tool-use and
-SWE-style trajectories. [Mid-training](../../../../reference/research/mid-training/)
+SWE-style trajectories. [Mid-training](../../02-pretrain/mid-training/)
 owns the trajectory formats, the separator and noise decisions, and the
 evidence boundary; here it is one row of the mixture table, with a weight
 that has to be named like any other.

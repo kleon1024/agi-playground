@@ -175,6 +175,10 @@
     "level": "frontier",
     "minutes": 10
   },
+  "missions/01-language-model-agent/02-pretrain/mid-training": {
+    "level": "applied",
+    "minutes": 18
+  },
   "missions/01-language-model-agent/02-pretrain/the-gate-that-beats-relu": {
     "level": "applied",
     "minutes": 3
@@ -325,11 +329,15 @@
   },
   "missions/02-personalized-discovery": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "missions/02-personalized-discovery/00-interactions": {
     "level": "foundation",
     "minutes": 8
+  },
+  "missions/02-personalized-discovery/00-interactions/the-eligibility-cascade": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/02-personalized-discovery/00-interactions/when-the-split-leaks": {
     "level": "applied",
@@ -339,6 +347,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/02-personalized-discovery/01-content-understanding/the-63-percent-that-never-moves": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/02-personalized-discovery/01-content-understanding/when-the-threshold-rescues-the-tail": {
     "level": "applied",
     "minutes": 2
@@ -346,6 +358,10 @@
   "missions/02-personalized-discovery/02-recall": {
     "level": "foundation",
     "minutes": 8
+  },
+  "missions/02-personalized-discovery/02-recall/the-price-of-approximate": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/02-personalized-discovery/02-recall/when-you-lose-a-queue": {
     "level": "applied",
@@ -359,9 +375,17 @@
     "level": "applied",
     "minutes": 3
   },
+  "missions/02-personalized-discovery/03-pre-rank/when-the-long-tail-is-invisible": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/02-personalized-discovery/04-fine-rank": {
     "level": "applied",
     "minutes": 7
+  },
+  "missions/02-personalized-discovery/04-fine-rank/the-calibration-that-decides": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/02-personalized-discovery/04-fine-rank/when-sharing-hurts": {
     "level": "applied",
@@ -369,7 +393,11 @@
   },
   "missions/02-personalized-discovery/05-value-tree": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
+  },
+  "missions/02-personalized-discovery/05-value-tree/the-calibration-break": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/02-personalized-discovery/05-value-tree/when-the-weight-moves": {
     "level": "applied",
@@ -379,6 +407,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/02-personalized-discovery/06-mixing/when-the-beam-is-wide-enough": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/02-personalized-discovery/06-mixing/when-the-trade-weight-moves": {
     "level": "applied",
     "minutes": 4
@@ -386,6 +418,10 @@
   "missions/02-personalized-discovery/07-rule-engine": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/02-personalized-discovery/07-rule-engine/the-empty-set-was-two-rules": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/02-personalized-discovery/07-rule-engine/when-the-rules-collide": {
     "level": "applied",
@@ -395,6 +431,10 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/02-personalized-discovery/08-serving/when-p95s-do-not-add": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/02-personalized-discovery/08-serving/when-the-cut-bites": {
     "level": "applied",
     "minutes": 3
@@ -402,6 +442,10 @@
   "missions/02-personalized-discovery/09-report": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/02-personalized-discovery/09-report/the-variance-that-decides": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/02-personalized-discovery/09-report/when-the-guardrail-vetoes": {
     "level": "applied",
@@ -717,7 +761,7 @@
   },
   "missions/08-video-generation": {
     "level": "frontier",
-    "minutes": 12
+    "minutes": 13
   },
   "missions/08-video-generation/00-synthetic-video-dataset": {
     "level": "applied",
@@ -777,7 +821,7 @@
   },
   "missions/09-bio-pharma-modeling": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "missions/09-bio-pharma-modeling/00-dataset-and-property": {
     "level": "applied",
@@ -850,10 +894,6 @@
   "reference/research/lineages": {
     "level": "reference",
     "minutes": 1
-  },
-  "reference/research/mid-training": {
-    "level": "applied",
-    "minutes": 18
   },
   "reference/standards": {
     "level": "reference",

@@ -60,3 +60,8 @@ A detour from here: [when does the rule engine return an empty
 set?](when-the-rules-collide/) — the frontier swept across region and cap:
 EU empties at every cap, US never does, and the audit record is what makes
 the emptiness diagnosable and the policy conversational.
+
+Another detour: [a rule engine's failure mode is interaction, not any
+single rule](the-empty-set-was-two-rules/) — the recorded run read: EU
+regional and safety each leave survivors, and applied together they empty
+the set — the joint failure the engine's check exists to find.

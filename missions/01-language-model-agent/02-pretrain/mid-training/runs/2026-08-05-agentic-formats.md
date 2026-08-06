@@ -18,7 +18,7 @@ rather than prose.
 ## Command
 
 ```bash
-cd reference/research/mid-training
+cd missions/01-language-model-agent/02-pretrain/mid-training
 python3 core/format_agentic_text.py --category tool-use
 python3 core/format_agentic_text.py --category swe
 python3 core/format_agentic_text.py --category swe --separators neutral

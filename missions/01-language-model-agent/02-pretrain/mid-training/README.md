@@ -12,7 +12,7 @@ Your base model has never made one. So where does that behavior come from —
 and why isn't the answer supervised fine-tuning?
 
 No mission in this repository runs this stage, and
-[the language-model system says why](../../../missions/01-language-model-agent/):
+[the language-model system says why](../..):
 an 88M base has no capacity for exposure at this scale to land in. You are here
 to understand a stage you will read about in other people's model cards, and to
 recognise when a project has skipped it and is asking SFT to do its job.
@@ -29,13 +29,13 @@ over web text         over synthesized agentic       loss over assistant turns
 All three stages train the same next-token objective on different documents.
 Mid-training is the stage that decides whether the model has already seen a
 think, call a tool, read the result, continue episode before
-[SFT](../../../missions/01-language-model-agent/03-sft/) ever asks it to behave like an assistant.
+[SFT](../../03-sft/) ever asks it to behave like an assistant.
 The boundary between the first two columns is a budget line, not a hard wall:
 programmes also mix a small agentic slice into general pretraining itself,
 concentrated in the annealing phase, at a single-digit share of tokens —
 section 7 puts numbers and sources on that.
 
-**Before this:** [pretraining](../../../missions/01-language-model-agent/02-pretrain/), for the base checkpoint this stage would start from.
+**Before this:** [pretraining](../), for the base checkpoint this stage would start from.
 This chapter is about the stage between pretraining and post-training, so both
 of its neighbours have to be in view.
 
@@ -237,7 +237,7 @@ the truncation and noise that section 7 describes.
 `core/mid_training_data.py` marks each step with a plain `<role:kind>` tag —
 `<assistant:think>`, `<assistant:act>`, `<assistant:observe>` — not the
 `<|im_start|>role\n...<|im_end|>` structure post-training's SFT stage renders:
-[the SFT stage's `render_and_mask`](../../../missions/01-language-model-agent/03-sft/core/sft.py)
+[the SFT stage's `render_and_mask`](../../03-sft/core/sft.py)
 reserves three special token ids (`IM_START`, `IM_END`, `PAD_ID`) for exactly
 that ChatML-style template. The gap is not an oversight. Mid-training runs
 long before post-training decides which chat template the shipped assistant
@@ -264,7 +264,7 @@ the fine-tune an identity conflict to resolve).
 
 What actually breaks when that structure is skipped or introduced too early
 is worked out with a real failed run in
-[the language-model system's agent chapter](../../../missions/01-language-model-agent/06-agent/),
+[the language-model system's agent chapter](../../06-agent/),
 under "What does agentic training data actually need to teach?" — read that
 section for the evidence rather than re-deriving it here.
 
@@ -298,11 +298,11 @@ pretraining budget (section 3). Neither number is a measured optimum from this
 repository; both are reported practice, stated as such. The corpus-level view
 — what the mixture weights are, and how a deliberate agentic component
 differs from the weak notebook traces the web funnel happens to keep — is
-[the corpus stage's mixture chapter](../../../missions/01-language-model-agent/00-corpus/what-a-release-needs/).
+[the corpus stage's mixture chapter](../../00-corpus/what-a-release-needs/).
 The downstream cost of getting the mix wrong is measured, not hypothetical:
 the language-model system's agent run scored 0/6 against a checkpoint that
 never saw an agentic-formatted example
-([stage 06](../../../missions/01-language-model-agent/06-agent/)).
+([stage 06](../../06-agent/)).
 
 ## 8. Loss masking on observations
 
@@ -314,7 +314,7 @@ observations has learned to fabricate them at inference time, when no real
 result exists yet to condition on.
 
 The standard mitigation in agentic SFT is the same idea
-[SFT](../../../missions/01-language-model-agent/03-sft/) already established for user turns: mask
+[SFT](../../03-sft/) already established for user turns: mask
 the loss on observation tokens. The model still sees them in context —
 conditioning on a real or synthesized tool result is exactly the skill being
 trained — but no gradient asks it to reproduce them. Only the think and act
@@ -333,7 +333,7 @@ mechanism is visibly the one instruction-tuning already used.
 This chapter cites five dated, external reports and demonstrates the
 mechanism the first two describe at a scale a single machine can execute. It
 does not demonstrate: a 300B-token training run — no lane in this repository
-reaches that budget, see [`infra/`](../../../infra/); a measured comparison of
+reaches that budget, see [`infra/`](../../../../infra/); a measured comparison of
 "install the prior first" against "train it all during post-training," which
 is the source paper's argument and is not re-derived here; that FAS/HAS
 filtering generalizes beyond the two programmes that reported it; or the
@@ -516,7 +516,7 @@ the evidence boundary says so explicitly.
 
 The output of mid-training is a base model that has already seen tool calls,
 long dependency chains, and corrected mistakes under the plain next-token
-objective. Continue to [SFT](../../../missions/01-language-model-agent/03-sft/) to see what changes
+objective. Continue to [SFT](../../03-sft/) to see what changes
 when that same model is trained on a demonstration or a preference pair
 instead.
 

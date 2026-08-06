@@ -178,3 +178,8 @@ A detour from here: [when does the shared model hurt an
 objective?](when-sharing-hurts/) — the transfer grid, shared trunk versus
 single-task: negative transfer is per-task and direction-dependent, and the
 loss weighting decides which task pays.
+
+Another detour: [why ECE is a gate, not a polish step](the-calibration-that-decides/) —
+the recorded calibration read: balanced weighting recovers dwell
+(0.658 -> 0.803) and Platt scaling cuts click-head ECE ~25-40%, the
+precondition the value tree's arithmetic needs.

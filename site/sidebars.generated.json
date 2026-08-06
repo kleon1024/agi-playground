@@ -125,6 +125,11 @@
               },
               {
                 "type": "doc",
+                "id": "missions/01-language-model-agent/02-pretrain/mid-training/index",
+                "label": "Mid-training"
+              },
+              {
+                "type": "doc",
                 "id": "missions/01-language-model-agent/02-pretrain/the-gate-that-beats-relu/index",
                 "label": "The gate that beats ReLU"
               },
@@ -355,6 +360,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/02-personalized-discovery/00-interactions/the-eligibility-cascade/index",
+                "label": "The eligibility cascade"
+              },
+              {
+                "type": "doc",
                 "id": "missions/02-personalized-discovery/00-interactions/when-the-split-leaks/index",
                 "label": "When the split leaks"
               }
@@ -370,6 +380,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/02-personalized-discovery/01-content-understanding/the-63-percent-that-never-moves/index",
+                "label": "The 63 percent that never moves"
+              },
+              {
+                "type": "doc",
                 "id": "missions/02-personalized-discovery/01-content-understanding/when-the-threshold-rescues-the-tail/index",
                 "label": "When the threshold rescues the tail"
               }
@@ -383,6 +398,11 @@
               "id": "missions/02-personalized-discovery/02-recall/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/02-recall/the-price-of-approximate/index",
+                "label": "The price of approximate"
+              },
               {
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/02-recall/when-you-lose-a-queue/index",
@@ -402,6 +422,11 @@
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/03-pre-rank/when-the-cheap-cut-fails/index",
                 "label": "When the cheap cut fails"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/03-pre-rank/when-the-long-tail-is-invisible/index",
+                "label": "When the long tail is invisible"
               }
             ]
           },
@@ -413,6 +438,11 @@
               "id": "missions/02-personalized-discovery/04-fine-rank/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/04-fine-rank/the-calibration-that-decides/index",
+                "label": "The calibration that decides"
+              },
               {
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/04-fine-rank/when-sharing-hurts/index",
@@ -430,6 +460,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/02-personalized-discovery/05-value-tree/the-calibration-break/index",
+                "label": "The calibration break"
+              },
+              {
+                "type": "doc",
                 "id": "missions/02-personalized-discovery/05-value-tree/when-the-weight-moves/index",
                 "label": "When the weight moves"
               }
@@ -443,6 +478,11 @@
               "id": "missions/02-personalized-discovery/06-mixing/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/06-mixing/when-the-beam-is-wide-enough/index",
+                "label": "When the beam is wide enough"
+              },
               {
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/06-mixing/when-the-trade-weight-moves/index",
@@ -460,6 +500,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/02-personalized-discovery/07-rule-engine/the-empty-set-was-two-rules/index",
+                "label": "The empty set was two rules"
+              },
+              {
+                "type": "doc",
                 "id": "missions/02-personalized-discovery/07-rule-engine/when-the-rules-collide/index",
                 "label": "When the rules collide"
               }
@@ -475,6 +520,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/02-personalized-discovery/08-serving/when-p95s-do-not-add/index",
+                "label": "When p95s do not add"
+              },
+              {
+                "type": "doc",
                 "id": "missions/02-personalized-discovery/08-serving/when-the-cut-bites/index",
                 "label": "When the cut bites"
               }
@@ -488,6 +538,11 @@
               "id": "missions/02-personalized-discovery/09-report/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/09-report/the-variance-that-decides/index",
+                "label": "The variance that decides"
+              },
               {
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/09-report/when-the-guardrail-vetoes/index",
@@ -1684,11 +1739,6 @@
                 "label": "Bio pharma"
               }
             ]
-          },
-          {
-            "type": "doc",
-            "id": "reference/research/mid-training/index",
-            "label": "Mid-training"
           },
           {
             "type": "doc",

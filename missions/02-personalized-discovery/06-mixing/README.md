@@ -59,3 +59,8 @@ Finally, validate the candidate pool before diagnosing mixing. A diverse slate c
 [Stage 07 — the rule engine](../07-rule-engine/) applies constraints this
 stage does not know about — legal, safety, contractual — after mixing has
 already assembled the slate this stage optimized.
+
+A detour from here: [a narrow beam finding the optimum is not proof a beam
+is enough](when-the-beam-is-wide-enough/) — the recorded slate run read:
+greedy violates the cap, beam widths 1/2/3/9 all match the exhaustive
+optimum, and the displacement column prices the ad revenue.

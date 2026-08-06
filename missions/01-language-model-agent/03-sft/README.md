@@ -39,7 +39,7 @@ model never encountered a fact, formatting the question as a chat turn will not
 produce it. SFT surfaces knowledge and reframes behavior; it does not add
 capability the base model lacked — installing a behaviour the base has never
 produced at all is a pretraining-scale problem, surveyed in
-[mid-training](../../../reference/research/mid-training/).
+[mid-training](../02-pretrain/mid-training/).
 
 ## The chat template is a learned convention, not a magic string
 

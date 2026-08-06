@@ -257,6 +257,24 @@ all-or-nothing metric rather than a property of the task. All 3 seeds closed
 what is missing. Full traces in
 [its run record](06-longer-and-multi-object/runs/2026-08-05-longer-and-multi-object.md).
 
+
+## Where each stage leaves the path
+
+A stage states a decision; these deep-dive chapters answer the decisions
+the main path asserts without showing, mission-01 style — each returns an
+artifact or a measurement the next stage consumes.
+
+| At this stage | You need to decide | So read |
+|---|---|---|
+| `00-synthetic-video-dataset` | The seed is the answer key | [when-the-seed-is-the-answer](00-synthetic-video-dataset/when-the-seed-is-the-answer/) |
+| `01-video-tokenizer` | What is the discrete thing a video model conditions on? | [what-a-video-token-is](01-video-tokenizer/what-a-video-token-is/) |
+| `02-generation-model` | When the tokens are wrong but the frames still reconstruct | [when-wrong-tokens-still-reconstruct](02-generation-model/when-wrong-tokens-still-reconstruct/) |
+| `03-report` | The feasibility verdict, read: quality margin and cost headroom | [when-the-cost-ceiling-is-roomy](03-report/when-the-cost-ceiling-is-roomy/) |
+| `04-longer-sequences` | Doubling the frames: what the same recipe says at 16 | [when-the-frames-double](04-longer-sequences/when-the-frames-double/) |
+| `05-multi-object` | One token per frame, two objects: where the capacity limit shows | [when-two-shapes-share-a-token](05-multi-object/when-two-shapes-share-a-token/) |
+| `06-longer-and-multi-object` | Which axis costs the generation — and when does the metric hit zero? | [when-the-metric-hits-zero](06-longer-and-multi-object/when-the-metric-hits-zero/) |
+
+
 ## What this will not prove
 
 Nothing about real-world video realism, coherence beyond a handful of frames,

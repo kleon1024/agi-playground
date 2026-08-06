@@ -60,3 +60,8 @@ reach for the tail?](when-the-threshold-rescues-the-tail/) — the recorded
 sweep read: raising the threshold to 0.65 cuts cold coverage from 100% to
 25% while label accuracy only rises 96% to 100%, so the threshold is
 trading the tail for the head.
+
+Another detour: [the behavioural floor the threshold cannot
+touch](the-63-percent-that-never-moves/) — the recorded sweep read:
+behavioural coverage stays 63% at every threshold because the behaviour
+queue's reach is a fact about the log, not a label dial.

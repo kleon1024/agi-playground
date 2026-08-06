@@ -66,3 +66,8 @@ MET](when-the-guardrail-vetoes/) — the breached fixture read: the candidate
 beats both baselines beyond seed variance (0.4102 vs 0.3012/0.3552), and the
 verdict is still NOT MET because the cold-start guardrail fell below its
 baseline (0.271 vs 0.298). A guardrail is a veto, not an extra point.
+
+Another detour: [a headline win that still loses, seed by
+seed](the-variance-that-decides/) — the fixture's five seeds read: the gap
+to CF (0.0550) clears the candidate's own spread (0.0230), and the verdict
+is still NOT MET because variance is a veto input, not an appendix.

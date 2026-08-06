@@ -128,6 +128,24 @@ traces where each guardrail came from.
 | [`04-cost-and-capacity`](04-cost-and-capacity/) | Transaction-cost and market-impact model; capacity-constrained position sizing | mission 01 · eval | verified local run with assumed costs; mission outcome pending |
 | [`05-report`](05-report/) | Outcome versus both baselines and every guardrail, with regime-level failure cases | mission 01 · eval | verified evaluator run; outcome cannot determine |
 
+
+## Where each stage leaves the path
+
+A stage states a decision; these deep-dive chapters answer the decisions
+the main path asserts without showing, mission-01 style — each returns an
+artifact or a measurement the next stage consumes.
+
+| At this stage | You need to decide | So read |
+|---|---|---|
+| `00-market-data` | The as-of join, and the restatement it catches | [asof-vs-naive](00-market-data/asof-vs-naive/) |
+| `01-signal-research` | When does a search over 1,000 signals find a loser that looks like a winner? | [when-breadth-inflates-the-winner](01-signal-research/when-breadth-inflates-the-winner/) |
+| `02-cross-sectional-rank` | The sizing rule IS the strategy | [the-rank-that-becomes-a-position](02-cross-sectional-rank/the-rank-that-becomes-a-position/) |
+| `02-cross-sectional-rank` | What does the position cap actually cost? | [when-the-cap-bites](02-cross-sectional-rank/when-the-cap-bites/) |
+| `03-walk-forward-validation` | Why is fold-specific fit not strategy fit — and when does purge matter? | [when-purge-matters](03-walk-forward-validation/when-purge-matters/) |
+| `04-cost-and-capacity` | Where does the book stop making money? | [when-the-book-stops-making-money](04-cost-and-capacity/when-the-book-stops-making-money/) |
+| `05-report` | The refusal that names everything | [when-the-refusal-names-everything](05-report/when-the-refusal-names-everything/) |
+
+
 ## What this reuses
 
 The point-in-time discipline in stage 00 is the same discipline

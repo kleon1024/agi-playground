@@ -178,3 +178,9 @@ A detour from here: [the weight IS the strategy](when-the-weight-moves/) —
 the combination sweep on the stage's own item set: weights reorder the
 slate, the two functions disagree in the middle of the weight range, and
 the click-shaped item collapses under the product.
+
+Another detour: [the same strategy, different calibration, different
+slate](the-calibration-break/) — the recorded break read: with weights
+unchanged and click predictions inflated 1.6x, the honest and
+miscalibrated rankings disagree, and the ad auction enters only at
+trade_rate 0.8.

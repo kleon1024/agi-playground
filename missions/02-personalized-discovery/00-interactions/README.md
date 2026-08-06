@@ -211,3 +211,8 @@ A detour from here: [the 99.1% leak: what the wrong split actually
 builds](when-the-split-leaks/) — the recorded split read: the leak is not a
 small corruption, it moves the popularity baseline itself (0.0389 vs
 0.0496), so scores across splits compare different experiments.
+
+Another detour: [the filter that catches users it did not aim
+at](the-eligibility-cascade/) — the recorded cascade read: 8 users fell
+below the floor only after their sparse items were removed, which is why
+the eligibility filter loops instead of passing once.

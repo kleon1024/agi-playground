@@ -207,3 +207,8 @@ A detour from here: [the queue you disable is the target you
 lose](when-you-lose-a-queue/) — the disable sweep across all four queues:
 no loss is fully recovered, and item_to_item's blind spot is the deepest
 (only 4/20 targets recovered elsewhere).
+
+Another detour: [recall bought back at a measured latency
+cost](the-price-of-approximate/) — the recorded exact-vs-approximate run:
+ef-search 64 lifts recall 0.913 -> 0.984 at a real latency price, and the
+gap to exact never fully closes.
