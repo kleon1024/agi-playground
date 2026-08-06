@@ -128,7 +128,7 @@ def title_from(path: Path, body: str) -> str:
     """Prefer the document's own H1; fall back to a tidied directory name."""
     m = re.search(r"^#\s+(.+)$", body, re.MULTILINE)
     if m:
-        return m.group(1).strip().replace("`", "")
+        return m.group(1).strip().replace("`", "").replace("\\$", "$")
     name = path.parent.name if path.name == "README.md" else path.stem
     return name.replace("-", " ").replace("_", " ").title()
 
