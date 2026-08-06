@@ -59,6 +59,11 @@ candidate must beat **both** baselines by more than fold-to-fold standard
 deviation. The report therefore renders both comparisons side by side. A
 single aggregate winner and a single fold are not substitutes for this test.
 
+A detour from here: [the refusal that names
+everything](when-the-refusal-names-everything/) — the report's 18 named
+missing inputs, grouped by what each would establish: the refusal is a
+checklist, not a wall.
+
 ## Why guardrails get a veto
 
 Read guardrails as vetoes, not bonus points. The contract says a strategy
