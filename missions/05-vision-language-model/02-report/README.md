@@ -154,3 +154,5 @@ signal](when-the-category-breaks-down/) — the same comparison read by
 category: the vision pathway's separation from text-only concentrates where
 the question cannot leak (shape_color +0.229, total_count +0.170), inside a
 verdict that is still NOT MET.
+
+Another detour: [the \$0.00128/question that decides build-vs-buy](the-economics-per-question/) — the recorded economics read: any nonzero per-question price already exceeds the \$0 training cost, so the entire tradeoff is on the accuracy axis.

@@ -111,3 +111,5 @@ photos](when-the-api-still-wins/) — the hosted API's accuracy recomputed
 from the raw log (0.460, matching the recorded 0.4596) and the three-arm
 comparison read: real photos do not change the NOT MET answer, and the
 API's edge is answer-type-shaped.
+
+Another detour: [the API's edge is shaped like the answer type](the-answer-type-shaped-edge/) — the log recomputed: yes/no 0.637, other 0.366, number 0.240, so a future build could compete where the API is weakest.

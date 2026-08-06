@@ -852,6 +852,11 @@
                 "type": "doc",
                 "id": "missions/05-vision-language-model/00-image-caption-task/seed-vs-pixels/index",
                 "label": "Seeds vs pixels"
+              },
+              {
+                "type": "doc",
+                "id": "missions/05-vision-language-model/00-image-caption-task/the-collision-that-closed-the-gap/index",
+                "label": "The collision that closed the gap"
               }
             ]
           },
@@ -885,6 +890,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/05-vision-language-model/02-report/the-economics-per-question/index",
+                "label": "The economics per question"
+              },
+              {
+                "type": "doc",
                 "id": "missions/05-vision-language-model/02-report/when-the-category-breaks-down/index",
                 "label": "When the category breaks down"
               }
@@ -898,6 +908,11 @@
               "id": "missions/05-vision-language-model/03-real-photo-task/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/05-vision-language-model/03-real-photo-task/the-id-based-guardrail/index",
+                "label": "The ID-based guardrail"
+              },
               {
                 "type": "doc",
                 "id": "missions/05-vision-language-model/03-real-photo-task/the-real-photo-guardrail/index",
@@ -915,6 +930,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/05-vision-language-model/04-real-photo-vision-fusion/the-flipped-variance/index",
+                "label": "The flipped variance"
+              },
+              {
+                "type": "doc",
                 "id": "missions/05-vision-language-model/04-real-photo-vision-fusion/when-the-margin-is-narrow/index",
                 "label": "When the margin is narrow"
               }
@@ -930,6 +950,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/05-vision-language-model/05-real-photo-report/the-answer-type-shaped-edge/index",
+                "label": "The answer-type-shaped edge"
+              },
+              {
+                "type": "doc",
                 "id": "missions/05-vision-language-model/05-real-photo-report/when-the-api-still-wins/index",
                 "label": "When the API still wins"
               }
@@ -943,6 +968,11 @@
               "id": "missions/05-vision-language-model/06-warmup-stability/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/05-vision-language-model/06-warmup-stability/the-collapse-that-warmup-closed/index",
+                "label": "The collapse that warmup closed"
+              },
               {
                 "type": "doc",
                 "id": "missions/05-vision-language-model/06-warmup-stability/when-warmup-closed-the-collapse/index",

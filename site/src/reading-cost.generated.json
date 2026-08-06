@@ -627,6 +627,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "missions/05-vision-language-model/00-image-caption-task/the-collision-that-closed-the-gap": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/05-vision-language-model/01-vision-fusion": {
     "level": "applied",
     "minutes": 9
@@ -643,13 +647,21 @@
     "level": "applied",
     "minutes": 5
   },
+  "missions/05-vision-language-model/02-report/the-economics-per-question": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/05-vision-language-model/02-report/when-the-category-breaks-down": {
     "level": "applied",
     "minutes": 3
   },
   "missions/05-vision-language-model/03-real-photo-task": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
+  },
+  "missions/05-vision-language-model/03-real-photo-task/the-id-based-guardrail": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/05-vision-language-model/03-real-photo-task/the-real-photo-guardrail": {
     "level": "applied",
@@ -659,6 +671,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "missions/05-vision-language-model/04-real-photo-vision-fusion/the-flipped-variance": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/05-vision-language-model/04-real-photo-vision-fusion/when-the-margin-is-narrow": {
     "level": "applied",
     "minutes": 3
@@ -667,6 +683,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "missions/05-vision-language-model/05-real-photo-report/the-answer-type-shaped-edge": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/05-vision-language-model/05-real-photo-report/when-the-api-still-wins": {
     "level": "applied",
     "minutes": 2
@@ -674,6 +694,10 @@
   "missions/05-vision-language-model/06-warmup-stability": {
     "level": "applied",
     "minutes": 4
+  },
+  "missions/05-vision-language-model/06-warmup-stability/the-collapse-that-warmup-closed": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/05-vision-language-model/06-warmup-stability/when-warmup-closed-the-collapse": {
     "level": "applied",

@@ -103,3 +103,5 @@ A detour from here: [the real-photo guardrail: why image ID, not pixel
 hash](the-real-photo-guardrail/) — the recorded dataset build read: the
 exact-match filter and the ID-based disjointness check that real data
 actually needs.
+
+Another detour: [why real photos are checked by ID, not by pixel](the-id-based-guardrail/) — the recorded build read: image-id overlap is 0 by construction, because real photographs leak by id, not by rendering.

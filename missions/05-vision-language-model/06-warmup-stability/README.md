@@ -109,3 +109,5 @@ A detour from here: [what the warmup changed, and what it did
 not](when-warmup-closed-the-collapse/) — the eval spread fell 0.2309 to
 0.0536 while train-loss spread stayed 0.2302: the collapse was an
 optimization-path divergence, not an irreducible seed difference.
+
+Another detour: [the seed-2 outlier, closed by a training-dynamics fix](the-collapse-that-warmup-closed/) — the recorded before/after read: spread 0.2309 -> 0.0536 and mean 0.4375 -> 0.4970, with model, data, and seeds unchanged.

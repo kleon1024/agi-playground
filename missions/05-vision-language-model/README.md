@@ -194,6 +194,7 @@ scale. Full numbers in
 [its run record](05-real-photo-report/runs/2026-08-01-real-photo-report.md).
 
 
+
 ## Where each stage leaves the path
 
 A stage states a decision; these deep-dive chapters answer the decisions
@@ -203,14 +204,19 @@ artifact or a measurement the next stage consumes.
 | At this stage | You need to decide | So read |
 |---|---|---|
 | `00-image-caption-task` | Why does a leakage guardrail need to check pixels, not seeds? | [seed-vs-pixels](00-image-caption-task/seed-vs-pixels/) |
+| `00-image-caption-task` | Disjoint seeds are not disjoint images | [the-collision-that-closed-the-gap](00-image-caption-task/the-collision-that-closed-the-gap/) |
 | `01-vision-fusion` | There is no cross-attention module | [the-fused-attention-anatomy](01-vision-fusion/the-fused-attention-anatomy/) |
 | `01-vision-fusion` | Where does the decoder look when the image matters? | [where-the-decoder-looks](01-vision-fusion/where-the-decoder-looks/) |
+| `02-report` | The \$0.00128/question that decides build-vs-buy | [the-economics-per-question](02-report/the-economics-per-question/) |
 | `02-report` | Where the NOT MET verdict hides the pathway's real signal | [when-the-category-breaks-down](02-report/when-the-category-breaks-down/) |
+| `03-real-photo-task` | Why real photos are checked by ID, not by pixel | [the-id-based-guardrail](03-real-photo-task/the-id-based-guardrail/) |
 | `03-real-photo-task` | The real-photo guardrail: why image ID, not pixel hash | [the-real-photo-guardrail](03-real-photo-task/the-real-photo-guardrail/) |
+| `04-real-photo-vision-fusion` | The noise changed sides | [the-flipped-variance](04-real-photo-vision-fusion/the-flipped-variance/) |
 | `04-real-photo-vision-fusion` | The margin is narrow, real, and noisy on the control side | [when-the-margin-is-narrow](04-real-photo-vision-fusion/when-the-margin-is-narrow/) |
+| `05-real-photo-report` | The API's edge is shaped like the answer type | [the-answer-type-shaped-edge](05-real-photo-report/the-answer-type-shaped-edge/) |
 | `05-real-photo-report` | The build-vs-buy verdict, on real photos | [when-the-api-still-wins](05-real-photo-report/when-the-api-still-wins/) |
+| `06-warmup-stability` | The seed-2 outlier, closed by a training-dynamics fix | [the-collapse-that-warmup-closed](06-warmup-stability/the-collapse-that-warmup-closed/) |
 | `06-warmup-stability` | What the warmup changed, and what it did not | [when-warmup-closed-the-collapse](06-warmup-stability/when-warmup-closed-the-collapse/) |
-
 
 ## What this will not prove
 

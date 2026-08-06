@@ -186,3 +186,5 @@ A detour from here: [why does a leakage guardrail need to check pixels, not
 seeds?](seed-vs-pixels/) — the two recorded defects reproduced on the current
 generator: disjoint seeds still collide (17 without rejection), and the
 rejection sampler that fixed it can silently distort the eval distribution.
+
+Another detour: [disjoint seeds are not disjoint images](the-collision-that-closed-the-gap/) — the recorded dataset run read: 116 pixel collisions across seed streams, plus the empty-bucket defect the pixels-only check missed.

@@ -86,3 +86,5 @@ A detour from here: [the margin is narrow, real, and noisy on the control
 side](when-the-margin-is-narrow/) — the recorded +0.0152 read as three
 numbers: beyond vision's own spread (real), a third of the synthetic
 margin, with the noise on the text-only arm (7x vision's spread).
+
+Another detour: [the noise changed sides](the-flipped-variance/) — the recorded seeds read: text-only is now 7x noisier (0.0707 vs 0.0101), the opposite of stage 01, and the narrow margin belongs to the stable vision arm.
