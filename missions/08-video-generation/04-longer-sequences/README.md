@@ -142,3 +142,5 @@ A detour from here: [doubling the frames: what the same recipe says at
 16](when-the-frames-double/) — the recorded 8f vs 16f axis read: MSE holds
 inside seed noise (0.0851 vs 0.0856) while exact-match gets far noisier and
 cost grows ~4x, so the tokenizer, not compute, is the binding constraint.
+
+Another detour: [4.3x cost for 2x frames](when-the-cost-grows-faster/) — the recorded runs read: 152s -> 660s mean, superlinear growth from the LM's attention cost, and MET still holds.

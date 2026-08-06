@@ -154,3 +154,5 @@ limit shows](when-two-shapes-share-a-token/) — the recorded 1-obj vs 2-obj
 axis read: the second object costs ~74% more reconstruction MSE (0.0851 ->
 0.1483) with exact-match collapsing, so the tokenizer, not compute, is the
 binding constraint.
+
+Another detour: [two objects, one token per frame, and the margin still clears](the-margin-that-holds/) — the recorded runs read: margin 0.0710 is 6.8x the seed spread, so MET holds and the capacity limit is the finding.

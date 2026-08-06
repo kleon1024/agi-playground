@@ -119,3 +119,5 @@ A detour from here: [the seed is the answer
 key](when-the-seed-is-the-answer/) — the fixture manifest read: the seed,
 prompt, and motion dict together pin the exact correct frames, which is
 what makes a completion checkable mechanically instead of by eye.
+
+Another detour: [the state space that multiplied the collisions away](when-the-collision-is-one/) — the recorded run read: one rejected eval candidate vs mission 05's 116, because the per-clip space grew by two orders of magnitude.

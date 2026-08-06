@@ -183,3 +183,5 @@ A detour from here: [what is the discrete thing a video model conditions
 on?](what-a-video-token-is/) — a second seed measures the token stream and
 the codebook health the revival fixes bought: 49/64 versus 63/64, with
 reconstruction quality tracking it.
+
+Another detour: [three collapses, one revive mechanism, 63/64 codes](when-the-dead-codes-revive/) — the recorded run read: 158 dead codes revived, entropy 0.912, and the collapse history each attempt needed its own diagnostic.

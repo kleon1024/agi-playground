@@ -883,6 +883,10 @@
     "level": "applied",
     "minutes": 4
   },
+  "missions/08-video-generation/00-synthetic-video-dataset/when-the-collision-is-one": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/08-video-generation/00-synthetic-video-dataset/when-the-seed-is-the-answer": {
     "level": "applied",
     "minutes": 2
@@ -895,9 +899,17 @@
     "level": "applied",
     "minutes": 4
   },
+  "missions/08-video-generation/01-video-tokenizer/when-the-dead-codes-revive": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/08-video-generation/02-generation-model": {
     "level": "applied",
     "minutes": 5
+  },
+  "missions/08-video-generation/02-generation-model/the-margin-vs-the-ceiling": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/08-video-generation/02-generation-model/when-wrong-tokens-still-reconstruct": {
     "level": "applied",
@@ -907,13 +919,21 @@
     "level": "applied",
     "minutes": 6
   },
+  "missions/08-video-generation/03-report/the-cost-quality-pair": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/08-video-generation/03-report/when-the-cost-ceiling-is-roomy": {
     "level": "applied",
     "minutes": 3
   },
   "missions/08-video-generation/04-longer-sequences": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
+  },
+  "missions/08-video-generation/04-longer-sequences/when-the-cost-grows-faster": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/08-video-generation/04-longer-sequences/when-the-frames-double": {
     "level": "applied",
@@ -923,6 +943,10 @@
     "level": "applied",
     "minutes": 6
   },
+  "missions/08-video-generation/05-multi-object/the-margin-that-holds": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/08-video-generation/05-multi-object/when-two-shapes-share-a-token": {
     "level": "applied",
     "minutes": 2
@@ -930,6 +954,10 @@
   "missions/08-video-generation/06-longer-and-multi-object": {
     "level": "applied",
     "minutes": 8
+  },
+  "missions/08-video-generation/06-longer-and-multi-object/when-the-axes-compound": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/08-video-generation/06-longer-and-multi-object/when-the-metric-hits-zero": {
     "level": "applied",

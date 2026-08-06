@@ -175,3 +175,5 @@ cost headroom](when-the-cost-ceiling-is-roomy/) — the quality margin
 recomputed (0.0430 vs 0.0078 spread) and the cost ceiling read (8.5% used):
 the headroom is the finding, and the cost/quality pairing is the
 discipline.
+
+Another detour: [the verdict that pairs cost with quality](the-cost-quality-pair/) — the recorded report read: margin 0.0430 vs spread 0.0078 and 8.4-8.6% of the ceiling — both halves must hold.

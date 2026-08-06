@@ -1295,6 +1295,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/08-video-generation/00-synthetic-video-dataset/when-the-collision-is-one/index",
+                "label": "When the collision is one"
+              },
+              {
+                "type": "doc",
                 "id": "missions/08-video-generation/00-synthetic-video-dataset/when-the-seed-is-the-answer/index",
                 "label": "When the seed is the answer"
               }
@@ -1312,6 +1317,11 @@
                 "type": "doc",
                 "id": "missions/08-video-generation/01-video-tokenizer/what-a-video-token-is/index",
                 "label": "What a video token is"
+              },
+              {
+                "type": "doc",
+                "id": "missions/08-video-generation/01-video-tokenizer/when-the-dead-codes-revive/index",
+                "label": "When the dead codes revive"
               }
             ]
           },
@@ -1323,6 +1333,11 @@
               "id": "missions/08-video-generation/02-generation-model/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/08-video-generation/02-generation-model/the-margin-vs-the-ceiling/index",
+                "label": "The margin vs the ceiling"
+              },
               {
                 "type": "doc",
                 "id": "missions/08-video-generation/02-generation-model/when-wrong-tokens-still-reconstruct/index",
@@ -1340,6 +1355,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/08-video-generation/03-report/the-cost-quality-pair/index",
+                "label": "The cost-quality pair"
+              },
+              {
+                "type": "doc",
                 "id": "missions/08-video-generation/03-report/when-the-cost-ceiling-is-roomy/index",
                 "label": "When the cost ceiling is roomy"
               }
@@ -1353,6 +1373,11 @@
               "id": "missions/08-video-generation/04-longer-sequences/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/08-video-generation/04-longer-sequences/when-the-cost-grows-faster/index",
+                "label": "When the cost grows faster"
+              },
               {
                 "type": "doc",
                 "id": "missions/08-video-generation/04-longer-sequences/when-the-frames-double/index",
@@ -1370,6 +1395,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/08-video-generation/05-multi-object/the-margin-that-holds/index",
+                "label": "The margin that holds"
+              },
+              {
+                "type": "doc",
                 "id": "missions/08-video-generation/05-multi-object/when-two-shapes-share-a-token/index",
                 "label": "When two shapes share a token"
               }
@@ -1383,6 +1413,11 @@
               "id": "missions/08-video-generation/06-longer-and-multi-object/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/08-video-generation/06-longer-and-multi-object/when-the-axes-compound/index",
+                "label": "When the axes compound"
+              },
               {
                 "type": "doc",
                 "id": "missions/08-video-generation/06-longer-and-multi-object/when-the-metric-hits-zero/index",

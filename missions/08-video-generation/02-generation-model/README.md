@@ -143,3 +143,5 @@ reconstruct](when-wrong-tokens-still-reconstruct/) — the recorded 7-22%
 exact-match spread reconciled: wrong tokens reconstruct at +0.0008 MSE from
 the oracle's, an order of magnitude below the frame-repeat baseline, so the
 token metric and the pixel metric disagree on purpose.
+
+Another detour: [the remaining gap belongs to the codec, not the sequence model](the-margin-vs-the-ceiling/) — the recorded runs read: the LM sits within 3.2% of the oracle, so the tokenizer's blur is the binding constraint.

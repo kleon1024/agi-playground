@@ -205,3 +205,5 @@ metric hit zero?](when-the-metric-hits-zero/) — the four grid corners
 assembled: objects dominate (MSE roughly doubles), length barely moves it,
 and the 16x2 corner's exact-match hits 0.00% while reconstruction still
 beats frame-repeat.
+
+Another detour: [the fourth corner: 16 frames and 2 objects together](when-the-axes-compound/) — the recorded runs read: the axes add in pixel space but compound to the floor in token space, and the near-zero oracle gap names the tokenizer.
