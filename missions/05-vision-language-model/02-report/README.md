@@ -148,3 +148,9 @@ verdict on the build-vs-buy question does not undo that; it says the vision
 pathway this mission built is not yet worth deploying over a \$0.00128/question
 API call, which is a real, useful, and unflattering answer to a real
 question a stakeholder would have asked before writing any training code.
+
+A detour from here: [where the NOT MET verdict hides the pathway's real
+signal](when-the-category-breaks-down/) — the same comparison read by
+category: the vision pathway's separation from text-only concentrates where
+the question cannot leak (shape_color +0.229, total_count +0.170), inside a
+verdict that is still NOT MET.
