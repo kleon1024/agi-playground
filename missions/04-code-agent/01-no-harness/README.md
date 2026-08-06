@@ -153,3 +153,5 @@ A detour from here: [the blind call, read: what one attempt without a loop
 costs](when-the-blind-call-fails/) — the recorded 18-attempt matrix read per
 tier: resolve is the number (haiku 0/6 buys nothing), and a more-expensive
 arm can be cheapest per success (opus \$1.09 vs sonnet \$1.37).
+
+Another detour: [the first gate a blind call must pass](when-the-patch-does-not-apply/) — the recorded matrix read: applied and resolved coincide almost exactly (sonnet 1/1, opus 3/3), so the blind call's failure is most often at the apply step.

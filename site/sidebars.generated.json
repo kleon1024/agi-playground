@@ -700,6 +700,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/04-code-agent/00-task-set/the-two-of-six-yield/index",
+                "label": "The two-of-six yield"
+              },
+              {
+                "type": "doc",
                 "id": "missions/04-code-agent/00-task-set/what-the-task-set-contains/index",
                 "label": "What the task set contains"
               }
@@ -717,6 +722,11 @@
                 "type": "doc",
                 "id": "missions/04-code-agent/01-no-harness/when-the-blind-call-fails/index",
                 "label": "When the blind call fails"
+              },
+              {
+                "type": "doc",
+                "id": "missions/04-code-agent/01-no-harness/when-the-patch-does-not-apply/index",
+                "label": "When the patch does not apply"
               }
             ]
           },
@@ -750,6 +760,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/04-code-agent/03-cheap-or-expensive/the-cost-quality-knee/index",
+                "label": "The cost-quality knee"
+              },
+              {
+                "type": "doc",
                 "id": "missions/04-code-agent/03-cheap-or-expensive/the-tier-that-won/index",
                 "label": "The tier that won"
               }
@@ -765,6 +780,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "missions/04-code-agent/04-how-it-fails/the-zero-failure-taxonomy/index",
+                "label": "The zero-failure taxonomy"
+              },
+              {
+                "type": "doc",
                 "id": "missions/04-code-agent/04-how-it-fails/when-the-patch-cannot-apply/index",
                 "label": "When the patch cannot apply"
               }
@@ -778,6 +798,11 @@
               "id": "missions/04-code-agent/05-report/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/04-code-agent/05-report/the-public-set-control/index",
+                "label": "The public-set control"
+              },
               {
                 "type": "doc",
                 "id": "missions/04-code-agent/05-report/when-the-partial-verdict/index",
@@ -797,6 +822,11 @@
                 "type": "doc",
                 "id": "missions/04-code-agent/06-closing-the-loop/does-feedback-help/index",
                 "label": "Does feedback help"
+              },
+              {
+                "type": "doc",
+                "id": "missions/04-code-agent/06-closing-the-loop/the-bimodal-retry/index",
+                "label": "The bimodal retry"
               }
             ]
           }

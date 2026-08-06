@@ -165,3 +165,5 @@ bullet](when-the-partial-verdict/) — the recorded bullet-1 structure: two
 tiers decisive, one a no-result inside spread, and the public half
 CANNOT DETERMINE because no no-harness control exists there. PARTIAL is
 narrower than NOT MET, and it names its own gap.
+
+Another detour: [the 6/6 that says nothing about the 18/18](the-public-set-control/) — the recorded outcome read: private and public resolve numbers are reported side by side, never pooled, because the public set is contamination-prone by design.

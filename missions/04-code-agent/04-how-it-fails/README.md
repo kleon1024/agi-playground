@@ -158,3 +158,5 @@ buying?](when-the-patch-cannot-apply/) — the same logs, second cut: 11 of 12
 failures never produced an applicable patch, the failures concentrate on the
 identity checks, and the harness is cheaper per resolved task than the blind
 call.
+
+Another detour: [zero failures is a real result, not a gap](the-zero-failure-taxonomy/) — the recorded catalogue read: the harness arm is 0/18 in every failure category, and the no-harness arm is where failures live (12/18 target_still_failing).

@@ -243,3 +243,5 @@ A detour from here: [when every tier resolves everything, which tier
 won?](the-tier-that-won/) — the recorded 18/18 laid out as economics: haiku
 at 10.6% of total cost, working harder (more tokens, more turns) to get
 there.
+
+Another detour: [the expensive tier is not the fastest](the-cost-quality-knee/) — the recorded costs read: sonnet is cheaper than opus (0.54 vs 0.82/attempt) and faster (63.6s vs 83.8s), so the choice is cost and latency, not resolve.

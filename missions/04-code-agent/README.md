@@ -179,6 +179,7 @@ to resolved, and ten of the twelve retries still produced a diff `git apply`
 rejected. A real, modest, mixed result, not a clean win.
 
 
+
 ## Where each stage leaves the path
 
 A stage states a decision; these deep-dive chapters answer the decisions
@@ -187,15 +188,20 @@ artifact or a measurement the next stage consumes.
 
 | At this stage | You need to decide | So read |
 |---|---|---|
+| `00-task-set` | The yield is the finding | [the-two-of-six-yield](00-task-set/the-two-of-six-yield/) |
 | `00-task-set` | What does the mined task set actually contain? | [what-the-task-set-contains](00-task-set/what-the-task-set-contains/) |
 | `01-no-harness` | The blind call, read: what one attempt without a loop costs | [when-the-blind-call-fails](01-no-harness/when-the-blind-call-fails/) |
+| `01-no-harness` | The first gate a blind call must pass | [when-the-patch-does-not-apply](01-no-harness/when-the-patch-does-not-apply/) |
 | `02-agent-loop` | The harness, drawn as its steps and checks | [the-loop-that-scores-a-patch](02-agent-loop/the-loop-that-scores-a-patch/) |
 | `02-agent-loop` | When does the test-file guardrail refuse a patch? | [when-the-guardrail-refuses](02-agent-loop/when-the-guardrail-refuses/) |
+| `03-cheap-or-expensive` | The expensive tier is not the fastest | [the-cost-quality-knee](03-cheap-or-expensive/the-cost-quality-knee/) |
 | `03-cheap-or-expensive` | When every tier resolves everything, which tier won? | [the-tier-that-won](03-cheap-or-expensive/the-tier-that-won/) |
+| `04-how-it-fails` | Zero failures is a real result, not a gap | [the-zero-failure-taxonomy](04-how-it-fails/the-zero-failure-taxonomy/) |
 | `04-how-it-fails` | When the patch cannot even be applied, what is the loop buying? | [when-the-patch-cannot-apply](04-how-it-fails/when-the-patch-cannot-apply/) |
+| `05-report` | The 6/6 that says nothing about the 18/18 | [the-public-set-control](05-report/the-public-set-control/) |
 | `05-report` | The PARTIAL, read bullet by bullet | [when-the-partial-verdict](05-report/when-the-partial-verdict/) |
 | `06-closing-the-loop` | Does seeing the real outcome help — with still no tools? | [does-feedback-help](06-closing-the-loop/does-feedback-help/) |
-
+| `06-closing-the-loop` | Feedback fixed the fix, not the apply | [the-bimodal-retry](06-closing-the-loop/the-bimodal-retry/) |
 
 ## What this will not prove
 

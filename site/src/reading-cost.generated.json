@@ -535,6 +535,10 @@
     "level": "applied",
     "minutes": 8
   },
+  "missions/04-code-agent/00-task-set/the-two-of-six-yield": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/04-code-agent/00-task-set/what-the-task-set-contains": {
     "level": "applied",
     "minutes": 3
@@ -544,6 +548,10 @@
     "minutes": 6
   },
   "missions/04-code-agent/01-no-harness/when-the-blind-call-fails": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/04-code-agent/01-no-harness/when-the-patch-does-not-apply": {
     "level": "applied",
     "minutes": 2
   },
@@ -563,6 +571,10 @@
     "level": "frontier",
     "minutes": 9
   },
+  "missions/04-code-agent/03-cheap-or-expensive/the-cost-quality-knee": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/04-code-agent/03-cheap-or-expensive/the-tier-that-won": {
     "level": "applied",
     "minutes": 3
@@ -571,13 +583,21 @@
     "level": "applied",
     "minutes": 6
   },
+  "missions/04-code-agent/04-how-it-fails/the-zero-failure-taxonomy": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/04-code-agent/04-how-it-fails/when-the-patch-cannot-apply": {
     "level": "applied",
     "minutes": 3
   },
   "missions/04-code-agent/05-report": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
+  },
+  "missions/04-code-agent/05-report/the-public-set-control": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/04-code-agent/05-report/when-the-partial-verdict": {
     "level": "applied",
@@ -585,11 +605,15 @@
   },
   "missions/04-code-agent/06-closing-the-loop": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 9
   },
   "missions/04-code-agent/06-closing-the-loop/does-feedback-help": {
     "level": "applied",
     "minutes": 3
+  },
+  "missions/04-code-agent/06-closing-the-loop/the-bimodal-retry": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/05-vision-language-model": {
     "level": "applied",

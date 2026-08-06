@@ -232,3 +232,5 @@ A detour from here: [what does the mined task set actually
 contain?](what-the-task-set-contains/) — the funnel read end to end: 2,423
 commits -> 2 survivors (0.08%), both resolvable by a blind call, which is
 the point of the contamination-prone public control.
+
+Another detour: [the yield is the finding](the-two-of-six-yield/) — the recorded mining runs read: 2 of 4 private and 2 of 6 public candidates survive fail-at-base/pass-at-gold, so verification, not mining, is what makes a task real.

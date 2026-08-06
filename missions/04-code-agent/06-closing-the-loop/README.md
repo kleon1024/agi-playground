@@ -202,3 +202,5 @@ tools?](does-feedback-help/) — the recorded 12 attempts read as a
 comparison: feedback does not raise the resolve rate, it converts the
 dominant blind failure (non-applicable patches) into tryable ones, at one
 more priced turn per task.
+
+Another detour: [feedback fixed the fix, not the apply](the-bimodal-retry/) — the recorded retry read: applied and resolved coincide perfectly, ten of twelve corrected diffs were still rejected, and haiku's 0/6 is the negative control.
