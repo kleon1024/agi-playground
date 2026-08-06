@@ -54,3 +54,9 @@ The threshold should be selected against a declared downstream objective and sli
 embeddings stop being an isolated diagnostic: they become one of five
 retrieval queues, standing in for real learned embeddings until content
 understanding graduates from synthetic to production data.
+
+A detour from here: [the confidence threshold: precision for the head, or
+reach for the tail?](when-the-threshold-rescues-the-tail/) — the recorded
+sweep read: raising the threshold to 0.65 cuts cold coverage from 100% to
+25% while label accuracy only rises 96% to 100%, so the threshold is
+trading the tail for the head.

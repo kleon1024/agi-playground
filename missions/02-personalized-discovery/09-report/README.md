@@ -60,3 +60,9 @@ Treat the report as a release gate, not a retrospective decoration — a missing
 Variance belongs in the decision, not only in an appendix. The contract requires at least five seeds because one lucky training or evaluation sample cannot establish a margin. The evaluator compares the candidate and each baseline using their sample spreads and rejects a positive mean gap that is not larger than its 95% uncertainty margin. This normal approximation is a readable teaching choice, not a substitute for selecting a test appropriate to a real experiment’s dependence structure.
 
 The report should preserve comparisons over time without moving goalposts. If the catalogue, split, metric definition, or eligibility policy changes, label it as a new evaluation context and rerun both baselines. Do not append incomparable points to a trend line. The most valuable result can be a documented failure: it tells the next system exactly which baseline, guardrail, slice, or budget stopped complexity from becoming value.
+
+A detour from here: [a headline win that is still NOT
+MET](when-the-guardrail-vetoes/) — the breached fixture read: the candidate
+beats both baselines beyond seed variance (0.4102 vs 0.3012/0.3552), and the
+verdict is still NOT MET because the cold-start guardrail fell below its
+baseline (0.271 vs 0.298). A guardrail is a veto, not an extra point.

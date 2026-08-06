@@ -206,3 +206,8 @@ This split and this popularity baseline are what
 understanding — turning raw item content into embeddings for cold items — is
 still planned and will feed recall's two-tower queue once it exists; recall's
 from-scratch queues stand in for it for now with synthetic item vectors.
+
+A detour from here: [the 99.1% leak: what the wrong split actually
+builds](when-the-split-leaks/) — the recorded split read: the leak is not a
+small corruption, it moves the popularity baseline itself (0.0389 vs
+0.0496), so scores across splits compare different experiments.
