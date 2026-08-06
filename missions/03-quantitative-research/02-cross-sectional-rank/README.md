@@ -122,3 +122,9 @@ A detour from here: [what does the position cap actually
 cost?](when-the-cap-bites/) — the cap swept across five values: it binds
 only below 0.25 on this universe, trades exposure for diversification
 without improving Sharpe, and taxes tightness with re-breach violations.
+
+The model's structure, drawn: [the sizing rule IS the
+strategy](the-rank-that-becomes-a-position/) — the signal->rank->weight->
+position pipeline read from the recorded run: the same signal becomes four
+different portfolios under four sizing rules, and every rule breaks the
+cap after sequential cap-then-de-mean.

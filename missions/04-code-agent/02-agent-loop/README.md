@@ -174,3 +174,9 @@ patch?](when-the-guardrail-refuses/) — the decision boundary demonstrated
 on miniature worktrees: test edits and *created* test files are refused
 (the untracked-file check closes the escape hatch), source-only changes
 pass.
+
+The model's structure, drawn: [the harness, drawn as its steps and
+checks](the-loop-that-scores-a-patch/) — the loop's six stages read from
+the recorded harness run: materialize, baseline, act, read diff, re-run
+tests, score, with the diff guardrail as the check that makes the verdict
+trustworthy.

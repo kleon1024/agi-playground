@@ -130,3 +130,9 @@ model?](when-the-baseline-holds/) — the three-endpoint scoreboard assembled
 from the recorded runs: descriptor wins on SR-MMP, the model wins on NR-ER,
 and the PPAR no-verdict row is the one with the largest split shift and the
 scarcest positives.
+
+The model's structure, drawn: [ten numbers, or 696,065
+parameters](two-ways-to-read-a-molecule/) — the two representations read
+from the recorded runs: the descriptor's ten-number summary with spread
+0.0010 and ~2s/seed versus the character transformer's 0.0159 spread and
+~105s/seed, the bias/variance trade the verdict sits on.

@@ -226,3 +226,9 @@ matters?](where-the-decoder-looks/) — attention mass on the vision prefix,
 measured by question type. The naive mechanism fails: the decoder spends
 *less* mass on the image for the leak-proof color questions (0.84x), which
 is the attention-is-not-explanation result measured on this model.
+
+The model's structure, drawn: [there is no cross-attention
+module](the-fused-attention-anatomy/) — the pathway computed from the
+stage-01 config: 64 vision tokens concatenated in front of the text, one
+shared fused mask (bidirectional vision, full text->vision, causal text),
+and a +14,464-parameter delta — the reuse claim measured.

@@ -174,3 +174,8 @@ direction](when-the-policy-collapses/) — the collapse read from the three
 recorded seeds: each emits a constant direction string and greedy success
 (0.062-0.078) sits below even the random floor (0.222), the mechanism
 behind the honest null.
+
+The model's structure, drawn: [the same decoder, a reward that rewards the
+wrong thing](the-policy-anatomy/) — the policy read as two parts: mission
+01's 692,864-parameter Transformer plus the two-part reward, with the
+architecture a controlled constant and the reward's shape the failure.
