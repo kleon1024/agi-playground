@@ -167,6 +167,10 @@ baseline capability regressions
 Rising training reward with flat held-out success is not slow progress. It is
 evidence the policy found a feature of the training reward that does not
 transfer — the inverted-U above, caught early rather than at the far side.
+The same reading rule catches a second cause, and it is executed in
+[when the reward is wrong](when-the-reward-is-wrong/): the labels themselves
+— flipped or stale — make the curve lie while the policy is innocent, and the
+training-reward/verifier pair is the signal that tells the two apart.
 
 Which is why the stop conditions belong in the run contract, written before the
 run: a maximum KL, a regression tolerance on the baseline capabilities, an

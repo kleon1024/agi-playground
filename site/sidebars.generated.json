@@ -236,9 +236,19 @@
         },
         "items": [
           {
-            "type": "doc",
-            "id": "01-language-model/04-rl/reward-went-up/index",
-            "label": "The reward went up"
+            "type": "category",
+            "label": "The reward went up",
+            "link": {
+              "type": "doc",
+              "id": "01-language-model/04-rl/reward-went-up/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "01-language-model/04-rl/reward-went-up/when-the-reward-is-wrong/index",
+                "label": "When the reward is wrong"
+              }
+            ]
           },
           {
             "type": "doc",

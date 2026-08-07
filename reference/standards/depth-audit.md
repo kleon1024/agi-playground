@@ -430,7 +430,8 @@ proves the fix worked.
 ### Language-model system — 00-07
 
 **Status: in progress (00-corpus data health, 02-pretrain divergence,
-03-sft template contract audited, 2026-08-07).**
+03-sft template contract, 04-rl delayed/poisoned reward audited,
+2026-08-07).**
 
 Stage 00 now carries the dirty-data failure the queue named first: a
 benchmark-contamination chapter with an executed run over 200 items, 60
@@ -491,6 +492,27 @@ duplicate assistant roles; row 741 reads like a user reply labeled
 assistant). Guardrail cost: one string scan per row before rendering; the
 mechanical classes are rule-caught, ambiguous intent stays a sample
 review.
+
+Stage 04's delayed/poisoned-reward row is now executed
+(`when-the-reward-is-wrong`, 2026-08-07): on the real 04-rl GRPO trainer,
+the parent's Exercise-1 warm start (250 supervised steps over 24
+hand-written examples) lifts the tag fire rate to 79.2% (76/96) against the
+base run's 200/200 degenerate groups; advantage distortion under flipped
+labels moves the decision more than the score — 5% flips change 10% of
+group choices (2/20), 20% change 60% (12/20), every changed choice pushes
+the wrong completion, while the poisoned-vs-true rank correlation only
+slides 0.478 to 0.403; a 30-step clean-vs-10%-flipped comparison shows both
+reward curves rising with the poisoned arm higher (roughly 0.2-0.4 vs
+0.1-0.3) while held-out true correctness stays near zero in both arms — the
+detection is the training-reward/clean-verifier pair, not the curve; and
+delay priced as poison decays label agreement as
+`0.5 + 0.5 (1 - 2·drift)^lag`, a coin flip at drift 5% / lag 20 (55.5%),
+so the error budget belongs in the label pipeline, not the optimizer.
+Ownership: the label pipeline owns label trust and staleness, the eval team
+owns the verifier and the disagreement threshold, the model team owns the
+reward/verifier pair as a run contract. Citations: Rando and Tramèr, ICLR
+2024 (arXiv:2311.14455) and Wan et al., ICML 2023 (arXiv:2305.00944); the
+delay family cross-links to recommendation's 57-delayed-feedback.
 
 Audit the LLM track with the same lens: dirty data and washing (dedup,
 quality filters, contamination), tokenizer edge cases, pretraining data mix

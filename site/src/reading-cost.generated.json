@@ -129,7 +129,11 @@
   },
   "01-language-model/04-rl/reward-went-up": {
     "level": "applied",
-    "minutes": 10
+    "minutes": 11
+  },
+  "01-language-model/04-rl/reward-went-up/when-the-reward-is-wrong": {
+    "level": "applied",
+    "minutes": 7
   },
   "01-language-model/04-rl/rollout-concurrency": {
     "level": "applied",
