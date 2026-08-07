@@ -483,6 +483,54 @@ ranking, calibration, delivery, and the displacement trade.
 - [The take rate is too high and the marketplace collapses](/playground/missions/02-personalized-discovery/42-marketplace-economics/when-the-take-rate-is-too-high/)
 - [The marginal ad stops paying for its displacement](/playground/missions/02-personalized-discovery/42-marketplace-economics/when-the-ad-load-moves/)
 
+## The operations track: keeping the ranking alive
+
+The pipeline that keeps training and serving consistent, the feedback
+that entrenches what the ranker shows, the monitoring that catches the
+world moving, the machines and budgets that serve the query, the user
+with no trail yet, the explanation the user can check, the exposure the
+page allocates, and the economics that decide whether the system pays.
+
+- [The feature store makes training and serving read the same number](/playground/missions/02-personalized-discovery/43-feature-store/)
+- [The feature diverges and the ranker reorders on a value the model never saw](/playground/missions/02-personalized-discovery/43-feature-store/when-the-feature-diverges/)
+- [A missing feature default is a silent ranking decision](/playground/missions/02-personalized-discovery/43-feature-store/when-the-feature-is-missing/)
+- [Training-serving skew is a pipeline property, not a model one](/playground/missions/02-personalized-discovery/44-training-serving-consistency/)
+- [The label that arrives late biases the training set](/playground/missions/02-personalized-discovery/44-training-serving-consistency/when-the-label-arrives-late/)
+- [The online feature that lags serves a world that ended](/playground/missions/02-personalized-discovery/44-training-serving-consistency/when-the-online-feature-lags/)
+- [The feedback loop entrenches what it shows](/playground/missions/02-personalized-discovery/45-feedback-loops/)
+- [The loop is the last to notice the world changed](/playground/missions/02-personalized-discovery/45-feedback-loops/when-popularity-collapses/)
+- [The filter bubble closes from the inside](/playground/missions/02-personalized-discovery/45-feedback-loops/when-the-filter-bubble-closes/)
+- [Retraining is a question of noticing the snapshot stopped paying](/playground/missions/02-personalized-discovery/46-retraining-and-staleness/)
+- [The retrain that flips the metric offline can lose online](/playground/missions/02-personalized-discovery/46-retraining-and-staleness/when-retraining-flips-the-metric/)
+- [The embedding expires and recall dies with it](/playground/missions/02-personalized-discovery/46-retraining-and-staleness/when-the-embedding-expires/)
+- [Monitoring lives online because the offline eval reuses the broken world](/playground/missions/02-personalized-discovery/47-monitoring-and-drift/)
+- [A threshold tight enough to catch a break is tight enough to fire on noise](/playground/missions/02-personalized-discovery/47-monitoring-and-drift/when-the-alert-is-noisy/)
+- [The drift is silent in the eval and loud in the gap](/playground/missions/02-personalized-discovery/47-monitoring-and-drift/when-the-drift-is-silent/)
+- [The session is a feature the batch model cannot see](/playground/missions/02-personalized-discovery/48-realtime-user-state/)
+- [Realtime is too expensive once every feature is on the critical path](/playground/missions/02-personalized-discovery/48-realtime-user-state/when-realtime-is-too-expensive/)
+- [The session boost decays and the batch order wins back](/playground/missions/02-personalized-discovery/48-realtime-user-state/when-the-session-state-moves/)
+- [Capacity is throughput times deadline, not throughput times average latency](/playground/missions/02-personalized-discovery/49-throughput-and-capacity/)
+- [The peak is a capacity decision, not a load average](/playground/missions/02-personalized-discovery/49-throughput-and-capacity/when-the-peak-arrives/)
+- [Sizing to the mean is sizing to a fiction](/playground/missions/02-personalized-discovery/49-throughput-and-capacity/when-the-tail-costs/)
+- [Cost per query is the budget capacity planning spends](/playground/missions/02-personalized-discovery/50-cost-per-query/)
+- [The cache pays when the hit rate is a cost decision](/playground/missions/02-personalized-discovery/50-cost-per-query/when-the-cache-pays/)
+- [The model is too big when the last point of quality doubles the bill](/playground/missions/02-personalized-discovery/50-cost-per-query/when-the-model-is-too-big/)
+- [The first page is decided before personalization can see the user](/playground/missions/02-personalized-discovery/51-new-user-experience/)
+- [A confident prior reads as a misread](/playground/missions/02-personalized-discovery/51-new-user-experience/when-personalization-scares/)
+- [The onboarding prior is a bet on an answer the user may not mean](/playground/missions/02-personalized-discovery/51-new-user-experience/when-the-user-is-new/)
+- [An explanation is only as good as the claim the user can check](/playground/missions/02-personalized-discovery/52-trust-and-explainability/)
+- [The attribution that explains the score tells a story the score did not](/playground/missions/02-personalized-discovery/52-trust-and-explainability/when-the-explanation-is-wrong/)
+- [A false explanation burns trust faster than a missing one](/playground/missions/02-personalized-discovery/52-trust-and-explainability/when-trust-erodes/)
+- [Exposure is a budget the ranker allocates](/playground/missions/02-personalized-discovery/53-fairness-and-allocation/)
+- [The floor has a price and the price is a curve](/playground/missions/02-personalized-discovery/53-fairness-and-allocation/when-the-constraint-bites/)
+- [The label carries the position it was collected in](/playground/missions/02-personalized-discovery/53-fairness-and-allocation/when-the-policy-is-biased/)
+- [The advertiser's return is the platform's revenue](/playground/missions/02-personalized-discovery/54-advertiser-roas/)
+- [The marginal dollar buys less every time](/playground/missions/02-personalized-discovery/54-advertiser-roas/when-roas-collapses/)
+- [The advertiser's exit is the platform's loss](/playground/missions/02-personalized-discovery/54-advertiser-roas/when-the-budget-moves/)
+- [A user is worth what they keep returning and spending](/playground/missions/02-personalized-discovery/55-ltv-and-cac/)
+- [The user who costs more than they return is a liability at any volume](/playground/missions/02-personalized-discovery/55-ltv-and-cac/when-cac-exceeds-ltv/)
+- [The user who stops leaving is worth more than the user who stops coming](/playground/missions/02-personalized-discovery/55-ltv-and-cac/when-retention-flattens/)
+
 ## Or start from the stakeholder problem
 
 Each mission opens with someone who has a decision to make, declares its bar

@@ -337,7 +337,7 @@
   },
   "missions/02-personalized-discovery": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 9
   },
   "missions/02-personalized-discovery/00-interactions": {
     "level": "foundation",
@@ -892,6 +892,162 @@
     "minutes": 2
   },
   "missions/02-personalized-discovery/42-marketplace-economics/when-the-take-rate-is-too-high": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/43-feature-store": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/43-feature-store/when-the-feature-diverges": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/43-feature-store/when-the-feature-is-missing": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/44-training-serving-consistency": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/44-training-serving-consistency/when-the-label-arrives-late": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/44-training-serving-consistency/when-the-online-feature-lags": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/45-feedback-loops": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/45-feedback-loops/when-popularity-collapses": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/45-feedback-loops/when-the-filter-bubble-closes": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/46-retraining-and-staleness": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/46-retraining-and-staleness/when-retraining-flips-the-metric": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/46-retraining-and-staleness/when-the-embedding-expires": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/47-monitoring-and-drift": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/47-monitoring-and-drift/when-the-alert-is-noisy": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/47-monitoring-and-drift/when-the-drift-is-silent": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/48-realtime-user-state": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/48-realtime-user-state/when-realtime-is-too-expensive": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/48-realtime-user-state/when-the-session-state-moves": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/49-throughput-and-capacity": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/49-throughput-and-capacity/when-the-peak-arrives": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/49-throughput-and-capacity/when-the-tail-costs": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/50-cost-per-query": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/50-cost-per-query/when-the-cache-pays": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/50-cost-per-query/when-the-model-is-too-big": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/51-new-user-experience": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/51-new-user-experience/when-personalization-scares": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/51-new-user-experience/when-the-user-is-new": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/52-trust-and-explainability": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/52-trust-and-explainability/when-the-explanation-is-wrong": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/52-trust-and-explainability/when-trust-erodes": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/53-fairness-and-allocation": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/53-fairness-and-allocation/when-the-constraint-bites": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/53-fairness-and-allocation/when-the-policy-is-biased": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/54-advertiser-roas": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/54-advertiser-roas/when-roas-collapses": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/54-advertiser-roas/when-the-budget-moves": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/55-ltv-and-cac": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/55-ltv-and-cac/when-cac-exceeds-ltv": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/55-ltv-and-cac/when-retention-flattens": {
     "level": "applied",
     "minutes": 2
   },

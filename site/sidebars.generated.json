@@ -1269,6 +1269,266 @@
                 "label": "When the take rate is too high"
               }
             ]
+          },
+          {
+            "type": "category",
+            "label": "Feature store",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/43-feature-store/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/43-feature-store/when-the-feature-diverges/index",
+                "label": "When the feature diverges"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/43-feature-store/when-the-feature-is-missing/index",
+                "label": "When the feature is missing"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Training-serving consistency",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/44-training-serving-consistency/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/44-training-serving-consistency/when-the-label-arrives-late/index",
+                "label": "When the label arrives late"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/44-training-serving-consistency/when-the-online-feature-lags/index",
+                "label": "When the online feature lags"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Feedback loops",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/45-feedback-loops/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/45-feedback-loops/when-popularity-collapses/index",
+                "label": "When popularity collapses"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/45-feedback-loops/when-the-filter-bubble-closes/index",
+                "label": "When the filter bubble closes"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Retraining and staleness",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/46-retraining-and-staleness/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/46-retraining-and-staleness/when-retraining-flips-the-metric/index",
+                "label": "When retraining flips the metric"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/46-retraining-and-staleness/when-the-embedding-expires/index",
+                "label": "When the embedding expires"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Monitoring and drift",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/47-monitoring-and-drift/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/47-monitoring-and-drift/when-the-alert-is-noisy/index",
+                "label": "When the alert is noisy"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/47-monitoring-and-drift/when-the-drift-is-silent/index",
+                "label": "When the drift is silent"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Realtime user state",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/48-realtime-user-state/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/48-realtime-user-state/when-realtime-is-too-expensive/index",
+                "label": "When realtime is too expensive"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/48-realtime-user-state/when-the-session-state-moves/index",
+                "label": "When the session state moves"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Throughput and capacity",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/49-throughput-and-capacity/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/49-throughput-and-capacity/when-the-peak-arrives/index",
+                "label": "When the peak arrives"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/49-throughput-and-capacity/when-the-tail-costs/index",
+                "label": "When the tail costs"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Cost per query",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/50-cost-per-query/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/50-cost-per-query/when-the-cache-pays/index",
+                "label": "When the cache pays"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/50-cost-per-query/when-the-model-is-too-big/index",
+                "label": "When the model is too big"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "New-user experience",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/51-new-user-experience/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/51-new-user-experience/when-personalization-scares/index",
+                "label": "When personalization scares"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/51-new-user-experience/when-the-user-is-new/index",
+                "label": "When the user is new"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Trust and explainability",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/52-trust-and-explainability/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/52-trust-and-explainability/when-the-explanation-is-wrong/index",
+                "label": "When the explanation is wrong"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/52-trust-and-explainability/when-trust-erodes/index",
+                "label": "When trust erodes"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Fairness and allocation",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/53-fairness-and-allocation/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/53-fairness-and-allocation/when-the-constraint-bites/index",
+                "label": "When the constraint bites"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/53-fairness-and-allocation/when-the-policy-is-biased/index",
+                "label": "When the policy is biased"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Advertiser ROAS",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/54-advertiser-roas/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/54-advertiser-roas/when-roas-collapses/index",
+                "label": "When ROAS collapses"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/54-advertiser-roas/when-the-budget-moves/index",
+                "label": "When the budget moves"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "LTV and CAC",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/55-ltv-and-cac/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/55-ltv-and-cac/when-cac-exceeds-ltv/index",
+                "label": "When CAC exceeds LTV"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/55-ltv-and-cac/when-retention-flattens/index",
+                "label": "When retention flattens"
+              }
+            ]
           }
         ]
       },

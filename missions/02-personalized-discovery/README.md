@@ -238,6 +238,33 @@ generated creative, and the marketplace lever behind all of them.
 | [`42-marketplace-economics`](42-marketplace-economics/) | Take rate and ad load as marketplace decisions with a peak | new to this mission | verified mechanism run |
 
 
+### The operations track (stages 43-55)
+
+The frontier tracks ran the three surfaces to the edge of the models.
+The thirteen stages below run the system around them: the pipeline that
+keeps training and serving consistent, the feedback that entrenches what
+the ranker shows, the monitoring that catches the world moving, the
+machines and budgets that serve the query, the user who has no trail
+yet, the explanation the user can check, the exposure the page
+allocates, and the advertiser and user economics that decide whether the
+whole system pays.
+
+| Stage | Deliverable | Layer | Status |
+|---|---|---|---|
+| [`43-feature-store`](43-feature-store/) | The feature computed once and served identically to training and serving | new to this mission | verified mechanism run |
+| [`44-training-serving-consistency`](44-training-serving-consistency/) | Logged price versus live price; the skew as a pipeline property | new to this mission | verified mechanism run |
+| [`45-feedback-loops`](45-feedback-loops/) | The model's output as its next training data; exposure entrenches | new to this mission | verified mechanism run |
+| [`46-retraining-and-staleness`](46-retraining-and-staleness/) | Snapshot age as the retraining trigger; the measured gap | new to this mission | verified mechanism run |
+| [`47-monitoring-and-drift`](47-monitoring-and-drift/) | The prediction-observation gap as the online signal | new to this mission | verified mechanism run |
+| [`48-realtime-user-state`](48-realtime-user-state/) | The session as a feature the batch model cannot see | new to this mission | verified mechanism run |
+| [`49-throughput-and-capacity`](49-throughput-and-capacity/) | Capacity as throughput times deadline, not times average latency | new to this mission | verified mechanism run |
+| [`50-cost-per-query`](50-cost-per-query/) | The cascade's arithmetic with a price tag per query | new to this mission | verified mechanism run |
+| [`51-new-user-experience`](51-new-user-experience/) | The first page decided before personalization can see the user | new to this mission | verified mechanism run |
+| [`52-trust-and-explainability`](52-trust-and-explainability/) | The explanation the user can actually check | new to this mission | verified mechanism run |
+| [`53-fairness-and-allocation`](53-fairness-and-allocation/) | Exposure as a budget the ranker allocates, at a measured price | new to this mission | verified mechanism run |
+| [`54-advertiser-roas`](54-advertiser-roas/) | The advertiser's return as the platform's revenue | new to this mission | verified mechanism run |
+| [`55-ltv-and-cac`](55-ltv-and-cac/) | The user lifecycle that decides which growth is real growth | new to this mission | verified mechanism run |
+
 
 
 ## Where each stage leaves the path
@@ -344,6 +371,32 @@ artifact or a measurement the next stage consumes.
 | `41-llm-creative-generation` | The surface score ships the creative that converts worst | [when-the-score-is-on-surface](41-llm-creative-generation/when-the-score-is-on-surface/) |
 | `42-marketplace-economics` | The take rate is too high and the marketplace collapses | [when-the-take-rate-is-too-high](42-marketplace-economics/when-the-take-rate-is-too-high/) |
 | `42-marketplace-economics` | The marginal ad stops paying for its displacement | [when-the-ad-load-moves](42-marketplace-economics/when-the-ad-load-moves/) |
+| `43-feature-store` | The feature diverges and the ranker reorders on a value the model never saw | [when-the-feature-diverges](43-feature-store/when-the-feature-diverges/) |
+| `43-feature-store` | A missing feature default is a silent ranking decision | [when-the-feature-is-missing](43-feature-store/when-the-feature-is-missing/) |
+| `44-training-serving-consistency` | The label that arrives late biases the training set | [when-the-label-arrives-late](44-training-serving-consistency/when-the-label-arrives-late/) |
+| `44-training-serving-consistency` | The online feature that lags serves a world that ended | [when-the-online-feature-lags](44-training-serving-consistency/when-the-online-feature-lags/) |
+| `45-feedback-loops` | The loop is the last to notice the world changed | [when-popularity-collapses](45-feedback-loops/when-popularity-collapses/) |
+| `45-feedback-loops` | The filter bubble closes from the inside | [when-the-filter-bubble-closes](45-feedback-loops/when-the-filter-bubble-closes/) |
+| `46-retraining-and-staleness` | The retrain that flips the metric offline can lose online | [when-retraining-flips-the-metric](46-retraining-and-staleness/when-retraining-flips-the-metric/) |
+| `46-retraining-and-staleness` | The embedding expires and recall dies with it | [when-the-embedding-expires](46-retraining-and-staleness/when-the-embedding-expires/) |
+| `47-monitoring-and-drift` | A threshold tight enough to catch a break fires on noise | [when-the-alert-is-noisy](47-monitoring-and-drift/when-the-alert-is-noisy/) |
+| `47-monitoring-and-drift` | The drift is silent in the eval and loud in the gap | [when-the-drift-is-silent](47-monitoring-and-drift/when-the-drift-is-silent/) |
+| `48-realtime-user-state` | Realtime is too expensive once every feature is on the critical path | [when-realtime-is-too-expensive](48-realtime-user-state/when-realtime-is-too-expensive/) |
+| `48-realtime-user-state` | The session boost decays and the batch order wins back | [when-the-session-state-moves](48-realtime-user-state/when-the-session-state-moves/) |
+| `49-throughput-and-capacity` | The peak is a capacity decision, not a load average | [when-the-peak-arrives](49-throughput-and-capacity/when-the-peak-arrives/) |
+| `49-throughput-and-capacity` | Sizing to the mean is sizing to a fiction | [when-the-tail-costs](49-throughput-and-capacity/when-the-tail-costs/) |
+| `50-cost-per-query` | The cache pays when the hit rate is a cost decision | [when-the-cache-pays](50-cost-per-query/when-the-cache-pays/) |
+| `50-cost-per-query` | The model is too big when the last point of quality doubles the bill | [when-the-model-is-too-big](50-cost-per-query/when-the-model-is-too-big/) |
+| `51-new-user-experience` | A confident prior reads as a misread | [when-personalization-scares](51-new-user-experience/when-personalization-scares/) |
+| `51-new-user-experience` | The onboarding prior is a bet on an answer the user may not mean | [when-the-user-is-new](51-new-user-experience/when-the-user-is-new/) |
+| `52-trust-and-explainability` | The attribution that explains the score tells a story the score did not | [when-the-explanation-is-wrong](52-trust-and-explainability/when-the-explanation-is-wrong/) |
+| `52-trust-and-explainability` | A false explanation burns trust faster than a missing one | [when-trust-erodes](52-trust-and-explainability/when-trust-erodes/) |
+| `53-fairness-and-allocation` | The floor has a price and the price is a curve | [when-the-constraint-bites](53-fairness-and-allocation/when-the-constraint-bites/) |
+| `53-fairness-and-allocation` | The label carries the position it was collected in | [when-the-policy-is-biased](53-fairness-and-allocation/when-the-policy-is-biased/) |
+| `54-advertiser-roas` | The marginal dollar buys less every time | [when-roas-collapses](54-advertiser-roas/when-roas-collapses/) |
+| `54-advertiser-roas` | The advertiser's exit is the platform's loss | [when-the-budget-moves](54-advertiser-roas/when-the-budget-moves/) |
+| `55-ltv-and-cac` | The user who costs more than they return is a liability at any volume | [when-cac-exceeds-ltv](55-ltv-and-cac/when-cac-exceeds-ltv/) |
+| `55-ltv-and-cac` | The user who stops leaving is worth more than the user who stops coming | [when-retention-flattens](55-ltv-and-cac/when-retention-flattens/) |
 
 ## What makes this hard to prove
 
