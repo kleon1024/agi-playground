@@ -26,7 +26,7 @@ the stage consumes.
 | Mission | Stages | Existing detours | Lineage survey | Anatomy chapters | Deep-dive gap |
 |---|---|---|---|---|---|
 | 01 language-model system | 8 (00-corpus..07-eval) | 39 detours across every stage, at least two each | 01-language-model-system.md | attention-variants (KV anatomy), the-kl-leash, the-gate-that-beats-relu | — |
-| 02 personalized discovery | 31 (00..30) | 72 detours, every stage at least two | 02-personalized-discovery.md | value-tree (strategy anatomy) | — |
+| 02 personalized discovery | 43 (00..42) | 96 detours, every stage at least two | 02-personalized-discovery.md | value-tree (strategy anatomy) | — |
 | 03 quantitative research | 6 (00..05) | 12 detours, two per stage | 03-quantitative-research.md | rank-to-position (sizing anatomy) | no-gap |
 | 04 code agent | 7 (00..06) | 14 detours, two per stage | 04-code-agent.md | agent loop (harness anatomy) | — |
 | 05 vision-language | 7 (00..06) | 14 detours, two per stage | 05-vision-language.md | fused attention (VLM anatomy) | — |
@@ -68,7 +68,7 @@ foundations, and infra now have every chapter covered with at least two
 detours (audited 2026-08-06): each detour answers a different decision than
 its parent, in mission-01 style (README + core + runs, an interactive when
 the mechanism is manipulable), and every number traces to the recorded run.
-197 detour chapters across the nine missions, plus 9 foundations and 7 infra
+221 detour chapters across the nine missions, plus 9 foundations and 7 infra
 detours. The per-model anatomy series is complete: one structure chapter per
 mission (KV/attention for 01, value-tree for 02, rank-to-position for 03,
 agent loop for 04, fused attention for 05, policy+reward for 06, VQ codebook

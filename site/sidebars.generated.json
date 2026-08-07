@@ -1029,6 +1029,246 @@
                 "label": "When the incrementality is zero"
               }
             ]
+          },
+          {
+            "type": "category",
+            "label": "LLM ranking",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/31-llm-ranking/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/31-llm-ranking/when-the-llm-disagrees/index",
+                "label": "When the LLM disagrees"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/31-llm-ranking/when-the-prompt-token-budget-binds/index",
+                "label": "When the prompt token budget binds"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Recommendation RLHF",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/32-recommendation-rlhf/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/32-recommendation-rlhf/when-the-preference-is-noisy/index",
+                "label": "When the preference is noisy"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/32-recommendation-rlhf/when-the-reward-is-gamed/index",
+                "label": "When the reward is gamed"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Multimodal recall",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/33-multimodal-recall/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/33-multimodal-recall/when-the-image-is-cold/index",
+                "label": "When the image is cold"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/33-multimodal-recall/when-the-modality-mismatch/index",
+                "label": "When the modality mismatch"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Slate versus item evaluation",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/34-slate-vs-item-evaluation/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/34-slate-vs-item-evaluation/when-the-metric-misses-diversity/index",
+                "label": "When the metric misses diversity"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/34-slate-vs-item-evaluation/when-the-slate-is-diverse/index",
+                "label": "When the slate is diverse"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Generative retrieval",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/35-generative-retrieval/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/35-generative-retrieval/when-the-id-space-grows/index",
+                "label": "When the ID space grows"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/35-generative-retrieval/when-the-generator-hallucinates/index",
+                "label": "When the generator hallucinates"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Conversational search",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/36-conversational-search/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/36-conversational-search/when-the-anaphora-is-ambiguous/index",
+                "label": "When the anaphora is ambiguous"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/36-conversational-search/when-the-topic-shifts/index",
+                "label": "When the topic shifts"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "LLM query understanding",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/37-llm-query-understanding/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/37-llm-query-understanding/when-the-llm-over-parses/index",
+                "label": "When the LLM over-parses"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/37-llm-query-understanding/when-the-slot-is-empty/index",
+                "label": "When the slot is empty"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Interleaving experiments",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/38-interleaving-experiments/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/38-interleaving-experiments/when-the-credit-is-unbalanced/index",
+                "label": "When the credit is unbalanced"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/38-interleaving-experiments/when-the-traffic-is-tiny/index",
+                "label": "When the traffic is tiny"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "First-price transition",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/39-first-price-transition/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/39-first-price-transition/when-the-market-adjusts/index",
+                "label": "When the market adjusts"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/39-first-price-transition/when-the-shading-is-wrong/index",
+                "label": "When the shading is wrong"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Privacy-safe attribution",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/40-privacy-safe-attribution/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/40-privacy-safe-attribution/when-the-budget-splits/index",
+                "label": "When the budget splits"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/40-privacy-safe-attribution/when-the-noise-is-too-high/index",
+                "label": "When the noise is too high"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "LLM creative generation",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/41-llm-creative-generation/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/41-llm-creative-generation/when-the-generated-creative-is-identical/index",
+                "label": "When the generated creative is identical"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/41-llm-creative-generation/when-the-score-is-on-surface/index",
+                "label": "When the score is on the surface"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Marketplace economics",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/42-marketplace-economics/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/42-marketplace-economics/when-the-ad-load-moves/index",
+                "label": "When the ad load moves"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/42-marketplace-economics/when-the-take-rate-is-too-high/index",
+                "label": "When the take rate is too high"
+              }
+            ]
           }
         ]
       },

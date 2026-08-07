@@ -751,6 +751,150 @@
     "level": "applied",
     "minutes": 2
   },
+  "missions/02-personalized-discovery/31-llm-ranking": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/31-llm-ranking/when-the-llm-disagrees": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/31-llm-ranking/when-the-prompt-token-budget-binds": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/32-recommendation-rlhf": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/32-recommendation-rlhf/when-the-preference-is-noisy": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/32-recommendation-rlhf/when-the-reward-is-gamed": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/33-multimodal-recall": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/33-multimodal-recall/when-the-image-is-cold": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/33-multimodal-recall/when-the-modality-mismatch": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/34-slate-vs-item-evaluation": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/34-slate-vs-item-evaluation/when-the-metric-misses-diversity": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/34-slate-vs-item-evaluation/when-the-slate-is-diverse": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/35-generative-retrieval": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/35-generative-retrieval/when-the-generator-hallucinates": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/35-generative-retrieval/when-the-id-space-grows": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/36-conversational-search": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/36-conversational-search/when-the-anaphora-is-ambiguous": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/36-conversational-search/when-the-topic-shifts": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/37-llm-query-understanding": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/37-llm-query-understanding/when-the-llm-over-parses": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/37-llm-query-understanding/when-the-slot-is-empty": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/38-interleaving-experiments": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/38-interleaving-experiments/when-the-credit-is-unbalanced": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/38-interleaving-experiments/when-the-traffic-is-tiny": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/39-first-price-transition": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/39-first-price-transition/when-the-market-adjusts": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/39-first-price-transition/when-the-shading-is-wrong": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/40-privacy-safe-attribution": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/40-privacy-safe-attribution/when-the-budget-splits": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/40-privacy-safe-attribution/when-the-noise-is-too-high": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/41-llm-creative-generation": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/41-llm-creative-generation/when-the-generated-creative-is-identical": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/41-llm-creative-generation/when-the-score-is-on-surface": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/42-marketplace-economics": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/42-marketplace-economics/when-the-ad-load-moves": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/42-marketplace-economics/when-the-take-rate-is-too-high": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/03-quantitative-research": {
     "level": "applied",
     "minutes": 7

@@ -194,6 +194,49 @@ fit the 100ms deadline, and measure what the ad actually changed.
 | [`29-rtb-pipeline`](29-rtb-pipeline/) | The 100ms real-time bid; latency as a selection mechanism | new to this mission | verified mechanism run |
 | [`30-ads-measurement`](30-ads-measurement/) | Incrementality against a control; the ad's actual effect | new to this mission | verified mechanism run |
 
+### The frontier recommendation track (stages 31-34)
+
+The core recommendation stages (00-09) ran the funnel end to end. The
+four stages below revisit it with the tools that changed after it was
+built: the LLM as a listwise ranker, preference optimization instead of
+labels, content vectors for cold start, and the slate as the unit of
+evaluation.
+
+| Stage | Deliverable | Layer | Status |
+|---|---|---|---|
+| [`31-llm-ranking`](31-llm-ranking/) | LLM listwise reorder over the top of a cascade; token budget as recall boundary | new to this mission | verified mechanism run |
+| [`32-recommendation-rlhf`](32-recommendation-rlhf/) | Pairwise preference optimization; the Bradley-Terry objective | new to this mission | verified mechanism run |
+| [`33-multimodal-recall`](33-multimodal-recall/) | VLM content vectors as the cold-start bridge; per-modality reachability | new to this mission | verified mechanism run |
+| [`34-slate-vs-item-evaluation`](34-slate-vs-item-evaluation/) | Slate value versus item-score sum; the metric that sees the page | new to this mission | verified mechanism run |
+
+### The frontier search track (stages 35-37)
+
+The search stages (10-13, 19-24) ran the query through the funnel. The
+three stages below change the input side: retrieval by generation
+instead of index, a query that carries a session, and an LLM that parses
+the raw string into the key space.
+
+| Stage | Deliverable | Layer | Status |
+|---|---|---|---|
+| [`35-generative-retrieval`](35-generative-retrieval/) | Doc-ID beam decode; retrieval as a decode with a recall curve | new to this mission | verified mechanism run |
+| [`36-conversational-search`](36-conversational-search/) | Session context as the resolution signal for follow-up turns | new to this mission | verified mechanism run |
+| [`37-llm-query-understanding`](37-llm-query-understanding/) | LLM intent-slot parsing with a confidence floor per slot | new to this mission | verified mechanism run |
+
+### The frontier ads track (stages 38-42)
+
+The ads stages (14-18, 25-30) ran the auction and the measurement. The
+five stages below take the ads decision to the frontier: within-user
+experiments, the first-price transition, privacy-safe attribution,
+generated creative, and the marketplace lever behind all of them.
+
+| Stage | Deliverable | Layer | Status |
+|---|---|---|---|
+| [`38-interleaving-experiments`](38-interleaving-experiments/) | Blended-list ranking comparison; credits with a tie rule | new to this mission | verified mechanism run |
+| [`39-first-price-transition`](39-first-price-transition/) | Shading under first price; the bid as an estimation problem | new to this mission | verified mechanism run |
+| [`40-privacy-safe-attribution`](40-privacy-safe-attribution/) | DP-noised channel counts; epsilon as the decision-accuracy dial | new to this mission | verified mechanism run |
+| [`41-llm-creative-generation`](41-llm-creative-generation/) | Generate-then-select creative; diversity and calibration guards | new to this mission | verified mechanism run |
+| [`42-marketplace-economics`](42-marketplace-economics/) | Take rate and ad load as marketplace decisions with a peak | new to this mission | verified mechanism run |
+
 
 
 
@@ -277,6 +320,30 @@ artifact or a measurement the next stage consumes.
 | `29-rtb-pipeline` | Every timeout is a slot that sells nothing | [when-the-exchange-times-out](29-rtb-pipeline/when-the-exchange-times-out/) |
 | `30-ads-measurement` | The measurement model decides which channel gets the budget | [when-attribution-overcounts](30-ads-measurement/when-attribution-overcounts/) |
 | `30-ads-measurement` | Zero lift is the null result measurement exists to find | [when-the-incrementality-is-zero](30-ads-measurement/when-the-incrementality-is-zero/) |
+| `31-llm-ranking` | The LLM disagrees with the pointwise order where the user looks | [when-the-llm-disagrees](31-llm-ranking/when-the-llm-disagrees/) |
+| `31-llm-ranking` | The prompt token budget is the ranker's recall boundary | [when-the-prompt-token-budget-binds](31-llm-ranking/when-the-prompt-token-budget-binds/) |
+| `32-recommendation-rlhf` | The flipped label sets a loss floor the clean pairs cannot remove | [when-the-preference-is-noisy](32-recommendation-rlhf/when-the-preference-is-noisy/) |
+| `32-recommendation-rlhf` | The reward is gamed by the policy that maximizes it | [when-the-reward-is-gamed](32-recommendation-rlhf/when-the-reward-is-gamed/) |
+| `33-multimodal-recall` | The cold image is reachable through one modality only | [when-the-image-is-cold](33-multimodal-recall/when-the-image-is-cold/) |
+| `33-multimodal-recall` | The modality mismatch biases recall toward text-rich items | [when-the-modality-mismatch](33-multimodal-recall/when-the-modality-mismatch/) |
+| `34-slate-vs-item-evaluation` | The diverse slate trades a top item for coverage | [when-the-slate-is-diverse](34-slate-vs-item-evaluation/when-the-slate-is-diverse/) |
+| `34-slate-vs-item-evaluation` | The item-level metric ties slates the user experiences differently | [when-the-metric-misses-diversity](34-slate-vs-item-evaluation/when-the-metric-misses-diversity/) |
+| `35-generative-retrieval` | Decode accuracy falls as the ID space grows | [when-the-id-space-grows](35-generative-retrieval/when-the-id-space-grows/) |
+| `35-generative-retrieval` | The generator hallucinates an ID that does not exist | [when-the-generator-hallucinates](35-generative-retrieval/when-the-generator-hallucinates/) |
+| `36-conversational-search` | The topic shifts and the old context goes stale | [when-the-topic-shifts](36-conversational-search/when-the-topic-shifts/) |
+| `36-conversational-search` | The anaphora is ambiguous between two referents | [when-the-anaphora-is-ambiguous](36-conversational-search/when-the-anaphora-is-ambiguous/) |
+| `37-llm-query-understanding` | The empty slot makes retrieval decide | [when-the-slot-is-empty](37-llm-query-understanding/when-the-slot-is-empty/) |
+| `37-llm-query-understanding` | The LLM invents a slot and silently shrinks recall | [when-the-llm-over-parses](37-llm-query-understanding/when-the-llm-over-parses/) |
+| `38-interleaving-experiments` | Shared documents blur the credit without a tie rule | [when-the-credit-is-unbalanced](38-interleaving-experiments/when-the-credit-is-unbalanced/) |
+| `38-interleaving-experiments` | The traffic is too tiny for a between-user A/B | [when-the-traffic-is-tiny](38-interleaving-experiments/when-the-traffic-is-tiny/) |
+| `39-first-price-transition` | The shading error is a direct cost on both sides | [when-the-shading-is-wrong](39-first-price-transition/when-the-shading-is-wrong/) |
+| `39-first-price-transition` | Revenue falls as bidders learn to shade | [when-the-market-adjusts](39-first-price-transition/when-the-market-adjusts/) |
+| `40-privacy-safe-attribution` | The noise collapses the order at low epsilon | [when-the-noise-is-too-high](40-privacy-safe-attribution/when-the-noise-is-too-high/) |
+| `40-privacy-safe-attribution` | Every extra report dilutes the shared privacy budget | [when-the-budget-splits](40-privacy-safe-attribution/when-the-budget-splits/) |
+| `41-llm-creative-generation` | Generation collapses and leaves nothing to score | [when-the-generated-creative-is-identical](41-llm-creative-generation/when-the-generated-creative-is-identical/) |
+| `41-llm-creative-generation` | The surface score ships the creative that converts worst | [when-the-score-is-on-surface](41-llm-creative-generation/when-the-score-is-on-surface/) |
+| `42-marketplace-economics` | The take rate is too high and the marketplace collapses | [when-the-take-rate-is-too-high](42-marketplace-economics/when-the-take-rate-is-too-high/) |
+| `42-marketplace-economics` | The marginal ad stops paying for its displacement | [when-the-ad-load-moves](42-marketplace-economics/when-the-ad-load-moves/) |
 
 ## What makes this hard to prove
 

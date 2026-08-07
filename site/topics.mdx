@@ -354,6 +354,18 @@ together and the shape of an honest null result becomes obvious.
 - [What does a mixing weight actually trade off?](/playground/missions/02-personalized-discovery/06-mixing/when-the-trade-weight-moves/)
 - [A narrow beam finding the optimum is not proof a beam is enough](/playground/missions/02-personalized-discovery/06-mixing/when-the-beam-is-wide-enough/)
 - [The diverse slate that underperforms](/playground/missions/02-personalized-discovery/06-mixing/when-diversity-hurts/)
+- [The LLM reorders the list it can afford to see](/playground/missions/02-personalized-discovery/31-llm-ranking/)
+- [The LLM disagrees with the pointwise order where the user looks](/playground/missions/02-personalized-discovery/31-llm-ranking/when-the-llm-disagrees/)
+- [The prompt token budget is the ranker's recall boundary](/playground/missions/02-personalized-discovery/31-llm-ranking/when-the-prompt-token-budget-binds/)
+- [The ranker learns which item the user preferred](/playground/missions/02-personalized-discovery/32-recommendation-rlhf/)
+- [The flipped label sets a loss floor the clean pairs cannot remove](/playground/missions/02-personalized-discovery/32-recommendation-rlhf/when-the-preference-is-noisy/)
+- [The reward is gamed by the policy that maximizes it](/playground/missions/02-personalized-discovery/32-recommendation-rlhf/when-the-reward-is-gamed/)
+- [Content vectors make the cold item reachable](/playground/missions/02-personalized-discovery/33-multimodal-recall/)
+- [The cold image is reachable through one modality only](/playground/missions/02-personalized-discovery/33-multimodal-recall/when-the-image-is-cold/)
+- [The modality mismatch biases recall toward text-rich items](/playground/missions/02-personalized-discovery/33-multimodal-recall/when-the-modality-mismatch/)
+- [The user experiences the slate, not the item](/playground/missions/02-personalized-discovery/34-slate-vs-item-evaluation/)
+- [The diverse slate trades a top item for coverage](/playground/missions/02-personalized-discovery/34-slate-vs-item-evaluation/when-the-slate-is-diverse/)
+- [The item-level metric ties slates the user experiences differently](/playground/missions/02-personalized-discovery/34-slate-vs-item-evaluation/when-the-metric-misses-diversity/)
 
 ## Turning a score into a position you could actually hold
 
@@ -406,6 +418,15 @@ ranked, evaluated result.
 - [Every zero-result query is a decision](/playground/missions/02-personalized-discovery/24-search-measurement/)
 - [A failed query can be a recovered session](/playground/missions/02-personalized-discovery/24-search-measurement/when-the-click-is-a-query/)
 - [Zero results is a coverage metric with a revenue shape](/playground/missions/02-personalized-discovery/24-search-measurement/when-the-zero-result-rate-matters/)
+- [The model emits the document ID directly](/playground/missions/02-personalized-discovery/35-generative-retrieval/)
+- [Decode accuracy falls as the ID space grows](/playground/missions/02-personalized-discovery/35-generative-retrieval/when-the-id-space-grows/)
+- [The generator hallucinates an ID that does not exist](/playground/missions/02-personalized-discovery/35-generative-retrieval/when-the-generator-hallucinates/)
+- [The session is the other half of the query](/playground/missions/02-personalized-discovery/36-conversational-search/)
+- [The topic shifts and the old context goes stale](/playground/missions/02-personalized-discovery/36-conversational-search/when-the-topic-shifts/)
+- [The anaphora is ambiguous between two referents](/playground/missions/02-personalized-discovery/36-conversational-search/when-the-anaphora-is-ambiguous/)
+- [The raw string becomes the keys retrieval serves](/playground/missions/02-personalized-discovery/37-llm-query-understanding/)
+- [The empty slot makes retrieval decide](/playground/missions/02-personalized-discovery/37-llm-query-understanding/when-the-slot-is-empty/)
+- [The LLM over-parses and invents a constraint](/playground/missions/02-personalized-discovery/37-llm-query-understanding/when-the-llm-over-parses/)
 
 ## Ads: the paid item that displaces an organic result
 
@@ -446,6 +467,21 @@ ranking, calibration, delivery, and the displacement trade.
 - [Measure the ad by what it changed](/playground/missions/02-personalized-discovery/30-ads-measurement/)
 - [The measurement model decides which channel gets the budget](/playground/missions/02-personalized-discovery/30-ads-measurement/when-attribution-overcounts/)
 - [Zero lift is the null result measurement exists to find](/playground/missions/02-personalized-discovery/30-ads-measurement/when-the-incrementality-is-zero/)
+- [Compare rankings with one blended list](/playground/missions/02-personalized-discovery/38-interleaving-experiments/)
+- [Shared documents blur the credit without a tie rule](/playground/missions/02-personalized-discovery/38-interleaving-experiments/when-the-credit-is-unbalanced/)
+- [The traffic is too tiny for a between-user A/B](/playground/missions/02-personalized-discovery/38-interleaving-experiments/when-the-traffic-is-tiny/)
+- [In first price, the bid is the price](/playground/missions/02-personalized-discovery/39-first-price-transition/)
+- [The shading error is a direct cost on both sides](/playground/missions/02-personalized-discovery/39-first-price-transition/when-the-shading-is-wrong/)
+- [Revenue falls as bidders learn to shade](/playground/missions/02-personalized-discovery/39-first-price-transition/when-the-market-adjusts/)
+- [Attribution that cannot see the individual](/playground/missions/02-personalized-discovery/40-privacy-safe-attribution/)
+- [The noise collapses the order at low epsilon](/playground/missions/02-personalized-discovery/40-privacy-safe-attribution/when-the-noise-is-too-high/)
+- [Every extra report dilutes the shared privacy budget](/playground/missions/02-personalized-discovery/40-privacy-safe-attribution/when-the-budget-splits/)
+- [Generate cheap, select before delivery](/playground/missions/02-personalized-discovery/41-llm-creative-generation/)
+- [Generation collapses and leaves nothing to score](/playground/missions/02-personalized-discovery/41-llm-creative-generation/when-the-generated-creative-is-identical/)
+- [The surface score ships the creative that converts worst](/playground/missions/02-personalized-discovery/41-llm-creative-generation/when-the-score-is-on-surface/)
+- [The take rate is a marketplace decision](/playground/missions/02-personalized-discovery/42-marketplace-economics/)
+- [The take rate is too high and the marketplace collapses](/playground/missions/02-personalized-discovery/42-marketplace-economics/when-the-take-rate-is-too-high/)
+- [The marginal ad stops paying for its displacement](/playground/missions/02-personalized-discovery/42-marketplace-economics/when-the-ad-load-moves/)
 
 ## Or start from the stakeholder problem
 
