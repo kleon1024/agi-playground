@@ -997,7 +997,7 @@
   },
   "02-personalized-discovery/shared/43-feature-store": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 6
   },
   "02-personalized-discovery/shared/43-feature-store/when-the-feature-diverges": {
     "level": "applied",
@@ -1007,7 +1007,15 @@
     "level": "applied",
     "minutes": 2
   },
+  "02-personalized-discovery/shared/43-feature-store/when-the-online-value-moves": {
+    "level": "applied",
+    "minutes": 3
+  },
   "02-personalized-discovery/shared/44-training-serving-consistency": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/shared/44-training-serving-consistency/when-the-join-looks-ahead": {
     "level": "applied",
     "minutes": 3
   },
@@ -1021,7 +1029,7 @@
   },
   "02-personalized-discovery/shared/45-feedback-loops": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 6
   },
   "02-personalized-discovery/shared/45-feedback-loops/when-popularity-collapses": {
     "level": "applied",
@@ -1031,9 +1039,13 @@
     "level": "applied",
     "minutes": 2
   },
-  "02-personalized-discovery/shared/46-retraining-and-staleness": {
+  "02-personalized-discovery/shared/45-feedback-loops/when-the-policy-borrows-luck": {
     "level": "applied",
     "minutes": 3
+  },
+  "02-personalized-discovery/shared/46-retraining-and-staleness": {
+    "level": "applied",
+    "minutes": 5
   },
   "02-personalized-discovery/shared/46-retraining-and-staleness/when-retraining-flips-the-metric": {
     "level": "applied",
@@ -1043,9 +1055,13 @@
     "level": "applied",
     "minutes": 2
   },
-  "02-personalized-discovery/shared/47-monitoring-and-drift": {
+  "02-personalized-discovery/shared/46-retraining-and-staleness/when-the-peak-hits": {
     "level": "applied",
     "minutes": 3
+  },
+  "02-personalized-discovery/shared/47-monitoring-and-drift": {
+    "level": "applied",
+    "minutes": 6
   },
   "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-alert-is-noisy": {
     "level": "applied",
@@ -1054,6 +1070,10 @@
   "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-drift-is-silent": {
     "level": "applied",
     "minutes": 2
+  },
+  "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-slice-hides": {
+    "level": "applied",
+    "minutes": 3
   },
   "02-personalized-discovery/shared/48-realtime-user-state": {
     "level": "applied",

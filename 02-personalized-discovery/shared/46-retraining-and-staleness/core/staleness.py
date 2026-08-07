@@ -8,17 +8,28 @@ newer snapshot buys it back.
 
 Run:
     uv run python core/staleness.py
+    uv run python core/staleness.py --emit-log /tmp/staleness-envelope.json
+
+The `--emit-log` flag writes the item table (with the cohort each item
+belongs to) so the production path in `prod/staleness_panel.py` can run
+the per-cohort rank-error panel the way a team audits its own retraining
+decisions.
 """
 
 from __future__ import annotations
 
+import argparse
+import json
+import sys
+from pathlib import Path
+
 ITEMS = [
-    {"id": "P1001", "base": 0.045, "trend": 0.0012},
-    {"id": "P1002", "base": 0.042, "trend": -0.0008},
-    {"id": "P1003", "base": 0.040, "trend": 0.0004},
-    {"id": "P1004", "base": 0.037, "trend": -0.0010},
-    {"id": "P1005", "base": 0.035, "trend": 0.0018},
-    {"id": "P1006", "base": 0.033, "trend": 0.0000},
+    {"id": "P1001", "cohort": "volatile", "base": 0.045, "trend": 0.0012},
+    {"id": "P1002", "cohort": "volatile", "base": 0.042, "trend": -0.0008},
+    {"id": "P1003", "cohort": "stable", "base": 0.040, "trend": 0.0004},
+    {"id": "P1004", "cohort": "volatile", "base": 0.037, "trend": -0.0010},
+    {"id": "P1005", "cohort": "volatile", "base": 0.035, "trend": 0.0018},
+    {"id": "P1006", "cohort": "stable", "base": 0.033, "trend": 0.0000},
 ]
 
 
@@ -45,7 +56,7 @@ def rank_error(model_hour: int, truth_hour: int) -> int:
     return errors
 
 
-def main() -> None:
+def render() -> None:
     print("staleness, read (pairwise rank errors vs the truth at hour h):")
     print("  snapshot from hour 0 evaluated at hour h:")
     for hour in (0, 6, 12):
@@ -59,5 +70,19 @@ def main() -> None:
     print("but how to notice that the snapshot has stopped paying.")
 
 
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--emit-log", help="write the item table as JSON")
+    args = parser.parse_args()
+    render()
+    if args.emit_log:
+        envelope = {
+            "hours": [0, 6, 12],
+            "items": ITEMS,
+        }
+        Path(args.emit_log).write_text(json.dumps(envelope))
+    return 0
+
+
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

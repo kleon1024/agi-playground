@@ -1717,6 +1717,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/shared/43-feature-store/when-the-feature-is-missing/index",
                 "label": "When the feature is missing"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/43-feature-store/when-the-online-value-moves/index",
+                "label": "When the online value moves"
               }
             ]
           },
@@ -1728,6 +1733,11 @@
               "id": "02-personalized-discovery/shared/44-training-serving-consistency/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/44-training-serving-consistency/when-the-join-looks-ahead/index",
+                "label": "When the join looks ahead"
+              },
               {
                 "type": "doc",
                 "id": "02-personalized-discovery/shared/44-training-serving-consistency/when-the-label-arrives-late/index",
@@ -1757,6 +1767,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/shared/45-feedback-loops/when-the-filter-bubble-closes/index",
                 "label": "When the filter bubble closes"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/45-feedback-loops/when-the-policy-borrows-luck/index",
+                "label": "When the policy borrows luck"
               }
             ]
           },
@@ -1777,6 +1792,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/shared/46-retraining-and-staleness/when-the-embedding-expires/index",
                 "label": "When the embedding expires"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/46-retraining-and-staleness/when-the-peak-hits/index",
+                "label": "When the peak hits"
               }
             ]
           },
@@ -1797,6 +1817,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-drift-is-silent/index",
                 "label": "When the drift is silent"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-slice-hides/index",
+                "label": "When the slice hides"
               }
             ]
           },

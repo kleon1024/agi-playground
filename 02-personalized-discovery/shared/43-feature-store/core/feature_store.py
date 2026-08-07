@@ -7,9 +7,19 @@ on read, and the two sides drift apart as the world moves.
 
 Run:
     uv run python core/feature_store.py
+    uv run python core/feature_store.py --emit-log /tmp/store-reads.json
+
+The `--emit-log` flag writes the same read as a JSON envelope so the
+production path in `prod/store_consistency.py` can audit it the way an
+online service would audit its own store reads.
 """
 
 from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
 
 CATALOGUE = [
     {"id": "P1001", "price": 49.0, "category": "audio", "added_hour": 0},
@@ -45,7 +55,26 @@ def score(feats: dict[str, float]) -> float:
     return 1000.0 * feats["category_ctr"] - 0.5 * feats["price"] + (10.0 - feats["age_hours"])
 
 
-def main() -> None:
+def reads() -> list[dict[str, object]]:
+    """The per-item reads this stage is about: store path vs naive path."""
+    stored = store_features()
+    out = []
+    for item in CATALOGUE:
+        store_feats = stored[item["id"]]
+        naive_feats = naive_recompute(item, 5)
+        out.append(
+            {
+                "id": item["id"],
+                "store": store_feats,
+                "naive": naive_feats,
+                "store_score": score(store_feats),
+                "naive_score": score(naive_feats),
+            }
+        )
+    return out
+
+
+def render(rows: list[dict[str, object]]) -> None:
     stored = store_features()
     print("feature store, read at serve time (hour 5):")
     for item in CATALOGUE:
@@ -69,5 +98,17 @@ def main() -> None:
     print("two reads is the whole point of the store.")
 
 
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--emit-log", help="write the store reads as JSON")
+    args = parser.parse_args()
+    rows = reads()
+    render(rows)
+    if args.emit_log:
+        envelope = {"hour": 5, "items": rows}
+        Path(args.emit_log).write_text(json.dumps(envelope))
+    return 0
+
+
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

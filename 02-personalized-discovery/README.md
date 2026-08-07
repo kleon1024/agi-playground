@@ -251,11 +251,11 @@ whole system pays.
 
 | Stage | Deliverable | Layer | Status |
 |---|---|---|---|
-| [`43-feature-store`](shared/43-feature-store/) | The feature computed once and served identically to training and serving | new to this mission | verified mechanism run |
-| [`44-training-serving-consistency`](shared/44-training-serving-consistency/) | Logged price versus live price; the skew as a pipeline property | new to this mission | verified mechanism run |
-| [`45-feedback-loops`](shared/45-feedback-loops/) | The model's output as its next training data; exposure entrenches | new to this mission | verified mechanism run |
-| [`46-retraining-and-staleness`](shared/46-retraining-and-staleness/) | Snapshot age as the retraining trigger; the measured gap | new to this mission | verified mechanism run |
-| [`47-monitoring-and-drift`](shared/47-monitoring-and-drift/) | The prediction-observation gap as the online signal | new to this mission | verified mechanism run |
+| [`43-feature-store`](shared/43-feature-store/) | The feature computed once and served identically to training and serving | new to this mission | verified mechanism + audit run |
+| [`44-training-serving-consistency`](shared/44-training-serving-consistency/) | Logged price versus live price; the skew as a pipeline property | new to this mission | verified mechanism + audit run |
+| [`45-feedback-loops`](shared/45-feedback-loops/) | The model's output as its next training data; exposure entrenches | new to this mission | verified mechanism + audit run |
+| [`46-retraining-and-staleness`](shared/46-retraining-and-staleness/) | Snapshot age as the retraining trigger; the measured gap | new to this mission | verified mechanism + audit run |
+| [`47-monitoring-and-drift`](shared/47-monitoring-and-drift/) | The prediction-observation gap as the online signal | new to this mission | verified mechanism + audit run |
 | [`48-realtime-user-state`](shared/48-realtime-user-state/) | The session as a feature the batch model cannot see | new to this mission | verified mechanism run |
 | [`49-throughput-and-capacity`](shared/49-throughput-and-capacity/) | Capacity as throughput times deadline, not times average latency | new to this mission | verified mechanism run |
 | [`50-cost-per-query`](shared/50-cost-per-query/) | The cascade's arithmetic with a price tag per query | new to this mission | verified mechanism run |
@@ -374,14 +374,19 @@ artifact or a measurement the next stage consumes.
 | `42-marketplace-economics` | The marginal ad stops paying for its displacement | [when-the-ad-load-moves](ads/42-marketplace-economics/when-the-ad-load-moves/) |
 | `43-feature-store` | The feature diverges and the ranker reorders on a value the model never saw | [when-the-feature-diverges](shared/43-feature-store/when-the-feature-diverges/) |
 | `43-feature-store` | A missing feature default is a silent ranking decision | [when-the-feature-is-missing](shared/43-feature-store/when-the-feature-is-missing/) |
+| `43-feature-store` | The store freezes a value; the refresh decides how stale it gets | [when-the-online-value-moves](shared/43-feature-store/when-the-online-value-moves/) |
 | `44-training-serving-consistency` | The label that arrives late biases the training set | [when-the-label-arrives-late](shared/44-training-serving-consistency/when-the-label-arrives-late/) |
 | `44-training-serving-consistency` | The online feature that lags serves a world that ended | [when-the-online-feature-lags](shared/44-training-serving-consistency/when-the-online-feature-lags/) |
+| `44-training-serving-consistency` | The join that looks ahead trains the model on its own outcome | [when-the-join-looks-ahead](shared/44-training-serving-consistency/when-the-join-looks-ahead/) |
 | `45-feedback-loops` | The loop is the last to notice the world changed | [when-popularity-collapses](shared/45-feedback-loops/when-popularity-collapses/) |
 | `45-feedback-loops` | The filter bubble closes from the inside | [when-the-filter-bubble-closes](shared/45-feedback-loops/when-the-filter-bubble-closes/) |
+| `45-feedback-loops` | The log measures quality under the policy, not quality | [when-the-policy-borrows-luck](shared/45-feedback-loops/when-the-policy-borrows-luck/) |
 | `46-retraining-and-staleness` | The retrain that flips the metric offline can lose online | [when-retraining-flips-the-metric](shared/46-retraining-and-staleness/when-retraining-flips-the-metric/) |
 | `46-retraining-and-staleness` | The embedding expires and recall dies with it | [when-the-embedding-expires](shared/46-retraining-and-staleness/when-the-embedding-expires/) |
+| `46-retraining-and-staleness` | A calendar retrain misses the spike; an error trigger does not | [when-the-peak-hits](shared/46-retraining-and-staleness/when-the-peak-hits/) |
 | `47-monitoring-and-drift` | A threshold tight enough to catch a break fires on noise | [when-the-alert-is-noisy](shared/47-monitoring-and-drift/when-the-alert-is-noisy/) |
 | `47-monitoring-and-drift` | The drift is silent in the eval and loud in the gap | [when-the-drift-is-silent](shared/47-monitoring-and-drift/when-the-drift-is-silent/) |
+| `47-monitoring-and-drift` | The aggregate hides the slice; the slice's own noise hides the fix | [when-the-slice-hides](shared/47-monitoring-and-drift/when-the-slice-hides/) |
 | `48-realtime-user-state` | Realtime is too expensive once every feature is on the critical path | [when-realtime-is-too-expensive](shared/48-realtime-user-state/when-realtime-is-too-expensive/) |
 | `48-realtime-user-state` | The session boost decays and the batch order wins back | [when-the-session-state-moves](shared/48-realtime-user-state/when-the-session-state-moves/) |
 | `49-throughput-and-capacity` | The peak is a capacity decision, not a load average | [when-the-peak-arrives](shared/49-throughput-and-capacity/when-the-peak-arrives/) |

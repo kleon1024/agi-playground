@@ -41,6 +41,58 @@ snapshot stopped paying. Staleness is measured by the gap between the
 model's world and the current one, and the retraining cadence is set by
 how fast that gap grows, not by a calendar.
 
+## How you find it: the per-cohort staleness panel, executed
+
+The gap grows unevenly, and an aggregate number hides which cohort is
+aging. The check that finds it builds the panel per cohort: for each
+snapshot hour, how many pairwise orderings does it get wrong at each
+later hour, split by how fast the cohort's rates move. The run
+([record](runs/2026-08-07-staleness-panel.md)) emits the item table and
+builds the panel:
+
+| cohort | items | snap0 @ hour 6 | snap0 @ hour 12 | snap6 @ hour 12 |
+|---|---:|---:|---:|---:|
+| all | 6 | 5 | 6 | 1 |
+| volatile | 4 | 2 | 2 | 0 |
+| stable | 2 | 0 | 0 | 0 |
+
+The verdict is VOLATILE FIRST: the fast-moving cohort already ranks two
+pairs wrong at hour 6 while the stable cohort is still exact, so a
+retraining trigger tuned to the aggregate average leaves the fast movers
+stale longest. The aggregate row (5, 6, 1) is dominated by the volatile
+cohort plus the cross-cohort pairs; the panel's job is to name which
+cohort is due, because a single cadence for both cohorts is a
+compromise nobody asked for. Verachtert, Jeunen, and Goethals
+("Scheduling on a budget: Avoiding stale recommendations with timely
+updates", Machine Learning with Applications, 2023) show the same
+property from the data side: the rate at which a model becomes stale is
+environment-dependent and derivable from the logs, so the trigger should
+be derived from the measured error per cohort, not assumed by a
+calendar.
+
+## Who owns the retraining trigger
+
+Retraining is a budget decision, and the trigger sits at the handoff of
+three owners:
+
+- **The retraining platform** owns the trigger and the measurement: it
+  runs the per-cohort panel above, holds the error budget, and decides
+  when a cohort is due. The trigger is a platform service, not a model
+  team's cron job.
+- **The cost owner** owns the retrain's price — compute, pipeline load,
+  index rebuild, cache invalidation — and sets how aggressive the
+  trigger may be. The trade in the when-the-peak-hits detour is exactly
+  this budget: one extra retrain bought a threefold cut in stale
+  exposure, and the cost owner decides whether the purchase is worth it.
+- **The monitoring team** owns the live labels the panel measures
+  against. Without a per-hour truth signal (stage 47's gap panel), the
+  trigger is blind and the calendar is the only option left.
+
+When the ownership is implicit, retraining is either too rare (the
+snapshot silently ages) or too frequent (the platform retrains on noise
+and spends the budget on jitter). The trigger makes the handoff explicit
+because it names the measurement, the budget, and the owner of each.
+
 ## Why this belongs in the mission
 
 Every stage of the cascade holds a snapshot: the features (43), the
@@ -85,6 +137,20 @@ retraining cadence is set by how fast that gap grows.
 
 </details>
 
+**3. Why is the aggregate panel not enough to set the trigger?**
+
+<details>
+<summary>Answer</summary>
+
+Because the aggregate is dominated by the volatile cohort's errors, and
+the stable cohort's exactness hides inside it. A trigger tuned to the
+average either retrains the stable cohort too often (spending budget on
+cohorts that are still exact) or lets the volatile cohort run stale
+between retrains. The per-cohort panel names which cohort is due, which
+is the information the trigger actually needs.
+
+</details>
+
 ## Next
 
 The snapshot ages; stage 47 builds the online panel that notices. A
@@ -96,3 +162,8 @@ Another detour: [the embedding expires and recall dies with
 it](when-the-embedding-expires/) — the executed read: stale vectors give
 recall 2/3, refreshed vectors 3/3, because retrain must reach the index,
 not just the weights.
+
+A third detour: [a calendar retrain misses the spike; an error trigger
+does not](when-the-peak-hits/) — the executed read: through a demand
+spike the calendar serves 12 error-hours and the trigger 4, for one
+extra retrain.

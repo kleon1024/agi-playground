@@ -46,6 +46,57 @@ changed in between. The divergence is not a model bug — it is the two
 reads disagreeing about the world, and the store is the boundary that
 stops the disagreement before it reaches the ranker.
 
+## How you find it: the as-of audit, executed
+
+The failure is silent: nothing crashes when a read bypasses the store,
+and a rank that moved is hard to trace back to a feature. The check that
+finds it is an as-of audit — compare, per key, the value the model was
+trained on against the value the serving read returned. The run
+([record](runs/2026-08-07-store-consistency.md)) emits both reads as JSON
+and audits them the way a serving team audits a live store:
+
+| feature | keys | mean served-vs-trained delta | max delta |
+|---|---|---:|---:|
+| age_hours | 3 | +4.00 | +5.00 |
+| category_ctr | 3 | +0.00 | +0.00 |
+| price | 3 | +0.00 | +0.00 |
+
+The verdict is DIVERGENT: three keys — P1001, P1002, P1003 on
+`age_hours` — were served a value the model never trained on, and the
+audit names the feature, not just the symptom. The point-in-time
+discipline is the one Airbnb's Zipline encodes in its training
+backfills: every training value must be exactly the value a serving read
+at that moment would have returned (Simha and Hoh, "Zipline: Airbnb's
+Machine Learning Data Management Platform", Strata Data Conference New
+York, 2018). The audit is a standing check, run on every
+training-snapshot-to-serving comparison, because the alternative is
+discovering the divergence in a production rank change you cannot
+explain.
+
+## Who owns the loop
+
+The store sits between three owners, and the failure mode is born when
+their handoffs are implicit:
+
+- **The feature owner** (the team that knows what the value means) owns
+  the frozen value, its default, and its latency class — whether the
+  value must be served from the realtime lane or tolerates the daily
+  batch. Zipline's published serving requirements state the range
+  explicitly: point lookups under 10 milliseconds, freshness from one
+  second for realtime features down to midnight for snapshot-accurate
+  ones.
+- **The serving team** owns the read path: every live read must go
+  through the store, never through a recompute. The audit above is its
+  regression test.
+- **The training platform** owns the snapshot and the backfill: the
+  training value is read from the same store, at the same timestamp, so
+  the comparison the audit makes is meaningful.
+
+When the ownership is implicit, each side assumes the other keeps the
+two reads consistent, and the divergence survives. The failure is a
+handoff problem as much as a data problem — which is why the as-of audit
+is a platform job, not a model team's afterthought.
+
 ## Why this belongs in the mission
 
 The mission's cascade is a chain of scores, and a score is only as good
@@ -57,11 +108,15 @@ experiments, monitoring — argues with data the model never saw.
 
 ## Evidence boundary
 
-The executed read over three declared items (illustrative, deterministic).
-It demonstrates the mechanism; real feature stores must decide how
-staleness is tolerated per feature, which values are recomputed online,
-and how the store's write path stays consistent with the training
-snapshot — all measured on the live pipeline.
+The executed reads over three declared items (illustrative,
+deterministic). They demonstrate the mechanism and the audit; real
+feature stores must decide how staleness is tolerated per feature (the
+online-value-moves detour), which values are recomputed online, and how
+the store's write path stays consistent with the training snapshot — all
+measured on the live pipeline. Sculley et al. (2015), "Hidden Technical
+Debt in Machine Learning Systems" (NeurIPS), name the general pattern:
+the training-serving skew is one of the debts that looks like glue code
+until it silently moves a production decision.
 
 ## Check your mental model
 
@@ -88,8 +143,22 @@ That is the divergence the store exists to prevent.
 It guarantees the two reads agree with each other, not that either read
 is current. If the world moved after ingestion, both sides share the
 stale value — consistently wrong. Freshness is a separate decision
-(stages 44 and 46), and the store is the layer that keeps the two
-decisions from colliding.
+(stages 44 and 46, and the online-value-moves detour), and the store is
+the layer that keeps the two decisions from colliding.
+
+</details>
+
+**3. Whose job is the as-of audit?**
+
+<details>
+<summary>Answer</summary>
+
+The training platform's, as a standing check on every backfill: compare
+each training value against what a serving read at that moment would
+return, and name the feature when they differ. The serving team keeps
+every live read on the store path; the feature owner declares the
+default and the latency class. When the audit is nobody's job, the
+divergence is discovered in a production rank change nobody can explain.
 
 </details>
 
@@ -104,3 +173,8 @@ and serve order disagreeing on the same items.
 Another detour: [a missing feature default is a silent ranking
 decision](when-the-feature-is-missing/) — the executed read: a default
 price of zero promotes the item as if it were free, to the top.
+
+A third detour: [the store freezes a value; the refresh decides how stale
+it gets](when-the-online-value-moves/) — the executed read: a promo that
+lands mid-hour is served stale for 22 of 24 hours on a daily refresh and
+zero hours on streaming.

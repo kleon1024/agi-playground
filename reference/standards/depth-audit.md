@@ -110,15 +110,45 @@ links to the ads track's `38-interleaving-experiments`.
 
 ### Personalized discovery — shared 43-55 (operations)
 
-**Status: pending.**
+**Status: in progress (third audit increment, 2026-08-07).**
 
-Audit feature store, training-serving consistency, feedback loops,
-retraining/staleness, monitoring and drift, realtime user state, throughput,
-cost per query, new-user experience, trust/explainability, fairness,
-LTV/CAC. Every chapter needs the distribution and offline-consistency checks
-per stage, and at least one failure-mode run. (Stage 54, online experiments,
-was built in the 00-09 increment above; its operations siblings remain to be
-audited here.)
+Stages 43-47 now satisfy the contract, each with an executed case-finding
+audit, a who-owns-the-loop section, dated citations, and three detours:
+
+- 43 feature store: as-of consistency audit over emitted store reads
+  (served-vs-trained delta per key, DIVERGENT verdict); ownership split
+  across feature/serving/training-platform; Zipline (Strata 2018) and
+  Sculley et al. 2015; detours: divergence, missing default, and the
+  refresh cadence (online-value-moves).
+- 44 training-serving consistency: logged-versus-live distribution audit
+  (per-feature mean/max \|delta\|, DIVERGENT verdict, the comparison
+  TFDV encodes); ownership split across logging/serving/label teams;
+  TFX (KDD 2017), Breck et al. SysML 2019, Chapelle 2014; detours:
+  late label, lagging feature, and the join that looks ahead
+  (label-time snapshot leaking the outcome).
+- 45 feedback loops: exposure-concentration audit (per-band impression
+  share and measured-vs-true CTR, CONCENTRATED verdict); ownership split
+  across traffic/logging/ranker teams; Mansoury et al. CIKM 2020,
+  Chaney et al. RecSys 2018, Abdollahpouri AIES 2019; detours:
+  popularity collapse, filter bubble, and the policy that borrows luck
+  (naive vs IPS vs stale-propensity estimates).
+- 46 retraining/staleness: per-cohort staleness panel (rank error vs
+  snapshot age per cohort, VOLATILE FIRST verdict); ownership split
+  across retraining platform/cost owner/monitoring; Verachtert et al.
+  2023; detours: metric flip, embedding expiry, and the peak that hits
+  (calendar vs error-triggered retrain through a demand spike).
+- 47 monitoring/drift: slice-aware drift panel (per-slice EWMA gap,
+  HIDDEN SLICE verdict — the "big slice flat, small slice collapsed"
+  case); ownership split across monitoring/rollback-authority/feature
+  owner; Gama et al. 2014, Breck et al. 2019; detours: noisy alert,
+  silent drift, and the slice that hides (small-segment noise: detection
+  latency vs false alarms).
+
+Stages 48-55 remain: realtime user state, throughput and capacity, cost
+per query, new-user experience, trust and explainability, fairness and
+allocation, LTV/CAC (54 online experiments was built in the 00-09
+increment and already satisfies the contract). The section is never
+half-audited: it stays in progress until every stage in 48-55 passes.
 
 ### Personalized discovery — search 10-24, 35-37
 

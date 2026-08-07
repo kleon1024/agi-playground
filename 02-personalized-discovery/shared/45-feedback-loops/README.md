@@ -40,6 +40,62 @@ the whole catalogue was once eligible. The model's own output became its
 training data, so "more of what works" works only until the world changes
 — and the starved tail is where the change would first be visible.
 
+## How you find it: the exposure audit, executed
+
+The loop hides itself: every logged label was produced under the serving
+policy, so the log endorses the policy that wrote it. The check that
+finds the concentration audits the serving log directly — per band of
+the catalogue, what share of impressions did each band get, and what can
+the log still measure. The run ([record](runs/2026-08-07-exposure-audit.md))
+emits the per-item exposure ledger and audits it:
+
+| band | items | impressions | share | measured ctr | true ctr |
+|---|---:|---:|---:|---:|---:|
+| head | 5 | 1485 | 99% | 0.0545 | 0.0460 |
+| mid | 10 | 10 | 1% | 0.0000 | 0.0310 |
+| tail | 5 | 5 | 0% | 0.0000 | 0.0160 |
+
+The verdict is CONCENTRATED: the tail's CTR is measured on five
+impressions, so the log cannot prove the tail is worse — it only proves
+the tail was not shown. The audit's question is the one Mansoury et al.
+("Feedback Loop and Bias Amplification in Recommender Systems", CIKM
+2020) measure across production-style runs: exposure concentrates, the
+log's evidence about the tail evaporates, and the loop amplifies the
+initial advantage. Chaney, Stewart, and Engelhardt ("How Algorithmic
+Confounding in Recommendation Systems Increases Homogeneity and
+Decreases Utility", RecSys 2018) show the same mechanism at the user
+level: the policy's own output homogenizes behavior, so the log cannot
+measure the diversity it removed. The audit is a standing gate, run on
+every serving log, because the concentration is invisible until the
+world changes and the starved tail was the only place the change would
+have shown.
+
+## Who owns the loop
+
+The loop is a handoff problem between three owners, and exploration is
+the decision that makes the handoff explicit:
+
+- **The traffic owner** (the team that decides what share of requests
+  may deviate from the greedy ranking) owns the exploration budget.
+  Exploration is not a model knob; it is a traffic allocation, and
+  someone accountable for the exposure share must own it.
+- **The logging team** owns the propensity ledger: every served row
+  carries the probability the serving policy gave it, so the log can
+  correct itself (the [when-the-policy-borrows-luck](when-the-policy-borrows-luck/)
+  detour). Without the
+  ledger, the correction is impossible, which is why the loop's fix is a
+  logging decision before it is a model decision.
+- **The ranker team** owns the objective that the loop optimizes. When
+  the objective ignores exposure, the loop entrenches whatever it
+  happens to show first — the popularity bias Abdollahpouri ("Popularity
+  Bias in Ranking and Recommendation", AIES 2019) documents as a
+  system-level problem, not a per-item one.
+
+When the ownership is implicit, exploration is nobody's budget and
+everyone's problem: the traffic team treats it as a model feature, the
+model team treats it as a traffic decision, and the concentration grows
+until a metric on the tail forces a manual intervention.
+
 ## Why this belongs in the mission
 
 The mission's cascade assumes the data the model learns from describes
@@ -89,6 +145,20 @@ about the world beyond the head.
 
 </details>
 
+**3. What does the exposure audit prove that the loop's own eval cannot?**
+
+<details>
+<summary>Answer</summary>
+
+The eval reuses the served log, so it measures the policy against the
+world the policy created — the head looks great because the head was
+shown. The audit measures the serving distribution directly: impression
+share per band versus what the log could still measure. That comparison
+is what exposes the concentration before a metric on the tail forces the
+question.
+
+</details>
+
 ## Next
 
 The loop entrenches the head; stage 46 asks how often the model must be
@@ -100,3 +170,8 @@ round 300 it still holds a sliver of exposure.
 Another detour: [the filter bubble closes from the inside](when-the-filter-bubble-closes/)
 — the executed read: per-user liked-category share climbs from 33% to 94%
 of the page over ten epochs, and the user never chose it.
+
+A third detour: [the log measures quality under the policy, not
+quality](when-the-policy-borrows-luck/) — the executed read: a featured
+item's naive CTR reads 0.060 against a true 0.030, IPS with the log's
+propensities recovers 0.030, and stale propensities reproduce the bias.
