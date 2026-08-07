@@ -398,21 +398,17 @@ The two failure modes the reader meets first on the job now have their
 own stages (64 and 65), each with an executed case-finding audit, a
 who-owns-the-loop section, dated citations, and three detours:
 
-- 64 AUC-label seesaw: a shared-trunk run over 2,560 rows (naive shared
-  bottom, slice-weighted, gated MMoE-lite; click 0.726/0.723/0.725, buy
-  0.716/0.781/0.653) reframed as the multi-objective decision: the same
-  table ships different models under two declared contracts (buy-primary
-  picks slice-weighted; click-primary blocks gated on the buy 0.653
-  guardrail) — the objective contract, not the model, is the decision.
-  The stratified audit stays as eval rigor (aggregate "flat" -0.003 click
-  is head 0.644 to 0.630 paying and tail 0.662 to 0.706 gaining), and the
-  calibration axis is moved out of the main path into its detour (slope
-  1.188; temperature scaling 1.098 to 0.983). Ownership split across
-  product (frontier position), evaluation (per-objective gate), model
-  (structure and weight dial); seesaw term and fix cited to PLE (Tang et
-  al., RecSys 2020) and MMoE (Ma et al., KDD 2018). Detours unchanged:
-  the weight dial, gradient surgery (43/60 conflicting epochs yet PCGrad
-  neutral), and the calibration layer as a separate contract.
+- 64 AUC-label seesaw: main path rewritten answer-first for readability —
+  the seesaw (跷跷板, PLE, Tang et al., RecSys 2020) is a structural
+  trade, the decision is a pre-declared contract (primary metric +
+  guardrail thresholds) that turns "some up, some down" into pass/fail,
+  and the local 2,560-row cohort is labeled a mechanism demo per the
+  evidence-scale rule, with the decision practice cited to Kohavi & Tang
+  (2017) guardrail metrics. Mechanism (one gradient, correlated labels,
+  one shared bottle) and the move-the-trade toolkit (weight dial first,
+  MMoE/PLE when the dial cannot, gradient surgery last) each get a short
+  readable section; the stratified audit, gradient-conflict numbers, and
+  the calibration axis live in the three detours, out of the main path.
 - 65 sparse labels: a cold-slice run over 8,000 rows (cold-only 0.678,
   shared trunk 0.780, surrogate 0.696) and a density audit whose verdict
   is THE AGGREGATE AUC IS A DENSE-SLICE NUMBER — cold-item 2 positives

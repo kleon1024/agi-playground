@@ -701,7 +701,7 @@
   },
   "02-personalized-discovery/recommendation/64-auc-label-seesaw": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 5
   },
   "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-gradients-conflict": {
     "level": "applied",
