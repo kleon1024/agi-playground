@@ -275,6 +275,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "01-language-model/04-rl/reward-went-up/when-the-proxy-gets-gamed/index",
+                "label": "When the proxy gets gamed"
+              },
+              {
+                "type": "doc",
                 "id": "01-language-model/04-rl/reward-went-up/when-the-reward-is-wrong/index",
                 "label": "When the reward is wrong"
               }

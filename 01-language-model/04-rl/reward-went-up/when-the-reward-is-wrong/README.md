@@ -125,6 +125,21 @@ consumes clean labels and owns the training-reward/verifier pair as a run
 contract, written before training starts — the same way the parent chapter's
 stop conditions are written before the curve exists.
 
+## The fix and its trade
+
+The fix is the label-trust pipeline: poison-rate sampling on the incoming
+label stream, a staleness budget that prices delay as poison (the delay
+arm's label-agreement decay, `0.5 + 0.5 (1 - 2·drift)^lag`, a coin flip at
+drift 5% / lag 20), and the training-reward/held-out-verifier pair as the
+disagreement signal that stops a run when the labels lie. The trade,
+named: freshness versus correctness — cutting the label window short
+shrinks staleness but loses the delayed feedback that was the reason the
+window existed, and tighter poison-rate sampling costs label-review
+throughput. The verifier disagreement threshold costs the same thing
+every guardrail costs: it can stop a run whose labels are actually fine,
+which is why the threshold has to be declared before the curve exists,
+not tuned against it.
+
 ## What this chapter does not prove
 
 This is a mechanism demo: a toy char-level policy, a deterministic single

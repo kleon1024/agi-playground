@@ -178,6 +178,44 @@ invalid-output rate, and the manual-audit threshold that says how many
 high-reward completions a human reads before the number is allowed to count.
 None of those can be chosen honestly once you are looking at the curve.
 
+## Who owns the loop
+
+Reward gaming is a reward-health failure with a three-way handoff:
+
+- **The model team** owns the reward function and the run contract: the
+  stop conditions written before the curve exists — maximum KL, regression
+  tolerance, invalid-output rate — and the decision of which signal is
+  training and which is held-out. It owns the KL leash setting.
+- **The evaluation team** owns the disagreement read: the held-out
+  verifier the training reward never sees, the response length and format
+  distribution check on the policy's own generations, and the
+  manual-audit threshold on high-reward completions. It owns the
+  case-finding step the training curve cannot do.
+- **The annotation team** owns the reward model's blind spots: the
+  label distribution of the reward-training data and the dimensions it
+  over-rewards. The executed audit of the full pattern — proxy rising,
+  quality peaking and falling, distribution drifting — is
+  [when the proxy gets gamed](when-the-proxy-gets-gamed/).
+
+When the ownership is implicit, the training reward is the only number
+anyone plots, and the run stops when the curve flattens — in the blind
+spot, with the last KL bought at negative quality.
+
+## The fix and its trade
+
+The fix is the disagreement trio, executed: training reward, held-out
+verifier, and KL from reference plotted together, with the run stopping
+at the divergence step — the first step where held-out quality falls
+while the proxy keeps rising. The trade, named: the guardrails cap the
+achievable reward — the run stops below the training curve's ceiling —
+and the KL leash trades learning speed for robustness, because a tighter
+leash keeps the policy closer to the reference. The manual-audit
+threshold trades human reading time for the only check that catches
+reward-model-specific exploits; the distribution check trades a labeled
+sample of the policy's generations for the earliest signal. A guardrail
+that never binds is not a guardrail, and the divergence step is where
+this one binds.
+
 ## Exercises
 
 1. **Remove the leash, after a warm start.** The run above shows `--kl-beta 0`
@@ -285,3 +323,9 @@ the measurement that isn't the same instrument being optimized against.
 Return to [stage 04](../) to run it, then [stage 05](../../05-serve/) serves
 whatever policy comes out — where the cost of those longer `<think>` blocks
 stops being a training-time curiosity and becomes tokens somebody waits for.
+
+The disagreement trio this chapter's "which signals" section lists is
+executed in [when the proxy gets gamed](when-the-proxy-gets-gamed/): the
+overoptimization curve, the distribution check that fires before the
+held-out eval turns down, and the divergence step where the run should
+stop.

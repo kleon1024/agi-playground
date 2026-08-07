@@ -145,11 +145,15 @@
   },
   "01-language-model/04-rl/reward-went-up": {
     "level": "applied",
-    "minutes": 11
+    "minutes": 12
+  },
+  "01-language-model/04-rl/reward-went-up/when-the-proxy-gets-gamed": {
+    "level": "applied",
+    "minutes": 8
   },
   "01-language-model/04-rl/reward-went-up/when-the-reward-is-wrong": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "01-language-model/04-rl/rollout-concurrency": {
     "level": "applied",

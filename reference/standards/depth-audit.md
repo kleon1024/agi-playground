@@ -839,6 +839,30 @@ Jun 2024), DoReMi (arXiv:2305.13029, May 2023). The mid-training stage
 chapter now carries Who-owns-the-loop and a fix-and-trade section before
 its evidence boundary.
 
+The RL reward-gaming row is now executed (`when-the-proxy-gets-gamed`,
+2026-08-08): a one-dimensional policy walks under gradient ascent on a
+proxy whose peak sits past the true quality peak (the reward model's
+verbosity blind spot), and the three-signal read catches the divergence.
+The proxy rises monotonically (0.19 to 0.97 — success by itself), held-out
+quality peaks at step 30 (theta 1.01) then falls to 0.897 (a ten-point
+loss reported as gains by the proxy), proxy gain per KL unit collapses
+from 19.87 to 0.66 while true quality per KL goes from +7.72 to -0.82
+(the last KL is bought at negative quality), and the distribution check —
+spurious-keyword rate 6.4% to 42.6%, mean length 60 to 133 — fires at the
+divergence step before the held-out eval turns down, so the policy's own
+generation distribution is the case-finding step and the proxy-vs-true
+disagreement is the verdict. Ownership split: model team owns the reward
+and the divergence contract (pre-declared stop conditions, KL leash),
+eval team owns the held-out verifier and the distribution check, annotation
+team owns the reward model's blind spots. Citations: Gao, Schulman, and
+Hilton (arXiv:2210.10760, 2023, inverted U), Skalse et al.
+(arXiv:2211.00694, Nov 2022) and Pan et al. (arXiv:2202.03006, Feb 2022)
+for reward hacking, Lambert et al. (arXiv:2403.13787, Mar 2024) for
+reward-model error rates; cross-links to the recommendation track's gamed
+reward and the KL-beta-zero ablation run. The reward-went-up and
+when-the-reward-is-wrong chapters now carry Who-owns-the-loop and
+fix-and-trade sections before their evidence boundaries.
+
 Audit the LLM track with the same lens: dirty data and washing (dedup,
 quality filters, contamination), tokenizer edge cases, pretraining data mix
 (sample, RL, SFT, agentic data and how each enters pretraining), format
