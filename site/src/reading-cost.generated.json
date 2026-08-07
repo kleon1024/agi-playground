@@ -23,6 +23,10 @@
     "level": "applied",
     "minutes": 8
   },
+  "01-language-model/00-corpus/when-the-benchmark-is-in-the-train-set": {
+    "level": "applied",
+    "minutes": 4
+  },
   "01-language-model/01-tokenizer": {
     "level": "foundation",
     "minutes": 7

@@ -1,8 +1,9 @@
 ---
-status: draft
+status: verified
 level: applied
 base: none
 label: What a release needs
+verified: 2026-08-07
 ---
 
 # You have the text. What decides whether anyone can trust it?
@@ -55,7 +56,14 @@ essentially always, unrelated documents at 0.1 are examined twice in a
 thousand, and the 0.5 row is where the corpus owner has to decide what counts
 as a duplicate. Change 16 and 4 and you have moved the threshold whether or not
 you meant to — which is why the band and row counts belong in the dataset
-record, not only in the code.
+record, not only in the code. The curve is not just derived, it is measured:
+the run ([record](runs/2026-08-07-s-curve-measured.md)) generates
+shingle-set pairs at declared Jaccard levels and confirms the empirical
+band-match rate against the formula (0.680 measured vs 0.644 formula at
+J=0.5, 0.987 vs 0.988 at J=0.7), and confirms the threshold shift when
+the band count goes 16 to 32: the implied threshold moves from 0.50 to
+0.42, moving more documents into the "duplicate" bucket whether or not
+that was intended.
 
 The measured shard removed 264 near-duplicates from 4,856 candidate pairs. That
 keep rate does not prove duplication is handled at web scale: the run compared
@@ -128,7 +136,12 @@ was not there:
 3. a sample of the false positives and false negatives each rule produced;
 4. content hashes and a stable dataset version;
 5. train, validation, and test split policy;
-6. contamination checks against every evaluation set;
+6. contamination checks against every evaluation set —
+   [executed here](../when-the-benchmark-is-in-the-train-set/), where a
+   13-gram overlap pass catches verbatim and near copies and a MinHash
+   pass catches duplicates at a tunable threshold, and where paraphrased
+   benchmark items are shown evading every detector while still teaching
+   the answer;
 7. sampled QA results and the known gaps.
 
 Items 2 and 3 are what let a reader tell a *smaller* corpus from a *broken
@@ -145,11 +158,13 @@ of what to remove was informed by the score.
 None of these four policies was compared against an alternative here. One
 mixture was trained, one dedup threshold was used, no preference or RLVR
 dataset was collected, and the corpus was never released to an outside reader
-who could test whether the record is sufficient. The S-curve table is computed
-from the band and row counts rather than measured, and the 264-of-4,856
-duplicate figure is from a single bounded shard. What this chapter can tell you
-is which decisions exist and what each one costs to get wrong; it cannot tell
-you that this corpus got them right.
+who could test whether the record is sufficient. The S-curve threshold table
+is measured against the band settings ([record](runs/2026-08-07-s-curve-measured.md)),
+and the contamination-check item of the release record is executed in the
+[benchmark-in-the-train-set](../when-the-benchmark-is-in-the-train-set/)
+chapter; the 264-of-4,856 duplicate figure remains from a single bounded
+shard. What this chapter can tell you is which decisions exist and what each
+one costs to get wrong; it cannot tell you that this corpus got them right.
 
 Primary references: Broder (1997) for MinHash; Indyk & Motwani (1998) for LSH;
 Gebru et al., *Datasheets for Datasets* (2018) for the release record.

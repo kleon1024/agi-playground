@@ -31,6 +31,11 @@
             "label": "What a release needs"
           },
           {
+            "type": "doc",
+            "id": "01-language-model/00-corpus/when-the-benchmark-is-in-the-train-set/index",
+            "label": "Benchmark contamination"
+          },
+          {
             "type": "category",
             "label": "GPU dedup at scale",
             "link": {

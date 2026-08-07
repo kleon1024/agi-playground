@@ -260,3 +260,9 @@ every `core/` component above against the production tool that does the same
 job at scale.
 
 Another detour: [18.3% of the raw web survives — and that is the point](the-funnel-shape/) — the recorded 3,000-doc funnel read: English removes 31.6%, and the drop-reason table makes each gate accountable.
+
+And the dirty-data failure the funnel cannot see: [the benchmark item is
+already in the training set](when-the-benchmark-is-in-the-train-set/) —
+the executed contamination check showing verbatim and near copies caught
+by a 13-gram overlap pass while paraphrased benchmark items evade every
+detector and still teach the answer.

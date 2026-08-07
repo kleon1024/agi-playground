@@ -431,7 +431,21 @@ proves the fix worked.
 
 ### Language-model system — 00-07
 
-**Status: pending.**
+**Status: in progress (00-corpus data health audited, 2026-08-07).**
+
+Stage 00 now carries the dirty-data failure the queue named first: a
+benchmark-contamination chapter with an executed run over 200 items, 60
+leaks at three edit levels, and four detectors — exact hash catches only
+verbatim copies, a 13-gram overlap pass (Brown et al. 2020) catches 19/20
+near copies with zero background false positives, MinHash near-duplicate
+detection (Lee et al. 2022) is a recall dial (13/20 at threshold 0.7,
+17/20 at 0.5), and paraphrases evade every detector yet still teach their
+20 answers (fact-level recovery 60/200 vs strong-signal 40/200; clean
+corpus 0/200) — with ownership split across data/evaluation/release
+teams and the before-training gate made explicit. The release-policy
+detour's LSH threshold S-curve is now measured, not just computed
+(16x4 measured vs formula: 0.680 vs 0.644 at J=0.5, 0.987 vs 0.988 at
+J=0.7; 32x4 threshold shift 0.50 to 0.42).
 
 Audit the LLM track with the same lens: dirty data and washing (dedup,
 quality filters, contamination), tokenizer edge cases, pretraining data mix
