@@ -94,3 +94,5 @@ Forward to [stage 17 — budget pacing](../17-budget-pacing/) where the
 platform must deliver an advertiser's budget across the day.
 
 A detour from here: [the fix that makes the estimate honest](when-the-correction-is-needed/) — the executed correction read: ECE 0.245 -> 0.000 from one scaling factor, the bridge from measurement to deployment.
+
+Another detour: [perfect order, wrong values](when-calibration-and-ranking-conflict/) — the executed shift read: the model ranks clicks perfectly while every value is wrong by 0.2, so ordering and calibration are independent and the ads stack needs both.

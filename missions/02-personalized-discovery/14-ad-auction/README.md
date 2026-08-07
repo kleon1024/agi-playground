@@ -94,3 +94,5 @@ Forward to [stage 15 — eCPM ranking](../15-ecpm-ranking/) where the bid
 meets the click estimate.
 
 A detour from here: [the floor that can also kill the sale](when-the-reserve-price-bites/) — the executed reserve sweep read: at 0.85 the second bidder is out and the winner pays the reserve, a real trade between revenue floor and lost sales.
+
+Another detour: [the dominant strategy is the honest one](when-truthful-bidding-is-optimal/) — the executed dominance check read: bidding the true value never yields lower utility than lying, underbidding risks losing and overbidding risks paying more than value.

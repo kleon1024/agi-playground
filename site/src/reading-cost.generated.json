@@ -467,9 +467,17 @@
     "level": "applied",
     "minutes": 2
   },
+  "missions/02-personalized-discovery/10-query-understanding/when-the-query-is-short": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/02-personalized-discovery/11-search-retrieval": {
     "level": "applied",
     "minutes": 3
+  },
+  "missions/02-personalized-discovery/11-search-retrieval/when-the-dense-path-exists": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/02-personalized-discovery/11-search-retrieval/when-the-synonym-is-invisible": {
     "level": "applied",
@@ -483,11 +491,19 @@
     "level": "applied",
     "minutes": 2
   },
-  "missions/02-personalized-discovery/13-search-evaluation": {
+  "missions/02-personalized-discovery/12-search-ranking/when-the-list-is-longer": {
     "level": "applied",
     "minutes": 2
   },
+  "missions/02-personalized-discovery/13-search-evaluation": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/02-personalized-discovery/13-search-evaluation/when-mrr-and-ndcg-disagree": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/13-search-evaluation/when-the-k-is-small": {
     "level": "applied",
     "minutes": 2
   },
@@ -499,17 +515,29 @@
     "level": "applied",
     "minutes": 2
   },
-  "missions/02-personalized-discovery/15-ecpm-ranking": {
+  "missions/02-personalized-discovery/14-ad-auction/when-truthful-bidding-is-optimal": {
     "level": "applied",
     "minutes": 2
   },
+  "missions/02-personalized-discovery/15-ecpm-ranking": {
+    "level": "applied",
+    "minutes": 3
+  },
   "missions/02-personalized-discovery/15-ecpm-ranking/when-pctr-moves-the-rank": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/15-ecpm-ranking/when-the-reserve-interacts": {
     "level": "applied",
     "minutes": 2
   },
   "missions/02-personalized-discovery/16-ctr-calibration": {
     "level": "applied",
     "minutes": 3
+  },
+  "missions/02-personalized-discovery/16-ctr-calibration/when-calibration-and-ranking-conflict": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/02-personalized-discovery/16-ctr-calibration/when-the-correction-is-needed": {
     "level": "applied",
@@ -523,9 +551,17 @@
     "level": "applied",
     "minutes": 2
   },
+  "missions/02-personalized-discovery/17-budget-pacing/when-the-budget-is-tiny": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/02-personalized-discovery/18-ad-externality": {
     "level": "applied",
     "minutes": 3
+  },
+  "missions/02-personalized-discovery/18-ad-externality/when-the-ad-is-relevant": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/02-personalized-discovery/18-ad-externality/when-the-slot-is-scarce": {
     "level": "applied",

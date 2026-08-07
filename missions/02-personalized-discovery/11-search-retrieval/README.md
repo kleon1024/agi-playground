@@ -95,3 +95,5 @@ Forward to [stage 12 — search ranking](../12-search-ranking/) where the
 retrieved candidate set is re-ordered.
 
 A detour from here: [the document that means the same but scores less](when-the-synonym-is-invisible/) — the executed index read: 'running footwear' scores 1.04 against 'running shoes'' 2.86, the vocabulary mismatch dense retrieval closes.
+
+Another detour: [the embedding that sees the synonym](when-the-dense-path-exists/) — the executed contrast read: cosine scores meaning (0.816 for the synonym doc) where BM25 scored low, which is why production search runs hybrid.

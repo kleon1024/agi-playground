@@ -91,3 +91,5 @@ recommendation (stages 00-09), search (10-13), ads (14-18). Return to
 [the mission README](../) for the full path.
 
 A detour from here: [scarcity amplifies the externality](when-the-slot-is-scarce/) — the executed sweep read: the same ad displaces 0.60 in a 4-slot slate but 0.20 in an 8-slot one, so slot count is part of the ad decision.
+
+Another detour: [the externality flips sign when the ad is relevant](when-the-ad-is-relevant/) — the executed sign flip read: an irrelevant ad displacing a 0.7 organic item loses 0.5 while a relevant ad gains 0.7, which is why the value tree prices the combination.

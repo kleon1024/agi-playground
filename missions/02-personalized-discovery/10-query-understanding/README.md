@@ -98,3 +98,5 @@ Forward to [stage 11 — search retrieval](../11-search-retrieval/) where
 the normalized query hits the BM25 index.
 
 A detour from here: [where normalization stops and correction must begin](when-the-query-is-misspelled/) — the executed tokenizer read: 'heaphones' never becomes 'headphones', so retrieval must correct the query or match by edit distance.
+
+Another detour: [one word, many intents](when-the-query-is-short/) — the executed classifier read: every one-word query normalizes to a single token with no intent signal, so disambiguation must come from context.

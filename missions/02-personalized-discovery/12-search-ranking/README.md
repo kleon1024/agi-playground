@@ -93,3 +93,5 @@ Forward to [stage 13 — search evaluation](../13-search-evaluation/) which
 decides what "worked" means.
 
 A detour from here: [the label that carries the position's bias](when-the-label-is-a-click/) — the executed exposure model read: observed click = relevance x exposure, so raw clicks teach position, not meaning.
+
+Another detour: [where the formulation choice actually matters](when-the-list-is-longer/) — the executed sixteen-item run read: the pointwise/pairwise NDCG gap grows with list length, so the objective choice matters more as candidates grow.

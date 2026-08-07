@@ -194,14 +194,23 @@ artifact or a measurement the next stage consumes.
 | `09-report` | A headline win that still loses, seed by seed | [the-variance-that-decides](09-report/the-variance-that-decides/) |
 | `09-report` | A headline win that is still NOT MET | [when-the-guardrail-vetoes](09-report/when-the-guardrail-vetoes/) |
 | `10-query-understanding` | Where normalization stops and correction must begin | [when-the-query-is-misspelled](10-query-understanding/when-the-query-is-misspelled/) |
+| `10-query-understanding` | One word, many intents | [when-the-query-is-short](10-query-understanding/when-the-query-is-short/) |
 | `11-search-retrieval` | The document that means the same but scores less | [when-the-synonym-is-invisible](11-search-retrieval/when-the-synonym-is-invisible/) |
+| `11-search-retrieval` | The embedding that sees the synonym | [when-the-dense-path-exists](11-search-retrieval/when-the-dense-path-exists/) |
 | `12-search-ranking` | The label that carries the position's bias | [when-the-label-is-a-click](12-search-ranking/when-the-label-is-a-click/) |
+| `12-search-ranking` | Where the formulation choice actually matters | [when-the-list-is-longer](12-search-ranking/when-the-list-is-longer/) |
 | `13-search-evaluation` | The metric chooses the winner | [when-mrr-and-ndcg-disagree](13-search-evaluation/when-mrr-and-ndcg-disagree/) |
+| `13-search-evaluation` | NDCG@1 is a different claim than NDCG@5 | [when-the-k-is-small](13-search-evaluation/when-the-k-is-small/) |
 | `14-ad-auction` | The floor that can also kill the sale | [when-the-reserve-price-bites](14-ad-auction/when-the-reserve-price-bites/) |
+| `14-ad-auction` | The dominant strategy is the honest one | [when-truthful-bidding-is-optimal](14-ad-auction/when-truthful-bidding-is-optimal/) |
 | `15-ecpm-ranking` | The knife-edge the click estimate sits on | [when-pctr-moves-the-rank](15-ecpm-ranking/when-pctr-moves-the-rank/) |
+| `15-ecpm-ranking` | The reserve and the ranking are one decision | [when-the-reserve-interacts](15-ecpm-ranking/when-the-reserve-interacts/) |
 | `16-ctr-calibration` | The fix that makes the estimate honest | [when-the-correction-is-needed](16-ctr-calibration/when-the-correction-is-needed/) |
+| `16-ctr-calibration` | Perfect order, wrong values | [when-calibration-and-ranking-conflict](16-ctr-calibration/when-calibration-and-ranking-conflict/) |
 | `17-budget-pacing` | The cap that binds when demand spikes | [when-delivery-varies](17-budget-pacing/when-delivery-varies/) |
+| `17-budget-pacing` | Pacing cannot create a budget | [when-the-budget-is-tiny](17-budget-pacing/when-the-budget-is-tiny/) |
 | `18-ad-externality` | Scarcity amplifies the externality | [when-the-slot-is-scarce](18-ad-externality/when-the-slot-is-scarce/) |
+| `18-ad-externality` | The externality flips sign when the ad is relevant | [when-the-ad-is-relevant](18-ad-externality/when-the-ad-is-relevant/) |
 
 ## What makes this hard to prove
 

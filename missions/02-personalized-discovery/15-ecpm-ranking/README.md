@@ -91,3 +91,5 @@ Forward to [stage 16 — pCTR calibration](../16-ctr-calibration/) which
 keeps the estimate honest.
 
 A detour from here: [the knife-edge the click estimate sits on](when-pctr-moves-the-rank/) — the executed sweep read: a 2-point pCTR change swaps the winner, which is why calibration is the precondition.
+
+Another detour: [the reserve and the ranking are one decision](when-the-reserve-interacts/) — the executed combination read: at reserve 125 only Ad B (150) clears the floor, so what the platform refuses to show and the order it shows are one decision.

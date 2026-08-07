@@ -89,3 +89,5 @@ This closes the search track. Forward to [stage 14 — ad auction](../14-ad-auct
 where a paid item competes for the same slot.
 
 A detour from here: [the metric chooses the winner](when-mrr-and-ndcg-disagree/) — the executed metrics read: three rankings score MRR 1.0 while NDCG separates them, MRR's blind spot below the first hit.
+
+Another detour: [NDCG@1 is a different claim than NDCG@5](when-the-k-is-small/) — the executed k-sweep read: the same ranking is 0.000 at @1 and 0.546 at @5, so k is part of the evaluation contract.

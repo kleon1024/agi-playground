@@ -572,6 +572,11 @@
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/10-query-understanding/when-the-query-is-misspelled/index",
                 "label": "When the query is misspelled"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/10-query-understanding/when-the-query-is-short/index",
+                "label": "When the query is short"
               }
             ]
           },
@@ -583,6 +588,11 @@
               "id": "missions/02-personalized-discovery/11-search-retrieval/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/11-search-retrieval/when-the-dense-path-exists/index",
+                "label": "When the dense path exists"
+              },
               {
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/11-search-retrieval/when-the-synonym-is-invisible/index",
@@ -602,6 +612,11 @@
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/12-search-ranking/when-the-label-is-a-click/index",
                 "label": "When the label is a click"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/12-search-ranking/when-the-list-is-longer/index",
+                "label": "When the list is longer"
               }
             ]
           },
@@ -617,6 +632,11 @@
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/13-search-evaluation/when-mrr-and-ndcg-disagree/index",
                 "label": "When MRR and NDCG disagree"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/13-search-evaluation/when-the-k-is-small/index",
+                "label": "When the k is small"
               }
             ]
           },
@@ -632,6 +652,11 @@
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/14-ad-auction/when-the-reserve-price-bites/index",
                 "label": "When the reserve price bites"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/14-ad-auction/when-truthful-bidding-is-optimal/index",
+                "label": "When truthful bidding is optimal"
               }
             ]
           },
@@ -647,6 +672,11 @@
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/15-ecpm-ranking/when-pctr-moves-the-rank/index",
                 "label": "When pCTR moves the rank"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/15-ecpm-ranking/when-the-reserve-interacts/index",
+                "label": "When the reserve interacts"
               }
             ]
           },
@@ -658,6 +688,11 @@
               "id": "missions/02-personalized-discovery/16-ctr-calibration/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/16-ctr-calibration/when-calibration-and-ranking-conflict/index",
+                "label": "When calibration and ranking conflict"
+              },
               {
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/16-ctr-calibration/when-the-correction-is-needed/index",
@@ -677,6 +712,11 @@
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/17-budget-pacing/when-delivery-varies/index",
                 "label": "When delivery varies"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/17-budget-pacing/when-the-budget-is-tiny/index",
+                "label": "When the budget is tiny"
               }
             ]
           },
@@ -688,6 +728,11 @@
               "id": "missions/02-personalized-discovery/18-ad-externality/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/18-ad-externality/when-the-ad-is-relevant/index",
+                "label": "When the ad is relevant"
+              },
               {
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/18-ad-externality/when-the-slot-is-scarce/index",

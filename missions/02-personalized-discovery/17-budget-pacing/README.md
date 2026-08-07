@@ -100,3 +100,5 @@ ads track returns to the mission's central trade: every ad displaces an
 organic result.
 
 A detour from here: [the cap that binds when demand spikes](when-delivery-varies/) — the executed controller read: spend holds flat at the cap while demand triples, and the remaining column is the feedback signal.
+
+Another detour: [pacing cannot create a budget](when-the-budget-is-tiny/) — the executed tiny-budget run read: at budget 8 the cap is 1/hour and the campaign barely delivers, so the floor is a sizing problem, not a pacing one.
