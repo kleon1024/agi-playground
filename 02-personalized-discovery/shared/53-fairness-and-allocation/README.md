@@ -41,6 +41,60 @@ exposure is the scarce resource the ranker distributes, so every fairness
 decision is a budget decision about how much relevance the platform is
 willing to spend on how visible a tail.
 
+## How you find it: the protected group, executed
+
+A declared floor is not the same as the exposure the protected group
+receives. The run ([record](runs/2026-08-07-fairness-and-allocation.md))
+sweeps the floor level and emits the protected-group rows, and the audit
+([record](runs/2026-08-07-allocation-audit.md) —
+[`prod/allocation_audit.py`](prod/allocation_audit.py)) compares each
+floor's declared level against the group's measured exposure, the way a
+marketplace team reads allocation telemetry:
+
+| floor | group exposure | gap | aggregate ctr |
+|---|---:|---:|---:|
+| 0% | 0.9% | −0.9% | 0.0355 |
+| 5% | 4.8% | +0.2% | 0.0345 |
+| 10% | 9.2% | +0.8% | 0.0334 |
+| 15% | 12.6% | +2.4% | 0.0319 |
+| 20% | 15.5% | +4.5% | 0.0307 |
+
+The verdict is GROUP GAP: the gap between the declared floor and the
+protected group's exposure grows with the floor level, because
+renormalising after flooring the other categories re-dilutes the group
+the floor was meant to protect. The configured constraint is not the
+served allocation — measure per-group exposure, not the declared floor,
+and fix the allocation by solving the constrained problem with the floor
+binding, not by max-then-renormalise. Multi-sided exposure bias work
+frames exactly this gap between the intended and the served allocation
+(Abdollahpouri et al., "Multi-sided Exposure Bias in Recommendation",
+KDD Workshop on Industrial Recommendation Systems 2020).
+
+## Who owns the loop
+
+The allocation only stays fair if someone owns each side of the budget,
+and the handoffs are where the stage's failure modes live:
+
+- **The ranking team** owns the served allocation: the exposure each
+  group actually receives per floor level, and the fix when the
+  constraint does not bind. It owns the served side of the budget.
+- **The policy or product team** owns the group definitions and the
+  floor levels: who the constraint protects, and the price the platform
+  is willing to pay. It owns the intended side of the budget, and the
+  when-the-groups-cross detour shows why the definition is a policy
+  decision, not a reporting detail.
+- **The measurement team** owns per-group exposure telemetry: the split
+  that exposes the gap between the declared floor and the served
+  allocation, and the fairness report that both definitions feed. It
+  owns the verdict the policy team routes on.
+
+When the ownership is implicit, each side optimizes its own number: the
+ranking team tunes CTR, the product team sets floors from the dashboard,
+and nobody measures the protected group's actual exposure — so the
+constraint quietly fails to bind, the tail stays below the bar, and the
+platform reports the floor it configured instead of the exposure it
+served.
+
 ## Why this belongs in the mission
 
 The mission ranks for a user but serves a marketplace: the page is also
@@ -89,10 +143,28 @@ a curve, not a flat rate.
 
 </details>
 
+**3. Why does the declared 10% floor land as 9.2% for accessories?**
+
+<details>
+<summary>Answer</summary>
+
+Because the max-then-renormalise implementation floors every category
+and then rescales, so the floored categories push the protected group
+back down: at a 10% floor, audio (59%) is untouched, cable is lifted to
+10%, accessories to 10%, and the renormalisation shrinks accessories to
+9.2%. The gap grows as the floor rises because more categories get
+floored and the rescale dilutes harder. The fix is to solve the
+constrained allocation with the floor binding, and to measure the served
+exposure — not the configured number.
+
+</details>
+
 ## Next
 
-The allocation is a measured trade; stage 54 follows the advertiser side
-of the same budget. A detour from here: [the floor has a price and the
+The allocation is a measured trade; stage 54 proves the allocation's
+effect on users, and the ads track's
+[advertiser ROAS](../../ads/54-advertiser-roas/) follows the advertiser
+side of the same budget. A detour from here: [the floor has a price and the
 price is a curve](when-the-constraint-bites/) — the executed read: the
 first ten points of floor move the tail from 1% to 9% for 0.0021 CTR; the
 next ten cost more per point.
@@ -101,3 +173,9 @@ Another detour: [the label carries the position it was collected
 in](when-the-policy-is-biased/) — the executed read: position-adjusted
 CTR moves the tail from 14% to 36% of exposure, because the raw numbers
 entrench the position bias.
+
+A third detour: [the fairness verdict flips with the
+definition](when-the-groups-cross/) — the executed read: the tail clears
+its 10% floor across the catalogue (10.1%) while the mobile segment,
+70% of traffic, leaves it at 8% — the group definition decides the
+verdict, so it is a policy decision, not a reporting detail.

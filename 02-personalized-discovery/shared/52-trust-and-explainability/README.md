@@ -39,6 +39,59 @@ the largest coefficient: an explanation succeeds when the user can
 confirm it against what they actually did, and fails when the biggest
 term is a black box.
 
+## How you find it: the explanation surface, executed
+
+Explanation coverage looks healthy until you split it by where the
+explanations are shown. The run ([record](runs/2026-08-07-trust-and-explainability.md))
+emits per-surface rows, and the audit
+([record](runs/2026-08-07-attribution-audit.md) —
+[`prod/attribution_audit.py`](prod/attribution_audit.py)) compares each
+surface's headline-verifiable share against the aggregate, the way a
+trust or UX team reads explanation telemetry:
+
+| surface | traffic | explained | headline verifiable | vs aggregate |
+|---|---:|---:|---:|---:|
+| home feed | 45% | 85% | 72% | +10% |
+| search results | 20% | 90% | 85% | +23% |
+| similar-users recs | 25% | 80% | 30% | −32% |
+| email digest | 10% | 95% | 55% | −7% |
+| aggregate | 100% | 86% | 62% | |
+
+The verdict is UNVERIFIABLE HEADLINE: the similar-users recs surface
+leads with a claim the user cannot check on 70% of its items, against a
+62% aggregate. The aggregate hides it because home feed and search are
+verifiable-heavy — the surface that leans on "similar users bought"
+spends trust on a black-box headline the user has no record to check.
+The explainable-recommendation literature makes verifiability a
+first-class quality criterion (Zhang & Chen, "Explainable Recommendation:
+A Survey and New Perspectives", Foundations and Trends in Information
+Retrieval 2020); this audit is that criterion read per surface, and the
+fix is to surface the verifiable terms first on the failing surface or
+drop the black-box headline before the trust is spent.
+
+## Who owns the loop
+
+The explanation only builds trust if someone owns each side of the
+surface, and the handoffs are where the stage's failure modes live:
+
+- **The ranking team** owns the attribution computation: which
+  counterfactual the tool subtracts, and the headline stability the
+  when-the-attribution-shifts detour audits. It owns the claim the user
+  reads.
+- **The product or UX team** owns the explanation copy: which surface
+  shows which headline, and the verifiability bar each surface must
+  meet. It owns the surface policy the audit stratifies.
+- **The measurement team** owns explanation telemetry: opt-out rate,
+  "why" interaction rate, and retention per surface, the numbers that
+  decide whether an explanation policy is holding. It owns the verdict
+  the product team routes on.
+
+When the ownership is implicit, each side optimizes its own number: the
+ranking team tunes the model, the product team ships copy, and nobody
+measures headline verifiability per surface — so the surface that leans
+on "similar users bought" keeps its uncheckable headline, and the trust
+loss shows up later as opt-outs the platform blames on the model.
+
 ## Why this belongs in the mission
 
 The mission's value tree (05) made the score a product decision; this
@@ -89,6 +142,22 @@ user-facing one).
 
 </details>
 
+**3. Why does the 62% aggregate hide the failing surface?**
+
+<details>
+<summary>Answer</summary>
+
+Because the aggregate weights each surface by traffic, and the two
+largest surfaces — home feed and search — are verifiable-heavy, pulling
+the blend to 62%. The similar-users recs surface, 25% of traffic, sits
+32 points below it, but that drag is diluted by the surfaces that clear
+the aggregate. A surface that leads with an uncheckable claim is
+invisible until you compare each surface against the aggregate instead
+of trusting the blended number — the same stratification discipline the
+cohort audit applies to onboarding paths.
+
+</details>
+
 ## Next
 
 The explanation must be verifiable; stage 53 asks how the page is
@@ -101,3 +170,9 @@ is the price term.
 Another detour: [a false explanation burns trust faster than a missing
 one](when-trust-erodes/) — the executed read: a 5% false rate nearly
 doubles opt-outs, and at 50% a seventh of users leave.
+
+A third detour: [the headline changes with the
+baseline](when-the-attribution-shifts/) — the executed read: the same
+item's largest contribution flips from "similar users bought"
+(unverifiable) to "you viewed this category" (verifiable) depending on
+which counterfactual the explanation tool subtracts.

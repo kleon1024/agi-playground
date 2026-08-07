@@ -41,6 +41,59 @@ times deadline, not throughput times average latency: a service "at
 capacity" by the mean is spending its budget failing the slow queries the
 mean never saw.
 
+## How you find it: the load scan with a deadline, executed
+
+Capacity is found by load-testing with a deadline, not by arithmetic on
+the mean. The run ([record](runs/2026-08-07-throughput-and-capacity.md))
+scans arrival rates from 20 to 60 req/s, and the audit
+([record](runs/2026-08-07-capacity-audit.md) —
+[`prod/capacity_audit.py`](prod/capacity_audit.py)) reads the load at
+which the deadline percentile is met:
+
+| load | utilization | p50 | p95 | p99 | over 100ms |
+|---:|---:|---:|---:|---:|---:|
+| 20 | 34% | 10ms | 150ms | 170ms | 10.3% |
+| 30 | 51% | 10ms | 150ms | 267ms | 17.9% |
+| 40 | 68% | 10ms | 250ms | 370ms | 28.4% |
+| 45 | 76% | 44ms | 324ms | 459ms | 37.8% |
+| 50 | 85% | 100ms | 460ms | 620ms | 48.4% |
+| 55 | 94% | 192ms | 745ms | 933ms | 68.8% |
+| 60 | 102% | 1850ms | 3003ms | 3223ms | 94.2% |
+
+The verdict is DEADLINE UNACHIEVABLE: p95 of the service mix (150ms)
+exceeds the 100ms deadline at every load, because the 5% slow service
+is itself over the deadline. No machine count satisfies a p95 deadline
+tighter than the service tail — the mean capacity (59 req/s) is the
+divergence load, not a serving answer, and the fix is cutting the
+service tail (hedge, timeout, parallel shards) before adding machines.
+This is the audit half of the stage's claim: the tail is a property of
+the service-time distribution, and capacity planning that skips the
+load test confuses the divergence load with the deadline load. Dean and
+Barroso make the same point for fan-out systems ("The Tail at Scale",
+Communications of the ACM, 2013): per-component latency means nothing
+once a query depends on the max of many components.
+
+## Who owns the loop
+
+The scan produces a number; someone must own what happens when the
+deadline moves, and the handoff is where capacity planning fails:
+
+- **The serving platform team** owns the load test and the capacity
+  number: the arrival curve, the deadline per surface, and the load at
+  which p95 misses. It owns the instrument, not the fix.
+- **The service owner** owns the service-time distribution: the slow
+  component that the scan exposes, and the decision to cut it (hedge,
+  timeout, shard-parallel) rather than add machines to a tail no
+  machine count satisfies.
+- **The traffic team** owns the arrival curve: the peak plan (the
+  when-the-peak-arrives detour) and the launch calendar that decides
+  whether the platform's servers ever see the scan's crossing load.
+
+When the ownership is implicit, the load test runs into a vacuum: the
+platform team can name the crossing load, but nobody owns the service
+tail, so the response to "p95 misses at every load" is buying servers —
+the expensive way to fail the slow queries the mean never saw.
+
 ## Why this belongs in the mission
 
 The cascade's promise is a good slate inside a latency budget. This stage
@@ -87,6 +140,20 @@ the deadline, the service time, or the arrival curve changes.
 
 </details>
 
+**3. Why is the mean capacity (59 req/s) not a capacity answer?**
+
+<details>
+<summary>Answer</summary>
+
+Because it is the divergence load — where the arrival rate equals the
+mean service rate and the queue grows without bound — not the load where
+the deadline is met. Here the p95 of the service mix itself (150ms)
+already misses the 100ms deadline at every load, so no server count
+clears the deadline; the mean number describes when the queue diverges,
+which is a different question from whether the page meets its budget.
+
+</details>
+
 ## Next
 
 The capacity number is set; stage 50 prices what each query actually
@@ -98,3 +165,8 @@ deadline.
 Another detour: [sizing to the mean is sizing to a fiction](when-the-tail-costs/)
 — the executed read: at "100% of mean capacity" nine of ten queries miss
 the deadline.
+
+A third detour: [the query is as slow as its slowest
+shard](when-the-fanout-tails/) — the executed read: the same 1% slow
+component becomes an 18.5% slow query at fan-out 20, and hedging cuts
+the miss rate back to 3.4% at 2x shard work.

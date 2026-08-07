@@ -256,15 +256,15 @@ whole system pays.
 | [`45-feedback-loops`](shared/45-feedback-loops/) | The model's output as its next training data; exposure entrenches | new to this mission | verified mechanism + audit run |
 | [`46-retraining-and-staleness`](shared/46-retraining-and-staleness/) | Snapshot age as the retraining trigger; the measured gap | new to this mission | verified mechanism + audit run |
 | [`47-monitoring-and-drift`](shared/47-monitoring-and-drift/) | The prediction-observation gap as the online signal | new to this mission | verified mechanism + audit run |
-| [`48-realtime-user-state`](shared/48-realtime-user-state/) | The session as a feature the batch model cannot see | new to this mission | verified mechanism run |
-| [`49-throughput-and-capacity`](shared/49-throughput-and-capacity/) | Capacity as throughput times deadline, not times average latency | new to this mission | verified mechanism run |
-| [`50-cost-per-query`](shared/50-cost-per-query/) | The cascade's arithmetic with a price tag per query | new to this mission | verified mechanism run |
-| [`51-new-user-experience`](shared/51-new-user-experience/) | The first page decided before personalization can see the user | new to this mission | verified mechanism run |
-| [`52-trust-and-explainability`](shared/52-trust-and-explainability/) | The explanation the user can actually check | new to this mission | verified mechanism run |
-| [`53-fairness-and-allocation`](shared/53-fairness-and-allocation/) | Exposure as a budget the ranker allocates, at a measured price | new to this mission | verified mechanism run |
-| [`54-online-experiments`](shared/54-online-experiments/) | Whether a shipped change helped, read through a validity gate | new to this mission | verified mechanism run |
+| [`48-realtime-user-state`](shared/48-realtime-user-state/) | The session as a feature the batch model cannot see | new to this mission | verified mechanism + audit run |
+| [`49-throughput-and-capacity`](shared/49-throughput-and-capacity/) | Capacity as throughput times deadline, not times average latency | new to this mission | verified mechanism + audit run |
+| [`50-cost-per-query`](shared/50-cost-per-query/) | The cascade's arithmetic with a price tag per query | new to this mission | verified mechanism + audit run |
+| [`51-new-user-experience`](shared/51-new-user-experience/) | The first page decided before personalization can see the user | new to this mission | verified mechanism + audit run |
+| [`52-trust-and-explainability`](shared/52-trust-and-explainability/) | The explanation the user can actually check | new to this mission | verified mechanism + audit run |
+| [`53-fairness-and-allocation`](shared/53-fairness-and-allocation/) | Exposure as a budget the ranker allocates, at a measured price | new to this mission | verified mechanism + audit run |
+| [`54-online-experiments`](shared/54-online-experiments/) | Whether a shipped change helped, read through a validity gate | new to this mission | verified mechanism + audit run |
 | [`54-advertiser-roas`](ads/54-advertiser-roas/) | The advertiser's return as the platform's revenue | new to this mission | verified mechanism run |
-| [`55-ltv-and-cac`](shared/55-ltv-and-cac/) | The user lifecycle that decides which growth is real growth | new to this mission | verified mechanism run |
+| [`55-ltv-and-cac`](shared/55-ltv-and-cac/) | The user lifecycle that decides which growth is real growth | new to this mission | verified mechanism + audit run |
 
 
 
@@ -389,16 +389,22 @@ artifact or a measurement the next stage consumes.
 | `47-monitoring-and-drift` | The aggregate hides the slice; the slice's own noise hides the fix | [when-the-slice-hides](shared/47-monitoring-and-drift/when-the-slice-hides/) |
 | `48-realtime-user-state` | Realtime is too expensive once every feature is on the critical path | [when-realtime-is-too-expensive](shared/48-realtime-user-state/when-realtime-is-too-expensive/) |
 | `48-realtime-user-state` | The session boost decays and the batch order wins back | [when-the-session-state-moves](shared/48-realtime-user-state/when-the-session-state-moves/) |
+| `48-realtime-user-state` | The feature window that includes the label window validates a model that cannot exist | [when-the-session-leaks](shared/48-realtime-user-state/when-the-session-leaks/) |
 | `49-throughput-and-capacity` | The peak is a capacity decision, not a load average | [when-the-peak-arrives](shared/49-throughput-and-capacity/when-the-peak-arrives/) |
 | `49-throughput-and-capacity` | Sizing to the mean is sizing to a fiction | [when-the-tail-costs](shared/49-throughput-and-capacity/when-the-tail-costs/) |
+| `49-throughput-and-capacity` | The fanout multiplies the tail into the deadline | [when-the-fanout-tails](shared/49-throughput-and-capacity/when-the-fanout-tails/) |
 | `50-cost-per-query` | The cache pays when the hit rate is a cost decision | [when-the-cache-pays](shared/50-cost-per-query/when-the-cache-pays/) |
 | `50-cost-per-query` | The model is too big when the last point of quality doubles the bill | [when-the-model-is-too-big](shared/50-cost-per-query/when-the-model-is-too-big/) |
+| `50-cost-per-query` | The cache is a head discount, not a tail capacity plan | [when-the-tail-misses](shared/50-cost-per-query/when-the-tail-misses/) |
 | `51-new-user-experience` | A confident prior reads as a misread | [when-personalization-scares](shared/51-new-user-experience/when-personalization-scares/) |
 | `51-new-user-experience` | The onboarding prior is a bet on an answer the user may not mean | [when-the-user-is-new](shared/51-new-user-experience/when-the-user-is-new/) |
+| `51-new-user-experience` | Exploration is a price paid during the runway | [when-the-bandit-explores](shared/51-new-user-experience/when-the-bandit-explores/) |
 | `52-trust-and-explainability` | The attribution that explains the score tells a story the score did not | [when-the-explanation-is-wrong](shared/52-trust-and-explainability/when-the-explanation-is-wrong/) |
 | `52-trust-and-explainability` | A false explanation burns trust faster than a missing one | [when-trust-erodes](shared/52-trust-and-explainability/when-trust-erodes/) |
+| `52-trust-and-explainability` | The headline changes with the baseline | [when-the-attribution-shifts](shared/52-trust-and-explainability/when-the-attribution-shifts/) |
 | `53-fairness-and-allocation` | The floor has a price and the price is a curve | [when-the-constraint-bites](shared/53-fairness-and-allocation/when-the-constraint-bites/) |
 | `53-fairness-and-allocation` | The label carries the position it was collected in | [when-the-policy-is-biased](shared/53-fairness-and-allocation/when-the-policy-is-biased/) |
+| `53-fairness-and-allocation` | The fairness verdict flips with the definition | [when-the-groups-cross](shared/53-fairness-and-allocation/when-the-groups-cross/) |
 | `54-online-experiments` | The split check fires before the outcome test has power | [when-the-split-lies](shared/54-online-experiments/when-the-split-lies/) |
 | `54-online-experiments` | The user who sits in both arms biases the estimate | [when-the-user-crosses-groups](shared/54-online-experiments/when-the-user-crosses-groups/) |
 | `54-online-experiments` | The market leaks across the groups; the block unit prices it | [when-the-traffic-is-two-sided](shared/54-online-experiments/when-the-traffic-is-two-sided/) |
@@ -406,6 +412,7 @@ artifact or a measurement the next stage consumes.
 | `54-advertiser-roas` | The advertiser's exit is the platform's loss | [when-the-budget-moves](ads/54-advertiser-roas/when-the-budget-moves/) |
 | `55-ltv-and-cac` | The user who costs more than they return is a liability at any volume | [when-cac-exceeds-ltv](shared/55-ltv-and-cac/when-cac-exceeds-ltv/) |
 | `55-ltv-and-cac` | The user who stops leaving is worth more than the user who stops coming | [when-retention-flattens](shared/55-ltv-and-cac/when-retention-flattens/) |
+| `55-ltv-and-cac` | The observed window decides the channel verdict | [when-the-retention-window-truncates](shared/55-ltv-and-cac/when-the-retention-window-truncates/) |
 
 ## What makes this hard to prove
 

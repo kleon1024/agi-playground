@@ -1840,6 +1840,11 @@
               },
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/shared/48-realtime-user-state/when-the-session-leaks/index",
+                "label": "When the session leaks"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/shared/48-realtime-user-state/when-the-session-state-moves/index",
                 "label": "When the session state moves"
               }
@@ -1853,6 +1858,11 @@
               "id": "02-personalized-discovery/shared/49-throughput-and-capacity/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/49-throughput-and-capacity/when-the-fanout-tails/index",
+                "label": "When the fan-out tails"
+              },
               {
                 "type": "doc",
                 "id": "02-personalized-discovery/shared/49-throughput-and-capacity/when-the-peak-arrives/index",
@@ -1882,6 +1892,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/shared/50-cost-per-query/when-the-model-is-too-big/index",
                 "label": "When the model is too big"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/50-cost-per-query/when-the-tail-misses/index",
+                "label": "When the tail misses"
               }
             ]
           },
@@ -1900,6 +1915,11 @@
               },
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/shared/51-new-user-experience/when-the-bandit-explores/index",
+                "label": "When the bandit explores"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/shared/51-new-user-experience/when-the-user-is-new/index",
                 "label": "When the user is new"
               }
@@ -1913,6 +1933,11 @@
               "id": "02-personalized-discovery/shared/52-trust-and-explainability/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/52-trust-and-explainability/when-the-attribution-shifts/index",
+                "label": "When the attribution shifts"
+              },
               {
                 "type": "doc",
                 "id": "02-personalized-discovery/shared/52-trust-and-explainability/when-the-explanation-is-wrong/index",
@@ -1937,6 +1962,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-constraint-bites/index",
                 "label": "When the constraint bites"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-groups-cross/index",
+                "label": "When the groups cross"
               },
               {
                 "type": "doc",
@@ -1987,6 +2017,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/shared/55-ltv-and-cac/when-retention-flattens/index",
                 "label": "When retention flattens"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/55-ltv-and-cac/when-the-retention-window-truncates/index",
+                "label": "When the retention window truncates"
               }
             ]
           }

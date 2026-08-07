@@ -110,7 +110,7 @@ links to the ads track's `38-interleaving-experiments`.
 
 ### Personalized discovery — shared 43-55 (operations)
 
-**Status: in progress (third audit increment, 2026-08-07).**
+**Status: done (third audit increment, 2026-08-07).**
 
 Stages 43-47 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
@@ -144,11 +144,64 @@ audit, a who-owns-the-loop section, dated citations, and three detours:
   silent drift, and the slice that hides (small-segment noise: detection
   latency vs false alarms).
 
-Stages 48-55 remain: realtime user state, throughput and capacity, cost
-per query, new-user experience, trust and explainability, fairness and
-allocation, LTV/CAC (54 online experiments was built in the 00-09
-increment and already satisfies the contract). The section is never
-half-audited: it stays in progress until every stage in 48-55 passes.
+Stages 48-55 satisfy the same contract, each with an executed
+case-finding audit, a who-owns-the-loop section, dated citations, and
+three detours:
+
+- 48 realtime user state: depth-stratified session-lift audit (served
+  CTR by session depth and traffic share, SHALLOW SESSION verdict — the
+  70%-traffic shallow session earns half the deep-session lift);
+  ownership split across serving/session-infra/measurement; Hidasi et
+  al. ICLR 2016; detours: realtime-too-expensive, session-state-moves,
+  and the session leak (feature window including the label window:
+  perfect offline top-1, 33/300 as-of).
+- 49 throughput and capacity: load-scan deadline audit (p95 vs the
+  100ms deadline per load, DEADLINE UNACHIEVABLE verdict — mean capacity
+  is the divergence load, not the serving answer); ownership split
+  across serving/capacity-planning/measurement; Dean & Barroso CACM
+  2013; detours: peak-arrives, tail-costs, and the fanout that
+  multiplies the tail (1.1% over-500ms single shard to 18.5% at fanout
+  20; hedging).
+- 50 cost per query: attribution audit across catalogue scale (recall
+  candidates grow sublinearly, RECALL DOMINANT verdict — recall owns
+  68% of cost at 1B items); ownership split across recall/fine-rank/
+  cost owner; Han, Mao & Dally ICLR 2016; detours: cache-pays,
+  model-too-big, and the tail that misses the cache (head discount, not
+  a capacity plan).
+- 51 new-user experience: onboarding-path cohort audit (first-page NDCG
+  and retention per path vs the no-ask baseline, NEW-USER GAP verdict —
+  a confident wrong prior is worse than asking nothing); ownership
+  split across growth/cold-start-ranking/measurement; Abdullah et al.
+  Applied Sciences 2021; detours: personalization-scares, user-is-new,
+  and the bandit that explores (greedy 0.817 runway avg vs 0.728 at 30%
+  epsilon; exploration is a tax on a short runway; Thompson 1933).
+- 52 trust and explainability: explanation-surface audit (headline
+  verifiability per surface vs the aggregate, UNVERIFIABLE HEADLINE
+  verdict — the similar-users surface leads with an uncheckable claim
+  on 70% of items); ownership split across ranking/product/measurement;
+  Zhang & Chen FTIR 2020; detours: explanation-is-wrong, trust-erodes,
+  and the attribution that shifts with the baseline (headline flips
+  unverifiable-to-verifiable; Lundberg & Lee NeurIPS 2017).
+- 53 fairness and allocation: floor-level allocation audit (declared
+  floor vs the protected group's served exposure, GROUP GAP verdict —
+  renormalisation re-dilutes the floored group); ownership split across
+  ranking/policy/measurement; Abdollahpouri et al. KDD workshop 2020;
+  detours: constraint-bites, policy-is-biased, and the groups that
+  cross (the fairness verdict flips with the definition; Ekstrand et
+  al. FAT* 2018).
+- 54 online experiments: validity gate with three executed fixtures
+  (SRM chi2 21.52 p=3.5e-06, unit-mismatch SE gap 3.19x, switchback
+  serial dependence); ownership split across
+  experimentation-platform/analysis/product; Kohavi/Tang/Xu 2020,
+  Fabijan et al. 2019, Tang et al. 2010, Bojinov et al. 2023; detours:
+  split-lies, user-crosses-groups, traffic-is-two-sided.
+- 55 LTV and CAC: per-window unit-economics audit (LTV/CAC per measured
+  horizon, WINDOW TRUNCATED verdict — the window decides which channel
+  is the acquisition bet); ownership split across
+  growth-finance/acquisition/analytics; Fader, Hardie & Lee Marketing
+  Science 2005, Gupta et al. JMR 2004; detours: cac-exceeds-ltv,
+  retention-flattens, and the retention window that truncates (3-month
+  view ranks paid above referral; 24-month reverses it 11.78 vs 0.97).
 
 ### Personalized discovery — search 10-24, 35-37
 

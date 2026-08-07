@@ -81,6 +81,33 @@ years of half-hour blocks. Bojinov, Simchi-Levi and Zhao (2023, Management
 Science) formalize the switchback design and its variance inflation; Uber's
 engineering practice is the field account of when it is worth it.
 
+## Who owns the loop
+
+The experiment only proves what it claims if someone owns each side of
+the validity gate, and the handoffs are where the stage's failure modes
+live:
+
+- **The experimentation platform team** owns the split: the bucketing
+  hash, the declared ratio, and the daily allocation-ratio check that
+  catches SRM before the outcome test is read. It owns the
+  randomization, and the when-the-split-lies detour is its failure mode.
+- **The analysis team** owns the unit: the analysis unit must match the
+  randomization unit, the standard error must be clustered when sessions
+  are nested in users, and the carryover washout must be declared. It
+  owns the verdict, and the when-the-user-crosses-groups detour is its
+  failure mode.
+- **The product or market team** owns the unit choice itself: when the
+  traffic is two-sided, it decides whether user-level randomization can
+  contain the intervention or whether switchback blocks are the only
+  honest design. It owns the power trade, and the
+  when-the-traffic-is-two-sided detour is its failure mode.
+
+When the ownership is implicit, each side optimizes its own number: the
+platform team ships buckets, the analysis team reads p-values, and nobody
+owns the unit — so a session-nested analysis declares significance that
+the design never supported, and the marketplace scales a change that
+leaked across the control.
+
 ## Why this belongs in the mission
 
 Every stage before this one changed something the mission can ship: a

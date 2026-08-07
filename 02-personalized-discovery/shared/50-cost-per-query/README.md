@@ -45,6 +45,58 @@ an arithmetic answer to a question the fine model alone cannot afford.
 Cost per query is the unit that turns that arithmetic into a budget,
 which is what capacity planning (stage 49) spends.
 
+## How you find it: the per-stage cost attribution at scale, executed
+
+The flat 1.0-each design is a property of one catalogue size. The run
+([record](runs/2026-08-07-cost-per-query.md)) prices the cascade at
+10M, 100M, and 1B items — recall candidates scale sublinearly with the
+catalogue while the later stages keep fixed budgets — and the audit
+([record](runs/2026-08-07-cost-audit.md) —
+[`prod/cost_audit.py`](prod/cost_audit.py)) attributes the query budget
+per stage the way a cost team reads sampled traces:
+
+| catalogue | recall (ann) | pre-rank | fine-rank | mixing | total |
+|---:|---:|---:|---:|---:|---:|
+| 10M | 1.00 (25%) | 1.00 (25%) | 1.00 (25%) | 1.00 (25%) | 4.00 |
+| 100M | 2.51 (46%) | 1.00 (18%) | 1.00 (18%) | 1.00 (18%) | 5.51 |
+| 1B | 6.31 (68%) | 1.00 (11%) | 1.00 (11%) | 1.00 (11%) | 9.31 |
+
+The verdict is RECALL DOMINANT: recall owns 68% of the query budget at
+the 1B catalogue against 25% at 10M. The flat design holds only at the
+declared size; as the catalogue grows, the ANN index's candidate set is
+what the budget follows, and optimizing fine-rank before recall is
+optimizing the wrong stage. This is the cost half of the same
+attribution discipline the mission applies to relevance — the
+levers that move the attributed budget are the ones the compression
+line of work formalized — Han, Mao and Dally, "Deep Compression:
+Compressing Deep Neural Networks with Pruning, Trained Quantization and
+Huffman Coding" (ICLR 2016) — cheaper per-candidate models, plus the
+candidate-budget cuts that reduce the volume itself.
+
+## Who owns the loop
+
+The attribution produces a number; someone must own what happens when
+the scale moves, and the handoff is where the budget drifts:
+
+- **The serving platform team** owns the cost measurement: the sampled
+  per-stage spans, the candidate counts per query, and the
+  attribution table that says which stage owns the budget. It owns the
+  instrument, not the fix.
+- **The ranking team** owns the stage tradeoffs: the candidate budget
+  per stage, the model size per stage, and the decision to move cost
+  between stages (the model-is-too-big detour). It owns the quality
+  side of the trade.
+- **The catalogue team** owns the growth curve: the recall candidates
+  that scale with the catalogue, and the ANN index quality that decides
+  whether recall's growing share buys relevance. It owns the input the
+  attribution reads.
+
+When the ownership is implicit, each team optimizes its own stage: the
+ranking team tunes fine-rank because that is the model it owns, while
+recall's share grows unseen with the catalogue — the budget drifts to
+the stage nobody owns, and the "50,000x gap" that justified the funnel
+is measured at the size that no longer exists.
+
 ## Why this belongs in the mission
 
 The mission's funnel was justified in the README as "forced by
@@ -92,6 +144,21 @@ ratio is the standing justification for every stage the mission built.
 
 </details>
 
+**3. Why does the dominant stage move with the catalogue?**
+
+<details>
+<summary>Answer</summary>
+
+Because recall is the only stage whose candidate set scales with the
+catalogue: the ANN index serves more candidates as the catalogue grows
+(100k at 10M, 631k at 1B here), while pre-rank, fine-rank, and mixing
+hold fixed budgets. Recall's share of the query cost therefore grows
+from 25% to 68% across the scanned sizes, and the "flat 1.0-each"
+design is a point-in-time property, not a law — which is why the audit
+re-attributes the budget when the catalogue or the model changes.
+
+</details>
+
 ## Next
 
 The query has a price; the next stages spend it deliberately. A detour
@@ -102,3 +169,8 @@ from 4.0.
 Another detour: [the model is too big when the last point of quality
 doubles the bill](when-the-model-is-too-big/) — the executed read: the
 large model adds 0.013 NDCG and doubles the daily cost of fine-rank.
+
+A third detour: [the cache discounts the head and leaves the tail
+paying the full cascade](when-the-tail-misses/) — the executed read:
+unique tail queries never hit, so 30% of traffic still pays 4.0 units
+while the blended number says 1.91.

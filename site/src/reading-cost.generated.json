@@ -1077,17 +1077,25 @@
   },
   "02-personalized-discovery/shared/48-realtime-user-state": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "02-personalized-discovery/shared/48-realtime-user-state/when-realtime-is-too-expensive": {
     "level": "applied",
     "minutes": 2
+  },
+  "02-personalized-discovery/shared/48-realtime-user-state/when-the-session-leaks": {
+    "level": "applied",
+    "minutes": 3
   },
   "02-personalized-discovery/shared/48-realtime-user-state/when-the-session-state-moves": {
     "level": "applied",
     "minutes": 2
   },
   "02-personalized-discovery/shared/49-throughput-and-capacity": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/shared/49-throughput-and-capacity/when-the-fanout-tails": {
     "level": "applied",
     "minutes": 3
   },
@@ -1101,7 +1109,7 @@
   },
   "02-personalized-discovery/shared/50-cost-per-query": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 6
   },
   "02-personalized-discovery/shared/50-cost-per-query/when-the-cache-pays": {
     "level": "applied",
@@ -1111,19 +1119,31 @@
     "level": "applied",
     "minutes": 2
   },
-  "02-personalized-discovery/shared/51-new-user-experience": {
+  "02-personalized-discovery/shared/50-cost-per-query/when-the-tail-misses": {
     "level": "applied",
     "minutes": 3
+  },
+  "02-personalized-discovery/shared/51-new-user-experience": {
+    "level": "applied",
+    "minutes": 6
   },
   "02-personalized-discovery/shared/51-new-user-experience/when-personalization-scares": {
     "level": "applied",
     "minutes": 2
+  },
+  "02-personalized-discovery/shared/51-new-user-experience/when-the-bandit-explores": {
+    "level": "applied",
+    "minutes": 3
   },
   "02-personalized-discovery/shared/51-new-user-experience/when-the-user-is-new": {
     "level": "applied",
     "minutes": 2
   },
   "02-personalized-discovery/shared/52-trust-and-explainability": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/shared/52-trust-and-explainability/when-the-attribution-shifts": {
     "level": "applied",
     "minutes": 3
   },
@@ -1137,11 +1157,15 @@
   },
   "02-personalized-discovery/shared/53-fairness-and-allocation": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 6
   },
   "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-constraint-bites": {
     "level": "applied",
     "minutes": 2
+  },
+  "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-groups-cross": {
+    "level": "applied",
+    "minutes": 3
   },
   "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-policy-is-biased": {
     "level": "applied",
@@ -1149,7 +1173,7 @@
   },
   "02-personalized-discovery/shared/54-online-experiments": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "02-personalized-discovery/shared/54-online-experiments/when-the-split-lies": {
     "level": "applied",
@@ -1165,7 +1189,7 @@
   },
   "02-personalized-discovery/shared/55-ltv-and-cac": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 6
   },
   "02-personalized-discovery/shared/55-ltv-and-cac/when-cac-exceeds-ltv": {
     "level": "applied",
@@ -1174,6 +1198,10 @@
   "02-personalized-discovery/shared/55-ltv-and-cac/when-retention-flattens": {
     "level": "applied",
     "minutes": 2
+  },
+  "02-personalized-discovery/shared/55-ltv-and-cac/when-the-retention-window-truncates": {
+    "level": "applied",
+    "minutes": 3
   },
   "03-quantitative-research": {
     "level": "applied",
