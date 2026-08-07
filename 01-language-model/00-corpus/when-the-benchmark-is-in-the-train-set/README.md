@@ -84,6 +84,23 @@ contamination report, the paraphrase leaks are invisible to every
 detector, and the eval stops measuring the model and starts measuring
 the overlap.
 
+## The fix and its trade
+
+The fix is the layered stack, run before training: exact hash for verbatim
+copies, the 13-gram overlap pass for near copies, MinHash at a stated
+threshold for the duplicate dial, and a disclosure record for what the
+detectors cannot see. The trade is the false-positive budget and the
+recall dial: the 13-gram pass runs at zero background false positives on
+this read, but a real corpus is not 460 documents — its background
+false-positive rate is the number that decides whether the pass can run
+unattended or needs human review of every flag. Lowering the MinHash
+threshold catches more near copies (17/20 at 0.5 vs 13/20 at 0.7) by
+flagging more ordinary duplicates, and every flag a human has to read
+costs the pipeline time it could spend elsewhere. The part no detector
+trades away is the paraphrase: it evades all four checks, so the fix's
+real cost is the private held-out set that development never touches, kept
+uncontaminated by construction rather than by detection.
+
 ## Evidence boundary
 
 The executed synthetic read over one seed (200 items, 60 leaks at three

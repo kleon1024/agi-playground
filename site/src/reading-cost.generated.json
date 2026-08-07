@@ -9,7 +9,7 @@
   },
   "01-language-model/00-corpus/dedup-at-scale": {
     "level": "reference",
-    "minutes": 8
+    "minutes": 10
   },
   "01-language-model/00-corpus/dedup-at-scale/when-verification-goes-quadratic": {
     "level": "applied",
@@ -17,15 +17,19 @@
   },
   "01-language-model/00-corpus/the-funnel-shape": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "01-language-model/00-corpus/what-a-release-needs": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 10
   },
   "01-language-model/00-corpus/when-the-benchmark-is-in-the-train-set": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
+  },
+  "01-language-model/00-corpus/when-the-filter-eats-the-signal": {
+    "level": "applied",
+    "minutes": 7
   },
   "01-language-model/01-tokenizer": {
     "level": "foundation",

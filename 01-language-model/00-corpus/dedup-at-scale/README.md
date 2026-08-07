@@ -153,6 +153,49 @@ to a larger `n`; a corpus with more templated boilerplate pulls it closer.
 Recompute it for your own duplicate rate before treating any specific `n` as
 a threshold.
 
+## Who owns the loop
+
+Dedup is a data-health failure with a three-way handoff:
+
+- **The data-pipeline team** owns the dedup configuration: the duplicate
+  threshold, the number of permutations, the banding (how many bands, how
+  many rows), and the sample the threshold was tuned on. It owns the
+  threshold decision, because that number decides which documents the
+  corpus keeps and which near-duplicates are considered the same text.
+- **The infrastructure team** owns the verification cost: the crossover
+  measured here is a wall-clock property of a specific corpus and
+  duplicate fraction, so the choice of CPU loop vs batched GPU verification
+  (NeMo Curator / RAPIDS) is an infra decision priced against the actual
+  candidate-pair volume, not a universal preference.
+- **The evaluation team** owns the downstream impact: how much duplication
+  survives into the training mix, and what that does to eval and to
+  training-time redundancy — the measure that tells the data team whether
+  the threshold is working.
+
+When the ownership is implicit, the threshold is whatever the sample
+happened to look like, the verification cost shows up as a surprise in the
+pipeline budget, and "we deduplicated" means nothing until eval measures
+what duplication remains.
+
+## The fix and its trade
+
+The fix has two halves. First, treat a band collision as a candidate, not a
+verdict: the LSH pass narrows the search, and a Jaccard verification pass
+over the candidate pairs decides, so a collision is cheap to revisit when
+the threshold changes. Second, run that verification pass where the
+quadratic volume lives: the measured crossover — verification overtakes
+hashing between n=16,000 and n=48,000 at a 10% duplicate fraction — is the
+point where the candidate-pair volume stops fitting a CPU loop and the
+same pairwise work becomes a batched GPU dataframe operation.
+
+The trade, named: the verification pass is quadratic in the worst case,
+because the biggest bucket grows with the corpus when the content is
+templated (max_bucket goes 51 → 2,478 as n goes 1,000 → 48,000). A lower
+duplicate threshold keeps more near-duplicates and shrinks the buckets;
+a higher one removes more text and grows them — so the threshold tuning
+moves the crossover, and the pipeline has to recompute it for its own
+duplicate rate before choosing where to spend the compute.
+
 ## A brief history
 
 Broder introduced MinHash in 1997 ("On the Resemblance and Containment of

@@ -266,3 +266,9 @@ already in the training set](when-the-benchmark-is-in-the-train-set/) —
 the executed contamination check showing verbatim and near copies caught
 by a 13-gram overlap pass while paraphrased benchmark items evade every
 detector and still teach the answer.
+
+And the dirty-data failure the funnel itself causes: [when the filter eats
+the signal](when-the-filter-eats-the-signal/) — a quality filter tuned on
+a junk-heavy, code-poor dev slice removes the code-heavy tail of the
+signal population at the same total removal rate, and only a drop audit by
+class can see it.

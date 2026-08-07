@@ -797,6 +797,27 @@ transfers style/persona but falls short on factuality and coding) and
 Stanton et al., NeurIPS 2021 (arXiv:2106.05945, distillation improves
 generalization but not by lifting the student past the teacher).
 
+Stage 00's quality-filter row now carries the gate-tuned-on-the-wrong-slice
+failure (`when-the-filter-eats-the-signal`, 2026-08-08): a 20,000-doc
+synthetic population (60% templated boilerplate, 40% signal, 40% of it a
+code-heavy slice) removed at the same 55% rate under two weight sets —
+weights tuned on a junk-heavy, code-poor dev slice ate 1,492 signal docs
+(18.3% of the signal population, 46.2% of the code-heavy slice, survivor
+code share 16% to 19%) while class-stratified balanced weights ate 12
+(0.1%, 0.4%, code share 16% to 36%) — so removal rate is a count, not a
+judgment, and the drop audit by class is the case-finding step. Ownership
+split: data-pipeline team owns gate thresholds and the dev-slice
+stratification, eval team owns the gold holdout and per-gate drop audit,
+release owner owns the survivor-shift check in the release record.
+Citations: Gopher quality classifier (Rae et al., arXiv:2112.11446, Dec
+2021), C4 filters (Raffel et al., arXiv:1910.10683, Oct 2020), RefinedWeb
+(Penedo et al., arXiv:2306.01116, Jun 2023), FineWeb ablations (Penedo et
+al., arXiv:2406.17557, Jun 2024); cross-links to the contamination
+detour, the funnel-shape drop-reason audit, and the release contract. The
+funnel-shape, dedup-at-scale, release-contract, and contamination detours
+now each carry Who-owns-the-loop and a fix-and-trade section before their
+evidence boundary.
+
 Audit the LLM track with the same lens: dirty data and washing (dedup,
 quality filters, contamination), tokenizer edge cases, pretraining data mix
 (sample, RL, SFT, agentic data and how each enters pretraining), format

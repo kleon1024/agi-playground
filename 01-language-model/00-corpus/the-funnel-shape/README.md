@@ -42,6 +42,37 @@ The 3,000-document sample's English survival (31.6%) and dedup survival
 Two samples agreeing on the shape is what turns "the funnel works" from a
 claim into a measured property of the pipeline.
 
+## Who owns the loop
+
+The funnel shape is a data-health property with a three-way handoff:
+
+- **The data-pipeline team** owns the gates and the drop-reason table:
+  each gate's threshold, each rejection class, and the sample the gate
+  was tuned on. It owns the funnel as a reproducible artifact.
+- **The evaluation team** owns the drop-reason audit: reading the removed
+  set by rejection class, not by total count, and checking that the class
+  mix of what survives still matches what the product needs.
+- **The release owner** owns the shape as a property: the 18.3% survival
+  rate and the per-gate drop distribution are part of the release record,
+  and a gate change that moves them is a product decision, not a pipeline
+  detail.
+
+When the ownership is implicit, the funnel is a single number, the drop
+reasons go unread, and a gate that silently eats a class the product needs
+stays invisible until eval.
+
+## The fix and its trade
+
+The fix is the drop-reason table itself, executed: every rejection gets a
+class, every class gets a count, and the gate that drops the most is the
+one worth scrutinizing first. The trade is the table's maintenance cost —
+each new gate, threshold, or crawl segment re-runs the read and re-checks
+that the class mix of the survivors still matches what the model will be
+asked to do, which is why the funnel is read on a fresh sample, not a
+frozen one. The deeper failure — a gate tuned on the wrong slice removing
+an entire class while the total rate looks fine — is the next detour,
+[when the filter eats the signal](../when-the-filter-eats-the-signal/).
+
 ## Evidence boundary
 
 The recorded 3,000-document sample (one WARC, one seed, one crawl
@@ -82,4 +113,6 @@ drops the most is the one worth scrutinizing first.
 
 Back to [stage 00](../), or to
 [what a release needs](../what-a-release-needs/) which reads the same
-stage's versioning contract.
+stage's versioning contract. The funnel's hidden failure — a gate tuned on
+the wrong slice removing a whole class at an unchanged total rate — is
+[when the filter eats the signal](../when-the-filter-eats-the-signal/).

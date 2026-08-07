@@ -153,6 +153,41 @@ training, not after: removing leaked data once you have already seen the
 evaluation result no longer restores an unbiased estimate, because the choice
 of what to remove was informed by the score.
 
+## Who owns the loop
+
+The four unmade decisions each need a named owner, because each becomes a
+policy the moment a downstream result depends on it:
+
+- **The data-pipeline team** owns the duplicate threshold — the band and row
+  counts belong in the dataset record, not only in the code, because changing
+  16-and-4 moves the 0.50 halfway point whether or not anyone meant it to.
+- **The training team and the product owner** own the mixture weights
+  together: the product owner names which domain the model serves, the
+  training team names the weights that encode it, and either side changing
+  without the other is how a silent mixture shift eats a regression
+  attribution later.
+- **The label team** owns the label contract — rubrics, calibration,
+  measured agreement, provenance — because a labelled example is a second
+  data product with its own failure modes.
+- **The release owner** owns the record and its gates: version bumps on every
+  change, contamination checks run before training, and the false-positive
+  samples that let an outside reader tell a smaller corpus from a broken
+  extractor.
+
+When ownership is implicit, each policy gets made by whoever touched the
+code last, and none of them shows up in the record.
+
+## The fix and its trade
+
+The fix is the record itself: named mixture, versioned gates with accepted
+and rejected counts, hashes, a split policy, and contamination checks before
+training. The trade is discipline for speed — every change bumps a version,
+every gate ships its false positives and negatives, and a release is
+slower to ship because the record has to be written while the work is still
+attributable. What the discipline buys is attribution: a regression is
+answerable exactly when one variable moved at a time and the record says
+which one, which is the only way "the data changed" stops being a dead end.
+
 ## What this chapter does not establish
 
 None of these four policies was compared against an alternative here. One

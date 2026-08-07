@@ -57,6 +57,11 @@
           },
           {
             "type": "doc",
+            "id": "01-language-model/00-corpus/when-the-filter-eats-the-signal/index",
+            "label": "When the filter eats the signal"
+          },
+          {
+            "type": "doc",
             "id": "01-language-model/00-corpus/LANDSCAPE",
             "label": "Landscape"
           }
