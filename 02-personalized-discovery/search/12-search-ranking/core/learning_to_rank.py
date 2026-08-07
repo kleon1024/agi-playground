@@ -8,9 +8,19 @@ the metric that matters — NDCG@k, not squared error.
 
 Run:
     uv run python core/learning_to_rank.py
+    uv run python core/learning_to_rank.py --emit-log /tmp/ltr-envelope.json
+
+The `--emit-log` flag writes the labeled items plus two re-graded batches
+so the production path in `prod/ltr_audit.py` can run the pairwise label-
+consistency check — the way a search team compares two grading passes
+before trusting an offline NDCG.
 """
 
 from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
 
 # (feature1, feature2, true_grade 0-3) — a small labeled set.
 DATA = [
@@ -23,6 +33,15 @@ DATA = [
     (0.1, 0.3, 1),
     (0.8, 0.1, 1),
 ]
+
+# Two plausible re-gradings of the same items (illustrative second
+# grading passes): batch B moves the two boundary items at grades 0/1,
+# batch C moves a grade-3 and a grade-1 item by one.
+BATCHES = {
+    "A": [1, 2, 3, 2, 0, 3, 1, 1],
+    "B": [1, 2, 3, 2, 1, 3, 1, 0],
+    "C": [1, 2, 3, 2, 0, 2, 1, 2],
+}
 
 
 def dcg(rel: list[int], k: int | None = None) -> float:
@@ -54,7 +73,7 @@ def pairwise(data: list[tuple[float, float, int]]) -> list[int]:
     import itertools as it
 
     pairs = []
-    for (a, b) in it.combinations(range(len(data)), 2):
+    for a, b in it.combinations(range(len(data)), 2):
         ga, gb = data[a][2], data[b][2]
         if ga == gb:
             continue
@@ -75,7 +94,7 @@ def pairwise(data: list[tuple[float, float, int]]) -> list[int]:
     return [i for _, i in scored]
 
 
-def main() -> None:
+def render() -> None:
     true = [g for _, _, g in DATA]
     for name, ranker in (("pointwise", pointwise), ("pairwise", pairwise)):
         order = ranker(DATA)
@@ -87,5 +106,19 @@ def main() -> None:
     print("the NDCG gap is where the formulations diverge.")
 
 
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--emit-log", help="write the labeled set and batches as JSON")
+    args = parser.parse_args()
+    render()
+    if args.emit_log:
+        envelope = {
+            "data": [{"x1": x, "x2": y, "grade": g} for x, y, g in DATA],
+            "batches": BATCHES,
+        }
+        Path(args.emit_log).write_text(json.dumps(envelope))
+    return 0
+
+
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

@@ -677,6 +677,10 @@
   },
   "02-personalized-discovery/search/10-query-understanding": {
     "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/search/10-query-understanding/when-the-intent-misroutes": {
+    "level": "applied",
     "minutes": 3
   },
   "02-personalized-discovery/search/10-query-understanding/when-the-query-is-misspelled": {
@@ -689,7 +693,7 @@
   },
   "02-personalized-discovery/search/11-search-retrieval": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "02-personalized-discovery/search/11-search-retrieval/when-the-dense-path-exists": {
     "level": "applied",
@@ -699,13 +703,21 @@
     "level": "applied",
     "minutes": 2
   },
-  "02-personalized-discovery/search/12-search-ranking": {
+  "02-personalized-discovery/search/11-search-retrieval/when-the-vocabulary-mismatches": {
     "level": "applied",
     "minutes": 3
+  },
+  "02-personalized-discovery/search/12-search-ranking": {
+    "level": "applied",
+    "minutes": 5
   },
   "02-personalized-discovery/search/12-search-ranking/when-the-label-is-a-click": {
     "level": "applied",
     "minutes": 2
+  },
+  "02-personalized-discovery/search/12-search-ranking/when-the-label-is-relative": {
+    "level": "applied",
+    "minutes": 3
   },
   "02-personalized-discovery/search/12-search-ranking/when-the-list-is-longer": {
     "level": "applied",
@@ -713,7 +725,7 @@
   },
   "02-personalized-discovery/search/13-search-evaluation": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "02-personalized-discovery/search/13-search-evaluation/when-mrr-and-ndcg-disagree": {
     "level": "applied",
@@ -722,6 +734,10 @@
   "02-personalized-discovery/search/13-search-evaluation/when-the-k-is-small": {
     "level": "applied",
     "minutes": 2
+  },
+  "02-personalized-discovery/search/13-search-evaluation/when-the-metric-is-gamed": {
+    "level": "applied",
+    "minutes": 3
   },
   "02-personalized-discovery/search/19-query-expansion": {
     "level": "applied",

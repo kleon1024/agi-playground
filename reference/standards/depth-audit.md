@@ -205,13 +205,51 @@ three detours:
 
 ### Personalized discovery — search 10-24, 35-37
 
-**Status: pending.**
+**Status: in progress (search mainline 10-13 audited, 2026-08-07).**
 
-Audit query understanding, retrieval, ranking, evaluation, expansion, dense
-retrieval, fusion, reranking, personalization, measurement, generative
-retrieval, conversational search, LLM query understanding. Each needs the
-label-construction and offline-consistency detail the recommendation track now
-has.
+Stages 10-13 now satisfy the contract, each with an executed case-finding
+audit, a who-owns-the-loop section, dated citations, and three detours:
+
+- 10 query understanding: intent-mix audit over a 32-query log
+  (head/tail stratification; all three keyword collisions are tail
+  queries, 15% of tail vs 0% of head — INTENT COLLISION verdict);
+  ownership split across query-understanding/retrieval/data teams;
+  Kumar et al. 2020 (click-derived intent labels); detours: misspelled
+  query, short query, and the intent that misroutes (four of seven
+  queries keep NDCG@3 at 1.0000 while collision and no-signal queries
+  collapse to 0.3333 — the candidate set is the wrong type before
+  ranking runs).
+- 11 search retrieval: lexical recall audit over declared relevance
+  (recall@3 per query vs term overlap; the tail query loses a relevant
+  doc scoring 0.0000 — LEXICAL GAP verdict, aggregate recall 0.90 hides
+  it); ownership split across retrieval/query-understanding/relevance
+  teams; Robertson & Zaragoza 2009, Karpukhin et al. 2020; detours:
+  synonym under-rank, dense path, and the vocabulary mismatch that cuts
+  the candidate (unexpanded recall@3 0.00; expansion recovers to 1.00
+  at the cost of a false positive).
+- 12 search ranking: pairwise label-consistency audit over three grading
+  batches (direction disagreements plus learned-preference flips;
+  NDCG@A swings 0.5727-0.6209 with zero model change — PAIRWISE
+  INCONSISTENT verdict, and a direction-only gate undercounts);
+  ownership split across labeling/ranking/evaluation teams; Burges 2010;
+  detours: click label, longer list, and the label that is relative
+  (12 of 13 single grade flips leave the ranker unchanged; the visible
+  flip sits on the smallest-margin learned boundary).
+- 13 search evaluation: metric-divergence audit over seven graded
+  rankings (competition-style leaderboards; MRR ties five rankings as
+  joint best that NDCG separates across five ranks — METRIC DIVERGENCE
+  verdict, rank gaps 2-4); ownership split across
+  evaluation/ranking/product teams; Järvelin & Kekäläinen 2002,
+  Joachims 2002; detours: mrr-vs-ndcg, the k that changes the claim,
+  and the metric that is gamed (the mrr gamer ties the honest spread at
+  MRR 1.0000 while NDCG falls to 0.7519; the ndcg gamer normalizes to
+  1.0000 with an empty tail).
+
+Remaining in this section (pending): expansion 19, dense retrieval 20,
+hybrid fusion 21, reranking 22, personalized search 23, measurement 24,
+generative retrieval 35, conversational search 36, LLM query
+understanding 37. Each needs the same audit contract, with the head/tail
+coverage and offline-consistency detail stages 10-13 now set.
 
 ### Personalized discovery — ads 14-18, 25-30, 38-42, 54
 

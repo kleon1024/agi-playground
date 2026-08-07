@@ -47,6 +47,56 @@ correct. The metrics agree on the extremes (D is clearly bad) and disagree
 where the decision actually is, which is why evaluation reports several
 metrics together.
 
+## How you find it: the metric-divergence audit, executed
+
+Reporting several metrics only helps if someone checks whether the
+leaderboards agree. The run ([record](runs/2026-08-07-search-evaluation-audit.md))
+emits the graded rankings plus three audit rankings, and the audit
+builds both leaderboards with competition-style ranks:
+
+| ranking | NDCG | NDCG rank | MRR | MRR rank | gap |
+|---|---:|---:|---:|---:|---:|
+| A: one good hit early | 1.0000 | 1 | 1.0000 | 1 | 0 |
+| C: good at top | 1.0000 | 1 | 1.0000 | 1 | 0 |
+| G: ndcg gamer | 0.8750 | 3 | 1.0000 | 1 | 2 |
+| B: good spread | 0.8140 | 4 | 1.0000 | 1 | 3 |
+| F: first-hit gamer | 0.7519 | 5 | 1.0000 | 1 | 4 |
+| H: spread, early miss | 0.5831 | 6 | 0.5000 | 6 | 0 |
+| D: reversed | 0.2750 | 7 | 0.2500 | 7 | 0 |
+
+The verdict is METRIC DIVERGENCE: MRR ties five rankings as joint best
+that NDCG separates across five ranks, and the first-hit gamer F (one
+mediocre hit first) is MRR-perfect and NDCG-fifth. Järvelin and
+Kekäläinen ("Cumulated gain-based evaluation of IR techniques", ACM
+TOIS 20(4), 2002) motivate graded gain for exactly this reason;
+Joachims ("Optimizing Search Engines Using Clickthrough Data", KDD
+2002) is why click-based online variants of the same games compound
+through position bias.
+
+## Who owns the loop
+
+The metric decides what the team optimizes next; someone must own the
+choice and its blind spot:
+
+- **The evaluation or relevance team** owns the metric suite: graded
+  labels, per-position NDCG@k curves, and the rank-gap audit that names
+  which metric each ranking exploits. It owns the measurement, and the
+  when-the-metric-is-gamed detour is its failure mode.
+- **The ranking team** owns the objective that the metric selects
+  between: pointwise vs pairwise vs listwise, and the risk that a
+  ranker tunes to the leaderboard metric rather than to relevance. It
+  owns the model, and the audit's METRIC DIVERGENCE verdict is its
+  signal.
+- **The product or search owner** owns what the metric must serve:
+  whether the page goal is first-hit precision, coverage, or graded
+  relevance across the list. It owns the metric choice itself, and it
+  resolves a divergence by stating which ranking the users need.
+
+When the ownership is implicit, the ranking team optimizes MRR, the
+evaluation team reports NDCG, and nobody owns the disagreement — so a
+first-hit gamer ships as "perfect" on the leaderboard metric while the
+users see a page with one good result and nothing after it.
+
 ## Evidence boundary
 
 The executed metrics over four hand-built graded rankings (illustrative).
@@ -83,6 +133,20 @@ is the search analogue of the mission's nDCG@10 primary metric.
 
 </details>
 
+**3. Why does the audit report rank gaps instead of just both scores?**
+
+<details>
+<summary>Answer</summary>
+
+Because the gap is the disagreement that matters. MRR ties five rankings
+at 1.0000; the raw scores look identical, and only the leaderboard
+positions reveal that NDCG separates those same five across five ranks.
+The gap per ranking names which metric each ranking exploits — the
+first-hit gamer moves four positions — which is the case-finding that
+tells the team where the leaderboard can be gamed.
+
+</details>
+
 ## Next
 
 This closes the search track. Forward to [stage 14 — ad auction](../../ads/14-ad-auction/)
@@ -91,3 +155,5 @@ where a paid item competes for the same slot.
 A detour from here: [the metric chooses the winner](when-mrr-and-ndcg-disagree/) — the executed metrics read: three rankings score MRR 1.0 while NDCG separates them, MRR's blind spot below the first hit.
 
 Another detour: [NDCG@1 is a different claim than NDCG@5](when-the-k-is-small/) — the executed k-sweep read: the same ranking is 0.000 at @1 and 0.546 at @5, so k is part of the evaluation contract.
+
+A third detour: [the metric is gamed](when-the-metric-is-gamed/) — the executed read: an engineered mrr gamer ties the honest spread at MRR 1.0000 while NDCG falls to 0.7519, and an ndcg gamer normalizes to 1.0000 with an empty tail, so concentration beats coverage when one metric picks the winner.

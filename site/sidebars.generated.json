@@ -1190,6 +1190,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/search/10-query-understanding/when-the-intent-misroutes/index",
+                "label": "When the intent misroutes"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/search/10-query-understanding/when-the-query-is-misspelled/index",
                 "label": "When the query is misspelled"
               },
@@ -1217,6 +1222,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/search/11-search-retrieval/when-the-synonym-is-invisible/index",
                 "label": "When the synonym is invisible"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/11-search-retrieval/when-the-vocabulary-mismatches/index",
+                "label": "When the vocabulary mismatches"
               }
             ]
           },
@@ -1232,6 +1242,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/search/12-search-ranking/when-the-label-is-a-click/index",
                 "label": "When the label is a click"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/12-search-ranking/when-the-label-is-relative/index",
+                "label": "When the label is relative"
               },
               {
                 "type": "doc",
@@ -1257,6 +1272,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/search/13-search-evaluation/when-the-k-is-small/index",
                 "label": "When the k is small"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/13-search-evaluation/when-the-metric-is-gamed/index",
+                "label": "When the metric is gamed"
               }
             ]
           },

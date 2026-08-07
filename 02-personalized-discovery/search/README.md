@@ -14,12 +14,20 @@ the click-based metrics.
 
 ## The build track (stages 10-13)
 
+Each stage in this track carries three executed failure-mode detours:
+the misspelled or short query, the intent that misroutes; the synonym
+that under-ranks, the zero-overlap cut, the dense alternative; the label
+with position bias, the list that grows, the grader's boundary judgment;
+the metric that disagrees, the k that changes the claim, the metric that
+gets gamed. Every failure opens with the operational symptom and closes
+with a measured fix.
+
 | Stage | What it decides | Evidence |
 |---|---|---|
-| [`10-query-understanding`](10-query-understanding/) | The key space retrieval must serve | [verified](10-query-understanding/runs/) |
-| [`11-search-retrieval`](11-search-retrieval/) | The lexical index, and the vocabulary-mismatch gap | [verified](11-search-retrieval/runs/) |
-| [`12-search-ranking`](12-search-ranking/) | Pointwise vs pairwise over the candidate set | [verified](12-search-ranking/runs/) |
-| [`13-search-evaluation`](13-search-evaluation/) | NDCG@k and MRR, and their blind spots | [verified](13-search-evaluation/runs/) |
+| [`10-query-understanding`](10-query-understanding/) | The key space retrieval must serve | [mechanism + audit run](10-query-understanding/runs/) |
+| [`11-search-retrieval`](11-search-retrieval/) | The lexical index, and the vocabulary-mismatch gap | [mechanism + audit run](11-search-retrieval/runs/) |
+| [`12-search-ranking`](12-search-ranking/) | Pointwise vs pairwise over the candidate set | [mechanism + audit run](12-search-ranking/runs/) |
+| [`13-search-evaluation`](13-search-evaluation/) | NDCG@k and MRR, and their blind spots | [mechanism + audit run](13-search-evaluation/runs/) |
 
 ## The advanced track (stages 19-24)
 

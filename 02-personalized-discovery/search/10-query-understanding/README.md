@@ -44,6 +44,57 @@ wants price-bearing results, an informational query wants coverage. The
 vocabulary across the six queries (28 terms) is the size of the key space
 the retrieval index must serve.
 
+## How you find it: the intent-mix audit, executed
+
+The six queries classify cleanly, and an aggregate intent mix over a
+real log would look the same way. The failure mode the aggregate hides
+is the query the keyword classifier cannot commit on: one whose keywords
+fire two intent classes, and one whose keywords fire none. The run
+([record](runs/2026-08-07-query-understanding-audit.md)) emits a
+32-query log — 12 head, 20 tail — and the audit stratifies it:
+
+| stratum | queries | no-keyword | collision |
+|---|---:|---:|---:|
+| head | 12 (37.5%) | 3 (25.0%) | 0 (0.0%) |
+| tail | 20 (62.5%) | 5 (25.0%) | 3 (15.0%) |
+
+The verdict is INTENT COLLISION: all three collision queries are tail
+queries, and each is assigned by rule order — "cheap how to fix iphone
+screen" fires transactional (cheap) and informational (how, fix), and
+the transactional check wins silently. The aggregate mix says the rule
+order is fine; the stratified view says the tail carries every
+ambiguity. Intent labels in production are click-derived and noisy —
+Kumar, Hu, Headden, Goutam, Lin and Yin ("Shareable Representations for
+Search Query Understanding", arXiv:2001.04345, 2020) build intent
+representations for shopping search while accounting for exactly this
+noisiness and sparseness of query data — so the classifier inherits the
+noise, and the audit shows where it concentrates: the long tail of
+short, rare, ambiguous queries.
+
+## Who owns the loop
+
+The pipeline assigns intent; someone must own what each assignment
+commits the system to, and the handoffs are where query understanding
+fails:
+
+- **The search query-understanding team** owns the classifier: keyword
+  coverage, the rule order, and the confidence floor below which intent
+  is declared ambiguous. It owns the collision handling, and the
+  when-the-intent-misroutes detour is its failure mode.
+- **The retrieval team** owns the path contract: what each intent is
+  allowed to fetch, and what happens when a path returns nothing. It
+  owns the recall consequence, and the misspelling and short-query
+  detours are its failure modes.
+- **The data or logging team** owns the intent labels the classifier is
+  judged on: the click-derived taxonomy, its noise, and the head/tail
+  distribution of the query log. It owns the label source, and the
+  audit's verdict is its signal.
+
+When the ownership is implicit, the classifier ships, the retrieval
+team trusts its intents, and nobody owns the tail — so a collision
+query is silently routed to the wrong path, and the ranker downstream
+re-orders a candidate set that was wrong before it started.
+
 ## Why this belongs in the mission
 
 Mission 02's contract covers search as one of its three surfaces. Every
@@ -92,6 +143,21 @@ query the same.
 
 </details>
 
+**3. Why does the aggregate intent mix hide the collision problem?**
+
+<details>
+<summary>Answer</summary>
+
+Because collisions and fallbacks are small shares of the log: three of
+32 queries, 9.4%. The aggregate says 40.6% transactional and 34.4%
+informational and nothing looks wrong, while every collision query is a
+tail query whose retrieval path was decided by rule order, not by
+meaning. The mix reports what was assigned; it cannot report which
+assignments were forced. That is why the audit stratifies by head and
+tail instead of reading the mix.
+
+</details>
+
 ## Next
 
 Forward to [stage 11 — search retrieval](../11-search-retrieval/) where
@@ -100,3 +166,5 @@ the normalized query hits the BM25 index.
 A detour from here: [where normalization stops and correction must begin](when-the-query-is-misspelled/) — the executed tokenizer read: 'heaphones' never becomes 'headphones', so retrieval must correct the query or match by edit distance.
 
 Another detour: [one word, many intents](when-the-query-is-short/) — the executed classifier read: every one-word query normalizes to a single token with no intent signal, so disambiguation must come from context.
+
+A third detour: [the intent misroutes](when-the-intent-misroutes/) — the executed path read: four of seven queries keep NDCG@3 at 1.0000 while the collision and no-signal queries collapse to 0.3333, so the candidate set is the wrong type before ranking runs.

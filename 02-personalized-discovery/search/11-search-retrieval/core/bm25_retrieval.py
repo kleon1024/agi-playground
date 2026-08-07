@@ -9,12 +9,21 @@ word absent from the document scores zero).
 
 Run:
     uv run python core/bm25_retrieval.py
+    uv run python core/bm25_retrieval.py --emit-log /tmp/bm25-envelope.json
+
+The `--emit-log` flag writes the audit corpus, per-query rankings, and
+per-document term overlap so the production path in `prod/bm25_audit.py`
+can measure recall against declared relevance — the way a search team
+checks where the lexical index loses documents.
 """
 
 from __future__ import annotations
 
+import argparse
+import json
 import math
 from collections import Counter
+from pathlib import Path
 
 DOCS = {
     "doc1": "wireless headphones noise cancelling bluetooth",
@@ -23,6 +32,30 @@ DOCS = {
     "doc4": "iphone pro max camera battery life",
     "doc5": "headphones price comparison review 2026",
 }
+
+# The audit corpus: the five console docs plus synonym and tail docs, so
+# recall can be measured where the lexical index is expected to fail.
+AUDIT_DOCS = {
+    "d1": "wireless headphones noise cancelling bluetooth",
+    "d2": "over ear headphones comfortable long battery",
+    "d3": "running shoes lightweight breathable",
+    "d4": "iphone pro max camera battery life",
+    "d5": "headphones price comparison review 2026",
+    "d6": "affordable bluetooth earbuds budget friendly",
+    "d7": "sneakers athletic footwear lightweight running",
+    "d8": "laptop notebook ultrabook battery life",
+    "d9": "cheap headphones deals sale",
+}
+
+# (query, declared relevant docs, frequency class) — the relevance labels a
+# search team would hold for a logged query set.
+AUDIT_QUERIES = [
+    ("wireless headphones", ["d1"], "head"),
+    ("running shoes", ["d3", "d7"], "head"),
+    ("iphone camera", ["d4"], "head"),
+    ("laptop battery", ["d8"], "head"),
+    ("cheap headphones", ["d9", "d6"], "tail"),
+]
 
 K1, B = 1.5, 0.75
 
@@ -53,7 +86,7 @@ def bm25(query: str, docs: dict[str, str], k1: float = K1, b: float = B) -> list
     return sorted(scores.items(), key=lambda x: x[1], reverse=True)
 
 
-def main() -> None:
+def render() -> None:
     for q in ("wireless headphones", "running shoes", "iphone camera", "headphones 2026"):
         print(f"query: '{q}'")
         for doc, score in bm25(q, DOCS):
@@ -65,5 +98,31 @@ def main() -> None:
     print("synonyms — the gap dense retrieval exists to close.")
 
 
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--emit-log", help="write audit corpus and rankings as JSON")
+    args = parser.parse_args()
+    render()
+    if args.emit_log:
+        envelope = {
+            "docs": AUDIT_DOCS,
+            "queries": [
+                {
+                    "query": q,
+                    "relevant": relevant,
+                    "freq": freq,
+                    "ranking": bm25(q, AUDIT_DOCS),
+                    "overlap": {
+                        d: len(set(_tokens(q)) & set(_tokens(text)))
+                        for d, text in AUDIT_DOCS.items()
+                    },
+                }
+                for q, relevant, freq in AUDIT_QUERIES
+            ],
+        }
+        Path(args.emit_log).write_text(json.dumps(envelope))
+    return 0
+
+
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
