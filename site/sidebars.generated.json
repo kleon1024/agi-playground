@@ -161,9 +161,19 @@
             "label": "Attention variants"
           },
           {
-            "type": "doc",
-            "id": "01-language-model/02-pretrain/mid-training/index",
-            "label": "Mid-training"
+            "type": "category",
+            "label": "Mid-training",
+            "link": {
+              "type": "doc",
+              "id": "01-language-model/02-pretrain/mid-training/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "01-language-model/02-pretrain/mid-training/when-the-annealed-slice-moves-the-evals/index",
+                "label": "The annealed slice moves the evals"
+              }
+            ]
           },
           {
             "type": "doc",

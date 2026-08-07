@@ -818,6 +818,27 @@ funnel-shape, dedup-at-scale, release-contract, and contamination detours
 now each carry Who-owns-the-loop and a fix-and-trade section before their
 evidence boundary.
 
+The pretraining data-mix row is now executed (`when-the-annealed-slice-moves-the-evals`,
+2026-08-08): the mix decision is a two-skill seesaw, measured over an
+anneal-window sweep from 0 to 10 percent agentic share. Agentic skill
+saturates (`A(s) = 1 - exp(-40s)`) while general skill pays a flat
+recency-weighted cost (`G(s) = 1 - 1.6s`): the general slice breaches a
+`baseline - 10%` guardrail at s = 0.08 with the agentic eval still at 0.959
+of its saturating curve, the marginal trade flips between 8 and 10 percent
+(1.12 agentic per point against 1.60 general), and the blended number
+rises through the breach (0.892 at 5% to 0.916 at 8%) — an aggregate-only
+read rewards the move that breaks the contract, and the slice read is the
+case-finding step. The zero-share anchor matches the agent stage's
+measured 0/6 run. Ownership split: data team owns mix weights, anneal
+schedule, and format; eval team owns the per-slice read and guardrails;
+model team owns the pre-declared primary-metric contract — the same
+contract pattern as the recommendation AUC-label seesaw (stage 64).
+Citations: Agentic CPT (arXiv:2509.13310, 2025), GLM-5 (Kili Technology,
+2026), DCLM (arXiv:2406.11794, Jun 2024), FineWeb-Edu (arXiv:2406.17557,
+Jun 2024), DoReMi (arXiv:2305.13029, May 2023). The mid-training stage
+chapter now carries Who-owns-the-loop and a fix-and-trade section before
+its evidence boundary.
+
 Audit the LLM track with the same lens: dirty data and washing (dedup,
 quality filters, contamination), tokenizer edge cases, pretraining data mix
 (sample, RL, SFT, agentic data and how each enters pretraining), format

@@ -328,6 +328,48 @@ observation span, and `prod/chat_template_masking.py` reproduces the same mask
 through a real tokenizer's chat template instead of the toy one, so the
 mechanism is visibly the one instruction-tuning already used.
 
+## Who owns the loop
+
+Mid-training is a data-health stage with a three-way handoff:
+
+- **The data-pipeline team** owns the trajectory sourcing (FAS, HAS, or
+  distillation from a stronger model's rollouts), the quality filter on
+  synthesized trajectories (Agentic CPT's LLM-based check: 50% to 82% of
+  synthesized items judged correct), the format decision — neutral
+  separators, no special-token vocabulary collision with post-training —
+  and the mix share and anneal placement. It owns the number, not the
+  target.
+- **The evaluation team** owns the slice read: agentic and general evals
+  measured separately after any mix change, the guardrail thresholds, and
+  the case-finding step an aggregate cannot do. It owns the evidence that
+  the mix moved the model in the intended direction without silently
+  paying for it elsewhere.
+- **The model team** owns the contract: which eval is primary, where the
+  guardrail binds, and the masking decision — which spans pay loss and
+  which are context-only. When the ownership is implicit, the stage is
+  skipped or its settings are whatever the last config edit left them, and
+  SFT is quietly asked to install a capability it was never given the
+  budget to install.
+
+## The fix and its trade
+
+The fix is to treat mid-training as a stage with a declared contract
+instead of a pipeline detail: a named mix share placed in the annealing
+phase, a neutral trajectory format, masked observation tokens, and a
+pre-declared primary eval with guardrails on the others — the decision
+executed in [when the annealed slice moves the evals](when-the-annealed-slice-moves-the-evals/).
+Each choice in that contract trades something named: the neutral format
+trades special-token efficiency for template portability across whatever
+SFT later decides; masking trades a little learning signal for the
+anti-fabrication guarantee that the model never learns to generate its own
+tool output; noise trades clean trajectories for harder ones so recovery
+is learned at all; and the mix contract trades the freedom to chase a green
+metric for the ability to attribute what a change actually did. The budget
+line — 300B tokens for Agentic CPT, roughly 5% of pretraining for GLM-5 —
+is what makes the trade irreversible: at that scale the stage is not
+something a programme re-runs on a hunch, which is exactly why the
+contract has to be written before the run, not after.
+
 ## 9. Evidence boundary
 
 This chapter cites five dated, external reports and demonstrates the
@@ -519,6 +561,11 @@ long dependency chains, and corrected mistakes under the plain next-token
 objective. Continue to [SFT](../../03-sft/) to see what changes
 when that same model is trained on a demonstration or a preference pair
 instead.
+
+The mix decision this stage's section 7 reports as practice is executed in
+[when the annealed slice moves the evals](when-the-annealed-slice-moves-the-evals/):
+the two-eval seesaw, the guardrail contract that decides where the share
+stops, and why a blended metric rewards the move that breaks it.
 
 Primary references: Scaling Agents via Continual Pre-training
 (arXiv:2509.13310, 2025); GLM-5 data story (Kili Technology, 2026); AgentTuning

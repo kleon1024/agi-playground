@@ -69,7 +69,11 @@
   },
   "01-language-model/02-pretrain/mid-training": {
     "level": "applied",
-    "minutes": 18
+    "minutes": 21
+  },
+  "01-language-model/02-pretrain/mid-training/when-the-annealed-slice-moves-the-evals": {
+    "level": "applied",
+    "minutes": 7
   },
   "01-language-model/02-pretrain/the-gate-that-beats-relu": {
     "level": "applied",
