@@ -1,0 +1,174 @@
+# Voice path of topic 07 — Real-time voice loop (streaming, not batch)
+#
+# Every other path in this repository moves discrete text tokens through a
+# transformer. This mission asks whether the serving mechanism built for that
+# job — a KV cache, paged allocation, continuous batching, all described in
+# topic 01's serving stage — is actually about tokens, or about text. The way to find
+# out is to point the same mechanism at a different discrete-token stream and
+# see what breaks.
+#
+# The new work here is narrow on purpose: a small from-scratch audio codec
+# that turns a waveform into a discrete token sequence, and a decode loop that
+# reuses topic 01's 05-serve/graph-execution KV-cache and scheduling code
+# unchanged. If the serving layer needs new mechanism to handle audio tokens,
+# that is itself the finding — the mission does not assume the answer is yes.
+
+stakeholder: >
+  Someone building a low-latency voice interface (a voice assistant, a
+  transcription pipeline, a dictation tool) who must decide whether a small,
+  self-trained streaming voice pipeline is viable at all before spending on a
+  hosted streaming ASR/TTS API, and if so, what it costs in latency per audio
+  chunk. They are not asking whether the audio sounds good in isolation. They
+  are asking whether a chunk can be turned into output fast enough to feel
+  real-time, and at what quality cost relative to processing the whole
+  utterance at once.
+
+job: >
+  Turn a short waveform into a discrete token sequence through a from-scratch
+  codec, then decode it one chunk at a time — reusing this repository's
+  existing KV-cache and continuous-batching serving mechanism — instead of
+  waiting for the full utterance before producing any output. A later stage
+  repeats this job against a real short-speech corpus (LibriSpeech
+  dev-clean, 1-2 speakers) in place of synthetic tones, and adds a
+  round-trip latency measurement over a real network link (this
+  repository's existing Mac-to-4090 Tailscale tunnel, documented in
+  reference/local-4090.md) alongside local compute time.
+
+decision: >
+  Whether mission 01's serving stage's KV-cache, paged-allocation, and continuous-
+  batching mechanics, built and measured against text tokens in mission 01,
+  transfer unchanged to a different discrete-token modality (audio codec
+  tokens), with only a new codec at the input/output boundary — or whether
+  audio's chunk structure demands new serving mechanism the text case never
+  needed. A later stage asks the companion question: whether the same codec
+  architecture generalizes from procedural tones to real (if narrow) speech,
+  and what a real network link adds to the latency already measured here.
+
+baseline: >
+  Two, and the mission must report against both:
+  (1) An offline (full-buffer, non-streaming) pass through the identical
+      codec and decode loop — same weights, same tokens, no streaming
+      constraint. This isolates what streaming specifically costs in quality
+      or adds in latency, holding the model fixed.
+  (2) A hosted streaming ASR/TTS API's published or measured latency and
+      quality on comparable short utterances, named and dated, since this
+      mission's toy codec cannot be assumed comparable without a stated
+      baseline to be honest about the gap.
+  (3) The toy-tone codec's own stage 00/01 result, once a later stage trains
+      the same architecture on real speech — "same mechanism, harder input"
+      — reported as an additional reference point, not a replacement for
+      either baseline above.
+
+primary_metric: >
+  A reconstruction-quality proxy (a concrete, computable audio distance
+  measured against the reference waveform — for example mean-squared
+  reconstruction error or a simple spectral distance on held-out clips)
+  reported beside per-chunk decode latency (p50 and p95, matching
+  mission 01's serving stage's own latency-distribution discipline, never a single
+  average), both from real runs on the declared hardware.
+
+guardrails:
+  - Every number traces to a runs/ entry — command, hardware, wall-clock,
+    exact chunk size, and the seed or clip set used.
+  - No claim of production speech quality, multi-speaker robustness, or
+    multilingual coverage; the codec and dataset are toy-scale by
+    construction, and the report says so beside every metric.
+  - Latency is measured on a real decode run, never estimated or assumed
+    from the offline baseline's cost.
+  - The streaming loop reuses mission 01's 05-serve/graph-execution/core/'s
+    KV-cache and scheduling code directly; if a change to that code is
+    required to make audio tokens work, the change and the reason for it are
+    recorded, not silently folded in as if it were always general enough.
+  - A follow-on stage testing a fix for a previously-found problem (e.g. the
+    codebook dead-code-reset stage following stage 04's seed-dependent
+    utilization finding) changes exactly one mechanism at a time relative to
+    the prior stage's setup, holding dataset, seeds, step count, and learning
+    rate fixed, so the result is attributable to the one change under test
+    rather than confounded with an incidental data or config change.
+
+latency_budget: >
+  Unlike mission 04, latency here is a first-class constraint: a listener is
+  waiting on each chunk. The toy target is a declared, measured per-chunk
+  decode time on the local GPU lane (specific figure set once stage 01 has a
+  real profile to set it against, per mission 01's serving stage's own practice of
+  measuring before declaring a number) — reported as p50/p95 from an actual
+  run, not assumed from FLOPs. A later stage adds a second declared figure:
+  real Tailscale round-trip p50/p95 (Mac client to the 4090 host, per
+  reference/local-4090.md's existing tunnel), reported alongside the existing
+  local-decode p50/p95 — two honestly distinguished numbers, never
+  conflated into one.
+
+cost_budget: >
+  Local-lane GPU wall-clock only, $0 marginal cost, matching mission 04's
+  local-model cost accounting. No hosted API spend is required to produce
+  this mission's own numbers; the hosted-API comparison in the baseline uses
+  only published or separately-measured figures, named and dated rather than
+  run against a live account here. A later stage's LibriSpeech dev-clean
+  download (one archive, ~338MB, CC BY 4.0) is a one-time, $0 fetch; only
+  1-2 speakers' utterances are used for training, keeping wall-clock
+  comparable to the existing procedural-tone runs. A further follow-on stage
+  retraining the same 10-speaker mix with a dead-code-reset vector quantizer
+  reuses this same cached archive and dataset code, again $0 marginal cost
+  and no new download.
+
+capabilities: []
+  # None yet. A shared multimodal-serving capability is not created here —
+  # per the admission gate in standards/mission-contract.md, it is promoted
+  # only once a second mission needs the identical streaming-token-decode
+  # contract for a non-text modality.
+
+acceptance:
+  - Per-chunk decode latency measured on a real run and reported against the
+    declared budget, p50 and p95, not an average
+  - Reconstruction-quality proxy beats a naive baseline (silence or a
+    mean-signal reconstruction) on held-out clips
+  - The offline-vs-streaming quality and latency gap is reported explicitly,
+    not implied
+  - Every stage has a runs/ entry with command, hardware, wall-clock, and
+    metrics before being marked verified
+  - Any change required to mission 01's serving stage's KV-cache or scheduling code to
+    support audio tokens is named and justified, not silently made
+
+proves: >
+  Whether the serving mechanism this repository already built and measured
+  for text — KV cache, paged allocation, continuous batching — is a property
+  of discrete-token sequences in general, or of text tokens specifically. A
+  measured yes or a measured no are both real results here; the mission does
+  not pre-commit to either.
+
+does_not_prove: >
+  Nothing about production speech quality, naturalness, or intelligibility at
+  any scale beyond the toy codec trained here. Multi-speaker robustness is
+  only partially tested: a later stage trains on 1-2 LibriSpeech speakers,
+  and a follow-on stage extends this to 10 of the corpus's 40+ dev-clean
+  speakers, at which the same fix that escaped collapse for 1-2 speakers
+  (more steps, unchanged learning rate) still avoids full collapse in all 3
+  seeds tried, but codebook utilization becomes highly seed-dependent
+  (18-63 of 64 codes used, where 1-2 speakers consistently reached 51-63) —
+  this is still not the full 40+ speaker corpus, and nothing here establishes
+  what happens beyond 10 speakers or with the seed-to-seed variance
+  unresolved. Nothing about true full-duplex operation (simultaneous
+  listening and speaking); the loop here is one direction at a time. Nothing
+  about production speech quality relative to real neural codecs
+  (SoundStream/EnCodec scale). And the later stage's real-network measurement
+  is specific to this repository's own home-network Tailscale link, not a
+  general internet client's latency — it does not generalize to arbitrary
+  network paths. A further follow-on stage retested the identical 10-speaker
+  setup with a standard dead-code-reset vector quantizer (VQ-VAE-2's
+  reinitialize-unused-codes mechanism, not its full EMA-updated codebook) and
+  found it does close the seed-to-seed variance gap: all 3 seeds reached
+  64/64 codes used (vs. 18-63/64 without reset) and the reconstruction-margin
+  spread over silence tightened from 4.3%-38.2% to 33.8%-37.6%. A further
+  stage crossed that reset switch against the EMA-updated codebook in a 2x2,
+  so each mechanism's effect is measured twice, once at each level of the
+  other. EMA alone collapses the codebook to 1/64 codes on all 3 seeds and is
+  the only arm anywhere in this mission that fails the "beats a naive
+  baseline" acceptance criterion; EMA on top of reset raises the entropy ratio
+  on all 3 seeds (0.933/0.872/0.875 vs. 0.826/0.814/0.791). That settles the
+  mechanism question but not the quality one: EMA's effect on reconstruction
+  MSE on top of reset spans -0.00065 to +0.00318 across the 3 seeds and
+  contains zero, so it is not a result. Still unestablished: any sweep over
+  `reset_every`, `dead_threshold`, `ema_decay`, or `epsilon` — one value each
+  was tried — anything beyond 10 of the corpus's 40+ speakers, anything beyond
+  2000 steps, and any VQ-VAE-2 mechanism beyond these two (no codebook
+  hierarchy, no residual quantization).

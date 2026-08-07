@@ -1,0 +1,19 @@
+{
+  "train_scenarios": 100,
+  "eval_scenarios": 50,
+  "train_seed_range": [
+    0,
+    99
+  ],
+  "eval_seed_range": [
+    100,
+    149
+  ],
+  "eval_obstacle_min": 2,
+  "eval_obstacle_max": 4,
+  "eval_render_road_px_mean": 511.2,
+  "eval_render_obs_px_mean": 0.8,
+  "wall_clock_s": 0.002,
+  "grid": 32,
+  "patch_m": 8.0
+}

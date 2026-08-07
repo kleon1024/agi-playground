@@ -1,0 +1,20 @@
+{
+  "hard_expert": {
+    "scenarios": 50,
+    "completion_rate": 0.78,
+    "collision_rate": 0.22,
+    "offroad_rate": 0.0,
+    "timeout_rate": 0.0,
+    "mean_x_reached": 52.68,
+    "wall_clock_s": 2.12
+  },
+  "hard_cloned": {
+    "scenarios": 50,
+    "completion_rate": 0.04,
+    "collision_rate": 0.24,
+    "offroad_rate": 0.0,
+    "timeout_rate": 0.72,
+    "mean_x_reached": 12.23,
+    "wall_clock_s": 5.63
+  }
+}

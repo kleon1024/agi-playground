@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // Three configurations were run, at 5,000 trials each. The cached run used
 // parallel recall, so there is no measured serial-plus-cache pair; selecting
 // that combination reports the gap rather than borrowing the parallel number.
-// Recorded in missions/02-personalized-discovery/08-serving/runs/.
+// Recorded in 02-personalized-discovery/08-serving/runs/.
 const RUNS = {
   'parallel-0': { mean: 31.22, p95: 49.31, p95Sum: 54.74 },
   'serial-0': { mean: 52.73, p95: 72.71, p95Sum: null as number | null },

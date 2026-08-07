@@ -5,7 +5,7 @@ level: foundation
 
 > **[Read this online](https://rehearse.maestro.onl/playground/foundations)**.
 
-# What do you need to hold before a mission stops being magic?
+# What do you need to hold before a topic stops being magic?
 
 Two things, and they are smaller than the word "foundations" suggests. You need
 to know what a decoder block computes, and you need to have watched a model's
@@ -14,9 +14,9 @@ loss go down because of an update you can point at.
 These are **language-model foundations**, not prerequisites for intelligence in
 general. Attention, decoder blocks, and a first training loop are what you need
 to reason about the next decision in
-[the language-model system](../missions/01-language-model-agent/) — nothing here
+[the language-model system](../01-language-model/) — nothing here
 claims to be the base of a broader pyramid, and **nothing here has to be read
-before you start a mission**. Come when a mission sends you, or come first if
+before you start a topic**. Come when a topic sends you, or come first if
 you would rather build the mental model before the artifact.
 
 If you are not sure which mechanism you are missing, the
@@ -39,8 +39,8 @@ explaining.
 
 ## Where these go next
 
-[Pretraining](../missions/01-language-model-agent/02-pretrain/) joins both paths to real data and a token
-budget. [The corpus stage](../missions/01-language-model-agent/00-corpus/) supplies the distribution that budget is spent
+[Pretraining](../01-language-model/02-pretrain/) joins both paths to real data and a token
+budget. [The corpus stage](../01-language-model/00-corpus/) supplies the distribution that budget is spent
 on. Neither is a foundation — they are decisions with costs, and they assume you
 already know what is being trained.
 

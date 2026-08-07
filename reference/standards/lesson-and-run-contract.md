@@ -76,7 +76,7 @@ drift away from the page it describes.
 
 Any lesson that trains, adapts, serves, or evaluates a model declares which
 weights its claims rest on. The field is required in the frontmatter of every
-lesson under `foundations/` and `missions/01-language-model-agent/`:
+lesson under `foundations/` and `01-language-model/`:
 
 - `base: scratch` — **Track A.** Weights this repository produced, tracing back
   to a random initialization here. Nothing published was downloaded.

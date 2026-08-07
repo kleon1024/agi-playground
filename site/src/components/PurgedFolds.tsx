@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 // refuses to print a statistic for it rather than interpolating one: an
 // invented number set in the same sentence as two measured ones reads as a
 // third measurement. Recorded in
-// missions/03-quantitative-research/03-walk-forward-validation/runs/.
+// 03-quantitative-research/03-walk-forward-validation/runs/.
 const MEASURED = {
   purgeDays: 5,
   gapDays: 5,

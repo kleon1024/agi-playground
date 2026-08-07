@@ -4,62 +4,74 @@ Working notes for AI agents and human contributors. Read this before editing.
 
 ## What this repo is
 
-Build AI systems from infrastructure to measurable outcomes. **Missions are the
+Build AI systems from infrastructure to measurable outcomes. **Topics are the
 only curriculum spine.** A learner starts with a stakeholder problem and stays
-on that mission until it links to a mechanism or engineering reference needed
-for the next decision. Foundations and infrastructure are support libraries,
-not parallel tracks and not prerequisites to read front to back.
+on that topic until it links to a mechanism or engineering reference needed
+for the next decision. Foundations are a support library, not a parallel track
+and not a prerequisite to read front to back.
 
-A mission proves a problem got solved; a support chapter proves a mechanism
-behaves the way the mission assumed.
+A topic proves a problem got solved; a support chapter proves a mechanism
+behaves the way the topic assumed.
 
 ## Layout
 
-Four sections, and each boundary fits in one sentence.
+Nine topics, then two support libraries, and each boundary fits in one
+sentence. There is no `missions/` level: the topics were pulled up one level
+so the directory is the reader-facing domain, and the old `infra/` tree was
+absorbed into the topic that uses the mechanism.
 
 ```
-missions/      what was built, what it proved, and every deep-dive the stage consumed
-foundations/   mechanism that holds regardless of product or mission
-infra/         the machine underneath, and this repository's compute lanes
-reference/     contracts, governance, and dated survey material with no run
+01-language-model/          raw text → tokenizer → pretrain → adapt → serve → act; vision lives under it
+02-personalized-discovery/  recommendation, search, and ads as one decision loop (shared/ + per-surface)
+03-quantitative-research/   point-in-time data → signal → portfolio → validation → capacity
+04-agentic-platform/        the agent harness, its failure modes, and what a correct patch costs
+05-game-ai/ 07-multimodal-generation/ 08-bio-pharma-modeling/ 09-autonomous-driving/
+                            the remaining decision loops, each with its own artifact chain;
+                            07 is voice and video under one topic (codec and video-token
+                            mechanisms plus the codebook failures both surfaces share)
+foundations/                mechanism that holds regardless of which topic you run
+reference/                  contracts, governance, compute-lane guides, and dated survey material
 ```
 
 There is no `platform/` and no `capabilities/`. Both existed and both were a
-second telling of mission 01 over the same lifecycle — sixteen of seventeen
-platform chapters served exactly one mission, nine interactives appeared on
-both a mission stage and a platform twin, and roughly 2,100 lines of branch
-prose owned no `core/`, `prod/`, or `runs/`. Cross-cutting views are an
+second telling of topic 01 over the same lifecycle — sixteen of seventeen
+platform chapters served exactly one topic, nine interactives appeared on both
+a topic stage and a platform twin, and roughly 2,100 lines of branch prose
+owned no `core/`, `prod/`, or `runs/`. The `missions/` level repeated that
+lesson at one remove, so it was deleted too. Cross-cutting views are an
 **index**, not a directory: `site/topics.mdx` lists every chapter under the
 decision it serves.
 
 ## Curriculum ownership
 
-The landing page, Start here page, and sidebar route readers to Missions before
-support libraries. A mission introduces one concrete artifact and links to a
-foundation chapter, an infrastructure chapter, or an earlier mission's stage
-only at the point where that chapter is required. The linked chapter must
-return an artifact, decision, or diagnostic that the next mission stage
-consumes.
+The landing page, Start here page, and sidebar route readers to Topics before
+support libraries. A topic introduces one concrete artifact and links to a
+foundation chapter, another topic's stage, or a reference guide only at the
+point where that chapter is required. The linked chapter must return an
+artifact, decision, or diagnostic that the next topic stage consumes.
 
-- **Mission owns the outcome and the evidence for it.** It owns the
+- **Topic owns the outcome and the evidence for it.** It owns the
   stakeholder, job, decision, baseline, concrete artifact chain, integration
   handoffs, budgets, proxy, result, and evidence boundary. A deep-dive belongs
-  to the stage whose decision it changes, even when other missions cite it.
-- **Foundation owns mechanism that survives the mission.** Test: could this
-  chapter be written without naming a mission's artifact? If not, it is a
-  mission deep-dive and belongs beside the run. Scope the name honestly:
+  to the stage whose decision it changes, even when other topics cite it.
+- **Foundation owns mechanism that survives the topic.** Test: could this
+  chapter be written without naming a topic's artifact? If not, it is a topic
+  deep-dive and belongs beside the run. Scope the name honestly:
   attention, decoders, and a first language-model training loop are
   language-model foundations, not universal AGI prerequisites.
   `level: foundation` may appear only inside `foundations/`.
-- **A shared chapter stays where it was built.** When a second mission needs
-  the same input/output contract and objective, it links to the chapter in the
-  mission that built and measured it. Moving an explanation away from the run
+- **A shared chapter stays where it was built.** When a second topic needs the
+  same input/output contract and objective, it links to the chapter in the
+  topic that built and measured it. Moving an explanation away from the run
   that backs it is how a chapter ends up making a claim with no evidence beside
   it. The admission bar survives as a promotion criterion in
   `reference/standards/mission-contract.md`, and reuse of a noun or technique
   still does not clear it.
-- **Infrastructure owns the machine underneath**, and names the mission stage
-  or foundation it is the substrate for.
+- **A machine chapter owns the machine underneath**, and names the stage or
+  foundation it is the substrate for. Networking, storage, orchestration, and
+  GPU-cluster concepts live under `foundations/04-distributed-training/`;
+  observability and dedup live beside the serving and corpus stages that need
+  them. Compute-lane guides live in `reference/`.
 - **Reference owns contracts, governance, and dated survey material.** It is
   the only place a page may have no run and not be a defect.
 
@@ -69,19 +81,19 @@ may appear in two chapter READMEs; a test enforces it.
 Use the central-question test when content overlaps. If a chapter's central
 question, inputs, outputs, and acceptance are the same wherever it is read,
 move the reusable explanation to Foundations and keep only the
-mission-specific choice, handoff, and evidence in the Mission. Do not duplicate
-the same tutorial in two places.
+topic-specific choice, handoff, and evidence in the Topic. Do not duplicate the
+same tutorial in two places.
 
 Do not call any support-chapter sequence the global curriculum spine. Such
 ordering may organize a scoped reference collection, but it must not determine
 the homepage, sidebar, prerequisites, or learner path. The language-model
-mission is labeled **Language-model system** in reader-facing navigation; an
+topic is labeled **Language-model system** in reader-facing navigation; an
 agent is one stage of that system, not the scope of the playground.
 
 ## The two invariants
 
 **Every capability claim is backed by a run.**
-**Every mission is backed by a measurable outcome.**
+**Every topic is backed by a measurable outcome.**
 
 Every lesson is `README.md` + `core/` + `prod/` + `runs/`. `core/` is
 from-scratch and dependency-light; `prod/` does the same job with the real
@@ -89,11 +101,12 @@ tool; `runs/` records the exact command, hardware, wall-clock, cost, and
 metrics. A lesson without a `runs/` entry stays `status: draft` in its
 frontmatter and shows as draft in the README tables.
 
-Missions additionally need a `mission.yaml` written **before** building —
+Topics additionally need a `mission.yaml` written **before** building —
 declaring stakeholder, job, decision, baseline, primary metric, guardrails,
-budgets, and acceptance. Business outcomes cannot be executed, so they are
-proven against declared reproducible proxies, and every mission must state what
-it does *not* prove. Full rules in [`reference/standards/`](reference/standards/).
+budgets, and acceptance. (The contract file keeps the `mission-` name; the
+directory does not.) Business outcomes cannot be executed, so they are proven
+against declared reproducible proxies, and every topic must state what it does
+*not* prove. Full rules in [`reference/standards/`](reference/standards/).
 
 If you cannot run it, do not write the number. Estimates, plausible figures,
 and "typical" results are all failures here. External published results are
@@ -194,10 +207,10 @@ at the end, when asked.
   `ProcessDiagram` grammar: clickable stages, explicit ownership and handoff,
   vertical mobile adaptation, and no horizontal-scroll dependency. Do not add
   new Mermaid diagrams.
-- **The landing page routes to missions; chapters teach.** Mechanism-specific
+- **The landing page routes to topics; chapters teach.** Mechanism-specific
   demos live in the chapter that establishes their prerequisites and consumes
-  their output. The landing page explains the mission-first curriculum model
-  and sends the learner to a concrete mission, never to a carousel of abstract
+  their output. The landing page explains the topic-first curriculum model and
+  sends the learner to a concrete topic, never to a carousel of abstract
   layers or a foundations/platform reading sequence.
 - **A lesson is a complete decision path, not a stub.** State the mechanism,
   why it exists, its failure boundary, the executable path, and what the
@@ -220,8 +233,9 @@ at the end, when asked.
   semantic HTML, and the shared icon system when an icon is necessary. The
   repository test suite enforces this across authored text and source files.
 - **Hardware-neutral in curriculum prose.** Write "a 24GB card" or "the local
-  lane", not a specific GPU model. Naming real hardware is for `infra/` docs and
-  `runs/` records, which describe machines that actually ran something.
+  lane", not a specific GPU model. Naming real hardware is for `reference/`
+  compute-lane guides and `runs/` records, which describe machines that
+  actually ran something.
 - **Name at least two production alternatives** in `LANDSCAPE.md` tables. Single
   tools get acquired and archived; the curriculum should survive that.
 - **Commits**: `<type>(<scope>): <subject>`, imperative, ≤72 chars, no emoji.
@@ -230,9 +244,10 @@ at the end, when asked.
 
 ## Running GPU work
 
-Local lane and Modal lane are both documented in [`infra/`](infra/), including
-a verified setup path and the failure modes worth knowing in advance. Modal
-lessons print their dollar cost into `runs/`.
+Local lane and Modal lane are both documented in [`reference/`](reference/),
+as [`local-4090.md`](reference/local-4090.md) and [`modal.md`](reference/modal.md),
+including a verified setup path and the failure modes worth knowing in advance.
+Modal lessons print their dollar cost into `runs/`.
 
 ## What not to do
 

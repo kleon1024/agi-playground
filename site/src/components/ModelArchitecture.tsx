@@ -12,7 +12,7 @@
  * from it rather than typed in: change the KV-head count and the attention
  * parameters, the total, and the KV cache all move together, because they are
  * the same arithmetic the model summary prints. Recorded in
- * missions/01-language-model-agent/02-pretrain/runs/2026-07-28-pretrain-3b.md.
+ * 01-language-model/02-pretrain/runs/2026-07-28-pretrain-3b.md.
  *
  * Colours come from the shared theme variables so the drawing follows the
  * page's light or dark mode instead of carrying its own palette.

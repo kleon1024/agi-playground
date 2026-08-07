@@ -35,22 +35,26 @@ IGNORED_SOURCE_PATHS = {
     "site/docs",
 }
 
-# The four sections. "Business goal" and "outcome telemetry" are not directories —
-# they live inside each mission's contract, which is why the mission test below
+# The topics. "Business goal" and "outcome telemetry" are not directories —
+# they live inside each topic's contract, which is why the topic test below
 # checks for a contract rather than for more folders.
 FOUNDATIONS = ["01-first-training-loop"]
 
-MISSIONS = [
-    "01-language-model-agent",
+TOPICS = [
+    "01-language-model",
     "02-personalized-discovery",
     "03-quantitative-research",
-    "04-code-agent",
+    "04-agentic-platform",
+    "05-game-ai",
+    "07-multimodal-generation",
+    "08-bio-pharma-modeling",
+    "09-autonomous-driving",
 ]
 
 # reference/standards/mission-contract.md names these and calls the last two the fields
 # that keep the repo honest. Checking they are present is the difference
 # between a contract and a suggestion.
-MISSION_CONTRACT_FIELDS = [
+TOPIC_CONTRACT_FIELDS = [
     "stakeholder",
     "job",
     "decision",
@@ -65,7 +69,7 @@ MISSION_CONTRACT_FIELDS = [
     "does_not_prove",
 ]
 
-MISSION_01_STAGES = [
+TOPIC_01_STAGES = [
     "00-corpus",
     "01-tokenizer",
     "02-pretrain",
@@ -82,22 +86,24 @@ def test_foundations_lessons_exist():
         assert (ROOT / "foundations" / name / "README.md").is_file()
 
 
-def test_only_the_four_documented_sections_exist():
-    """A fifth top-level section is a boundary nobody has written down.
+def test_only_the_documented_sections_exist():
+    """A top-level section nobody documented is a boundary nobody wrote down.
 
     `platform/` and `capabilities/` were both that: directories a reader
     could not tell apart from the ones beside them, each holding a second
-    telling of a mission over the same lifecycle. The four that remain each
-    have a one-sentence boundary in AGENTS.md, and adding a fifth means
-    writing its boundary there first.
+    telling of a topic over the same lifecycle. The `missions/` level repeated
+    that lesson at one remove and was deleted too: the topics were pulled up
+    one level so the directory is the reader-facing domain. Every directory
+    that remains has a one-sentence boundary in AGENTS.md, and adding another
+    means writing its boundary there first.
     """
-    documented = {"missions", "foundations", "infra", "reference"}
+    documented = set(TOPICS) | {"foundations", "reference"}
     for gone in ("platform", "capabilities"):
         assert not (ROOT / gone).exists(), (
             f"{gone}/ is back; AGENTS.md says a shared chapter stays in the "
-            "mission that built and measured it"
+            "topic that built and measured it"
         )
-    # `site/` is the Docusaurus application that publishes the four; it has a
+    # `site/` is the Docusaurus application that publishes the sections; it has a
     # README because contributors build it, not because readers read it.
     top = {
         d.name
@@ -109,7 +115,7 @@ def test_only_the_four_documented_sections_exist():
     }
     assert top == documented, (
         f"top-level content directories are {sorted(top)}, AGENTS.md documents "
-        f"{sorted(documented)} -- write the fifth boundary down first"
+        f"{sorted(documented)} -- write the missing boundary down first"
     )
 
 
@@ -120,12 +126,13 @@ def test_no_foundation_chapter_is_an_orphan():
     from any mission, which is how a second curriculum grew beside the first
     without anyone noticing. A foundation earns its place by being the detour
     some stage actually sends the reader on -- from a *stage* README, not a
-    mission overview, because an overview can list anything.
+    topic overview, because an overview can list anything.
     """
     stage_text = "\n".join(
         readme.read_text()
-        for readme in sorted((ROOT / "missions").rglob("README.md"))
-        if len(readme.relative_to(ROOT / "missions").parts) > 2
+        for topic in TOPICS
+        for readme in sorted((ROOT / topic).rglob("README.md"))
+        if len(readme.relative_to(ROOT / topic).parts) > 1
         and not {"core", "prod", "runs", "cache"} & set(readme.parts)
     )
     orphans = []
@@ -152,7 +159,7 @@ def test_a_widget_belongs_to_one_chapter():
     widget, one owning chapter, and every other chapter links to it.
     """
     owners: dict[str, list[str]] = {}
-    for section in ("missions", "foundations", "infra", "reference"):
+    for section in (*TOPICS, "foundations", "reference"):
         for page in sorted((ROOT / section).rglob("*.md")):
             if {"core", "prod", "runs", "cache"} & set(page.parts):
                 continue
@@ -164,11 +171,11 @@ def test_a_widget_belongs_to_one_chapter():
     )
 
 
-def test_a_shared_chapter_stays_in_the_mission_that_built_it():
+def test_a_shared_chapter_stays_in_the_topic_that_built_it():
     """There is no `capabilities/` directory, and reuse does not create one.
 
     It existed for one chapter -- the agent harness -- and held a second, fuller
-    telling of mission 01 stage 06 with no `core/`, `prod/`, or `runs/` beside
+    telling of topic 01 stage 06 with no `core/`, `prod/`, or `runs/` beside
     it. Separating an explanation from the run that backs it is how a chapter
     ends up making a claim with no evidence attached, which is the one thing
     this repository is built not to do. A second consumer now links to the
@@ -178,26 +185,26 @@ def test_a_shared_chapter_stays_in_the_mission_that_built_it():
         "reuse means a second mission links to the chapter where it was "
         "measured, not that the chapter moves into a directory of its own"
     )
-    harness = ROOT / "missions" / "01-language-model-agent" / "06-agent"
+    harness = ROOT / "01-language-model" / "06-agent"
     for consumer in (
-        ROOT / "missions" / "02-personalized-discovery" / "07-rule-engine" / "README.md",
-        ROOT / "missions" / "04-code-agent" / "README.md",
+        ROOT / "02-personalized-discovery" / "shared" / "07-rule-engine" / "README.md",
+        ROOT / "04-agentic-platform" / "README.md",
     ):
-        assert "01-language-model-agent/06-agent" in consumer.read_text(), (
+        assert "01-language-model/06-agent" in consumer.read_text(), (
             f"{consumer.relative_to(ROOT)} reuses the agent harness but does "
             "not link to it"
         )
     assert (harness / "runs").is_dir(), "the shared chapter kept its evidence"
 
 
-def test_missions_declare_a_contract():
-    """A mission without a contract is a demo, not a mission."""
-    for name in MISSIONS:
-        mission = ROOT / "missions" / name
-        assert (mission / "README.md").is_file(), f"missing missions/{name}/README.md"
-        contract = mission / "mission.yaml"
+def test_topics_declare_a_contract():
+    """A topic without a contract is a demo, not a topic."""
+    for name in TOPICS:
+        topic = ROOT / name
+        assert (topic / "README.md").is_file(), f"missing {name}/README.md"
+        contract = topic / "mission.yaml"
         assert contract.is_file(), (
-            f"missions/{name} has no mission.yaml — every mission must declare "
+            f"{name} has no mission.yaml — every topic must declare "
             "stakeholder, job, decision, baseline, primary_metric, guardrails, "
             "budgets, capabilities, and acceptance before it is built"
         )
@@ -206,18 +213,18 @@ def test_missions_declare_a_contract():
         # and ruff, and a structural check should not be the thing that
         # changes that.
         keys = set(re.findall(r"^([a-z_]+):", contract.read_text(), re.MULTILINE))
-        missing = [f for f in MISSION_CONTRACT_FIELDS if f not in keys]
+        missing = [f for f in TOPIC_CONTRACT_FIELDS if f not in keys]
         assert not missing, (
-            f"missions/{name}/mission.yaml is missing {missing}. "
+            f"{name}/mission.yaml is missing {missing}. "
             "reference/standards/mission-contract.md requires every field; proves and "
-            "does_not_prove are what stop a mission from claiming an outcome "
+            "does_not_prove are what stop a topic from claiming an outcome "
             "it only proxied."
         )
 
 
-def test_mission_01_stages_exist():
-    for name in MISSION_01_STAGES:
-        readme = ROOT / "missions" / "01-language-model-agent" / name / "README.md"
+def test_topic_01_stages_exist():
+    for name in TOPIC_01_STAGES:
+        readme = ROOT / "01-language-model" / name / "README.md"
         assert readme.is_file(), f"missing {readme}"
 
 
@@ -225,7 +232,7 @@ def test_mission_01_stages_exist():
 # therefore say which weights its claims rest on. Mission 02 and 03 stages are
 # recommender and quantitative work with no language-model base, so the
 # declaration would be noise there rather than a check.
-BASE_DECLARING_TREES = ["foundations", "missions/01-language-model-agent"]
+BASE_DECLARING_TREES = ["foundations", "01-language-model"]
 BASE_PATTERN = re.compile(r"^base: (scratch|none|external:\S+)$", re.MULTILINE)
 
 
@@ -266,7 +273,7 @@ def test_every_published_page_declares_its_level():
     allowed = {"foundation", "applied", "frontier", "reference"}
     pattern = re.compile(r"^level:\s*(\S+)\s*$", re.MULTILINE)
     problems = []
-    for section in ("foundations", "missions", "infra", "reference"):
+    for section in (*TOPICS, "foundations", "reference"):
         for page in sorted((ROOT / section).rglob("*.md")):
             if {"core", "prod", "runs", "cache"} & set(page.parts):
                 continue
@@ -292,7 +299,7 @@ def test_currency_amounts_are_escaped_in_prose():
     that means to be a formula opens and closes deliberately.
     """
     problems = []
-    for section in ("foundations", "missions", "infra", "reference"):
+    for section in (*TOPICS, "foundations", "reference"):
         for page in sorted((ROOT / section).rglob("*.md")):
             if {"core", "prod", "cache"} & set(page.parts):
                 continue
@@ -367,7 +374,6 @@ def test_top_level_docs_exist():
         "AGENTS.md",
         "reference/README.md",
         "reference/research/README.md",
-        "infra/README.md",
         "reference/standards/README.md",
         "reference/standards/mission-contract.md",
         "reference/standards/lesson-and-run-contract.md",

@@ -39,7 +39,7 @@ comparison does not transfer *for this particular mixture* — it is not telling
 you which size is correct.
 
 This is the same discipline
-[the architecture ladder](../../../missions/01-language-model-agent/02-pretrain/architecture-ablations/) arrives at
+[the architecture ladder](../../../01-language-model/02-pretrain/architecture-ablations/) arrives at
 from the other direction: trust a ranking only where it is stable across at
 least two sizes at the same budget definition.
 
@@ -54,7 +54,7 @@ result.
 The control is generating comparison data with a model of comparable size and
 capability, so the difference is attributable to the method rather than to
 which teacher produced the underlying text.
-[Distillation](../../../missions/01-language-model-agent/03-sft/distillation/) ran exactly that control and
+[Distillation](../../../01-language-model/03-sft/distillation/) ran exactly that control and
 found the reference set decided the winner — a warning worth reading before
 trusting any teacher-versus-human comparison.
 
@@ -146,7 +146,7 @@ most tasks do not.
 Neither confound has been demonstrated in this repository — no ablation has run
 against its own corpus at two sizes, and no synthetic-mixture arm exists. These
 are documented failure modes with named controls, not measurements. What
-[the distillation run](../../../missions/01-language-model-agent/03-sft/distillation/) does establish is
+[the distillation run](../../../01-language-model/03-sft/distillation/) does establish is
 adjacent and real: with the teacher held fixed, held-out loss measured which
 author wrote the reference set rather than which corpus was better.
 

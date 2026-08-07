@@ -67,7 +67,7 @@ load-balancing targets the realized counts, not the entropy.
 
 ## The production line, in this repo's terms
 
-The lineage ([the language-model line](../../reference/research/lineages/01-language-model-system.md))
+The lineage ([the language-model line](../../01-language-model/lineage.md))
 names what the frontier added to this toy's three variables. **SwiGLU** is
 the expert shape (its gate can align with the linear and explode, which K3
 answers with SiTU plus a softcap). **LatentMoE** inserts a down-projection
@@ -126,7 +126,7 @@ load-balancing targets counts, not entropy.
 ## Next
 
 Back to the foundations index, or forward to
-[the language-model lineage](../../reference/research/lineages/01-language-model-system.md)
+[the language-model lineage](../../01-language-model/lineage.md)
 where this mechanism's frontier forms (LatentMoE, SiTU, Quantile Balancing)
 are traced to the papers that introduced them.
 

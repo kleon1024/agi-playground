@@ -5,7 +5,7 @@
  * vocabulary, so its cross-entropy is ln(vocab_size). The measured default is
  * this repository's own stage-02 run — 9.8697 against ln(16,512) = 9.712,
  * recorded in
- * missions/01-language-model-agent/02-pretrain/runs/2026-07-28-pretrain-3b.md.
+ * 01-language-model/02-pretrain/runs/2026-07-28-pretrain-3b.md.
  * Every other position of the slider is a hypothetical the reader is asked to
  * diagnose, and is labelled as one.
  */

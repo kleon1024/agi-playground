@@ -13,8 +13,8 @@ readable file and under a minute of GPU time.
 This is the smallest *complete* pretraining loop — tokenizer, model, training
 loop, sampler, all written out, nothing imported from a framework. Everything
 later in the curriculum is this loop with better answers to each question:
-[stage 01](../../missions/01-language-model-agent/01-tokenizer/) replaces the character tokenizer
-with a real BPE, [stage 02](../../missions/01-language-model-agent/02-pretrain/) replaces
+[stage 01](../../01-language-model/01-tokenizer/) replaces the character tokenizer
+with a real BPE, [stage 02](../../01-language-model/02-pretrain/) replaces
 Shakespeare with 3B tokens of filtered web text, and track 06 replaces the
 naive sampler with a paged-KV inference engine.
 
@@ -137,7 +137,7 @@ train/validation gap opening up (1.275 vs 1.538) is that memorization becoming
 visible.
 
 You cannot fix this model by making it bigger. That is the entire argument for
-why [stage 00](../../missions/01-language-model-agent/00-corpus/) — building a real corpus — comes
+why [stage 00](../../01-language-model/00-corpus/) — building a real corpus — comes
 before stage 02.
 
 ## Reading the code
@@ -183,8 +183,8 @@ before stage 02.
 
 ## Next
 
-[Stage 02 — pretraining](../../missions/01-language-model-agent/02-pretrain/) generalizes every choice made
-here, or jump to [stage 00](../../missions/01-language-model-agent/00-corpus/) to build the corpus
+[Stage 02 — pretraining](../../01-language-model/02-pretrain/) generalizes every choice made
+here, or jump to [stage 00](../../01-language-model/00-corpus/) to build the corpus
 this model was starved of.
 
 A detour from here: [the descent and the overfitting are the same

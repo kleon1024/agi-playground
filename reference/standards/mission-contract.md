@@ -104,7 +104,7 @@ whether the chapter now owes a stable contract to somebody other than its
 author, and must be edited as though a second consumer exists.
 
 One chapter has cleared it: [mission 01's agent
-harness](../../missions/01-language-model-agent/06-agent/), reused by personalized discovery's rule engine and by
+harness](../../01-language-model/06-agent/), reused by personalized discovery's rule engine and by
 the code-agent mission. Perception, generation, ranking, and continual learning
 are named in the architecture because the structure must have somewhere to put
 them — not because they are half-built.

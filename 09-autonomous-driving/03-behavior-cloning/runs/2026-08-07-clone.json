@@ -1,0 +1,16 @@
+{
+  "train_scenarios": 60,
+  "eval_scenarios": 50,
+  "train_frames": 8366,
+  "epochs": 20,
+  "params": 139781,
+  "collect_wall_s": 2.78,
+  "train_wall_s": 2.0,
+  "eval_wall_s": 2.48,
+  "eval_frames": 7432,
+  "steer_accuracy": 0.8827,
+  "throttle_accuracy": 0.866,
+  "joint_accuracy": 0.7718,
+  "baseline_steer_accuracy": 0.7396,
+  "baseline_throttle_accuracy": 0.8457
+}

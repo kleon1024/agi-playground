@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCORING_PATH = ROOT / "missions/04-code-agent/02-agent-loop/core/scoring.py"
+SCORING_PATH = ROOT / "04-agentic-platform/02-agent-loop/core/scoring.py"
 
 SPEC = importlib.util.spec_from_file_location("scoring", SCORING_PATH)
 assert SPEC is not None and SPEC.loader is not None
@@ -91,7 +91,7 @@ def test_no_outcomes_is_not_a_pass():
 
 
 def test_a_real_fix_resolves():
-    result = _score(changed=["missions/01-language-model-agent/05-serve/core/engine.py"])
+    result = _score(changed=["01-language-model/05-serve/core/engine.py"])
 
     assert result.verdict == "resolved"
     assert result.resolved is True

@@ -9,7 +9,7 @@
  * perplexity together.
  *
  * The reference lines are measured, from
- * missions/01-language-model-agent/02-pretrain/runs/2026-07-28-pretrain-3b.md:
+ * 01-language-model/02-pretrain/runs/2026-07-28-pretrain-3b.md:
  * the uniform floor ln(16,512) = 9.712, the observed step-0 loss of 9.8697,
  * and the best validation loss of 3.0689. The scoring model itself is a
  * deliberate simplification and is labelled as one on the page: a real model

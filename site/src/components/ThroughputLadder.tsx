@@ -2,7 +2,7 @@
  * Five flags, one at a time, on an unchanged model and an unchanged batch.
  *
  * Every number is measured, from
- * missions/01-language-model-agent/02-pretrain/throughput/runs/2026-07-28-throughput-ladder.md, at
+ * 01-language-model/02-pretrain/throughput/runs/2026-07-28-throughput-ladder.md, at
  * micro-batch 16 over 30 timed steps following 10 discarded warm-up steps.
  *
  * The learner turns each flag on and off and reads the consequence for
@@ -194,7 +194,7 @@ export default function ThroughputLadder(): React.ReactElement {
 
       <p>
         Measured on one 24GB card, 30 timed steps after 10 discarded warm-up steps, in{' '}
-        <code>missions/01-language-model-agent/02-pretrain/throughput/runs/2026-07-28-throughput-ladder.md</code>.
+        <code>01-language-model/02-pretrain/throughput/runs/2026-07-28-throughput-ladder.md</code>.
         MFU is computed against a published 165 TFLOP/s bf16 figure, so it is comparable
         across this repository&rsquo;s runs and not against numbers using a different
         denominator.

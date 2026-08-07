@@ -90,5 +90,5 @@ collapse.
 ## Next
 
 Back to [the MoE chapter](../), or to
-[the rung where MoE was measured](../../../missions/01-language-model-agent/02-pretrain/architecture-ablations/the-rung-that-flipped/)
+[the rung where MoE was measured](../../../01-language-model/02-pretrain/architecture-ablations/the-rung-that-flipped/)
 which tests the same mechanism on a real decoder.

@@ -107,5 +107,5 @@ in theta.
 ## Next
 
 Back to [the decoder block](../), or forward to
-[mission 01's architecture](../../../missions/01-language-model-agent/02-pretrain/)
+[mission 01's architecture](../../../01-language-model/02-pretrain/)
 where this rotation is one config line in the 88M model.

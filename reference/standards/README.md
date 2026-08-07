@@ -11,6 +11,7 @@ adding a lesson, a capability, or a mission.
 |---|---|
 | [`mission-contract.md`](mission-contract.md) | What a mission must declare before it is built, how outcomes are proven when they cannot be run, and the gate a capability must pass to enter the curriculum |
 | [`lesson-and-run-contract.md`](lesson-and-run-contract.md) | Lesson anatomy, what a run record must contain, `status:` semantics, and the rules that exist because they were broken first |
+| [`depth-audit.md`](depth-audit.md) | The standing audit program: every section is deepened failure-mode by failure-mode, from real research and industry practice, never from memory |
 
 ## The two invariants
 

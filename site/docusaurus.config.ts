@@ -56,10 +56,32 @@ const config: Config = {
   // site. The map lives in its own file so a move is a data edit, and the
   // plugin validates every `to` against the built routes, so a redirect cannot
   // silently start pointing at nothing.
+  //
+  // `legacyPrefixes` covers the two whole trees that moved as one -- the
+  // removed missions/ level and the absorbed infra/ tree. `createRedirects`
+  // is called with every built route; for each prefix pair whose `to` matches,
+  // it emits the old path with the same suffix, longest `to` first so a vision
+  // route matches the vision entry before the language-model entry it nests
+  // under. Keeping the map in the JSON file, beside the hand-written exact
+  // redirects, makes a future move a data edit in one place.
   plugins: [
     [
       '@docusaurus/plugin-client-redirects',
-      {redirects: routeRedirects.redirects},
+      {
+        redirects: routeRedirects.redirects,
+        createRedirects(existingPath: string): string[] {
+          const legacy = [...routeRedirects.legacyPrefixes].sort(
+            (a, b) => b.to.length - a.to.length,
+          );
+          const froms: string[] = [];
+          for (const {from, to} of legacy) {
+            if (existingPath === to || existingPath.startsWith(`${to}/`)) {
+              froms.push(from + existingPath.slice(to.length));
+            }
+          }
+          return froms;
+        },
+      },
     ],
   ],
 

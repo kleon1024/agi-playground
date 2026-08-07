@@ -1,0 +1,27 @@
+{
+  "scenarios_per_cell": 50,
+  "rows": {
+    "rule baseline (in-distribution)": 0.28,
+    "expert (in-distribution)": 0.92,
+    "cloned (in-distribution)": 0.28,
+    "expert (hard)": 0.78,
+    "cloned (hard)": 0.04
+  },
+  "imitation_vs_loop_gap": {
+    "joint_imitation_accuracy": 0.7718,
+    "cloned_completion": 0.28,
+    "expert_completion": 0.92
+  },
+  "hard_boundary": {
+    "expert_completion": 0.78,
+    "cloned_completion": 0.04,
+    "cloned_timeout": 0.72
+  },
+  "verdicts": {
+    "cloned beats rule baseline": false,
+    "imitation-vs-loop gap reported": true,
+    "every stage has a runs/ entry": true,
+    "hard boundary reported as a finding": true,
+    "does_not_prove boundary stated": true
+  }
+}

@@ -26,7 +26,7 @@ torchrun --standalone --nproc_per_node=4 core/distributed.py --mode ddp
 torchrun --standalone --nproc_per_node=4 core/distributed.py --mode zero1
 ```
 
-**Before this:** [what are you actually training](../../missions/01-language-model-agent/02-pretrain/).
+**Before this:** [what are you actually training](../../01-language-model/02-pretrain/).
 You need the single-card picture — a token budget, a step, an optimizer state —
 before it means anything to split one across eight cards.
 
@@ -132,7 +132,7 @@ engineering difference between this file and the real thing.
 FSDP2 is ZeRO-3 built on DTensor: parameters, gradients, and optimizer state
 are all sharded per-parameter, and each layer's full weights are gathered
 just-in-time for its forward and freed immediately after. Read
-[the serving stage](../../missions/01-language-model-agent/05-serve/) for the inference-side counterpart, where
+[the serving stage](../../01-language-model/05-serve/) for the inference-side counterpart, where
 the same memory pressure reappears as KV cache rather than optimizer state.
 
 ## Exercises
@@ -161,13 +161,13 @@ This chapter chooses *what* to shard. Four infrastructure chapters measure the
 machine that decides whether the choice is affordable, each one running the
 comparison on hardware you already have:
 
-- [Why allreduce topology matters even though the sum comes out the same](../../infra/01-networking/) —
+- [Why allreduce topology matters even though the sum comes out the same](networking/) —
   ring versus star, measured over real inter-process IPC.
-- [Why the cluster's wiring decides the parallelism strategy](../../infra/05-gpu-cluster-concepts/) —
+- [Why the cluster's wiring decides the parallelism strategy](gpu-cluster-concepts/) —
   which of data, tensor, and pipeline parallelism tolerates which link.
-- [A scheduler decides whose work happens first](../../infra/03-orchestration/) —
+- [A scheduler decides whose work happens first](orchestration/) —
   what happens to a multi-rank job when it has to queue for slots.
-- [How much data actually moves when a storage node is added](../../infra/02-storage/) —
+- [How much data actually moves when a storage node is added](storage/) —
   where the sharded checkpoints this chapter writes end up living.
 
 A detour from here: [the all-reduce that makes ranks

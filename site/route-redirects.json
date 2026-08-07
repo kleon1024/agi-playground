@@ -6,172 +6,218 @@
     "the plugin prepends it. `to` must resolve in the current build or the build",
     "fails, which is the point: a redirect that rots is worse than none.",
     "Append here when a chapter moves; never delete an entry, because the old",
-    "URL stays in somebody's history forever."
+    "URL stays in somebody's history forever.",
+    "",
+    "`legacyPrefixes` is the same promise for whole trees that moved as one:",
+    "every current route under `to` also resolves under `from` with the same",
+    "suffix. The missions/ level was removed and the remaining directories were",
+    "pulled up one level; infra/ was absorbed into the topic that uses the",
+    "mechanism. docusaurus.config.ts derives the per-route redirects from this",
+    "list, longest `to` first so a vision route matches the vision entry before",
+    "the language-model entry it is nested under."
+  ],
+  "legacyPrefixes": [
+    { "from": "/missions/01-language-model-agent", "to": "/01-language-model/" },
+    { "from": "/missions/02-personalized-discovery", "to": "/02-personalized-discovery/" },
+    { "from": "/missions/03-quantitative-research", "to": "/03-quantitative-research/" },
+    { "from": "/missions/04-code-agent", "to": "/04-agentic-platform/" },
+    { "from": "/missions/05-vision-language-model", "to": "/01-language-model/vision/" },
+    { "from": "/missions/06-game-ai", "to": "/05-game-ai/" },
+    { "from": "/missions/07-realtime-voice", "to": "/07-multimodal-generation/voice/" },
+    { "from": "/missions/08-video-generation", "to": "/07-multimodal-generation/video/" },
+    { "from": "/missions/09-bio-pharma-modeling", "to": "/08-bio-pharma-modeling/" },
+    { "from": "/infra/01-networking", "to": "/foundations/04-distributed-training/networking/" },
+    { "from": "/infra/02-storage", "to": "/foundations/04-distributed-training/storage/" },
+    { "from": "/infra/03-orchestration", "to": "/foundations/04-distributed-training/orchestration/" },
+    { "from": "/infra/04-observability", "to": "/01-language-model/05-serve/observability/" },
+    { "from": "/infra/05-gpu-cluster-concepts", "to": "/foundations/04-distributed-training/gpu-cluster-concepts/" },
+    { "from": "/infra/06-gpu-dedup-at-scale", "to": "/01-language-model/00-corpus/dedup-at-scale/" },
+    { "from": "/infra/07-rollout-concurrency", "to": "/01-language-model/04-rl/rollout-concurrency/" }
   ],
   "redirects": [
     {
+      "from": "/missions",
+      "to": "/"
+    },
+    {
+      "from": "/infra",
+      "to": "/foundations/04-distributed-training/"
+    },
+    {
+      "from": "/infra/local-4090",
+      "to": "/reference/local-4090/"
+    },
+    {
+      "from": "/infra/modal",
+      "to": "/reference/modal/"
+    },
+    {
+      "from": "/infra/tracking",
+      "to": "/reference/tracking/"
+    },
+    {
       "from": "/capabilities",
-      "to": "/missions"
+      "to": "/"
     },
     {
       "from": "/capabilities/act-coordinate",
-      "to": "/missions/01-language-model-agent/06-agent"
+      "to": "/01-language-model/06-agent/"
     },
     {
       "from": "/capabilities/act-coordinate/LANDSCAPE",
-      "to": "/missions/01-language-model-agent/06-agent/LANDSCAPE"
+      "to": "/01-language-model/06-agent/LANDSCAPE/"
     },
     {
       "from": "/capabilities/act-coordinate/01-multi-agent",
-      "to": "/missions/01-language-model-agent/06-agent/would-a-second-agent-help"
+      "to": "/01-language-model/06-agent/would-a-second-agent-help/"
     },
     {
       "from": "/capabilities/act-coordinate/01-multi-agent/prod",
-      "to": "/missions/01-language-model-agent/06-agent/would-a-second-agent-help/prod"
+      "to": "/01-language-model/06-agent/would-a-second-agent-help/prod/"
     },
     {
       "from": "/platform/serving",
-      "to": "/missions/01-language-model-agent/05-serve"
+      "to": "/01-language-model/05-serve/"
     },
     {
       "from": "/platform/serving/LANDSCAPE",
-      "to": "/missions/01-language-model-agent/05-serve/LANDSCAPE"
+      "to": "/01-language-model/05-serve/LANDSCAPE/"
     },
     {
       "from": "/platform/serving/01-graph-execution",
-      "to": "/missions/01-language-model-agent/05-serve/graph-execution"
+      "to": "/01-language-model/05-serve/graph-execution/"
     },
     {
       "from": "/platform/serving/02-quantization",
-      "to": "/missions/01-language-model-agent/05-serve/quantization"
+      "to": "/01-language-model/05-serve/quantization/"
     },
     {
       "from": "/platform/serving/03-speculative-decoding",
-      "to": "/missions/01-language-model-agent/05-serve/speculative-decoding"
+      "to": "/01-language-model/05-serve/speculative-decoding/"
     },
     {
       "from": "/platform/adaptation",
-      "to": "/missions/01-language-model-agent/03-sft"
+      "to": "/01-language-model/03-sft/"
     },
     {
       "from": "/platform/adaptation/post-training",
-      "to": "/missions/01-language-model-agent/03-sft"
+      "to": "/01-language-model/03-sft/"
     },
     {
       "from": "/platform/adaptation/post-training/LANDSCAPE",
-      "to": "/missions/01-language-model-agent/03-sft/LANDSCAPE"
+      "to": "/01-language-model/03-sft/LANDSCAPE/"
     },
     {
       "from": "/platform/adaptation/reinforcement-learning",
-      "to": "/missions/01-language-model-agent/04-rl"
+      "to": "/01-language-model/04-rl/"
     },
     {
       "from": "/platform/adaptation/reinforcement-learning/LANDSCAPE",
-      "to": "/missions/01-language-model-agent/04-rl/LANDSCAPE"
+      "to": "/01-language-model/04-rl/LANDSCAPE/"
     },
     {
       "from": "/platform/adaptation/mid-training",
-      "to": "/missions/01-language-model-agent/02-pretrain/mid-training"
+      "to": "/01-language-model/02-pretrain/mid-training/"
     },
     {
       "from": "/platform/adaptation/distillation",
-      "to": "/missions/01-language-model-agent/03-sft/distillation"
+      "to": "/01-language-model/03-sft/distillation/"
     },
     {
       "from": "/platform/adaptation/distillation/which-teacher-changes-what",
-      "to": "/missions/01-language-model-agent/03-sft/distillation/which-teacher-changes-what"
+      "to": "/01-language-model/03-sft/distillation/which-teacher-changes-what/"
     },
     {
       "from": "/platform/adaptation/distillation/what-path-two-requires",
-      "to": "/missions/01-language-model-agent/03-sft/distillation/what-path-two-requires"
+      "to": "/01-language-model/03-sft/distillation/what-path-two-requires/"
     },
     {
       "from": "/platform/training",
-      "to": "/missions/01-language-model-agent/02-pretrain"
+      "to": "/01-language-model/02-pretrain/"
     },
     {
       "from": "/platform/training/LANDSCAPE",
-      "to": "/missions/01-language-model-agent/02-pretrain/LANDSCAPE"
+      "to": "/01-language-model/02-pretrain/LANDSCAPE/"
     },
     {
       "from": "/platform/training/01-distributed",
-      "to": "/foundations/04-distributed-training"
+      "to": "/foundations/04-distributed-training/"
     },
     {
       "from": "/platform/training/02-architecture-ablations",
-      "to": "/missions/01-language-model-agent/02-pretrain/architecture-ablations"
+      "to": "/01-language-model/02-pretrain/architecture-ablations/"
     },
     {
       "from": "/platform/training/02-architecture-ablations/the-rung-that-flipped",
-      "to": "/missions/01-language-model-agent/02-pretrain/architecture-ablations/the-rung-that-flipped"
+      "to": "/01-language-model/02-pretrain/architecture-ablations/the-rung-that-flipped/"
     },
     {
       "from": "/platform/training/03-throughput",
-      "to": "/missions/01-language-model-agent/02-pretrain/throughput"
+      "to": "/01-language-model/02-pretrain/throughput/"
     },
     {
       "from": "/platform/training/04-latent-reasoning",
-      "to": "/missions/01-language-model-agent/02-pretrain/latent-reasoning"
+      "to": "/01-language-model/02-pretrain/latent-reasoning/"
     },
     {
       "from": "/platform/training/05-upcycling",
-      "to": "/missions/01-language-model-agent/02-pretrain/upcycling"
+      "to": "/01-language-model/02-pretrain/upcycling/"
     },
     {
       "from": "/platform/training/05-upcycling/does-it-pay-off",
-      "to": "/missions/01-language-model-agent/02-pretrain/upcycling/does-it-pay-off"
+      "to": "/01-language-model/02-pretrain/upcycling/does-it-pay-off/"
     },
     {
       "from": "/platform",
-      "to": "/missions"
+      "to": "/"
     },
     {
       "from": "/platform/data",
-      "to": "/missions/01-language-model-agent/00-corpus"
+      "to": "/01-language-model/00-corpus/"
     },
     {
       "from": "/platform/data/LANDSCAPE",
-      "to": "/missions/01-language-model-agent/00-corpus/LANDSCAPE"
+      "to": "/01-language-model/00-corpus/LANDSCAPE/"
     },
     {
       "from": "/platform/data/01-ablation-harness",
-      "to": "/foundations/05-is-the-difference-real"
+      "to": "/foundations/05-is-the-difference-real/"
     },
     {
       "from": "/platform/data/01-ablation-harness/the-two-confounds",
-      "to": "/foundations/05-is-the-difference-real/the-two-confounds"
+      "to": "/foundations/05-is-the-difference-real/the-two-confounds/"
     },
     {
       "from": "/platform/evaluation-observability",
-      "to": "/missions/01-language-model-agent/07-eval"
+      "to": "/01-language-model/07-eval/"
     },
     {
       "from": "/platform/evaluation-observability/LANDSCAPE",
-      "to": "/missions/01-language-model-agent/07-eval/LANDSCAPE"
+      "to": "/01-language-model/07-eval/LANDSCAPE/"
     },
     {
       "from": "/platform/evaluation-observability/01-metric-gaming",
-      "to": "/missions/01-language-model-agent/07-eval/metric-gaming"
+      "to": "/01-language-model/07-eval/metric-gaming/"
     },
     {
       "from": "/platform/evaluation-observability/02-statistical-significance",
-      "to": "/foundations/06-significance"
+      "to": "/foundations/06-significance/"
     },
     {
       "from": "/platform/safety-governance",
-      "to": "/missions/01-language-model-agent/07-eval/who-decides-to-ship"
+      "to": "/01-language-model/07-eval/who-decides-to-ship/"
     },
     {
       "from": "/platform/safety-governance/01-eval-gates",
-      "to": "/missions/01-language-model-agent/07-eval/eval-gates"
+      "to": "/01-language-model/07-eval/eval-gates/"
     },
     {
       "from": "/platform/safety-governance/02-red-teaming",
-      "to": "/missions/01-language-model-agent/07-eval/red-teaming"
+      "to": "/01-language-model/07-eval/red-teaming/"
     },
     {
       "from": "/reference/research/mid-training",
-      "to": "/missions/01-language-model-agent/02-pretrain/mid-training"
+      "to": "/01-language-model/02-pretrain/mid-training/"
     }
   ]
 }

@@ -24,7 +24,7 @@ token
 
 **Before this:** nothing. This chapter explains the forward path. The
 [first training loop](../01-first-training-loop/) supplies the backward path,
-and [pretraining](../../missions/01-language-model-agent/02-pretrain/) later joins both to real data.
+and [pretraining](../../01-language-model/02-pretrain/) later joins both to real data.
 
 Every formula below is followed by its value in **the 88M model this repository
 actually trained** — 12 layers, 12 query heads, 4 key-value heads, `d_model` 768,
@@ -311,8 +311,8 @@ learned language. That requires a corpus, an optimization budget, and a run.
 
 Continue to [what a block costs](what-it-costs/) to price everything above and
 find out where a transformer really keeps what it knows. Then to
-[the corpus stage](../../missions/01-language-model-agent/00-corpus/) to construct the input distribution, or to
-[pretraining](../../missions/01-language-model-agent/02-pretrain/) if you already have a clean shard.
+[the corpus stage](../../01-language-model/00-corpus/) to construct the input distribution, or to
+[pretraining](../../01-language-model/02-pretrain/) if you already have a clean shard.
 
 Primary references, in the order the mechanism actually accumulated:
 Vaswani et al., "Attention Is All You Need" (2017) introduces the scaled

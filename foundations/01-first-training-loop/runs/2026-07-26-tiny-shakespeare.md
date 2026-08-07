@@ -64,7 +64,7 @@ implied hardware utilization is the number worth keeping:
 - 959.5k tok/s × 71 MFLOP ≈ **68 TFLOP/s**
 
 Against 138.8 TFLOP/s measured for raw bf16 matmul on this card (see
-[`infra/local-4090.md`](../../../infra/local-4090.md)), that is **~49%
+[`reference/local-4090.md`](../../../reference/local-4090.md)), that is **~49%
 utilization** — a believable figure for a model this small, where kernel launch
 overhead and undersized matmuls prevent saturation. A substantially higher
 number would indicate a measurement bug rather than a fast model.

@@ -18,12 +18,13 @@ RL post-training, exercise-driven inference infra, and agent harness engineering
 |---|---|
 | [synthesis.md](synthesis.md) | Distilled findings: positioning, per-track anchors, compute lanes |
 | [01-curricula-landscape.md](01-curricula-landscape.md) | Existing curricula (Karpathy lineage, CS336, Raschka, HF courses, fast.ai) and gap analysis |
-| [02-pretraining-and-data.md](02-pretraining-and-data.md) | Pretraining reference implementations; data pipeline, curation, annotation, tokenizer tooling |
-| [03-post-training-and-rl.md](03-post-training-and-rl.md) | Post-training frameworks, the 2026 algorithm canon (DPO family, GRPO/RLVR), recipes, 4090 feasibility |
-| [04-infra-and-agent-harness.md](04-infra-and-agent-harness.md) | Inference engine internals, training infra, agent harness engineering, evals, solo-builder infra |
-| [05-agent-memory.md](05-agent-memory.md) | Agent memory storage shapes, what Anthropic actually ships, the provenance of the "graph engineering" claim, and the edge-density measurement nobody publishes |
-| [06-harness-effects.md](06-harness-effects.md) | The published case where two harness settings tripled an ARC-AGI-3 score with the model unchanged, what it establishes, and what the encrypted half of it does not |
-| [lineages/](lineages/) | Per-mission model lineage: how the open-source line behind each mission evolved, what each successor traded, and the dated paper interpretations |
+| [lineages/](lineages/) | Model lineage notes no longer kept as one collection: each topic carries its own `lineage.md` beside the stages it traces (e.g. [`01-language-model/lineage.md`](../../01-language-model/lineage.md)). |
+
+The later passes moved with the topic they describe: pretraining and
+post-training landscape now sit beside the corpus and RL stages in
+[`01-language-model/`](../../01-language-model/), and the agent-memory and
+harness-effects passes sit beside the agentic platform stages in
+[`04-agentic-platform/`](../../04-agentic-platform/).
 
 > Passes 01-04 were conducted 2026-07-24; pass 05 on 2026-07-29; pass 06 on
 > 2026-07-30. Landscape facts

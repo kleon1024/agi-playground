@@ -32,22 +32,28 @@ BASE_URL = "/playground"
 
 # Directories mirrored into the site, in sidebar order.
 #
-# Missions come first because they are the only reader path. Everything below
-# them is a support library a mission links into at the point where a decision
-# needs it, not a track to be read front to back — so the sidebar must not
-# present foundations and platform as a sequence leading up to a mission.
+# Topics come first because they are the only reader path. Each topic is a
+# domain with a declared outcome and its evidence; everything below them is a
+# support library the topic links into at the point where a decision needs it,
+# not a track to be read front to back — so the sidebar must not present
+# foundations and reference as a sequence leading up to a topic.
 # Contributor surfaces sort last.
-# Four sections, and a reader can state each boundary in one sentence:
-# missions own an outcome and its evidence, foundations own mechanism that
-# holds regardless of mission, infra owns the machine underneath, reference
-# owns contracts and dated survey material with no run. A fifth section is a
-# boundary nobody has written down yet -- `tests/test_sync_docs.py` fails if
-# this list stops matching the four documented in AGENTS.md.
+# The nine topics own an outcome and its evidence; foundations own mechanism
+# that holds regardless of topic; reference owns contracts, governance, and
+# dated survey material with no run. A boundary nobody has written down yet
+# is a defect -- `tests/test_sync_docs.py` fails if this list stops matching
+# the structure documented in AGENTS.md.
 SECTIONS = [
-    ("missions", 20),
-    ("foundations", 30),
-    ("infra", 60),
-    ("reference", 70),
+    ("01-language-model", 10),
+    ("02-personalized-discovery", 20),
+    ("03-quantitative-research", 30),
+    ("04-agentic-platform", 40),
+    ("05-game-ai", 50),
+    ("07-multimodal-generation", 60),
+    ("08-bio-pharma-modeling", 70),
+    ("09-autonomous-driving", 80),
+    ("foundations", 90),
+    ("reference", 100),
 ]
 
 # Source and raw evidence alike: anything a reader follows to look at bytes
@@ -71,9 +77,15 @@ INTERACTIVE_RE = re.compile(
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 
 TITLE_OVERRIDES = {
+    "01-language-model": "Language-model system",
+    "02-personalized-discovery": "Personalized discovery",
+    "03-quantitative-research": "Quantitative research",
+    "04-agentic-platform": "Agentic platform",
+    "05-game-ai": "Game AI",
+    "07-multimodal-generation": "Multimodal generation",
+    "08-bio-pharma-modeling": "Bio-pharma modeling",
+    "09-autonomous-driving": "Autonomous driving",
     "foundations": "Foundations",
-    "missions": "Missions",
-    "infra": "Infrastructure",
     "reference": "Reference",
 }
 

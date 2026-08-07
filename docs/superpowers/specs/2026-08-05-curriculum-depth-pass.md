@@ -128,7 +128,7 @@ the lineage owns the context.
 
 The complete chapter-relationship index — every mission stage, its detours,
 its lineage survey, and its deep-dive gap — is the
-[curriculum map](../../../docs/curriculum-map.md), updated as each queue is
+[curriculum map](../../curriculum-map.md), updated as each queue is
 worked.
 
 ## Sequencing

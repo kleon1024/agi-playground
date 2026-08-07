@@ -2,7 +2,7 @@
  * What each initialization choice in the dense-to-MoE remap is actually worth.
  *
  * Every loss here is measured, from
- * missions/01-language-model-agent/02-pretrain/upcycling/runs/2026-07-28-upcycle-88m.md, over 20
+ * 01-language-model/02-pretrain/upcycling/runs/2026-07-28-upcycle-88m.md, over 20
  * batches of 8x1024 held-out tokens on one 24GB card.
  *
  * The learner turns off one choice at a time and reads the resulting starting
@@ -143,7 +143,7 @@ export default function UpcycleSurgery(): React.ReactElement {
 
       <p>
         Measured on one 24GB card over 20 batches of 8x1024 held-out tokens, in{' '}
-        <code>missions/01-language-model-agent/02-pretrain/upcycling/runs/2026-07-28-upcycle-88m.md</code>. Every
+        <code>01-language-model/02-pretrain/upcycling/runs/2026-07-28-upcycle-88m.md</code>. Every
         variant loads without an exception and reports a plausible-looking number, which is
         the reason a loss comparison against the parent is the acceptance test and a
         successful load is not.

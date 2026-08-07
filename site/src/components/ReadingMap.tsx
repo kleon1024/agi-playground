@@ -37,7 +37,7 @@ type Step = MapLink & {
   companions?: Array<{ href: string; label: string }>;
 };
 
-const MISSION = '/playground/missions/01-language-model-agent';
+const MISSION = '/playground/01-language-model';
 
 /* Eight stages, and only the eight stages. Anything that is not a stage is a
    branch hanging off one, because a reader following this list top to bottom
@@ -97,7 +97,7 @@ const BUILD_PATH: Step[] = [
     note: 'Teach the checkpoint to answer, with loss on assistant turns only.',
     detours: [
       {
-        href: '/playground/missions/01-language-model-agent/02-pretrain/mid-training/',
+        href: '/playground/01-language-model/02-pretrain/mid-training/',
         label: 'Mid-training',
         returns: 'why agentic trajectories enter the corpus before SFT, and in what format',
       },
@@ -114,7 +114,7 @@ const BUILD_PATH: Step[] = [
     note: 'Improve behavior only where a verifiable reward exists.',
     detours: [
       {
-        href: '/playground/infra/07-rollout-concurrency/',
+        href: '/playground/01-language-model/04-rl/rollout-concurrency/',
         label: 'Rollout concurrency',
         returns: 'why an update step waits on its slowest trajectory',
       },
@@ -182,60 +182,60 @@ const DECISION_PATHS: Array<{
   route: string;
 }> = [
   {
-    href: '/playground/missions/02-personalized-discovery/',
+    href: '/playground/01-language-model/vision/',
+    index: '01',
+    title: 'Vision-language pathway',
+    question: 'A sub-path of the language-model topic: does a self-trained vision pathway beat a hosted VLM and a text-only baseline?',
+    route: 'image+question task → vision fusion → report → real-photo task → real-photo fusion → real-photo report → warmup stability',
+  },
+  {
+    href: '/playground/02-personalized-discovery/',
     index: '02',
     title: 'Personalized discovery',
     question: 'Can a ranking system help a user find something worth their attention?',
     route: 'interactions → recall → rank → value → mix → rules → serve → report',
   },
   {
-    href: '/playground/missions/03-quantitative-research/',
+    href: '/playground/03-quantitative-research/',
     index: '03',
     title: 'Quantitative research',
     question: 'Can a candidate signal survive leakage, search bias, costs, and capacity?',
     route: 'market data → signal search → rank → walk-forward → costs → report',
   },
   {
-    href: '/playground/missions/04-code-agent/',
+    href: '/playground/04-agentic-platform/',
     index: '04',
-    title: 'Code-fixing agent',
+    title: 'Agentic platform',
     question: 'Is a merged patch from an autonomous agent worth what it costs, per task?',
     route: 'task set → no-harness baseline → agent loop → cheap-or-expensive routing → failure modes → report → closing the loop',
   },
   {
-    href: '/playground/missions/05-vision-language-model/',
+    href: '/playground/05-game-ai/',
     index: '05',
-    title: 'Vision-language model',
-    question: 'Does a self-trained vision pathway beat a hosted VLM and a text-only baseline?',
-    route: 'image+question task → vision fusion → report → real-photo task → real-photo fusion → real-photo report → warmup stability',
-  },
-  {
-    href: '/playground/missions/06-game-ai/',
-    index: '06',
     title: 'Game-playing policy',
     question: 'Does RL against a verifiable game reward beat a fixed baseline, and at what cost?',
     route: 'gridworld baselines → GRPO → report → fixing collapse → MiniGrid → report → tool-use RL',
   },
   {
-    href: '/playground/missions/07-realtime-voice/',
+    href: '/playground/07-multimodal-generation/',
     index: '07',
-    title: 'Real-time voice loop',
-    question: 'Does text-token serving mechanics transfer unchanged to a streaming audio codec?',
-    route: 'audio codec → streaming decode → report → real speech and network → multi-speaker → codebook reset',
+    title: 'Multimodal generation',
+    question: 'Does this repository\'s compute discipline survive sound and moving images — and does one codebook lesson transfer across both?',
+    route: 'voice: codec → streaming decode → report → real speech and network → multi-speaker → codebook reset · video: synthetic dataset → tokenizer → generation model → report → longer sequences → multi-object',
   },
   {
-    href: '/playground/missions/08-video-generation/',
+    href: '/playground/08-bio-pharma-modeling/',
     index: '08',
-    title: 'Video generation',
-    question: "Does this repository's compute discipline survive contact with video at all?",
-    route: 'synthetic video dataset → video tokenizer → generation model → report → longer sequences → multi-object',
-  },
-  {
-    href: '/playground/missions/09-bio-pharma-modeling/',
-    index: '09',
     title: 'Molecular property prediction',
     question: 'Can a small from-scratch model beat a descriptor baseline on a real toxicity endpoint?',
     route: 'dataset and property → descriptor baseline and model → report → second endpoint → third endpoint → cross-endpoint analysis',
+  },
+  {
+    href: '/playground/09-autonomous-driving/',
+    index: '09',
+    title: 'Autonomous driving',
+    question: 'Can a policy that only imitated an expert in a simulator still drive in the loop?',
+    route: 'scenario simulator → perception baseline → expert policy → behavior cloning → closed-loop eval → harder scenarios → report',
   },
 ];
 
@@ -243,17 +243,17 @@ const REFERENCE_LAYERS: MapLink[] = [
   {
     href: '/playground/foundations/',
     label: 'Foundations',
-    note: 'Mechanism that holds regardless of which mission you are running.',
+    note: 'Mechanism that holds regardless of which topic you are running.',
   },
   {
-    href: '/playground/infra/',
-    label: 'Infrastructure',
-    note: 'Choose the local or cloud compute lane and reproduce the runtime.',
+    href: '/playground/foundations/04-distributed-training/',
+    label: 'Machine chapters',
+    note: 'Networking, storage, orchestration, and GPU-cluster concepts; compute lanes live in reference.',
   },
   {
     href: '/playground/reference/standards/',
     label: 'Standards',
-    note: 'Check the lesson, run, mission, and evidence contracts.',
+    note: 'Check the lesson, run, topic, and evidence contracts.',
   },
 ];
 
@@ -318,7 +318,7 @@ export function DecisionPaths(): React.ReactElement {
     <nav className="mission-branches" aria-label="Decision-system reading paths">
       {DECISION_PATHS.map((path) => (
         <a className="mission-branch" href={path.href} key={path.href}>
-          <span className="mission-branch__index">Mission {path.index}</span>
+          <span className="mission-branch__index">Topic {path.index}</span>
           <strong>{path.title}</strong>
           <span className="mission-branch__question">{path.question}</span>
           <span className="mission-branch__route">{path.route}</span>

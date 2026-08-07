@@ -11,1813 +11,403 @@
   },
   {
     "type": "category",
-    "label": "Missions",
+    "label": "Language-model system",
     "link": {
       "type": "doc",
-      "id": "missions/index"
+      "id": "01-language-model/index"
     },
     "items": [
       {
         "type": "category",
-        "label": "Language-model system",
+        "label": "Corpus",
         "link": {
           "type": "doc",
-          "id": "missions/01-language-model-agent/index"
+          "id": "01-language-model/00-corpus/index"
         },
         "items": [
           {
+            "type": "doc",
+            "id": "01-language-model/00-corpus/what-a-release-needs/index",
+            "label": "What a release needs"
+          },
+          {
             "type": "category",
-            "label": "Corpus",
+            "label": "GPU dedup at scale",
             "link": {
               "type": "doc",
-              "id": "missions/01-language-model-agent/00-corpus/index"
+              "id": "01-language-model/00-corpus/dedup-at-scale/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/01-language-model-agent/00-corpus/what-a-release-needs/index",
-                "label": "What a release needs"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/00-corpus/the-funnel-shape/index",
-                "label": "The funnel shape"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/00-corpus/LANDSCAPE",
-                "label": "Landscape"
+                "id": "01-language-model/00-corpus/dedup-at-scale/when-verification-goes-quadratic/index",
+                "label": "When verification goes quadratic"
               }
             ]
           },
           {
-            "type": "category",
-            "label": "Tokenizer",
-            "link": {
-              "type": "doc",
-              "id": "missions/01-language-model-agent/01-tokenizer/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/01-tokenizer/is-it-the-same-tokenizer/index",
-                "label": "Is it the same tokenizer"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/01-tokenizer/the-merges-that-build-the-vocab/index",
-                "label": "The merges that build the vocab"
-              }
-            ]
+            "type": "doc",
+            "id": "01-language-model/00-corpus/the-funnel-shape/index",
+            "label": "The funnel shape"
           },
           {
-            "type": "category",
-            "label": "Pretraining",
-            "link": {
-              "type": "doc",
-              "id": "missions/01-language-model-agent/02-pretrain/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/02-pretrain/verifying-the-run/index",
-                "label": "Verifying the run"
-              },
-              {
-                "type": "category",
-                "label": "Architecture ablations",
-                "link": {
-                  "type": "doc",
-                  "id": "missions/01-language-model-agent/02-pretrain/architecture-ablations/index"
-                },
-                "items": [
-                  {
-                    "type": "doc",
-                    "id": "missions/01-language-model-agent/02-pretrain/architecture-ablations/the-rung-that-flipped/index",
-                    "label": "The rung that flipped"
-                  }
-                ]
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/02-pretrain/throughput/index",
-                "label": "Throughput"
-              },
-              {
-                "type": "category",
-                "label": "Upcycling",
-                "link": {
-                  "type": "doc",
-                  "id": "missions/01-language-model-agent/02-pretrain/upcycling/index"
-                },
-                "items": [
-                  {
-                    "type": "doc",
-                    "id": "missions/01-language-model-agent/02-pretrain/upcycling/does-it-pay-off/index",
-                    "label": "Does it pay off"
-                  }
-                ]
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/02-pretrain/when-the-curve-goes-wrong/index",
-                "label": "When the curve goes wrong"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/02-pretrain/latent-reasoning/index",
-                "label": "Latent reasoning"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/02-pretrain/attention-variants/index",
-                "label": "Attention variants"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/02-pretrain/mid-training/index",
-                "label": "Mid-training"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/02-pretrain/the-gate-that-beats-relu/index",
-                "label": "The gate that beats ReLU"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/02-pretrain/LANDSCAPE",
-                "label": "Landscape"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "SFT",
-            "link": {
-              "type": "doc",
-              "id": "missions/01-language-model-agent/03-sft/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/03-sft/what-it-costs/index",
-                "label": "What it costs"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/03-sft/beyond-demonstrations/index",
-                "label": "Beyond demonstrations"
-              },
-              {
-                "type": "category",
-                "label": "Distillation",
-                "link": {
-                  "type": "doc",
-                  "id": "missions/01-language-model-agent/03-sft/distillation/index"
-                },
-                "items": [
-                  {
-                    "type": "doc",
-                    "id": "missions/01-language-model-agent/03-sft/distillation/which-teacher-changes-what/index",
-                    "label": "Which teacher changes what"
-                  },
-                  {
-                    "type": "doc",
-                    "id": "missions/01-language-model-agent/03-sft/distillation/what-path-two-requires/index",
-                    "label": "What path two requires"
-                  }
-                ]
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/03-sft/what-model-size-changes/index",
-                "label": "What model size changes"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/03-sft/LANDSCAPE",
-                "label": "Landscape"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "RL (GRPO)",
-            "link": {
-              "type": "doc",
-              "id": "missions/01-language-model-agent/04-rl/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/04-rl/reward-went-up/index",
-                "label": "The reward went up"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/04-rl/what-a-real-loop-adds/index",
-                "label": "What a real loop adds"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/04-rl/the-kl-leash/index",
-                "label": "The KL leash"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/04-rl/the-group-relative-trick/index",
-                "label": "The group-relative trick"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/04-rl/LANDSCAPE",
-                "label": "Landscape"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Serving",
-            "link": {
-              "type": "doc",
-              "id": "missions/01-language-model-agent/05-serve/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/05-serve/paging-the-cache/index",
-                "label": "Paging the cache"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/05-serve/why-concurrency-pays/index",
-                "label": "Why concurrency pays"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/05-serve/graph-execution/index",
-                "label": "Graph execution"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/05-serve/quantization/index",
-                "label": "Quantization"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/05-serve/speculative-decoding/index",
-                "label": "Speculative decoding"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/05-serve/LANDSCAPE",
-                "label": "Landscape"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Agent harness",
-            "link": {
-              "type": "doc",
-              "id": "missions/01-language-model-agent/06-agent/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/06-agent/what-fits-in-context/index",
-                "label": "What fits in context"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/06-agent/what-stops-it/index",
-                "label": "What stops it"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/06-agent/would-a-second-agent-help/index",
-                "label": "Would a second agent help"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/06-agent/LANDSCAPE",
-                "label": "Landscape"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Eval",
-            "link": {
-              "type": "doc",
-              "id": "missions/01-language-model-agent/07-eval/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/07-eval/whose-harness/index",
-                "label": "Whose harness produced it"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/07-eval/why-believe-the-number/index",
-                "label": "Why believe the number"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/07-eval/metric-gaming/index",
-                "label": "Metric gaming"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/07-eval/who-decides-to-ship/index",
-                "label": "Who decides to ship"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/07-eval/eval-gates/index",
-                "label": "Evaluation gates \u00b7 draft"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/07-eval/red-teaming/index",
-                "label": "Red-teaming \u00b7 draft"
-              },
-              {
-                "type": "doc",
-                "id": "missions/01-language-model-agent/07-eval/LANDSCAPE",
-                "label": "Landscape"
-              }
-            ]
+            "type": "doc",
+            "id": "01-language-model/00-corpus/LANDSCAPE",
+            "label": "Landscape"
           }
         ]
       },
       {
         "type": "category",
-        "label": "Personalized discovery",
+        "label": "Tokenizer",
         "link": {
           "type": "doc",
-          "id": "missions/02-personalized-discovery/index"
+          "id": "01-language-model/01-tokenizer/index"
         },
         "items": [
           {
-            "type": "category",
-            "label": "Interactions",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/00-interactions/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/00-interactions/the-eligibility-cascade/index",
-                "label": "The eligibility cascade"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/00-interactions/when-the-absence-is-a-signal/index",
-                "label": "When the absence is a signal"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/00-interactions/when-the-split-leaks/index",
-                "label": "When the split leaks"
-              }
-            ]
+            "type": "doc",
+            "id": "01-language-model/01-tokenizer/is-it-the-same-tokenizer/index",
+            "label": "Is it the same tokenizer"
           },
           {
-            "type": "category",
-            "label": "Content understanding",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/01-content-understanding/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/01-content-understanding/the-63-percent-that-never-moves/index",
-                "label": "The 63 percent that never moves"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/01-content-understanding/when-the-label-is-noisy/index",
-                "label": "When the label is noisy"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/01-content-understanding/when-the-threshold-rescues-the-tail/index",
-                "label": "When the threshold rescues the tail"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Recall",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/02-recall/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/02-recall/the-price-of-approximate/index",
-                "label": "The price of approximate"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/02-recall/when-the-tail-goes-cold/index",
-                "label": "When the tail goes cold"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/02-recall/when-you-lose-a-queue/index",
-                "label": "When you lose a queue"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Pre-rank",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/03-pre-rank/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/03-pre-rank/when-the-cheap-cut-fails/index",
-                "label": "When the cheap cut fails"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/03-pre-rank/when-the-cheap-score-lies/index",
-                "label": "When the cheap score lies"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/03-pre-rank/when-the-long-tail-is-invisible/index",
-                "label": "When the long tail is invisible"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Fine-rank",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/04-fine-rank/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/04-fine-rank/the-calibration-that-decides/index",
-                "label": "The calibration that decides"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/04-fine-rank/when-sharing-hurts/index",
-                "label": "When sharing hurts"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/04-fine-rank/when-the-model-is-stale/index",
-                "label": "When the model is stale"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Value tree",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/05-value-tree/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/05-value-tree/the-calibration-break/index",
-                "label": "The calibration break"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/05-value-tree/when-the-user-rejects/index",
-                "label": "When the user rejects"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/05-value-tree/when-the-weight-moves/index",
-                "label": "When the weight moves"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Mixing",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/06-mixing/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/06-mixing/when-diversity-hurts/index",
-                "label": "When diversity hurts"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/06-mixing/when-the-beam-is-wide-enough/index",
-                "label": "When the beam is wide enough"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/06-mixing/when-the-trade-weight-moves/index",
-                "label": "When the trade weight moves"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Rule engine",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/07-rule-engine/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/07-rule-engine/the-empty-set-was-two-rules/index",
-                "label": "The empty set was two rules"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/07-rule-engine/when-the-rule-is-a-typo/index",
-                "label": "When the rule is a typo"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/07-rule-engine/when-the-rules-collide/index",
-                "label": "When the rules collide"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Serving",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/08-serving/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/08-serving/when-p95s-do-not-add/index",
-                "label": "When p95s do not add"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/08-serving/when-the-cache-goes-cold/index",
-                "label": "When the cache goes cold"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/08-serving/when-the-cut-bites/index",
-                "label": "When the cut bites"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Outcome report",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/09-report/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/09-report/the-variance-that-decides/index",
-                "label": "The variance that decides"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/09-report/when-the-baseline-moves/index",
-                "label": "When the baseline moves"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/09-report/when-the-guardrail-vetoes/index",
-                "label": "When the guardrail vetoes"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Query understanding",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/10-query-understanding/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/10-query-understanding/when-the-query-is-misspelled/index",
-                "label": "When the query is misspelled"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/10-query-understanding/when-the-query-is-short/index",
-                "label": "When the query is short"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Search retrieval",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/11-search-retrieval/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/11-search-retrieval/when-the-dense-path-exists/index",
-                "label": "When the dense path exists"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/11-search-retrieval/when-the-synonym-is-invisible/index",
-                "label": "When the synonym is invisible"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Search ranking",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/12-search-ranking/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/12-search-ranking/when-the-label-is-a-click/index",
-                "label": "When the label is a click"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/12-search-ranking/when-the-list-is-longer/index",
-                "label": "When the list is longer"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Search evaluation",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/13-search-evaluation/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/13-search-evaluation/when-mrr-and-ndcg-disagree/index",
-                "label": "When MRR and NDCG disagree"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/13-search-evaluation/when-the-k-is-small/index",
-                "label": "When the k is small"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Ad auction",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/14-ad-auction/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/14-ad-auction/when-the-reserve-price-bites/index",
-                "label": "When the reserve price bites"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/14-ad-auction/when-truthful-bidding-is-optimal/index",
-                "label": "When truthful bidding is optimal"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "ECPM ranking",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/15-ecpm-ranking/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/15-ecpm-ranking/when-pctr-moves-the-rank/index",
-                "label": "When pCTR moves the rank"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/15-ecpm-ranking/when-the-reserve-interacts/index",
-                "label": "When the reserve interacts"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "pCTR calibration",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/16-ctr-calibration/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/16-ctr-calibration/when-calibration-and-ranking-conflict/index",
-                "label": "When calibration and ranking conflict"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/16-ctr-calibration/when-the-correction-is-needed/index",
-                "label": "When the correction is needed"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Budget pacing",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/17-budget-pacing/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/17-budget-pacing/when-delivery-varies/index",
-                "label": "When delivery varies"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/17-budget-pacing/when-the-budget-is-tiny/index",
-                "label": "When the budget is tiny"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Ad externality",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/18-ad-externality/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/18-ad-externality/when-the-ad-is-relevant/index",
-                "label": "When the ad is relevant"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/18-ad-externality/when-the-slot-is-scarce/index",
-                "label": "When the slot is scarce"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Query expansion",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/19-query-expansion/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/19-query-expansion/when-expansion-hurts/index",
-                "label": "When expansion hurts"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/19-query-expansion/when-the-correction-helps/index",
-                "label": "When the correction helps"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Dense retrieval",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/20-dense-retrieval/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/20-dense-retrieval/when-the-embedding-is-stale/index",
-                "label": "When the embedding is stale"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/20-dense-retrieval/when-the-index-is-ann/index",
-                "label": "When the index is ANN"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Hybrid fusion",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/21-hybrid-fusion/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/21-hybrid-fusion/when-one-set-is-empty/index",
-                "label": "When one set is empty"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/21-hybrid-fusion/when-the-fusion-weight-moves/index",
-                "label": "When the fusion weight moves"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Reranking",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/22-reranking/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/22-reranking/when-the-rerank-budget-is-tight/index",
-                "label": "When the rerank budget is tight"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/22-reranking/when-the-reranker-disagrees/index",
-                "label": "When the reranker disagrees"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Personalized search",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/23-personalized-search/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/23-personalized-search/when-personalization-hurts/index",
-                "label": "When personalization hurts"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/23-personalized-search/when-the-user-history-helps/index",
-                "label": "When the user history helps"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Search measurement",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/24-search-measurement/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/24-search-measurement/when-the-click-is-a-query/index",
-                "label": "When the click is a query"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/24-search-measurement/when-the-zero-result-rate-matters/index",
-                "label": "When the zero-result rate matters"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Frequency capping",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/25-frequency-capping/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/25-frequency-capping/when-fatigue-hits/index",
-                "label": "When fatigue hits"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/25-frequency-capping/when-the-cap-bites/index",
-                "label": "When the cap bites"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Creative selection",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/26-creative-selection/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/26-creative-selection/when-the-creative-context-changes/index",
-                "label": "When the creative context changes"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/26-creative-selection/when-the-creative-is-stale/index",
-                "label": "When the creative is stale"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Bid strategy",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/27-bid-strategy/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/27-bid-strategy/when-the-bid-is-capped/index",
-                "label": "When the bid is capped"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/27-bid-strategy/when-the-target-cpa-binds/index",
-                "label": "When the target CPA binds"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Auction revenue",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/28-auction-revenue/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/28-auction-revenue/when-first-price-pays-more/index",
-                "label": "When first price pays more"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/28-auction-revenue/when-the-reserve-moves-revenue/index",
-                "label": "When the reserve moves revenue"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "RTB pipeline",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/29-rtb-pipeline/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/29-rtb-pipeline/when-the-bidder-is-slow/index",
-                "label": "When the bidder is slow"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/29-rtb-pipeline/when-the-exchange-times-out/index",
-                "label": "When the exchange times out"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Ads measurement",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/30-ads-measurement/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/30-ads-measurement/when-attribution-overcounts/index",
-                "label": "When attribution overcounts"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/30-ads-measurement/when-the-incrementality-is-zero/index",
-                "label": "When the incrementality is zero"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "LLM ranking",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/31-llm-ranking/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/31-llm-ranking/when-the-llm-disagrees/index",
-                "label": "When the LLM disagrees"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/31-llm-ranking/when-the-prompt-token-budget-binds/index",
-                "label": "When the prompt token budget binds"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Recommendation RLHF",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/32-recommendation-rlhf/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/32-recommendation-rlhf/when-the-preference-is-noisy/index",
-                "label": "When the preference is noisy"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/32-recommendation-rlhf/when-the-reward-is-gamed/index",
-                "label": "When the reward is gamed"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Multimodal recall",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/33-multimodal-recall/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/33-multimodal-recall/when-the-image-is-cold/index",
-                "label": "When the image is cold"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/33-multimodal-recall/when-the-modality-mismatch/index",
-                "label": "When the modality mismatch"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Slate versus item evaluation",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/34-slate-vs-item-evaluation/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/34-slate-vs-item-evaluation/when-the-metric-misses-diversity/index",
-                "label": "When the metric misses diversity"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/34-slate-vs-item-evaluation/when-the-slate-is-diverse/index",
-                "label": "When the slate is diverse"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Generative retrieval",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/35-generative-retrieval/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/35-generative-retrieval/when-the-id-space-grows/index",
-                "label": "When the ID space grows"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/35-generative-retrieval/when-the-generator-hallucinates/index",
-                "label": "When the generator hallucinates"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Conversational search",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/36-conversational-search/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/36-conversational-search/when-the-anaphora-is-ambiguous/index",
-                "label": "When the anaphora is ambiguous"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/36-conversational-search/when-the-topic-shifts/index",
-                "label": "When the topic shifts"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "LLM query understanding",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/37-llm-query-understanding/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/37-llm-query-understanding/when-the-llm-over-parses/index",
-                "label": "When the LLM over-parses"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/37-llm-query-understanding/when-the-slot-is-empty/index",
-                "label": "When the slot is empty"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Interleaving experiments",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/38-interleaving-experiments/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/38-interleaving-experiments/when-the-credit-is-unbalanced/index",
-                "label": "When the credit is unbalanced"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/38-interleaving-experiments/when-the-traffic-is-tiny/index",
-                "label": "When the traffic is tiny"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "First-price transition",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/39-first-price-transition/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/39-first-price-transition/when-the-market-adjusts/index",
-                "label": "When the market adjusts"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/39-first-price-transition/when-the-shading-is-wrong/index",
-                "label": "When the shading is wrong"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Privacy-safe attribution",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/40-privacy-safe-attribution/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/40-privacy-safe-attribution/when-the-budget-splits/index",
-                "label": "When the budget splits"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/40-privacy-safe-attribution/when-the-noise-is-too-high/index",
-                "label": "When the noise is too high"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "LLM creative generation",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/41-llm-creative-generation/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/41-llm-creative-generation/when-the-generated-creative-is-identical/index",
-                "label": "When the generated creative is identical"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/41-llm-creative-generation/when-the-score-is-on-surface/index",
-                "label": "When the score is on the surface"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Marketplace economics",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/42-marketplace-economics/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/42-marketplace-economics/when-the-ad-load-moves/index",
-                "label": "When the ad load moves"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/42-marketplace-economics/when-the-take-rate-is-too-high/index",
-                "label": "When the take rate is too high"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Feature store",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/43-feature-store/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/43-feature-store/when-the-feature-diverges/index",
-                "label": "When the feature diverges"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/43-feature-store/when-the-feature-is-missing/index",
-                "label": "When the feature is missing"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Training-serving consistency",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/44-training-serving-consistency/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/44-training-serving-consistency/when-the-label-arrives-late/index",
-                "label": "When the label arrives late"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/44-training-serving-consistency/when-the-online-feature-lags/index",
-                "label": "When the online feature lags"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Feedback loops",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/45-feedback-loops/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/45-feedback-loops/when-popularity-collapses/index",
-                "label": "When popularity collapses"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/45-feedback-loops/when-the-filter-bubble-closes/index",
-                "label": "When the filter bubble closes"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Retraining and staleness",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/46-retraining-and-staleness/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/46-retraining-and-staleness/when-retraining-flips-the-metric/index",
-                "label": "When retraining flips the metric"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/46-retraining-and-staleness/when-the-embedding-expires/index",
-                "label": "When the embedding expires"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Monitoring and drift",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/47-monitoring-and-drift/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/47-monitoring-and-drift/when-the-alert-is-noisy/index",
-                "label": "When the alert is noisy"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/47-monitoring-and-drift/when-the-drift-is-silent/index",
-                "label": "When the drift is silent"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Realtime user state",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/48-realtime-user-state/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/48-realtime-user-state/when-realtime-is-too-expensive/index",
-                "label": "When realtime is too expensive"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/48-realtime-user-state/when-the-session-state-moves/index",
-                "label": "When the session state moves"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Throughput and capacity",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/49-throughput-and-capacity/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/49-throughput-and-capacity/when-the-peak-arrives/index",
-                "label": "When the peak arrives"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/49-throughput-and-capacity/when-the-tail-costs/index",
-                "label": "When the tail costs"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Cost per query",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/50-cost-per-query/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/50-cost-per-query/when-the-cache-pays/index",
-                "label": "When the cache pays"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/50-cost-per-query/when-the-model-is-too-big/index",
-                "label": "When the model is too big"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "New-user experience",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/51-new-user-experience/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/51-new-user-experience/when-personalization-scares/index",
-                "label": "When personalization scares"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/51-new-user-experience/when-the-user-is-new/index",
-                "label": "When the user is new"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Trust and explainability",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/52-trust-and-explainability/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/52-trust-and-explainability/when-the-explanation-is-wrong/index",
-                "label": "When the explanation is wrong"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/52-trust-and-explainability/when-trust-erodes/index",
-                "label": "When trust erodes"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Fairness and allocation",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/53-fairness-and-allocation/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/53-fairness-and-allocation/when-the-constraint-bites/index",
-                "label": "When the constraint bites"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/53-fairness-and-allocation/when-the-policy-is-biased/index",
-                "label": "When the policy is biased"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Advertiser ROAS",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/54-advertiser-roas/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/54-advertiser-roas/when-roas-collapses/index",
-                "label": "When ROAS collapses"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/54-advertiser-roas/when-the-budget-moves/index",
-                "label": "When the budget moves"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "LTV and CAC",
-            "link": {
-              "type": "doc",
-              "id": "missions/02-personalized-discovery/55-ltv-and-cac/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/55-ltv-and-cac/when-cac-exceeds-ltv/index",
-                "label": "When CAC exceeds LTV"
-              },
-              {
-                "type": "doc",
-                "id": "missions/02-personalized-discovery/55-ltv-and-cac/when-retention-flattens/index",
-                "label": "When retention flattens"
-              }
-            ]
+            "type": "doc",
+            "id": "01-language-model/01-tokenizer/the-merges-that-build-the-vocab/index",
+            "label": "The merges that build the vocab"
           }
         ]
       },
       {
         "type": "category",
-        "label": "Quantitative research",
+        "label": "Pretraining",
         "link": {
           "type": "doc",
-          "id": "missions/03-quantitative-research/index"
+          "id": "01-language-model/02-pretrain/index"
         },
         "items": [
           {
+            "type": "doc",
+            "id": "01-language-model/02-pretrain/verifying-the-run/index",
+            "label": "Verifying the run"
+          },
+          {
             "type": "category",
-            "label": "Market data",
+            "label": "Architecture ablations",
             "link": {
               "type": "doc",
-              "id": "missions/03-quantitative-research/00-market-data/index"
+              "id": "01-language-model/02-pretrain/architecture-ablations/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/03-quantitative-research/00-market-data/asof-vs-naive/index",
-                "label": "The as-of join"
-              },
-              {
-                "type": "doc",
-                "id": "missions/03-quantitative-research/00-market-data/the-restatement-gap/index",
-                "label": "The restatement gap"
+                "id": "01-language-model/02-pretrain/architecture-ablations/the-rung-that-flipped/index",
+                "label": "The rung that flipped"
               }
             ]
           },
           {
+            "type": "doc",
+            "id": "01-language-model/02-pretrain/throughput/index",
+            "label": "Throughput"
+          },
+          {
             "type": "category",
-            "label": "Signal research",
+            "label": "Upcycling",
             "link": {
               "type": "doc",
-              "id": "missions/03-quantitative-research/01-signal-research/index"
+              "id": "01-language-model/02-pretrain/upcycling/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/03-quantitative-research/01-signal-research/the-search-log-read/index",
-                "label": "The search log, read"
-              },
-              {
-                "type": "doc",
-                "id": "missions/03-quantitative-research/01-signal-research/when-breadth-inflates-the-winner/index",
-                "label": "When breadth inflates the winner"
+                "id": "01-language-model/02-pretrain/upcycling/does-it-pay-off/index",
+                "label": "Does it pay off"
               }
             ]
           },
           {
-            "type": "category",
-            "label": "Cross-sectional rank",
-            "link": {
-              "type": "doc",
-              "id": "missions/03-quantitative-research/02-cross-sectional-rank/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/03-quantitative-research/02-cross-sectional-rank/the-rank-that-becomes-a-position/index",
-                "label": "The rank that becomes a position"
-              },
-              {
-                "type": "doc",
-                "id": "missions/03-quantitative-research/02-cross-sectional-rank/when-the-cap-bites/index",
-                "label": "When the cap bites"
-              }
-            ]
+            "type": "doc",
+            "id": "01-language-model/02-pretrain/when-the-curve-goes-wrong/index",
+            "label": "When the curve goes wrong"
           },
           {
-            "type": "category",
-            "label": "Walk-forward validation",
-            "link": {
-              "type": "doc",
-              "id": "missions/03-quantitative-research/03-walk-forward-validation/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/03-quantitative-research/03-walk-forward-validation/when-purge-matters/index",
-                "label": "When purge matters"
-              },
-              {
-                "type": "doc",
-                "id": "missions/03-quantitative-research/03-walk-forward-validation/when-the-shuffle-does-not-move/index",
-                "label": "When the shuffle does not move"
-              }
-            ]
+            "type": "doc",
+            "id": "01-language-model/02-pretrain/latent-reasoning/index",
+            "label": "Latent reasoning"
           },
           {
-            "type": "category",
-            "label": "Cost and capacity",
-            "link": {
-              "type": "doc",
-              "id": "missions/03-quantitative-research/04-cost-and-capacity/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/03-quantitative-research/04-cost-and-capacity/the-capacity-ceiling/index",
-                "label": "The capacity ceiling"
-              },
-              {
-                "type": "doc",
-                "id": "missions/03-quantitative-research/04-cost-and-capacity/when-the-book-stops-making-money/index",
-                "label": "When the book stops making money"
-              }
-            ]
+            "type": "doc",
+            "id": "01-language-model/02-pretrain/attention-variants/index",
+            "label": "Attention variants"
           },
           {
-            "type": "category",
-            "label": "Outcome report",
-            "link": {
-              "type": "doc",
-              "id": "missions/03-quantitative-research/05-report/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/03-quantitative-research/05-report/the-three-way-verdict/index",
-                "label": "The three-way verdict"
-              },
-              {
-                "type": "doc",
-                "id": "missions/03-quantitative-research/05-report/when-the-refusal-names-everything/index",
-                "label": "When the refusal names everything"
-              }
-            ]
+            "type": "doc",
+            "id": "01-language-model/02-pretrain/mid-training/index",
+            "label": "Mid-training"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/02-pretrain/the-gate-that-beats-relu/index",
+            "label": "The gate that beats ReLU"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/02-pretrain/LANDSCAPE",
+            "label": "Landscape"
           }
         ]
       },
       {
         "type": "category",
-        "label": "Code agent",
+        "label": "SFT",
         "link": {
           "type": "doc",
-          "id": "missions/04-code-agent/index"
+          "id": "01-language-model/03-sft/index"
         },
         "items": [
           {
+            "type": "doc",
+            "id": "01-language-model/03-sft/what-it-costs/index",
+            "label": "What it costs"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/03-sft/beyond-demonstrations/index",
+            "label": "Beyond demonstrations"
+          },
+          {
             "type": "category",
-            "label": "The task set",
+            "label": "Distillation",
             "link": {
               "type": "doc",
-              "id": "missions/04-code-agent/00-task-set/index"
+              "id": "01-language-model/03-sft/distillation/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/04-code-agent/00-task-set/the-two-of-six-yield/index",
-                "label": "The two-of-six yield"
+                "id": "01-language-model/03-sft/distillation/which-teacher-changes-what/index",
+                "label": "Which teacher changes what"
               },
               {
                 "type": "doc",
-                "id": "missions/04-code-agent/00-task-set/what-the-task-set-contains/index",
-                "label": "What the task set contains"
+                "id": "01-language-model/03-sft/distillation/what-path-two-requires/index",
+                "label": "What path two requires"
               }
             ]
           },
           {
-            "type": "category",
-            "label": "No harness",
-            "link": {
-              "type": "doc",
-              "id": "missions/04-code-agent/01-no-harness/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/04-code-agent/01-no-harness/when-the-blind-call-fails/index",
-                "label": "When the blind call fails"
-              },
-              {
-                "type": "doc",
-                "id": "missions/04-code-agent/01-no-harness/when-the-patch-does-not-apply/index",
-                "label": "When the patch does not apply"
-              }
-            ]
+            "type": "doc",
+            "id": "01-language-model/03-sft/what-model-size-changes/index",
+            "label": "What model size changes"
           },
           {
-            "type": "category",
-            "label": "Scoring the attempt",
-            "link": {
-              "type": "doc",
-              "id": "missions/04-code-agent/02-agent-loop/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/04-code-agent/02-agent-loop/the-loop-that-scores-a-patch/index",
-                "label": "The loop that scores a patch"
-              },
-              {
-                "type": "doc",
-                "id": "missions/04-code-agent/02-agent-loop/when-the-guardrail-refuses/index",
-                "label": "When the guardrail refuses"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Cheap or expensive",
-            "link": {
-              "type": "doc",
-              "id": "missions/04-code-agent/03-cheap-or-expensive/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/04-code-agent/03-cheap-or-expensive/the-cost-quality-knee/index",
-                "label": "The cost-quality knee"
-              },
-              {
-                "type": "doc",
-                "id": "missions/04-code-agent/03-cheap-or-expensive/the-tier-that-won/index",
-                "label": "The tier that won"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "How it fails",
-            "link": {
-              "type": "doc",
-              "id": "missions/04-code-agent/04-how-it-fails/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/04-code-agent/04-how-it-fails/the-zero-failure-taxonomy/index",
-                "label": "The zero-failure taxonomy"
-              },
-              {
-                "type": "doc",
-                "id": "missions/04-code-agent/04-how-it-fails/when-the-patch-cannot-apply/index",
-                "label": "When the patch cannot apply"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "The report",
-            "link": {
-              "type": "doc",
-              "id": "missions/04-code-agent/05-report/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/04-code-agent/05-report/the-public-set-control/index",
-                "label": "The public-set control"
-              },
-              {
-                "type": "doc",
-                "id": "missions/04-code-agent/05-report/when-the-partial-verdict/index",
-                "label": "When the verdict is partial"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Closing the loop",
-            "link": {
-              "type": "doc",
-              "id": "missions/04-code-agent/06-closing-the-loop/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/04-code-agent/06-closing-the-loop/does-feedback-help/index",
-                "label": "Does feedback help"
-              },
-              {
-                "type": "doc",
-                "id": "missions/04-code-agent/06-closing-the-loop/the-bimodal-retry/index",
-                "label": "The bimodal retry"
-              }
-            ]
+            "type": "doc",
+            "id": "01-language-model/03-sft/LANDSCAPE",
+            "label": "Landscape"
           }
         ]
+      },
+      {
+        "type": "category",
+        "label": "RL (GRPO)",
+        "link": {
+          "type": "doc",
+          "id": "01-language-model/04-rl/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "01-language-model/04-rl/reward-went-up/index",
+            "label": "The reward went up"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/04-rl/what-a-real-loop-adds/index",
+            "label": "What a real loop adds"
+          },
+          {
+            "type": "category",
+            "label": "Rollout concurrency",
+            "link": {
+              "type": "doc",
+              "id": "01-language-model/04-rl/rollout-concurrency/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "01-language-model/04-rl/rollout-concurrency/when-the-heavy-tail-waits/index",
+                "label": "When the heavy tail waits"
+              }
+            ]
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/04-rl/the-kl-leash/index",
+            "label": "The KL leash"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/04-rl/the-group-relative-trick/index",
+            "label": "The group-relative trick"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/04-rl/LANDSCAPE",
+            "label": "Landscape"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Serving",
+        "link": {
+          "type": "doc",
+          "id": "01-language-model/05-serve/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "01-language-model/05-serve/paging-the-cache/index",
+            "label": "Paging the cache"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/05-serve/why-concurrency-pays/index",
+            "label": "Why concurrency pays"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/05-serve/graph-execution/index",
+            "label": "Graph execution"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/05-serve/quantization/index",
+            "label": "Quantization"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/05-serve/speculative-decoding/index",
+            "label": "Speculative decoding"
+          },
+          {
+            "type": "category",
+            "label": "Observability",
+            "link": {
+              "type": "doc",
+              "id": "01-language-model/05-serve/observability/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "01-language-model/05-serve/observability/when-the-tail-waits/index",
+                "label": "When the tail waits"
+              }
+            ]
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/05-serve/LANDSCAPE",
+            "label": "Landscape"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Agent harness",
+        "link": {
+          "type": "doc",
+          "id": "01-language-model/06-agent/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "01-language-model/06-agent/what-fits-in-context/index",
+            "label": "What fits in context"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/06-agent/what-stops-it/index",
+            "label": "What stops it"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/06-agent/would-a-second-agent-help/index",
+            "label": "Would a second agent help"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/06-agent/LANDSCAPE",
+            "label": "Landscape"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Eval",
+        "link": {
+          "type": "doc",
+          "id": "01-language-model/07-eval/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "01-language-model/07-eval/whose-harness/index",
+            "label": "Whose harness produced it"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/07-eval/why-believe-the-number/index",
+            "label": "Why believe the number"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/07-eval/metric-gaming/index",
+            "label": "Metric gaming"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/07-eval/who-decides-to-ship/index",
+            "label": "Who decides to ship"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/07-eval/eval-gates/index",
+            "label": "Evaluation gates \u00b7 draft"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/07-eval/red-teaming/index",
+            "label": "Red-teaming \u00b7 draft"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/07-eval/LANDSCAPE",
+            "label": "Landscape"
+          }
+        ]
+      },
+      {
+        "type": "doc",
+        "id": "01-language-model/lineage",
+        "label": "Lineage"
+      },
+      {
+        "type": "doc",
+        "id": "01-language-model/post-training-rl-landscape",
+        "label": "Post-training and RL"
+      },
+      {
+        "type": "doc",
+        "id": "01-language-model/pretraining-data-landscape",
+        "label": "Pretraining data landscape"
       },
       {
         "type": "category",
         "label": "Vision-language model",
         "link": {
           "type": "doc",
-          "id": "missions/05-vision-language-model/index"
+          "id": "01-language-model/vision/index"
         },
         "items": [
           {
@@ -1825,17 +415,17 @@
             "label": "The image-caption task",
             "link": {
               "type": "doc",
-              "id": "missions/05-vision-language-model/00-image-caption-task/index"
+              "id": "01-language-model/vision/00-image-caption-task/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/00-image-caption-task/seed-vs-pixels/index",
+                "id": "01-language-model/vision/00-image-caption-task/seed-vs-pixels/index",
                 "label": "Seeds vs pixels"
               },
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/00-image-caption-task/the-collision-that-closed-the-gap/index",
+                "id": "01-language-model/vision/00-image-caption-task/the-collision-that-closed-the-gap/index",
                 "label": "The collision that closed the gap"
               }
             ]
@@ -1845,17 +435,17 @@
             "label": "Vision-token fusion",
             "link": {
               "type": "doc",
-              "id": "missions/05-vision-language-model/01-vision-fusion/index"
+              "id": "01-language-model/vision/01-vision-fusion/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/01-vision-fusion/the-fused-attention-anatomy/index",
+                "id": "01-language-model/vision/01-vision-fusion/the-fused-attention-anatomy/index",
                 "label": "The fused-attention anatomy"
               },
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/01-vision-fusion/where-the-decoder-looks/index",
+                "id": "01-language-model/vision/01-vision-fusion/where-the-decoder-looks/index",
                 "label": "Where the decoder looks"
               }
             ]
@@ -1865,17 +455,17 @@
             "label": "Outcome report",
             "link": {
               "type": "doc",
-              "id": "missions/05-vision-language-model/02-report/index"
+              "id": "01-language-model/vision/02-report/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/02-report/the-economics-per-question/index",
+                "id": "01-language-model/vision/02-report/the-economics-per-question/index",
                 "label": "The economics per question"
               },
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/02-report/when-the-category-breaks-down/index",
+                "id": "01-language-model/vision/02-report/when-the-category-breaks-down/index",
                 "label": "When the category breaks down"
               }
             ]
@@ -1885,17 +475,17 @@
             "label": "The real-photo task",
             "link": {
               "type": "doc",
-              "id": "missions/05-vision-language-model/03-real-photo-task/index"
+              "id": "01-language-model/vision/03-real-photo-task/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/03-real-photo-task/the-id-based-guardrail/index",
+                "id": "01-language-model/vision/03-real-photo-task/the-id-based-guardrail/index",
                 "label": "The ID-based guardrail"
               },
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/03-real-photo-task/the-real-photo-guardrail/index",
+                "id": "01-language-model/vision/03-real-photo-task/the-real-photo-guardrail/index",
                 "label": "The real-photo guardrail"
               }
             ]
@@ -1905,17 +495,17 @@
             "label": "Real-photo vision fusion",
             "link": {
               "type": "doc",
-              "id": "missions/05-vision-language-model/04-real-photo-vision-fusion/index"
+              "id": "01-language-model/vision/04-real-photo-vision-fusion/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/04-real-photo-vision-fusion/the-flipped-variance/index",
+                "id": "01-language-model/vision/04-real-photo-vision-fusion/the-flipped-variance/index",
                 "label": "The flipped variance"
               },
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/04-real-photo-vision-fusion/when-the-margin-is-narrow/index",
+                "id": "01-language-model/vision/04-real-photo-vision-fusion/when-the-margin-is-narrow/index",
                 "label": "When the margin is narrow"
               }
             ]
@@ -1925,17 +515,17 @@
             "label": "Real-photo outcome report",
             "link": {
               "type": "doc",
-              "id": "missions/05-vision-language-model/05-real-photo-report/index"
+              "id": "01-language-model/vision/05-real-photo-report/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/05-real-photo-report/the-answer-type-shaped-edge/index",
+                "id": "01-language-model/vision/05-real-photo-report/the-answer-type-shaped-edge/index",
                 "label": "The answer-type-shaped edge"
               },
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/05-real-photo-report/when-the-api-still-wins/index",
+                "id": "01-language-model/vision/05-real-photo-report/when-the-api-still-wins/index",
                 "label": "When the API still wins"
               }
             ]
@@ -1945,18 +535,638 @@
             "label": "Warmup stability",
             "link": {
               "type": "doc",
-              "id": "missions/05-vision-language-model/06-warmup-stability/index"
+              "id": "01-language-model/vision/06-warmup-stability/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/06-warmup-stability/the-collapse-that-warmup-closed/index",
+                "id": "01-language-model/vision/06-warmup-stability/the-collapse-that-warmup-closed/index",
                 "label": "The collapse that warmup closed"
               },
               {
                 "type": "doc",
-                "id": "missions/05-vision-language-model/06-warmup-stability/when-warmup-closed-the-collapse/index",
+                "id": "01-language-model/vision/06-warmup-stability/when-warmup-closed-the-collapse/index",
                 "label": "When warmup closed the collapse"
+              }
+            ]
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/vision/lineage",
+            "label": "Lineage"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Personalized discovery",
+    "link": {
+      "type": "doc",
+      "id": "02-personalized-discovery/index"
+    },
+    "items": [
+      {
+        "type": "category",
+        "label": "Ads",
+        "link": {
+          "type": "doc",
+          "id": "02-personalized-discovery/ads/index"
+        },
+        "items": [
+          {
+            "type": "category",
+            "label": "Ad auction",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/14-ad-auction/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/14-ad-auction/when-the-reserve-price-bites/index",
+                "label": "When the reserve price bites"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/14-ad-auction/when-truthful-bidding-is-optimal/index",
+                "label": "When truthful bidding is optimal"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "ECPM ranking",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/15-ecpm-ranking/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/15-ecpm-ranking/when-pctr-moves-the-rank/index",
+                "label": "When pCTR moves the rank"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/15-ecpm-ranking/when-the-reserve-interacts/index",
+                "label": "When the reserve interacts"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "pCTR calibration",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/16-ctr-calibration/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/16-ctr-calibration/when-calibration-and-ranking-conflict/index",
+                "label": "When calibration and ranking conflict"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/16-ctr-calibration/when-the-correction-is-needed/index",
+                "label": "When the correction is needed"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Budget pacing",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/17-budget-pacing/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/17-budget-pacing/when-delivery-varies/index",
+                "label": "When delivery varies"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/17-budget-pacing/when-the-budget-is-tiny/index",
+                "label": "When the budget is tiny"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Ad externality",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/18-ad-externality/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/18-ad-externality/when-the-ad-is-relevant/index",
+                "label": "When the ad is relevant"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/18-ad-externality/when-the-slot-is-scarce/index",
+                "label": "When the slot is scarce"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Frequency capping",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/25-frequency-capping/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/25-frequency-capping/when-fatigue-hits/index",
+                "label": "When fatigue hits"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/25-frequency-capping/when-the-cap-bites/index",
+                "label": "When the cap bites"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Creative selection",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/26-creative-selection/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/26-creative-selection/when-the-creative-context-changes/index",
+                "label": "When the creative context changes"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/26-creative-selection/when-the-creative-is-stale/index",
+                "label": "When the creative is stale"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Bid strategy",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/27-bid-strategy/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/27-bid-strategy/when-the-bid-is-capped/index",
+                "label": "When the bid is capped"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/27-bid-strategy/when-the-target-cpa-binds/index",
+                "label": "When the target CPA binds"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Auction revenue",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/28-auction-revenue/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/28-auction-revenue/when-first-price-pays-more/index",
+                "label": "When first price pays more"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/28-auction-revenue/when-the-reserve-moves-revenue/index",
+                "label": "When the reserve moves revenue"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "RTB pipeline",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/29-rtb-pipeline/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/29-rtb-pipeline/when-the-bidder-is-slow/index",
+                "label": "When the bidder is slow"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/29-rtb-pipeline/when-the-exchange-times-out/index",
+                "label": "When the exchange times out"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Ads measurement",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/30-ads-measurement/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/30-ads-measurement/when-attribution-overcounts/index",
+                "label": "When attribution overcounts"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/30-ads-measurement/when-the-incrementality-is-zero/index",
+                "label": "When the incrementality is zero"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Interleaving experiments",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/38-interleaving-experiments/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/38-interleaving-experiments/when-the-credit-is-unbalanced/index",
+                "label": "When the credit is unbalanced"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/38-interleaving-experiments/when-the-traffic-is-tiny/index",
+                "label": "When the traffic is tiny"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "First-price transition",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/39-first-price-transition/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/39-first-price-transition/when-the-market-adjusts/index",
+                "label": "When the market adjusts"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/39-first-price-transition/when-the-shading-is-wrong/index",
+                "label": "When the shading is wrong"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Privacy-safe attribution",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/40-privacy-safe-attribution/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/40-privacy-safe-attribution/when-the-budget-splits/index",
+                "label": "When the budget splits"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/40-privacy-safe-attribution/when-the-noise-is-too-high/index",
+                "label": "When the noise is too high"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "LLM creative generation",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/41-llm-creative-generation/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/41-llm-creative-generation/when-the-generated-creative-is-identical/index",
+                "label": "When the generated creative is identical"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/41-llm-creative-generation/when-the-score-is-on-surface/index",
+                "label": "When the score is on the surface"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Marketplace economics",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/42-marketplace-economics/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/42-marketplace-economics/when-the-ad-load-moves/index",
+                "label": "When the ad load moves"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/42-marketplace-economics/when-the-take-rate-is-too-high/index",
+                "label": "When the take rate is too high"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Advertiser ROAS",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/ads/54-advertiser-roas/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/54-advertiser-roas/when-roas-collapses/index",
+                "label": "When ROAS collapses"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/54-advertiser-roas/when-the-budget-moves/index",
+                "label": "When the budget moves"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "doc",
+        "id": "02-personalized-discovery/lineage",
+        "label": "Lineage"
+      },
+      {
+        "type": "category",
+        "label": "Recommendation",
+        "link": {
+          "type": "doc",
+          "id": "02-personalized-discovery/recommendation/index"
+        },
+        "items": [
+          {
+            "type": "category",
+            "label": "LLM ranking",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/31-llm-ranking/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/31-llm-ranking/when-the-llm-disagrees/index",
+                "label": "When the LLM disagrees"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/31-llm-ranking/when-the-prompt-token-budget-binds/index",
+                "label": "When the prompt token budget binds"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Recommendation RLHF",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/32-recommendation-rlhf/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/32-recommendation-rlhf/when-the-preference-is-noisy/index",
+                "label": "When the preference is noisy"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/32-recommendation-rlhf/when-the-reward-is-gamed/index",
+                "label": "When the reward is gamed"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Multimodal recall",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/33-multimodal-recall/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/33-multimodal-recall/when-the-image-is-cold/index",
+                "label": "When the image is cold"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/33-multimodal-recall/when-the-modality-mismatch/index",
+                "label": "When the modality mismatch"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Slate versus item evaluation",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-metric-misses-diversity/index",
+                "label": "When the metric misses diversity"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-slate-is-diverse/index",
+                "label": "When the slate is diverse"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Entire-space funnel",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/56-entire-space-funnel/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/56-entire-space-funnel/when-the-ctcvr-disagrees/index",
+                "label": "When the CTCVR disagrees"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/56-entire-space-funnel/when-the-cvr-is-censored/index",
+                "label": "When the CVR is censored"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Delayed feedback",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/57-delayed-feedback/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/57-delayed-feedback/when-freshness-fights-correctness/index",
+                "label": "When freshness fights correctness"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/57-delayed-feedback/when-the-window-is-too-short/index",
+                "label": "When the window is too short"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Negative sampling",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/58-negative-sampling/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/58-negative-sampling/when-the-correction-overcorrects/index",
+                "label": "When the correction overcorrects"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/58-negative-sampling/when-the-negative-rate-is-extreme/index",
+                "label": "When the negative rate is extreme"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Exposure bias",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/59-exposure-bias/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/59-exposure-bias/when-exploration-traffic-is-thin/index",
+                "label": "When exploration traffic is thin"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/59-exposure-bias/when-the-propensity-is-noisy/index",
+                "label": "When the propensity is noisy"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Heavy-tail objective",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/60-heavy-tail-objective/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/60-heavy-tail-objective/when-the-aov-skews/index",
+                "label": "When the AOV skews"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/60-heavy-tail-objective/when-the-whale-dominates/index",
+                "label": "When the whale dominates"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Multi-task conflict",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/61-multi-task-conflict/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/61-multi-task-conflict/when-gating-does-not-help/index",
+                "label": "When gating does not help"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/61-multi-task-conflict/when-the-dominant-task-wins/index",
+                "label": "When the dominant task wins"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Funnel consistency",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/62-funnel-consistency/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/62-funnel-consistency/when-the-constraint-hurts/index",
+                "label": "When the constraint hurts"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/62-funnel-consistency/when-the-order-exceeds-the-click/index",
+                "label": "When the order exceeds the click"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Cascade consistency",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/63-cascade-consistency/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/63-cascade-consistency/when-the-distillation-blurs/index",
+                "label": "When the distillation blurs"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/63-cascade-consistency/when-top-k-is-not-preserved/index",
+                "label": "When top-K is not preserved"
               }
             ]
           }
@@ -1964,49 +1174,504 @@
       },
       {
         "type": "category",
-        "label": "Game AI",
+        "label": "Search",
         "link": {
           "type": "doc",
-          "id": "missions/06-game-ai/index"
+          "id": "02-personalized-discovery/search/index"
         },
         "items": [
           {
             "type": "category",
-            "label": "Grid-world environment and baselines",
+            "label": "Query understanding",
             "link": {
               "type": "doc",
-              "id": "missions/06-game-ai/00-gridworld-baselines/index"
+              "id": "02-personalized-discovery/search/10-query-understanding/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/00-gridworld-baselines/when-greedy-is-not-perfect/index",
-                "label": "When greedy is not perfect"
+                "id": "02-personalized-discovery/search/10-query-understanding/when-the-query-is-misspelled/index",
+                "label": "When the query is misspelled"
               },
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/00-gridworld-baselines/when-random-gets-22-percent/index",
-                "label": "When random gets 22 percent"
+                "id": "02-personalized-discovery/search/10-query-understanding/when-the-query-is-short/index",
+                "label": "When the query is short"
               }
             ]
           },
           {
             "type": "category",
-            "label": "GRPO against the grid-world",
+            "label": "Search retrieval",
             "link": {
               "type": "doc",
-              "id": "missions/06-game-ai/01-grpo/index"
+              "id": "02-personalized-discovery/search/11-search-retrieval/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/01-grpo/the-policy-anatomy/index",
-                "label": "The policy anatomy"
+                "id": "02-personalized-discovery/search/11-search-retrieval/when-the-dense-path-exists/index",
+                "label": "When the dense path exists"
               },
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/01-grpo/when-the-policy-collapses/index",
-                "label": "When the policy collapses"
+                "id": "02-personalized-discovery/search/11-search-retrieval/when-the-synonym-is-invisible/index",
+                "label": "When the synonym is invisible"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Search ranking",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/search/12-search-ranking/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/12-search-ranking/when-the-label-is-a-click/index",
+                "label": "When the label is a click"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/12-search-ranking/when-the-list-is-longer/index",
+                "label": "When the list is longer"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Search evaluation",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/search/13-search-evaluation/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/13-search-evaluation/when-mrr-and-ndcg-disagree/index",
+                "label": "When MRR and NDCG disagree"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/13-search-evaluation/when-the-k-is-small/index",
+                "label": "When the k is small"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Query expansion",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/search/19-query-expansion/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/19-query-expansion/when-expansion-hurts/index",
+                "label": "When expansion hurts"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/19-query-expansion/when-the-correction-helps/index",
+                "label": "When the correction helps"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Dense retrieval",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/search/20-dense-retrieval/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/20-dense-retrieval/when-the-embedding-is-stale/index",
+                "label": "When the embedding is stale"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/20-dense-retrieval/when-the-index-is-ann/index",
+                "label": "When the index is ANN"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Hybrid fusion",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/search/21-hybrid-fusion/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/21-hybrid-fusion/when-one-set-is-empty/index",
+                "label": "When one set is empty"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/21-hybrid-fusion/when-the-fusion-weight-moves/index",
+                "label": "When the fusion weight moves"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Reranking",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/search/22-reranking/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/22-reranking/when-the-rerank-budget-is-tight/index",
+                "label": "When the rerank budget is tight"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/22-reranking/when-the-reranker-disagrees/index",
+                "label": "When the reranker disagrees"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Personalized search",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/search/23-personalized-search/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/23-personalized-search/when-personalization-hurts/index",
+                "label": "When personalization hurts"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/23-personalized-search/when-the-user-history-helps/index",
+                "label": "When the user history helps"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Search measurement",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/search/24-search-measurement/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/24-search-measurement/when-the-click-is-a-query/index",
+                "label": "When the click is a query"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/24-search-measurement/when-the-zero-result-rate-matters/index",
+                "label": "When the zero-result rate matters"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Generative retrieval",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/search/35-generative-retrieval/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/35-generative-retrieval/when-the-id-space-grows/index",
+                "label": "When the ID space grows"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/35-generative-retrieval/when-the-generator-hallucinates/index",
+                "label": "When the generator hallucinates"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Conversational search",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/search/36-conversational-search/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/36-conversational-search/when-the-anaphora-is-ambiguous/index",
+                "label": "When the anaphora is ambiguous"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/36-conversational-search/when-the-topic-shifts/index",
+                "label": "When the topic shifts"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "LLM query understanding",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/search/37-llm-query-understanding/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/37-llm-query-understanding/when-the-llm-over-parses/index",
+                "label": "When the LLM over-parses"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/37-llm-query-understanding/when-the-slot-is-empty/index",
+                "label": "When the slot is empty"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Shared",
+        "link": {
+          "type": "doc",
+          "id": "02-personalized-discovery/shared/index"
+        },
+        "items": [
+          {
+            "type": "category",
+            "label": "Interactions",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/00-interactions/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/00-interactions/the-eligibility-cascade/index",
+                "label": "The eligibility cascade"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/00-interactions/when-the-absence-is-a-signal/index",
+                "label": "When the absence is a signal"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/00-interactions/when-the-split-leaks/index",
+                "label": "When the split leaks"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Content understanding",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/01-content-understanding/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/01-content-understanding/the-63-percent-that-never-moves/index",
+                "label": "The 63 percent that never moves"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/01-content-understanding/when-the-label-is-noisy/index",
+                "label": "When the label is noisy"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/01-content-understanding/when-the-threshold-rescues-the-tail/index",
+                "label": "When the threshold rescues the tail"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Recall",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/02-recall/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/02-recall/the-price-of-approximate/index",
+                "label": "The price of approximate"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/02-recall/when-the-tail-goes-cold/index",
+                "label": "When the tail goes cold"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/02-recall/when-you-lose-a-queue/index",
+                "label": "When you lose a queue"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Pre-rank",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/03-pre-rank/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/03-pre-rank/when-the-cheap-cut-fails/index",
+                "label": "When the cheap cut fails"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/03-pre-rank/when-the-cheap-score-lies/index",
+                "label": "When the cheap score lies"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/03-pre-rank/when-the-long-tail-is-invisible/index",
+                "label": "When the long tail is invisible"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Fine-rank",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/04-fine-rank/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/04-fine-rank/the-calibration-that-decides/index",
+                "label": "The calibration that decides"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/04-fine-rank/when-sharing-hurts/index",
+                "label": "When sharing hurts"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/04-fine-rank/when-the-model-is-stale/index",
+                "label": "When the model is stale"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Value tree",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/05-value-tree/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/05-value-tree/the-calibration-break/index",
+                "label": "The calibration break"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/05-value-tree/when-the-user-rejects/index",
+                "label": "When the user rejects"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/05-value-tree/when-the-weight-moves/index",
+                "label": "When the weight moves"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Mixing",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/06-mixing/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/06-mixing/when-diversity-hurts/index",
+                "label": "When diversity hurts"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/06-mixing/when-the-beam-is-wide-enough/index",
+                "label": "When the beam is wide enough"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/06-mixing/when-the-trade-weight-moves/index",
+                "label": "When the trade weight moves"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Rule engine",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/07-rule-engine/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/07-rule-engine/the-empty-set-was-two-rules/index",
+                "label": "The empty set was two rules"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/07-rule-engine/when-the-rule-is-a-typo/index",
+                "label": "When the rule is a typo"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/07-rule-engine/when-the-rules-collide/index",
+                "label": "When the rules collide"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Serving",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/08-serving/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/08-serving/when-p95s-do-not-add/index",
+                "label": "When p95s do not add"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/08-serving/when-the-cache-goes-cold/index",
+                "label": "When the cache goes cold"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/08-serving/when-the-cut-bites/index",
+                "label": "When the cut bites"
               }
             ]
           },
@@ -2015,109 +1680,749 @@
             "label": "Outcome report",
             "link": {
               "type": "doc",
-              "id": "missions/06-game-ai/02-report/index"
+              "id": "02-personalized-discovery/shared/09-report/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/02-report/when-the-margin-is-the-spread/index",
-                "label": "When the margin is the spread"
+                "id": "02-personalized-discovery/shared/09-report/the-variance-that-decides/index",
+                "label": "The variance that decides"
               },
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/02-report/when-the-verdict-is-not-met/index",
-                "label": "When the verdict is NOT MET"
+                "id": "02-personalized-discovery/shared/09-report/when-the-baseline-moves/index",
+                "label": "When the baseline moves"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/09-report/when-the-guardrail-vetoes/index",
+                "label": "When the guardrail vetoes"
               }
             ]
           },
           {
             "type": "category",
-            "label": "Fixing the collapse",
+            "label": "Feature store",
             "link": {
               "type": "doc",
-              "id": "missions/06-game-ai/03-fixing-collapse/index"
+              "id": "02-personalized-discovery/shared/43-feature-store/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/03-fixing-collapse/the-diversity-direction/index",
-                "label": "The diversity direction"
+                "id": "02-personalized-discovery/shared/43-feature-store/when-the-feature-diverges/index",
+                "label": "When the feature diverges"
               },
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/03-fixing-collapse/when-the-fix-makes-it-worse/index",
-                "label": "When the fix makes it worse"
+                "id": "02-personalized-discovery/shared/43-feature-store/when-the-feature-is-missing/index",
+                "label": "When the feature is missing"
               }
             ]
           },
           {
             "type": "category",
-            "label": "A real partially-observed environment",
+            "label": "Training-serving consistency",
             "link": {
               "type": "doc",
-              "id": "missions/06-game-ai/04-minigrid/index"
+              "id": "02-personalized-discovery/shared/44-training-serving-consistency/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/04-minigrid/the-solvability-check/index",
-                "label": "The solvability check"
+                "id": "02-personalized-discovery/shared/44-training-serving-consistency/when-the-label-arrives-late/index",
+                "label": "When the label arrives late"
               },
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/04-minigrid/when-the-cold-start-is-total/index",
-                "label": "When the cold start is total"
+                "id": "02-personalized-discovery/shared/44-training-serving-consistency/when-the-online-feature-lags/index",
+                "label": "When the online feature lags"
               }
             ]
           },
           {
             "type": "category",
-            "label": "Full-chain report",
+            "label": "Feedback loops",
             "link": {
               "type": "doc",
-              "id": "missions/06-game-ai/05-report/index"
+              "id": "02-personalized-discovery/shared/45-feedback-loops/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/05-report/the-two-environment-null/index",
-                "label": "The two-environment null"
+                "id": "02-personalized-discovery/shared/45-feedback-loops/when-popularity-collapses/index",
+                "label": "When popularity collapses"
               },
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/05-report/when-the-null-is-elevated/index",
-                "label": "When the null is elevated"
+                "id": "02-personalized-discovery/shared/45-feedback-loops/when-the-filter-bubble-closes/index",
+                "label": "When the filter bubble closes"
               }
             ]
           },
           {
             "type": "category",
-            "label": "Tool-use decision (calculator)",
+            "label": "Retraining and staleness",
             "link": {
               "type": "doc",
-              "id": "missions/06-game-ai/06-tool-use-rl/index"
+              "id": "02-personalized-discovery/shared/46-retraining-and-staleness/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/06-tool-use-rl/the-format-credit-trap/index",
-                "label": "The format-credit trap"
+                "id": "02-personalized-discovery/shared/46-retraining-and-staleness/when-retraining-flips-the-metric/index",
+                "label": "When retraining flips the metric"
               },
               {
                 "type": "doc",
-                "id": "missions/06-game-ai/06-tool-use-rl/when-two-seeds-stopped-paying/index",
-                "label": "When two seeds stopped paying"
+                "id": "02-personalized-discovery/shared/46-retraining-and-staleness/when-the-embedding-expires/index",
+                "label": "When the embedding expires"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Monitoring and drift",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/47-monitoring-and-drift/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-alert-is-noisy/index",
+                "label": "When the alert is noisy"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-drift-is-silent/index",
+                "label": "When the drift is silent"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Realtime user state",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/48-realtime-user-state/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/48-realtime-user-state/when-realtime-is-too-expensive/index",
+                "label": "When realtime is too expensive"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/48-realtime-user-state/when-the-session-state-moves/index",
+                "label": "When the session state moves"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Throughput and capacity",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/49-throughput-and-capacity/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/49-throughput-and-capacity/when-the-peak-arrives/index",
+                "label": "When the peak arrives"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/49-throughput-and-capacity/when-the-tail-costs/index",
+                "label": "When the tail costs"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Cost per query",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/50-cost-per-query/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/50-cost-per-query/when-the-cache-pays/index",
+                "label": "When the cache pays"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/50-cost-per-query/when-the-model-is-too-big/index",
+                "label": "When the model is too big"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "New-user experience",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/51-new-user-experience/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/51-new-user-experience/when-personalization-scares/index",
+                "label": "When personalization scares"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/51-new-user-experience/when-the-user-is-new/index",
+                "label": "When the user is new"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Trust and explainability",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/52-trust-and-explainability/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/52-trust-and-explainability/when-the-explanation-is-wrong/index",
+                "label": "When the explanation is wrong"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/52-trust-and-explainability/when-trust-erodes/index",
+                "label": "When trust erodes"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Fairness and allocation",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/53-fairness-and-allocation/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-constraint-bites/index",
+                "label": "When the constraint bites"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-policy-is-biased/index",
+                "label": "When the policy is biased"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "LTV and CAC",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/55-ltv-and-cac/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/55-ltv-and-cac/when-cac-exceeds-ltv/index",
+                "label": "When CAC exceeds LTV"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/55-ltv-and-cac/when-retention-flattens/index",
+                "label": "When retention flattens"
               }
             ]
           }
         ]
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Quantitative research",
+    "link": {
+      "type": "doc",
+      "id": "03-quantitative-research/index"
+    },
+    "items": [
+      {
+        "type": "category",
+        "label": "Market data",
+        "link": {
+          "type": "doc",
+          "id": "03-quantitative-research/00-market-data/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "03-quantitative-research/00-market-data/asof-vs-naive/index",
+            "label": "The as-of join"
+          },
+          {
+            "type": "doc",
+            "id": "03-quantitative-research/00-market-data/the-restatement-gap/index",
+            "label": "The restatement gap"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Signal research",
+        "link": {
+          "type": "doc",
+          "id": "03-quantitative-research/01-signal-research/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "03-quantitative-research/01-signal-research/the-search-log-read/index",
+            "label": "The search log, read"
+          },
+          {
+            "type": "doc",
+            "id": "03-quantitative-research/01-signal-research/when-breadth-inflates-the-winner/index",
+            "label": "When breadth inflates the winner"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Cross-sectional rank",
+        "link": {
+          "type": "doc",
+          "id": "03-quantitative-research/02-cross-sectional-rank/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "03-quantitative-research/02-cross-sectional-rank/the-rank-that-becomes-a-position/index",
+            "label": "The rank that becomes a position"
+          },
+          {
+            "type": "doc",
+            "id": "03-quantitative-research/02-cross-sectional-rank/when-the-cap-bites/index",
+            "label": "When the cap bites"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Walk-forward validation",
+        "link": {
+          "type": "doc",
+          "id": "03-quantitative-research/03-walk-forward-validation/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "03-quantitative-research/03-walk-forward-validation/when-purge-matters/index",
+            "label": "When purge matters"
+          },
+          {
+            "type": "doc",
+            "id": "03-quantitative-research/03-walk-forward-validation/when-the-shuffle-does-not-move/index",
+            "label": "When the shuffle does not move"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Cost and capacity",
+        "link": {
+          "type": "doc",
+          "id": "03-quantitative-research/04-cost-and-capacity/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "03-quantitative-research/04-cost-and-capacity/the-capacity-ceiling/index",
+            "label": "The capacity ceiling"
+          },
+          {
+            "type": "doc",
+            "id": "03-quantitative-research/04-cost-and-capacity/when-the-book-stops-making-money/index",
+            "label": "When the book stops making money"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Outcome report",
+        "link": {
+          "type": "doc",
+          "id": "03-quantitative-research/05-report/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "03-quantitative-research/05-report/the-three-way-verdict/index",
+            "label": "The three-way verdict"
+          },
+          {
+            "type": "doc",
+            "id": "03-quantitative-research/05-report/when-the-refusal-names-everything/index",
+            "label": "When the refusal names everything"
+          }
+        ]
+      },
+      {
+        "type": "doc",
+        "id": "03-quantitative-research/lineage",
+        "label": "Lineage"
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Agentic platform",
+    "link": {
+      "type": "doc",
+      "id": "04-agentic-platform/index"
+    },
+    "items": [
+      {
+        "type": "category",
+        "label": "The task set",
+        "link": {
+          "type": "doc",
+          "id": "04-agentic-platform/00-task-set/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/00-task-set/the-two-of-six-yield/index",
+            "label": "The two-of-six yield"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/00-task-set/what-the-task-set-contains/index",
+            "label": "What the task set contains"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "No harness",
+        "link": {
+          "type": "doc",
+          "id": "04-agentic-platform/01-no-harness/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/01-no-harness/when-the-blind-call-fails/index",
+            "label": "When the blind call fails"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/01-no-harness/when-the-patch-does-not-apply/index",
+            "label": "When the patch does not apply"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Scoring the attempt",
+        "link": {
+          "type": "doc",
+          "id": "04-agentic-platform/02-agent-loop/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/02-agent-loop/the-loop-that-scores-a-patch/index",
+            "label": "The loop that scores a patch"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/02-agent-loop/when-the-guardrail-refuses/index",
+            "label": "When the guardrail refuses"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Cheap or expensive",
+        "link": {
+          "type": "doc",
+          "id": "04-agentic-platform/03-cheap-or-expensive/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/03-cheap-or-expensive/the-cost-quality-knee/index",
+            "label": "The cost-quality knee"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/03-cheap-or-expensive/the-tier-that-won/index",
+            "label": "The tier that won"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "How it fails",
+        "link": {
+          "type": "doc",
+          "id": "04-agentic-platform/04-how-it-fails/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/04-how-it-fails/the-zero-failure-taxonomy/index",
+            "label": "The zero-failure taxonomy"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/04-how-it-fails/when-the-patch-cannot-apply/index",
+            "label": "When the patch cannot apply"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "The report",
+        "link": {
+          "type": "doc",
+          "id": "04-agentic-platform/05-report/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/05-report/the-public-set-control/index",
+            "label": "The public-set control"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/05-report/when-the-partial-verdict/index",
+            "label": "When the verdict is partial"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Closing the loop",
+        "link": {
+          "type": "doc",
+          "id": "04-agentic-platform/06-closing-the-loop/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/06-closing-the-loop/does-feedback-help/index",
+            "label": "Does feedback help"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/06-closing-the-loop/the-bimodal-retry/index",
+            "label": "The bimodal retry"
+          }
+        ]
+      },
+      {
+        "type": "doc",
+        "id": "04-agentic-platform/agent-memory-landscape",
+        "label": "Agent memory landscape"
+      },
+      {
+        "type": "doc",
+        "id": "04-agentic-platform/harness-effects-landscape",
+        "label": "Harness effects landscape"
+      },
+      {
+        "type": "doc",
+        "id": "04-agentic-platform/infra-agent-harness-landscape",
+        "label": "Infra agent harness landscape"
+      },
+      {
+        "type": "doc",
+        "id": "04-agentic-platform/lineage",
+        "label": "Lineage"
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Game AI",
+    "link": {
+      "type": "doc",
+      "id": "05-game-ai/index"
+    },
+    "items": [
+      {
+        "type": "category",
+        "label": "Grid-world environment and baselines",
+        "link": {
+          "type": "doc",
+          "id": "05-game-ai/00-gridworld-baselines/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "05-game-ai/00-gridworld-baselines/when-greedy-is-not-perfect/index",
+            "label": "When greedy is not perfect"
+          },
+          {
+            "type": "doc",
+            "id": "05-game-ai/00-gridworld-baselines/when-random-gets-22-percent/index",
+            "label": "When random gets 22 percent"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "GRPO against the grid-world",
+        "link": {
+          "type": "doc",
+          "id": "05-game-ai/01-grpo/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "05-game-ai/01-grpo/the-policy-anatomy/index",
+            "label": "The policy anatomy"
+          },
+          {
+            "type": "doc",
+            "id": "05-game-ai/01-grpo/when-the-policy-collapses/index",
+            "label": "When the policy collapses"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Outcome report",
+        "link": {
+          "type": "doc",
+          "id": "05-game-ai/02-report/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "05-game-ai/02-report/when-the-margin-is-the-spread/index",
+            "label": "When the margin is the spread"
+          },
+          {
+            "type": "doc",
+            "id": "05-game-ai/02-report/when-the-verdict-is-not-met/index",
+            "label": "When the verdict is NOT MET"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Fixing the collapse",
+        "link": {
+          "type": "doc",
+          "id": "05-game-ai/03-fixing-collapse/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "05-game-ai/03-fixing-collapse/the-diversity-direction/index",
+            "label": "The diversity direction"
+          },
+          {
+            "type": "doc",
+            "id": "05-game-ai/03-fixing-collapse/when-the-fix-makes-it-worse/index",
+            "label": "When the fix makes it worse"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "A real partially-observed environment",
+        "link": {
+          "type": "doc",
+          "id": "05-game-ai/04-minigrid/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "05-game-ai/04-minigrid/the-solvability-check/index",
+            "label": "The solvability check"
+          },
+          {
+            "type": "doc",
+            "id": "05-game-ai/04-minigrid/when-the-cold-start-is-total/index",
+            "label": "When the cold start is total"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Full-chain report",
+        "link": {
+          "type": "doc",
+          "id": "05-game-ai/05-report/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "05-game-ai/05-report/the-two-environment-null/index",
+            "label": "The two-environment null"
+          },
+          {
+            "type": "doc",
+            "id": "05-game-ai/05-report/when-the-null-is-elevated/index",
+            "label": "When the null is elevated"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Tool-use decision (calculator)",
+        "link": {
+          "type": "doc",
+          "id": "05-game-ai/06-tool-use-rl/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "05-game-ai/06-tool-use-rl/the-format-credit-trap/index",
+            "label": "The format-credit trap"
+          },
+          {
+            "type": "doc",
+            "id": "05-game-ai/06-tool-use-rl/when-two-seeds-stopped-paying/index",
+            "label": "When two seeds stopped paying"
+          }
+        ]
+      },
+      {
+        "type": "doc",
+        "id": "05-game-ai/lineage",
+        "label": "Lineage"
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Multimodal generation",
+    "link": {
+      "type": "doc",
+      "id": "07-multimodal-generation/index"
+    },
+    "items": [
+      {
+        "type": "doc",
+        "id": "07-multimodal-generation/lineage",
+        "label": "Lineage"
       },
       {
         "type": "category",
         "label": "Real-time voice",
         "link": {
           "type": "doc",
-          "id": "missions/07-realtime-voice/index"
+          "id": "07-multimodal-generation/voice/index"
         },
         "items": [
           {
@@ -2125,17 +2430,17 @@
             "label": "Audio codec",
             "link": {
               "type": "doc",
-              "id": "missions/07-realtime-voice/00-audio-codec/index"
+              "id": "07-multimodal-generation/voice/00-audio-codec/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/00-audio-codec/when-silence-is-a-local-minimum/index",
+                "id": "07-multimodal-generation/voice/00-audio-codec/when-silence-is-a-local-minimum/index",
                 "label": "When silence is a local minimum"
               },
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/00-audio-codec/why-codebooks-collapse/index",
+                "id": "07-multimodal-generation/voice/00-audio-codec/why-codebooks-collapse/index",
                 "label": "Why codebooks collapse"
               }
             ]
@@ -2145,17 +2450,17 @@
             "label": "Streaming decode",
             "link": {
               "type": "doc",
-              "id": "missions/07-realtime-voice/01-streaming-decode/index"
+              "id": "07-multimodal-generation/voice/01-streaming-decode/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/01-streaming-decode/when-the-cache-pays/index",
+                "id": "07-multimodal-generation/voice/01-streaming-decode/when-the-cache-pays/index",
                 "label": "When the cache pays"
               },
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/01-streaming-decode/when-the-logits-match/index",
+                "id": "07-multimodal-generation/voice/01-streaming-decode/when-the-logits-match/index",
                 "label": "When the logits match"
               }
             ]
@@ -2165,17 +2470,17 @@
             "label": "Outcome report",
             "link": {
               "type": "doc",
-              "id": "missions/07-realtime-voice/02-report/index"
+              "id": "07-multimodal-generation/voice/02-report/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/02-report/the-five-acceptance-lines/index",
+                "id": "07-multimodal-generation/voice/02-report/the-five-acceptance-lines/index",
                 "label": "The five acceptance lines"
               },
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/02-report/when-the-transfer-is-clean/index",
+                "id": "07-multimodal-generation/voice/02-report/when-the-transfer-is-clean/index",
                 "label": "When the transfer is clean"
               }
             ]
@@ -2185,17 +2490,17 @@
             "label": "Real speech and network",
             "link": {
               "type": "doc",
-              "id": "missions/07-realtime-voice/03-real-speech-and-network/index"
+              "id": "07-multimodal-generation/voice/03-real-speech-and-network/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/03-real-speech-and-network/when-the-network-is-the-tail/index",
+                "id": "07-multimodal-generation/voice/03-real-speech-and-network/when-the-network-is-the-tail/index",
                 "label": "When the network is the tail"
               },
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/03-real-speech-and-network/when-the-recipe-broke-then-fixed/index",
+                "id": "07-multimodal-generation/voice/03-real-speech-and-network/when-the-recipe-broke-then-fixed/index",
                 "label": "When the recipe broke then fixed"
               }
             ]
@@ -2205,17 +2510,17 @@
             "label": "Multi-speaker generalization",
             "link": {
               "type": "doc",
-              "id": "missions/07-realtime-voice/04-multi-speaker/index"
+              "id": "07-multimodal-generation/voice/04-multi-speaker/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/04-multi-speaker/when-codebook-health-is-seed-dependent/index",
+                "id": "07-multimodal-generation/voice/04-multi-speaker/when-codebook-health-is-seed-dependent/index",
                 "label": "When codebook health is seed-dependent"
               },
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/04-multi-speaker/when-the-fix-did-not-generalize/index",
+                "id": "07-multimodal-generation/voice/04-multi-speaker/when-the-fix-did-not-generalize/index",
                 "label": "When the fix did not generalize"
               }
             ]
@@ -2225,17 +2530,17 @@
             "label": "Codebook dead-code reset",
             "link": {
               "type": "doc",
-              "id": "missions/07-realtime-voice/05-codebook-reset/index"
+              "id": "07-multimodal-generation/voice/05-codebook-reset/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/05-codebook-reset/when-reset-reaches-64-64/index",
+                "id": "07-multimodal-generation/voice/05-codebook-reset/when-reset-reaches-64-64/index",
                 "label": "When reset reaches 64/64"
               },
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/05-codebook-reset/when-the-reset-never-stops/index",
+                "id": "07-multimodal-generation/voice/05-codebook-reset/when-the-reset-never-stops/index",
                 "label": "When the reset never stops"
               }
             ]
@@ -2245,20 +2550,25 @@
             "label": "Which mechanism did it",
             "link": {
               "type": "doc",
-              "id": "missions/07-realtime-voice/06-which-mechanism-did-it/index"
+              "id": "07-multimodal-generation/voice/06-which-mechanism-did-it/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/06-which-mechanism-did-it/the-half-that-did-the-work/index",
+                "id": "07-multimodal-generation/voice/06-which-mechanism-did-it/the-half-that-did-the-work/index",
                 "label": "The half that did the work"
               },
               {
                 "type": "doc",
-                "id": "missions/07-realtime-voice/06-which-mechanism-did-it/when-the-corners-reproduce/index",
+                "id": "07-multimodal-generation/voice/06-which-mechanism-did-it/when-the-corners-reproduce/index",
                 "label": "When the corners reproduce"
               }
             ]
+          },
+          {
+            "type": "doc",
+            "id": "07-multimodal-generation/voice/lineage",
+            "label": "Lineage"
           }
         ]
       },
@@ -2267,7 +2577,7 @@
         "label": "Video generation",
         "link": {
           "type": "doc",
-          "id": "missions/08-video-generation/index"
+          "id": "07-multimodal-generation/video/index"
         },
         "items": [
           {
@@ -2275,17 +2585,17 @@
             "label": "Synthetic video dataset",
             "link": {
               "type": "doc",
-              "id": "missions/08-video-generation/00-synthetic-video-dataset/index"
+              "id": "07-multimodal-generation/video/00-synthetic-video-dataset/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/00-synthetic-video-dataset/when-the-collision-is-one/index",
+                "id": "07-multimodal-generation/video/00-synthetic-video-dataset/when-the-collision-is-one/index",
                 "label": "When the collision is one"
               },
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/00-synthetic-video-dataset/when-the-seed-is-the-answer/index",
+                "id": "07-multimodal-generation/video/00-synthetic-video-dataset/when-the-seed-is-the-answer/index",
                 "label": "When the seed is the answer"
               }
             ]
@@ -2295,17 +2605,17 @@
             "label": "Video tokenizer",
             "link": {
               "type": "doc",
-              "id": "missions/08-video-generation/01-video-tokenizer/index"
+              "id": "07-multimodal-generation/video/01-video-tokenizer/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/01-video-tokenizer/what-a-video-token-is/index",
+                "id": "07-multimodal-generation/video/01-video-tokenizer/what-a-video-token-is/index",
                 "label": "What a video token is"
               },
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/01-video-tokenizer/when-the-dead-codes-revive/index",
+                "id": "07-multimodal-generation/video/01-video-tokenizer/when-the-dead-codes-revive/index",
                 "label": "When the dead codes revive"
               }
             ]
@@ -2315,17 +2625,17 @@
             "label": "Generation model",
             "link": {
               "type": "doc",
-              "id": "missions/08-video-generation/02-generation-model/index"
+              "id": "07-multimodal-generation/video/02-generation-model/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/02-generation-model/the-margin-vs-the-ceiling/index",
+                "id": "07-multimodal-generation/video/02-generation-model/the-margin-vs-the-ceiling/index",
                 "label": "The margin vs the ceiling"
               },
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/02-generation-model/when-wrong-tokens-still-reconstruct/index",
+                "id": "07-multimodal-generation/video/02-generation-model/when-wrong-tokens-still-reconstruct/index",
                 "label": "When wrong tokens still reconstruct"
               }
             ]
@@ -2335,17 +2645,17 @@
             "label": "Outcome report",
             "link": {
               "type": "doc",
-              "id": "missions/08-video-generation/03-report/index"
+              "id": "07-multimodal-generation/video/03-report/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/03-report/the-cost-quality-pair/index",
+                "id": "07-multimodal-generation/video/03-report/the-cost-quality-pair/index",
                 "label": "The cost-quality pair"
               },
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/03-report/when-the-cost-ceiling-is-roomy/index",
+                "id": "07-multimodal-generation/video/03-report/when-the-cost-ceiling-is-roomy/index",
                 "label": "When the cost ceiling is roomy"
               }
             ]
@@ -2355,17 +2665,17 @@
             "label": "Longer sequences",
             "link": {
               "type": "doc",
-              "id": "missions/08-video-generation/04-longer-sequences/index"
+              "id": "07-multimodal-generation/video/04-longer-sequences/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/04-longer-sequences/when-the-cost-grows-faster/index",
+                "id": "07-multimodal-generation/video/04-longer-sequences/when-the-cost-grows-faster/index",
                 "label": "When the cost grows faster"
               },
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/04-longer-sequences/when-the-frames-double/index",
+                "id": "07-multimodal-generation/video/04-longer-sequences/when-the-frames-double/index",
                 "label": "When the frames double"
               }
             ]
@@ -2375,17 +2685,17 @@
             "label": "Multi-object scenes",
             "link": {
               "type": "doc",
-              "id": "missions/08-video-generation/05-multi-object/index"
+              "id": "07-multimodal-generation/video/05-multi-object/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/05-multi-object/the-margin-that-holds/index",
+                "id": "07-multimodal-generation/video/05-multi-object/the-margin-that-holds/index",
                 "label": "The margin that holds"
               },
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/05-multi-object/when-two-shapes-share-a-token/index",
+                "id": "07-multimodal-generation/video/05-multi-object/when-two-shapes-share-a-token/index",
                 "label": "When two shapes share a token"
               }
             ]
@@ -2395,172 +2705,232 @@
             "label": "Both axes at once",
             "link": {
               "type": "doc",
-              "id": "missions/08-video-generation/06-longer-and-multi-object/index"
+              "id": "07-multimodal-generation/video/06-longer-and-multi-object/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/06-longer-and-multi-object/when-the-axes-compound/index",
+                "id": "07-multimodal-generation/video/06-longer-and-multi-object/when-the-axes-compound/index",
                 "label": "When the axes compound"
               },
               {
                 "type": "doc",
-                "id": "missions/08-video-generation/06-longer-and-multi-object/when-the-metric-hits-zero/index",
+                "id": "07-multimodal-generation/video/06-longer-and-multi-object/when-the-metric-hits-zero/index",
                 "label": "When the metric hits zero"
               }
             ]
+          },
+          {
+            "type": "doc",
+            "id": "07-multimodal-generation/video/lineage",
+            "label": "Lineage"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Bio-pharma modeling",
+    "link": {
+      "type": "doc",
+      "id": "08-bio-pharma-modeling/index"
+    },
+    "items": [
+      {
+        "type": "category",
+        "label": "Dataset and property",
+        "link": {
+          "type": "doc",
+          "id": "08-bio-pharma-modeling/00-dataset-and-property/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/00-dataset-and-property/the-12-endpoint-balance/index",
+            "label": "The 12-endpoint balance"
+          },
+          {
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/00-dataset-and-property/the-split-that-decides/index",
+            "label": "The split that decides"
           }
         ]
       },
       {
         "type": "category",
-        "label": "Molecular property prediction",
+        "label": "Descriptor baseline and model",
         "link": {
           "type": "doc",
-          "id": "missions/09-bio-pharma-modeling/index"
+          "id": "08-bio-pharma-modeling/01-descriptor-baseline-and-model/index"
         },
         "items": [
           {
-            "type": "category",
-            "label": "Dataset and property",
-            "link": {
-              "type": "doc",
-              "id": "missions/09-bio-pharma-modeling/00-dataset-and-property/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/00-dataset-and-property/the-12-endpoint-balance/index",
-                "label": "The 12-endpoint balance"
-              },
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/00-dataset-and-property/the-split-that-decides/index",
-                "label": "The split that decides"
-              }
-            ]
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/01-descriptor-baseline-and-model/two-ways-to-read-a-molecule/index",
+            "label": "Two ways to read a molecule"
           },
           {
-            "type": "category",
-            "label": "Descriptor baseline and model",
-            "link": {
-              "type": "doc",
-              "id": "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/two-ways-to-read-a-molecule/index",
-                "label": "Two ways to read a molecule"
-              },
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/01-descriptor-baseline-and-model/when-the-baseline-holds/index",
-                "label": "When the baseline holds"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Report",
-            "link": {
-              "type": "doc",
-              "id": "missions/09-bio-pharma-modeling/02-report/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/02-report/the-three-met-items/index",
-                "label": "The three MET items"
-              },
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/02-report/when-the-baseline-refuses-to-lose/index",
-                "label": "When the baseline refuses to lose"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Second endpoint",
-            "link": {
-              "type": "doc",
-              "id": "missions/09-bio-pharma-modeling/03-second-endpoint/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/03-second-endpoint/the-split-shift-at-the-scarcest/index",
-                "label": "The split shift at the scarcest"
-              },
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/03-second-endpoint/when-the-verdict-is-inconclusive/index",
-                "label": "When the verdict is inconclusive"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Third endpoint",
-            "link": {
-              "type": "doc",
-              "id": "missions/09-bio-pharma-modeling/04-third-endpoint/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/04-third-endpoint/the-model-first-win/index",
-                "label": "The model's first win"
-              },
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/04-third-endpoint/when-the-mid-range-point-lands/index",
-                "label": "When the mid-range point lands"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Cross-endpoint analysis",
-            "link": {
-              "type": "doc",
-              "id": "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/the-n3-directional-read/index",
-                "label": "The n=3 directional read"
-              },
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/05-cross-endpoint-analysis/when-scarcity-decides/index",
-                "label": "When scarcity decides"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "Model or representation",
-            "link": {
-              "type": "doc",
-              "id": "missions/09-bio-pharma-modeling/06-model-or-representation/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/06-model-or-representation/the-rdkit-agreement/index",
-                "label": "The RDKit agreement"
-              },
-              {
-                "type": "doc",
-                "id": "missions/09-bio-pharma-modeling/06-model-or-representation/when-width-memorizes/index",
-                "label": "When width memorizes"
-              }
-            ]
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/01-descriptor-baseline-and-model/when-the-baseline-holds/index",
+            "label": "When the baseline holds"
           }
         ]
+      },
+      {
+        "type": "category",
+        "label": "Report",
+        "link": {
+          "type": "doc",
+          "id": "08-bio-pharma-modeling/02-report/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/02-report/the-three-met-items/index",
+            "label": "The three MET items"
+          },
+          {
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/02-report/when-the-baseline-refuses-to-lose/index",
+            "label": "When the baseline refuses to lose"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Second endpoint",
+        "link": {
+          "type": "doc",
+          "id": "08-bio-pharma-modeling/03-second-endpoint/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/03-second-endpoint/the-split-shift-at-the-scarcest/index",
+            "label": "The split shift at the scarcest"
+          },
+          {
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/03-second-endpoint/when-the-verdict-is-inconclusive/index",
+            "label": "When the verdict is inconclusive"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Third endpoint",
+        "link": {
+          "type": "doc",
+          "id": "08-bio-pharma-modeling/04-third-endpoint/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/04-third-endpoint/the-model-first-win/index",
+            "label": "The model's first win"
+          },
+          {
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/04-third-endpoint/when-the-mid-range-point-lands/index",
+            "label": "When the mid-range point lands"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Cross-endpoint analysis",
+        "link": {
+          "type": "doc",
+          "id": "08-bio-pharma-modeling/05-cross-endpoint-analysis/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/05-cross-endpoint-analysis/the-n3-directional-read/index",
+            "label": "The n=3 directional read"
+          },
+          {
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/05-cross-endpoint-analysis/when-scarcity-decides/index",
+            "label": "When scarcity decides"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Model or representation",
+        "link": {
+          "type": "doc",
+          "id": "08-bio-pharma-modeling/06-model-or-representation/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/06-model-or-representation/the-rdkit-agreement/index",
+            "label": "The RDKit agreement"
+          },
+          {
+            "type": "doc",
+            "id": "08-bio-pharma-modeling/06-model-or-representation/when-width-memorizes/index",
+            "label": "When width memorizes"
+          }
+        ]
+      },
+      {
+        "type": "doc",
+        "id": "08-bio-pharma-modeling/lineage",
+        "label": "Lineage"
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "Autonomous driving",
+    "link": {
+      "type": "doc",
+      "id": "09-autonomous-driving/index"
+    },
+    "items": [
+      {
+        "type": "doc",
+        "id": "09-autonomous-driving/00-scenario-simulator/index",
+        "label": "Scenario simulator"
+      },
+      {
+        "type": "doc",
+        "id": "09-autonomous-driving/01-perception-baseline/index",
+        "label": "Perception baseline"
+      },
+      {
+        "type": "doc",
+        "id": "09-autonomous-driving/02-expert-policy/index",
+        "label": "Expert policy"
+      },
+      {
+        "type": "doc",
+        "id": "09-autonomous-driving/03-behavior-cloning/index",
+        "label": "Behavior cloning"
+      },
+      {
+        "type": "doc",
+        "id": "09-autonomous-driving/04-closed-loop-eval/index",
+        "label": "Closed loop eval"
+      },
+      {
+        "type": "doc",
+        "id": "09-autonomous-driving/05-harder-scenarios/index",
+        "label": "Harder scenarios"
+      },
+      {
+        "type": "doc",
+        "id": "09-autonomous-driving/06-report/index",
+        "label": "Report"
+      },
+      {
+        "type": "doc",
+        "id": "09-autonomous-driving/lineage",
+        "label": "Lineage"
       }
     ]
   },
@@ -2646,6 +3016,66 @@
         },
         "items": [
           {
+            "type": "category",
+            "label": "Networking",
+            "link": {
+              "type": "doc",
+              "id": "foundations/04-distributed-training/networking/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "foundations/04-distributed-training/networking/when-the-ring-beats-the-star/index",
+                "label": "When the ring beats the star"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Storage",
+            "link": {
+              "type": "doc",
+              "id": "foundations/04-distributed-training/storage/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "foundations/04-distributed-training/storage/when-a-node-joins/index",
+                "label": "When a node joins"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Orchestration",
+            "link": {
+              "type": "doc",
+              "id": "foundations/04-distributed-training/orchestration/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "foundations/04-distributed-training/orchestration/when-the-scheduler-chooses/index",
+                "label": "When the scheduler chooses"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "GPU cluster concepts",
+            "link": {
+              "type": "doc",
+              "id": "foundations/04-distributed-training/gpu-cluster-concepts/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "foundations/04-distributed-training/gpu-cluster-concepts/when-the-topology-costs/index",
+                "label": "When the topology costs"
+              }
+            ]
+          },
+          {
             "type": "doc",
             "id": "foundations/04-distributed-training/when-the-ranks-agree/index",
             "label": "When the ranks agree"
@@ -2706,136 +3136,6 @@
   },
   {
     "type": "category",
-    "label": "Infrastructure",
-    "link": {
-      "type": "doc",
-      "id": "infra/index"
-    },
-    "items": [
-      {
-        "type": "category",
-        "label": "Networking",
-        "link": {
-          "type": "doc",
-          "id": "infra/01-networking/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "infra/01-networking/when-the-ring-beats-the-star/index",
-            "label": "When the ring beats the star"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Storage",
-        "link": {
-          "type": "doc",
-          "id": "infra/02-storage/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "infra/02-storage/when-a-node-joins/index",
-            "label": "When a node joins"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Orchestration",
-        "link": {
-          "type": "doc",
-          "id": "infra/03-orchestration/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "infra/03-orchestration/when-the-scheduler-chooses/index",
-            "label": "When the scheduler chooses"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Observability",
-        "link": {
-          "type": "doc",
-          "id": "infra/04-observability/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "infra/04-observability/when-the-tail-waits/index",
-            "label": "When the tail waits"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "GPU cluster concepts",
-        "link": {
-          "type": "doc",
-          "id": "infra/05-gpu-cluster-concepts/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "infra/05-gpu-cluster-concepts/when-the-topology-costs/index",
-            "label": "When the topology costs"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "GPU dedup at scale",
-        "link": {
-          "type": "doc",
-          "id": "infra/06-gpu-dedup-at-scale/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "infra/06-gpu-dedup-at-scale/when-verification-goes-quadratic/index",
-            "label": "When verification goes quadratic"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Rollout concurrency",
-        "link": {
-          "type": "doc",
-          "id": "infra/07-rollout-concurrency/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "infra/07-rollout-concurrency/when-the-heavy-tail-waits/index",
-            "label": "When the heavy tail waits"
-          }
-        ]
-      },
-      {
-        "type": "doc",
-        "id": "infra/local-4090",
-        "label": "Compute lane: local GPU box"
-      },
-      {
-        "type": "doc",
-        "id": "infra/modal",
-        "label": "Compute lane: Modal"
-      },
-      {
-        "type": "doc",
-        "id": "infra/tracking",
-        "label": "Compute lane: run tracking"
-      }
-    ]
-  },
-  {
-    "type": "category",
     "label": "Reference",
     "link": {
       "type": "doc",
@@ -2857,83 +3157,8 @@
           },
           {
             "type": "doc",
-            "id": "reference/research/02-pretraining-and-data",
-            "label": "Pretraining and data"
-          },
-          {
-            "type": "doc",
-            "id": "reference/research/03-post-training-and-rl",
-            "label": "Post-training and RL"
-          },
-          {
-            "type": "doc",
-            "id": "reference/research/04-infra-and-agent-harness",
-            "label": "Infra and agent harness"
-          },
-          {
-            "type": "doc",
-            "id": "reference/research/05-agent-memory",
-            "label": "Agent memory"
-          },
-          {
-            "type": "doc",
-            "id": "reference/research/06-harness-effects",
-            "label": "Harness effects"
-          },
-          {
-            "type": "category",
-            "label": "Lineages",
-            "link": {
-              "type": "doc",
-              "id": "reference/research/lineages/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "reference/research/lineages/01-language-model-system",
-                "label": "Language model system"
-              },
-              {
-                "type": "doc",
-                "id": "reference/research/lineages/02-personalized-discovery",
-                "label": "Personalized discovery"
-              },
-              {
-                "type": "doc",
-                "id": "reference/research/lineages/03-quantitative-research",
-                "label": "Quantitative research"
-              },
-              {
-                "type": "doc",
-                "id": "reference/research/lineages/04-code-agent",
-                "label": "Code agent"
-              },
-              {
-                "type": "doc",
-                "id": "reference/research/lineages/05-vision-language",
-                "label": "Vision language"
-              },
-              {
-                "type": "doc",
-                "id": "reference/research/lineages/06-game-ai",
-                "label": "Game ai"
-              },
-              {
-                "type": "doc",
-                "id": "reference/research/lineages/07-realtime-voice",
-                "label": "Realtime voice"
-              },
-              {
-                "type": "doc",
-                "id": "reference/research/lineages/08-video-generation",
-                "label": "Video generation"
-              },
-              {
-                "type": "doc",
-                "id": "reference/research/lineages/09-bio-pharma",
-                "label": "Bio pharma"
-              }
-            ]
+            "id": "reference/research/lineages/index",
+            "label": "Lineages"
           },
           {
             "type": "doc",
@@ -2952,6 +3177,11 @@
         "items": [
           {
             "type": "doc",
+            "id": "reference/standards/depth-audit",
+            "label": "Depth audit"
+          },
+          {
+            "type": "doc",
             "id": "reference/standards/lesson-and-run-contract",
             "label": "Lesson and run contract"
           },
@@ -2961,6 +3191,21 @@
             "label": "Mission contract"
           }
         ]
+      },
+      {
+        "type": "doc",
+        "id": "reference/local-4090",
+        "label": "Compute lane: local GPU box"
+      },
+      {
+        "type": "doc",
+        "id": "reference/modal",
+        "label": "Compute lane: Modal"
+      },
+      {
+        "type": "doc",
+        "id": "reference/tracking",
+        "label": "Compute lane: run tracking"
       }
     ]
   }

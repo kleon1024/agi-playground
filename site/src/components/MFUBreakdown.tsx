@@ -4,7 +4,7 @@
  * Both configurations were measured on this repository's local lane during the
  * stage-02 run; the compiled figures are the ones the finished 4.98-hour run
  * sustained. Recorded in
- * missions/01-language-model-agent/02-pretrain/runs/2026-07-28-pretrain-3b.md.
+ * 01-language-model/02-pretrain/runs/2026-07-28-pretrain-3b.md.
  *
  * The token-budget control is arithmetic on those measured rates, not a second
  * measurement: doubling the budget did not get run, it gets divided.

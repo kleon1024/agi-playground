@@ -1,0 +1,220 @@
+{
+  "stage": "06-model-or-representation",
+  "question": "does the representation, holding the learner fixed, change which arm wins",
+  "learner": "stage 01's fit_logistic_regression, unmodified",
+  "fingerprint": {
+    "radius": 2,
+    "n_bits": 2048,
+    "implementation": "core/circular_fingerprint.py"
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "endpoints": [
+    {
+      "endpoint": "SR-MMP",
+      "split_dir": "08-bio-pharma-modeling/00-dataset-and-property/data",
+      "n_train": 4643,
+      "n_test": 1161,
+      "train_positive_rate": 0.14839543398664656,
+      "n_features": {
+        "descriptors": 10,
+        "fingerprint": 2048
+      },
+      "featurize_wall_clock_s": {
+        "descriptors": 1.673666083952412,
+        "fingerprint": 1.6684028750751168
+      },
+      "fingerprint_density_train": {
+        "n_bits": 2048,
+        "mean_bits_set_per_molecule": 28.51884557398234,
+        "min_bits_set": 3,
+        "max_bits_set": 133,
+        "columns_ever_set": 2048,
+        "columns_ever_set_fraction": 1.0,
+        "matrix_density": 0.013925217565421064
+      },
+      "descriptor_train_auc_per_seed": [
+        0.851898979042736,
+        0.8522955938136171,
+        0.8516170723846734
+      ],
+      "fingerprint_train_auc_per_seed": [
+        0.9994560082457697,
+        0.9994763804066064,
+        0.999450318723374
+      ],
+      "descriptor_train_minus_test_auc": 0.03777974745660018,
+      "fingerprint_train_minus_test_auc": 0.3460266451602595,
+      "descriptor_auc_per_seed": [
+        0.814241805198943,
+        0.8146119534456585,
+        0.8136186442266244
+      ],
+      "fingerprint_auc_per_seed": [
+        0.6535459264951178,
+        0.6538879622167663,
+        0.6528688831830876
+      ],
+      "descriptor_auc_mean": 0.814157467623742,
+      "fingerprint_auc_mean": 0.6534342572983238,
+      "descriptor_auc_spread": 0.0009933092190340664,
+      "fingerprint_auc_spread": 0.0010190790336787048,
+      "gap_fingerprint_minus_descriptor": -0.16072321032541814,
+      "verdict": "descriptor wins beyond spread"
+    },
+    {
+      "endpoint": "NR-PPAR-gamma",
+      "split_dir": "08-bio-pharma-modeling/03-second-endpoint/data",
+      "n_train": 5154,
+      "n_test": 1289,
+      "train_positive_rate": 0.022894838960031045,
+      "n_features": {
+        "descriptors": 10,
+        "fingerprint": 2048
+      },
+      "featurize_wall_clock_s": {
+        "descriptors": 1.6405831249430776,
+        "fingerprint": 1.8225528749171644
+      },
+      "fingerprint_density_train": {
+        "n_bits": 2048,
+        "mean_bits_set_per_molecule": 28.23379899107489,
+        "min_bits_set": 3,
+        "max_bits_set": 133,
+        "columns_ever_set": 2048,
+        "columns_ever_set_fraction": 1.0,
+        "matrix_density": 0.013786034663610787
+      },
+      "descriptor_train_auc_per_seed": [
+        0.752785873911229,
+        0.7531039229412636,
+        0.753180490300346
+      ],
+      "fingerprint_train_auc_per_seed": [
+        0.9998519136791373,
+        0.999851072279587,
+        0.999827513092177
+      ],
+      "descriptor_train_minus_test_auc": 0.0975859059663643,
+      "fingerprint_train_minus_test_auc": 0.3434344168039626,
+      "descriptor_auc_per_seed": [
+        0.6530447559859325,
+        0.6574649515825987,
+        0.6558028616852146
+      ],
+      "fingerprint_auc_per_seed": [
+        0.6565616418557595,
+        0.6551765669412728,
+        0.657489039841981
+      ],
+      "descriptor_auc_mean": 0.6554375230845819,
+      "fingerprint_auc_mean": 0.6564090828796711,
+      "descriptor_auc_spread": 0.0044201955966661766,
+      "fingerprint_auc_spread": 0.00231247290070824,
+      "gap_fingerprint_minus_descriptor": 0.0009715597950892274,
+      "verdict": "inconclusive (gap inside spread)"
+    },
+    {
+      "endpoint": "NR-ER",
+      "split_dir": "08-bio-pharma-modeling/04-third-endpoint/data",
+      "n_train": 4949,
+      "n_test": 1237,
+      "train_positive_rate": 0.12689432208526974,
+      "n_features": {
+        "descriptors": 10,
+        "fingerprint": 2048
+      },
+      "featurize_wall_clock_s": {
+        "descriptors": 1.587469374993816,
+        "fingerprint": 1.7613332918845117
+      },
+      "fingerprint_density_train": {
+        "n_bits": 2048,
+        "mean_bits_set_per_molecule": 28.493230955748636,
+        "min_bits_set": 3,
+        "max_bits_set": 133,
+        "columns_ever_set": 2048,
+        "columns_ever_set_fraction": 1.0,
+        "matrix_density": 0.013912710427611639
+      },
+      "descriptor_train_auc_per_seed": [
+        0.6989539311052377,
+        0.6985935226718278,
+        0.6992769351869186
+      ],
+      "fingerprint_train_auc_per_seed": [
+        0.9952063467261795,
+        0.995204135631496,
+        0.9952033985999349
+      ],
+      "descriptor_train_minus_test_auc": 0.05759439737695404,
+      "fingerprint_train_minus_test_auc": 0.38118978272117154,
+      "descriptor_auc_per_seed": [
+        0.6410500279900835,
+        0.6409529195370783,
+        0.6420382493059602
+      ],
+      "fingerprint_auc_per_seed": [
+        0.6145651254983948,
+        0.6141338497218128,
+        0.6133455575738881
+      ],
+      "descriptor_auc_mean": 0.6413470656110407,
+      "fingerprint_auc_mean": 0.6140148442646985,
+      "descriptor_auc_spread": 0.0010853297688818708,
+      "fingerprint_auc_spread": 0.001219567924506726,
+      "gap_fingerprint_minus_descriptor": -0.027332221346342167,
+      "verdict": "descriptor wins beyond spread"
+    }
+  ],
+  "bit_width_sweep": {
+    "endpoint": "SR-MMP",
+    "widths": [
+      {
+        "n_bits": 64,
+        "columns_ever_set": 64,
+        "train_auc_mean": 0.8031881636399631,
+        "test_auc_mean": 0.6811696059873431,
+        "test_auc_spread": 0.0036686845212436925,
+        "train_minus_test": 0.12201855765262004
+      },
+      {
+        "n_bits": 256,
+        "columns_ever_set": 256,
+        "train_auc_mean": 0.9045424167965469,
+        "test_auc_mean": 0.7134748018066983,
+        "test_auc_spread": 0.001340030361527078,
+        "train_minus_test": 0.1910676149898486
+      },
+      {
+        "n_bits": 1024,
+        "columns_ever_set": 1024,
+        "train_auc_mean": 0.9934062717868942,
+        "test_auc_mean": 0.6732215704281226,
+        "test_auc_spread": 0.0008785164083437991,
+        "train_minus_test": 0.32018470135877164
+      },
+      {
+        "n_bits": 2048,
+        "columns_ever_set": 2048,
+        "train_auc_mean": 0.9994609024585833,
+        "test_auc_mean": 0.6534342572983238,
+        "test_auc_spread": 0.0010190790336787048,
+        "train_minus_test": 0.3460266451602595
+      }
+    ]
+  },
+  "verdicts": {
+    "SR-MMP": "descriptor wins beyond spread",
+    "NR-PPAR-gamma": "inconclusive (gap inside spread)",
+    "NR-ER": "descriptor wins beyond spread"
+  },
+  "fingerprint_wins_on": [],
+  "wall_clock_s": 83.3294864159543,
+  "compute_lane": "local CPU",
+  "dollar_cost": 0.0,
+  "note": "n=3 endpoints and n=3 seeds; per-endpoint verdicts only, no claim across endpoints."
+}

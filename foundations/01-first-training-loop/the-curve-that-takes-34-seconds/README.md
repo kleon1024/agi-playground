@@ -84,5 +84,5 @@ question. The curve is the first diagnostic a training loop gives you.
 ## Next
 
 Back to [the first training loop](../), or to
-[what are you actually training](../../../missions/01-language-model-agent/02-pretrain/)
+[what are you actually training](../../../01-language-model/02-pretrain/)
 where this same loop runs at 3B tokens instead of 1.1MB.

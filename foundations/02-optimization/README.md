@@ -174,7 +174,7 @@ non-convex loss surface, where curvature changes from point to point and
 saddle points, not ill-conditioning, are often the harder problem. **That
 question is answered empirically, not by this toy** — [the first training
 loop](../01-first-training-loop/) and
-[missions/01-language-model-agent/02-pretrain](../../missions/01-language-model-agent/02-pretrain/)
+[01-language-model/02-pretrain](../../01-language-model/02-pretrain/)
 are where a real, high-dimensional loss surface is measured, with Adam as the
 optimizer actually used and never re-derived from a toy comparison like this
 one.
@@ -189,7 +189,7 @@ established.
 One clarification the axis above deliberately leaves out:
 
 - This repository's own later frontier-lineage material (GRPO, GMPO, GSPO in
-  [mission 01's RL stage](../../missions/01-language-model-agent/04-rl/what-a-real-loop-adds/))
+  [mission 01's RL stage](../../01-language-model/04-rl/what-a-real-loop-adds/))
   is a distinct, higher layer: those are *policy*-optimization objectives for
   RL-style post-training, not base optimizers. They are typically paired with
   Adam (or AdamW) underneath them, not built to replace it — this chapter is
@@ -293,7 +293,7 @@ comparison and renders the trajectories and loss curves in
 
 ## Next
 
-[Pretraining](../../missions/01-language-model-agent/02-pretrain/) uses Adam (via AdamW) at real
+[Pretraining](../../01-language-model/02-pretrain/) uses Adam (via AdamW) at real
 model scale, where this chapter's toy condition number of 100 is replaced by
 whatever the actual Hessian of a transformer produces — measured, not
 assumed. Or return to [the first training loop](../01-first-training-loop/)

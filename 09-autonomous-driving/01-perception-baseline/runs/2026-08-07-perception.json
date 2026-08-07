@@ -1,0 +1,12 @@
+{
+  "frames": 4000,
+  "train_frames": 3200,
+  "test_frames": 800,
+  "epochs": 40,
+  "hand_lateral_mae_m": 0.5881,
+  "hand_obstacle_mae_m": 0.4686,
+  "learned_lateral_mae_m": 0.0719,
+  "learned_obstacle_mae_m": 6.5264,
+  "learned_train_wall_s": 1.24,
+  "total_wall_s": 3.22
+}

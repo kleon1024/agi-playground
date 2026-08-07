@@ -3,7 +3,7 @@
  *
  * "MoE beats dense" is not a fact until you say what stayed fixed while the
  * feed-forward changed. Every loss here is measured, from
- * missions/01-language-model-agent/02-pretrain/architecture-ablations/runs/2026-07-28-moe-rung.md:
+ * 01-language-model/02-pretrain/architecture-ablations/runs/2026-07-28-moe-rung.md:
  * three arms, three seeds each, 200M tokens per run on one 24GB card.
  *
  * The learner switches the held-equal quantity and watches the same nine runs
@@ -173,7 +173,7 @@ export default function EqualBudget(): React.ReactElement {
         quantity the comparison was normalised against does. That is the whole argument
         for naming a budget definition on the run record rather than after the fact, and
         it is why{' '}
-        <code>missions/01-language-model-agent/02-pretrain/architecture-ablations/core/ablate.py</code> will not
+        <code>01-language-model/02-pretrain/architecture-ablations/core/ablate.py</code> will not
         write a result file without one.
       </p>
     </div>

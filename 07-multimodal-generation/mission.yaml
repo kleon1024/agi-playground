@@ -1,0 +1,161 @@
+# Topic 07 — Multimodal generation (judged by transfer first, quality second)
+#
+# The language-model topic built a decoder around one 1-D sequence of discrete
+# token ids and measured everything about it: pretraining, serving, agent
+# loops. This topic asks the transfer question the architecture itself
+# invites: is that machine about tokens, or about text? A waveform and a
+# frame sequence are both reducible to discrete token streams, and if the
+# codec/serve/compute machinery transfers unchanged to both, the
+# language-model topic's claims were modality-free. If it does not, finding
+# exactly where it breaks is the finding.
+#
+# The scope is the full multimodal surface: text, image, sound, music, video,
+# and world models. The honest boundary is that only two sub-paths are built
+# and measured with real runs — video and voice — and the rest are declared,
+# mapped to the closest runnable machinery, and explicitly marked not-run in
+# the topic README. Declaring scope without faking runs is the whole point:
+# a "music generation" stage with no audio corpus and no real run would be
+# the exact fabricated-number failure this repository forbids.
+
+stakeholder: >
+  Someone deciding whether a self-trained, from-scratch multimodal
+  generation pipeline is worth building at all, given its compute cost,
+  against calling hosted generation APIs for each modality. They are not
+  asking "can a model generate a convincing image, song, or clip" — hosted
+  models already do that. They are asking what a few seconds of synthetic
+  audio or video actually cost to train and produce on hardware this
+  repository owns or rents, and whether the token-stream machinery already
+  built for text transfers to those signals or silently assumes text-shaped
+  input.
+
+job: >
+  Turn a waveform and a frame sequence into discrete token streams through
+  from-scratch codecs, decode them one chunk at a time through the existing
+  KV-cached serving mechanism, and report what each transfer cost in quality
+  and wall-clock against a declared ceiling.
+
+decision: >
+  Whether topic 01's serving mechanism — KV cache, paged allocation,
+  continuous batching — built and measured against text tokens transfers
+  unchanged to other discrete-token modalities (audio codec tokens, video
+  codec tokens), with only a new codec at the input/output boundary, or
+  whether audio's chunk structure and video's sequence length demand new
+  serving mechanism the text case never needed. The quality question is
+  secondary and deliberately deferred: a quality claim with no cost number
+  beside it is incomplete in this topic, because the entire premise of
+  building it was to find out whether the cost is tolerable.
+
+baseline: >
+  Two per sub-path, and each sub-path must report against both:
+  (1) A no-learning control in the signal's own currency — frame-repeat or
+      linear extrapolation for video, silence or mean-signal reconstruction
+      for audio. Any learned model that cannot beat this has not learned
+      anything about its signal.
+  (2) A hosted generation API's published or measured quality/latency on
+      comparable short inputs, named and dated, since a toy codec cannot be
+      assumed comparable without a stated baseline to be honest about the
+      gap.
+  Both sub-paths add the offline-vs-streaming comparison: the same weights
+  and tokens, decoded all at once versus one chunk at a time, isolating what
+  streaming costs in quality and latency holding the model fixed.
+
+primary_metric: >
+  Per sub-path: a reconstruction-quality proxy (a computable distance between
+  the reconstructed and reference signal) reported beside per-chunk decode
+  latency (p50 and p95, never a single average, matching topic 01's serving
+  stage's latency-distribution discipline), and beside training wall-clock
+  and real dollar cost on whichever lane actually ran it. For video the
+  primary metric additionally pairs quality with cost against the declared
+  ceiling, and a compute-infeasibility finding is a legitimate outcome, not
+  a failure to hide.
+
+guardrails:
+  - Every number traces to a runs/ entry — command, hardware, wall-clock,
+    exact chunk size, and the seed or clip set used.
+  - Declared capabilities that are not run (image generation, music
+    generation, world models, ASR/TTS heads) are marked declared in the
+    topic README and carry no verified status; no stage is created for them
+    until a real run exists.
+  - No claim of production speech quality, multi-speaker robustness, or
+    frontier video quality; the codecs and datasets are toy-scale by
+    construction, and each sub-path's report says so beside every metric.
+  - The streaming loop reuses topic 01's `05-serve/graph-execution/core/`
+    KV-cache and scheduling code directly; if a change to that code is
+    required to make a modality's tokens work, the change and the reason for
+    it are recorded, not silently folded in as if it were always general
+    enough.
+  - A fix-testing stage changes exactly one mechanism at a time relative to
+    the prior stage's setup, holding dataset, seeds, step count, and learning
+    rate fixed, so the result is attributable to the one change under test.
+  - Codebook-collapse results are reported with the utilization number
+    (codes used / codes available), never as a loss curve alone, because
+    collapse looks like success in a loss curve.
+
+latency_budget: >
+  Latency is a first-class constraint for voice, where a listener is waiting
+  on each chunk: a declared, measured per-chunk decode time on the local
+  compute lane, reported as p50/p95 from an actual run, never assumed from
+  FLOPs, plus a real round-trip figure over the repository's documented
+  Tailscale link where stage 03 measures it. For video, the budget is
+  wall-clock and dollars per training run, not serving latency.
+
+cost_budget: >
+  Local-lane GPU/CPU wall-clock only, $0 marginal cost for the runs that
+  produced this topic's own numbers. The hosted-API comparison in each
+  baseline uses only published or separately-measured figures, named and
+  dated rather than run against a live account here. The video sub-path
+  declares a hard ceiling (the 30-minute ceiling its stage 03 reports
+  against); the voice sub-path's LibriSpeech dev-clean download is a
+  one-time, $0 fetch. A run that needs materially more than declared should
+  be treated as a signal the task is scoped wrong, not as license to spend
+  more.
+
+capabilities: []
+  # None yet. A shared multimodal-serving capability is not created here —
+  # per the admission gate in standards/mission-contract.md, it is promoted
+  # only once a second topic independently needs the identical
+  # streaming-token-decode contract for a non-text modality. The voice and
+  # video sub-paths both import topic 01's serving code, which is reuse of a
+  # measured mechanism, not a new shared capability.
+
+acceptance:
+  - Both sub-paths beat their no-learning control on the reconstruction proxy
+    on held-out clips
+  - Cached decode produces identical output to full recompute (checked at
+    logit level) for both modalities, or the deviation is named and measured
+  - The offline-vs-streaming quality and latency gap is reported explicitly
+    for both sub-paths, not implied
+  - Every stage has a runs/ entry with command, hardware, wall-clock, and
+    metrics before being marked verified
+  - The declared-not-run capabilities table in the topic README names every
+    multimodal surface this topic claims scope over, and none of them carries
+    a verified status
+  - Any change required to topic 01's KV-cache or scheduling code to support
+    audio or video tokens is named and justified, not silently made
+
+proves: >
+  That topic 01's serving machinery — the KV cache, paged allocation,
+  continuous batching, and the training loop they sit in — transfers to two
+  genuinely different discrete-token modalities with only a codec at the
+  boundary, and that the vector-quantization codebook-collapse failure is a
+  property of the bottleneck, reproduced and fixed in both signals. It also
+  establishes the first real measured cost profile in this repository for
+  training and generating synthetic audio and video on the hardware it owns.
+
+does_not_prove: >
+  This topic proves nothing about frontier-scale generation quality: every
+  model here is sized to train in minutes on a single consumer-grade
+  compute lane, several orders of magnitude below any deployed
+  video/audio generation system, and the synthetic datasets are chosen for
+  provenance and reproducibility, not resemblance to real media. It does not
+  train a recognizer or a synthesizer — the ASR and TTS heads are declared
+  scope, and the voice sub-path's results say nothing about speech
+  recognition accuracy or TTS intelligibility. It does not train a
+  text-to-image or music model; image generation is declared and mapped to
+  the single-frame subset of the video model, music generation is declared
+  and mapped to the audio codec's input half. It does not build a world
+  model: the video-token model is action-free, and predicting the next frame
+  without acting is not an interactive world model. The length-and-cost
+  scaling findings are measured only at this repository's clip lengths; the
+  quadratic attention regime is flagged, not measured.
+

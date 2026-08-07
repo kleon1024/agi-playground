@@ -19,7 +19,7 @@
  * this codec's actual trained size, 64, and are labeled as such.
  *
  * Recorded in
- * missions/08-video-generation/01-video-tokenizer/runs/2026-07-31-codec-training.md.
+ * 07-video-generation/01-video-tokenizer/runs/2026-07-31-codec-training.md.
  */
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 

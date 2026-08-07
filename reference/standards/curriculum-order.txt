@@ -17,7 +17,7 @@
 # directory is absent from this file, or if a heading starts carrying its own
 # number again.
 #
-# A mission's own stages sort by their numeric prefix (`05-serve`), which is
+# A topic's own stages sort by their numeric prefix (`05-serve`), which is
 # also their URL, so they are not listed here. A stage's *sub-chapters* have no
 # prefix -- renaming `what-stops-it` to `03-what-stops-it` would change a
 # published URL to buy nothing -- so an unlisted sub-chapter falls into the
@@ -25,57 +25,68 @@
 # reading order. List every sub-chapter of a stage that has more than one, or
 # none of them; a half-listed stage sorts worse than an unlisted one.
 
-missions
+01-language-model
 foundations
 foundations/05-is-the-difference-real/the-two-confounds
 
-# Mission 01, stage 00 -- the corpus. The pipeline, then the policies that
+# Distributed training's four machine chapters moved up from the removed
+# infra/ tree; each names the machine underneath a stage's decision.
+foundations/04-distributed-training/networking
+foundations/04-distributed-training/networking/when-the-ring-beats-the-star
+foundations/04-distributed-training/storage
+foundations/04-distributed-training/storage/when-a-node-joins
+foundations/04-distributed-training/orchestration
+foundations/04-distributed-training/orchestration/when-the-scheduler-chooses
+foundations/04-distributed-training/gpu-cluster-concepts
+foundations/04-distributed-training/gpu-cluster-concepts/when-the-topology-costs
+
+# Topic 01, stage 00 -- the corpus. The pipeline, then the policies that
 # decide whether anyone can trust what came out of it.
-missions/01-language-model-agent/00-corpus/what-a-release-needs
+01-language-model/00-corpus/what-a-release-needs
 
-# Mission 01, stage 02 -- pretraining. The mechanism, then the run, then the
+# Topic 01, stage 02 -- pretraining. The mechanism, then the run, then the
 # four decisions the run states without testing, then the open question.
-missions/01-language-model-agent/02-pretrain/verifying-the-run
-missions/01-language-model-agent/02-pretrain/architecture-ablations
-missions/01-language-model-agent/02-pretrain/architecture-ablations/the-rung-that-flipped
-missions/01-language-model-agent/02-pretrain/throughput
-missions/01-language-model-agent/02-pretrain/upcycling
-missions/01-language-model-agent/02-pretrain/upcycling/does-it-pay-off
-missions/01-language-model-agent/02-pretrain/when-the-curve-goes-wrong
-missions/01-language-model-agent/02-pretrain/latent-reasoning
+01-language-model/02-pretrain/verifying-the-run
+01-language-model/02-pretrain/architecture-ablations
+01-language-model/02-pretrain/architecture-ablations/the-rung-that-flipped
+01-language-model/02-pretrain/throughput
+01-language-model/02-pretrain/upcycling
+01-language-model/02-pretrain/upcycling/does-it-pay-off
+01-language-model/02-pretrain/when-the-curve-goes-wrong
+01-language-model/02-pretrain/latent-reasoning
 
-# Mission 01, stage 03 -- SFT. The run, then its cost, then the two things to
+# Topic 01, stage 03 -- SFT. The run, then its cost, then the two things to
 # do with a checkpoint that supervised demonstrations cannot do.
-missions/01-language-model-agent/03-sft/what-it-costs
-missions/01-language-model-agent/03-sft/beyond-demonstrations
-missions/01-language-model-agent/03-sft/distillation
-missions/01-language-model-agent/03-sft/distillation/which-teacher-changes-what
-missions/01-language-model-agent/03-sft/distillation/what-path-two-requires
+01-language-model/03-sft/what-it-costs
+01-language-model/03-sft/beyond-demonstrations
+01-language-model/03-sft/distillation
+01-language-model/03-sft/distillation/which-teacher-changes-what
+01-language-model/03-sft/distillation/what-path-two-requires
 
-# Mission 01, stage 04 -- RL. The loop, whether its curve means anything, then
+# Topic 01, stage 04 -- RL. The loop, whether its curve means anything, then
 # what a production loop has that this one does not.
-missions/01-language-model-agent/04-rl/reward-went-up
-missions/01-language-model-agent/04-rl/what-a-real-loop-adds
+01-language-model/04-rl/reward-went-up
+01-language-model/04-rl/what-a-real-loop-adds
 
-# Mission 01, stage 05 -- serving. The engine, then the two mechanisms it is
+# Topic 01, stage 05 -- serving. The engine, then the two mechanisms it is
 # built from, then the three techniques each of which needed its own run.
-missions/01-language-model-agent/05-serve/paging-the-cache
-missions/01-language-model-agent/05-serve/why-concurrency-pays
-missions/01-language-model-agent/05-serve/graph-execution
-missions/01-language-model-agent/05-serve/quantization
-missions/01-language-model-agent/05-serve/speculative-decoding
+01-language-model/05-serve/paging-the-cache
+01-language-model/05-serve/why-concurrency-pays
+01-language-model/05-serve/graph-execution
+01-language-model/05-serve/quantization
+01-language-model/05-serve/speculative-decoding
 
-# Mission 01, stage 07 -- evaluation. Whose number it is, whether to believe
+# Topic 01, stage 07 -- evaluation. Whose number it is, whether to believe
 # it, how it gets gamed, then the decision and the gates around it.
-missions/01-language-model-agent/07-eval/whose-harness
-missions/01-language-model-agent/07-eval/why-believe-the-number
-missions/01-language-model-agent/07-eval/metric-gaming
-missions/01-language-model-agent/07-eval/who-decides-to-ship
-missions/01-language-model-agent/07-eval/eval-gates
-missions/01-language-model-agent/07-eval/red-teaming
+01-language-model/07-eval/whose-harness
+01-language-model/07-eval/why-believe-the-number
+01-language-model/07-eval/metric-gaming
+01-language-model/07-eval/who-decides-to-ship
+01-language-model/07-eval/eval-gates
+01-language-model/07-eval/red-teaming
 
-# Mission 01, stage 06 -- the agent harness. Capability, then containment, then
+# Topic 01, stage 06 -- the agent harness. Capability, then containment, then
 # whether a second agent is worth its handoff.
-missions/01-language-model-agent/06-agent/what-fits-in-context
-missions/01-language-model-agent/06-agent/what-stops-it
-missions/01-language-model-agent/06-agent/would-a-second-agent-help
+01-language-model/06-agent/what-fits-in-context
+01-language-model/06-agent/what-stops-it
+01-language-model/06-agent/would-a-second-agent-help

@@ -83,5 +83,5 @@ decision actually needs.
 ## Next
 
 Back to [the significance chapter](../), or to
-[why believe the number](../../../missions/01-language-model-agent/07-eval/why-believe-the-number/)
+[why believe the number](../../../01-language-model/07-eval/why-believe-the-number/)
 which applies the same discipline to a single score.

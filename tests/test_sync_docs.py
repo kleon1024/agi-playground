@@ -9,24 +9,36 @@ SYNC_DOCS_PATH = ROOT / "site" / "sync-docs.py"
 # absent: it is the contributor surface, and routing a learner into it from a
 # topic index would contradict what its own section intro says it is for.
 SECTIONS_WITH_CHAPTERS = (
-    "missions",
+    "01-language-model",
+    "02-personalized-discovery",
+    "03-quantitative-research",
+    "04-agentic-platform",
+    "05-game-ai",
+    "07-multimodal-generation",
+    "08-bio-pharma-modeling",
+    "09-autonomous-driving",
     "foundations",
-    "infra",
 )
 
 
-def test_sections_match_the_four_documented_boundaries():
+def test_sections_match_the_documented_boundaries():
     """A fifth entry here publishes a section with no written boundary.
 
     `platform/` and `capabilities/` were each a second telling of a mission
     over the same lifecycle, and both were reachable from the sidebar before
     anyone could say what separated them from the sections beside them. The
-    four that remain each have a one-sentence boundary in AGENTS.md.
+    sections that remain each have a one-sentence boundary in AGENTS.md.
     """
     assert [name for name, _ in SYNC_DOCS.SECTIONS] == [
-        "missions",
+        "01-language-model",
+        "02-personalized-discovery",
+        "03-quantitative-research",
+        "04-agentic-platform",
+        "05-game-ai",
+        "07-multimodal-generation",
+        "08-bio-pharma-modeling",
+        "09-autonomous-driving",
         "foundations",
-        "infra",
         "reference",
     ]
 
@@ -40,13 +52,13 @@ def test_relative_lesson_links_become_absolute_public_routes():
     source = Path("foundations/README.md")
     markdown = (
         "[loop](01-first-training-loop/) "
-        "[infra](../infra/README.md#next)"
+        "[reference](../reference/README.md#next)"
     )
 
     rewritten = SYNC_DOCS.rewrite_links(markdown, source)
 
     assert "[loop](/playground/foundations/01-first-training-loop)" in rewritten
-    assert "[infra](/playground/infra#next)" in rewritten
+    assert "[reference](/playground/reference#next)" in rewritten
 
 
 def test_chapter_order_comes_from_the_manifest_not_the_directory_name():
@@ -58,7 +70,7 @@ def test_chapter_order_comes_from_the_manifest_not_the_directory_name():
     """
     order = SYNC_DOCS.CHAPTER_ORDER
 
-    assert order["missions"] < order["foundations"]
+    assert order["01-language-model"] < order["foundations"]
     assert SYNC_DOCS.order_from(Path("foundations/README.md")) == order[
         "foundations"
     ]
@@ -95,7 +107,7 @@ def test_headings_do_not_carry_their_own_chapter_number():
     across headings and prose, with nothing failing when one is missed.
     """
     offenders = []
-    for section in ("foundations", "missions"):
+    for section in SECTIONS_WITH_CHAPTERS:
         for path in sorted((ROOT / section).rglob("*.md")):
             first = next(
                 (ln for ln in path.read_text().splitlines() if ln.startswith("# ")), ""
@@ -120,14 +132,14 @@ def test_supporting_directories_are_named_and_sorted_below_lessons():
 
 
 def test_relative_source_links_stay_on_github():
-    source = Path("missions/01-language-model-agent/01-tokenizer/README.md")
+    source = Path("01-language-model/01-tokenizer/README.md")
     markdown = "[implementation](core/bpe.py)"
 
     rewritten = SYNC_DOCS.rewrite_links(markdown, source)
 
     assert rewritten == (
         "[implementation](https://github.com/kleon1024/agi-playground/blob/main/"
-        "missions/01-language-model-agent/01-tokenizer/core/bpe.py)"
+        "01-language-model/01-tokenizer/core/bpe.py)"
     )
 
 
@@ -136,13 +148,13 @@ def test_runs_entries_can_cite_their_own_raw_evidence():
     patches. Those are files to look at on GitHub, not routes on this site, and
     a suffix missing from the rewriter does not produce a wrong link, it breaks
     the build."""
-    source = Path("missions/04-code-agent/03-cheap-or-expensive/runs/entry.md")
+    source = Path("04-agentic-platform/03-cheap-or-expensive/runs/entry.md")
     markdown = "[rows](results.jsonl) and [patches](patches.diff)"
 
     rewritten = SYNC_DOCS.rewrite_links(markdown, source)
 
     base = "https://github.com/kleon1024/agi-playground/blob/main"
-    stage = "missions/04-code-agent/03-cheap-or-expensive/runs"
+    stage = "04-agentic-platform/03-cheap-or-expensive/runs"
     assert rewritten == (
         f"[rows]({base}/{stage}/results.jsonl) and [patches]({base}/{stage}/patches.diff)"
     )
@@ -176,7 +188,7 @@ def test_titles_do_not_carry_a_generated_number():
     only listed one branch, so a section index read "02, 03, 08, 09" plus one
     entry with no number at all.
     """
-    for section in ("foundations", "missions"):
+    for section in SECTIONS_WITH_CHAPTERS:
         index = ROOT / "site" / "docs" / section / "index.md"
         if not index.is_file():
             continue
@@ -252,7 +264,7 @@ def test_no_published_page_is_an_orphan_in_prose():
     requires each one to name two production alternatives, and not one chapter
     pointed at the table it was requiring.
     """
-    sections = ("missions", "foundations", "infra", "reference")
+    sections = (*SECTIONS_WITH_CHAPTERS, "reference")
     pages = [
         page
         for section in sections
@@ -407,9 +419,9 @@ def test_only_a_lesson_carries_a_build_status_badge():
     has no `runs/` because it never promised a measurement, and "Foundations ·
     draft" reads as though the whole section were unfinished.
     """
-    assert SYNC_DOCS.is_lesson(Path("missions/01-language-model-agent/07-eval/eval-gates"))
+    assert SYNC_DOCS.is_lesson(Path("01-language-model/07-eval/eval-gates"))
     assert not SYNC_DOCS.is_lesson(Path("foundations"))
-    assert not SYNC_DOCS.is_lesson(Path("missions"))
+    assert not SYNC_DOCS.is_lesson(Path("01-language-model"))
 
     docs = ROOT / "site" / "docs"
     if not docs.is_dir():

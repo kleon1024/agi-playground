@@ -30,7 +30,7 @@ Each component's arithmetic comes straight from the chapter before this one:
 | **Total** | | **88,197,888** | |
 
 That total is exactly the parameter count
-[the model](../../../missions/01-language-model-agent/02-pretrain/) reports —
+[the model](../../../01-language-model/02-pretrain/) reports —
 not approximately, exactly. Nothing was rounded and nothing was omitted, which
 is the point of showing it: a transformer's size is fully determined by six
 numbers you already chose.
@@ -81,7 +81,7 @@ beside the cache; at 7B the same arithmetic decides whether a deployment is
 possible at all.
 
 This is why grouped-query attention appears in essentially every model released
-after 2023, and why [serving](../../../missions/01-language-model-agent/05-serve/) treats cache
+after 2023, and why [serving](../../../01-language-model/05-serve/) treats cache
 allocation as its central problem rather than a detail.
 
 ## Attention's memory is quadratic, and it is not the weights
@@ -195,6 +195,6 @@ Every number here is arithmetic over a declared configuration, not a
 measurement. It tells you what the model *must* allocate; it does not tell you
 what a runtime actually allocates, which includes fragmentation, activation
 workspace, optimizer state during training, and allocator padding.
-[Serving](../../../missions/01-language-model-agent/05-serve/) measures the difference, and
-[throughput](../../../missions/01-language-model-agent/02-pretrain/throughput/) shows how far the same
+[Serving](../../../01-language-model/05-serve/) measures the difference, and
+[throughput](../../../01-language-model/02-pretrain/throughput/) shows how far the same
 model's real utilization can move without any of these numbers changing.

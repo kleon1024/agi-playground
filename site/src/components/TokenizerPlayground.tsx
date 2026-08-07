@@ -3,7 +3,7 @@
  *
  * This is not a simulation or a re-implementation with different weights: it
  * loads the exact `tokenizer.json` produced by
- * missions/01-language-model-agent/01-tokenizer and applies the same merge
+ * 01-language-model/01-tokenizer and applies the same merge
  * rules, in the same learned order, that the training pipeline uses.
  *
  * The point is that BPE stops being abstract the moment you can type a word
@@ -238,7 +238,7 @@ export default function TokenizerPlayground(): React.ReactElement {
 
       <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75, marginTop: '0.75rem' }}>
         Running the actual 16,384-token vocabulary trained in{' '}
-        <a href="https://github.com/kleon1024/agi-playground/tree/main/missions/01-language-model-agent/01-tokenizer">
+        <a href="https://github.com/kleon1024/agi-playground/tree/main/01-language-model/01-tokenizer">
           mission 01 stage 01
         </a>
         . Try a rare word, an emoji, or a misspelling — byte-level BPE has no{' '}

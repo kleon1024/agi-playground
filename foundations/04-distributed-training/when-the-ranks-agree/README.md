@@ -86,5 +86,5 @@ rounding it away.
 ## Next
 
 Back to [the distributed chapter](../), or to
-[why allreduce topology matters](../../../infra/01-networking/) where the
+[why allreduce topology matters](../networking/) where the
 communication cost this simulation cannot show is measured.
