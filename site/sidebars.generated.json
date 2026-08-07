@@ -201,9 +201,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "01-language-model/03-sft/the-template-is-a-contract/index",
-            "label": "Chat template contract"
+            "type": "category",
+            "label": "Chat template contract",
+            "link": {
+              "type": "doc",
+              "id": "01-language-model/03-sft/the-template-is-a-contract/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "01-language-model/03-sft/the-template-is-a-contract/when-the-role-is-wrong/index",
+                "label": "When the role is wrong"
+              }
+            ]
           },
           {
             "type": "doc",

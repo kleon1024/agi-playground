@@ -105,8 +105,11 @@ trains the model on noise most of the time.
   labels; a unit test over rendered examples (empty assistant turns,
   marker strings inside content, mislabeled roles) is what keeps user
   text out of the gradient. This chapter measures the healthy baseline;
-  the injected-noise audit (role mislabels, empty turns) is queued next
-  in the depth audit.
+  the injected-noise audit
+  ([when-the-role-is-wrong](when-the-role-is-wrong/)) executes that
+  test: the swapped role trains the model to imitate the user, the empty
+  turn trains a silent no-op, and the alternation check finds 15 real
+  anomalies in the curated set itself.
 
 ## What this chapter does not establish
 

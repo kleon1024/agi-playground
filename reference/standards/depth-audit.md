@@ -479,8 +479,22 @@ own role-label integrity. Packing drops 217 long conversations and pads
 19.6% of block capacity. Ownership split: stage 01 tokenizer freeze owns
 the reserved ids, the serve harness owns byte parity (token-id parity
 check as guardrail), the data pipeline owns masker tests. The queued
-follow-up is the injected-noise audit: role mislabels leaking user text
-into the loss, and empty assistant turns as silent no-ops.
+follow-up is now executed (`when-the-role-is-wrong`, 2026-08-07): a
+swapped two-turn role turns 213 user tokens into loss targets against 24
+clean targets and suppresses the 23 real answer tokens (the decoded
+target span is the user's question verbatim); a case-variant role
+silently drops the whole turn (0 targets); an empty last turn renders to
+exactly one target, the closing marker; content cannot forge a role
+boundary (the frozen vocab byte-splits the marker into 8 tokens, never
+the reserved id), but a double-rendered row puts 4 literal marker strings
+inside the target span; and a stamped all-assistant pipeline (238
+targets) passes the last-turn rule, so the guardrail adds role
+alternation. The validator catches all five injected classes, and finds
+15 real flags across 9,500 no_robots rows (0.16%, all consecutive
+duplicate assistant roles; row 741 reads like a user reply labeled
+assistant). Guardrail cost: one string scan per row before rendering; the
+mechanical classes are rule-caught, ambiguous intent stays a sample
+review.
 
 Audit the LLM track with the same lens: dirty data and washing (dedup,
 quality filters, contamination), tokenizer edge cases, pretraining data mix
