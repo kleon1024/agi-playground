@@ -112,6 +112,17 @@ If you cannot run it, do not write the number. Estimates, plausible figures,
 and "typical" results are all failures here. External published results are
 fine when attributed and dated.
 
+Runs must earn credibility from scale, not from existing. A dataset too small
+to support the claim (a hand-written toy set, a few dozen examples, a shrunk
+model) is the same failure as a fabricated number. Use the largest public
+dataset that fits the lesson, and record sample size, model size, and hardware
+in `runs/`. If the model does not fit on the hardware we can actually run (the
+local lane's card, e.g. a 24GB 4090), do not train a reduced model and present
+it as evidence: link dated external sources instead (papers, official model
+cards, public leaderboards, vendor benchmarks) and let the chapter's claims
+rest on those. A local run that is unavoidably small is allowed only as a
+mechanism demo and must say so in the chapter, never as the primary evidence.
+
 ## Before you commit
 
 ```bash
