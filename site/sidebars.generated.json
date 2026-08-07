@@ -1440,6 +1440,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/search/35-generative-retrieval/when-the-id-is-a-phrase/index",
+                "label": "When the ID is a phrase"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/search/35-generative-retrieval/when-the-id-space-grows/index",
                 "label": "When the ID space grows"
               },
@@ -1465,6 +1470,11 @@
               },
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/search/36-conversational-search/when-the-context-is-long/index",
+                "label": "When the context is long"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/search/36-conversational-search/when-the-topic-shifts/index",
                 "label": "When the topic shifts"
               }
@@ -1482,6 +1492,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/search/37-llm-query-understanding/when-the-llm-over-parses/index",
                 "label": "When the LLM over-parses"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/37-llm-query-understanding/when-the-parse-swings/index",
+                "label": "When the parse swings"
               },
               {
                 "type": "doc",

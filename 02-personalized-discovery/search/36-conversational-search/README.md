@@ -40,15 +40,62 @@ resolution shifts to the cheaper marathon shoes (0.8). The query is
 only part of the input; the session is the other part, and
 conversational search is the mechanism that carries it.
 
+## How you find it: the resolution-stability audit, executed
+
+The failure mode this audit exists for is the aggregate resolution
+metric: a short-session-dominated log reports "conversational search
+resolves well" while long sessions — where truncation drops the
+first-turn grounding — lose most of their resolution. The run
+([record](runs/2026-08-07-session-audit.md)) emits a 10-session log and
+stratifies resolution by session length:
+
+| stratum | sessions | mean turns | resolution |
+|---|---:|---:|---:|
+| head | 5 | 3.2 | 0.980 |
+| tail | 5 | 17.8 | 0.380 |
+
+The verdict is RESOLUTION LOST IN LONG SESSIONS: the aggregate
+resolution of 0.680 is a short-session artifact — sessions of 2-4 turns
+resolve at 0.980, sessions of 12-24 turns at 0.380. Truncation drops
+the oldest turns first, and the first-turn topic is exactly the
+grounding a follow-up that says "back to the first pair" needs (the
+long-context shape "Lost in the Middle" measures; Liu et al., TACL
+2024). The decision that follows: pin the first-turn grounding or
+compress the middle turns so the referent survives the window.
+
+## Who owns the loop
+
+The session is the resolution surface's input, and the handoffs are
+where the grounding gets lost:
+
+- **The conversational-search or assistant team** owns the session
+  itself: the context window, the retention policy, and the
+  resolution metric per session length — the
+  [when-the-context-is-long detour](when-the-context-is-long/) is its
+  failure mode.
+- **The query-understanding team** owns the referent resolution: which
+  candidate an anaphora picks when the session offers two — the
+  [when-the-anaphora-is-ambiguous detour](when-the-anaphora-is-ambiguous/)
+  is its failure mode.
+- **The product owner** owns the session contract: when a topic shift
+  expires old context, and what "still the same conversation" means to
+  the user — the [when-the-topic-shifts
+  detour](when-the-topic-shifts/) is its pricing.
+
+When the ownership is implicit, the assistant team measures a short
+session, the understanding team resolves the last query, and nobody
+owns the long session — so the grounding loss ships as "conversational
+search resolves well" until resolution is stratified by session length.
+
 ## Why this belongs in the mission
 
 Search's raw input is becoming conversational — voice assistants,
 chat-first products, multi-turn refinement. That changes the query
 understanding contract stage 10 built: the key space is now resolved
 across turns, not per string. The mission's frontier claim is that the
-funnel survives the new input; the topic-shift and anaphora detours
-show the two ways session context can fail, which the search frontier
-has to handle before it can claim the funnel still works.
+funnel survives the new input; the three detours show the ways session
+context can fail, which the search frontier has to handle before it can
+claim the funnel still works.
 
 ## Evidence boundary
 
@@ -105,3 +152,9 @@ referents](when-the-anaphora-is-ambiguous/) — the executed read:
 "they" could be trail runners or road trainers, and resolving it wrong
 changes the answer, so search has to track referents, not reuse the last
 query.
+
+And a third: [the context is long and the first turn falls out of the
+window](when-the-context-is-long/) — the executed sweep read:
+resolution of "back to the first pair" falls from 1.0 at 8 turns to
+0.1 at 24, so truncation drops the first-turn grounding that the
+follow-up needs.

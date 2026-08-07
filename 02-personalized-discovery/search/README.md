@@ -53,8 +53,17 @@ the verdict.
 
 ## The frontier track (stages 35-37)
 
+Each stage in this track carries three executed failure-mode detours:
+the ID space that grows, the generator that hallucinates, the ID that
+is a phrase and names too much; the topic that shifts, the anaphora
+that is ambiguous, the context that is long and drops the first turn;
+the LLM that over-parses, the slot that is empty, the parse that
+swings between intents. Every audit run stratifies the failure by head
+and tail before it reports the verdict, and each stage names who owns
+the loop.
+
 | Stage | What it decides | Evidence |
 |---|---|---|
-| [`35-generative-retrieval`](35-generative-retrieval/) | Retrieval as a decode with a recall curve | [verified](35-generative-retrieval/runs/) |
-| [`36-conversational-search`](36-conversational-search/) | Session context as the resolution signal | [verified](36-conversational-search/runs/) |
-| [`37-llm-query-understanding`](37-llm-query-understanding/) | Intent-slot parsing with a confidence floor | [verified](37-llm-query-understanding/runs/) |
+| [`35-generative-retrieval`](35-generative-retrieval/) | Retrieval as a decode with a recall curve | [mechanism + audit run](35-generative-retrieval/runs/) |
+| [`36-conversational-search`](36-conversational-search/) | Session context as the resolution signal | [mechanism + audit run](36-conversational-search/runs/) |
+| [`37-llm-query-understanding`](37-llm-query-understanding/) | Intent-slot parsing with a confidence floor | [mechanism + audit run](37-llm-query-understanding/runs/) |

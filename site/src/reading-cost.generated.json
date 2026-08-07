@@ -673,7 +673,7 @@
   },
   "02-personalized-discovery/search": {
     "level": "applied",
-    "minutes": 1
+    "minutes": 2
   },
   "02-personalized-discovery/search/10-query-understanding": {
     "level": "applied",
@@ -837,9 +837,13 @@
   },
   "02-personalized-discovery/search/35-generative-retrieval": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "02-personalized-discovery/search/35-generative-retrieval/when-the-generator-hallucinates": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "02-personalized-discovery/search/35-generative-retrieval/when-the-id-is-a-phrase": {
     "level": "applied",
     "minutes": 2
   },
@@ -849,11 +853,15 @@
   },
   "02-personalized-discovery/search/36-conversational-search": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "02-personalized-discovery/search/36-conversational-search/when-the-anaphora-is-ambiguous": {
     "level": "applied",
     "minutes": 2
+  },
+  "02-personalized-discovery/search/36-conversational-search/when-the-context-is-long": {
+    "level": "applied",
+    "minutes": 3
   },
   "02-personalized-discovery/search/36-conversational-search/when-the-topic-shifts": {
     "level": "applied",
@@ -861,11 +869,15 @@
   },
   "02-personalized-discovery/search/37-llm-query-understanding": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "02-personalized-discovery/search/37-llm-query-understanding/when-the-llm-over-parses": {
     "level": "applied",
     "minutes": 2
+  },
+  "02-personalized-discovery/search/37-llm-query-understanding/when-the-parse-swings": {
+    "level": "applied",
+    "minutes": 3
   },
   "02-personalized-discovery/search/37-llm-query-understanding/when-the-slot-is-empty": {
     "level": "applied",

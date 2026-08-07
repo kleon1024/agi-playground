@@ -37,7 +37,56 @@ done by a model that can handle phrasing stage 10's rules would miss —
 "2 bedroom apartment rent" becomes housing_search with three slots.
 The frontier cost is trust: the parse can be incomplete (origin is
 None) or overcomplete (max_price invented), and both change what
-retrieval serves, which the two detours price.
+retrieval serves, which the detours price.
+
+## How you find it: the parse-stability audit, executed
+
+The failure mode this audit exists for is the aggregate parse-quality
+metric: a head-dominated log reports "the LLM parse is good" while
+tail queries — genuine judgment calls — swing between intents across
+samples, and the same string can flip the retrieval path. The run
+([record](runs/2026-08-07-parse-audit.md)) emits a 10-query log with
+five sampled parses per query and stratifies agreement and quality by
+head and tail:
+
+| stratum | queries | agreement | quality | low-conf slots |
+|---|---:|---:|---:|---:|
+| head | 5 | 1.000 | 0.976 | 0.0 |
+| tail | 5 | 0.520 | 0.554 | 2.4 |
+
+The verdict is PARSE QUALITY HIDES SWINGING JUDGMENT CALLS: the
+aggregate quality of 0.765 is a head artifact — head parses agree at
+1.000 and score 0.976, while tail parses agree at only 0.520 with 2.4
+low-confidence slots per query. The same query parses into different
+intents across samples, so a low-confidence call flips the retrieval
+path. The decision that follows: sample the parse and take the
+majority (self-consistency; Wang et al., ICLR 2023,
+arXiv:2203.11171), and treat a low-confidence slot as a clarification
+or a broadening, never a silent guess.
+
+## Who owns the loop
+
+The parse feeds every downstream decision, so its stability is owned at
+the model-serving boundary, and the handoffs are where the swing gets
+committed:
+
+- **The query-understanding or LLM team** owns the parse itself: the
+  sampling policy, the agreement rate, and the slot-confidence floor —
+  the [when-the-parse-swings detour](when-the-parse-swings/) is its
+  failure mode.
+- **The retrieval team** owns what the parse feeds: the key space, and
+  the fallback when a slot is missing or below confidence — the
+  [when-the-slot-is-empty detour](when-the-slot-is-empty/) is its
+  failure mode.
+- **The product owner** owns the parse contract: when an invented
+  constraint is acceptable and when the model over-commits — the
+  [when-the-llm-over-parses detour](when-the-llm-over-parses/) is its
+  pricing.
+
+When the ownership is implicit, the LLM team logs a single parse, the
+retrieval team serves the keys it is given, and nobody owns the swing —
+so a judgment call that flips the path ships as "the parse is good"
+until agreement is stratified and logged per query.
 
 ## Why this belongs in the mission
 
@@ -103,3 +152,9 @@ Another detour: [the LLM over-parses and invents a
 constraint](when-the-llm-over-parses/) — the executed read: the over-parsed query
 invents max_price cheap and would filter the index by a constraint the
 user never stated, silently shrinking recall like an over-eager rule.
+
+And a third: [the parse swings and the swing flips the retrieval
+path](when-the-parse-swings/) — the executed sample read: "apple watch"
+splits 3-2 between product and service, so sampling plus majority
+(self-consistency) stabilizes the clear cases and a thin majority
+broadens or clarifies instead of committing.

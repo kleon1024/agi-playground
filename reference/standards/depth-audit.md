@@ -205,8 +205,8 @@ three detours:
 
 ### Personalized discovery — search 10-24, 35-37
 
-**Status: in progress (search mainline 10-13 and advanced 19-24 audited,
-2026-08-07; frontier 35-37 pending).**
+**Status: in progress (search mainline 10-13, advanced 19-24, and
+frontier 35-37 audited, 2026-08-07; this track is complete).**
 
 Stages 10-13 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
@@ -298,10 +298,40 @@ three detours:
   success under a timeout and 40% under topic continuation — the
   definition has to be frozen before the numbers mean anything).
 
-Remaining in this section (pending): generative retrieval 35,
-conversational search 36, LLM query understanding 37. Each needs the
-same audit contract, with the head/tail coverage and offline-consistency
-detail stages 10-24 now set.
+Stages 35-37 now satisfy the same contract, each with an executed
+case-finding audit, a who-owns-the-loop section, dated citations, and
+three detours:
+
+- 35 generative retrieval: decode-recall audit over a 20-query log
+  (head/tail stratification; head decodes at 1.000 recall and 1.000
+  precision while tail recall is 0.540 with 0.740 emitted-ID precision
+  — DECODE RECALL DIVERGES IN THE TAIL verdict, aggregate recall 0.770
+  is a head artifact); ownership split across
+  generative-model/serving-fallback/evaluation teams; Tay et al.
+  NeurIPS 2022 (DSI); detours: id-space-grows, generator-hallucinates,
+  and the ID that is a phrase (substring IDs name 5 of 8 titles, so
+  the no-index claim softens once IDs are human-readable; Bevilacqua
+  et al. NeurIPS 2022).
+- 36 conversational search: resolution-stability audit over a
+  10-session log (session-length stratification; 2-4 turn sessions
+  resolve at 0.980, 12-24 turn sessions at 0.380 — RESOLUTION LOST IN
+  LONG SESSIONS verdict, aggregate 0.680 is a short-session artifact);
+  ownership split across conversational-search/query-understanding/
+  product teams; Radlinski & Craswell CHIIR 2017, Liu et al. TACL
+  2024 (Lost in the Middle); detours: topic-shift, anaphora-ambiguous,
+  and the context that is long (truncation drops the first-turn
+  grounding first; resolution of "back to the first pair" falls from
+  1.0 at 8 turns to 0.1 at 24).
+- 37 LLM query understanding: parse-stability audit over a 10-query log
+  with five sampled parses per query (head parses agree at 1.000 and
+  score 0.976; tail agrees at 0.520 with 2.4 low-confidence slots per
+  query — PARSE QUALITY HIDES SWINGING JUDGMENT CALLS verdict,
+  aggregate 0.765 is a head artifact); ownership split across
+  query-understanding/retrieval/product teams; Wang et al. ICLR 2023
+  (self-consistency); detours: over-parses, empty-slot, and the parse
+  that swings ("apple watch" splits 3-2 product/service across
+  samples, so a thin majority broadens or clarifies instead of
+  committing).
 
 ### Personalized discovery — ads 14-18, 25-30, 38-42, 54
 
