@@ -46,6 +46,58 @@ run:
 That is the point of hybrid search: coverage without choosing a blind
 spot, with shared confidence ranked first.
 
+## How you find it: the fusion-weight audit, executed
+
+Fusion has a knob — the weight between lexical and dense — and the
+failure mode the aggregate hides is the weight tuned on the wrong
+queries. A head-dominated sweep looks flat, so the team concludes the
+weight does not matter, while the tail swings with it. The run
+([record](runs/2026-08-07-fusion-audit.md)) emits a 20-query log with
+the fused-list NDCG at three weights — lexical-only, balanced,
+dense-only — and stratifies the swing:
+
+| stratum | queries | NDCG@w0 | NDCG@w0.5 | NDCG@w1 | mean swing |
+|---|---:|---:|---:|---:|---:|
+| head | 10 | 0.900 | 0.920 | 0.900 | 0.020 |
+| tail | 10 | 0.557 | 0.794 | 0.451 | 0.343 |
+
+The verdict is WEIGHT SWING CONCENTRATED IN THE TAIL: head queries are
+covered by either matcher, so the weight moves their score by 0.020;
+tail queries swing 0.343 — from 0.451 served dense-only to 0.794
+balanced. The flat aggregate sweep is a head artifact. Cormack, Clarke
+and Büttcher ("Reciprocal Rank Fusion Outperforms Condorcet and
+Individual Rank Learning Methods", SIGIR 2009) is the source for the
+RRF mechanism; this audit is the operational check that the fusion's
+trust decision is query-dependent. The decision that follows: tune the
+weight on the tail, report the swing per stratum, and never ship "the
+weight does not matter" from a head-dominated experiment.
+
+## Who owns the loop
+
+The fusion decides which matcher's confidence wins per query; someone
+must own that trust decision, and the handoffs are where fusion fails:
+
+- **The fusion or ranking team** owns the weight and the overlap
+  contract: how lexical and dense confidence are combined, and the
+  per-stratum swing report that shows where the weight decides. It
+  owns the knob, and the when-the-fusion-weight-moves detour is its
+  failure mode.
+- **The retrieval teams** own the two sets being fused: lexical recall
+  and dense recall, each with its own blind spot, and each required to
+  stay healthy — because the when-one-set-is-empty detour shows the
+  hybrid silently degrades into whoever is alive. They own the sets,
+  and the audit's tail verdict is their signal.
+- **The evaluation or relevance team** owns the overlap-rate
+  monitoring: the served overlap between matchers, the disjoint case
+  that means one matcher failed, and the head/tail stratification that
+  makes the weight decision visible. It owns the measurement, and the
+  when-the-sets-disagree-entirely detour is its failure mode.
+
+When the ownership is implicit, the fusion team tunes the weight on an
+aggregate sweep, the retrieval teams ship their sets, and nobody owns
+the tail — so a flat-looking experiment ships a weight that silently
+serves the tail whichever matcher the aggregate happened to prefer.
+
 ## Why this belongs in the mission
 
 [Stage 02's rule](../../shared/02-recall/) — a perfect ranker cannot rank an item
@@ -104,3 +156,7 @@ the platform trusts meaning versus exact terms.
 Another detour: [the hybrid degrades into whoever is alive](when-one-set-is-empty/) — the executed degradation read: with the dense set
 empty the fusion is exactly the lexical ranking, so fusion needs a
 health check per matcher.
+
+And a third: [fusion with no agreement to reward](when-the-sets-disagree-entirely/) — when the two matchers return disjoint lists,
+RRF interleaves two priors and the page top is a coin flip; the check
+is the served overlap rate.

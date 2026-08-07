@@ -42,6 +42,52 @@ the causes, not just the number. The [zero-matters detour](when-the-zero-result-
 prices the rate through abandonment; the [session detour](when-the-click-is-a-query/)
 shows why a per-query verdict can misread a recovered session.
 
+## How you find it: the funnel audit, executed
+
+The funnel is reported as an aggregate, and the failure mode the
+aggregate hides is the slice that collapses while the mean stays flat.
+The run ([record](runs/2026-08-07-measure-audit.md)) emits the search
+funnel over four slices — device crossed with query stratum:
+
+| slice | queries | zero | click | conversion |
+|---|---:|---:|---:|---:|
+| desktop-head | 10,000 | 2% | 45% | 2.00% |
+| desktop-tail | 2,000 | 8% | 38% | 1.50% |
+| mobile-head | 12,000 | 4% | 40% | 1.80% |
+| mobile-tail | 3,000 | 25% | 22% | 0.20% |
+
+The verdict is HIDDEN SLICE: the aggregate (1.67% conversion, 5.9%
+zero) looks normal while mobile-tail — 11% of traffic — converts at
+0.20% with a 25% zero-result rate. The slice barely moves the mean,
+which is exactly why the mean cannot be the report: a failing slice
+that is a small traffic fraction is invisible in the aggregate and
+incident-sized in its own row. The decision that follows: report the
+funnel per slice, and treat a slice whose rate is a third of the
+aggregate as an incident, not a rounding error.
+
+## Who owns the loop
+
+The funnel is the search surface's outcome; someone must own what the
+numbers mean, and the handoffs are where measurement fails:
+
+- **The measurement or analytics team** owns the funnel itself: the
+  per-slice report, the cause taxonomy for zeros, and the session
+  definition that the numbers depend on. It owns the metric, and the
+  when-the-session-definition-moves detour is its failure mode.
+- **The product or search owner** owns the decision the funnel feeds:
+  which slice gets the fix, whether mobile-tail is a supply problem or
+  a query problem, and what "improved" means this quarter. It owns the
+  verdict, and the audit's HIDDEN SLICE result is its signal.
+- **The data or logging team** owns the raw material: the query log,
+  the session boundary, and the slice attributes that make the funnel
+  auditable at all. It owns the data, and the
+  when-the-zero-result-rate-matters detour is its pricing.
+
+When the ownership is implicit, the analytics team reports an
+aggregate, the product owner reads the headline, and nobody owns the
+slice — so a mobile-tail collapse ships as "the funnel is flat" until
+the slice gets reported.
+
 ## Why this belongs in the mission
 
 Stage 13 measured how well ranked results satisfy queries that have
@@ -102,3 +148,7 @@ Another detour: [zero results is a coverage metric with a revenue
 shape](when-the-zero-result-rate-matters/) — the executed pricing read:
 8% of 100,000 daily queries return nothing and 60% of those users leave,
 an estimated 4,800 lost users a day.
+
+And a third: [one log, two funnels, two conclusions](when-the-session-definition-moves/) — the same six-event log reports 100% success
+under a 30-minute timeout and 40% under topic continuation, so the
+definition has to be frozen before the numbers mean anything.

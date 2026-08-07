@@ -205,7 +205,8 @@ three detours:
 
 ### Personalized discovery — search 10-24, 35-37
 
-**Status: in progress (search mainline 10-13 audited, 2026-08-07).**
+**Status: in progress (search mainline 10-13 and advanced 19-24 audited,
+2026-08-07; frontier 35-37 pending).**
 
 Stages 10-13 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
@@ -245,11 +246,62 @@ audit, a who-owns-the-loop section, dated citations, and three detours:
   MRR 1.0000 while NDCG falls to 0.7519; the ndcg gamer normalizes to
   1.0000 with an empty tail).
 
-Remaining in this section (pending): expansion 19, dense retrieval 20,
-hybrid fusion 21, reranking 22, personalized search 23, measurement 24,
-generative retrieval 35, conversational search 36, LLM query
-understanding 37. Each needs the same audit contract, with the head/tail
-coverage and offline-consistency detail stages 10-13 now set.
+Stages 19-24 now satisfy the same contract, each with an executed
+case-finding audit, a who-owns-the-loop section, dated citations, and
+three detours:
+
+- 19 query expansion: expansion-lift audit over a 24-query log
+  (head/tail stratification; head queries recover 0.000 and take on
+  1.00 noise each while the tail carries all +0.467 of the lift —
+  EXPANSION LIFT CONCENTRATED IN THE TAIL verdict); ownership split
+  across expansion/retrieval/data teams; Xu & Croft 1996; detours:
+  expansion hurts, correction helps, and the typo that is a real word
+  (a valid catalog term never fires edit-distance correction — the
+  evidence has to come from the click log; Hirst & Budanitsky 2005).
+- 20 dense retrieval: stale-embedding audit over a 20-query log
+  (fresh-versus-stale recall@5; tail queries lose 0.600 against 0.060
+  on head — STALE EMBEDDING DIVERGES IN THE TAIL verdict); ownership
+  split across model/serving/evaluation teams; Huang et al. KDD 2020;
+  detours: stale embedding, ANN index, and the space where everything
+  is equidistant (anisotropy packs five cosines into +0.975..+0.990
+  and inverts the ranking; Ethayarajh et al. ACL 2019, Gao et al.
+  ICLR 2019).
+- 21 hybrid fusion: fusion-weight audit over a 20-query log (NDCG at
+  three weights; tail swings 0.343 against 0.020 on head — WEIGHT SWING
+  CONCENTRATED IN THE TAIL verdict); ownership split across
+  fusion/retrieval/evaluation teams; Cormack, Clarke & Büttcher SIGIR
+  2009; detours: empty set, weight moves, and the sets that disagree
+  entirely (disjoint lists give RRF nothing to reward and the page top
+  is a coin flip; the check is the served overlap rate).
+- 22 reranking: served-k audit over a 20-query log (NDCG@10 versus
+  NDCG@3; tail improves +0.080 at @10 while collapsing -0.080 at the
+  served @3 — SERVING-K DIVERGENCE verdict); ownership split across
+  ranking/serving/evaluation teams; Nogueira & Cho 2019; detours:
+  tight budget, reranker disagreement, and the gain below the fold
+  (NDCG@10 0.9592 to 0.9758 while the three-slot page worsens 1.0000
+  to 0.9677 — the eval k and the served k disagree).
+- 23 personalized search: personalization-lift audit over a 16-query
+  log crossing history depth with query stratum (heavy-history tail
+  lifts +0.250; new users get 0.000 to -0.020 — LIFT CONCENTRATED IN
+  HEAVY-HISTORY USERS verdict); ownership split across
+  personalization/ranking/data teams; Dou, Song & Wen WWW 2007;
+  detours: personalization hurts, history helps, and the new user who
+  is the majority (70% no-history traffic dilutes a +0.150 slice lift
+  to +0.019 aggregate — the product decision is the cold-start
+  policy).
+- 24 search measurement: funnel audit over four slices (device crossed
+  with query stratum; mobile-tail converts at 0.20% against a 1.67%
+  aggregate with a 25% zero-result rate — HIDDEN SLICE verdict);
+  ownership split across analytics/product/data teams; Jones &
+  Klinkner CIKM 2008; detours: click-is-a-query, zero-rate matters,
+  and the session definition that moves (the same log reports 100%
+  success under a timeout and 40% under topic continuation — the
+  definition has to be frozen before the numbers mean anything).
+
+Remaining in this section (pending): generative retrieval 35,
+conversational search 36, LLM query understanding 37. Each needs the
+same audit contract, with the head/tail coverage and offline-consistency
+detail stages 10-24 now set.
 
 ### Personalized discovery — ads 14-18, 25-30, 38-42, 54
 

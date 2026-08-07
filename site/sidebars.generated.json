@@ -1297,6 +1297,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/search/19-query-expansion/when-the-correction-helps/index",
                 "label": "When the correction helps"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/19-query-expansion/when-the-typo-is-a-real-word/index",
+                "label": "When the typo is a real word"
               }
             ]
           },
@@ -1308,6 +1313,11 @@
               "id": "02-personalized-discovery/search/20-dense-retrieval/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/20-dense-retrieval/when-everything-is-equidistant/index",
+                "label": "When everything is equidistant"
+              },
               {
                 "type": "doc",
                 "id": "02-personalized-discovery/search/20-dense-retrieval/when-the-embedding-is-stale/index",
@@ -1337,6 +1347,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/search/21-hybrid-fusion/when-the-fusion-weight-moves/index",
                 "label": "When the fusion weight moves"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/21-hybrid-fusion/when-the-sets-disagree-entirely/index",
+                "label": "When the sets disagree entirely"
               }
             ]
           },
@@ -1348,6 +1363,11 @@
               "id": "02-personalized-discovery/search/22-reranking/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/22-reranking/when-the-gain-is-below-the-fold/index",
+                "label": "When the gain is below the fold"
+              },
               {
                 "type": "doc",
                 "id": "02-personalized-discovery/search/22-reranking/when-the-rerank-budget-is-tight/index",
@@ -1375,6 +1395,11 @@
               },
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/search/23-personalized-search/when-the-new-user-is-the-majority/index",
+                "label": "When the new user is the majority"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/search/23-personalized-search/when-the-user-history-helps/index",
                 "label": "When the user history helps"
               }
@@ -1392,6 +1417,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/search/24-search-measurement/when-the-click-is-a-query/index",
                 "label": "When the click is a query"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/search/24-search-measurement/when-the-session-definition-moves/index",
+                "label": "When the session definition moves"
               },
               {
                 "type": "doc",

@@ -40,6 +40,58 @@ query; its risk is that the context overrides the query's actual
 intent, which the [over-personalization detour](when-personalization-hurts/)
 measures.
 
+## How you find it: the lift audit, executed
+
+Personalization lifts something — but whom? The failure mode the
+aggregate hides is the lift concentrated in one slice while most
+sessions see no change. The run
+([record](runs/2026-08-07-personal-audit.md)) emits a 16-query log
+crossing history depth with query stratum and stratifies the NDCG lift:
+
+| depth | stratum | queries | base NDCG | personal | lift |
+|---|---|---:|---:|---:|---:|
+| heavy | tail | 4 | 0.600 | 0.850 | +0.250 |
+| heavy | head | 4 | 0.800 | 0.850 | +0.050 |
+| new | tail | 4 | 0.600 | 0.580 | -0.020 |
+| new | head | 4 | 0.800 | 0.800 | +0.000 |
+
+The verdict is PERSONALIZATION LIFT CONCENTRATED IN HEAVY-HISTORY
+USERS: the aggregate +0.070 is entirely the history-bearing slice, and
+the new-user slices get nothing — the tail even degrades when the
+attempt runs without history. Dou, Song and Wen ("A Large-scale
+Evaluation and Analysis of Personalized Search Strategies", WWW 2007)
+measure the same dependence: gains vary by user and query type, with
+head queries and low-history users gaining little. The decision that
+follows: report the lift per slice, check the traffic share of each
+slice, and pair the model with a cold-start policy for the no-history
+majority.
+
+## Who owns the loop
+
+Personalization changes what each user sees; someone must own what the
+context is allowed to do, and the handoffs are where personalization
+fails:
+
+- **The personalization model team** owns the affinity model: the
+  history features, the prior over the query's meaning, and the
+  guardrail that stops the context from overriding the query. It owns
+  the model, and the when-personalization-hurts detour is its failure
+  mode.
+- **The ranking team** owns the blend: relevance plus affinity, and
+  the per-slice lift report that shows who the blend actually helps.
+  It owns the scoring, and the audit's concentration verdict is its
+  signal.
+- **The data or product team** owns the traffic mix: the share of new
+  users, the cold-start policy for the no-history majority, and the
+  history-quality measurement. It owns the population, and the
+  when-the-new-user-is-the-majority detour is its failure mode.
+
+When the ownership is implicit, the model team ships an affinity
+model, the ranking team reports an aggregate lift, and nobody owns the
+traffic mix — so a model that only helps heavy-history tail queries
+ships as a platform-wide improvement while the no-history majority
+sees nothing.
+
 ## Why this belongs in the mission
 
 This is where the mission's central claim becomes visible: search and
@@ -102,3 +154,7 @@ for](when-personalization-hurts/) — the executed coverage read: the
 broad `shoes` result covers four categories while the personalized
 result narrows to trail running, so the query's signal must win when
 intent is broader than history.
+
+And a third: [the traffic that cannot be personalized](when-the-new-user-is-the-majority/) — when 70% of sessions have no history, the
+aggregate lift is an average that hides the concentration; the product
+decision is the cold-start policy for that majority.

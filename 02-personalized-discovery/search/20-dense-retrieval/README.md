@@ -46,6 +46,59 @@ This is the queue that closes the vocabulary-mismatch gap stage 11
 named: a query and a document need no shared token, only nearby
 vectors.
 
+## How you find it: the stale-embedding audit, executed
+
+The embedding is the index, but the index has a freshness problem: the
+doc vectors are re-trained on a schedule, and between runs the served
+snapshot is stale. The failure mode the aggregate hides is the query
+whose recall silently degrades against a stale index — and the mean
+gap cannot see it. The run ([record](runs/2026-08-07-dense-audit.md))
+emits a 20-query log, scores each query against fresh and stale doc
+embeddings, and stratifies the gap:
+
+| stratum | queries | fresh recall@5 | stale recall@5 | gap |
+|---|---:|---:|---:|---:|
+| head | 10 | 1.000 | 0.940 | -0.060 |
+| tail | 10 | 1.000 | 0.400 | -0.600 |
+
+The verdict is STALE EMBEDDING DIVERGES IN THE TAIL: the aggregate gap
+is -0.330 and the snapshot looks usable, but every unit of the loss is
+tail recall. Head queries survive a stale index; tail queries — rare
+terms with few training examples — lose most of their retrieval. Huang
+et al. ("Embedding-based Retrieval in Facebook Search", KDD 2020, pages
+2553-2561) is the industrial reference for two-tower retrieval in
+production search, including the training-data choices (hard negative
+sampling between ranks 101-500) that determine how well the tail is
+represented in the first place. The decision that follows: embedding
+freshness is a tail decision — refresh for the tail, or fall back to
+the hybrid path in [stage 21](../21-hybrid-fusion/) for the queries the
+stale vectors cannot serve.
+
+## Who owns the loop
+
+The vector space is the retrieval index; someone must own what serves
+it, and the handoffs are where dense retrieval fails:
+
+- **The dense-retrieval model team** owns the towers: the training
+  data, the negative sampling that decides tail representation, and
+  the space's quality — including the anisotropy check that catches a
+  space that stopped separating. It owns the model, and the
+  when-everything-is-equidistant detour is its failure mode.
+- **The serving or indexing team** owns the snapshot that actually
+  answers queries: the embedding run schedule, the fresh-versus-stale
+  gap, and the decision of which queries are safe on a stale index. It
+  owns freshness, and the audit's tail verdict is its signal.
+- **The evaluation or relevance team** owns the recall@k measurement
+  and its strata: head/tail split, per-query curves, and the
+  offline/online consistency check that catches divergence before
+  traffic does. It owns the measurement, and the when-the-index-is-ann
+  detour is its scale constraint.
+
+When the ownership is implicit, the model team ships towers, the
+serving team serves a stale snapshot, and nobody owns the tail — so
+the aggregate consistency check approves an index that has silently
+lost 60% of its tail recall.
+
 ## Why this belongs in the mission
 
 Search's recall problem is the same as [stage 02's multi-queue
@@ -109,3 +162,7 @@ budget.
 Another detour: [the item without a vector is unreachable](when-the-embedding-is-stale/) — the executed coverage read: two of five catalog
 items have no vector and cannot be retrieved at all, so embedding
 freshness is an indexing pipeline decision.
+
+And a third: [the embedding space that stopped separating](when-everything-is-equidistant/) — when training pulls every vector into the
+same cone, all cosines converge and the dense ranking becomes a
+frequency order; the check is the served similarity distribution.

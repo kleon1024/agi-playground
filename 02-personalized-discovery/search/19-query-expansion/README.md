@@ -56,6 +56,58 @@ before it ever reaches the index — the search analogue of recall, where
 [stage 02's rule](../../shared/02-recall/) applies: a perfect ranker cannot rank
 an item that was never retrieved.
 
+## How you find it: the expansion-lift audit, executed
+
+Correction is measured by recall, but recall over which queries? The
+failure mode the aggregate hides is expansion that lifts nothing while
+costing precision — and the aggregate cannot see it, because head
+queries dominate the average. The run
+([record](runs/2026-08-07-expansion-audit.md)) emits a 24-query log —
+12 head queries the catalog already covers, 12 tail queries with
+vocabulary mismatches — and stratifies the recall lift:
+
+| stratum | queries | base recall | expanded recall | lift | noise/query |
+|---|---:|---:|---:|---:|---:|
+| head | 12 | 1.000 | 1.000 | +0.000 | 1.00 |
+| tail | 12 | 0.350 | 0.817 | +0.467 | 0.33 |
+
+The verdict is EXPANSION LIFT CONCENTRATED IN THE TAIL: the aggregate
+reports a +0.233 recall lift as if it applied everywhere, but every
+unit of it is a tail repair, and head queries recover nothing while
+taking on 1.00 irrelevant hit each. Xu and Croft ("Query Expansion
+Using Local and Global Document Analysis", SIGIR 1996) showed local
+(per-query) analysis beats global expansion for exactly this reason —
+the benefit is query-dependent, which is what the stratification makes
+visible. The decision that follows is to gate expansion by stratum, not
+to ship it everywhere on the strength of the average.
+
+## Who owns the loop
+
+The expansion changes what retrieval is allowed to see; someone must own
+what each expansion commits the system to, and the handoffs are where
+expansion fails:
+
+- **The query-understanding or expansion team** owns the expansion
+  policy: which terms expand, which synonyms are trusted, and the
+  stratum gate that stops head queries from being widened. It owns the
+  precision cost, and the when-expansion-hurts detour is its failure
+  mode.
+- **The retrieval team** owns the candidate set the expansion feeds:
+  whether the widened query recovers documents the raw query lost, and
+  what noise the index then has to outrank. It owns the recall
+  consequence, and the when-the-correction-helps detour is its
+  evidence.
+- **The data or logging team** owns the evidence that correction is
+  even possible: the query log that separates head from tail, and the
+  click evidence that catches the errors strings cannot — the
+  real-word typo. It owns the log, and the when-the-typo-is-a-real-word
+  detour is its failure mode.
+
+When the ownership is implicit, the expansion team ships synonyms, the
+retrieval team trusts the widened query, and nobody owns the head/tail
+split — so head traffic pays precision for a lift that lives entirely
+in the tail, and the aggregate report says the system improved.
+
 ## Evidence boundary
 
 The executed distance table over one misspelling and five candidates
@@ -107,3 +159,7 @@ query `heaphones` retrieves zero documents while the corrected
 Another detour: [expansion trades precision for recall](when-expansion-hurts/) — the executed ambiguity read: expanding `apple` adds no new
 relevant hits, only the wrong senses, so expansion needs a sense
 signal.
+
+And a third: [the misspelling that string correction cannot see](when-the-typo-is-a-real-word/) — a typo that is itself a valid catalog
+term never fires edit-distance correction, so the evidence has to come
+from the click log.

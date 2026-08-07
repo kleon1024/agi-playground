@@ -39,6 +39,53 @@ five positions change. The first stage recalls, the reranker refines —
 the split is a latency budget decision, not a preference for one model
 over the other.
 
+## How you find it: the served-k audit, executed
+
+The reranker is evaluated offline at one k and serves another, and the
+failure mode the aggregate hides is the k that disagrees with the page.
+The run ([record](runs/2026-08-07-rerank-audit.md)) emits a 20-query
+log with first-stage and reranked NDCG@10 and NDCG@3, and compares the
+two surfaces:
+
+| stratum | queries | delta@10 | delta@3 | agree? |
+|---|---:|---:|---:|---|
+| head | 10 | +0.080 | +0.050 | yes |
+| tail | 10 | +0.080 | -0.080 | NO |
+
+The verdict is SERVING-K DIVERGENCE: the @10 experiment approves the
+reranker (aggregate +0.080) while the served @3 report says the page
+got worse (-0.015), and the entire loss is tail — the reranker's fixes
+land in the middle of the list, below the three served slots. Nogueira
+and Cho ("Passage Re-ranking with BERT", arXiv:1901.04085, 2019) is the
+cross-encoder reranker production systems deploy; its cost is why the
+shortlist is short and the served page shorter. The decision that
+follows: report at the served k, audit per position, and slice the
+rerank experiment by head and tail before shipping.
+
+## Who owns the loop
+
+The reranker changes the order the user sees; someone must own the k
+that decides what reaches the page, and the handoffs are where
+reranking fails:
+
+- **The ranking team** owns the reranker: the features it trusts, the
+  pool size, and the served-k evaluation that decides whether a change
+  ships. It owns the model, and the when-the-reranker-disagrees detour
+  is its failure mode.
+- **The serving or infrastructure team** owns the budget: the top-k
+  cutoff and the p95 latency that constrain how many documents the
+  reranker can re-score. It owns the pool, and the
+  when-the-rerank-budget-is-tight detour is its constraint.
+- **The evaluation or product team** owns the surface contract: what k
+  the page actually serves, and the @10-versus-@3 audit that catches a
+  reranker whose gains never reach a user. It owns the metric, and the
+  when-the-gain-is-below-the-fold detour is its failure mode.
+
+When the ownership is implicit, the ranking team reports @10, the
+serving team ships the pool, and nobody owns the served k — so a
+reranker that fixes the middle of the list ships as an improvement
+while the tail's top-3 silently gets worse.
+
 ## Why this belongs in the mission
 
 This is search's version of [the mission's pre-rank/fine-rank
@@ -98,3 +145,7 @@ risk](when-the-reranker-disagrees/) — the executed comparison read: the
 first stage and the reranker disagree on the top-3, which is the
 reranker's reason to exist and the risk that anything outside the
 reranked pool keeps the cheaper verdict.
+
+And a third: [the improvement the page never shows](when-the-gain-is-below-the-fold/) — a reranker that fixes positions 4-10 improves
+NDCG@10 from 0.9592 to 0.9758 while the three-slot page worsens from
+1.0000 to 0.9677; the eval k and the served k disagree.

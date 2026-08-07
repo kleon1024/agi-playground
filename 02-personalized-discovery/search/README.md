@@ -31,14 +31,25 @@ with a measured fix.
 
 ## The advanced track (stages 19-24)
 
+Each stage in this track carries three executed failure-mode detours:
+the expansion that lifts nothing, the correction that never fires, the
+real-word typo; the stale embedding, the ANN index, the space where
+everything is equidistant; the empty set, the weight that moves, the
+sets that disagree entirely; the tight budget, the disagreement, the
+gain below the fold; the history that hides, the history that helps,
+the new user who is the majority; the click that is a query, the zero
+that matters, the session definition that moves. Every audit run
+stratifies the failure by head and tail or by slice before it reports
+the verdict.
+
 | Stage | What it decides | Evidence |
 |---|---|---|
-| [`19-query-expansion`](19-query-expansion/) | Query correction as retrieval pre-processing | [verified](19-query-expansion/runs/) |
-| [`20-dense-retrieval`](20-dense-retrieval/) | The two-tower index that closes the mismatch gap | [verified](20-dense-retrieval/runs/) |
-| [`21-hybrid-fusion`](21-hybrid-fusion/) | Keeping the union when lexical and dense disagree | [verified](21-hybrid-fusion/runs/) |
-| [`22-reranking`](22-reranking/) | The second ranker, inside its latency split | [verified](22-reranking/runs/) |
-| [`23-personalized-search`](23-personalized-search/) | The query with a user attached | [verified](23-personalized-search/runs/) |
-| [`24-search-measurement`](24-search-measurement/) | The zero-result rate and the coverage signal | [verified](24-search-measurement/runs/) |
+| [`19-query-expansion`](19-query-expansion/) | Query correction as retrieval pre-processing | [mechanism + audit run](19-query-expansion/runs/) |
+| [`20-dense-retrieval`](20-dense-retrieval/) | The two-tower index that closes the mismatch gap | [mechanism + audit run](20-dense-retrieval/runs/) |
+| [`21-hybrid-fusion`](21-hybrid-fusion/) | Keeping the union when lexical and dense disagree | [mechanism + audit run](21-hybrid-fusion/runs/) |
+| [`22-reranking`](22-reranking/) | The second ranker, inside its latency split | [mechanism + audit run](22-reranking/runs/) |
+| [`23-personalized-search`](23-personalized-search/) | The query with a user attached | [mechanism + audit run](23-personalized-search/runs/) |
+| [`24-search-measurement`](24-search-measurement/) | The zero-result rate and the coverage signal | [mechanism + audit run](24-search-measurement/runs/) |
 
 ## The frontier track (stages 35-37)
 
