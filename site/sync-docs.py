@@ -302,6 +302,7 @@ def description_from(body: str) -> str:
             continue
         # Strip inline markup that would look wrong in a search snippet.
         line = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", line)
+        line = re.sub(r"\\\$", "", line)  # dollar escapes: drop the backslash too
         line = re.sub(r"[*_`$]", "", line)
         if len(line) < 40:
             continue
