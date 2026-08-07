@@ -431,8 +431,8 @@ proves the fix worked.
 
 ### Language-model system — 00-07
 
-**Status: in progress (00-corpus data health, 02-pretrain divergence
-audited, 2026-08-07).**
+**Status: in progress (00-corpus data health, 02-pretrain divergence,
+03-sft template contract audited, 2026-08-07).**
 
 Stage 00 now carries the dirty-data failure the queue named first: a
 benchmark-contamination chapter with an executed run over 200 items, 60
@@ -463,6 +463,22 @@ norm still alive at 0.050 — a precision floor, not a dead loop. The
 mission's own 3.0689-to-3.0984 anomaly remains unattributed, and the
 runs record states the boundary (toy model, planted LR values, bf16
 master-weight simulation rather than the full mixed-precision contract).
+
+Stage 03's format-conflict row is now executed on the real contract: the
+chat template is measured on the frozen tokenizer, the real masker, and
+the real 9,500-conversation no_robots set. The marker is one reserved id
+or it is eight byte tokens (byte-split would add ~301k tokens, +11.1% of
+the corpus); five serve-time header drift variants diverge from the
+trained `assistant\n` at token 0 (capital, leading space) or token 2
+(missing newline, extra space, CRLF); and the mask trains on 68.2% of real
+tokens on this curated set, with a 1.7% per-block minimum where context
+dominates — so the masker's job is exclusion, not density, and its tests
+own role-label integrity. Packing drops 217 long conversations and pads
+19.6% of block capacity. Ownership split: stage 01 tokenizer freeze owns
+the reserved ids, the serve harness owns byte parity (token-id parity
+check as guardrail), the data pipeline owns masker tests. The queued
+follow-up is the injected-noise audit: role mislabels leaking user text
+into the loss, and empty assistant turns as silent no-ops.
 
 Audit the LLM track with the same lens: dirty data and washing (dedup,
 quality filters, contamination), tokenizer edge cases, pretraining data mix

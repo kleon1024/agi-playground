@@ -107,6 +107,10 @@
     "level": "frontier",
     "minutes": 7
   },
+  "01-language-model/03-sft/the-template-is-a-contract": {
+    "level": "applied",
+    "minutes": 5
+  },
   "01-language-model/03-sft/what-it-costs": {
     "level": "applied",
     "minutes": 10

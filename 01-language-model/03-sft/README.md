@@ -251,6 +251,11 @@ response that is absent from the dataset.
 
 [What did that cost?](what-it-costs/) covers packing's attention leak, the
 thirtyfold learning-rate drop, and the four limits better data does not move.
+[The chat template is a contract](the-template-is-a-contract/) is the
+measured version of the "one convention" rule: the marker is one reserved id
+or it is eight byte tokens, five plausible serve-time header drifts diverge
+from the trained pattern at token 0 or 2, and the mask's job is keeping user
+text out of a loss that is 68.2% answer on this curated set.
 [The post-training landscape](LANDSCAPE.md) pairs the from-scratch trainer here
 with the libraries that ship these algorithms, and says where their defaults
 disagree with what this stage argues.

@@ -202,6 +202,11 @@
           },
           {
             "type": "doc",
+            "id": "01-language-model/03-sft/the-template-is-a-contract/index",
+            "label": "Chat template contract"
+          },
+          {
+            "type": "doc",
             "id": "01-language-model/03-sft/what-model-size-changes/index",
             "label": "What model size changes"
           },
