@@ -112,7 +112,7 @@ If you cannot run it, do not write the number. Estimates, plausible figures,
 and "typical" results are all failures here. External published results are
 fine when attributed and dated.
 
-Runs must earn credibility from scale, not from existing. A dataset too small
+Runs must earn credibility from scale, not from merely existing. A dataset too small
 to support the claim (a hand-written toy set, a few dozen examples, a shrunk
 model) is the same failure as a fabricated number. Use the largest public
 dataset that fits the lesson, and record sample size, model size, and hardware
