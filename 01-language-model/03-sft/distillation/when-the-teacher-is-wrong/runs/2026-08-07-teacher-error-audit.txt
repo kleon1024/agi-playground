@@ -1,0 +1,85 @@
+teacher: component                                 params
+------------------------------------------------
+embedding (tied with head)                12,480
+per layer · attention (GQA)              147,456
+per layer · SwiGLU                       294,912
+per layer total                          442,368
+x 3 layers                             1,327,104
+------------------------------------------------
+TOTAL                                  1,340,928  (1.3M)
+
+non-embedding params: 1,328,448
+KV cache per token:   2,304 bytes (bf16)
+  ... under full MHA:  2,304 bytes (1x more)
+student: component                                 params
+------------------------------------------------
+embedding (tied with head)                 6,240
+per layer · attention (GQA)               36,864
+per layer · SwiGLU                        73,728
+per layer total                          110,592
+x 2 layers                               221,184
+------------------------------------------------
+TOTAL                                    227,904  (0.2M)
+
+non-embedding params: 221,664
+KV cache per token:   768 bytes (bf16)
+  ... under full MHA:  768 bytes (1x more)
+
+training teacher-good on clean text...
+  [teacher-good] step    0/600  loss 4.2262
+  [teacher-good] step  150/600  loss 2.1094
+  [teacher-good] step  300/600  loss 1.7518
+  [teacher-good] step  450/600  loss 1.5873
+  [teacher-good] step  599/600  loss 1.5165
+  teacher-good train wall-clock: 84.78s
+
+training teacher-noisy on e->x corrupted text...
+  [teacher-noisy] step    0/600  loss 4.3025
+  [teacher-noisy] step  150/600  loss 2.1302
+  [teacher-noisy] step  300/600  loss 1.6833
+  [teacher-noisy] step  450/600  loss 1.6034
+  [teacher-noisy] step  599/600  loss 1.5242
+  teacher-noisy train wall-clock: 84.47s
+
+distilling student-from-good on the teacher's completions...
+  [student-from-good] step    0/300  loss 4.1987
+  [student-from-good] step   75/300  loss 2.6670
+  [student-from-good] step  150/300  loss 2.2442
+  [student-from-good] step  225/300  loss 1.5937
+  [student-from-good] step  299/300  loss 1.0794
+  student-from-good distill wall-clock: 10.66s
+
+distilling student-from-noisy on the teacher's completions...
+  [student-from-noisy] step    0/300  loss 4.2337
+  [student-from-noisy] step   75/300  loss 2.6345
+  [student-from-noisy] step  150/300  loss 2.2974
+  [student-from-noisy] step  225/300  loss 1.8668
+  [student-from-noisy] step  299/300  loss 1.4489
+  student-from-noisy distill wall-clock: 7.95s
+
+distilling student-from-random on the teacher's completions...
+  [student-from-random] step    0/300  loss 4.0043
+  [student-from-random] step   75/300  loss 1.8183
+  [student-from-random] step  150/300  loss 0.7954
+  [student-from-random] step  225/300  loss 0.4362
+  [student-from-random] step  299/300  loss 0.2537
+  student-from-random distill wall-clock: 8.10s
+
+measuring clean held-out CE and error inheritance...
+
+model                       clean CE   x rate   e rate
+------------------------------------------------------
+teacher-good                   1.520     0.0%    10.3%
+teacher-noisy                  2.614    10.4%     0.0%
+teacher-random                 4.322     0.0%     5.0%
+student-from-good              3.119     0.0%     8.9%
+student-from-noisy             3.386    15.7%     0.0%
+student-from-random            5.840     4.6%     5.5%
+base student (no teacher)      4.209     0.0%     5.0%
+
+sample continuations on a held-out clean prompt:
+  prompt: 'ald, Kate? O, put me in thy books!\n\nKATHARINA:\nWhat is your crest? a coxcomb?\n\nP'
+  teacher-good        : 'ETRUCHIO:\nI will the world the world the'
+  teacher-noisy       : 'OLIXENES:\nWhat is thx sxxms\nThat shx hat'
+  student-from-good   : 'r we we inges inght we a singht ha susin'
+  student-from-noisy  : 'ENENIUS:\nThxrxin hxrxin hxr do thx do th'
