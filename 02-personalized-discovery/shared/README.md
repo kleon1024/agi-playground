@@ -50,6 +50,7 @@ decide whether the system pays for itself.
 | [`51-new-user-experience`](51-new-user-experience/) | Ranking for a user with no history | [verified](51-new-user-experience/runs/) |
 | [`52-trust-and-explainability`](52-trust-and-explainability/) | When the explanation the user can check is wrong | [verified](52-trust-and-explainability/runs/) |
 | [`53-fairness-and-allocation`](53-fairness-and-allocation/) | Exposure as a budget the ranker allocates | [verified](53-fairness-and-allocation/runs/) |
+| [`54-online-experiments`](54-online-experiments/) | Whether a shipped change helped, read through a validity gate | [verified](54-online-experiments/runs/) |
 | [`55-ltv-and-cac`](55-ltv-and-cac/) | Whether a user is worth acquiring and keeping | [verified](55-ltv-and-cac/runs/) |
 
 The [`ads/`](../ads/) and [`recommendation/`](../recommendation/) tracks add

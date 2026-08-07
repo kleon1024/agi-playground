@@ -1,0 +1,14 @@
+{
+  "experiment": "p95-latency-budget-cut",
+  "note": "Synthetic and illustrative. The same users and sessions as broken.json with the corrected bucket constant: the observed split now matches the declared 50/50.",
+  "seed": 7,
+  "randomization_unit": "user",
+  "analysis_rows": "session",
+  "expected_treatment": 0.5,
+  "actual_treatment": 0.5,
+  "users": 20000,
+  "sessions_per_user": [2, 4],
+  "user_sd": 0.3,
+  "session_sd": 2.0,
+  "switchback": false
+}

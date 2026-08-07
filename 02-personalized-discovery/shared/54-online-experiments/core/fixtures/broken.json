@@ -1,0 +1,14 @@
+{
+  "experiment": "p95-latency-budget-cut",
+  "note": "Synthetic and illustrative. The bucketing config claims a 50/50 split but the hash constant was changed to 51.5 (a one-constant edit that drifted from the declared ratio). The same users and sessions appear in fixed.json with the corrected buckets.",
+  "seed": 7,
+  "randomization_unit": "user",
+  "analysis_rows": "session",
+  "expected_treatment": 0.5,
+  "actual_treatment": 0.515,
+  "users": 20000,
+  "sessions_per_user": [2, 4],
+  "user_sd": 0.3,
+  "session_sd": 2.0,
+  "switchback": false
+}

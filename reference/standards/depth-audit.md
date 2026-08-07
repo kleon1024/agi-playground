@@ -90,12 +90,23 @@ consistency (pre-rank vs final ranker, distillation blur, top-k preservation).
 
 ### Personalized discovery — shared 00-09 (retrieval to report)
 
-**Status: pending.**
+**Status: done (second audit increment, 2026-08-07).**
 
-Audit the cascade stages against the canvas: split leakage, serving latency,
-staleness, calibration gates, value trees, rule-engine interaction, and the
-report guardrails. Add the A/B experiment chapter that does not yet exist
-(sample split, unit of randomization, SRM, carryover, guardrail metrics).
+Every stage 00-09 satisfies the contract: each opens with an operational
+symptom (the split that leaks, the latency that kills the page, the rule
+interaction that returns nothing), each has a `runs/` record with real
+measured numbers, and each carries three detours with their own `core/` +
+`runs/`. The A/B experiment chapter that the canvas's "Any ranking / A/B
+traffic split" row demanded now exists at `shared/54-online-experiments`: a
+validity gate (allocation-ratio SRM check, analysis-unit vs randomization-
+unit check, switchback serial-dependence check) with three executed
+fixtures, plus three failure-mode detours — SRM detection (fires at 2,000
+users vs 78,000 for outcome power; Fabijan et al. 2019), unit mismatch and
+carryover (24% false positives at declared alpha 5%; washout recovery), and
+switchback (53% per-minute false positives; 0.43 block-SD MDE at 80% power;
+Bojinov et al. 2023). Cited and dated: Kohavi/Tang/Xu 2020, Fabijan et al.
+2019, Tang et al. 2010, Bojinov et al. 2023; the interleaving alternative
+links to the ads track's `38-interleaving-experiments`.
 
 ### Personalized discovery — shared 43-55 (operations)
 
@@ -105,7 +116,9 @@ Audit feature store, training-serving consistency, feedback loops,
 retraining/staleness, monitoring and drift, realtime user state, throughput,
 cost per query, new-user experience, trust/explainability, fairness,
 LTV/CAC. Every chapter needs the distribution and offline-consistency checks
-per stage, and at least one failure-mode run.
+per stage, and at least one failure-mode run. (Stage 54, online experiments,
+was built in the 00-09 increment above; its operations siblings remain to be
+audited here.)
 
 ### Personalized discovery — search 10-24, 35-37
 

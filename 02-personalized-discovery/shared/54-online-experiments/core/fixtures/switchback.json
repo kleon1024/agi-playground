@@ -1,0 +1,14 @@
+{
+  "experiment": "ads-slide-position",
+  "note": "Synthetic and illustrative. A switchback: half-hour blocks are randomized, the analysis reads every minute as an independent row, and the outcome is a strongly autocorrelated AR(1) market series (ar_phi 0.85).",
+  "seed": 11,
+  "randomization_unit": "time-block",
+  "analysis_rows": "minute",
+  "expected_treatment": 0.5,
+  "actual_treatment": 0.5,
+  "blocks": 28,
+  "minutes_per_block": 30,
+  "ar_phi": 0.85,
+  "outcome_sd": 1.0,
+  "switchback": true
+}

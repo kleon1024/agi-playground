@@ -1922,6 +1922,31 @@
           },
           {
             "type": "category",
+            "label": "Online experiments",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/54-online-experiments/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/54-online-experiments/when-the-split-lies/index",
+                "label": "When the split lies"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/54-online-experiments/when-the-traffic-is-two-sided/index",
+                "label": "When the traffic is two-sided"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/54-online-experiments/when-the-user-crosses-groups/index",
+                "label": "When the user crosses groups"
+              }
+            ]
+          },
+          {
+            "type": "category",
             "label": "LTV and CAC",
             "link": {
               "type": "doc",

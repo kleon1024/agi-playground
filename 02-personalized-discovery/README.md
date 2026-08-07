@@ -262,6 +262,7 @@ whole system pays.
 | [`51-new-user-experience`](shared/51-new-user-experience/) | The first page decided before personalization can see the user | new to this mission | verified mechanism run |
 | [`52-trust-and-explainability`](shared/52-trust-and-explainability/) | The explanation the user can actually check | new to this mission | verified mechanism run |
 | [`53-fairness-and-allocation`](shared/53-fairness-and-allocation/) | Exposure as a budget the ranker allocates, at a measured price | new to this mission | verified mechanism run |
+| [`54-online-experiments`](shared/54-online-experiments/) | Whether a shipped change helped, read through a validity gate | new to this mission | verified mechanism run |
 | [`54-advertiser-roas`](ads/54-advertiser-roas/) | The advertiser's return as the platform's revenue | new to this mission | verified mechanism run |
 | [`55-ltv-and-cac`](shared/55-ltv-and-cac/) | The user lifecycle that decides which growth is real growth | new to this mission | verified mechanism run |
 
@@ -393,6 +394,9 @@ artifact or a measurement the next stage consumes.
 | `52-trust-and-explainability` | A false explanation burns trust faster than a missing one | [when-trust-erodes](shared/52-trust-and-explainability/when-trust-erodes/) |
 | `53-fairness-and-allocation` | The floor has a price and the price is a curve | [when-the-constraint-bites](shared/53-fairness-and-allocation/when-the-constraint-bites/) |
 | `53-fairness-and-allocation` | The label carries the position it was collected in | [when-the-policy-is-biased](shared/53-fairness-and-allocation/when-the-policy-is-biased/) |
+| `54-online-experiments` | The split check fires before the outcome test has power | [when-the-split-lies](shared/54-online-experiments/when-the-split-lies/) |
+| `54-online-experiments` | The user who sits in both arms biases the estimate | [when-the-user-crosses-groups](shared/54-online-experiments/when-the-user-crosses-groups/) |
+| `54-online-experiments` | The market leaks across the groups; the block unit prices it | [when-the-traffic-is-two-sided](shared/54-online-experiments/when-the-traffic-is-two-sided/) |
 | `54-advertiser-roas` | The marginal dollar buys less every time | [when-roas-collapses](ads/54-advertiser-roas/when-roas-collapses/) |
 | `54-advertiser-roas` | The advertiser's exit is the platform's loss | [when-the-budget-moves](ads/54-advertiser-roas/when-the-budget-moves/) |
 | `55-ltv-and-cac` | The user who costs more than they return is a liability at any volume | [when-cac-exceeds-ltv](shared/55-ltv-and-cac/when-cac-exceeds-ltv/) |
