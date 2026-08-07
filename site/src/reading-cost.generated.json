@@ -337,7 +337,7 @@
   },
   "missions/02-personalized-discovery": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "missions/02-personalized-discovery/00-interactions": {
     "level": "foundation",
@@ -604,6 +604,150 @@
     "minutes": 2
   },
   "missions/02-personalized-discovery/18-ad-externality/when-the-slot-is-scarce": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/19-query-expansion": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/19-query-expansion/when-expansion-hurts": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/19-query-expansion/when-the-correction-helps": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/20-dense-retrieval": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/20-dense-retrieval/when-the-embedding-is-stale": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/20-dense-retrieval/when-the-index-is-ann": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/21-hybrid-fusion": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/21-hybrid-fusion/when-one-set-is-empty": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/21-hybrid-fusion/when-the-fusion-weight-moves": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/22-reranking": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/22-reranking/when-the-rerank-budget-is-tight": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/22-reranking/when-the-reranker-disagrees": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/23-personalized-search": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/23-personalized-search/when-personalization-hurts": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/23-personalized-search/when-the-user-history-helps": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/24-search-measurement": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/24-search-measurement/when-the-click-is-a-query": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/24-search-measurement/when-the-zero-result-rate-matters": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/25-frequency-capping": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/25-frequency-capping/when-fatigue-hits": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/25-frequency-capping/when-the-cap-bites": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/26-creative-selection": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/26-creative-selection/when-the-creative-context-changes": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/26-creative-selection/when-the-creative-is-stale": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/27-bid-strategy": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/27-bid-strategy/when-the-bid-is-capped": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/27-bid-strategy/when-the-target-cpa-binds": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/28-auction-revenue": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/28-auction-revenue/when-first-price-pays-more": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/28-auction-revenue/when-the-reserve-moves-revenue": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/29-rtb-pipeline": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/29-rtb-pipeline/when-the-bidder-is-slow": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/29-rtb-pipeline/when-the-exchange-times-out": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/30-ads-measurement": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "missions/02-personalized-discovery/30-ads-measurement/when-attribution-overcounts": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/30-ads-measurement/when-the-incrementality-is-zero": {
     "level": "applied",
     "minutes": 2
   },

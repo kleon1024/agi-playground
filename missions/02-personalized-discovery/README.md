@@ -162,6 +162,38 @@ revenue ranking, calibration, delivery, and the displacement trade.
 | [`17-budget-pacing`](17-budget-pacing/) | Budget delivery under a per-hour cap; the feedback signal | new to this mission | verified mechanism run |
 | [`18-ad-externality`](18-ad-externality/) | The displacement trade; scarcity amplifies the externality | mission 02 · value tree | verified mechanism run |
 
+### The advanced search track (stages 19-24)
+
+The four-stage search track (10-13) ran the query from raw string to
+ranked result. The six stages below deepen it to production depth:
+repair the query, add a meaning-based index, fuse the matchers, rerank,
+personalize, and measure the queries that return nothing.
+
+| Stage | Deliverable | Layer | Status |
+|---|---|---|---|
+| [`19-query-expansion`](19-query-expansion/) | Query correction as retrieval pre-processing; recall recovered | new to this mission | verified mechanism run |
+| [`20-dense-retrieval`](20-dense-retrieval/) | Two-tower cosine retrieval; the meaning-based index | new to this mission | verified mechanism run |
+| [`21-hybrid-fusion`](21-hybrid-fusion/) | Reciprocal rank fusion of lexical and dense sets; the union kept | new to this mission | verified mechanism run |
+| [`22-reranking`](22-reranking/) | Second ranker over the top-k; the latency-budget split | new to this mission | verified mechanism run |
+| [`23-personalized-search`](23-personalized-search/) | Relevance plus user affinity; the query with a user attached | new to this mission | verified mechanism run |
+| [`24-search-measurement`](24-search-measurement/) | Zero-result rate and its causes; the coverage signal | new to this mission | verified mechanism run |
+
+### The advanced ads track (stages 25-30)
+
+The five-stage ads track (14-18) ran the economics of a paid slot. The
+six stages below add the delivery and measurement depth: cap
+frequency, choose the creative, derive the bid, compare auction rules,
+fit the 100ms deadline, and measure what the ad actually changed.
+
+| Stage | Deliverable | Layer | Status |
+|---|---|---|---|
+| [`25-frequency-capping`](25-frequency-capping/) | The exposure cap; CTR decay makes it a value decision | new to this mission | verified mechanism run |
+| [`26-creative-selection`](26-creative-selection/) | Per-context creative choice; the creative feeds eCPM | new to this mission | verified mechanism run |
+| [`27-bid-strategy`](27-bid-strategy/) | Target-CPA bid as value times conversion; the walk-away line | new to this mission | verified mechanism run |
+| [`28-auction-revenue`](28-auction-revenue/) | First versus second price; the rule moves revenue | new to this mission | verified mechanism run |
+| [`29-rtb-pipeline`](29-rtb-pipeline/) | The 100ms real-time bid; latency as a selection mechanism | new to this mission | verified mechanism run |
+| [`30-ads-measurement`](30-ads-measurement/) | Incrementality against a control; the ad's actual effect | new to this mission | verified mechanism run |
+
 
 
 
@@ -221,6 +253,30 @@ artifact or a measurement the next stage consumes.
 | `17-budget-pacing` | Pacing cannot create a budget | [when-the-budget-is-tiny](17-budget-pacing/when-the-budget-is-tiny/) |
 | `18-ad-externality` | Scarcity amplifies the externality | [when-the-slot-is-scarce](18-ad-externality/when-the-slot-is-scarce/) |
 | `18-ad-externality` | The externality flips sign when the ad is relevant | [when-the-ad-is-relevant](18-ad-externality/when-the-ad-is-relevant/) |
+| `19-query-expansion` | The correction recovers what the raw query could not | [when-the-correction-helps](19-query-expansion/when-the-correction-helps/) |
+| `19-query-expansion` | Expansion trades precision for recall | [when-expansion-hurts](19-query-expansion/when-expansion-hurts/) |
+| `20-dense-retrieval` | Approximate is the only feasible index at scale | [when-the-index-is-ann](20-dense-retrieval/when-the-index-is-ann/) |
+| `20-dense-retrieval` | The item without a vector is unreachable | [when-the-embedding-is-stale](20-dense-retrieval/when-the-embedding-is-stale/) |
+| `21-hybrid-fusion` | The fusion weight is a trust decision | [when-the-fusion-weight-moves](21-hybrid-fusion/when-the-fusion-weight-moves/) |
+| `21-hybrid-fusion` | The hybrid degrades into whoever is alive | [when-one-set-is-empty](21-hybrid-fusion/when-one-set-is-empty/) |
+| `22-reranking` | The cutoff decides what the reranker can fix | [when-the-rerank-budget-is-tight](22-reranking/when-the-rerank-budget-is-tight/) |
+| `22-reranking` | Disagreement is the reranker's job and its risk | [when-the-reranker-disagrees](22-reranking/when-the-reranker-disagrees/) |
+| `23-personalized-search` | History is a prior over the query | [when-the-user-history-helps](23-personalized-search/when-the-user-history-helps/) |
+| `23-personalized-search` | History can hide what the query asked for | [when-personalization-hurts](23-personalized-search/when-personalization-hurts/) |
+| `24-search-measurement` | A failed query can be a recovered session | [when-the-click-is-a-query](24-search-measurement/when-the-click-is-a-query/) |
+| `24-search-measurement` | Zero results is a coverage metric with a revenue shape | [when-the-zero-result-rate-matters](24-search-measurement/when-the-zero-result-rate-matters/) |
+| `25-frequency-capping` | The cap is a budget allocation, not a setting | [when-the-cap-bites](25-frequency-capping/when-the-cap-bites/) |
+| `25-frequency-capping` | More impressions buy fewer clicks once fatigue sets in | [when-fatigue-hits](25-frequency-capping/when-fatigue-hits/) |
+| `26-creative-selection` | Logged CTR mixes quality with wear | [when-the-creative-is-stale](26-creative-selection/when-the-creative-is-stale/) |
+| `26-creative-selection` | Context is a feature of creative selection | [when-the-creative-context-changes](26-creative-selection/when-the-creative-context-changes/) |
+| `27-bid-strategy` | The target CPA is a walk-away line | [when-the-target-cpa-binds](27-bid-strategy/when-the-target-cpa-binds/) |
+| `27-bid-strategy` | The cap is a risk dial, not a price | [when-the-bid-is-capped](27-bid-strategy/when-the-bid-is-capped/) |
+| `28-auction-revenue` | First price pays more only when bidders stay honest | [when-first-price-pays-more](28-auction-revenue/when-first-price-pays-more/) |
+| `28-auction-revenue` | The reserve sits on the demand curve | [when-the-reserve-moves-revenue](28-auction-revenue/when-the-reserve-moves-revenue/) |
+| `29-rtb-pipeline` | Latency is a bidder's cost of entry | [when-the-bidder-is-slow](29-rtb-pipeline/when-the-bidder-is-slow/) |
+| `29-rtb-pipeline` | Every timeout is a slot that sells nothing | [when-the-exchange-times-out](29-rtb-pipeline/when-the-exchange-times-out/) |
+| `30-ads-measurement` | The measurement model decides which channel gets the budget | [when-attribution-overcounts](30-ads-measurement/when-attribution-overcounts/) |
+| `30-ads-measurement` | Zero lift is the null result measurement exists to find | [when-the-incrementality-is-zero](30-ads-measurement/when-the-incrementality-is-zero/) |
 
 ## What makes this hard to prove
 

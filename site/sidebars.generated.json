@@ -789,6 +789,246 @@
                 "label": "When the slot is scarce"
               }
             ]
+          },
+          {
+            "type": "category",
+            "label": "Query expansion",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/19-query-expansion/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/19-query-expansion/when-expansion-hurts/index",
+                "label": "When expansion hurts"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/19-query-expansion/when-the-correction-helps/index",
+                "label": "When the correction helps"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Dense retrieval",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/20-dense-retrieval/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/20-dense-retrieval/when-the-embedding-is-stale/index",
+                "label": "When the embedding is stale"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/20-dense-retrieval/when-the-index-is-ann/index",
+                "label": "When the index is ANN"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Hybrid fusion",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/21-hybrid-fusion/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/21-hybrid-fusion/when-one-set-is-empty/index",
+                "label": "When one set is empty"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/21-hybrid-fusion/when-the-fusion-weight-moves/index",
+                "label": "When the fusion weight moves"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Reranking",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/22-reranking/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/22-reranking/when-the-rerank-budget-is-tight/index",
+                "label": "When the rerank budget is tight"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/22-reranking/when-the-reranker-disagrees/index",
+                "label": "When the reranker disagrees"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Personalized search",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/23-personalized-search/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/23-personalized-search/when-personalization-hurts/index",
+                "label": "When personalization hurts"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/23-personalized-search/when-the-user-history-helps/index",
+                "label": "When the user history helps"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Search measurement",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/24-search-measurement/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/24-search-measurement/when-the-click-is-a-query/index",
+                "label": "When the click is a query"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/24-search-measurement/when-the-zero-result-rate-matters/index",
+                "label": "When the zero-result rate matters"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Frequency capping",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/25-frequency-capping/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/25-frequency-capping/when-fatigue-hits/index",
+                "label": "When fatigue hits"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/25-frequency-capping/when-the-cap-bites/index",
+                "label": "When the cap bites"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Creative selection",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/26-creative-selection/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/26-creative-selection/when-the-creative-context-changes/index",
+                "label": "When the creative context changes"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/26-creative-selection/when-the-creative-is-stale/index",
+                "label": "When the creative is stale"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Bid strategy",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/27-bid-strategy/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/27-bid-strategy/when-the-bid-is-capped/index",
+                "label": "When the bid is capped"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/27-bid-strategy/when-the-target-cpa-binds/index",
+                "label": "When the target CPA binds"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Auction revenue",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/28-auction-revenue/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/28-auction-revenue/when-first-price-pays-more/index",
+                "label": "When first price pays more"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/28-auction-revenue/when-the-reserve-moves-revenue/index",
+                "label": "When the reserve moves revenue"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "RTB pipeline",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/29-rtb-pipeline/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/29-rtb-pipeline/when-the-bidder-is-slow/index",
+                "label": "When the bidder is slow"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/29-rtb-pipeline/when-the-exchange-times-out/index",
+                "label": "When the exchange times out"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Ads measurement",
+            "link": {
+              "type": "doc",
+              "id": "missions/02-personalized-discovery/30-ads-measurement/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/30-ads-measurement/when-attribution-overcounts/index",
+                "label": "When attribution overcounts"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/30-ads-measurement/when-the-incrementality-is-zero/index",
+                "label": "When the incrementality is zero"
+              }
+            ]
           }
         ]
       },

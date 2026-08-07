@@ -1,0 +1,83 @@
+---
+status: verified
+level: applied
+base: scratch
+label: When attribution overcounts
+verified: 2026-08-07
+---
+
+# The measurement model decides which channel gets the budget
+
+**Question:** [stage 30's ads measurement](../) measures the ad by what
+it changed. This chapter reads the executed attribution comparison and
+asks what a last-click model overcounts.
+
+**Before this:** [stage 30 — ads measurement](../) and its executed
+incrementality model.
+
+## The overcount, executed
+
+The run ([record](runs/2026-08-07-attribution-overcount-read.md))
+credits one conversion with three touchpoints:
+
+| model | search ad | display ad | email |
+|---|---:|---:|---:|
+| multi-touch shares | 0.4 | 0.2 | 0.4 |
+| last-click | 0.0 | 0.0 | 1.0 |
+
+Last-click overcount: 0.6.
+
+## The reading
+
+Last-click gives the final touchpoint the whole conversion, crediting
+email with 0.6 of value it shared. The measurement model decides which
+channel gets the budget — an overcounting model misallocates spend even
+when the ads work. The ads may be perfectly effective and the report
+still routes next quarter's budget to the wrong channel, because the
+measurement, not the campaign, produced the credit.
+
+## Evidence boundary
+
+The executed credit comparison over one conversion with declared shares
+(illustrative, deterministic). It demonstrates the mechanism; real
+attribution also needs the actual touchpoint data and a model choice,
+which is why incrementality experiments are the ground truth for
+attribution models.
+
+## Check your mental model
+
+Answer each before opening it.
+
+**1. Why does the last-click model misallocate budget even when the ads
+work?**
+
+<details>
+<summary>Answer</summary>
+
+Because it ignores the earlier touchpoints entirely. The search and
+display ads contributed 0.6 of the credit, but last-click gives all 1.0
+to email. The next budget follows the credit, so the channels that
+actually caused the conversion get defunded in favor of the final
+touchpoint — the measurement error becomes a spend error.
+
+</details>
+
+**2. What is the ground truth attribution models should be checked
+against?**
+
+<details>
+<summary>Answer</summary>
+
+Incrementality (stage 30's method): a holdout experiment that measures
+what each channel actually caused. Attribution models are estimates
+over observed touchpoints; incrementality is the control-group
+measurement of the same effect. Where the two disagree, the
+experiment is the truth and the model is the bias to fix.
+
+</details>
+
+## Next
+
+Back to [stage 30](../), which measures the ad by what it changed. The
+[zero-lift detour](../when-the-incrementality-is-zero/) shows the null
+result the same discipline exists to find.
