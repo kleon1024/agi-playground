@@ -33,7 +33,7 @@ before it reports the verdict, and each stage names who owns the loop.
 | [`33-multimodal-recall`](33-multimodal-recall/) | VLM content vectors as the cold-start bridge | [mechanism + audit run](33-multimodal-recall/runs/) |
 | [`34-slate-vs-item-evaluation`](34-slate-vs-item-evaluation/) | The metric that sees the page, not the item | [mechanism + audit run](34-slate-vs-item-evaluation/runs/) |
 
-## The label and objective track (stages 56-63)
+## The label and objective track (stages 56-65)
 
 Ranking is only as honest as the target it fits. These stages take one way the
 observed label diverges from the decision the model is supposed to make and
@@ -41,8 +41,9 @@ measure what the fix costs: the sparse target learned on the wrong population,
 the conversion labeled a negative before it happened, the downsampled negative
 that breaks calibration, the model that only sees what the old model showed,
 the whale that dominates the objective, the multi-task conflict, the funnel
-the ranker scores one stage at a time, and the cascade whose top-k the
-distillation blurs.
+the ranker scores one stage at a time, the cascade whose top-k the
+distillation blurs, the aggregate AUC that hides which slice pays, and the
+slice whose labels are too sparse to decide anything.
 
 | Stage | What it decides | Evidence |
 |---|---|---|
@@ -54,6 +55,8 @@ distillation blurs.
 | [`61-multi-task-conflict`](61-multi-task-conflict/) | When the tasks pull the shared trunk apart | [verified](61-multi-task-conflict/runs/) |
 | [`62-funnel-consistency`](62-funnel-consistency/) | When the funnel stages disagree about the slate | [verified](62-funnel-consistency/runs/) |
 | [`63-cascade-consistency`](63-cascade-consistency/) | When the cheaper model reorders what the expensive model chose | [verified](63-cascade-consistency/runs/) |
+| [`64-auc-label-seesaw`](64-auc-label-seesaw/) | The slice that pays for the visible objective | [mechanism + audit run](64-auc-label-seesaw/runs/) |
+| [`65-sparse-labels`](65-sparse-labels/) | The aggregate AUC is a dense-slice number | [mechanism + audit run](65-sparse-labels/runs/) |
 
 The [`shared/`](../shared/) track owns the spine these stages extend, and the
 [`search/`](../search/) and [`ads/`](../ads/) tracks are its specializations.

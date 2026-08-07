@@ -1189,6 +1189,56 @@
                 "label": "When top-K is not preserved"
               }
             ]
+          },
+          {
+            "type": "category",
+            "label": "AUC-label seesaw",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/64-auc-label-seesaw/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-gradients-conflict/index",
+                "label": "When the gradients conflict"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-second-model-costs/index",
+                "label": "When the second model costs"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-slice-trades/index",
+                "label": "When the slice trades"
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Sparse labels",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/recommendation/65-sparse-labels/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/65-sparse-labels/when-the-aggregate-auc-lies/index",
+                "label": "When the aggregate AUC lies"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/65-sparse-labels/when-the-surrogate-label-bleeds/index",
+                "label": "When the surrogate label bleeds"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/65-sparse-labels/when-warm-start-beats-from-scratch/index",
+                "label": "When warm start beats from scratch"
+              }
+            ]
           }
         ]
       },

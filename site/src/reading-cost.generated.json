@@ -687,6 +687,38 @@
     "level": "applied",
     "minutes": 2
   },
+  "02-personalized-discovery/recommendation/64-auc-label-seesaw": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-gradients-conflict": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-second-model-costs": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-slice-trades": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "02-personalized-discovery/recommendation/65-sparse-labels": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/recommendation/65-sparse-labels/when-the-aggregate-auc-lies": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "02-personalized-discovery/recommendation/65-sparse-labels/when-the-surrogate-label-bleeds": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "02-personalized-discovery/recommendation/65-sparse-labels/when-warm-start-beats-from-scratch": {
+    "level": "applied",
+    "minutes": 2
+  },
   "02-personalized-discovery/search": {
     "level": "applied",
     "minutes": 2

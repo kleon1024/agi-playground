@@ -392,42 +392,42 @@ click feedback cannot stand in for slate value.
 
 ### Personalized discovery — recommendation model structure and label health
 
-**Status: pending.**
+**Status: done (sixth audit increment, 2026-08-07).**
 
-Audit the two failure modes the reader meets first on the job, in the
-56-63 and 31-34 stages that own them:
+The two failure modes the reader meets first on the job now have their
+own stages (64 and 65), each with an executed case-finding audit, a
+who-owns-the-loop section, dated citations, and three detours:
 
-- **AUC-label seesaw.** The model structure that optimizes one objective
-  at the visible cost of another: aggregate AUC up while a segment's AUC
-  drops (head/tail or slice trade, gradient dominated by the dense
-  slice), one objective's AUC up while another's drops (multi-task
-  conflict, label-density and delay mismatch between click and order),
-  and AUC up while calibration drifts (ranking losses separate scores
-  without preserving their meaning, breaking downstream pCTR consumers).
-  Audit must show the case-finding per variant — the stratified AUC
-  matrix by head/tail and slice, per-task AUC plus per-task calibration,
-  calibration slope/intercept per decile — and the fix with its trade:
-  slice weighting or separate towers (MMoE/PLE-style gating) against head
-  cost, task weighting and gradient surgery against dominant-task drift,
-  a calibration layer kept separate from the ranking head against the
-  latency of a second model. Owned by the model team with the evaluation
-  team holding the per-slice guardrail.
-- **Sparse labels.** The objective's labels are rare, empty, or slow:
-  cold users, cold items, low-velocity surfaces, purchase-class labels.
-  Audit must show the case-finding as a label-density report by slice
-  (per user, per item, per surface) and the delay distribution, then the
-  fix by layer — sample and label construction (smoothing, longer
-  windows, surrogate label hierarchies, PU treatment of implicit
-  feedback), model structure (warm-start and transfer from the dense
-  task, multi-task sharing, content embeddings for the cold slice), and
-  delay-aware training (window with fake-negative correction,
-  survival-style weighting) — each with the trade it charges, and the
-  evaluation consequence: no single aggregate AUC, stratified metrics
-  with wider confidence on the sparse slice.
+- 64 AUC-label seesaw: a shared-trunk run over 2,560 rows (naive shared
+  bottom, slice-weighted, gated MMoE-lite; click 0.726/0.723/0.725, buy
+  0.716/0.781/0.653) and a stratified audit whose verdict is AGGREGATE
+  AUC HIDES THE TAIL SLICE TRADE — tail click 0.662 to 0.706, head click
+  0.644 to 0.630, aggregate click 0.726 to 0.723, naive click head
+  calibration slope 1.188. Ownership split across model/evaluation/
+  product teams; the seesaw term and its fix cited to PLE (Tang et al.,
+  RecSys 2020) and MMoE (Ma et al., KDD 2018). Detours: the weight dial
+  (cheap first steps then a saturated frontier; product owns the
+  position), gradient surgery (43/60 conflicting epochs yet PCGrad
+  neutral — amplitude, not direction, is the bottleneck), and the
+  calibration layer (temperature scaling slope 1.098 to 0.983, broken
+  again by a shift the frozen T did not see).
+- 65 sparse labels: a cold-slice run over 8,000 rows (cold-only 0.678,
+  shared trunk 0.780, surrogate 0.696) and a density audit whose verdict
+  is THE AGGREGATE AUC IS A DENSE-SLICE NUMBER — cold-item 2 positives
+  in 260 rows with a 5-95% interval spanning chance ([0.500, 0.957]),
+  delay median 0.39d with 11% in flight at the 0.6d snapshot. Ownership
+  split across sample-and-label/model/evaluation teams; citations to
+  Chapelle et al. KDD 2014, Ktena et al. RecSys 2019, Yasui et al.
+  CIKM 2020. Detours: the interval arithmetic (width 1.000 at k=2 to
+  0.517 at k=30 — a label-supply fact), the surrogate bleed (fills the
+  slice but inflates predicted purchase ~11x and loses true-label AUC
+  0.706 vs 0.756), and warm start (misaligned click trunk 0.659 loses to
+  scratch 0.740; aligned head-slice buy trunk 0.786 wins).
 
-This is the depth that serves the interview's operational question on
-model detail: what breaks, where you see it in the numbers, what you
-change, and which guardrail proves it worked.
+The depth the 56-63 audit established is now present on the model-structure
+side: the stratified metric contract, the calibration axis, and the
+label-supply guardrail each name who owns the loop and which guardrail
+proves the fix worked.
 
 ### Language-model system — 00-07
 
