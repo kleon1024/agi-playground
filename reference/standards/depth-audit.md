@@ -429,9 +429,10 @@ proves the fix worked.
 
 ### Language-model system — 00-07
 
-**Status: in progress (00-corpus data health, 02-pretrain divergence,
-03-sft template contract, 04-rl delayed/poisoned reward audited,
-2026-08-07).**
+**Status: in progress (00-corpus data health, 01-tokenizer tie-break,
+02-pretrain divergence, 03-sft template contract and distillation,
+04-rl delayed/poisoned reward, 05-serve cascade, 06-agent recovery,
+07-eval gates audited, 2026-08-07).**
 
 Stage 00 now carries the dirty-data failure the queue named first: a
 benchmark-contamination chapter with an executed run over 200 items, 60
@@ -513,6 +514,97 @@ owns the verifier and the disagreement threshold, the model team owns the
 reward/verifier pair as a run contract. Citations: Rando and Tramèr, ICLR
 2024 (arXiv:2311.14455) and Wan et al., ICML 2023 (arXiv:2305.00944); the
 delay family cross-links to recommendation's 57-delayed-feedback.
+
+Stage 01's tokenizer row now carries the hidden-axis failure the queue named
+next: a tie-break audit (`when-the-tie-break-matters`, 2026-08-07) trains the
+same indexed BPE twice on the same 8,500 no_robots turns under two
+deterministic tie-break rules. The tie is the norm — 91.7% of 3,840 merge
+steps chose from a tie (mean width 25.7, max 194) — one early choice cascades
+(first divergence at step 132, merge-set Jaccard 0.508-0.541 across depths),
+and the aggregate metric cannot see it: chars/token is 3.418 vs 3.416 while
+41.0% of held-out pieces encode differently (only 250 of 96,383 differ in
+token count). The divergence lands on numbers and rare characters — the
+pre-tokenizer's `\d{1,3}` digit cap produces per-digit pieces for
+1,234,567,890, CJK fragments through the 256-byte base, accents split to two
+pieces — and the downstream magnitude is cited to Singh et al. (arXiv:2402.14903,
+Feb 2024), who show number tokenization measurably changes arithmetic on
+frontier models. Ownership split: tokenizer/training-data team owns the
+tie-break as a frozen contract (exact-id export check is the acceptance test),
+eval team owns piece-level boundary tests including number and rare-unicode
+strings, model team owns the arithmetic consequence. The run is a labeled
+mechanism demo at vocab 4096 per the evidence-scale rule; no model was
+trained.
+
+Stage 07's eval-gate row is now executed (`eval-gates`, 2026-08-07): the
+release gate becomes a computation, not a meeting — a declared rule
+(per-category ceiling plus aggregate-delta) is swept over synthetic candidates
+with hidden true risk, and the sweep shows why any single threshold trades
+false blocks for false passes while a hidden second rule quietly sets the
+floor of the first (measured crossover at threshold 0.275). Ownership split:
+eval team owns gate definition and the sweep, release team owns enforcement
+and escalation, model team owns candidate scores and the audit record.
+Citations: Anthropic RSP (Sep 19 2023), OpenAI Preparedness Framework
+(Dec 18 2023).
+
+Stage 06's agent row now carries the failure syllabus its harness was built
+to feed back (`when-the-tool-errors`, 2026-08-07): a deterministic audit
+injects all seven ways the real stage-06 tools can fail and measures recovery
+per class — blind retry resolves 0/7 (every re-issue returns the identical
+failing observation) while a recovery planner resolves 7/7, in three
+families: inspect (missing file, wrong directory, non-allowlisted command),
+re-scope (metacharacter refusal, timeout, truncated read), and make-it-safe-
+to-redo (the timeout-after-write case where the observation says "timed out"
+while marker.txt exists — blind retry would run the side effect again).
+Two of the seven failures are returned, not raised (`exit=1` output,
+truncated reads arrive as ordinary observations), so detection is part of
+recovery. Ownership split: trace construction owns error injection into the
+mix, eval team owns a per-failure-class recovery rate rather than task
+success, harness team owns the idempotency surface that makes retry safe,
+model team owns the data-composition consequence. The parent's measured
+0/6 real-agent run is the prerequisite failure (no tool-call shape at all);
+the recovery-taxonomy magnitude is cited to PALADIN (arXiv:2509.25238, Sep
+2025: failure injection + LoRA over 50,000+ recovery-annotated ToolBench
+trajectories lifts LLaMA-8B tool success 17.5% to 78.7%) and Chen et al.,
+Self-Debug (ICLR 2024, arXiv:2304.05128); the noise-is-what-teaches-recovery
+composition point cross-links to stage 02's mid-training section 7.
+
+Stage 05's serving row now carries the cascade-latency failure the queue
+named (`when-the-cascade-loses`, 2026-08-07): an early-exit cascade (cheap
+model answers steps it is confident about, expensive model takes the rest;
+BranchyNet, Teerapittayanon et al., ICPR 2016) is measured over a threshold
+sweep, a cheap-model-quality swap, and a hard expensive-call budget. Three
+measured failure modes: confidence is not correctness (tau=0.3 accepts 60%
+of steps yet matches the target on only 18%; target CE 1.512 is nearly
+cheap-only), the escalation tax (tau=0.7/0.9 escalate 92-99% of steps and
+the cascade runs slower than the expensive model alone, 0.89-0.98x; a
+40-step cheap model escalates 100/100), and the budget cliff (a 5-expensive-
+call budget forces 94/100 steps cheap and collapses match to 13%). The
+winning band exists (tau=0.5: 1.45x faster at 58% match) and is a product
+decision. Ownership split: model team owns the cheap model's confidence-to-
+accuracy calibration per slice, serving team owns the threshold/budget pair
+tuned on the p95 request, eval team owns the per-slice match/quality metric,
+product owner prices the quality loss. Cross-links to stage 05's
+when-the-tail-waits p95 discipline and recommendation's 63-cascade-
+consistency.
+
+Stage 03's distillation row now carries the teacher-error arm its control
+set aside (`when-the-teacher-is-wrong`, 2026-08-07): sequence-level
+distillation from a teacher with a systematic wrong belief (every `e`
+replaced by `x` in its training corpus) shows the error is carved into the
+teacher's output distribution (x rate 10.4% vs 0.0%, clean CE 2.614 vs
+1.520), the student inherits it (x rate 15.7% vs 0.0%; the wrong belief
+transfers and amplifies), and a no-signal teacher transfers nothing —
+student-from-random lands at clean CE 5.840, worse than the untrained base
+4.209. Aggregate CE hides the swap (3.386 vs 3.119); the per-class letter
+rates are the check. Ownership split: data team owns a per-class accuracy
+audit of the teacher before distilling from it, model team owns the
+inheritance check on the teacher's known error classes, eval team owns the
+ceiling claim (student cannot exceed the teacher on the teacher's errors),
+product owner chooses whose answers the student is allowed to inherit.
+Citations: Gudibande et al., ICLR 2024 (arXiv:2305.15717, imitation
+transfers style/persona but falls short on factuality and coding) and
+Stanton et al., NeurIPS 2021 (arXiv:2106.05945, distillation improves
+generalization but not by lifting the student past the teacher).
 
 Audit the LLM track with the same lens: dirty data and washing (dedup,
 quality filters, contamination), tokenizer edge cases, pretraining data mix

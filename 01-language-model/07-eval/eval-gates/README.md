@@ -1,8 +1,9 @@
 ---
-status: draft
+status: verified
 level: applied
 base: none
 label: Evaluation gates
+verified: 2026-08-07
 ---
 
 # How does a release get blocked before a person has to eyeball it?
@@ -124,6 +125,18 @@ that rule, when the floor actually comes from the *other* one. A gate built
 from more than one rule cannot be read by varying a single threshold and
 treating the rest of the system as absent — full numbers and both isolated
 sweeps: [`runs/2026-08-01-eval-gate-sweep.md`](runs/2026-08-01-eval-gate-sweep.md).
+
+## Who owns it
+
+The eval team owns the gate's definition and its sweep — the tradeoff curve
+above is a policy artifact, so it is written down *before* a candidate exists,
+not tuned after one fails. The release team owns the enforcement point and the
+escalation owner ([who decides to ship](../who-decides-to-ship/) names both).
+The model team owns the candidate scores as inputs and the audit record as
+output. What the gate mechanism owns is only the computation: the same script,
+the same thresholds, the same answer for anyone who runs it — which is exactly
+what a meeting cannot provide. When nobody owns the sweep, each threshold
+drifts to fit the last candidate, and the gate silently stops blocking.
 
 ## A brief history
 

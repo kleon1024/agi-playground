@@ -87,6 +87,13 @@ merges, not the full 16,128, because the naive trainer at full size is the
 ten-hour run this chapter exists to avoid. Both checks are strong evidence of
 equivalence and neither is a proof of it.
 
+The comparison also holds the tie-break rule fixed on purpose. When a team
+swaps tokenizer libraries, that rule is not guaranteed to be the same — and
+[the same corpus, the same rule — why two vocabularies?](when-the-tie-break-matters/)
+trains the same indexed BPE under two deterministic tie rules to show what
+actually diverges, which aggregate metric stays blind to it, and where the
+difference lands.
+
 ## Check your mental model
 
 Answer each before opening it.

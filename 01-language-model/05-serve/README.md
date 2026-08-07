@@ -168,6 +168,14 @@ worth the target's check?* A measured crossover. The identical draft
 architecture flips from 1.58x speedup to 0.94x slowdown on training steps
 alone, and both regimes stay byte-identical to plain greedy decoding.
 
+**[When the cascade loses](when-the-cascade-loses/)** — *does a confidence
+gate ever get slower than the expensive model it protects?* Yes, three ways,
+measured: a low threshold accepts confident-but-wrong tokens (60% accepted,
+18% right), a high threshold escalates everything and pays cheap plus
+expensive per step (0.89-0.98x), and a hard expensive-call budget collapses
+quality the moment the request outlasts it (13% match after the budget is
+spent).
+
 Techniques this stage names and has not measured — latency under sustained
 load, prefill/decode disaggregation — stay named until a run record exists for
 them.
@@ -291,4 +299,3 @@ Which engine to reach for once you stop writing your own, and what each is
 actually good at, is in [the serving landscape](LANDSCAPE.md) — the readable
 engine you learn the mechanisms from, mapped against the production engines
 that implement them.
-

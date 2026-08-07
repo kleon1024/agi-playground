@@ -316,6 +316,14 @@ worded. Closing this gap is a training-data composition question — mixing
 agentic-formatted trajectories into the SFT corpus — not a harness or
 prompt-engineering fix.
 
+Format is the first lesson, not the last one. Once a model can express a
+tool call, the next question is what it does when the tool answers with an
+error — and [when the tool errors](when-the-tool-errors/) turns the
+"retrying is only free before something executed" rule into a measured
+taxonomy: seven failure classes the three real tools return, zero of which
+resolve by re-issuing the same call, and the three recovery families
+(inspect, re-scope, make it safe to redo) that training data has to teach.
+
 **Evidence boundary:** this shows one 88M-parameter checkpoint, SFT'd on one
 non-agentic instruction dataset, failing at temperature 0.7 across 3 seeds on
 two tool-only tasks. It does not show that agentic-formatted SFT data alone
@@ -369,4 +377,7 @@ and the trust boundary this chapter deliberately set aside. Then
 [would a second agent help?](would-a-second-agent-help/) if you are about to
 add one. After that, [stage 07 — eval](../07-eval/): closing the loop with a
 harness-disclosed evaluation of the agent built here, alongside the
-model-level evals from earlier stages.
+model-level evals from earlier stages. If your question is what a model does
+the first time a tool fails, read [when the tool errors](when-the-tool-errors/)
+before either — it is the failure syllabus the harness's recovery path was
+built to feed back.

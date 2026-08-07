@@ -35,6 +35,10 @@
     "level": "foundation",
     "minutes": 5
   },
+  "01-language-model/01-tokenizer/is-it-the-same-tokenizer/when-the-tie-break-matters": {
+    "level": "applied",
+    "minutes": 7
+  },
   "01-language-model/01-tokenizer/the-merges-that-build-the-vocab": {
     "level": "applied",
     "minutes": 2
@@ -102,6 +106,10 @@
   "01-language-model/03-sft/distillation/what-path-two-requires": {
     "level": "frontier",
     "minutes": 5
+  },
+  "01-language-model/03-sft/distillation/when-the-teacher-is-wrong": {
+    "level": "frontier",
+    "minutes": 7
   },
   "01-language-model/03-sft/distillation/which-teacher-changes-what": {
     "level": "frontier",
@@ -183,13 +191,17 @@
     "level": "applied",
     "minutes": 9
   },
+  "01-language-model/05-serve/when-the-cascade-loses": {
+    "level": "applied",
+    "minutes": 7
+  },
   "01-language-model/05-serve/why-concurrency-pays": {
     "level": "applied",
     "minutes": 11
   },
   "01-language-model/06-agent": {
     "level": "applied",
-    "minutes": 14
+    "minutes": 15
   },
   "01-language-model/06-agent/prod": {
     "level": "",
@@ -202,6 +214,10 @@
   "01-language-model/06-agent/what-stops-it": {
     "level": "applied",
     "minutes": 14
+  },
+  "01-language-model/06-agent/when-the-tool-errors": {
+    "level": "applied",
+    "minutes": 9
   },
   "01-language-model/06-agent/would-a-second-agent-help": {
     "level": "applied",
@@ -217,7 +233,7 @@
   },
   "01-language-model/07-eval/eval-gates": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 9
   },
   "01-language-model/07-eval/metric-gaming": {
     "level": "applied",

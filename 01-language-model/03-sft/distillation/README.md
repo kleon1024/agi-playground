@@ -157,6 +157,13 @@ sized to the student and comparing against that. Without it, "distillation
 helped" and "we borrowed a bigger model's competence" are the same number
 wearing different labels.
 
+The control holds one thing fixed: the teacher's quality. The other side of
+that decision — what the student inherits when the teacher is *wrong* — is
+[when the teacher is wrong](when-the-teacher-is-wrong/), measured on a
+teacher with a systematically wrong belief. It is the arm this chapter's
+table cannot run, because API teachers' errors are not an experiment
+variable.
+
 ## The measured version, and why it refuses to answer
 
 That control was run. `core/generate_traces.py` holds one set of 3,000 prompts

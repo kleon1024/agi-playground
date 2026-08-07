@@ -71,9 +71,19 @@
         },
         "items": [
           {
-            "type": "doc",
-            "id": "01-language-model/01-tokenizer/is-it-the-same-tokenizer/index",
-            "label": "Is it the same tokenizer"
+            "type": "category",
+            "label": "Is it the same tokenizer",
+            "link": {
+              "type": "doc",
+              "id": "01-language-model/01-tokenizer/is-it-the-same-tokenizer/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "01-language-model/01-tokenizer/is-it-the-same-tokenizer/when-the-tie-break-matters/index",
+                "label": "When the tie-break matters"
+              }
+            ]
           },
           {
             "type": "doc",
@@ -197,6 +207,11 @@
                 "type": "doc",
                 "id": "01-language-model/03-sft/distillation/what-path-two-requires/index",
                 "label": "What path two requires"
+              },
+              {
+                "type": "doc",
+                "id": "01-language-model/03-sft/distillation/when-the-teacher-is-wrong/index",
+                "label": "When the teacher is wrong"
               }
             ]
           },
@@ -337,6 +352,11 @@
           },
           {
             "type": "doc",
+            "id": "01-language-model/05-serve/when-the-cascade-loses/index",
+            "label": "When the cascade loses"
+          },
+          {
+            "type": "doc",
             "id": "01-language-model/05-serve/LANDSCAPE",
             "label": "Landscape"
           }
@@ -364,6 +384,11 @@
             "type": "doc",
             "id": "01-language-model/06-agent/would-a-second-agent-help/index",
             "label": "Would a second agent help"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/06-agent/when-the-tool-errors/index",
+            "label": "When the tool errors"
           },
           {
             "type": "doc",
@@ -403,7 +428,7 @@
           {
             "type": "doc",
             "id": "01-language-model/07-eval/eval-gates/index",
-            "label": "Evaluation gates \u00b7 draft"
+            "label": "Evaluation gates"
           },
           {
             "type": "doc",

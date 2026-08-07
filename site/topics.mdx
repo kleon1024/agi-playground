@@ -67,6 +67,7 @@ most of itself — is also the same one three times.
 - [How does text become the numbers a model sees?](/playground/01-language-model/01-tokenizer/)
 - [The merge sequence IS the tokenizer's logic](/playground/01-language-model/01-tokenizer/the-merges-that-build-the-vocab/)
 - [How do you know the fast version learned the same vocabulary?](/playground/01-language-model/01-tokenizer/is-it-the-same-tokenizer/)
+- [The same corpus, the same rule — why two vocabularies?](/playground/01-language-model/01-tokenizer/is-it-the-same-tokenizer/when-the-tie-break-matters/)
 - [How does a waveform become a discrete token sequence at all?](/playground/07-multimodal-generation/voice/00-audio-codec/)
 - [Why does a VQ codebook collapse — and can you watch it happen?](/playground/07-multimodal-generation/voice/00-audio-codec/why-codebooks-collapse/)
 - [The collapse that looked like success](/playground/07-multimodal-generation/voice/00-audio-codec/when-silence-is-a-local-minimum/)
@@ -185,6 +186,7 @@ which is where the cold-start problem lives.
 - [Distillation: what can you actually copy from a better model?](/playground/01-language-model/03-sft/distillation/)
 - [If you swap the teacher, what actually changes in the corpus?](/playground/01-language-model/03-sft/distillation/which-teacher-changes-what/)
 - [What does it take to actually run distribution distillation?](/playground/01-language-model/03-sft/distillation/what-path-two-requires/)
+- [When the teacher is wrong, what does distillation copy?](/playground/01-language-model/03-sft/distillation/when-the-teacher-is-wrong/)
 
 ## Serving: latency, memory, and why concurrency changes the answer
 
@@ -194,6 +196,7 @@ which is where the cold-start problem lives.
 - [Is the card working, or waiting?](/playground/01-language-model/05-serve/graph-execution/)
 - [Does a smaller model decode faster?](/playground/01-language-model/05-serve/quantization/)
 - [Is a cheap draft's guess ever worth the expensive model's check?](/playground/01-language-model/05-serve/speculative-decoding/)
+- [When does the cheap gate stop paying?](/playground/01-language-model/05-serve/when-the-cascade-loses/)
 - [Does the KV cache built for text work unchanged for audio tokens?](/playground/07-multimodal-generation/voice/01-streaming-decode/)
 - [The KV cache on audio tokens: same answer, flat latency](/playground/07-multimodal-generation/voice/01-streaming-decode/when-the-cache-pays/)
 - [The zero gap is checked at logit level, not token level](/playground/07-multimodal-generation/voice/01-streaming-decode/when-the-logits-match/)
@@ -212,6 +215,7 @@ which is where the cold-start problem lives.
 - [What do you throw away when the transcript stops fitting?](/playground/01-language-model/06-agent/what-fits-in-context/)
 - [The agent can act. What stops it?](/playground/01-language-model/06-agent/what-stops-it/)
 - [One agent is stuck. Would a second one help?](/playground/01-language-model/06-agent/would-a-second-agent-help/)
+- [When the tool errors, who teaches the recovery turn?](/playground/01-language-model/06-agent/when-the-tool-errors/)
 - [What makes a bug report into a task an agent can be scored on?](/playground/04-agentic-platform/00-task-set/)
 - [What does the mined task set actually contain?](/playground/04-agentic-platform/00-task-set/what-the-task-set-contains/)
 - [The yield is the finding](/playground/04-agentic-platform/00-task-set/the-two-of-six-yield/)
