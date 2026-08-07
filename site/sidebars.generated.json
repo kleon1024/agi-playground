@@ -375,6 +375,11 @@
               },
               {
                 "type": "doc",
+                "id": "missions/02-personalized-discovery/00-interactions/when-the-absence-is-a-signal/index",
+                "label": "When the absence is a signal"
+              },
+              {
+                "type": "doc",
                 "id": "missions/02-personalized-discovery/00-interactions/when-the-split-leaks/index",
                 "label": "When the split leaks"
               }
@@ -392,6 +397,11 @@
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/01-content-understanding/the-63-percent-that-never-moves/index",
                 "label": "The 63 percent that never moves"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/01-content-understanding/when-the-label-is-noisy/index",
+                "label": "When the label is noisy"
               },
               {
                 "type": "doc",
@@ -415,6 +425,11 @@
               },
               {
                 "type": "doc",
+                "id": "missions/02-personalized-discovery/02-recall/when-the-tail-goes-cold/index",
+                "label": "When the tail goes cold"
+              },
+              {
+                "type": "doc",
                 "id": "missions/02-personalized-discovery/02-recall/when-you-lose-a-queue/index",
                 "label": "When you lose a queue"
               }
@@ -432,6 +447,11 @@
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/03-pre-rank/when-the-cheap-cut-fails/index",
                 "label": "When the cheap cut fails"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/03-pre-rank/when-the-cheap-score-lies/index",
+                "label": "When the cheap score lies"
               },
               {
                 "type": "doc",
@@ -457,6 +477,11 @@
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/04-fine-rank/when-sharing-hurts/index",
                 "label": "When sharing hurts"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/04-fine-rank/when-the-model-is-stale/index",
+                "label": "When the model is stale"
               }
             ]
           },
@@ -475,6 +500,11 @@
               },
               {
                 "type": "doc",
+                "id": "missions/02-personalized-discovery/05-value-tree/when-the-user-rejects/index",
+                "label": "When the user rejects"
+              },
+              {
+                "type": "doc",
                 "id": "missions/02-personalized-discovery/05-value-tree/when-the-weight-moves/index",
                 "label": "When the weight moves"
               }
@@ -488,6 +518,11 @@
               "id": "missions/02-personalized-discovery/06-mixing/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/06-mixing/when-diversity-hurts/index",
+                "label": "When diversity hurts"
+              },
               {
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/06-mixing/when-the-beam-is-wide-enough/index",
@@ -515,6 +550,11 @@
               },
               {
                 "type": "doc",
+                "id": "missions/02-personalized-discovery/07-rule-engine/when-the-rule-is-a-typo/index",
+                "label": "When the rule is a typo"
+              },
+              {
+                "type": "doc",
                 "id": "missions/02-personalized-discovery/07-rule-engine/when-the-rules-collide/index",
                 "label": "When the rules collide"
               }
@@ -535,6 +575,11 @@
               },
               {
                 "type": "doc",
+                "id": "missions/02-personalized-discovery/08-serving/when-the-cache-goes-cold/index",
+                "label": "When the cache goes cold"
+              },
+              {
+                "type": "doc",
                 "id": "missions/02-personalized-discovery/08-serving/when-the-cut-bites/index",
                 "label": "When the cut bites"
               }
@@ -552,6 +597,11 @@
                 "type": "doc",
                 "id": "missions/02-personalized-discovery/09-report/the-variance-that-decides/index",
                 "label": "The variance that decides"
+              },
+              {
+                "type": "doc",
+                "id": "missions/02-personalized-discovery/09-report/when-the-baseline-moves/index",
+                "label": "When the baseline moves"
               },
               {
                 "type": "doc",

@@ -65,3 +65,5 @@ Another detour: [the behavioural floor the threshold cannot
 touch](the-63-percent-that-never-moves/) — the recorded sweep read:
 behavioural coverage stays 63% at every threshold because the behaviour
 queue's reach is a fact about the log, not a label dial.
+
+A third detour: [the label the threshold cannot trust](when-the-label-is-noisy/) — the executed noise read: two of four kept items carry a wrong label, so precision is a property of the label source first and of the threshold second.

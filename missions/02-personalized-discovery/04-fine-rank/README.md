@@ -183,3 +183,5 @@ Another detour: [why ECE is a gate, not a polish step](the-calibration-that-deci
 the recorded calibration read: balanced weighting recovers dwell
 (0.658 -> 0.803) and Platt scaling cuts click-head ECE ~25-40%, the
 precondition the value tree's arithmetic needs.
+
+A third detour: [the model that learned yesterday](when-the-model-is-stale/) — the executed freshness run read: NDCG decays 1.000 -> 0.371 over four days with the weights unchanged, so the retraining cadence is a ranking decision.

@@ -177,3 +177,5 @@ Another detour: [the zero that is structural, not a tuning
 miss](when-the-long-tail-is-invisible/) — the recorded surface rates read:
 popularity-only's long-tail rate is 0.000 on every seed because a cold
 item's popularity is noise by construction.
+
+A third detour: [the cheap score that flips the cut](when-the-cheap-score-lies/) — the executed disagreement read: six of ten items sit on different sides of the cut, and false cuts are unrecoverable.

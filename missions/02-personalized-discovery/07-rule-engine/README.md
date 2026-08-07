@@ -65,3 +65,5 @@ Another detour: [a rule engine's failure mode is interaction, not any
 single rule](the-empty-set-was-two-rules/) — the recorded run read: EU
 regional and safety each leave survivors, and applied together they empty
 the set — the joint failure the engine's check exists to find.
+
+A third detour: [the rule nobody tested](when-the-rule-is-a-typo/) — the executed typo read: a misspelled attribute matches nothing and returns an empty set silently, so every rule needs a coverage check.

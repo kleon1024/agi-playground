@@ -36,6 +36,7 @@ happens to that data once there is too much of it for one machine.
 - [What does a click actually tell you?](/playground/missions/02-personalized-discovery/00-interactions/)
 - [The 99.1% leak: what the wrong split actually buys](/playground/missions/02-personalized-discovery/00-interactions/when-the-split-leaks/)
 - [The filter that catches users it did not aim at](/playground/missions/02-personalized-discovery/00-interactions/the-eligibility-cascade/)
+- [The absence is a signal](/playground/missions/02-personalized-discovery/00-interactions/when-the-absence-is-a-signal/)
 - [What did you actually know on the decision date?](/playground/missions/03-quantitative-research/00-market-data/)
 - [The as-of join, and the restatement it catches](/playground/missions/03-quantitative-research/00-market-data/asof-vs-naive/)
 - [The same period, two values, filed a year apart](/playground/missions/03-quantitative-research/00-market-data/the-restatement-gap/)
@@ -200,6 +201,7 @@ which is where the cold-start problem lives.
 - [Which stage do you cut to fit the request budget?](/playground/missions/02-personalized-discovery/08-serving/)
 - [What does the pre-rank cut buy, and when does it stop paying?](/playground/missions/02-personalized-discovery/08-serving/when-the-cut-bites/)
 - [Means add for the serial path; tail percentiles do not](/playground/missions/02-personalized-discovery/08-serving/when-p95s-do-not-add/)
+- [The cache that misses together](/playground/missions/02-personalized-discovery/08-serving/when-the-cache-goes-cold/)
 
 ## The software around the model: what must the harness own?
 
@@ -222,6 +224,7 @@ which is where the cold-start problem lives.
 - [Who can answer why this item was shown?](/playground/missions/02-personalized-discovery/07-rule-engine/)
 - [When does the rule engine return an empty set?](/playground/missions/02-personalized-discovery/07-rule-engine/when-the-rules-collide/)
 - [A rule engine's failure mode is interaction, not any single rule](/playground/missions/02-personalized-discovery/07-rule-engine/the-empty-set-was-two-rules/)
+- [The rule nobody tested](/playground/missions/02-personalized-discovery/07-rule-engine/when-the-rule-is-a-typo/)
 
 ## Would you believe the number?
 
@@ -293,6 +296,7 @@ together and the shape of an honest null result becomes obvious.
 - [Did the mission earn the right to claim anything?](/playground/missions/02-personalized-discovery/09-report/)
 - [A headline win that is still NOT MET](/playground/missions/02-personalized-discovery/09-report/when-the-guardrail-vetoes/)
 - [A headline win that still loses, seed by seed](/playground/missions/02-personalized-discovery/09-report/the-variance-that-decides/)
+- [The baseline that moved](/playground/missions/02-personalized-discovery/09-report/when-the-baseline-moves/)
 - [Can this mission claim anything at all?](/playground/missions/03-quantitative-research/05-report/)
 - [The refusal that names everything](/playground/missions/03-quantitative-research/05-report/when-the-refusal-names-everything/)
 - [CANNOT DETERMINE is a first-class result](/playground/missions/03-quantitative-research/05-report/the-three-way-verdict/)
@@ -329,21 +333,27 @@ together and the shape of an honest null result becomes obvious.
 - [What retrieves an item nobody has touched?](/playground/missions/02-personalized-discovery/01-content-understanding/)
 - [The confidence threshold: precision for the head, or reach for the tail?](/playground/missions/02-personalized-discovery/01-content-understanding/when-the-threshold-rescues-the-tail/)
 - [The behavioural floor the threshold cannot touch](/playground/missions/02-personalized-discovery/01-content-understanding/the-63-percent-that-never-moves/)
+- [The label the threshold cannot trust](/playground/missions/02-personalized-discovery/01-content-understanding/when-the-label-is-noisy/)
 - [How do you find candidates without scoring everything?](/playground/missions/02-personalized-discovery/02-recall/)
 - [The queue you disable is the target you lose](/playground/missions/02-personalized-discovery/02-recall/when-you-lose-a-queue/)
 - [Recall bought back at a measured latency cost](/playground/missions/02-personalized-discovery/02-recall/the-price-of-approximate/)
+- [The tail that the index forgets](/playground/missions/02-personalized-discovery/02-recall/when-the-tail-goes-cold/)
 - [What can you afford to score, and what must you drop?](/playground/missions/02-personalized-discovery/03-pre-rank/)
 - [When does the cheap cut fail?](/playground/missions/02-personalized-discovery/03-pre-rank/when-the-cheap-cut-fails/)
 - [The zero that is structural, not a tuning miss](/playground/missions/02-personalized-discovery/03-pre-rank/when-the-long-tail-is-invisible/)
+- [The cheap score that flips the cut](/playground/missions/02-personalized-discovery/03-pre-rank/when-the-cheap-score-lies/)
 - [Which objective are you actually ranking by?](/playground/missions/02-personalized-discovery/04-fine-rank/)
 - [When does the shared model hurt an objective?](/playground/missions/02-personalized-discovery/04-fine-rank/when-sharing-hurts/)
 - [Why ECE is a gate, not a polish step](/playground/missions/02-personalized-discovery/04-fine-rank/the-calibration-that-decides/)
+- [The model that learned yesterday](/playground/missions/02-personalized-discovery/04-fine-rank/when-the-model-is-stale/)
 - [How do you trade user value against revenue on purpose?](/playground/missions/02-personalized-discovery/05-value-tree/)
 - [The weight IS the strategy](/playground/missions/02-personalized-discovery/05-value-tree/when-the-weight-moves/)
 - [The same strategy, different calibration, different slate](/playground/missions/02-personalized-discovery/05-value-tree/the-calibration-break/)
+- [The dislike that flips the weight](/playground/missions/02-personalized-discovery/05-value-tree/when-the-user-rejects/)
 - [Why is the best slate not the top ten items?](/playground/missions/02-personalized-discovery/06-mixing/)
 - [What does a mixing weight actually trade off?](/playground/missions/02-personalized-discovery/06-mixing/when-the-trade-weight-moves/)
 - [A narrow beam finding the optimum is not proof a beam is enough](/playground/missions/02-personalized-discovery/06-mixing/when-the-beam-is-wide-enough/)
+- [The diverse slate that underperforms](/playground/missions/02-personalized-discovery/06-mixing/when-diversity-hurts/)
 
 ## Turning a score into a position you could actually hold
 

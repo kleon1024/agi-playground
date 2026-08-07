@@ -64,3 +64,5 @@ A detour from here: [a narrow beam finding the optimum is not proof a beam
 is enough](when-the-beam-is-wide-enough/) — the recorded slate run read:
 greedy violates the cap, beam widths 1/2/3/9 all match the exhaustive
 optimum, and the displacement column prices the ad revenue.
+
+A third detour: [the diverse slate that underperforms](when-diversity-hurts/) — the executed constraint read: forcing a fourth category costs 0.50 of relevance, so diversity is bought with relevance and the weight must price it.

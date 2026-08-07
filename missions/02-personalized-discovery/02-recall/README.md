@@ -212,3 +212,5 @@ Another detour: [recall bought back at a measured latency
 cost](the-price-of-approximate/) — the recorded exact-vs-approximate run:
 ef-search 64 lifts recall 0.913 -> 0.984 at a real latency price, and the
 gap to exact never fully closes.
+
+A third detour: [the tail that the index forgets](when-the-tail-goes-cold/) — the executed power-law read: the top 100 items hold 69.3% of demand and a 200-item pass keeps only 100 of 900 tail items, so tail coverage is a deliberate trade.

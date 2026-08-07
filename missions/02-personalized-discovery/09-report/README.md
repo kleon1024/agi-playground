@@ -71,3 +71,5 @@ Another detour: [a headline win that still loses, seed by
 seed](the-variance-that-decides/) — the fixture's five seeds read: the gap
 to CF (0.0550) clears the candidate's own spread (0.0230), and the verdict
 is still NOT MET because variance is a veto input, not an appendix.
+
+A third detour: [the baseline that moved](when-the-baseline-moves/) — the executed period read: the same system beats popularity in w1, loses in w2, and wins in w3, so a dated claim names its window.

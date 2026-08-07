@@ -63,3 +63,5 @@ Another detour: [means add for the serial path; tail percentiles do
 not](when-p95s-do-not-add/) — the recorded latency read: the p95-sum
 (54.74ms) over the measured p95 (49.31ms) is the trap, and the 80% cache
 row collapses p95 to 34.52ms.
+
+A third detour: [the cache that misses together](when-the-cache-goes-cold/) — the executed refresh-policy read: a synchronized refresh pushes p95 to 50 ms while the same work staggered keeps it at 2 ms, so tail latency is a scheduling decision.

@@ -347,15 +347,23 @@
     "level": "applied",
     "minutes": 2
   },
+  "missions/02-personalized-discovery/00-interactions/when-the-absence-is-a-signal": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/02-personalized-discovery/00-interactions/when-the-split-leaks": {
     "level": "applied",
     "minutes": 3
   },
   "missions/02-personalized-discovery/01-content-understanding": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/02-personalized-discovery/01-content-understanding/the-63-percent-that-never-moves": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/01-content-understanding/when-the-label-is-noisy": {
     "level": "applied",
     "minutes": 2
   },
@@ -371,6 +379,10 @@
     "level": "applied",
     "minutes": 2
   },
+  "missions/02-personalized-discovery/02-recall/when-the-tail-goes-cold": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/02-personalized-discovery/02-recall/when-you-lose-a-queue": {
     "level": "applied",
     "minutes": 3
@@ -382,6 +394,10 @@
   "missions/02-personalized-discovery/03-pre-rank/when-the-cheap-cut-fails": {
     "level": "applied",
     "minutes": 3
+  },
+  "missions/02-personalized-discovery/03-pre-rank/when-the-cheap-score-lies": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/02-personalized-discovery/03-pre-rank/when-the-long-tail-is-invisible": {
     "level": "applied",
@@ -399,11 +415,19 @@
     "level": "applied",
     "minutes": 2
   },
+  "missions/02-personalized-discovery/04-fine-rank/when-the-model-is-stale": {
+    "level": "applied",
+    "minutes": 2
+  },
   "missions/02-personalized-discovery/05-value-tree": {
     "level": "applied",
     "minutes": 8
   },
   "missions/02-personalized-discovery/05-value-tree/the-calibration-break": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/05-value-tree/when-the-user-rejects": {
     "level": "applied",
     "minutes": 2
   },
@@ -413,7 +437,11 @@
   },
   "missions/02-personalized-discovery/06-mixing": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
+  },
+  "missions/02-personalized-discovery/06-mixing/when-diversity-hurts": {
+    "level": "applied",
+    "minutes": 2
   },
   "missions/02-personalized-discovery/06-mixing/when-the-beam-is-wide-enough": {
     "level": "applied",
@@ -425,9 +453,13 @@
   },
   "missions/02-personalized-discovery/07-rule-engine": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/02-personalized-discovery/07-rule-engine/the-empty-set-was-two-rules": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/07-rule-engine/when-the-rule-is-a-typo": {
     "level": "applied",
     "minutes": 2
   },
@@ -437,9 +469,13 @@
   },
   "missions/02-personalized-discovery/08-serving": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "missions/02-personalized-discovery/08-serving/when-p95s-do-not-add": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/08-serving/when-the-cache-goes-cold": {
     "level": "applied",
     "minutes": 2
   },
@@ -452,6 +488,10 @@
     "minutes": 5
   },
   "missions/02-personalized-discovery/09-report/the-variance-that-decides": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "missions/02-personalized-discovery/09-report/when-the-baseline-moves": {
     "level": "applied",
     "minutes": 2
   },

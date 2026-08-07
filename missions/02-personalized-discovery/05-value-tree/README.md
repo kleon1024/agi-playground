@@ -184,3 +184,5 @@ slate](the-calibration-break/) — the recorded break read: with weights
 unchanged and click predictions inflated 1.6x, the honest and
 miscalibrated rankings disagree, and the ad auction enters only at
 trade_rate 0.8.
+
+A third detour: [the dislike that flips the weight](when-the-user-rejects/) — the executed rejection read: one explicit negative drops the top item from score 0.65 to -0.15, so the value tree is only as current as its signals.

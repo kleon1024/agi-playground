@@ -216,3 +216,5 @@ Another detour: [the filter that catches users it did not aim
 at](the-eligibility-cascade/) — the recorded cascade read: 8 users fell
 below the floor only after their sparse items were removed, which is why
 the eligibility filter loops instead of passing once.
+
+A third detour: [the absence is a signal](when-the-absence-is-a-signal/) — the executed log read: a zero click after 1000 exposures is an implicit negative while a zero with zero exposure is silence, so the two zeros must never be merged.

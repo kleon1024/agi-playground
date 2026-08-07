@@ -175,24 +175,34 @@ artifact or a measurement the next stage consumes.
 |---|---|---|
 | `00-interactions` | The filter that catches users it did not aim at | [the-eligibility-cascade](00-interactions/the-eligibility-cascade/) |
 | `00-interactions` | The 99.1% leak: what the wrong split actually buys | [when-the-split-leaks](00-interactions/when-the-split-leaks/) |
+| `00-interactions` | The absence is a signal | [when-the-absence-is-a-signal](00-interactions/when-the-absence-is-a-signal/) |
 | `01-content-understanding` | The behavioural floor the threshold cannot touch | [the-63-percent-that-never-moves](01-content-understanding/the-63-percent-that-never-moves/) |
 | `01-content-understanding` | The confidence threshold: precision for the head, or reach for the tail? | [when-the-threshold-rescues-the-tail](01-content-understanding/when-the-threshold-rescues-the-tail/) |
+| `01-content-understanding` | The label the threshold cannot trust | [when-the-label-is-noisy](01-content-understanding/when-the-label-is-noisy/) |
 | `02-recall` | Recall bought back at a measured latency cost | [the-price-of-approximate](02-recall/the-price-of-approximate/) |
 | `02-recall` | The queue you disable is the target you lose | [when-you-lose-a-queue](02-recall/when-you-lose-a-queue/) |
+| `02-recall` | The tail that the index forgets | [when-the-tail-goes-cold](02-recall/when-the-tail-goes-cold/) |
 | `03-pre-rank` | When does the cheap cut fail? | [when-the-cheap-cut-fails](03-pre-rank/when-the-cheap-cut-fails/) |
 | `03-pre-rank` | The zero that is structural, not a tuning miss | [when-the-long-tail-is-invisible](03-pre-rank/when-the-long-tail-is-invisible/) |
+| `03-pre-rank` | The cheap score that flips the cut | [when-the-cheap-score-lies](03-pre-rank/when-the-cheap-score-lies/) |
 | `04-fine-rank` | Why ECE is a gate, not a polish step | [the-calibration-that-decides](04-fine-rank/the-calibration-that-decides/) |
 | `04-fine-rank` | When does the shared model hurt an objective? | [when-sharing-hurts](04-fine-rank/when-sharing-hurts/) |
+| `04-fine-rank` | The model that learned yesterday | [when-the-model-is-stale](04-fine-rank/when-the-model-is-stale/) |
 | `05-value-tree` | The same strategy, different calibration, different slate | [the-calibration-break](05-value-tree/the-calibration-break/) |
 | `05-value-tree` | The weight IS the strategy | [when-the-weight-moves](05-value-tree/when-the-weight-moves/) |
+| `05-value-tree` | The dislike that flips the weight | [when-the-user-rejects](05-value-tree/when-the-user-rejects/) |
 | `06-mixing` | A narrow beam finding the optimum is not proof a beam is enough | [when-the-beam-is-wide-enough](06-mixing/when-the-beam-is-wide-enough/) |
 | `06-mixing` | What does a mixing weight actually trade off? | [when-the-trade-weight-moves](06-mixing/when-the-trade-weight-moves/) |
+| `06-mixing` | The diverse slate that underperforms | [when-diversity-hurts](06-mixing/when-diversity-hurts/) |
 | `07-rule-engine` | A rule engine's failure mode is interaction, not any single rule | [the-empty-set-was-two-rules](07-rule-engine/the-empty-set-was-two-rules/) |
 | `07-rule-engine` | When does the rule engine return an empty set? | [when-the-rules-collide](07-rule-engine/when-the-rules-collide/) |
+| `07-rule-engine` | The rule nobody tested | [when-the-rule-is-a-typo](07-rule-engine/when-the-rule-is-a-typo/) |
 | `08-serving` | Means add for the serial path; tail percentiles do not | [when-p95s-do-not-add](08-serving/when-p95s-do-not-add/) |
 | `08-serving` | What does the pre-rank cut buy, and when does it stop paying? | [when-the-cut-bites](08-serving/when-the-cut-bites/) |
+| `08-serving` | The cache that misses together | [when-the-cache-goes-cold](08-serving/when-the-cache-goes-cold/) |
 | `09-report` | A headline win that still loses, seed by seed | [the-variance-that-decides](09-report/the-variance-that-decides/) |
 | `09-report` | A headline win that is still NOT MET | [when-the-guardrail-vetoes](09-report/when-the-guardrail-vetoes/) |
+| `09-report` | The baseline that moved | [when-the-baseline-moves](09-report/when-the-baseline-moves/) |
 | `10-query-understanding` | Where normalization stops and correction must begin | [when-the-query-is-misspelled](10-query-understanding/when-the-query-is-misspelled/) |
 | `10-query-understanding` | One word, many intents | [when-the-query-is-short](10-query-understanding/when-the-query-is-short/) |
 | `11-search-retrieval` | The document that means the same but scores less | [when-the-synonym-is-invisible](11-search-retrieval/when-the-synonym-is-invisible/) |
