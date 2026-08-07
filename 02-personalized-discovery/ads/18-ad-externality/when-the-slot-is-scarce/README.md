@@ -46,6 +46,23 @@ The executed sweep over one hand-built organic-value list (illustrative,
 deterministic, assumed ad utility). It demonstrates the scarcity effect;
 real placement needs measured organic-value loss per position.
 
+## The fix and its trade
+
+The measured fix is to make slot count a decision variable, not a
+constant: choose where on the displacement curve to sit per context, and
+let the value tree price the ad-plus-organic slate at that point (the
+stage audit's slice read shows the same decision from the user side —
+the aggregate net +0.0688 hides the engaged slice's -0.3249, and the
+slot count is one more dimension the aggregate can hide). The trade is
+the one the executed table shows: adding a slot buys the same ad at
+lower displacement (0.60 in a 4-slot slate, 0.20 in an 8-slot one), but
+each added slot also changes the whole slate's value mix, and the
+platform's ad load is a market-level decision with welfare consequences
+(Anderson & Coate, 2005, *Review of Economic Studies* 72(4):947-972,
+derive the optimal ad load in a media market). Scarcity is measured per
+context precisely because the 0.60-vs-0.20 curve is what the platform
+optimizes when it decides how many ads a surface can carry.
+
 ## Check your mental model
 
 Answer each before opening it.

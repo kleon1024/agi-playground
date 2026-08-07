@@ -52,6 +52,20 @@ deterministic, fixed cap). It demonstrates the cap's binding behavior;
 real pacing also models bid price, competition, and the auction's win
 rate, and re-paces against live delivery.
 
+## The fix and its trade
+
+The measured fix is to turn the remaining column into a controller: pace
+by adjusting the participation probability per auction so actual spend
+tracks the plan, rather than holding a fixed cap (Agarwal, Ghosh, Wei &
+You, 2014, KDD, pace LinkedIn's campaigns with a delivery-rate control;
+Xu et al., 2015, KDD, show smart pacing as a delivery optimization at
+Yahoo). The trade is the one the overcorrection detour measures:
+a controller that reacts too hard oscillates (gain 3.0 darkens six of
+twelve hours), so the fix is bounded feedback — capped corrections and
+smoothed measurement — and the remaining column stays the feedback
+signal while the dark-hour count watches for oscillation (Wang, Zhang &
+Yuan, 2017, *Foundations and Trends in Information Retrieval* 11(4-5)).
+
 ## Check your mental model
 
 Answer each before opening it.

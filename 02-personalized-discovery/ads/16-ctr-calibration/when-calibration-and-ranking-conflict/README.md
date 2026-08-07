@@ -50,6 +50,19 @@ The executed shifted model over four hand-built probabilities
 models fail ordering and calibration in different mixes, which is exactly
 why both must be measured.
 
+## The fix and its trade
+
+The measured fix is to gate the two properties separately: ranking
+quality certifies the order, calibration certifies the values, and the
+ads stack enforces both before eCPM consumes pCTR (Zadrozny & Elkan,
+2002, KDD, show ranking and calibration are distinct properties that
+must be evaluated independently). The trade is the one the hidden-slice
+audit quantifies: calibration fixes can move values for whole slices
+(mobile ECE 0.2303 before correction), and a uniform correction that
+preserves order can still change the eCPM the auction prices — which is
+why calibration is measured per slice and re-audited downstream, not
+certified once on aggregate.
+
 ## Check your mental model
 
 Answer each before opening it.

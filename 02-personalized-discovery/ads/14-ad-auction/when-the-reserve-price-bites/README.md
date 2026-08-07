@@ -42,6 +42,20 @@ context. It interacts with eCPM ranking (stage 15): the reserve decides
 whether a low-eCPM ad is worth showing at all, and the auction decides
 what it pays.
 
+## The fix and its trade
+
+The fix is to set the reserve from the demand distribution instead of as
+a constant, and to monitor the share of sales that pay exactly the
+reserve. Vickrey (1961, *Journal of Finance*) introduced reserve prices
+as part of the auction mechanism; Myerson (1981, *Mathematics of
+Operations Research*) showed the revenue-maximizing reserve depends only
+on the value distribution — the hump the thin-market read sweeps — not
+on the number of bidders. The trade is the one this sweep measures: a
+floor that guarantees revenue when a sale happens also risks no sale at
+all. A reserve set too high for a thin market converts the auction into
+an empty slot, which is why the fallback and the demand-side fix
+(bidder depth) are tuned together.
+
 ## Evidence boundary
 
 The executed sweep over one bid set (illustrative, deterministic). It

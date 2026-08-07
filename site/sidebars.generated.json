@@ -640,6 +640,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/ads/14-ad-auction/when-the-market-is-thin/index",
+                "label": "When the market is thin"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/ads/14-ad-auction/when-the-reserve-price-bites/index",
                 "label": "When the reserve price bites"
               },
@@ -665,6 +670,11 @@
               },
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/ads/15-ecpm-ranking/when-the-bids-tie/index",
+                "label": "When the bids tie"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/ads/15-ecpm-ranking/when-the-reserve-interacts/index",
                 "label": "When the reserve interacts"
               }
@@ -682,6 +692,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/ads/16-ctr-calibration/when-calibration-and-ranking-conflict/index",
                 "label": "When calibration and ranking conflict"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/16-ctr-calibration/when-calibration-drifts/index",
+                "label": "When calibration drifts"
               },
               {
                 "type": "doc",
@@ -707,6 +722,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/ads/17-budget-pacing/when-the-budget-is-tiny/index",
                 "label": "When the budget is tiny"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/17-budget-pacing/when-the-pacer-overcorrects/index",
+                "label": "When the pacer overcorrects"
               }
             ]
           },
@@ -722,6 +742,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/ads/18-ad-externality/when-the-ad-is-relevant/index",
                 "label": "When the ad is relevant"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/18-ad-externality/when-the-slot-hides-the-whale/index",
+                "label": "When the slot hides the whale"
               },
               {
                 "type": "doc",

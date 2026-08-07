@@ -336,13 +336,66 @@ three detours:
 
 ### Personalized discovery — ads 14-18, 25-30, 38-42, 54
 
-**Status: pending.**
+**Status: done for 14-18 (fourth audit increment, 2026-08-07); pending
+for 25-30, 38-42, 54.**
 
-Audit auction, eCPM ranking, calibration, pacing, externality, frequency
-capping, creative selection, bid strategy, auction revenue, RTB pipeline, ads
-measurement, interleaving, first-price transition, privacy-safe attribution,
-LLM creative generation, marketplace economics, advertiser ROAS. Ads is where
-the A/B and traffic-split detail belongs most.
+Stages 14-18 now satisfy the contract, each with an executed case-finding
+audit, a who-owns-the-loop section, dated citations, and three detours:
+
+- 14 ad auction: competition-stratified revenue audit over 20,000
+  auctions per bidder count (rev/auction 0.2514 with one bidder vs
+  0.6118 with four vs 0.7776 with eight; reserve-bound share 100% to
+  3.1% — THIN MARKET verdict, fill stays alive while revenue
+  collapses); ownership split across marketplace/demand-acquisition/
+  measurement teams; Vickrey 1961, Myerson 1981, Edelman/Ostrovsky/
+  Schwarz 2007, Varian 2007; detours: reserve-price-bites,
+  truthful-bidding, and when-the-market-is-thin (one-bidder reserve
+  sweep humps at 0.2492 near reserve 0.50 — depth beats reserve
+  tuning).
+- 15 eCPM ranking: rank-error audit over an 18-cell perturbation grid
+  (7 winner flips, 38.9%; mean realized 136.11 vs optimal 150.00, loss
+  13.89 per impression — ESTIMATE FLIP verdict, half-measure errors
+  cost nothing while flips cost 30-50); ownership split across
+  ranking/calibration, pricing/auction, measurement teams; Guo et al.
+  2017, Naeini et al. 2015, Varian 2007, Cavallo & Wilkens 2014;
+  detours: pctr-moves-the-rank, reserve-interacts, and
+  when-the-bids-tie (tie-break rule realizes 100.00 vs 120.00/80.00
+  under true pCTR — the rule, not the estimate, decides).
+- 16 pCTR calibration: slice-stratified ECE audit over 20,000
+  impressions (aggregate 0.0238 passes; mobile slice 0.2303 against
+  desktop 0.0042 — HIDDEN SLICE verdict, a 90% calibrated majority
+  dilutes a 10% broken slice); ownership split across model/data-
+  logging/measurement teams; Guo et al. 2017, Naeini et al. 2015,
+  Platt 1999, Zadrozny & Elkan 2002; detours: correction-needed,
+  calibration-ranking-conflict, and when-calibration-drifts (a stale
+  factor that fixes ECE 0.2450 to 0.0000 over-corrects new traffic to
+  0.3000 — the fix has an expiration date).
+- 17 budget pacing: cap-tightness sweep over a front-loaded day with an
+  evening burst (multiplier 0.50 under-delivers 50.0/100; multiplier
+  1.50 spends 100.0 but late-window delivery collapses to 0.0 with 3
+  dark hours — SPENDS-BUT-MISSES verdict, total spend hides dark
+  hours); ownership split across delivery/campaign-management/
+  measurement teams; Agarwal et al. 2014, Xu et al. 2015, Zhang/Yuan/
+  Wang 2014, Wang/Zhang/Yuan 2017; detours: delivery-varies,
+  budget-is-tiny, and when-the-pacer-overcorrects (gain 3.0 darkens 6
+  of 12 hours vs 0 at gain 0.5 — feedback gain, not pacing, is the
+  failure).
+- 18 ad externality: slice-stratified net-value audit over 20,000 users
+  (aggregate +0.0688 passes; engaged slice -0.3249 against casual
+  +0.2000 — HIDDEN SLICE verdict, the slice that pays is the one the
+  platform can least afford to damage); ownership split across
+  value-tree/experimentation/ads-product teams; Blake/Nosko/Tadelis
+  2015, Anderson & Coate 2005; detours: slot-is-scarce, ad-is-
+  relevant, and when-the-slot-hides-the-whale (average displacement
+  0.2307 vs P90/P99 0.9500 — the mean hides the one-in-ten context
+  where the ad kills the user's most valuable result).
+
+Audit inventory for 25-30, 38-42, 54 remains pending: frequency
+capping, creative selection, bid strategy, auction revenue, RTB
+pipeline, ads measurement, interleaving, first-price transition,
+privacy-safe attribution, LLM creative generation, marketplace
+economics, advertiser ROAS. Ads is where the A/B and traffic-split
+detail belongs most.
 
 ### Personalized discovery — recommendation 31-34 (frontier)
 

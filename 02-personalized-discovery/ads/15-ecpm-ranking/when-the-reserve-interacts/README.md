@@ -47,6 +47,21 @@ deterministic). It demonstrates the interaction; real floor setting
 optimizes against the demand distribution, balancing fill against
 revenue.
 
+## The fix and its trade
+
+The measured fix is to set the floor from the same demand distribution
+the auction stage sweeps, so the reserve and the ranking optimize the
+same objective. The mechanism result is classical: the reserve is part
+of the auction design, and its revenue effect must be analyzed with the
+allocation, not after it (Vickrey, 1961, *Journal of Finance*; Myerson,
+1981, *Mathematics of Operations Research*). In practice the floor is
+re-tuned per slot or context against expected revenue, exactly as the
+thin-market detour's hump sweep does. The trade is the executed 160 row:
+every floor above the top eCPM prices the slot out entirely, so raising
+the reserve trades fill for per-sale revenue — a decision that belongs
+to the auction design (stage 14) and shows up in the ranking as a
+missing competitor, not a reordering.
+
 ## Check your mental model
 
 Answer each before opening it.

@@ -48,6 +48,22 @@ The executed controller over three budgets and one hand-built demand curve
 real campaigns also face bid floors and auction competition, which change
 the minimum viable budget.
 
+## The fix and its trade
+
+The measured fix is a sizing decision, not a pacing change: raise the
+budget until the per-hour cap clears the minimum viable spend, or shrink
+the targeting so the budget buys meaningful delivery (the stage audit's
+cap sweep shows the same boundary from the other side — at multiplier
+0.50 the cap under-delivers even a 100-unit budget). The trade is
+reach versus relevance: a bigger budget buys more auctions but dilutes
+per-auction efficiency, and narrower targeting keeps the budget viable
+but caps the campaign's reach. Production bids with a win-rate model so
+the minimum viable budget is derived from the auction, not guessed
+(Zhang, Yuan & Wang, 2014, KDD, formulate optimal real-time bidding
+for display advertising; Wang, Zhang & Yuan, 2017, *Foundations and
+Trends in Information Retrieval* 11(4-5), survey bidding and pacing
+together).
+
 ## Check your mental model
 
 Answer each before opening it.

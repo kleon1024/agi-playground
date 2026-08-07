@@ -14,6 +14,18 @@ organic result the ad pushed out — that the auction does not price.
 
 ## The build track (stages 14-18)
 
+Each stage in this track carries three executed failure-mode detours:
+the reserve that kills the sale, the honest bid, the one-bidder market
+that makes the reserve the whole auction; the pCTR knife-edge, the
+reserve that interacts with the rank, the tie-break rule that decides
+when the estimate cannot; the correction that makes the estimate honest,
+the ranking that is perfect while every value is wrong, the calibration
+that drifts; the cap that binds when demand spikes, the budget that
+pacing cannot create, the pacer that oscillates; the scarce slot, the
+relevant ad, the whale slot that hides the externality. Every audit run
+stratifies the failure by slice or by tail before it reports the
+verdict, and each stage names who owns the loop.
+
 | Stage | What it decides | Evidence |
 |---|---|---|
 | [`14-ad-auction`](14-ad-auction/) | The second-price auction, and truthful bidding | [verified](14-ad-auction/runs/) |

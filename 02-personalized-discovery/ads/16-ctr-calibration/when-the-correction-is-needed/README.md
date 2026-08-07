@@ -48,6 +48,20 @@ deterministic; a single multiplicative ratio, not a learned Platt fit). It
 demonstrates the mechanism; real calibration fits the correction on
 logged data.
 
+## The fix and its trade
+
+The measured fix is to fit the correction on logged impressions rather
+than a single ratio, then verify on held-out data — temperature scaling
+or Platt's logistic fit when the reliability curve is monotone (Platt,
+1999, *Advances in Large Margin Classifiers*), bin-based calibration or
+isotonic regression when it is not (Naeini, Cooper & Hauskrecht, 2015,
+AAAI; Guo, Pleiss, Sun & Weinberger, 2017, ICML). The trade is
+complexity versus capacity: a single multiplicative factor (this read's
+0.5505) has one parameter and cannot fix a bias that varies by feature or
+slice, which the stage audit's hidden-slice run demonstrates (mobile ECE
+0.2303 against aggregate 0.0238) — while a per-bin fit fixes the slices
+but needs enough logged impressions per bin to stay honest.
+
 ## Check your mental model
 
 Answer each before opening it.

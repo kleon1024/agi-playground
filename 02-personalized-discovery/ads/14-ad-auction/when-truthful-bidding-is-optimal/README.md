@@ -39,6 +39,21 @@ the price, which is the second-highest bid. An advertiser cannot trade
 one against the other, which is why the mechanism is self-reporting: the
 platform does not need to know true values to get honest bids.
 
+## The fix and its trade
+
+The fix is the mechanism itself: keep the price decoupled from the bid
+so truth is dominant (Vickrey, 1961, *Journal of Finance*). The trade is
+revenue: the second-price rule surrenders the winner's surplus — the
+platform earns the second bid, not the first. Real search advertising
+generalized the rule to position auctions (Edelman, Ostrovsky and
+Schwarz, 2007, *American Economic Review* 97(1):242-259; Varian, 2007,
+*International Journal of Industrial Organization* 25(6):1163-1178),
+where the payment is set by the next ad's bid and truthful bidding is
+approximately dominant, and the industry has since moved some markets to
+first-price — the transition stage 39 audits. Each rule trades
+truthfulness against revenue; the executed utility table is the check
+that the truthful bid is the one an advertiser can defend.
+
 ## Evidence boundary
 
 The executed mechanism over three true values against one fixed rival set

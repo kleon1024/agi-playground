@@ -48,6 +48,21 @@ displaced organic value (illustrative, deterministic). It demonstrates
 the mechanism; real placement needs measured organic-value loss per
 position and per user.
 
+## The fix and its trade
+
+The measured fix is to price the combination, not the ad: admit an ad
+only when its user value clears the organic item it displaces, per slot
+and per user — the sign-flip table is the decision rule (net +0.7 for
+the relevant ad, -0.5 for the irrelevant one). The trade is in the
+measurement: relevance is a per-user, per-context property, so the
+externality must be estimated per slice — the stage audit found the
+aggregate net +0.0688 while the engaged slice lost -0.3249 — and field
+experiments are the honest estimator (Blake, Nosko & Tadelis, 2015,
+*Econometrica* 83(1):155-174, ran a paid-search experiment at eBay and
+measured that brand ads displaced organic results with little
+incremental value). A platform that assumes one ad value for everyone
+prices the externality at the wrong point on the relevance curve.
+
 ## Check your mental model
 
 Answer each before opening it.

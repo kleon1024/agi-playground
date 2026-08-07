@@ -353,63 +353,83 @@
   },
   "02-personalized-discovery/ads/14-ad-auction": {
     "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/ads/14-ad-auction/when-the-market-is-thin": {
+    "level": "applied",
     "minutes": 3
   },
   "02-personalized-discovery/ads/14-ad-auction/when-the-reserve-price-bites": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/ads/14-ad-auction/when-truthful-bidding-is-optimal": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/ads/15-ecpm-ranking": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 8
   },
   "02-personalized-discovery/ads/15-ecpm-ranking/when-pctr-moves-the-rank": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
+  },
+  "02-personalized-discovery/ads/15-ecpm-ranking/when-the-bids-tie": {
+    "level": "applied",
+    "minutes": 3
   },
   "02-personalized-discovery/ads/15-ecpm-ranking/when-the-reserve-interacts": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/ads/16-ctr-calibration": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 8
   },
   "02-personalized-discovery/ads/16-ctr-calibration/when-calibration-and-ranking-conflict": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
+  },
+  "02-personalized-discovery/ads/16-ctr-calibration/when-calibration-drifts": {
+    "level": "applied",
+    "minutes": 3
   },
   "02-personalized-discovery/ads/16-ctr-calibration/when-the-correction-is-needed": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/ads/17-budget-pacing": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 8
   },
   "02-personalized-discovery/ads/17-budget-pacing/when-delivery-varies": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/ads/17-budget-pacing/when-the-budget-is-tiny": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
-  "02-personalized-discovery/ads/18-ad-externality": {
+  "02-personalized-discovery/ads/17-budget-pacing/when-the-pacer-overcorrects": {
     "level": "applied",
     "minutes": 3
   },
+  "02-personalized-discovery/ads/18-ad-externality": {
+    "level": "applied",
+    "minutes": 8
+  },
   "02-personalized-discovery/ads/18-ad-externality/when-the-ad-is-relevant": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
+  },
+  "02-personalized-discovery/ads/18-ad-externality/when-the-slot-hides-the-whale": {
+    "level": "applied",
+    "minutes": 3
   },
   "02-personalized-discovery/ads/18-ad-externality/when-the-slot-is-scarce": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/ads/25-frequency-capping": {
     "level": "applied",

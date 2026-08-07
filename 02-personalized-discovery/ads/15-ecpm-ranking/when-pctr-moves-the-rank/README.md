@@ -46,6 +46,22 @@ The executed sweep over one ad pair (illustrative, deterministic). It
 demonstrates the sensitivity; real rankings face the same knife-edge on
 the full ad pool.
 
+## The fix and its trade
+
+The measured fix is to treat the flip point as a tolerance budget, not a
+surprise. The stage audit quantified the stakes: a pCTR error that keeps
+the true winner on top costs nothing, while an error large enough to flip
+the winner costs 30-50 per impression. Calibration (stage 16) is the
+instrument that keeps estimates inside the budget — histogram-binned
+calibration with measured expected calibration error (Guo, Pleiss, Sun &
+Weinberger, 2017, ICML; Naeini, Cooper & Hauskrecht, 2015, AAAI), or a
+Platt-style temperature fit where the reliability curve is monotone
+(Platt, 1999). The trade is on the estimator's side: the same
+calibration that improves expected revenue can sacrifice ranking order
+when the correction is uniform across the pool (Zadrozny & Elkan, 2002,
+KDD), which is why the fix is to calibrate and then re-audit the ranking
+with the realized column, not to calibrate and stop.
+
 ## Check your mental model
 
 Answer each before opening it.
