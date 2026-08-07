@@ -40,6 +40,25 @@ optimizer that stops oscillating converges first, which is the mechanism
 behind the chapter's headline: the difference between "an update rule" and
 "a mechanism" is exactly the flip count.
 
+## The fix and its trade
+
+The failure the flip count names is oscillation: each flip is a step spent
+correcting the previous step instead of progressing, and 341 of 343 steps
+spent correcting is a run that rings instead of walks. The fix is the
+update rule's memory. Momentum averages past gradients, so the alternating
+signs partially cancel — 341 flips become 47 — and the cancellation is the
+damping; Adam goes further and normalizes each parameter's step by its own
+gradient history, which removes the overshoot that causes the alternation
+in the first place (4 flips). The trade is measured by what each rule
+carries: momentum adds a velocity per parameter and a coefficient (mu)
+whose setting trades escape speed against settling time, and Adam adds two
+per-parameter statistics plus two more coefficients (beta1, beta2) — the
+memory that removes the flips is state the training loop has to store and
+tune. The [plateau detour](../when-the-training-plateaus/) measures the
+same trade from the other side: on a flat minimum it is the memory that
+escapes the stall, and a mu turned too high re-creates a different stall
+as ringing.
+
 ## Evidence boundary
 
 The recorded optimizer comparison (one bowl, one start point, one loss

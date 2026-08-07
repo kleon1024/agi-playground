@@ -3349,6 +3349,11 @@
             "type": "doc",
             "id": "foundations/02-optimization/the-flips-that-separate-optimizers/index",
             "label": "The flips that separate the optimizers"
+          },
+          {
+            "type": "doc",
+            "id": "foundations/02-optimization/when-the-training-plateaus/index",
+            "label": "When the training plateaus"
           }
         ]
       },
@@ -3465,6 +3470,11 @@
           "id": "foundations/06-significance/index"
         },
         "items": [
+          {
+            "type": "doc",
+            "id": "foundations/06-significance/when-the-comparisons-multiply/index",
+            "label": "When the comparisons multiply"
+          },
           {
             "type": "doc",
             "id": "foundations/06-significance/when-the-interval-decides/index",

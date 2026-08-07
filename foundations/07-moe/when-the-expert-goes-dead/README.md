@@ -46,6 +46,29 @@ experts at top-1, all four at top-4). The chapter's promise — capacity
 grows with expert count while compute grows with top-k — is visible here,
 and the imbalance column is the cost the promise hides.
 
+## The fix and its trade
+
+The dead expert is a routing problem, and the fix is a balancing term in
+the training objective. **The auxiliary load-balancing loss** (Switch
+Transformers: Fedus, Zoph & Shazeer, JMLR 23, 2022, arXiv:2101.03961)
+penalizes the router for concentrating its mass, with a weight (alpha =
+1e-2 in the original) that is the first trade knob: too weak and the
+4:1 skew still wins (the measured dead-expert row), too strong and the
+router stops choosing the expert that fits the input — routing quality
+pays for fairness. **The capacity factor** is the serving-side half of the
+same trade: it caps how many tokens an expert can take in a batch and
+drops the overflow, which is how a balanced-looking router still loses
+information under a skewed real distribution. **Quantile Balancing**
+(DeepSeek-V3: Liu et al., 2024, arXiv:2412.19437) removes the auxiliary
+loss and adds a bias term to the router logits from a histogram over
+routing scores, targeting exactly the realized-count column this detour
+reads — and its trade is the same one measured here, shifted: it balances
+the counts the batch waits on rather than the probabilities the auxiliary
+loss sees, at the cost of a per-step histogram pass. What none of the
+three fixes does is change the input distribution: the 4:1 skew is still
+there, and the balancing term is why the router's accuracy (1.000 in
+every cell) does not drop when it is added.
+
 ## Evidence boundary
 
 The recorded routing sweep (one toy, 4 experts, 4 patterns, one skew,

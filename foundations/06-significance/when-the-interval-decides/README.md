@@ -42,6 +42,23 @@ zero. The chapter's paired design cancels the item-difficulty noise both
 scores share, and the recorded run is the concrete case where that design
 matters: two scores, two intervals, and exactly one verdict.
 
+## The fix and its trade
+
+The failure this detour names is reading the center of the interval
+instead of its width. The fix is a decision rule that ships on the
+interval, not the estimate: report the paired bootstrap interval next to
+the gap, and treat "the interval excludes zero" as the only claim that
+survives. The trade is measured by the two rows themselves — the rule
+costs nothing extra to compute, but it costs decisiveness: a real effect
+at small N produces the n=25 row's verdict (interval includes zero, no
+ship) even when the effect is real, because the width, not the center, is
+what the data can support. The chapter's companion failure multiplies the
+same mistake: the [multiple-comparisons detour](../when-the-comparisons-multiply/)
+measures what happens when a family of intervals is read one at a time —
+44.2 percent of naive experiments carry at least one false win, and the
+Benjamini-Hochberg correction cuts that to 16.8 percent at the measured
+cost of missing the true effect 25/500 versus 6/500 times.
+
 ## Evidence boundary
 
 The recorded bootstrap (2,000 resamples per condition, one seed, synthetic

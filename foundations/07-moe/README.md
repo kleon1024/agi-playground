@@ -80,6 +80,46 @@ toy shows at top-1. And the **shared expert** — this toy's null — absorbs
 common structure in real stacks so routed experts can specialize on the
 difference, a benefit the toy's block-disjoint patterns never require.
 
+The three dated sources this line rests on: **Switch Transformers** (Fedus,
+Zoph & Shazeer, JMLR 23, 2022; arXiv:2101.03961) introduced the auxiliary
+load-balancing loss with alpha = 1e-2 and the capacity factor that drops
+overflowed tokens — the trade between router fairness and routing quality
+that every later method inherits. **DeepSeekMoE** (Dai et al., 2024;
+arXiv:2401.06066) contributed the shared expert and fine-grained expert
+segmentation, the design this repo's line calls LatentMoE. **DeepSeek-V3**
+(Liu et al., 2024; arXiv:2412.19437) replaced the auxiliary loss with the
+quantile-balancing bias term over routing scores — no auxiliary loss, and
+the realized-count imbalance it targets is the exact column this toy
+measures.
+
+## Who owns the loop
+
+The routing sweep's counts are only useful if someone owns each failure
+mode the table exposes, and each owner is tied to one:
+
+- **The model and architecture team** owns the router and the balancing
+  objective: the auxiliary-loss weight, the quantile target, the shared
+  expert. It owns the dead-expert failure — the top-1 sweep measured one
+  expert at 0/200 under a 4:1 skew, the routing analog of codebook
+  collapse, and the load-balancing loss is the fix it tunes.
+- **The serving and infrastructure team** owns the capacity factor and the
+  drop: what happens when a batch of inputs over-routes one expert and
+  tokens overflow. It owns the dropping failure — Switch's capacity factor
+  trades dropped tokens against the hardware's per-expert throughput, and
+  the realized-count imbalance (21.5x in the top-1 row) is what the batch
+  waits on, not the routing entropy.
+- **The evaluation team** owns the utilization metric that decides whether
+  an expert is actually being used: per-expert routed counts over a
+  production traffic slice, not training-time entropy. It owns the
+  entropy-versus-imbalance failure — the sweep's entropy stays near
+  maximum (1.33-1.36 of ln 4) while the realized counts skew, so the
+  utilization check has to target counts.
+
+When ownership is implicit, the architecture team ships a balanced router
+whose capacity factor drops the tokens the serving team cannot buffer, and
+the evaluation team reads routing entropy as utilization — both miss the
+same realized-count failure from opposite sides.
+
 ## Evidence boundary
 
 One toy task, six configurations, one seed: it shows routing's compute-for-

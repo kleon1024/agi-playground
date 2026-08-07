@@ -171,13 +171,44 @@ optimizer and report the best of each, which this chapter deliberately does
 not do, so the comparison stays about *mechanism* (why each behaves as it
 does) rather than a leaderboard. It says nothing about a real neural network's
 non-convex loss surface, where curvature changes from point to point and
-saddle points, not ill-conditioning, are often the harder problem. **That
+saddle points, not ill-conditioning, are often the harder problem (Dauphin et
+al., 2014, arXiv:1406.2572, argue high-dimensional non-convex surfaces are
+dominated by saddle points, and that escaping them — not finding local minima
+— is the hard part). **That
 question is answered empirically, not by this toy** — [the first training
 loop](../01-first-training-loop/) and
 [01-language-model/02-pretrain](../../01-language-model/02-pretrain/)
 are where a real, high-dimensional loss surface is measured, with Adam as the
 optimizer actually used and never re-derived from a toy comparison like this
 one.
+
+## Who owns the loop
+
+The step counts above are only useful if someone owns each failure the update
+rule can hit, and each owner is tied to one failure mode:
+
+- **The optimizer and algorithm team** owns the update rule and its
+  hyperparameters: step size, momentum coefficient, per-parameter
+  normalization. It owns the flat-direction stall — the plateau audit
+  ([when the training plateaus](when-the-training-plateaus/)) measured plain
+  SGD ending 6x above the tolerance in budget while momentum and Adam
+  converge, and the fixes (momentum, Adam) trade escape speed against
+  settling time and per-parameter state.
+- **The training-infra team** owns the conditioning and the schedule:
+  learning-rate warmup, warm restarts, and the compute budget a run consumes
+  — a stalled run burns the same hardware as a converged one. It owns the
+  early-run instability warmup exists for, and the attractor-escape class
+  warm restarts address.
+- **The research and evaluation team** owns the plateau diagnosis: the rule
+  that separates the three classes (change the update rule; if the stall
+  moves, it is an optimizer problem). It owns the surface-floor failure —
+  when every update rule and every learning rate stalls at the same loss,
+  the floor is data or model capacity, and the diagnosis has to say so
+  before anyone retunes a learning rate that cannot fix it.
+
+When ownership is implicit, the optimizer owner retunes a learning rate that
+cannot fix a capacity floor, and the data owner washes data that cannot fix
+an optimizer crawl — both are the same misdiagnosis from opposite sides.
 
 ## A brief, dated history
 
@@ -305,3 +336,10 @@ possible](the-flips-that-separate-optimizers/) — the recorded comparison
 read: SGD flips across the steep axis on 341 of 343 steps, momentum damps
 it (47/138), Adam nearly removes it (4/82), and the flip count is why the
 step counts differ.
+
+Another detour: [the crawl is the plateau](when-the-training-plateaus/) —
+the executed audit raced the same three update rules on a flat-minimum
+surface under a fixed budget: plain SGD ends 6x above the tolerance while
+momentum and Adam converge, and an irreducible term makes all four stall at
+the same number — the diagnostic that separates an optimizer stall from a
+data or capacity floor.

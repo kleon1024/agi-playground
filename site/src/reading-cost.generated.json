@@ -1981,11 +1981,15 @@
   },
   "foundations/02-optimization": {
     "level": "foundation",
-    "minutes": 11
+    "minutes": 13
   },
   "foundations/02-optimization/the-flips-that-separate-optimizers": {
     "level": "foundation",
-    "minutes": 2
+    "minutes": 3
+  },
+  "foundations/02-optimization/when-the-training-plateaus": {
+    "level": "applied",
+    "minutes": 5
   },
   "foundations/03-backpropagation": {
     "level": "foundation",
@@ -2045,19 +2049,23 @@
   },
   "foundations/06-significance": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 10
+  },
+  "foundations/06-significance/when-the-comparisons-multiply": {
+    "level": "applied",
+    "minutes": 5
   },
   "foundations/06-significance/when-the-interval-decides": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "foundations/07-moe": {
     "level": "foundation",
-    "minutes": 4
+    "minutes": 6
   },
   "foundations/07-moe/when-the-expert-goes-dead": {
     "level": "foundation",
-    "minutes": 2
+    "minutes": 4
   },
   "reference": {
     "level": "reference",

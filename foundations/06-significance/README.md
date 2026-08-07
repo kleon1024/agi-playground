@@ -108,6 +108,34 @@ and the argument for running it routinely is one of the newest.
   real eval needs — that depends on the real effect size and per-item noise,
   neither of which this toy's synthetic values are a substitute for.
 
+## Who owns the loop
+
+The ship/reject rule is only as honest as the ownership around it, and
+each owner is tied to one failure mode:
+
+- **The evaluation and measurement team** owns the test itself: the paired
+  design, the resampling procedure, and the ship/reject rule ("the interval
+  excludes zero"). It owns the small-N failure — the n=25 row in the
+  recorded run shows a larger point estimate than n=300 and an interval
+  that includes zero, so the rule, not the estimate, is what decides.
+- **The experiment and statistics team** owns the error budget across
+  comparisons: the family-wise rate when many pairs are tested at once,
+  and the false discovery rate control that replaces per-test alpha. It
+  owns the multiple-comparisons failure — the audit
+  ([when the comparisons multiply](when-the-comparisons-multiply/))
+  measured 44.2 percent of naive experiments carrying a false win versus
+  16.8 percent under Benjamini-Hochberg, at a measured power cost.
+- **The product owner** owns which effect size matters: the q and the
+  sample budget are set against the size of a change worth shipping. It
+  owns the effect-size failure — a correction that cuts false wins at the
+  price of missing a real effect is only right if the product can afford
+  that miss.
+
+When ownership is implicit, the measurement team ships an interval that
+excludes zero for a difference the product never asked about, and the
+statistics team corrects a family no one pre-registered — both are the
+same undefined-question failure from different sides.
+
 ## Reproduce it
 
 ```bash
@@ -201,7 +229,9 @@ Return to [why should anyone believe the report?](../../01-language-model/07-eva
 to see this same discipline applied to a single model's score before ever
 reaching a two-system comparison. If you are comparing more than two systems
 or configurations at once, the multiple-comparisons problem named above is
-the next open question this chapter does not answer.
+answered in [when the comparisons
+multiply](when-the-comparisons-multiply/) — the executed audit of 12
+paired comparisons, with the false-discovery rate correction measured.
 
 [The evaluation landscape](../../01-language-model/07-eval/LANDSCAPE.md) names the production libraries
 that implement paired bootstrap and other significance tests at scale.
@@ -211,3 +241,9 @@ one](when-the-interval-decides/) — the recorded bootstrap read: n=25 shows
 the larger gap (0.200) and the interval that includes zero, while n=300's
 narrower interval decides — point-estimate size and confidence are
 different axes.
+
+Another detour: [more comparisons, more chance
+hits](when-the-comparisons-multiply/) — the executed audit drew 12 paired
+comparisons at alpha 0.05 and measured the family-wise chance of a false
+win (1 - 0.95^12 = 46 percent), then measured Benjamini-Hochberg cutting
+false positives from 0.59 to 0.22 per experiment at a measured power cost.

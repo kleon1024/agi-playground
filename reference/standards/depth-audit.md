@@ -206,8 +206,8 @@ three detours:
 
 ### Personalized discovery — search 10-24, 35-37
 
-**Status: in progress (search mainline 10-13, advanced 19-24, and
-frontier 35-37 audited, 2026-08-07; this track is complete).**
+**Status: done (search mainline 10-13, advanced 19-24, and frontier
+35-37, 2026-08-07).**
 
 Stages 10-13 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
@@ -806,11 +806,41 @@ and sample-construction detail the user asks for lives here.
 
 ### Foundations, infra-absorbed chapters, and remaining missions
 
-**Status: pending.**
+**Status: done for foundations 02-optimization, 06-significance, and
+07-moe (ninth audit increment, 2026-08-08); the remaining missions below
+are still pending.**
 
-Audit foundations for the failure-mode lens (optimization plateaus, dead
-experts, significance under multiple testing), the multimodal generation
-track (codebook collapse, modality imbalance, streaming decode), quantitative
+The foundations now carry the failure-mode lens the queue named first:
+
+- 02 optimization: plateau audit over a flat-minimum surface under a
+  fixed 1,000-step budget (plain SGD ends 6x above the tolerance while
+  momentum and Adam converge; an irreducible term makes all four stall at
+  the same number — THE PLATEAU IS THE RATE COLLAPSE, NOT THE FLOOR, and
+  the optimizer-change diagnostic separates the two classes); ownership
+  split across optimizer/infra/research teams; Dauphin et al. 2014
+  (arXiv:1406.2572), Sutskever et al. 2013 (ICML), Kingma & Ba 2015
+  (ICLR), Loshchilov & Hutter 2017 (ICLR); detours: the flips that
+  separate the optimizers (341 vs 47 vs 4 steep-axis flips) and the new
+  when-the-training-plateaus (flat stall vs surface floor, measured).
+- 06 significance: multiple-comparisons audit over 12 paired comparisons
+  (naive alpha 0.05 fires 0.59 false positives per experiment and 44.2
+  percent of experiments carry at least one — MORE COMPARISONS, MORE
+  CHANCE HITS; Benjamini-Hochberg q=0.10 cuts that to 0.22 and 16.8
+  percent at the measured cost of missing the true effect 25/500 vs
+  6/500); ownership split across measurement/statistics/product teams;
+  Benjamini & Hochberg 1995 (JRSS-B); detours: when-the-interval-decides
+  and the new when-the-comparisons-multiply.
+- 07 moe: the dead-expert failure read from the recorded routing sweep
+  (top-1 under a 4:1 skew leaves one expert at 0/200 while routing
+  entropy stays near maximum — THE DEAD EXPERT IS A ROUTING PROBLEM, and
+  the fix is the balancing term: auxiliary loss, capacity factor, or
+  quantile bias); ownership split across architecture/serving/evaluation
+  teams; Fedus, Zoph & Shazeer 2022 (JMLR 23, arXiv:2101.03961), Dai et
+  al. 2024 (arXiv:2401.06066), Liu et al. 2024 (arXiv:2412.19437);
+  detour: when-the-expert-goes-dead now carries the fix-and-trade.
+
+Audit the remaining missions with the same lens: multimodal generation
+(codebook collapse, modality imbalance, streaming decode), quantitative
 research (as-of joins, restatements, purge), agentic platform (tool-result
 recovery), game AI (policy collapse, closed-loop divergence), bio-pharma
 modeling, and autonomous driving (perception failure, distribution shift,
