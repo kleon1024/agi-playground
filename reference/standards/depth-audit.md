@@ -431,7 +431,8 @@ proves the fix worked.
 
 ### Language-model system — 00-07
 
-**Status: in progress (00-corpus data health audited, 2026-08-07).**
+**Status: in progress (00-corpus data health, 02-pretrain divergence
+audited, 2026-08-07).**
 
 Stage 00 now carries the dirty-data failure the queue named first: a
 benchmark-contamination chapter with an executed run over 200 items, 60
@@ -446,6 +447,22 @@ teams and the before-training gate made explicit. The release-policy
 detour's LSH threshold S-curve is now measured, not just computed
 (16x4 measured vs formula: 0.680 vs 0.644 at J=0.5, 0.987 vs 0.988 at
 J=0.7; 32x4 threshold shift 0.50 to 0.42).
+
+Stage 02's curve-divergence chapter is now executed, not asserted: the
+pair-reading table (read the pair, not the line) is backed by a planted
+run with four injected failures. Too-high LR spikes both curves with no
+recovery and its gradient-norm trace departs from baseline two steps
+before the loss does (step 4: 0.600 vs 0.197 at baseline, loss still
+2.90; step 6 the loss explodes); softmax overflow in fp32 range goes
+non-finite at step 3, where a non-finite check stops and attributes the
+step while the unchecked run completes with a wall of inf then NaN; a
+corrupted batch (steps 100-139) moves train and held-out together and
+both return toward the baseline path; and bf16 master weights flatline
+the train curve at 2.418 vs the fp32-master 2.358 floor with a gradient
+norm still alive at 0.050 — a precision floor, not a dead loop. The
+mission's own 3.0689-to-3.0984 anomaly remains unattributed, and the
+runs record states the boundary (toy model, planted LR values, bf16
+master-weight simulation rather than the full mixed-precision contract).
 
 Audit the LLM track with the same lens: dirty data and washing (dedup,
 quality filters, contamination), tokenizer edge cases, pretraining data mix

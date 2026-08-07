@@ -85,7 +85,7 @@
   },
   "01-language-model/02-pretrain/when-the-curve-goes-wrong": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "01-language-model/03-sft": {
     "level": "foundation",

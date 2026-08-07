@@ -1,8 +1,9 @@
 ---
-status: draft
+status: verified
 level: applied
 base: none
 label: When the curve goes wrong
+verified: 2026-08-07
 ---
 
 # The loss curve looks wrong. Which subsystem owns it?
@@ -35,6 +36,17 @@ loop that is not learning at all. The pair of training and held-out loss can:
 | both fall, then spike | instability, a bad batch, overflow, or a resume defect |
 | periodic jumps | data shards, schedule boundaries, or checkpoint restore |
 | smooth loss, poor samples | tokenizer, data distribution, or evaluation mismatch |
+
+These rows are now executed, not asserted. A from-scratch 2-layer
+next-token learner ([record](runs/2026-08-07-curve-diagnosis.md)) gets
+four planted failures, and each produces its row: a too-high learning
+rate spikes both curves with no recovery (row three, instability), and
+its gradient-norm trace departs from the baseline run two steps before
+the loss does; a corrupted batch moves train and held-out together and
+both return toward the baseline path (row three, bad batch); a bf16
+master weight flattens both curves while the gradient norm stays alive
+(row one, flat-flat); and a softmax that overflows the compute range
+goes non-finite at a specific step (row three, overflow).
 
 The value of the table is that each row names a *different owner*. Do not go
 from a bad sample straight to a bigger model — identify which subsystem the
@@ -80,6 +92,14 @@ Lower precision buys memory and bandwidth. It does not make numerical
 validation optional — and a run without the non-finite checks cannot even
 report which step first went wrong.
 
+Both halves are measured in the same run. With bf16 master weights, the
+planted learner's train curve flatlines at 2.418 while the fp32-master
+control keeps descending to 2.358 — and the gradient norm stays alive at
+0.050, which is what rules out a dead loop. And the overflow run's loss
+goes non-finite at step 3: with the check the run stops and reports that
+step; without it, the run completes with a wall of inf then NaN and no
+step attribution.
+
 ## When you extend the run instead of fixing it
 
 Once the curve is understood, the next temptation is to keep going: more
@@ -110,7 +130,13 @@ predicts the same curve. The precision contract above is stated from the
 formats' definitions, not measured — this repository has not trained the same
 configuration in FP16 to watch it overflow, and it has not run a continued
 pretraining pass at all, so the four rules are published practice rather than
-this mission's evidence.
+this mission's evidence. The injected-failure run executes the diagnostic
+procedure on a 2-layer toy, not the 88M decoder: its LR values are knobs
+chosen to make each failure visible, its bf16 column simulates a bf16
+master weight rather than the full fp32-master contract, and its overflow
+threshold (fp32-range softmax without max subtraction) is not this run's
+format. What transfers is the pair-reading rule and the telemetry
+discipline, not the specific numbers.
 
 Primary references: Micikevicius et al., *Mixed Precision Training* (2018) for
 the FP32 master-weight contract; Gururangan et al., *Don't Stop Pretraining*
