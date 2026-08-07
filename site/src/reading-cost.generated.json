@@ -349,7 +349,7 @@
   },
   "02-personalized-discovery/ads": {
     "level": "applied",
-    "minutes": 1
+    "minutes": 2
   },
   "02-personalized-discovery/ads/14-ad-auction": {
     "level": "applied",
@@ -433,47 +433,63 @@
   },
   "02-personalized-discovery/ads/25-frequency-capping": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 7
   },
   "02-personalized-discovery/ads/25-frequency-capping/when-fatigue-hits": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/ads/25-frequency-capping/when-the-cap-bites": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
+  },
+  "02-personalized-discovery/ads/25-frequency-capping/when-the-counter-drifts": {
+    "level": "applied",
+    "minutes": 6
   },
   "02-personalized-discovery/ads/26-creative-selection": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 7
   },
   "02-personalized-discovery/ads/26-creative-selection/when-the-creative-context-changes": {
     "level": "applied",
     "minutes": 2
   },
+  "02-personalized-discovery/ads/26-creative-selection/when-the-creative-has-no-history": {
+    "level": "applied",
+    "minutes": 6
+  },
   "02-personalized-discovery/ads/26-creative-selection/when-the-creative-is-stale": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/ads/27-bid-strategy": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 7
   },
   "02-personalized-discovery/ads/27-bid-strategy/when-the-bid-is-capped": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
+  },
+  "02-personalized-discovery/ads/27-bid-strategy/when-the-conversion-lags": {
+    "level": "applied",
+    "minutes": 6
   },
   "02-personalized-discovery/ads/27-bid-strategy/when-the-target-cpa-binds": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/ads/28-auction-revenue": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 6
   },
   "02-personalized-discovery/ads/28-auction-revenue/when-first-price-pays-more": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
+  },
+  "02-personalized-discovery/ads/28-auction-revenue/when-the-bidders-learn": {
+    "level": "applied",
+    "minutes": 5
   },
   "02-personalized-discovery/ads/28-auction-revenue/when-the-reserve-moves-revenue": {
     "level": "applied",
@@ -481,27 +497,35 @@
   },
   "02-personalized-discovery/ads/29-rtb-pipeline": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 6
   },
   "02-personalized-discovery/ads/29-rtb-pipeline/when-the-bidder-is-slow": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/ads/29-rtb-pipeline/when-the-exchange-times-out": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
+  },
+  "02-personalized-discovery/ads/29-rtb-pipeline/when-the-model-outruns-the-budget": {
+    "level": "applied",
+    "minutes": 6
   },
   "02-personalized-discovery/ads/30-ads-measurement": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 8
   },
   "02-personalized-discovery/ads/30-ads-measurement/when-attribution-overcounts": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/ads/30-ads-measurement/when-the-incrementality-is-zero": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
+  },
+  "02-personalized-discovery/ads/30-ads-measurement/when-the-lift-is-too-small-to-see": {
+    "level": "applied",
+    "minutes": 4
   },
   "02-personalized-discovery/ads/38-interleaving-experiments": {
     "level": "applied",

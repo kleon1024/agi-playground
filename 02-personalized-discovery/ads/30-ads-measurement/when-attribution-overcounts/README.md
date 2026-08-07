@@ -36,6 +36,23 @@ when the ads work. The ads may be perfectly effective and the report
 still routes next quarter's budget to the wrong channel, because the
 measurement, not the campaign, produced the credit.
 
+## The fix and its trade
+
+The fix is to treat attribution as a measurement model with a ground
+truth: run incrementality experiments on a sample of spend, measure
+which touchpoints actually move conversions, and calibrate the
+attribution weights to that measured credit instead of the last-click
+default. The trade is that incrementality experiments are exactly the
+expensive, low-power measurement [stage 30's audit](../) quantified —
+the 0.4-point increment needs 28,547 users per arm at 80% power — so
+the weights can only be re-measured occasionally and on a slice of the
+budget, and the model drifts in between (Dalessandro et al., 2012,
+arXiv:1209.2664, show causal attribution models can recover
+touchpoint effects from randomized data). The alternative — keep
+last-click because it is simple and auditable — is the failure the
+detour measured: 0.6 of credit misplaced, next quarter's budget
+routed to the wrong channel, and no experiment to correct it.
+
 ## Evidence boundary
 
 The executed credit comparison over one conversion with declared shares

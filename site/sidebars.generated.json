@@ -772,6 +772,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/ads/25-frequency-capping/when-the-cap-bites/index",
                 "label": "When the cap bites"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/25-frequency-capping/when-the-counter-drifts/index",
+                "label": "When the counter drifts"
               }
             ]
           },
@@ -787,6 +792,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/ads/26-creative-selection/when-the-creative-context-changes/index",
                 "label": "When the creative context changes"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/26-creative-selection/when-the-creative-has-no-history/index",
+                "label": "When the creative has no history"
               },
               {
                 "type": "doc",
@@ -810,6 +820,11 @@
               },
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/ads/27-bid-strategy/when-the-conversion-lags/index",
+                "label": "When the conversion lags"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/ads/27-bid-strategy/when-the-target-cpa-binds/index",
                 "label": "When the target CPA binds"
               }
@@ -827,6 +842,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/ads/28-auction-revenue/when-first-price-pays-more/index",
                 "label": "When first price pays more"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/28-auction-revenue/when-the-bidders-learn/index",
+                "label": "When the bidders learn"
               },
               {
                 "type": "doc",
@@ -852,6 +872,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/ads/29-rtb-pipeline/when-the-exchange-times-out/index",
                 "label": "When the exchange times out"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/29-rtb-pipeline/when-the-model-outruns-the-budget/index",
+                "label": "When the model outruns the budget"
               }
             ]
           },
@@ -872,6 +897,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/ads/30-ads-measurement/when-the-incrementality-is-zero/index",
                 "label": "When the incrementality is zero"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/30-ads-measurement/when-the-lift-is-too-small-to-see/index",
+                "label": "When the lift is too small to see"
               }
             ]
           },

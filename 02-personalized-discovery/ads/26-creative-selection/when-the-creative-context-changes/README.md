@@ -35,6 +35,23 @@ model, not a label on top of it: the same creative is a different
 asset in a different placement, and selection has to know the placement
 to price it.
 
+## The fix and its trade
+
+The measured fix is to make context a feature of the selection model:
+score creative-by-placement instead of a global creative rank, so the
+rich card's feed value and the compact creative's search value are
+priced separately (He, Pan, Jin et al., 2014, ADKDD, describe the
+feature and online-learning stack that makes per-context click
+prediction feasible at serving scale). The trade is data: a
+creative-context cell is a smaller sample than a global creative, so
+each cell's estimate is noisier and each cold (creative, context) pair
+needs its own exploration — the same cold-start arithmetic the
+no-history detour sweeps, now per cell. A global average is a choice to
+accept that noise on the search side rather than spend the traffic to
+price it; the executed table shows the cost: serving the rich card
+everywhere leaves the compact creative's 0.06 search clicks on the
+table.
+
 ## Evidence boundary
 
 The executed per-context table over two declared creatives (illustrative,

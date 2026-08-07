@@ -37,6 +37,27 @@ availability footnote: it is the exchange-side version of the
 latency is that bidder's loss, but the exchange's timeout rate is
 everyone's loss.
 
+## The fix and its trade
+
+The exchange's lever is the timeout policy itself: how long `tmax`
+gives bidders before the slot is closed. A longer `tmax` raises fill —
+more bidders arrive, more auctions have a winner — but it is paid in
+latency for the user who is waiting on the ad decision, and the winning
+bids arrive late in the window, so the page request gets the slowest
+possible bidder. A shorter `tmax` protects the user's wait but
+filters out the slower bidder population, cutting competition and
+fill (OpenRTB 2.5's `tmax`: "Maximum time in milliseconds the exchange
+allows for bids to be received including Internet latency to avoid
+timeout"; Yuan, Wang & Zhao, 2013, arXiv:1306.6542, measure the
+timeout pressure real exchanges run under). The trade is a margin
+sizing decision, not a reliability checkbox: the exchange sets `tmax`
+from its own p99 on the bidder-latency distribution, and the stages
+that pay it are the bidders whose pipelines are sized against a
+stricter contract than the exchange's. The stage's own audit is the
+bidder-side half of the same decision — the exchange that times out
+at 5 percent is the exchange whose bidders sized their pipelines to
+the old `tmax`.
+
 ## Evidence boundary
 
 The executed pricing over a declared request volume (illustrative,

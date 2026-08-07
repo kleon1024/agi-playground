@@ -37,6 +37,23 @@ protects the budget by refusing the auctions that would break it. The
 boundary is exactly the click's expected value — the same number stage
 27 derived, now used as a stop price.
 
+## The fix and its trade
+
+The measured fix is to make the walk-away line track the estimate, and
+to correct the estimate for what the bidder cannot see. The line is
+value times conversion rate, so an inflated conversion estimate raises
+it and lets the advertiser overpay — the winner's-log audit shows the
+naive read at 0.0316 against a true 0.0188, a 1.68x overbid, and the
+delay-corrected labels recover the bid the line should sit on
+(Chapelle, 2014, KDD, the joint conversion-and-delay model). The trade
+is the line's tightness: a line set from the true value refuses the
+overpriced wins but also refuses the auctions where the estimate is
+uncertain — the campaign leaves cheap wins on the table while it
+learns, which is the same exploration-versus-value tension the cap
+detour prices from above. The walk-away line is only as honest as the
+estimate that sets it, and the estimate is only as honest as the
+sample it was fit on.
+
 ## Evidence boundary
 
 The executed price comparison against one declared value (illustrative,

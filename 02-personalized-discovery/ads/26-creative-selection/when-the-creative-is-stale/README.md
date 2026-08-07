@@ -36,6 +36,23 @@ CTR keeps choosing the stale winner on history while its actual value
 falls, and never gives the new creative the traffic it needs to
 estimate. Selection needs recency-aware estimates, not just averages.
 
+## The fix and its trade
+
+The measured fix is a recency-aware estimate: score the creative on a
+rolling window or a decaying average so the estimate follows wear, and
+allocate a small exploration budget so cold creatives get the traffic
+their estimate needs. The stage's audit prices both halves: greedy on
+lifetime CTR serves the stale winner all 20,000 placements for 635
+clicks, while a recency-weighted EWMA (828) and Thompson sampling with
+decaying counts (807) switch to the better creative once its estimate
+moves (Moriwaki, Nakagawa, Hisano & Ariu, 2019, arXiv:1908.08936, model
+creative value as wear-in and wear-out over served impressions; He et
+al., 2014, ADKDD, describe the online-learning pipeline that keeps such
+estimates fresh at serving scale). The trade is on the window: too
+short, and the estimate chases noise and churns the selection; too
+long, and it lags the wear the way the lifetime average does — the
+0.06-forever estimate this detour names is the long-window extreme.
+
 ## Evidence boundary
 
 The executed comparison over three declared creatives (illustrative,

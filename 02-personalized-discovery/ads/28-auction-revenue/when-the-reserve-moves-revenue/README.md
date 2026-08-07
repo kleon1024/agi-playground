@@ -37,6 +37,21 @@ before fill collapses. The optimum is a property of the demand curve:
 it is the point where price per sale and probability of sale balance,
 which is why it is estimated from bid data, not guessed.
 
+## The fix and its trade
+
+The measured fix is to estimate the reserve from the demand curve and
+re-optimize it as the curve moves — the sweep's peak at \$0.8 is a
+property of the declared demand distribution, not a setting (Myerson,
+1981, derives the revenue-optimal reserve; Varian, 2007, and
+Edelman, Ostrovsky & Schwarz, 2007, for the auction rules the reserve
+sits inside). The trade is on the curve's stability: the demand
+distribution moves with the bidder population, and the stage's audit
+shows that population learning to shade — a reserve tuned to a naive
+market is too high once bidders adapt, and a reserve tuned to a shaded
+market leaves revenue on the table during the transition. The executed
+shape is the discipline: find the peak, then re-fit it on the settled
+market, not the launch market.
+
 ## Evidence boundary
 
 The executed sweep over a declared demand distribution (illustrative,

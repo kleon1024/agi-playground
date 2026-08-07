@@ -36,6 +36,23 @@ property is the reason second price exists: it makes the bid the value,
 so the platform's revenue and the auction's efficiency are not hostage
 to how bidders game the payment rule.
 
+## The fix and its trade
+
+The measured fix is to price the rule with the bidder population, not
+without it: model the shading (or measure it from bid data) and compare
+revenue at the shaded equilibrium, where the first-price gap narrows to
+\$0.16 — and remember the equilibrium itself is a moving target, since
+the stage's audit shows revenue eroding from 0.7485 to 0.4980 as
+bidders learn (Vickrey, 1961, revenue equivalence; Edelman, Ostrovsky
+& Schwarz, 2007, and Varian, 2007, for the mechanisms bidders adapt
+to). The trade is between the rules themselves: second price removes
+the shading incentive entirely — truthful bidding makes the bid the
+value, so revenue is stable across bidder behavior — while first price
+keeps the higher naive ceiling but requires the platform to model and
+counter bidder learning, which the audit shows is a losing race
+(Google's 2019 first-price transition is the industrial version: the
+advantage was the transition's, not the settlement's).
+
 ## Evidence boundary
 
 The executed comparison over one bid set and two declared behaviors

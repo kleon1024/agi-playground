@@ -36,6 +36,23 @@ impressions at those near-zero rates deliver a worse total than the
 capped run. Fatigue is why the cap exists: it concentrates delivery
 where the ad still earns its slot.
 
+## The fix and its trade
+
+The measured fix is to cap where the marginal exposure stops earning —
+and to set that point per segment, because fatigue is per segment. The
+stage's hidden-slice audit is the same arithmetic at production scale:
+the aggregate curve reads cap 3 and sacrifices 28.5 casual expected
+clicks to save 7.3 power clicks, while per-segment caps (casual 7,
+standard 3, power 2) cut 6,152 impressions and lose 0 casual clicks.
+The trade is on the cap's reach side, not its click side: the capped
+run here earns 40,000 expected clicks against 22,429 uncapped, but it
+also reaches fewer users per budget (the [cap-bites
+detour](../when-the-cap-bites/) shows 10,000 users at cap 1 versus
+1,000 at cap 10). Aharon et al. (2023, arXiv:2312.05052) priced the
+reward side of getting the trade right — soft frequency capping lifted
+revenue 7.3 percent in Yahoo Gemini Native — and the trade itself is
+why the cap is a product decision, not a default.
+
 ## Evidence boundary
 
 The executed expected-click arithmetic over a declared impression count

@@ -36,6 +36,21 @@ verdict, and each stage names who owns the loop.
 
 ## The advanced track (stages 25-30)
 
+Each stage in this track carries three executed failure-mode detours:
+the cap that bites, the segment that goes dark under an aggregate curve,
+the counter that drifts; the stale winner the lifetime rule crowns, the
+context that changes the creative's value, the cold creative with no
+history; the CPA that binds, the bid cap, the conversion that arrives
+after the label; the first-price premium that erodes as bidders shade,
+the reserve that moves revenue, the transition read that overstates the
+settled outcome; the slow bidder, the exchange timeout, the model that
+outruns its 25ms slot; the attribution that overcounts, the zero-lift
+campaign, the increment too small for the CI to see. Every audit run
+stratifies the failure by segment, by tail, or by statistical power
+before it reports the verdict, and each stage names who owns the loop —
+the pattern the build track established, now against the failure modes
+the auction's decision loop actually meets in production.
+
 | Stage | What it decides | Evidence |
 |---|---|---|
 | [`25-frequency-capping`](25-frequency-capping/) | The exposure cap as a value decision | [verified](25-frequency-capping/runs/) |

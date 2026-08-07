@@ -336,8 +336,8 @@ three detours:
 
 ### Personalized discovery — ads 14-18, 25-30, 38-42, 54
 
-**Status: done for 14-18 (fourth audit increment, 2026-08-07); pending
-for 25-30, 38-42, 54.**
+**Status: done for 14-18 and 25-30 (fourth and seventh audit
+increments, 2026-08-07/08); pending for 38-42, 54.**
 
 Stages 14-18 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
@@ -390,12 +390,82 @@ audit, a who-owns-the-loop section, dated citations, and three detours:
   0.2307 vs P90/P99 0.9500 — the mean hides the one-in-ten context
   where the ad kills the user's most valuable result).
 
-Audit inventory for 25-30, 38-42, 54 remains pending: frequency
-capping, creative selection, bid strategy, auction revenue, RTB
-pipeline, ads measurement, interleaving, first-price transition,
-privacy-safe attribution, LLM creative generation, marketplace
-economics, advertiser ROAS. Ads is where the A/B and traffic-split
-detail belongs most.
+Stages 25-30 now satisfy the same contract (seventh audit increment,
+2026-08-08):
+
+- 25 frequency capping: segment-stratified decay audit over 20,000
+  impressions (aggregate mean CTR 0.0328 passes; power slice 0.0133
+  with 40.6% dead share — HIDDEN SLICE verdict, the aggregate curve
+  keeps serving the segment that stopped clicking); ownership split
+  across delivery/frequency-control, segment/model, measurement teams;
+  Aharon et al. 2023 (arXiv:2312.05052, soft cap +7.3% revenue),
+  Buchbinder et al. 2014 J. Scheduling; detours: when-the-cap-bites,
+  when-fatigue-hits, and when-the-counter-drifts (a drifted counter
+  serves 36,167 impressions at 0.0355 against a correct 30,000 at
+  0.0400, +85.6 clicks on dead impressions — the cap is only as good
+  as the counter it reads).
+- 26 creative selection: wear-and-exploration audit over 20,000
+  placements (greedy lifetime crowns the decaying winner at 635 clicks
+  @0.0318; EWMA 828 clicks, +4.1% impressions; Thompson decaying 807
+  — STALE-WINNER verdict, the creative that won on history keeps
+  winning after it stopped earning its slot); ownership split across
+  creative/ranking, model/exploration, measurement teams; Moriwaki
+  2019 (arXiv:1908.08936), He et al. 2014 ADKDD; detours:
+  when-the-creative-is-stale, when-the-creative-context-changes, and
+  when-the-creative-has-no-history (epsilon 0.00/0.05/0.10/0.20 serves
+  the new creative 0/475/1019/1994 of 20,000 — exploration is the only
+  way a cold creative earns its prior).
+- 27 bid strategy: winner's-log audit over 100,000 auctions (true CVR
+  0.0188 at \$0.09 eCPM; naive winner's-log estimate 0.0316 at \$0.16,
+  overbid 1.68x; IPW restores 0.0187 at \$0.09 — WINNER'S LOG LIES
+  verdict, the logged set is the auction's winning half, not its
+  population); ownership split across bidder/auction-interface,
+  model/calibration, measurement teams; Chapelle 2014 KDD (delayed
+  feedback); detours: when-the-target-cpa-binds, when-the-bid-is-
+  capped, and when-the-conversion-lags (a 7-day snapshot under-reads
+  true CVR 0.0200 as 0.0096, 52% off — the bid optimizes the label
+  the log has, not the one that settles).
+- 28 auction revenue: shading-dynamics audit over 12 rounds x 300
+  auctions with three learning bidders (naive first-price round 1
+  revenue 0.7485; converges to 0.4980 by rounds 10-12, within 0.4% of
+  second-price 0.5000 — REVENUE LEARNS ITS WAY DOWN verdict, the
+  first-price advantage erodes as bidders shade); ownership split
+  across auction/pricing, demand/bidder, measurement teams; Google
+  first-price transition (2019-09-04), Vickrey 1961, Edelman/
+  Ostrovsky/Schwarz 2007, Varian 2007, Myerson 1981; detours:
+  when-first-price-pays-more, when-the-reserve-moves-revenue, and
+  when-the-bidders-learn (a day-one read of 0.7485 overstates the
+  settled 0.4772 by 57% — first-price revenue must be measured after
+  the market learns).
+- 29 RTB pipeline: tail-latency audit over 20,000 requests across six
+  lognormal stages (p50 81.7ms and p95 99.5ms fit the 100ms deadline;
+  p99 108.2ms blows it and 933 requests, 4.7%, time out — P99 LOSES
+  THE AUCTION verdict, the mean hides the tail that never bids);
+  ownership split across RTB-engineering/exchange-facing, model/
+  serving, feature/data teams; Yuan/Wang/Zhao 2013 (arXiv:1306.6542),
+  OpenRTB 2.5 `tmax`; detours: when-the-bidder-is-slow,
+  when-the-exchange-times-out, and when-the-model-outruns-the-budget
+  (a heavy model's p99 140.3ms times out 18.0%; a cascade fallback
+  cuts that to 6.9% at the price of cheap bids on 33.1% of requests —
+  the deadline is a tail constraint and the margin is the budget).
+- 30 ads measurement: lift-power audit around the stage's own 0.4-point
+  increment (0.032 vs 0.028, binomial noise, fixed seed; at 8,000
+  users per arm the observed lift is 0.0000 with the CI covering zero;
+  the CI first excludes zero at 20,000, p = 0.040 — SMALL LIFT
+  INVISIBLE verdict, the increment that paid for the campaign is
+  invisible to the experiment that measured it); ownership split
+  across experimentation/measurement, ads-platform/holdout,
+  advertiser/budget teams; Lewis & Rao 2015 QJE, Blake/Nosko/Tadelis
+  2015 Econometrica, Kohavi/Tang/Xu 2020; detours:
+  when-attribution-overcounts, when-the-incrementality-is-zero, and
+  when-the-lift-is-too-small-to-see (CI half-width 0.47 points at
+  10,000 users per arm against a 0.4-point increment; 80% power needs
+  28,547 users per arm — the experiment is sized for the effect).
+
+Audit inventory for 38-42, 54 remains pending: interleaving, first-
+price transition, privacy-safe attribution, LLM creative generation,
+marketplace economics, advertiser ROAS. Ads is where the A/B and
+traffic-split detail belongs most.
 
 ### Personalized discovery — recommendation 31-34 (frontier)
 

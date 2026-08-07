@@ -35,6 +35,23 @@ decision as much as a value one — the value equation (stage 27) says
 what a click is worth, and the cap says how much of the budget the
 advertiser is willing to put at risk in pursuit of it.
 
+## The fix and its trade
+
+The measured fix is to set the cap from the win-rate curve, not from
+the value equation alone: the cap is a budget-allocation dial, so it
+belongs to the campaign's spend target, and the sweep's shape is the
+curve it should be tuned on — wins fall 3/5 to 2/5 to 1/5 as the cap
+falls \$0.10 to \$0.08 to \$0.06. The trade is the one the table
+measures: a tighter cap lowers average price but cuts affordable wins
+indiscriminately, and a looser cap buys reach at the risk of
+overpaying — which is why the cap must sit under a corrected estimate:
+the winner's-log bias alone inflates CVR from 0.0188 to 0.0316 and
+would justify a cap 1.68x too high (Chapelle, 2014, KDD, for the
+delay-correction side of the estimate; the selection side is the
+inverse-propensity weighting of the stage's audit). The cap is the
+budget's risk dial, and its position is only as good as the estimate
+that sets the value under it.
+
 ## Evidence boundary
 
 The executed sweep over five declared auction prices (illustrative,

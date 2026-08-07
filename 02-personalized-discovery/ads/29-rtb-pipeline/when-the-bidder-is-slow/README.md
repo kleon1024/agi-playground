@@ -36,6 +36,27 @@ the bidder population before the auction's value comparison ever runs.
 That is why stage 29's pipeline engineering exists: the bid that never
 arrives is a bid that cannot win.
 
+## The fix and its trade
+
+The bidder's fix is to fit the whole pipeline inside the exchange's
+`tmax`: the deadline is the contract, so each stage gets a p99 budget
+whose sum fits the bid before the deadline, not a median budget whose
+tail crosses it. Stage 29's executed budget does exactly this — the
+per-stage table allocates the 100ms deadline so that the p99 of every
+stage lands inside its slot — and shared/08-serving's cache read is the
+first lever: a profile or feature served from cache turns a 30ms stage
+into a 1ms stage and buys margin for the stages that cannot cache
+(OpenRTB 2.5 defines `tmax` as "Maximum time in milliseconds the
+exchange allows for bids to be received including Internet latency to
+avoid timeout"; Yuan, Wang & Zhao, 2013, arXiv:1306.6542, measure a
+production ad exchange and report the latency pressure that RTB
+pipelines face). The trade is that p99 budgeting is strictness paid
+everywhere for a failure that happens rarely: stages that are usually
+fast are forced into their p99 slot, and the margin you reserve is
+latency you are not spending on a better bid. The alternative — fit
+the median and hope the tail — is the exact failure the audit measures:
+the bidder that is late loses regardless of price.
+
 ## Evidence boundary
 
 The executed deadline check over three declared response times

@@ -36,6 +36,23 @@ performance until the control group's identical 0.030 says the campaign
 was noise. Reporting the zero is how the measurement protects the next
 budget decision.
 
+## The fix and its trade
+
+The fix is to make the null result the reporting default: the campaign
+is reported by its increment and its confidence interval, and a lift
+smaller than the CI is reported as "cannot distinguish from zero,"
+exactly what [the too-small-to-see detour](../when-the-lift-is-too-small-to-see/)
+computes (at 10,000 users per arm the half-width of 0.47 points is
+wider than the 0.4-point increment itself). The trade is that a strict
+null default reads as failure in a channel whose job is to show
+results — campaigns with genuinely small increments get killed, which
+is the correct call for the budget but the uncomfortable one for the
+platform that wants to keep the spend (Blake, Nosko & Tadelis, 2015,
+Econometrica, found eBay's search ads drove far less incremental sales
+than the ad spend — the real-world zero-lift case). The alternative —
+hide the null and report the observed clicks — is the failure the
+detour measures: the report credits spend with no effect.
+
 ## Evidence boundary
 
 The executed comparison over two declared rates (illustrative,

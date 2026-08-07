@@ -36,6 +36,23 @@ decides which side of the trade it needs: a brand seeking reach wants a
 low cap, a performance campaign seeking frequency wants a higher one.
 The cap is a budget allocation, not a display setting.
 
+## The fix and its trade
+
+The measured fix is to set the cap from the campaign's objective and
+the measured fatigue curve, not from a default: reach goals want the
+cap low (10,000 users at cap 1), frequency goals want it higher (1,000
+users at cap 10), and the curve says how much each extra impression is
+worth. The production alternative to a hard cut is soft capping — serve
+past the cap with a probability that decays with exposure instead of a
+sharp stop — which blurs the reach-frequency cliff rather than
+abolishing it: Aharon et al. (2023, arXiv:2312.05052) showed soft
+frequency capping in Yahoo Gemini Native lifted revenue 7.3 percent in
+a bucket test. The trade is on the cliff itself: a hard cap guarantees
+the fatigue control but collapses reach (10x fewer users from cap 1 to
+cap 10), while soft capping preserves reach at the price of serving
+some impressions past the useful exposure range — the exact waste the
+[fatigue detour](../when-fatigue-hits/) prices.
+
 ## Evidence boundary
 
 The executed allocation over a declared impression budget (illustrative,
