@@ -14,12 +14,24 @@ item scores.
 
 ## The frontier track (stages 31-34)
 
+Each stage in this track carries three executed failure-mode detours:
+the LLM that disagrees with the pointwise order, the prompt token
+budget that binds, the text answer that is not a list; the flipped
+preference label, the reward that is gamed, the preference cycle the
+scalar model cannot hold; the cold image reachable through one
+modality only, the modality mismatch that biases toward text-rich
+items, the low-quality content vector that is reachable but not
+retrievable; the diverse slate that trades a top item, the item-level
+metric that ties slates, the position bias that makes clicks measure
+the slot. Every audit run stratifies the failure by head and tail
+before it reports the verdict, and each stage names who owns the loop.
+
 | Stage | What it decides | Evidence |
 |---|---|---|
-| [`31-llm-ranking`](31-llm-ranking/) | The LLM listwise reorder over the cascade top | [verified](31-llm-ranking/runs/) |
-| [`32-recommendation-rlhf`](32-recommendation-rlhf/) | Preference optimization over click labels | [verified](32-recommendation-rlhf/runs/) |
-| [`33-multimodal-recall`](33-multimodal-recall/) | VLM content vectors as the cold-start bridge | [verified](33-multimodal-recall/runs/) |
-| [`34-slate-vs-item-evaluation`](34-slate-vs-item-evaluation/) | The metric that sees the page, not the item | [verified](34-slate-vs-item-evaluation/runs/) |
+| [`31-llm-ranking`](31-llm-ranking/) | The LLM listwise reorder over the cascade top | [mechanism + audit run](31-llm-ranking/runs/) |
+| [`32-recommendation-rlhf`](32-recommendation-rlhf/) | Preference optimization over click labels | [mechanism + audit run](32-recommendation-rlhf/runs/) |
+| [`33-multimodal-recall`](33-multimodal-recall/) | VLM content vectors as the cold-start bridge | [mechanism + audit run](33-multimodal-recall/runs/) |
+| [`34-slate-vs-item-evaluation`](34-slate-vs-item-evaluation/) | The metric that sees the page, not the item | [mechanism + audit run](34-slate-vs-item-evaluation/runs/) |
 
 ## The label and objective track (stages 56-63)
 

@@ -945,6 +945,11 @@
               },
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/recommendation/31-llm-ranking/when-the-output-cannot-be-parsed/index",
+                "label": "When the output cannot be parsed"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/recommendation/31-llm-ranking/when-the-prompt-token-budget-binds/index",
                 "label": "When the prompt token budget binds"
               }
@@ -958,6 +963,11 @@
               "id": "02-personalized-discovery/recommendation/32-recommendation-rlhf/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/32-recommendation-rlhf/when-the-preference-cycles/index",
+                "label": "When the preference cycles"
+              },
               {
                 "type": "doc",
                 "id": "02-personalized-discovery/recommendation/32-recommendation-rlhf/when-the-preference-is-noisy/index",
@@ -978,6 +988,11 @@
               "id": "02-personalized-discovery/recommendation/33-multimodal-recall/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/33-multimodal-recall/when-the-content-vector-is-low-quality/index",
+                "label": "When the content vector is low quality"
+              },
               {
                 "type": "doc",
                 "id": "02-personalized-discovery/recommendation/33-multimodal-recall/when-the-image-is-cold/index",
@@ -1002,6 +1017,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-metric-misses-diversity/index",
                 "label": "When the metric misses diversity"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-position-matters/index",
+                "label": "When the position matters"
               },
               {
                 "type": "doc",

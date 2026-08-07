@@ -39,6 +39,63 @@ expensive: the prompt grows with the list, which is why the LLM sits at
 the top of a cascade over a short list, never over the whole candidate
 set.
 
+## How you find it: the prompt-order audit, executed
+
+The LLM reorder has a failure mode the pointwise ranker never faces:
+the same candidate set can rank differently just because the prompt
+wrote the candidates in a different order. The mean displacement
+cannot see it — the aggregate hides which queries the prompt writing
+actually decides. The run ([record](runs/2026-08-07-rank-order-audit.md))
+emits a 20-query log, ranks each query under a forward and a reversed
+prompt, and stratifies the displacement:
+
+| stratum | queries | swing | mean displacement |
+|---|---:|---:|---:|
+| head | 10 | 0 | 0.000 |
+| tail | 10 | 10 | 1.040 |
+
+The verdict is PROMPT ORDER SWINGS THE REORDER IN THE TAIL: head
+rankings are stable (0/10 swing) while every tail query changes with
+the written order, at a mean displacement of 1.04 positions per
+document. The aggregate displacement of 0.520 is a head artifact —
+every unit of prompt-order sensitivity lives where the preference is a
+judgment call. Sun et al. ("Is ChatGPT Good at Search?", arXiv:2304.09542,
+2023) documents the reordering behavior of LLM rankers, and Qin et al.
+("LLMs are Effective Text Rankers with Pairwise Ranking Prompting",
+arXiv:2306.17563) shows how the way candidates are presented changes
+the LLM's verdict. The decision that follows: gate the reorder on
+forward-versus-reverse tail agreement, and where it swings keep the
+pointwise order or sample the LLM more than once and aggregate.
+
+## Who owns the loop
+
+The LLM ranker sits on top of a cascade, and every handoff around it is
+where the reorder fails:
+
+- **The ranking team** owns the prompt: the candidate presentation
+  order, the instruction, and the forward-versus-reverse stability
+  check that gates the reorder. The [when-the-llm-disagrees
+  detour](when-the-llm-disagrees/) is its failure mode — head
+  disagreement is the LLM doing its job, tail disagreement is the LLM
+  being wasted.
+- **The serving or inference team** owns the token and latency budget,
+  the parsing and validation of the text answer, and the fallback to
+  the pointwise order. The [token-budget
+  detour](when-the-prompt-token-budget-binds/) and the
+  [output-parse detour](when-the-output-cannot-be-parsed/) are its
+  failure modes — a truncated candidate is invisible to the LLM, and
+  an unparseable answer is not a ranking.
+- **The evaluation team** owns the head/tail measurement, the
+  offline/online consistency check, and the sample-and-aggregate
+  decision when the tail swings. Its boundary is the served page: a
+  reorder approved in the middle of the list changes nothing the user
+  sees.
+
+When the ownership is implicit, prompt writers tune against head
+queries, serving trusts the text, and nobody owns the tail — so the
+aggregate displacement of 0.520 approves a reorder whose every swing
+is a tail judgment call.
+
 ## Why this belongs in the mission
 
 The funnel's arithmetic (stage 08's latency budget) decides where a
@@ -47,7 +104,8 @@ its cost is prompt length, so the budget is measured in tokens, and the
 cutoff question is the same one stage 22 asked in milliseconds. The
 mission's frontier claim is not that LLMs replace the funnel — it is
 that they occupy the position the latency budget allows, and the
-disagreement and token-budget detours price the two failure modes.
+disagreement, token-budget, and output-parse detours price the three
+failure modes.
 
 ## Evidence boundary
 
@@ -104,3 +162,10 @@ Another detour: [the prompt token budget binds and becomes the
 recall boundary](when-the-prompt-token-budget-binds/) — the executed
 truncation read: d5 scores 0.99 but sits outside the budget, so the LLM
 never sees it and the pointwise order decides its fate.
+
+And a third: [the text answer is not a
+list](when-the-output-cannot-be-parsed/) — the executed parse read:
+5 of 12 raw answers are not valid permutations, and the naive parse
+silently serves five dropped documents and one phantom ID; the
+structural check and resample repair all five at the cost of one extra
+inference call each.

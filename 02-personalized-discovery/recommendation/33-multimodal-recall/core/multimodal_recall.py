@@ -7,12 +7,55 @@ coverage for cold items.
 
 Run:
     uv run python core/multimodal_recall.py
+    uv run python core/multimodal_recall.py --emit-log /tmp/modality-coverage-envelope.json
+
+The `--emit-log` flag writes the audit cohort: 20 items — 10 head and
+10 tail — with the modalities each item has vectors for. Head items
+have both image and text vectors; tail items have exactly one, so they
+are reachable through one surface only. The production path in
+`prod/modality_coverage_audit.py` measures coverage per stratum, the
+case-finding that shows which items a query of a given modality can
+never see.
 """
 
 from __future__ import annotations
 
+import argparse
+import json
+from pathlib import Path
 
-def main() -> None:
+# Audit cohort: items with the modality vectors they have. Head items
+# carry both image and text vectors; tail items carry exactly one, so
+# a query of the missing modality cannot reach them.
+AUDIT_ITEMS = {
+    "head": [
+        {"name": "h1", "image": True, "text": True},
+        {"name": "h2", "image": True, "text": True},
+        {"name": "h3", "image": True, "text": True},
+        {"name": "h4", "image": True, "text": True},
+        {"name": "h5", "image": True, "text": True},
+        {"name": "h6", "image": True, "text": True},
+        {"name": "h7", "image": True, "text": True},
+        {"name": "h8", "image": True, "text": True},
+        {"name": "h9", "image": True, "text": True},
+        {"name": "h10", "image": True, "text": True},
+    ],
+    "tail": [
+        {"name": "t1", "image": True, "text": False},
+        {"name": "t2", "image": True, "text": False},
+        {"name": "t3", "image": True, "text": False},
+        {"name": "t4", "image": True, "text": False},
+        {"name": "t5", "image": True, "text": False},
+        {"name": "t6", "image": False, "text": True},
+        {"name": "t7", "image": False, "text": True},
+        {"name": "t8", "image": False, "text": True},
+        {"name": "t9", "image": False, "text": True},
+        {"name": "t10", "image": False, "text": True},
+    ],
+}
+
+
+def render() -> None:
     # (item, has image vector, has text vector, has interactions)
     items = [
         ("item_a", True, True, True),
@@ -42,5 +85,15 @@ def main() -> None:
     print("is the frontier version of stage 01's content understanding.")
 
 
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--emit-log", help="write the audit cohort as JSON")
+    args = parser.parse_args()
+    render()
+    if args.emit_log:
+        Path(args.emit_log).write_text(json.dumps({"items": AUDIT_ITEMS}))
+    return 0
+
+
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

@@ -52,6 +52,7 @@ not the lesson; it is the checklist an auditor runs against the section.
 | Domain | Failure mode | Stage that owns it | Technique class |
 |---|---|---|---|
 | Recommendation | Sparse labels | sample construction, label generation | entire-space funnel, multi-task, label smoothing |
+| Recommendation | AUC-label seesaw | model structure, evaluation | stratified AUC, calibration guardrails, multi-task gating |
 | Recommendation | Delayed feedback | label window, freshness | windowing, fake-negative correction, survival-style weighting |
 | Recommendation | Exposure bias | data collection, logging | IPS, propensity estimation, exploration traffic |
 | Recommendation | Cold start | retrieval, features | content embeddings, warm-start priors |
@@ -345,11 +346,88 @@ the A/B and traffic-split detail belongs most.
 
 ### Personalized discovery — recommendation 31-34 (frontier)
 
+**Status: done (fifth audit increment, 2026-08-07).**
+
+Stages 31-34 now satisfy the contract, each with an executed case-finding
+audit, a who-owns-the-loop section, dated citations, and three detours:
+
+- 31 LLM ranking: prompt-order audit over a 20-query log (head/tail
+  stratification; head swings 0/10 with displacement 0.000 while tail
+  swings 10/10 with displacement 1.040 — PROMPT ORDER SWINGS THE
+  REORDER IN THE TAIL verdict); ownership split across ranking/serving/
+  evaluation teams; Sun et al. 2023 (arXiv:2304.09542), Qin et al. 2023
+  (arXiv:2306.17563); detours: llm-disagrees, prompt-token-budget, and
+  the output that cannot be parsed (5/12 responses invalid, naive parse
+  serves 5 dropped docs plus a phantom; validate-and-resample repairs
+  5/5 at the cost of 5 extra inference calls).
+- 32 recommendation RLHF: pair-margin audit over a 20-pair log (head
+  mean margin 1.140 with 0/10 flips, tail mean margin 0.039 with 4/10
+  flips — NEAR-TIE PREFERENCES FLIP UNDER LABEL NOISE verdict);
+  ownership split across labeling/ranking/evaluation teams; Rafailov et
+  al. NeurIPS 2023, Zhang et al. ICML 2025 (arXiv:2410.02197); detours:
+  preference-is-noisy, reward-is-gamed, and the preference cycle the
+  scalar model cannot hold (A>B> C>A: Elo fit predicts 2/3 edges wrong
+  and the last-update swing 0.659 never decays).
+- 33 multimodal recall: modality-coverage audit over a 20-item log
+  (head both-modality 100%/single 0%, tail single 100% — SINGLE-
+  MODALITY ITEMS ARE HALF-REACHABLE verdict, aggregate reachable 100%
+  hides it); ownership split across content-embedding/serving/
+  evaluation teams; Radford et al. ICML 2021, Liang et al. NeurIPS
+  2022; detours: image-is-cold, modality-mismatch, and the content
+  vector that is low quality (recall@3 drops from 8/8 clean to 2/4
+  low-quality; displaced items lose to other categories' items).
+- 34 slate-vs-item evaluation: metric-agreement audit over a
+  20-comparison log (head agrees 10/10, tail flips 0/10 — THE METRICS
+  AGREE ON HEAD SLATES AND FLIP ON TAIL SLATES verdict); ownership
+  split across ranking/evaluation/serving teams; Ie et al. IJCAI 2019,
+  Craswell et al. WSDM 2008; detours: slate-is-diverse,
+  metric-misses-diversity, and the position that matters (relevance
+  best 0.95 item in slot three clicks 0.285 vs the promoted 0.90 item
+  at 0.900 — clicks measure the slot, not the item).
+
+The offline-consistency and reward-gaming depth the 56-63 audit
+established is now present: stage 32 carries the gamed-reward detour
+and stage 34 carries the position-bias case that explains why raw
+click feedback cannot stand in for slate value.
+
+### Personalized discovery — recommendation model structure and label health
+
 **Status: pending.**
 
-Audit LLM ranking, recommendation RLHF, multimodal recall, slate evaluation.
-Add the offline-consistency and reward-gaming depth that the 56-63 audit
-established as the standard.
+Audit the two failure modes the reader meets first on the job, in the
+56-63 and 31-34 stages that own them:
+
+- **AUC-label seesaw.** The model structure that optimizes one objective
+  at the visible cost of another: aggregate AUC up while a segment's AUC
+  drops (head/tail or slice trade, gradient dominated by the dense
+  slice), one objective's AUC up while another's drops (multi-task
+  conflict, label-density and delay mismatch between click and order),
+  and AUC up while calibration drifts (ranking losses separate scores
+  without preserving their meaning, breaking downstream pCTR consumers).
+  Audit must show the case-finding per variant — the stratified AUC
+  matrix by head/tail and slice, per-task AUC plus per-task calibration,
+  calibration slope/intercept per decile — and the fix with its trade:
+  slice weighting or separate towers (MMoE/PLE-style gating) against head
+  cost, task weighting and gradient surgery against dominant-task drift,
+  a calibration layer kept separate from the ranking head against the
+  latency of a second model. Owned by the model team with the evaluation
+  team holding the per-slice guardrail.
+- **Sparse labels.** The objective's labels are rare, empty, or slow:
+  cold users, cold items, low-velocity surfaces, purchase-class labels.
+  Audit must show the case-finding as a label-density report by slice
+  (per user, per item, per surface) and the delay distribution, then the
+  fix by layer — sample and label construction (smoothing, longer
+  windows, surrogate label hierarchies, PU treatment of implicit
+  feedback), model structure (warm-start and transfer from the dense
+  task, multi-task sharing, content embeddings for the cold slice), and
+  delay-aware training (window with fake-negative correction,
+  survival-style weighting) — each with the trade it charges, and the
+  evaluation consequence: no single aggregate AUC, stratified metrics
+  with wider confidence on the sparse slice.
+
+This is the depth that serves the interview's operational question on
+model detail: what breaks, where you see it in the numbers, what you
+change, and which guardrail proves it worked.
 
 ### Language-model system — 00-07
 

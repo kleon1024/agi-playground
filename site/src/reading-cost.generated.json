@@ -525,21 +525,29 @@
   },
   "02-personalized-discovery/recommendation": {
     "level": "applied",
-    "minutes": 1
+    "minutes": 2
   },
   "02-personalized-discovery/recommendation/31-llm-ranking": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 6
   },
   "02-personalized-discovery/recommendation/31-llm-ranking/when-the-llm-disagrees": {
     "level": "applied",
     "minutes": 2
+  },
+  "02-personalized-discovery/recommendation/31-llm-ranking/when-the-output-cannot-be-parsed": {
+    "level": "applied",
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/31-llm-ranking/when-the-prompt-token-budget-binds": {
     "level": "applied",
     "minutes": 2
   },
   "02-personalized-discovery/recommendation/32-recommendation-rlhf": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/recommendation/32-recommendation-rlhf/when-the-preference-cycles": {
     "level": "applied",
     "minutes": 3
   },
@@ -553,6 +561,10 @@
   },
   "02-personalized-discovery/recommendation/33-multimodal-recall": {
     "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/recommendation/33-multimodal-recall/when-the-content-vector-is-low-quality": {
+    "level": "applied",
     "minutes": 3
   },
   "02-personalized-discovery/recommendation/33-multimodal-recall/when-the-image-is-cold": {
@@ -565,9 +577,13 @@
   },
   "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-metric-misses-diversity": {
+    "level": "applied",
+    "minutes": 2
+  },
+  "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-position-matters": {
     "level": "applied",
     "minutes": 2
   },

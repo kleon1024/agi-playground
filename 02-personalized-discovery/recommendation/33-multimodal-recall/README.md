@@ -42,6 +42,56 @@ embeds the description, and either vector gives the cold item a place
 in the index. Item e has neither, so it stays unreachable: a cold item
 is only as retrievable as its available content.
 
+## How you find it: the modality-coverage audit, executed
+
+The failure mode this stage prices is the single-modality item: an item
+with one vector is reachable through one surface only, so a query of
+the missing modality can never see it. The aggregate "reachable"
+figure hides the defect, so the audit
+([record](runs/2026-08-07-modality-coverage-audit.md)) stratifies a
+20-item log by head and tail and reports coverage per surface:
+
+| stratum | items | image | text | both | single |
+|---|---|---:|---:|---:|---:|
+| head | 10 | 100% | 100% | 100% | 0% |
+| tail | 10 | 50% | 50% | 0% | 100% |
+
+**Verdict:** SINGLE-MODALITY ITEMS ARE HALF-REACHABLE. The aggregate
+reachable figure of 100% hides that image-only tail items are invisible
+to text queries and text-only items to image queries — half the query
+surfaces miss every tail item. **Decision:** report coverage per
+modality, and for a single-modality item fall back to the modality it
+has or synthesize the missing one (Radford et al. 2021; Liang et al.
+2022).
+
+## Who owns the loop
+
+Three teams keep the cold-start loop working, and each owns a piece of
+what breaks:
+
+- **The content-embedding team** owns what a vector is worth. The
+  [low-quality-content detour](when-the-content-vector-is-low-quality/)
+  is theirs: a blurry image or auto-tag text produces a noisy embedding
+  that is reachable but not retrievable, so they own the quality gate
+  before embedding and the re-embed when the source improves.
+- **The serving and indexing team** owns which queries can find which
+  items. The [cold-image detour](when-the-image-is-cold/) is theirs: an
+  interaction-free item is only as reachable as the modality it has, so
+  they own per-item modality routing and the ANN index shape that
+  either surface queries.
+- **The evaluation and relevance team** owns the per-surface coverage
+  report. The [modality-mismatch detour](when-the-modality-mismatch/)
+  is theirs: a text query systematically ranks text-rich items above
+  image-only ones even at equal relevance, so their metrics have to
+  report image and text coverage separately, not one blended recall
+  number.
+
+The implicit-ownership consequence: when coverage is reported only in
+the aggregate, no team is accountable for the tail items a query
+surface silently misses — the embedding team ships vectors, the serving
+team answers queries, and the evaluation team reads a 100% figure, so
+the single-modality defect lives between all three.
+
 ## Why this belongs in the mission
 
 The mission's recall rule is that downstream stages cannot repair what
@@ -49,8 +99,8 @@ was never retrieved. Cold start is where that rule bites hardest: the
 items the system knows least about are the ones whose quality it must
 guess. The VLM is the bridge — the frontier version of stage 01's
 content understanding — and it decides which modalities an item can be
-reached through, which the cold-image and modality-mismatch detours
-price.
+reached through, which the cold-image, modality-mismatch, and
+low-quality-content detours price.
 
 ## Evidence boundary
 
@@ -105,3 +155,8 @@ Another detour: [the modality mismatch biases recall toward
 text-rich items](when-the-modality-mismatch/) — the executed read: the
 image-only item scores 0.60 through the cross-modal gap against 0.82
 for the text item, even when the image is relevant.
+
+A third detour: [the low-quality content vector is reachable but not
+retrievable](when-the-content-vector-is-low-quality/) — the executed
+read: recall@3 drops from 8/8 for clean content to 2/4 for low-quality
+content, and the displaced items lose to other categories' items.
