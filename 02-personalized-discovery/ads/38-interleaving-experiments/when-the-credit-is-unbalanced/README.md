@@ -36,6 +36,26 @@ documents silently blur the comparison: a click on common content
 credits both teams, and the experiment reports a difference the teams
 did not cause. The tie rule is what keeps the credit honest.
 
+## The fix and its trade
+
+The fix is a declared tie rule, chosen before the experiment runs and
+applied to every shared document. The options trade different things:
+credit the first proposal (simple, but rewards list position), split
+the credit randomly (unbiased on average, but adds the variance the
+blend-bias detour measures), split the credit between the teams (both
+get partial credit, but the experiment must decide how much), or remove
+shared documents from the credit entirely (cleanest, but shrinks the
+usable traffic and can leave the comparison under-powered). The Team
+Draft interleaving design credits a shared document to whichever team
+was drafting when it was picked, so the tie is decided by the draft
+order itself (Radlinski, Kurup & Joachims, 2008, CIKM); Chapelle et al.
+(2012, TOIS) validate interleaving methods against two commercial
+search engines and find the method choice and its tie handling change
+the outcome, which is why the rule must be fixed before the run. The
+trade is that any rule is a decision about where ambiguous credit goes,
+and an implicit or ad hoc rule makes the experiment's winner a property
+of the rule, not of the rankings.
+
 ## Evidence boundary
 
 The executed check over one declared click (illustrative, deterministic,

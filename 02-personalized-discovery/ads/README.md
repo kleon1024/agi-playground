@@ -70,3 +70,26 @@ the auction's decision loop actually meets in production.
 | [`41-llm-creative-generation`](41-llm-creative-generation/) | The creative as generated text | [verified](41-llm-creative-generation/runs/) |
 | [`42-marketplace-economics`](42-marketplace-economics/) | The marginal ad that stops paying for its displacement | [verified](42-marketplace-economics/runs/) |
 | [`54-advertiser-roas`](54-advertiser-roas/) | The advertiser's return as the platform's revenue | [verified](54-advertiser-roas/runs/) |
+
+The frontier track reads the same loops under harder conditions. Every
+stage carries an executed case-finding audit with measured runs:
+interleaving shows the blend policy, not the ranking, can hand the win
+to one team; first-price bidding shows the shade estimate decides the
+net; privacy-safe attribution shows the noise flips the order that
+spends the budget; LLM creative generation shows the surface score
+picks the creative that does not convert; marketplace economics shows
+the demand curve sets the revenue peak; advertiser ROAS shows the
+average hides the margin.
+
+Detours off the frontier track: [the blend biases the
+credit](38-interleaving-experiments/when-the-blend-biases-the-credit/),
+[the competition the bidder never
+probes](39-first-price-transition/when-the-competition-is-unobservable/),
+[more channels move the
+budget](40-privacy-safe-attribution/when-the-noise-flips-the-order/),
+[the generator collapses to the train
+set](41-llm-creative-generation/when-the-generator-collapses-to-the-train-set/),
+[the demand curve is
+elastic](42-marketplace-economics/when-the-demand-curve-is-elastic/),
+and [the average hides the
+margin](54-advertiser-roas/when-the-average-hides-the-margin/).

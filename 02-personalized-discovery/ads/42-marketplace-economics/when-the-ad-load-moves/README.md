@@ -37,6 +37,23 @@ organic slot, and the displacement is the same trade stage 18's
 externality priced, now set by the platform choosing how many ads a page
 carries.
 
+## The fix and its trade
+
+The fix is to set the load at the measured total-value peak and to
+price each slot against the organic value it displaces, the same
+externality stage 18 priced per ad: add a slot only while its marginal
+revenue covers the organic value it pushes out, and measure that
+displacement instead of assuming it. The trade is that the fix gives
+up ad revenue per page in exchange for organic retention and session
+value: at the executed peak the platform leaves the third ad's revenue
+on the table, and the organic-value curve must be re-measured as the
+product, feed, and cohort change, because the displacement is not a
+constant. The load decision is part of the platform's marketplace
+economics, not a separate revenue default — ad load and take rate are
+the same peak-shaped trade (Evans 2009, "The Online Advertising
+Industry: Economics, Evolution, and Privacy", Journal of Economic
+Perspectives 23(3):37-60).
+
 ## Evidence boundary
 
 The executed sweep over a declared ten-slot page (illustrative,

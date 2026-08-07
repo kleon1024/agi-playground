@@ -39,6 +39,30 @@ that is a product decision about relevance and placement. The exit is
 not a bidding failure; it is the measurement of the platform's own
 return losing to another channel's.
 
+## The fix and its trade
+
+The fix is honest incrementality on both sides. The platform reports
+the measured incremental return instead of the attributed one, so the
+advertiser's allocation is set against the number that survived an
+experiment — stage 30's discipline, and the eBay field experiment is
+the warning: paid search ads cut, sales barely moved for most queries,
+so the attributed average had over-credited the ads (Blake, Nosko, and
+Tadelis 2015, "Consumer Heterogeneity and Paid Search Effectiveness: A
+Large-Scale Field Experiment", Econometrica 83(1):155-174, doi
+10.3982/ECTA12423). The advertiser's fix is to allocate on marginal or
+incremental return rather than the channel average, which is how modern
+bid systems already optimize ("Optimize for marginal ROI instead of
+average ROI", Google Ads support,
+support.google.com/google-ads/answer/12850633, consulted 2026-08-08).
+The trade is that incrementality is the expensive, slow measurement:
+every allocation decision waits on an experiment, and while the numbers
+are imprecise — Lewis and Rao (2015, "The Unfavorable Economics of
+Measuring the Returns to Advertising", Quarterly Journal of Economics
+130(4):1941-1973, doi 10.1093/qje/qjv023) found even large experiments
+leave returns too noisy to guide budgets — the platform can lose share
+to a rival channel's confidently wrong average before its own honest
+number is ready.
+
 ## Evidence boundary
 
 The executed split over declared ROAS values (illustrative,

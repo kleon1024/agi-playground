@@ -38,6 +38,21 @@ generator prefers. LLM generation needs a diversity control
 (temperature, repetition penalty) or the collapse silently turns the
 generate-then-select pipeline into generate-then-copy.
 
+## The fix and its trade
+
+The fix is diversity control at generation: raise temperature, apply a
+repetition penalty, or sample a structured batch that forces distinct
+messages before scoring. The trade is that every diversity lever spends
+coherence — a higher temperature pushes the generator off its preferred
+mode, but that mode is where the copy reads naturally, so the diverse
+batch contains more unusable output and the scorer has to separate
+novel-but-good from novel-but-gibberish. The executed collapse is the
+mode-seeking failure Keon et al. (2025, "Galton's Law of Mediocrity",
+arXiv:2509.25767) measure in advertising generation: regeneration is
+longer and more varied than the corpus but fails to recover depth and
+distinctiveness, so a diversity knob without a measured distinctness
+check just produces longer near-copies.
+
 ## Evidence boundary
 
 The executed normalization over three declared variants (illustrative,

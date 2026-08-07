@@ -36,6 +36,23 @@ revenue. A revenue forecast that assumes naive bidding overstates the
 steady state: the first-price rule looks good on launch day and decays
 as the demand side learns.
 
+## The fix and its trade
+
+The fix is to forecast the transition, not the launch: model the
+learning curve — bidders shading from 1.00 toward the optimum over
+time — and price the steady state the market will actually settle at,
+not the naive day-one number. The measured decay, \$0.95 to \$0.42,
+is the size of the miss a naive forecast carries. The trade is that
+the forecast is only as good as the assumed learning speed, and the
+platform's own levers move that speed: a reserve floor or a
+demand-side tool that teaches bidders to shade slows or accelerates
+the decay, so the forecast and the product decision are coupled. A
+platform that wants the revenue line to hold can also price the rule
+change's cost into its demand-side service (stage 28's auction-revenue
+read shows the same erosion), at the price of charging advertisers for
+the efficiency that cost them less — a margin the market may treat as
+just another take-rate increase.
+
 ## Evidence boundary
 
 The executed learning curve over three declared phases (illustrative,

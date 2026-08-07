@@ -37,6 +37,24 @@ grows. The shape is the same as the reserve (stage 28) and the ad load:
 a platform lever that prices its own market out of existence when
 pushed too far.
 
+## The fix and its trade
+
+The fix is to price the rate at the measured revenue peak instead of
+raising it toward the per-transaction ceiling: estimate the actual
+volume-response curve first, then set the rate at the curve's peak and
+move it only against measured response. The stage's own elasticity
+audit ([run](../runs/2026-08-08-elasticity-sweep.md)) is the same
+discipline — the peak sits at 42.0% on a sticky market and 25.0% on an
+elastic one, so a rate that is "too high" is a function of the demand
+curve, not a number. The trade is that the fix costs the platform the
+revenue it could extract in the short run, and it needs the measured
+elasticity, which only a live marketplace provides: every point of
+take rate above the peak buys per-transaction cut at the price of
+volume, and the same rate can be the optimum on one curve and the
+collapse on another (Rysman 2009, "The Economics of Two-Sided
+Markets", Journal of Economic Perspectives 23(3):125-143, doi
+10.1257/jep.23.3.125).
+
 ## Evidence boundary
 
 The executed sweep over a declared volume-response model (illustrative,

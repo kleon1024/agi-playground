@@ -38,6 +38,25 @@ The score has to be calibrated against real delivery before it decides;
 an uncalibrated surface score is stage 16's pCTR problem repeated at
 the creative level.
 
+## The fix and its trade
+
+The fix is to score against measured delivery, not surface appearance:
+train the creative score on delivered-impression CTR, hold back a
+rotation of creatives to keep collecting fresh measurements, and treat
+the surface score as a prior that delivery evidence overrides. The
+trade is that measured CTR arrives slowly and only for what was
+actually delivered — a new creative has no measurement until it has
+run, so the pipeline must either pay exploration impressions to learn
+it or trust the surface prior and risk shipping the wrong creative.
+That missing feedback loop is exactly what the CAMERA benchmark
+standardizes in Mita et al. (2024, "Striking Gold in Advertising:
+Standardization and Exploration of Ad Text Generation", ACL 2024,
+aclanthology.org/2024.acl-long.54): ad text generation has no standard
+evaluation, so generators are scored on whatever each lab invents,
+which is how a surface score that flatters the writer survives instead
+of a CTR that pays the bills. Stage 16's calibration discipline is the
+same medicine at the creative level.
+
 ## Evidence boundary
 
 The executed comparison over three declared creatives (illustrative,

@@ -336,8 +336,8 @@ three detours:
 
 ### Personalized discovery — ads 14-18, 25-30, 38-42, 54
 
-**Status: done for 14-18 and 25-30 (fourth and seventh audit
-increments, 2026-08-07/08); pending for 38-42, 54.**
+**Status: done for 14-18, 25-30, and 38-42/54 (fourth, seventh, and
+eighth audit increments, 2026-08-07/08).**
 
 Stages 14-18 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
@@ -462,10 +462,78 @@ Stages 25-30 now satisfy the same contract (seventh audit increment,
   10,000 users per arm against a 0.4-point increment; 80% power needs
   28,547 users per arm — the experiment is sized for the effect).
 
-Audit inventory for 38-42, 54 remains pending: interleaving, first-
-price transition, privacy-safe attribution, LLM creative generation,
-marketplace economics, advertiser ROAS. Ads is where the A/B and
-traffic-split detail belongs most.
+Stages 38-42 and 54 now satisfy the same contract (eighth audit
+increment, 2026-08-08):
+
+- 38 interleaving: position-credit asymmetry audit over 10,000 sessions
+  on the stage's own position-click model (naive blend credits A 59.2%/
+  B 40.8% against equal teams; balanced random start restores 49.7%/
+  50.3% — THE BLEND DECIDES THE WINNER verdict, the winner changes
+  with the credit rule); ownership split across experimentation/
+  ranking/delivery teams; Joachims et al. 2005 SIGIR, Radlinski &
+  Craswell 2010 SIGIR, Schuth/Hofmann/Radlinski 2015 SIGIR, Zhang et
+  al. 2025 arXiv:2508.00751; detours: blend-biases-the-credit (naive
+  credits A 59.3% and at 200,000 sessions misses the true 50/50 by 78
+  standard errors; the random-start fix costs 3.6% more sessions),
+  traffic-is-tiny (800 users never reach significance where
+  interleaving ships at 400), credit-is-unbalanced (a document in both
+  rankings credits both teams without a tie rule).
+- 39 first-price transition: shading-error audit holding the bidder's
+  belief fixed (U[0,1] belief vs stronger U[0.3,1.3] truth loses 0.022
+  per auction; vs weaker U[0,0.4] loses 0.100 of the 0.250 optimum —
+  THE ESTIMATE DECIDES THE NET verdict, belief error squared over four
+  lands directly in net); ownership split across bidder/auction/
+  forecast teams; Vickrey 1961, Edelman/Ostrovsky/Schwarz 2007, Varian
+  2007, Google first-price transition (2019-09-04); detours:
+  competition-is-unobservable (100 trials per probe moves the fitted
+  optimum to 0.60 and loses 0.011 per auction — the second-price log
+  that revealed competitor bids is gone), shading-is-wrong,
+  market-adjusts (platform revenue falls from \$0.95 to \$0.42 per
+  auction as bidders learn to shade).
+- 40 privacy-safe attribution: epsilon-flip audit over 1,000 draws per
+  level (at the stage's epsilon 2.0 the close pair flips 12.9% and
+  twelve weekly reports flip at least once with 81% probability; at
+  0.5 the top-1 flips 16.7% — THE NOISE FLIPS THE ORDER THAT SPENDS
+  THE BUDGET verdict, epsilon must clear the gap that matters);
+  ownership split across privacy-dial/report-shape/budget-split teams;
+  Dwork 2006 ICALP, PoPETs 2024 arXiv:2403.15224, arXiv:2406.02463,
+  Apple AdAttributionKit (WWDC24); detours: noise-flips-the-order (six
+  channels flip 87.6% vs 12.3% for three at epsilon 2.0 — report shape
+  is a privacy cost), noise-is-too-high, budget-splits (100 reports
+  dilute epsilon 2.0 to 0.02 each with noise scale 50).
+- 41 LLM creative generation: surface-score audit over 5,000 batches of
+  10 variants (surface selection misses the CTR-best on 55.1% of
+  batches with 7.3% mean relative CTR loss, chosen 0.0848 vs best
+  0.0914 — THE SURFACE SCORE PICKS THE CREATIVE THAT DOES NOT CONVERT
+  verdict); ownership split across generation/selection/delivery
+  teams; Keon et al. 2025 arXiv:2509.25767, Mita et al. 2024 ACL
+  long.54; detours: generator-collapses-to-the-train-set (collapse 0.6
+  cuts delivered CTR from 0.0911 to 0.0515 with 59.8% re-runs and a
+  0.0406 within-flight decay), score-is-on-surface,
+  generated-creative-is-identical (three variants normalize to two
+  messages, so selection is choosing between a copy and a punctuation
+  edit).
+- 42 marketplace economics: elasticity sweep over three demand slopes
+  (peak 42.0% on the sticky curve, 31.0% on the stage's curve, 25.0%
+  on the elastic one; the fixed 35% earns \$203 vs \$105 across the
+  outer curves, 48% apart — THE DEMAND CURVE SETS THE PEAK verdict, a
+  rate fitted to one curve is a bet on one market); ownership split
+  across pricing/two-sided-growth/finance-ads-operations teams; Rysman
+  2009 JEP, Rochet & Tirole 2003 JEEA, Weyl 2010 AER, Evans 2009 JEP;
+  detours: demand-curve-is-elastic (two-sided peak 21.0% vs one-sided
+  31.0%, and pricing at the one-sided optimum earns 15% below the
+  two-sided peak), take-rate-is-too-high, ad-load-moves.
+- 54 advertiser ROAS: marginal-versus-average audit over \$500
+  increments (average ROAS stays above 5.0 from \$1,000 to \$3,000
+  while marginal ROAS falls to 1.96; cutting from the top loses \$980
+  per \$500 where the first increment loses \$2,604 — THE AVERAGE HIDES
+  THE MARGIN verdict, the budget decided on average ROAS keeps
+  spending where the next dollar already loses); ownership split
+  across media-buyer/measurement/finance-reporting teams; Blake/Nosko/
+  Tadelis 2015 Econometrica, Lewis & Rao 2015 QJE, Google Ads
+  marginal-ROAS support doc (consulted 2026-08-08); detours:
+  average-hides-the-margin (the marginal dollar returns 1.96x while
+  the average says 5.21x), roas-collapses, budget-moves.
 
 ### Personalized discovery — recommendation 31-34 (frontier)
 

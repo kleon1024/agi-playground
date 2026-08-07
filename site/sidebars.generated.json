@@ -915,6 +915,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/ads/38-interleaving-experiments/when-the-blend-biases-the-credit/index",
+                "label": "When the blend biases the credit"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/ads/38-interleaving-experiments/when-the-credit-is-unbalanced/index",
                 "label": "When the credit is unbalanced"
               },
@@ -933,6 +938,11 @@
               "id": "02-personalized-discovery/ads/39-first-price-transition/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/39-first-price-transition/when-the-competition-is-unobservable/index",
+                "label": "When the competition is unobservable"
+              },
               {
                 "type": "doc",
                 "id": "02-personalized-discovery/ads/39-first-price-transition/when-the-market-adjusts/index",
@@ -960,6 +970,11 @@
               },
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/ads/40-privacy-safe-attribution/when-the-noise-flips-the-order/index",
+                "label": "When the noise flips the order"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/ads/40-privacy-safe-attribution/when-the-noise-is-too-high/index",
                 "label": "When the noise is too high"
               }
@@ -977,6 +992,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/ads/41-llm-creative-generation/when-the-generated-creative-is-identical/index",
                 "label": "When the generated creative is identical"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/41-llm-creative-generation/when-the-generator-collapses-to-the-train-set/index",
+                "label": "When the generator collapses to the train set"
               },
               {
                 "type": "doc",
@@ -1000,6 +1020,11 @@
               },
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/ads/42-marketplace-economics/when-the-demand-curve-is-elastic/index",
+                "label": "When the demand curve is elastic"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/ads/42-marketplace-economics/when-the-take-rate-is-too-high/index",
                 "label": "When the take rate is too high"
               }
@@ -1017,6 +1042,11 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/ads/54-advertiser-roas/when-roas-collapses/index",
                 "label": "When ROAS collapses"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/ads/54-advertiser-roas/when-the-average-hides-the-margin/index",
+                "label": "When the average hides the margin"
               },
               {
                 "type": "doc",

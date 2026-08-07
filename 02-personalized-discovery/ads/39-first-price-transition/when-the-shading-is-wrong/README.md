@@ -36,12 +36,33 @@ too high and 60% too low cost the same. First-price bidding is an
 estimation problem: the bidder must guess the competition, and the
 guess's error is measured in lost net value.
 
+## The fix and its trade
+
+The fix is to treat the shading estimate as a distribution, not a
+point. The bidder does not know the competitor distribution; it knows
+an estimate of it, and the executed sweep prices the point-estimate
+error. The robust move is to bid the optimum of the *expected*
+distribution over the belief's uncertainty, or to add a margin on the
+side where error costs more — a brand advertiser who needs reach
+shades less (losing the win is the expensive failure), a margin-tight
+bidder shades more (overpaying is the expensive failure). The trade is
+that robustness gives up the peak: the point-estimate optimum's \$0.25
+is only available to a bidder whose belief is exactly right, and any
+hedge moves the operating point down the curve the sweep measured —
+\$0.16 on both sides of the peak in this model. The other half of the
+fix is buying signal, which the
+[competition-unobservable detour](../when-the-competition-is-unobservable/)
+prices: probing win rates is the only way the estimate's uncertainty
+shrinks, and probing spends margin.
+
 ## Evidence boundary
 
 The executed sweep over a declared value and win model (illustrative,
 deterministic, uniform competitor). It demonstrates the mechanism; real
 shading needs the actual competitor distribution, which is
-unobservable, so the estimate's error distribution has to be modeled.
+unobservable, so the estimate's error distribution has to be modeled —
+which is exactly what the fix-and-trade above does with the sweep's own
+numbers.
 
 ## Check your mental model
 

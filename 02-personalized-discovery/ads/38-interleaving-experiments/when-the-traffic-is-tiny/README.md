@@ -35,6 +35,25 @@ cancelling the user-level variance that forces the A/B's sample size.
 That is why interleaving is the standard online tool for ranking teams
 with limited traffic.
 
+## The fix and its trade
+
+The fix is to compare rankings inside the user session instead of
+between user groups, so the ranking effect is read against the same
+user's baseline. The trade is that interleaving trades the between-user
+A/B's clean separation for sensitivity: interleaving is roughly one to
+two orders of magnitude more sensitive than a between-user A/B on the
+same traffic (Schuth, Hofmann & Radlinski, 2015, SIGIR, measured on
+live search logs), and the Spotify confidence glossary puts it directly
+— interleaving is "dramatically more sensitive than traditional A/B
+testing for ranking problems." The cost of that sensitivity is
+interpretation: the credit model, the tie rule, and the blend must all
+be right, because a within-user design with a biased blend produces the
+confident wrong answer the blend-bias detour measures. The B2B
+(business-to-business) risk is the opposite one: an A/B that needs
+10,000 users may never reach significance at all, so the ranking team
+either ships unmeasured or waits for traffic it does not have —
+interleaving's 400-user budget exists precisely to avoid that.
+
 ## Evidence boundary
 
 The executed feasibility comparison over two declared sample sizes

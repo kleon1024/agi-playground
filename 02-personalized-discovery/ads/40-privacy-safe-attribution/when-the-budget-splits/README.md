@@ -36,6 +36,26 @@ and the noise each report must carry grows in proportion. The
 attribution team's appetite for reports and the accuracy of each report
 are the same decision, made once at the budget level.
 
+## The fix and its trade
+
+The fix is sequential-composition accounting: track every epsilon
+spend in a privacy ledger (a DP accountant), so the team sees the
+remaining budget the way it sees a spend budget, and plan the report
+schedule against the total instead of approving reports one at a time.
+The additive composition theorem makes the split exactly zero-sum —
+each report's epsilon consumes a share that every other report loses
+(Dwork 2006, ICALP; Delaney et al., "Differentially Private Ad
+Conversion Measurement", to appear PoPETs 2024, arXiv:2403.15224,
+which measures the ad-measurement analogue of the same trade). The
+trade is that accounting only prices the dilution, it does not stop
+it: the alternative is to stop publishing fine-grained per-report
+counts and move to a central aggregator or a trusted execution
+environment that computes the statistics once on raw data and adds a
+single round of noise, which trades per-report privacy against the
+operational cost and trust model of a central server — the two ends
+of the privacy-budget spectrum the stage's budget decision has to pick
+between.
+
 ## Evidence boundary
 
 The executed split over three declared report counts (illustrative,

@@ -36,6 +36,28 @@ signal the budget follows. Epsilon has to be chosen so the noisiest
 plausible draw still keeps the budget decision intact — the collapse
 point is a design constraint, not an accident.
 
+## The fix and its trade
+
+The fix is to set epsilon against the decision, not against a
+compliance floor: pick the noisiest plausible draw (the tail of the
+noise distribution at the chosen epsilon, not the average draw) and
+require that it still preserve the budget order the report must
+support. The stage audit gives the dial a number: at epsilon 2.0 the
+display/email pair flips on 12.9 percent of reports, so over twelve
+weekly reports the chance of at least one flipped allocation is about
+81 percent — a budget that moves on noise roughly once a quarter is
+not a budget decision, it is a lottery ticket. The trade is that
+raising epsilon to make the noisiest draw safe weakens the privacy
+guarantee the product promised, and the fallback is to change the
+decision instead of the dial: report fewer, larger splits (the
+granularity fix) or route the computation through a trusted
+aggregator that never publishes per-channel noise at all (Apple's
+AdAttributionKit crowd-anonymity buckets, WWDC24). Every option trades
+something the attribution team wanted — per-channel detail, a strict
+privacy bar, or a trust boundary — which is why the collapse point has
+to be decided with the budget team in the room, not by a privacy
+parameter alone.
+
 ## Evidence boundary
 
 The executed sweep over three declared epsilon levels with a fixed draw

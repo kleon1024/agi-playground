@@ -37,6 +37,25 @@ return hides that the next dollar loses money. The advertiser's "average"
 ROAS looks fine at \$3,000 of spend; the decision that matters is the
 return on the last dollar, which is already below the line.
 
+## The fix and its trade
+
+The fix is to scale against the marginal target, not the campaign
+average: the advertiser sets the spend level where the next dollar's
+return stops clearing the line, and the platform reports the marginal
+curve so the advertiser can see it. The stage's marginal audit
+([run](../runs/2026-08-08-marginal-roas.md)) is the same read — average
+ROAS stays above the target from \$1,000 to \$3,000 while marginal ROAS
+falls below it after the first increment — so a budget that scales on
+the average spends on dollars that return 1.96x. The trade is that the
+marginal curve is the expensive measurement: it needs incrementality
+experiments per audience segment, and Lewis and Rao (2015, "The
+Unfavorable Economics of Measuring the Returns to Advertising",
+Quarterly Journal of Economics 130(4):1941-1973, doi 10.1093/qje/qjv023)
+showed that even large experiments spanning millions of dollars of
+spend leave returns too imprecise to guide a budget — so the advertiser
+who scales on the average is choosing a confident wrong number over an
+expensive right one.
+
 ## Evidence boundary
 
 The executed scale-up over declared conversion decay (illustrative,
