@@ -64,6 +64,7 @@ const BUILD_PATH: Step[] = [
     note: 'Build the vocabulary that fixes every later token ID.',
     companions: [
       { href: `${MISSION}/01-tokenizer/is-it-the-same-tokenizer/`, label: 'Is it the same tokenizer' },
+      { href: `${MISSION}/01-tokenizer/the-characters-that-cost-the-most/`, label: 'The characters that cost the most' },
     ],
   },
   {

@@ -726,6 +726,20 @@ strings, model team owns the arithmetic consequence. The run is a labeled
 mechanism demo at vocab 4096 per the evidence-scale rule; no model was
 trained.
 
+The tokenizer row also now carries the per-class cost ledger the queue's
+aggregate-blindness row demanded (`the-characters-that-cost-the-most`,
+2026-08-08): the frozen 16,384-id tokenizer is read class by class — English
+0.24 tokens/char, CJK 2.96, emoji 4.00 — so a 4,096-token window holds 17,246
+characters of English but 1,382 of CJK, and the mixed-document ledger shows
+digit/CJK/emoji runs that are 17% of the characters spending 47% of the token
+budget. The aggregate chars/token is true and blind at once; the ledger is
+the case-finding step, the fix is a per-class budget contract, and the
+multilingual-vocab and arithmetic consequences are cited, dated external
+results (Ali et al., arXiv:2310.08754, Oct 2023; Singh and Strouse,
+arXiv:2402.14903, Feb 2024). Ownership split: tokenizer/training-data team
+owns the ledger and the freeze, eval team owns the per-class boundary suite,
+product team owns the per-class budget contract.
+
 Stage 07's eval-gate row is now executed (`eval-gates`, 2026-08-07): the
 release gate becomes a computation, not a meeting — a declared rule
 (per-category ceiling plus aggregate-delta) is swept over synthetic candidates

@@ -99,6 +99,14 @@ run. Read it before freezing anything, because a diverging export does not
 surface until stage 02, as a model that will not converge for reasons nobody
 attributes to the tokenizer.
 
+The freeze also deserves one more audit before it is irreversible: [some text
+costs an order of magnitude more](the-characters-that-cost-the-most/), the
+per-class token ledger — English at 0.24 tokens per character against CJK at
+2.96 and emoji at 4.00, which makes the "4,096-token window" a 1,382-CJK-
+character window and turns the product's token pricing into a per-language
+budget. Read it beside the tie-break audit, because both are decisions the
+aggregate chars/token number cannot see.
+
 ## Freeze it before you go on
 
 The tokenizer is now part of the model's contract. Changing it after stage 02

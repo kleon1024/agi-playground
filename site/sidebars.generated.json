@@ -92,6 +92,11 @@
           },
           {
             "type": "doc",
+            "id": "01-language-model/01-tokenizer/the-characters-that-cost-the-most/index",
+            "label": "The characters that cost the most"
+          },
+          {
+            "type": "doc",
             "id": "01-language-model/01-tokenizer/the-merges-that-build-the-vocab/index",
             "label": "The merges that build the vocab"
           }

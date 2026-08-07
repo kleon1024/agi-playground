@@ -43,6 +43,10 @@
     "level": "applied",
     "minutes": 7
   },
+  "01-language-model/01-tokenizer/the-characters-that-cost-the-most": {
+    "level": "applied",
+    "minutes": 7
+  },
   "01-language-model/01-tokenizer/the-merges-that-build-the-vocab": {
     "level": "applied",
     "minutes": 2
