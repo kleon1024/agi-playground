@@ -112,6 +112,42 @@ downstream — by training students on each corpus and scoring them on an
 author-neutral task, which is the harness the [neighbouring
 chapter](../README.md) explains and still lacks.
 
+## The fix and its trade
+
+The fix is to make the within-arm variance visible before any between-arm
+claim. Three generations per arm is the minimum that does that — Fable's 2,
+8, 13 and its 11-answer spread are what a one-draw design cannot see, and
+the rule this repository applies to any seeded result is the operational
+version: a difference counts only when the margin between arms exceeds the
+spread within an arm. Here the largest margin (3.3) never clears the
+smallest spread (6.0), so no teacher preference survives, and the one
+difference that does survive — verbosity, 48 to 58 words, in the same
+direction for all four models — is not a reason to pick one of them.
+
+The trade is measurement cost for decision power. Multi-generation sampling
+multiplies the generation budget by the number of draws, and the honest
+answer it buys is often "the evidence does not decide": at this scale and
+prompt distribution, teacher choice among the four models does not
+measurably change the corpus, so the decision has to be deferred to a
+downstream author-neutral harness — train a student on each corpus and
+score on a checkable task — which is real GPU cost and exactly the harness
+the neighbouring chapter still lacks. The deeper trade is what a stronger
+teacher is worth: more expensive per token, and on this evidence its
+advantage cannot be shown from distribution statistics at all, so the
+purchase decision rests on the downstream run, not on corpus aesthetics.
+
+## Who owns the loop
+
+- **The data team** owns the corpus measurement design: generations per
+  arm, the spread columns, and the rule that a margin must clear the
+  within-arm spread before it is reported as a difference.
+- **The model team** owns the downstream decision: training a student on
+  each corpus and scoring it on an author-neutral task, which is where a
+  teacher preference is allowed to be settled.
+- **The product owner** owns the generation budget and the deferral: the
+  extra money a stronger teacher costs buys nothing measurable on this
+  evidence, so the choice stays open until the downstream harness has run.
+
 ## What the evidence does not cover
 
 Every model answer here came from a Claude Code subagent carrying a

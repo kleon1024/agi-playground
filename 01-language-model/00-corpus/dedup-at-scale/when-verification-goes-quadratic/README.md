@@ -46,6 +46,50 @@ hash step for as long as possible, and the near-dupe column (9 million at
 48k) is the price: it checks the pairs the bucketing kept, not the ones it
 dropped.
 
+## The fix and its trade
+
+The fix is to keep the two halves on different scaling laws and never let
+verification inherit the corpus's growth. Three moves, in the order a real
+pipeline meets them: LSH bucketing first (the band and row counts set the
+threshold and therefore the candidate rate), exact verification only on the
+candidates the buckets kept, and a verification tier that samples or
+parallelizes once the pair count stops fitting the budget. The measured
+curve is the argument for the first two: hashing at 48k is 67.65s and stays
+near-linear, while verify at 92.40s has already overtaken it and grows x16
+for every x4 of corpus — so the half of the pipeline that scales
+quadratically is the one that must be bounded before it is parallelized.
+
+The trade is false negatives for a bounded pair count. The LSH threshold
+((1/16)^(1/4) = 0.50 at 16 bands of 4 rows) is the similarity below which
+near-duplicates stop being checked, so documents the buckets separate are
+never compared no matter how similar they are. Raising the threshold (more
+bands) catches more duplicates and pays in candidate pairs; lowering it
+misses more and pays in corpus inflation downstream — a decision that
+belongs in the dataset record, because it reclassifies documents as
+duplicates without anyone deciding to. The second trade is certainty for
+verification cost: exact Jaccard on every candidate removes the false
+positives the sketch introduced and costs the 92.4s, which is why a pipeline
+that only needs an approximate keep-rate samples or runs a cheaper second
+pass. The third is the capacity decision the recorded curve does not
+measure: one process at 48k already spends more than a minute verifying, so
+the point where hashing moves to GPUs or verification spreads across nodes
+is a cost the record leaves for the infrastructure owner to size.
+
+## Who owns the loop
+
+- **The data-pipeline team** owns the threshold as policy, not tuning: the
+  band and row counts — and therefore the 0.50 halfway point — belong in the
+  dataset record, because changing them moves documents between the
+  duplicate and unique buckets without anyone making the call.
+- **The infrastructure team** owns the scaling decision: when verify time
+  overtakes hash time (the 48k crossing), the x16-for-x4 growth is a
+  capacity question — more nodes, a sampling tier, or a cheaper second
+  pass — and the recorded curve is what sizes it.
+- **The corpus owner** owns the false-negative budget: which near-duplicate
+  band the pipeline may miss, and which duplicates are expensive enough
+  downstream (benchmark leakage, train/test contamination) to justify
+  checking at a lower threshold.
+
 ## Evidence boundary
 
 The recorded scaling run (sizes 1k-48k, cluster fraction 0.1, 64

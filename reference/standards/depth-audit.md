@@ -881,6 +881,93 @@ conflicts between pre-train and post-train, distillation failure modes, RL
 reward gaming, eval gates, and serving/cascade latency. The model-processing
 and sample-construction detail the user asks for lives here.
 
+### Language-model — LLM-track increments (tokenizer, mix, SFT, distillation)
+
+**Status: done for the tokenizer edge-case, data-mix, format-conflict, and
+distillation rows (eighteenth audit increment, 2026-08-08). The
+serving/cascade-latency row (05-serve/when-the-cascade-loses, which has
+who-owns but no fix-and-trade) and the eval-gate row (07-eval/eval-gates,
+same shape) remain in the queue above, as do the 04-rl stage chapters
+beyond the reward-gaming row (rollout-concurrency, the-group-relative-trick,
+the-kl-leash, what-a-real-loop-adds).**
+
+The tokenizer, mix, template, and distillation rows of the LLM queue are now
+executed:
+
+- Tokenizer edge cases. `is-it-the-same-tokenizer` and its
+  `when-the-tie-break-matters` detour now carry the fix-and-trade and
+  ownership sections. The parity contract — identical merge lists under a
+  pinned tie-break, plus the 60-document / 60,978-token id-parity export
+  gate — is priced against its own coverage boundary: the checks prove
+  agreement on the tested corpus and depth (1,744 of 16,128 merges), not on
+  every input, and the tie-break detour's fix names the hidden assumption
+  the parent check holds fixed. Measured: 91.7% of 3,840 merge steps chose
+  from a tie (mean width 25.7 pairs), two rules diverge at merge step 132
+  and share only about half their decisions by the end, chars/token
+  (3.418 vs 3.416) cannot see the divergence while 41.0% of 96,383
+  held-out pieces encode differently, and the number-edge regime (digit
+  fragmentation through the pre-tokenizer cap, byte fallback) is a
+  tokenizer-time decision with a behavioral cost cited to Singh et al.
+  (arXiv:2402.14903, Feb 2024). `the-merges-that-build-the-vocab` now
+  names the merge sequence as the reviewable audit trail (merge 256 ' t' at
+  1,015,622 through merge 16,000 ' catastrophe' at 88) and the
+  vocabulary-size decision as the compression-versus-embedding-memory
+  policy. Ownership: tokenizer team owns the pinned contract and the merge
+  record, data pipeline owns the export gate, model team owns the
+  non-convergence symptom, eval owns piece-level boundary tests.
+- Data mix. `what-a-release-needs`'s mixture section now carries dated
+  anchors: Llama 3 (arXiv:2407.21783, 2024; ~50% general / 25% math and
+  reasoning / 17% code / 8% multilingual, chosen by knowledge
+  classification and scaling experiments), Qwen3 (Kili Technology, "Data
+  Story: Qwen 3," 2026; 36T tokens in three stages with a
+  reasoning-heavy middle stage), and Nemotron-CC (Su et al.,
+  arXiv:2412.02595, 2024; ACL 2025; filters drop ~90% of a crawl,
+  classifier ensembling plus synthetic rephrasing recover up to 90% of the
+  filtered content into a 6.3T corpus with about 4x more unique real tokens
+  than DCLM, and an 8B model trained on 15T tokens beats Llama 3.1 8B by
+  about 5 MMLU points) — plus the recycling principle (the funnel's
+  discarded tail is rephrasable, not only deletable) and the
+  pretraining/post-training boundary (SFT and RL data enter post-training;
+  the only post-training-flavoured pretraining row is the small annealed
+  agentic component, cross-linked to mid-training's GLM-5 anchor).
+- Format conflicts. `the-template-is-a-contract` and its
+  `when-the-role-is-wrong` detour now carry the fix-and-trade sections. The
+  fix is three owned guardrails — reserved marker ids at the tokenizer
+  freeze (one id vs eight bytes, +11.1% corpus inflation avoided), a single
+  render code path with a token-id parity test (catches all five
+  header-drift variants, two at token 0), and masker unit tests — priced
+  against their trades: vocab headroom spent, template changes now update
+  the render and the test together, mask exclusion matters most where
+  target share is low (the 1.7% tail vs the 68.2% mean), and packing's 217
+  dropped conversations / 19.6% padding is the accepted cost TRL and
+  torchtune answer with block-diagonal masks. The role-wrong fix is the
+  row-level validator (role membership, non-empty content, marker strings,
+  alternation): one string scan per row, all five injected classes caught,
+  15 real flags in 9,500 rows (0.16%), with the explicit limit that
+  mechanical classes are rule-caught while ambiguous intent stays a sample
+  review.
+- Distillation. The four-chapter set now carries the fix-and-trade and
+  ownership sections. The parent chapter's fix is the measurement contract
+  — fixed prompts, step matching (equal epochs would have handed the model
+  teachers 32% and 56% more gradient steps), author-neutral scoring
+  (held-out loss ranks by author; every arm wins on its own reference
+  set), and
+  the teacher-strength control — priced against the doubled generation
+  budget and the temperature trade (`banana` at T=4 holds 13.16% vs the
+  plausible alternative at T=1, 4.73%). `when-the-teacher-is-wrong` names
+  the per-class teacher audit and per-class student inheritance check
+  (`x` rate 15.7% vs 0.0% inside CEs 3.386 vs 3.119), the ceiling
+  constraint, and the no-signal price (5.840 vs a 4.209 base); cited
+  Gudibande et al. (arXiv:2305.15717, ICLR 2024) and Stanton et al.
+  (arXiv:2106.05945, NeurIPS 2021). `which-teacher-changes-what` makes the
+  margin-vs-spread rule the fix (Fable 2, 8, 13; largest margin 3.3 never
+  clears smallest spread 6.0) with the deferral to a downstream
+  author-neutral harness as the trade. `what-path-two-requires` prices the
+  top-k format (4k bytes/token; 192 GB at top-16 on the 3.0B-token corpus)
+  against the storage-vs-live trade and names the tokenizer wall as the
+  constraint that makes shared-vocabulary strings weak evidence of
+  distillation.
+
 ### Foundations, infra-absorbed chapters, and remaining missions
 
 **Status: done for foundations 02-optimization, 06-significance, and

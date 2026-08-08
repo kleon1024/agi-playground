@@ -79,6 +79,49 @@ every token in the training corpus, and the symptom does not appear until
 hours of GPU time later, with the tokenizer being the last thing anyone
 suspects. The assertion is cheap. Finding that bug afterwards is not.
 
+## The fix and its trade
+
+The fix is the two checks, each guarding one substitution. The trainer
+substitution is guarded by identical merge lists: the indexed trainer is
+only a bookkeeping trick for finding the same most-frequent pair faster, so
+a run where the two lists differ by even one merge is a bug, and the
+comparison only works because both implementations break ties by pair
+ordering. The encoder substitution is guarded by the id-parity check — 60
+documents, 60,978 tokens, zero mismatches before the corpus is encoded —
+because a silently diverging export corrupts every token in the training
+corpus and does not surface until [stage 02](../../02-pretrain/) as a model
+that will not converge, hours of GPU later, with the tokenizer the last
+thing anyone suspects.
+
+The trade is coverage for confidence. The parity check proves agreement on
+60 documents, not on every input, and the naive-versus-indexed comparison
+ran at 1,744 merges rather than the full 16,128 because the full naive run
+is the ten-hour wall this chapter exists to remove. The check also holds the
+tie-break rule fixed, which is its hidden assumption: the moment a library
+swap changes that rule, both checks pass on a vocabulary that is still not
+the one the previous run learned — [the same corpus, the same rule — why two
+vocabularies?](when-the-tie-break-matters/) measures how far that convention
+can carry a divergence that neither check sees. The engineering trade is
+equally named: the indexed implementation pays for its 71x speedup in
+complexity (the pair map must be kept consistent through every merge), and
+the parity test pays for its assurance in a small per-export verification
+run that a team in a hurry is tempted to skip exactly when it matters most.
+
+## Who owns the loop
+
+- **The tokenizer team** owns the implementation contract: the indexed
+  trainer must produce byte-identical merge lists under a pinned tie-break
+  rule, and the frozen `tokenizer.json` is the artifact both substitutions
+  are checked against.
+- **The data-pipeline team** owns the export gate: the id-parity check runs
+  before the corpus is encoded, because once ids are in `train.bin` a
+  mismatch is a two-day debugging cycle instead of a zero-second test.
+- **The model team** owns the symptom and its escalation: a loss curve that
+  falls slowly and never gets good is the fingerprint of a diverging
+  export, and the first diagnostic is re-running the parity check — not
+  blaming the optimizer or the data, which is where the failure is usually
+  attributed first.
+
 ## Evidence boundary
 
 60 documents and 60,978 tokens show the encoders agree **on this corpus**, not

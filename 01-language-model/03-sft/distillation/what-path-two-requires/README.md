@@ -80,6 +80,47 @@ substitute for a KL trace nobody recorded — and by the argument above, a
 shared tokenizer is a *precondition* for distribution distillation, not
 evidence that it happened.
 
+## The fix and its trade
+
+The fix is the two questions the chapter opens with, answered before any
+training: where does the teacher's distribution live, and does the student
+speak the teacher's vocabulary. For the first, the top-k format is the
+production answer — 4k extra bytes per token (64 at top-16), with the
+storage-versus-live trade named: storing buys reuse across many student
+runs and goes stale with the dataset snapshot; live inference buys the
+right to change the corpus tomorrow and costs roughly a doubled step every
+run. The second question is the wall, and the trade is that all three
+escapes are expensive: retraining the student against the teacher's
+tokenizer discards the student's own token statistics, path one gives up
+the distribution that was the point, and cross-tokenizer
+rank-and-magnitude alignment keeps an approximation in place of a
+divergence.
+
+The third trade is in the evidence the format gives you. The 192 GB figure
+is arithmetic over a declared format, not a measurement, and the tokenizer
+constraint is an argument about what a divergence means — which is exactly
+why the chapter's boundary says nothing here was run. That matters when the
+same constraint is used as evidence in a public argument: two models with
+similar merge tables prove a shared corpus family at most, because a shared
+tokenizer is a precondition for distribution distillation, not evidence
+that it happened — the KL trace nobody recorded cannot be substituted by
+vocabulary similarity.
+
+## Who owns the loop
+
+- **The training-infrastructure team** owns the storage decision: the top-k
+  format, the byte budget (192 GB at top-16 on a 3.0B-token corpus,
+  thirty-two times the token stream), and the choice between stored
+  annotation and a live teacher forward pass.
+- **The model team** owns the path decision: whether the student may
+  retrain its tokenizer, fall back to path one, or accept a
+  rank-and-magnitude approximation — the constraint is structural, and the
+  choice is made before training, not after a failed run.
+- **The research and eval teams** own the inference boundary: a shared
+  tokenizer is weak evidence of distillation, so an accusation or a
+  capability claim rests on a recorded KL trace, and the absence of one is
+  reported as such, not filled by vocabulary similarity.
+
 ## Check your mental model
 
 Answer each before opening it.

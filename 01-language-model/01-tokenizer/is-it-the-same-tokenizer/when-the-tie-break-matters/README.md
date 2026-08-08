@@ -90,6 +90,34 @@ produce stereotyped errors concentrated on digit 4. The tokenizer's
 tie-break decides which of these regimes a vocabulary lands in, because it
 decides which pieces the digit runs and rare characters become.
 
+## The fix and its trade
+
+The fix is to pin the tie-break as a contract instead of treating it as an
+implementation detail: the rule, the pre-tokenizer digit cap, and the byte
+base are frozen in the tokenizer.json, and any library swap must reproduce
+the merge sequence — the parent chapter's exact-id check is the acceptance
+test, and it is the only check that sees the divergence, because the
+aggregate metrics cannot. The trade is that the pin costs flexibility: a
+library upgrade that breaks ties differently does not fail loudly, it
+silently changes the vocabulary while chars/token (3.418 vs 3.416) stays
+identical, so the team must re-run the piece-level parity check on every
+swap or accept that the served model speaks a different language than the
+trained one. Re-verification is cheap (a held-out encode), but it has to be
+scheduled, and the moment it is skipped is exactly when the failure becomes
+invisible.
+
+The second trade is in what the boundary tests cost. Piece-level
+segmentation comparison is a per-piece check over held-out strings that
+must include number-heavy and rare-unicode inputs — more expensive to build
+than a chars/token number, and it returns a spread of failing pieces
+instead of a single clean metric, which is the price of seeing the 41.0% of
+pieces that disagree. The third trade is the number edge itself: the
+tie-break chooses which digit regime the vocabulary lives in, and Singh et
+al. (2024) measure that the choice changes arithmetic behavior — so a
+vocabulary that fragments numbers per-digit is a measurable handicap
+accepted at tokenizer time, before a single weight is trained, and
+re-choosing it later means re-training the tokenizer, not tuning the model.
+
 ## Who owns it
 
 The tokenizer and training-data teams own the tie-break as a **contract**:

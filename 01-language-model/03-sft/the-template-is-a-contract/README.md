@@ -93,6 +93,32 @@ scraped or model-generated corpus (shorter answers, longer prompts) the
 target share moves toward the measured 1.7% tail, where the same bug
 trains the model on noise most of the time.
 
+## The fix and its trade
+
+The fix is the three guardrails the chapter measured, each owned by the
+pipeline stage that can break it. Reserve the marker ids at the tokenizer
+freeze (one id instead of eight, so 46,380 markers do not inflate the
+corpus by +11.1%); render the header from the same code path that rendered
+the training data, with a token-id parity check against the training render
+as the test (it catches all five drift variants, two of them at token 0);
+and keep the masker's correctness under unit tests, because on a curated
+set the mask's real job is the 31.8% it excludes, not the 68.2% it trains.
+
+The trade is in each guardrail's cost. Reserved ids spend vocabulary
+headroom: 16385/16386 come out of the 127-id gap stage 02 left, and every
+marker id competes with future tokens the vocabulary might need. The parity
+check turns template rendering into a tested contract, which means a second
+template string that "looks the same" is now a test failure instead of a
+silent drift — the cost is that any legitimate template change has to update
+the training render and the test together. The mask's exclusion trade is
+the sharpest: at 68.2% target share the mask barely matters, but on scraped
+or model-generated data (shorter answers, longer prompts) the share moves
+toward the measured 1.7% tail, and the same masker bug that is a leak on
+curated data becomes the dominant training signal. Packing carries its own
+accepted trade — 217 of 9,500 conversations dropped, 19.6% padding — which
+TRL and torchtune answer with block-diagonal attention masks at the cost of
+a different memory and attention contract.
+
 ## Who owns the contract
 
 - **Stage 01 (tokenizer) owns the reserved ids.** The freeze commits

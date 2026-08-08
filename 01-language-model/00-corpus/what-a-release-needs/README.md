@@ -90,6 +90,33 @@ change is uninterpretable if the mixture moved silently at the same time.
 Whether a mixture change is even measurable is
 [a separate question with its own harness](../../../foundations/05-is-the-difference-real/).
 
+Real programmes publish the same decision with numbers attached. Llama 3
+(Meta, "The Llama 3 Herd of Models," arXiv:2407.21783, 2024) settled on
+roughly 50% general knowledge, 25% math and reasoning, 17% code, and 8%
+multilingual tokens — weights chosen from knowledge classification and
+scaling experiments, not from raw token share. Qwen3's data story (Kili
+Technology, "Data Story: Qwen 3," 2026) reports a 36T-token corpus in three
+stages: a general foundation stage, a higher-quality reasoning-focused
+stage that raises the share of knowledge-dense data (STEM, programming,
+reasoning), then long-context extension — the same late
+reasoning-heavy-shift shape [mid-training](../../02-pretrain/mid-training/)
+describes at mission scale. The filtering half has its own published trade:
+Nemotron-CC (Su et al., arXiv:2412.02595, 2024; ACL 2025) shows that
+aggressive quality
+filters that drop roughly 90% of a crawl can be partially undone —
+classifier ensembling and synthetic rephrasing recover up to 90% of the
+filtered content into a 6.3T corpus with about 4x more unique real tokens
+than DCLM, and an 8B model trained on 15T tokens from it beats Llama 3.1 8B
+by about 5 MMLU points. The same principle applies at this repository's
+scale: the funnel's discarded tail is recyclable by rephrasing, not only
+deletable, which is [the filter-eats-the-signal
+chapter](../when-the-filter-eats-the-signal/) with a number attached. And
+the mixture is a pretraining decision: SFT and RL data enter at
+post-training, and the only post-training-flavoured row in pretraining is
+the small annealed agentic component below, which is why the
+format-conflict boundary between the two is measured in [stage 03's
+template contract](../../03-sft/the-template-is-a-contract/).
+
 Curriculum scheduling changes those weights *during* training. Use it only when
 the schedule answers a stated hypothesis — "high-quality reference text late in
 training improves factuality without erasing coverage" — otherwise it is one

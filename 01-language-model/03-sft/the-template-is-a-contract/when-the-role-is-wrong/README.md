@@ -102,6 +102,32 @@ split: the checks catch the bugs that would otherwise leak user text into
 the loss at scale, and the flag rate on curated data (0.16%) is small
 enough that every flag is worth a human look.
 
+## The fix and its trade
+
+The fix is a row-level validator at the pipeline boundary, before any
+rendering: role membership as an exact set, non-empty assistant content, no
+marker strings in content, and role alternation — the four checks the audit
+runs, catching all five injected defect classes and finding 15 real
+anomalies in 9,500 curated rows (0.16%). The cost is one string scan per
+row, which is the whole point of the placement: a defect is caught as a row
+with a problem list, not as a model that imitates the user after a two-day
+fine-tune.
+
+The trade is that the validator catches mechanical classes and not
+ambiguous intent. A role that is wrong but well-formed — both sides of the
+conversation look plausible — passes every rule and needs a sample review,
+which is why the 0.16% flag rate is the budget that makes human looks
+affordable, not a license to trust the checks. The alternation check is the
+one easy to over-trust: it catches the stamped-pipeline signature (238
+targets on a two-turn stamped row that the last-turn rule misses), but a
+pipeline that stamps roles with correct alternation still carries the same
+defect while passing every rule, so the checks are a floor, not a proof.
+The final trade is on the double-rendered row: the text-level marker check
+closes the hole the tokenizer cannot (byte-split markers can never forge
+the reserved id), but it costs the pipeline a content constraint — no
+legitimate content may ever contain a marker string, because the only
+allowed source of a marker is the render code.
+
 ## Who owns it
 
 The data pipeline owns the masker's tests — the main chapter named this

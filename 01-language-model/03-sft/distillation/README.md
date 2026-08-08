@@ -211,6 +211,47 @@ on the strength of a sample corpus.
 Path two remains unrun here, for the reason
 [its requirements page](what-path-two-requires/) gives.
 
+## The fix and its trade
+
+The fix is a measurement contract, and the run on this page is its
+enforcement. Hold the prompts fixed and vary only who writes the answer;
+match steps, not epochs (equal epochs would have handed the model teachers
+32% and 56% more gradient steps); and score students on an author-neutral
+metric, because held-out loss ranks by author — every arm wins on its own
+author's reference set, so the diagonal is a mirror, not a ranking. The
+trade is that each guardrail costs money. The teacher-strength control
+(generate targets from a model comparably sized to the student) doubles the
+generation budget and is the only thing that separates "distillation
+helped" from "we borrowed a bigger model's competence". An author-neutral
+judge or downstream task replaces a free held-out number with annotation or
+task-design cost. And temperature is its own trade inside path two: raising
+it buys visibility into the teacher's ranking and pays by teaching the
+student that absurd continuations are ordinary — the `banana` column at
+T=4 (13.16%) holds more mass than the plausible alternative at T=1 (4.73%).
+
+Path one's trade is that it copies style, not certainty: the student
+imitates the teacher's chosen words, and the teacher's errors ride along in
+them ([when the teacher is wrong](when-the-teacher-is-wrong/)). Path two's
+trade is the price of the distribution itself — 192 GB beside a 3.0B-token
+corpus at top-16, plus the tokenizer wall that closes it to this student
+([what path two requires](what-path-two-requires/)).
+
+## Who owns the loop
+
+- **The model team** owns the distillation run and its controls: step
+  matching, seed discipline, and the teacher-strength control that makes a
+  reported gain attributable to the method.
+- **The eval team** owns the metric and the ceiling: an author-neutral
+  judge or downstream task, and the separation of "student improved" from
+  "student copied a better teacher", which the parent control enforces.
+- **The data team** owns the target corpus: whose answers go into the
+  training set, the generation parameters, and the quality screen on
+  teacher output before it is treated as supervision.
+- **The product owner** owns the teacher choice itself: the line between
+  API access and owned weights decides which path exists at all, and whose
+  error surface the student is allowed to inherit is a product decision,
+  not a training one.
+
 ## Check your mental model
 
 Answer each before opening it.

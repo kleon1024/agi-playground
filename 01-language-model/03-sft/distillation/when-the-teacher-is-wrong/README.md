@@ -98,6 +98,32 @@ parent chapter's control: a weak teacher's output is not free data, and
 generating from a model worse than the one you are trying to build is how a
 student ends up below its own base checkpoint.
 
+## The fix and its trade
+
+The fix is the three checks the ownership split names, in order: audit the
+teacher's error surface per class before anyone distils from it (the `e`
+swap shows up as a rate inside the teacher's own output, not as a
+model-card quality score); after distillation, measure the student on the
+teacher's known error classes rather than on aggregate loss (the swap is a
+15.7%-vs-0.0% `x` rate hiding inside CEs that look close, 3.386 vs 3.119);
+and evaluate the student under the teacher-strength control the parent
+chapter requires, so "student improved" is separated from "student copied a
+better teacher".
+
+The trade is that every check costs eval design and generation budget. A
+per-class audit requires deciding which slices the student will be asked
+about before the teacher is chosen, and it cannot see error classes nobody
+thought to slice. The inheritance check on known classes is cheap after the
+fact but only as good as the audit that named the classes. And the ceiling
+claim is a constraint, not a comfort: a student cannot be expected to
+exceed the teacher on the teacher's own errors, so the honest eval reports
+the ceiling rather than dressing it up as progress. The no-signal result
+prices the biggest trade of all: teacher output is not free data —
+student-from-random lands at 5.840 against a 4.209 base, a confidently
+wrong prior replacing a weak one — so screening teacher quality before
+generating costs tokens, and skipping the screen costs the student's own
+baseline.
+
 ## Who owns it
 
 - **The data team** owns the teacher's error surface before anyone distils

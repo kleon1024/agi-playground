@@ -43,6 +43,42 @@ the recorded list is the audit trail of those 16,000 decisions. The
 result — 4.497 chars/token on the held-out text — is the compression the
 vocabulary buys, and the merge table is what produced it.
 
+## The fix and its trade
+
+The fix is to keep the merge sequence, not just the vocabulary it produces.
+The aggregate (4.497 chars/token) is a sum that hides which decisions were
+made; the sequence is the audit trail of the 16,000 decisions themselves —
+space-plus-letter bigrams at merges 256-258, word fragments by merge 11,000,
+whole rare words at 16,000. A vocabulary that ships without its merge record
+is a vocabulary whose logic cannot be reviewed, and the failure the record
+guards against is the same one the parity chapter catches: two tokenizers
+with identical aggregate compression can be built from different decisions,
+and only the sequence exposes that.
+
+The trade is vocabulary size against both sides of the ledger at once. A
+16,384-vocab BPE merges by frequency, so frequent subwords get tokens first
+and rare whole words only when the budget has room — the 4.497 chars/token
+is the compression the budget buys, and the embedding rows are the memory
+it costs. Going larger buys rare-word coverage and pays in embedding memory
+and slower convergence on the long tail; going smaller forces every rare
+word through fragments, which is where the number-fragmentation and
+byte-fallback edges the tie-break detour measures come from. The sequence
+itself is cheap to keep — one log per training run — which is why the record
+is a discipline cost, not a compute cost.
+
+## Who owns the loop
+
+- **The tokenizer team** owns the merge record: the sequence is written
+  beside the frozen `tokenizer.json` at every training run, so the
+  vocabulary's decisions stay reviewable after the corpus changes.
+- **The model team** owns the vocabulary-size decision: embedding memory,
+  compression, and the rare-word edges are one policy, and it is made
+  before training, not after a model shows the symptom.
+- **The eval team** owns the edge checks: rare-word coverage and number
+  handling are properties of the merge sequence, and the chars/token
+  aggregate cannot see them — the boundary suite tests pieces, not
+  compression.
+
 ## Evidence boundary
 
 The recorded BPE run (10,000 FineWeb-Edu documents, 16,384 vocab, one
