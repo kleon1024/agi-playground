@@ -125,6 +125,42 @@ shape they agree on is the shape this chapter measures: the failure classes
 are enumerable, none resolve by retry alone, and the recovery turns have to
 be in the imitation data.
 
+## The fix and its trade
+
+The failure mode is a tool that answers with an error and a loop that has
+only one response to it: the audit plays a blind-retry policy and 0/7
+classes resolve — every retry returns the identical failing observation, so
+a retry counter is a mechanism for paying the same failed turn again, not a
+recovery. Two of the seven failures are worse than useless to retry
+blindly: `run_command` returns `exit=1` plus a traceback as an ordinary
+observation and `read_file` returns the first 8,000 bytes with a truncation
+marker, so a model has to notice those on its own, and the timeout class is
+actively destructive — `slow_write.py` times out after 1.0s yet leaves
+`marker.txt` with content `done`, because the observation is about *time*,
+not *state*, and re-running repeats a side effect that may already have
+landed.
+
+The fix is the recovery families — inspect (the failure says something is
+not where you thought: list or read before acting again), re-scope (the
+call was wrong-sized: express it differently, a single allowlisted command
+instead of a shell chain, a slice instead of a full read), and make it safe
+to redo (the already-executed trap: idempotency or state inspection, never
+retry) — and the audit's scripted planner resolves 7/7 classes for real.
+The trade is that recovery has to be in the imitation data, and that is a
+pipeline decision with a measurable cost: filtering a corpus to "tool calls
+that worked" silently removes the entire recovery syllabus, leaving the
+model with no target for the turn after `ToolError:`. The measured scale is
+external and dated — PALADIN (arXiv:2509.25238, Sep 2025) injects failures
+into 50,000+ recovery-annotated ToolBench trajectories and lifts LLaMA-8B's
+tool-success rate from 17.5% to 78.7%, more than fourfold over a
+success-only model; Chen et al., Self-Debug (ICLR 2024), is the same
+mechanism at smaller scale: a model that explains its own failed execution
+and re-runs resolves a class of errors a retry-only policy cannot. The
+chapter's own boundary is that the planner is a fixed scripted policy, not
+a trained model — it proves the classes are enumerable and the recovery
+actions exist, and attributes the magnitude, not the mechanism, to the two
+cited results.
+
 ## Who owns the loop
 
 - **The trace-construction team** owns error injection: the mix must contain

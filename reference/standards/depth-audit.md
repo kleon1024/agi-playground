@@ -1482,12 +1482,66 @@ new runs):
   (KV budget and admission), kernel (the fused path), and observability
   (sharing gains as a property of the request mix).
 
+**Done for the agent sub-group (twenty-sixth audit increment, 2026-08-08).**
+The four pending `06-agent/` chapters now carry the fix-and-trade and
+who-owns-the-loop sections (when-the-tool-errors already carried the
+who-owns half, so only the fix-and-trade was added), reusing each chapter's
+own measured numbers (no new runs):
+
+- what-stops-it: the containment failure — every capability is also a way
+  to do damage, and grounding makes the agent honest, not safe (the demo
+  run proves the `cat /etc/passwd` gap with 71 real lines); fix is the
+  containment stack — jail with reject-absolute-before-joining ordering,
+  allowlist that depends on never passing `shell=True`, three-tier
+  permission ladder, default-deny `confirm` (absence of a human is not
+  consent) — trading coarse tool-level tiers and lost shell expressiveness
+  for a fail-closed boundary, with the destination ladder keeping the
+  confirmation rate proportional to stake; adversarial half benchmarked,
+  not assumed (AgentDojo, Debenedetti et al. Jun 2024; Anthropic
+  `tool_result` block, OpenAI `"role": "tool"` message); ownership split
+  across harness (stack and fail-closed rule), product-security (permission
+  policy), platform (process isolation, namespace, dropped privileges), and
+  evaluation (score under harness disclosure).
+- what-fits-in-context: the transcript-overflow failure (delete the wrong
+  thing and the agent forgets the task; delete nothing and the loop dies at
+  step twelve); fix is a named swappable compaction policy — collapse
+  superseded reads before dropping turns, floor of 3 messages — measured
+  (1,784 tokens reclaimed from one stale read, zero turns dropped; seven
+  compactions then stop at 3 messages, staying 50 vs 30 tokens over budget
+  rather than erasing evidence); trade is lossless-before-destructive
+  ordering and the floor that stops the policy breaking the loop, with
+  MemGPT paging (Packer et al. 2023) the heavier alternative and the
+  chars/4 estimator risk on code stated; ownership split across harness
+  (policy and floor), tool-design (just-in-time choice that makes
+  per-observation compaction workable), evaluation (verified in isolation
+  only — the real run never crossed the token budget), and model
+  (estimator risk).
+- would-a-second-agent-help: the oversold-multiplier failure (error
+  compounds along a chain, cost multiplies while quality does not,
+  debuggability collapses); fix is the orchestration contract — parent
+  owns scope/permissions/budget/stop/result shape, child owns how it gets
+  there, structured returns over prose, parallel-safety rule enforced by
+  the scheduler — with the fair test holding total token cost equal and the
+  measured 7.6x handoff tax (737 vs 97 tokens) while wall-clock fell
+  four-to-three batches: parallelism and cost are different axes; dated
+  origins (Du et al. May 2023, Wu et al. Aug 2023, LangChain Jan 2024);
+  evidence boundary explicit — no topology success claim measured; ownership
+  split across framework (contract and scheduler), evaluation (matched-spend
+  bar), platform (production mapping), and model (handoff loss).
+- when-the-tool-errors: the blind-retry failure (0/7 classes resolve; the
+  already-executed trap — `slow_write.py` times out yet leaves `marker.txt`
+  with content `done`, and two of seven failures are returned, not raised);
+  fix is the recovery families (inspect, re-scope, make it safe to redo —
+  7/7 resolved for real), the trade being that recovery has to be in the
+  imitation data, a pipeline decision whose measured scale is external
+  (PALADIN arXiv:2509.25238 Sep 2025: 17.5% to 78.7% tool-success; Chen et
+  al., Self-Debug, ICLR 2024); ownership split across trace-construction
+  (error injection), eval (per-class recovery rate), harness (idempotency
+  surface), and model (data-composition consequence).
+
 **Still pending:** the remaining language-model system sub-groups:
-- Language-model system sub-groups: `06-agent/` (what-stops-it,
-  what-fits-in-context, would-a-second-agent-help, when-the-tool-errors —
-  which carries only the who-owns half and needs the fix-and-trade),
-  `07-eval/` (metric-gaming, red-teaming, who-decides-to-ship,
-  whose-harness, why-believe-the-number).
+- Language-model system sub-groups: `07-eval/` (metric-gaming, red-teaming,
+  who-decides-to-ship, whose-harness, why-believe-the-number).
 - Remaining topics, checked after the above for any gap against the
   contract (personalized discovery, quantitative research, agentic
   platform, game AI, multimodal voice/video, bio-pharma, autonomous

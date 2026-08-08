@@ -225,19 +225,19 @@
   },
   "01-language-model/06-agent/what-fits-in-context": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 9
   },
   "01-language-model/06-agent/what-stops-it": {
     "level": "applied",
-    "minutes": 14
+    "minutes": 17
   },
   "01-language-model/06-agent/when-the-tool-errors": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 11
   },
   "01-language-model/06-agent/would-a-second-agent-help": {
     "level": "applied",
-    "minutes": 11
+    "minutes": 14
   },
   "01-language-model/06-agent/would-a-second-agent-help/prod": {
     "level": "",

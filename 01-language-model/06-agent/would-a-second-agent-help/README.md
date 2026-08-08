@@ -163,6 +163,62 @@ the comparison: wall-clock fell from four sequential steps to three
 batches, while token cost rose, because parallelism and cost are not the
 same axis and a topology can win on one while losing on the other.
 
+## The fix and its trade
+
+The failure mode is the oversold multiplier: a second agent is not a free
+gain in capability, and the costs are usually understated — every handoff is
+a lossy serialization of everything the sub-agent "just knew" but never
+stated, error compounds along a chain (three agents get three chances to be
+wrong plus every handoff between them), cost multiplies while quality does
+not, and debuggability collapses to N agents and N-1 possible loss points.
+You find the case with the comparison that holds total token cost equal:
+comparing a multi-agent system against a single agent at a fraction of the
+budget changes two variables at once and cannot attribute the result to
+either. The demo run makes the cost concrete — the same four answers cost
+737 tokens through the supervisor versus 97 computed directly by one agent,
+a real 7.6x from this file's own demo, while wall-clock fell from four
+sequential steps to three batches: parallelism and cost are different axes,
+and a topology can win on one while losing on the other.
+
+The fix is the orchestration contract: the parent owns task scope, child
+permissions, budget, stop condition, and result shape; the child owns how it
+gets there. Structured returns (status, artifact, what it could not verify)
+replace prose because the parent has to act on what comes back, not
+re-interpret it, and the parallel-safety rule — two subtasks may run in
+parallel only when they share no output and neither depends on the other's
+intermediate decisions — is enforced by the scheduler, which the demo
+verifies by refusing to run a re-scan alongside the original scan because
+both write the same output even though neither declared the dependency. The
+trade is that each of the three real benefits has a price: context isolation
+saves the parent's window but the child's full reasoning stays behind;
+parallelism shortens wall-clock only when the independence is real;
+independent perspective (the debate/panel topology) explicitly spends
+context to buy diversity — a full second attempt, not a compressed summary.
+Each shape has a dated origin: multiagent debate (Du et al., May 2023),
+AutoGen's supervisor pattern (Wu et al., Aug 2023), and LangGraph's
+directed-graph generalization (LangChain, Jan 2024). The evidence boundary
+is explicit: the demo proves the parallel-safety rule and structured-return
+contract are checkable and cost is computable, but no topology's effect on
+task success has been measured against real agents at matched budget — that
+is unbuilt work with no `runs/` entry.
+
+## Who owns the loop
+
+- **The agent-framework team** owns the orchestration contract: the
+  parent/child ownership split, the structured-return schema, and the
+  parallel-safety rule the scheduler enforces rather than assumes.
+- **The evaluation team** owns the fair comparison: matched total spend is
+  the bar, and the measured 7.6x handoff tax is the number any topology
+  claim must beat before delegation is worth it.
+- **The platform team** owns the production mapping: LangGraph, AutoGen/AG2,
+  CrewAI, and Claude Code's sub-agent feature implement these same decisions
+  at scale, and a topology choice is a platform contract, not a prompt
+  detail.
+- **The model team** inherits the handoff loss: an unstated inference does
+  not cross the boundary, so parent verification of a child's return is a
+  hard requirement — the point where "the child said so" stops being
+  evidence.
+
 ## 6. Evidence boundary
 
 `core/orchestrator.py` demonstrates that the parallel-safety rule and the

@@ -170,6 +170,59 @@ remain, then stop — the transcript stays over budget (50 tokens against a
 30-token target) rather than erase the model's last action and its own
 observation. [Full output.](runs/2026-07-30-compaction-demo.md)
 
+## The fix and its trade
+
+The failure mode is the transcript itself: an agent that runs for twenty
+steps accumulates twenty observations, file contents are not small, and at
+some point the next request will not fit — delete the wrong thing and the
+agent forgets the task, delete nothing and the loop dies at step twelve. The
+fix is a *named, swappable* policy rather than an `if` buried in the loop,
+and the real run checks it directly: against a scripted transcript sized to
+cross a 3,000-token budget, collapsing a second read of the same path to a
+16-token stale marker reclaims 1,784 tokens and resolves the overage in one
+compaction with zero turns dropped; against a 30-token budget with nothing
+collapsible, seven compactions drop the oldest turn one at a time until
+exactly 3 messages remain, then stop — the transcript stays over budget (50
+tokens) rather than erase the model's last action and its own observation.
+
+The trade is in the two-step ordering and the floor. Collapse superseded
+reads before dropping turns because redundancy reclaims tokens without
+losing a decision, while dropping a turn destroys history outright — the
+worked example reclaims more from one stale read than from discarding three
+whole turns. The floor of 3 is what stops the policy from being clever
+enough to break the loop: compact past it and the model is asked to continue
+from a transcript with no evidence of what it just did, which is worse than
+an overage that stays slightly over budget. This is the lightweight,
+sliding-window-plus-summarization-adjacent style most 2026 production
+harnesses run; the heavier alternative, MemGPT's explicit paging interface
+(Packer et al., 2023), lets the model itself move information between
+working and archival memory — deliberate retention at the cost of a tool
+surface, a failure mode, and tokens spent on memory management instead of
+the task. The policy is also downstream of a tool-design choice: just-in-
+time `read_file`/`list_dir` produce many small, individually droppable
+observations, which is precisely what makes per-observation compaction
+workable, while an eager index replaces them with one large block and costs
+freshness and debuggability. The token estimator is a chars/4 stand-in that
+disagrees most on exactly the content an agent reads most — code — so wiring
+in the real tokenizer is the pending exercise before production budgets are
+trusted.
+
+## Who owns the loop
+
+- **The harness team** owns the compaction policy and its floor: the budget,
+  the collapse-then-drop ordering, and the 3-message floor that stops the
+  policy from erasing the evidence the model needs to continue.
+- **The tool-design team** owns the just-in-time choice that makes the
+  policy workable: fetch-on-demand produces droppable observations, and the
+  eager-index alternative changes what compaction must handle.
+- **The evaluation team** owns the evidence boundary: the policy is verified
+  in isolation, but the parent mission's real run never crossed the token
+  budget — all 6 rollouts hit `max_steps` first — so the filled-context
+  behavior remains unverified, not assumed.
+- **The model team** inherits the estimator risk: chars/4 underestimates the
+  token cost of code, and a budget breach the estimator did not see coming is
+  a data-pipeline failure before it is a model failure.
+
 ## Evidence boundary and next step
 
 The parent mission's real agent run against a served checkpoint
