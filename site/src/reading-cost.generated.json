@@ -799,6 +799,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "02-personalized-discovery/recommendation/63-cascade-consistency/when-the-teacher-never-sees-the-cut": {
+    "level": "applied",
+    "minutes": 7
+  },
   "02-personalized-discovery/recommendation/63-cascade-consistency/when-top-k-is-not-preserved": {
     "level": "applied",
     "minutes": 3

@@ -118,6 +118,7 @@ answer.
 ## Next
 
 The distillation's own failure: [a noisy teacher passes its noise to the
-pre-rank](when-the-distillation-blurs/), and the arithmetic of the cut:
-[only 11 of the final top-20 survive a click-based cut of
-80](when-top-k-is-not-preserved/).
+pre-rank](when-the-distillation-blurs/), the arithmetic of the cut: [only
+11 of the final top-20 survive a click-based cut of
+80](when-top-k-is-not-preserved/), and the truncation that outlives the
+fix: [the teacher only ever scores survivors](when-the-teacher-never-sees-the-cut/).

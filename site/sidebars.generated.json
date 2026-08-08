@@ -1350,6 +1350,11 @@
               },
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/recommendation/63-cascade-consistency/when-the-teacher-never-sees-the-cut/index",
+                "label": "When the teacher never sees the cut"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/recommendation/63-cascade-consistency/when-top-k-is-not-preserved/index",
                 "label": "When top-K is not preserved"
               }
