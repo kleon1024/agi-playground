@@ -131,6 +131,59 @@ to a different system under test — an agent harness rather than a chat model �
 turning "an agent's observations can carry adversarial instructions" into a
 benchmark of adversarial test cases rather than a single anecdote.
 
+## The fix and its trade
+
+The failure mode is a fixed test set: authored once, by people who could
+only think of the failures they already imagined, it tests exactly those
+failures and nothing past their boundary — a system can pass every case
+while a nearby, undiscovered variant still breaks it. The measured
+demonstration is sharp: over 500 synthetic cases, the toy filter's flip
+rate saturates at 100% by budget 10 (mean ~1.4 attempts when a flip
+happens), yet a perturbation space of size 1 — case-flip only — flips
+*zero* cases at every budget up to 1000, because the filter lowercases
+before matching and no case-only perturbation can ever change its decision.
+Budget cannot compensate for operator coverage: the binding constraint is
+which perturbation operators the search may draw from, not how many attempts
+it gets.
+
+The fix is the pair — manual red-teaming (a human adversarially probing the
+system) plus automated adversarial search (a bounded search or generation
+process producing candidates programmatically) — and the conclusion
+discipline that turns a clean sweep into a bounded claim: "we tried N
+variants and found none" is a real, dated statement about the search
+process that ran, and never a robustness proof, because a search
+structurally incapable of the one operator that defeats the system returns
+0.000 at any budget. The trade is that each method only tells you what its
+own process found within its time and budget — neither closes the
+generalization gap completely — and the operator space has to be shaped by
+the system under test, which makes every red-teaming result versioned with
+the search that produced it. The approaches are dated and external: Perez
+et al., automated red-teaming of one model by another (arXiv, February
+2022; EMNLP 2022); Ganguli et al., human red-teaming at scale and how it
+scales with model size (Anthropic, arXiv, August 23, 2022); and this
+repository's own AgentDojo citation (Debenedetti et al., June 2024) applies
+the same idea to an agent harness. The production gap is named: real
+automated red-teaming generates thousands to millions of candidates, and
+this toy's 500 cases and four hand-written operators demonstrate the
+mechanism, not the budget a production red-teaming effort requires.
+
+## Who owns the loop
+
+- **The safety-evaluation team** owns the test-case generation process:
+  the automated search and the manual red-teaming rounds, and the operator
+  coverage that decides whether budget buys anything — the chapter's
+  0%-then-100% jump between operator-space sizes 1 and 2 is the
+  demonstration of how narrow that boundary can be.
+- **The data team** owns the case library and its dating: a clean sweep is
+  a bounded, dated claim about a search process, so the case set is
+  versioned with the perturbation space and budget that produced it.
+- **The model team** owns the response to a discovered failure: a flipped
+  case is a training-data or guardrail signal, and the eval gate consumes
+  it as a new test case rather than a one-off anecdote.
+- **The release team** owns the escalation chain — enforcement point, audit
+  record, escalation owner — that turns a discovered failure into a stopped
+  deployment, which is the link red-teaming itself does not make.
+
 ## What this does not establish
 
 - **Nothing about a real language model's jailbreak resistance.** The system

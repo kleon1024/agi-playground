@@ -253,23 +253,23 @@
   },
   "01-language-model/07-eval/metric-gaming": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 11
   },
   "01-language-model/07-eval/red-teaming": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 11
   },
   "01-language-model/07-eval/who-decides-to-ship": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 10
   },
   "01-language-model/07-eval/whose-harness": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 12
   },
   "01-language-model/07-eval/why-believe-the-number": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 11
   },
   "01-language-model/vision": {
     "level": "applied",

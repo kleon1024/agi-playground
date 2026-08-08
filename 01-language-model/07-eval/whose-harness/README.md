@@ -224,6 +224,58 @@ instead of the other.
 
 </details>
 
+## The fix and its trade
+
+The failure mode is the half of a benchmark number nobody names: a score is
+a function of (model, tools, system prompt, loop/retry design,
+context-management policy, sampling parameters, environment version), and
+published comparisons routinely disclose the first term. The measured
+consequence is the ARC-AGI-3 result — two harness settings, model unchanged,
+13.3% to 38.3% with six times fewer output tokens — and it splits cleanly:
+discarding the model's private reasoning across turns is close to a straight
+defect (the harness was evaluating a different system than the one that
+shipped), while truncation versus compaction is a declared policy with no
+universally correct value, where ARC and OpenAI picked opposite sides.
+
+The fix is the split between what a good harness always does and what it
+merely declares. Always: a stop condition the model does not control,
+grounding enforced rather than requested, a recovery path for every way a
+tool call can fail, state carried the way the model was trained, and a
+transcript logged as a byproduct. Declared: context policy, tool surface,
+step and retry budget, sampling — the no-correct-value column turned into a
+precondition by `REQUIRED_HARNESS_FIELDS`, which raises rather than warns
+because a warning can be ignored and the only disclosure that survives a
+deadline is one a run cannot skip. The trade is that the two harness
+philosophies measure different things: a generic harness (ARC) measures the
+model, keeping shortcomings visible and models comparable; a tuned harness
+(OpenAI) measures the product, using the settings a real deployment uses —
+neither is "the score," and a reader handed one number has been handed a
+claim about a pair. The standard-versus-own choice has the same shape:
+lm-eval-harness buys comparability against hundreds of community-maintained
+benchmarks at a pinned version (this stage's adapter ran `lambada_openai`
+at 20.5% accuracy, 138.3 perplexity, after fixing two real adapter bugs),
+but cannot express a trajectory with tools and changing environment, so the
+honest default is both — static benchmarks and agentic trajectories are
+different measurement problems, not one problem at different scale. The
+ARC numbers are external and not reproducible here: the model is hosted,
+and 38.3% remains below the 48% human estimate.
+
+## Who owns the loop
+
+- **The evaluation team** owns the harness contract: the five always-do
+  items, the declared-choice column, and `REQUIRED_HARNESS_FIELDS` as the
+  enforceability mechanism that makes disclosure a precondition of a score.
+- **The model team** owns the deployment-contract match: state carried the
+  way the model was trained is a defect boundary, not a configuration
+  choice — a harness that discards private reasoning is running a different
+  model.
+- **The benchmarking-platform team** owns the standard-harness adapter and
+  version pinning: harness version and task revision are part of the number,
+  and comparability is worthless across an undated harness.
+- **The product team** owns which measurement a release needs: model-only
+  comparison (generic harness) versus product behavior (tuned harness), and
+  the decision that the report carries both halves rather than one.
+
 ## Evidence boundary and next step
 
 The ARC-AGI-3 numbers are external, published by the model's own vendor, and

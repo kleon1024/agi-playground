@@ -1539,13 +1539,79 @@ own measured numbers (no new runs):
   (error injection), eval (per-class recovery rate), harness (idempotency
   surface), and model (data-composition consequence).
 
-**Still pending:** the remaining language-model system sub-groups:
-- Language-model system sub-groups: `07-eval/` (metric-gaming, red-teaming,
-  who-decides-to-ship, whose-harness, why-believe-the-number).
-- Remaining topics, checked after the above for any gap against the
-  contract (personalized discovery, quantitative research, agentic
-  platform, game AI, multimodal voice/video, bio-pharma, autonomous
-  driving are done as of the increments above).
+**Done for the eval sub-group (twenty-seventh audit increment, 2026-08-08).**
+The five pending `07-eval/` chapters now carry the fix-and-trade and
+who-owns-the-loop sections, reusing each chapter's own measured numbers and
+dated citations (no new runs):
+
+- metric-gaming: the structural proxy failure (an optimizer finds the
+  peeled-away directions once the genuinely useful lever saturates — the
+  measured sign flip, +0.807 then -0.998 to -1.000, with the proxy-only
+  optimizer at 371.85 while the true objective falls to -381.00 and the
+  control stops at 70.71); fix is treating gameability as part of proxy
+  selection and auditing exploitable dimensions before optimization finds
+  them, the trade being that the gold-signal defense costs exactly what the
+  proxy was built to avoid (held-out human review, independent judge,
+  occasional gold metric); Singhal et al. arXiv:2310.03716 2023, Goodhart
+  1975; ownership split across evaluation (proxy selection and gameability
+  check), product (true objective and gold signal), modeling (optimization
+  pressure), and platform (gold-metric sampling cadence).
+- red-teaming: the fixed-test-set failure (a system passes every authored
+  case while a nearby variant breaks it — measured flip rate 0.000 at every
+  budget up to 1000 with case-flip-only operators vs 100% by budget 10 with
+  the full operator set: budget cannot substitute for perturbation
+  coverage); fix is the manual-plus-automated pair and the bounded-claim
+  discipline ("we tried N variants and found none" is a dated claim about a
+  search process, never a robustness proof); Perez et al. Feb 2022 / EMNLP
+  2022, Ganguli et al. Aug 2022, Debenedetti et al. Jun 2024; ownership
+  split across safety-evaluation (search and operator coverage), data (case
+  library and dating), model (response to a discovered failure), and
+  release (escalation chain to a stopped deployment).
+- who-decides-to-ship: the score-versus-decision gap (outcome-only metrics
+  record a forbidden-action success as success; a guardrail you cannot
+  compute is a wish; measurement after the fact is not enforcement); fix is
+  the five-condition gate, enforcement at the subsystem that can still say
+  no, and the provenance record, the trade being blast-radius discipline
+  and converting arguments into measurements; evidence boundary explicit —
+  none of it is measured here, with eval gates and red-teaming as the
+  run-backed pieces; ownership split across release (gate and five
+  conditions), permission-policy (taxonomy row five), product (guardrail
+  contract), and platform-audit (provenance and enforcement points).
+- whose-harness: the undisclosed-harness failure (a score is a function of
+  seven terms, published comparisons disclose the first — measured
+  consequence: ARC-AGI-3 13.3% to 38.3% with the model unchanged, one
+  setting a defect, the other a declared policy); fix is the always-do five
+  plus the declared-choice column enforced by `REQUIRED_HARNESS_FIELDS`
+  raising, the trade being that a generic harness measures the model and a
+  tuned harness measures the product, neither being "the score", with
+  lm-eval-harness for static comparability (lambada_openai 20.5%, 138.3
+  perplexity) and an own harness for trajectories; ownership split across
+  evaluation (harness contract), model (deployment-contract match),
+  benchmarking-platform (adapter and version pinning), and product (which
+  measurement a release needs).
+- why-believe-the-number: the false-number failure in three forms —
+  contamination (SWE-bench Verified's public fix PRs; SWE-bench Pro /
+  Terminal-Bench 2.0 as the documented response), judge bias (position,
+  verbosity, self-preference; Zheng et al. 2023; AlpacaEval 2.0 length
+  control), and variance (300 samples at 50% = ±5.7 points; seed and
+  environment spread on top); fix is the reporting contract (date every
+  number, both uncertainties, judge validated against a gold set), the
+  trade being partial defenses whose missing parts are the disclosures;
+  Jiménez et al. 2024; ownership split across evaluation (disclosure
+  contract), data (benchmark selection and contamination risk),
+  product-quality (the gold set), and model (judge choice as a structural
+  countermeasure).
+
+The language-model system now satisfies the contract end to end: stages
+00-07, the serve/agent/eval sub-groups, and the vision path all carry the
+failure-mode, fix-and-trade, and who-owns-the-loop sections with measured
+or attributed-and-dated evidence.
+
+**Still pending:** a gap re-check of the remaining topics against the
+contract (personalized discovery, quantitative research, agentic platform,
+game AI, multimodal voice/video, bio-pharma, autonomous driving are done as
+of the increments above; the check re-reads them because earlier user
+feedback flagged personalized discovery chapters as shallow).
 
 The foundations now carry the failure-mode lens the queue named first:
 

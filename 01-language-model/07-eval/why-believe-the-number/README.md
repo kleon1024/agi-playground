@@ -101,6 +101,61 @@ fixed and vary only the sample.
 
 <!-- interactive: EvaluationUncertainty -->
 
+## The fix and its trade
+
+The failure mode is a number that is not miscomputed but false: it does not
+mean what a reader will take it to mean, in three ways that each cost
+different defenses. Contamination — SWE-bench Verified's public fix PRs are
+the answer, not merely the question, and a model trained on post-cutoff
+data has plausibly seen them; the documented response is construction, not
+detection (SWE-bench Pro from private or undisclosed repositories, with
+Terminal-Bench 2.0 cited as the successor generation as of 2026), and the
+practical rule is attribution: "SWE-bench Verified, as reported in [paper],
+[year]" is a checkable claim and bare "SWE-bench" is not. Judge bias —
+position, verbosity, and self-preference are reproducible biases (Zheng et
+al., 2023) that no better-worded prompt fixes, because none of them is a
+misunderstanding, so the countermeasures are structural: score both
+orderings, length control as in AlpacaEval 2.0, judge with a different
+model family. Variance — 300 samples at 50% success carries a roughly
+±5.7-point 95% bootstrap interval, so two runs four points apart are not
+distinguishable from noise, and agentic evaluation compounds that with
+seed and environment variance that has nothing to do with instance
+sampling.
+
+The fix is the reporting contract that owns all three: date every number,
+report both uncertainties (a bootstrap interval over instances, mean plus
+standard deviation over seeds — a report with one and not the other has
+silently assumed the second away), and validate the judge against a
+human-labeled gold set before trusting it on anything uncheckable by hand.
+The trade is that each defense is partial, and the missing part is the
+important disclosure: you can prefer well-constructed benchmarks but cannot
+prove a public benchmark clean for a model whose training data you did not
+see; you can measure judge-human agreement but cannot exceed the quality of
+the gold set, which is the expensive part nobody reports; and a tighter
+interval around a contaminated or biased number is still a contaminated or
+biased number. The dated anchors are external: SWE-bench (Jiménez et al.,
+2024), the MT-Bench and Chatbot Arena judge-bias results (Zheng et al.,
+2023), and the contamination response family this chapter names by version
+rather than by vendor.
+
+## Who owns the loop
+
+- **The evaluation team** owns the disclosure contract: date-every-number,
+  both-uncertainties reporting, and the tooling refusal to emit a
+  single-seed agent score — the report is structured so a bootstrap
+  interval without seed spread cannot be produced at all.
+- **The data team** owns benchmark selection and contamination risk: prefer
+  construction that makes leakage unlikely, version the benchmark family
+  (Verified versus Pro is a different trust claim), and record the cutoff
+  date beside every quoted number.
+- **The product-quality team** owns the gold set: held-out human labels for
+  judge validation are the expensive part, and the decision to pay for them
+  is what separates a validated instrument from a second model's opinion.
+- **The model team** owns the judge choice as a structural countermeasure:
+  judging with a different model family than the generator, and inspecting
+  judge-human disagreements for the three bias signatures before trusting
+  the judge on anything.
+
 ## What this chapter cannot do for you
 
 Each of the three defenses is partial, and saying which part is missing is more

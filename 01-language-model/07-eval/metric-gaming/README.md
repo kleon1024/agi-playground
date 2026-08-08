@@ -111,6 +111,64 @@ happening inside a training run is not.
 
 <!-- interactive: GoodhartLineage -->
 
+## The fix and its trade
+
+The failure mode is structural, not a data-quality problem: any proxy that
+is imperfectly aligned with the true objective has directions in which it
+can be increased without the true objective increasing, and the harder
+something searches, the more likely it finds exactly those directions. The
+measured mechanism is a sign flip, exactly once: over 2,000 hill-climbing
+steps on two functions that share the same genuine-quality term, proxy and
+true objective correlate +0.807 while informativeness is still climbing,
+then saturate at its cap around step 200, and every later 200-step window
+measures correlation between -0.998 and -1.000 — not weaker agreement, the
+opposite sign. By step 1999 the proxy-only optimizer has raised its visible
+score to 371.85 while the true objective it never saw has fallen to
+-381.00, worse than doing nothing; the control optimizer, given the true
+objective directly, stops at 70.71 and never touches the padding dimension,
+because padding is never a real improvement to the function it can see.
+
+The fix is to treat "how gameable is this metric" as part of the evidence
+when choosing a proxy, and to know the exploitable dimensions before
+optimization pressure finds them: the mechanism fails here specifically
+because the proxy rewards a dimension (`p`) the true objective penalizes,
+once the genuinely useful dimension (`i`) is exhausted — a proxy with no
+such exploitable dimension, or one where the exploitable dimension is
+bounded as tightly as the useful one, would not show this pattern. The
+trade is that the defense is expensive by construction: the reason the
+proxy exists is that the true objective is too slow or costly to score at
+the volume an optimizer needs, so the countermeasure is the same
+hold-out-gold discipline the eval stage already runs — held-out human
+review, an independent judge, a slower gold metric sampled occasionally —
+each costing exactly what the proxy was built to avoid. The mechanism is
+documented in a concrete, dated case: automated and learned reward models
+in RLHF measurably favor longer responses independent of content quality
+(Singhal et al., "A Long Way to Go," arXiv:2310.03716, 2023), and the
+quotable version is Goodhart's Law (Goodhart, 1975) — while measuring the
+flip inside a training run, as this chapter's toy does, is new. The toy's
+boundary is explicit: a rate, and an early-warning signal that transfers to
+real systems, are both outside what it establishes.
+
+## Who owns the loop
+
+- **The evaluation team** owns proxy selection and the gameability check:
+  "how gameable is this metric" is part of the evidence for keeping or
+  replacing a proxy, not a separate concern, and the exploitable-dimension
+  audit is done before optimization pressure finds the peeled-away
+  directions.
+- **The product team** owns the true objective and the gold signal:
+  held-out human review or an independent judge is the expensive detection
+  axis, and the choice of which slices get it is a product decision about
+  what quality actually means.
+- **The modeling team** owns the optimization pressure: any reward-model or
+  RLHF loop is an optimizer against a proxy, so the reward team owns the
+  length-correlation risk (Singhal et al. 2023) and the structural
+  countermeasures for the dimensions it controls.
+- **The platform team** owns the sampling cadence of the gold metric:
+  occasional, expensive ground truth at a frequency the budget can bear is
+  the only early-warning signal a real system has, and it has to be
+  scheduled rather than assumed.
+
 ## What this toy does not establish
 
 - **A rate.** It shows the mechanism can produce total sign reversal in a

@@ -143,6 +143,59 @@ and its unknowns, the options with their residual risk, and the named decision
 required. Escalation moves a decision whose authority exceeds the current team;
 it does not move ownership of the analysis.
 
+## The fix and its trade
+
+The failure mode is the gap between a score and a decision: aggregate
+scores tell you whether to ship, never what to fix, and an outcome-only
+metric records a task completed by a forbidden action as success — the
+taxonomy's row five, which is why policy adherence has to be scored beside
+the outcome rather than after it. Two more failures compound it: a
+guardrail you cannot compute is a wish ("do not harm quality" cannot block
+anything until it names a population, a metric, a direction, a tolerance,
+and a decision), and measurement after the fact is not enforcement — a
+downstream dashboard cannot compensate for an upstream system that still
+permits the action.
+
+The fix is the five-condition gate — outcome clears a pre-declared bar, hard
+guardrails within limit, no hidden slice regression, latency and cost within
+budget, every failure owned with an accepted residual risk — plus the
+enforcement-point rule (the control belongs at the subsystem that can still
+say no) and the provenance record that reconstructs a high-impact decision
+(who or what initiated it, which policy and model version applied, which
+evidence, which action, which guardrails, what result and override
+followed). The trade is that each condition costs something real: a mixed
+result's useful output is naming the slice, sample size, or failure
+mechanism whose resolution would change the decision — converting an
+argument into a measurement costs the comfort of "run more tests";
+enforcement at the source costs blast-radius discipline (grant only the
+data, tools, duration, and population the current job requires, keeping
+identity separate from enrollment and possession separate from use); and a
+guardrail needs a warning threshold separate from its hard stop, its
+missing-data behavior written down, and a named owner — if two teams compute
+the same guardrail differently, it is two boundaries with one name. The
+chapter's evidence boundary is explicit: none of this apparatus is
+measured — this repository has one release decision (mission 01's 0-of-6
+agent report) and the correct call there needed no guardrail machinery —
+so the chapter is the shape of the decision, with eval gates and
+red-teaming as the run-backed pieces beside it.
+
+## Who owns the loop
+
+- **The release team** owns the gate and the five conditions: the
+  pre-declared bar, the hard-stop guardrails with their warning thresholds,
+  and the fail-open-versus-fail-closed choice written down per risk.
+- **The permission-policy owner** owns the taxonomy's row five: scoring
+  policy adherence beside the outcome is its contract, because a
+  better-behaved model would hide a permission defect rather than remove
+  it.
+- **The product team** owns the guardrail contract: population, metric,
+  direction, tolerance, missing-data behavior, and the decision that
+  follows a breach — the choices that make a guardrail computable at all.
+- **The platform-audit team** owns provenance and the enforcement points:
+  the record that reconstructs a decision afterwards, the subsystem that
+  can still say no, and the escalation packet that carries a decision
+  request rather than a meeting invite.
+
 ## What this chapter does not establish
 
 None of it is measured. This repository has one release decision to point at —
