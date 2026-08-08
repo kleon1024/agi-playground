@@ -157,6 +157,70 @@ updates are handled; none of them make incompatible bases compatible. Evaluate
 every source model, the merged model, and the regression slices, because a merge
 of two headline capabilities can lose both on their harder cases.
 
+## The fix and its trade
+
+The failure this chapter treats is the arrangement SFT assumes — a person
+already produced the answer, and the model's job is to imitate it — and the
+four methods are fixes for the two ways that arrangement breaks: nobody
+wrote the answer, or moving every weight is too expensive. Each fix states
+its trade in worked arithmetic on this model's real shapes. LoRA's trade is
+constraint for cost: a 768x768 query projection (589,824 weights) becomes a
+rank-8 pair of 12,288 — 48 times fewer — and adapting all four projections
+in all 12 layers trains 491,520 parameters, 0.56% of the model, but rank
+bounds the directions the update may move in; a change that genuinely needs
+a higher-rank update is blocked, which is a different failure from "not
+enough data" and does not look different in a loss curve. The alpha/r scale
+keeps rank changes from changing the update's magnitude underneath you
+(alpha=16 at r=8 scales by 2; raising r to 16 makes it 1).
+
+The reward-model fix trades absolute scores for a difference: sigma only
+ever sees r_w - r_l, so a gap of 1 gives 73.1%, 2 gives 88.1%, 3 gives
+95.3% — and adding 100 to both rewards changes nothing, which is why a
+reward of 4.7 is meaningless beside the reward it was compared against, and
+why annotator agreement sliced by the failure modes the policy might exploit
+is the acceptance check (95% accurate overall and 50% on long answers has
+taught the policy to be verbose). DPO's trade is reference memory and label
+noise for skipping the reward model: at step zero the policy is the
+reference, so the loss is exactly log 2 = 0.693 — the same way pretraining
+starts at ln(vocab) — and a first step that is not 0.693 means the reference
+model is wrong, not the objective; halving that loss needs an 8.8-nat gap at
+beta 0.1, which is why small beta does not mean small changes. Task-vector
+merging's trade is the shared-base precondition: each tau carries 88,197,888
+numbers, merging two fine-tunes means holding three full checkpoints, and if
+the vectors are exact opposites the merge is the base model — no scalar
+lambda can tell you where real per-weight vectors sit between the poles.
+
+The umbrella trade is stated at the top and repeated at the boundary: none
+of the four is run here, because the checkpoint is small enough that full
+fine-tuning is cheap and no preference data was collected, so every figure
+is arithmetic on declared shapes rather than a measurement — it can tell you
+what a method *costs* and not what it *buys*, and the only adaptation
+measurement mission 01 has is full fine-tuning on demonstrations. And all
+four stay offline: none can explore a response absent from the fixed
+preference dataset, which is exactly the boundary stage 04 crosses (LoRA:
+Hu et al., 2021; QLoRA: Dettmers et al., 2023; DPO: Rafailov et al., 2023;
+SimPO: Meng et al., 2024; Task Arithmetic: Ilharco et al., 2022).
+
+## Who owns the loop
+
+- **The training engineer** owns the method choice against the constraint:
+  whether the adapter's rank bounds the needed update, whether the reward
+  model's annotator agreement holds on the slices the policy exploits, and
+  whether the reference-model step-0 check (0.693) passes — the three
+  acceptance tests that turn a method into a deployment.
+- **The data team** owns the supervision source: demonstrations when a
+  person wrote the answer, preference pairs when only a judgement exists,
+  and the prompt-and-annotator distribution that decides what the reward
+  model actually learned to prefer.
+- **The evaluation team** owns the offline boundary: all four methods
+  reweight or constrain what is already in a fixed dataset, none can
+  discover a better response that was never sampled, and the handoff to RL
+  is the point where the policy starts generating attempts to be scored.
+- **The research team** owns the evidence boundary: no run happened here,
+  so the chapter's numbers are worked arithmetic on real shapes, and a
+  claim that LoRA "works" on this model needs the run this page does not
+  make.
+
 ## What this chapter does not establish
 
 Nothing here has been run. There is no LoRA fine-tune, no reward model, no

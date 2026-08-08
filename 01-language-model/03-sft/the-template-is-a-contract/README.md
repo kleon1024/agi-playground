@@ -119,7 +119,7 @@ accepted trade — 217 of 9,500 conversations dropped, 19.6% padding — which
 TRL and torchtune answer with block-diagonal attention masks at the cost of
 a different memory and attention contract.
 
-## Who owns the contract
+## Who owns the loop
 
 - **Stage 01 (tokenizer) owns the reserved ids.** The freeze commits
   `tokenizer.json`; ids 16385-16387 are the headroom it left, and nothing

@@ -1355,12 +1355,62 @@ measured numbers and citing dated sources:
   et al. 2022; ownership split across training engineer, eval, data, and
   platform.
 
+**Done for the SFT sub-group (twenty-fourth audit increment, 2026-08-08).**
+The three pending `03-sft/` chapters now carry the fix-and-trade and
+who-owns-the-loop sections, reusing the chapter's own measured numbers and
+dated citations, and the six chapters that carried the ownership section
+under a non-contract heading (`## Who owns it` / `## Who owns the contract`)
+were normalized to `## Who owns the loop` so the contract's check is
+uniform:
+
+- 03-sft parent: the base model's indifference to conversation fixed by the
+  loss mask (`-100` is `cross_entropy`'s default `ignore_index`, so the
+  loss is computed only on assistant tokens; the closing `<|im_end|>` is
+  trained on deliberately so the model learns to stop) and the
+  one-convention template rule (ChatML vs Alpaca markers are arbitrary; a
+  serve-time mismatch degrades toward base behavior); the cost is measured
+  — 92.5s over 9,500 conversations, val 3.1829 to 2.7828, 19.6% padding,
+  217 conversations discarded, and the step-0 baseline is its own curve,
+  not pretraining's; Zhou et al. 2023 (LIMA); ownership split across data
+  (the four pre-data failure modes), training engineer (mask and template),
+  eval (honest baseline), and serving (template version at inference).
+- 03-sft what-it-costs: the cost invisible in the loss curve — packing's
+  attention leak (late tokens in conversation B attend to A; blast radius
+  bounded because the loss depends only on labels, never attention),
+  the thirtyfold learning-rate drop (6e-4 applied to a converged model
+  re-randomizes it; 2e-5 protects the prior, and many epochs at the old
+  rate is how catastrophic forgetting happens), and the four things better
+  data cannot fix (no new knowledge, no ground truth, no preference signal,
+  no capacity — LIMA's doubling-the-set non-improvement vs the multi-turn
+  addition raising "excellent" from 45.2% to 76.1% anchors curation over
+  volume); Zhou et al. 2023; ownership split across training engineer,
+  data, eval (the forgetting probe against the base checkpoint), and
+  platform (the four limits' escalation boundary).
+- 03-sft what-model-size-changes: the single-point claim fixed by the size
+  axis — the 5M run (pretrained-base SFT 9.5188 to 8.6496 vs random-init
+  9.7475 to 8.8015: the base prior helps even at 5M, and neither arm lands
+  the format, producing word fragments) read against the recorded 88M point
+  and dated external results (LIMA 65B 2023; token-scaled vs fact-scaled
+  SFT arXiv:2509.16596 2025; Chu et al. ICML 2025 "SFT Memorizes, RL
+  Generalizes"); ownership split across research (which points are measured
+  vs attributed), training engineer (the controlled comparison), and eval
+  (the format-vs-content mechanism read).
+- 03-sft beyond-demonstrations: the two broken arrangements (nobody wrote
+  the answer; moving every weight is too expensive) fixed by LoRA (48x
+  fewer parameters, 0.56% of the model, rank constrains update direction),
+  reward models (sigma sees only the difference, so a reward is meaningless
+  beside its comparison and annotator agreement sliced by exploitable
+  failure modes is the check), DPO (step-0 loss exactly log 2 = 0.693, the
+  reference-model check), and task-vector merging (three full checkpoints,
+  shared-base precondition); none run here, so the figures are worked
+  arithmetic on real shapes; Hu et al. 2021, Dettmers et al. 2023, Rafailov
+  et al. 2023, Meng et al. 2024, Ilharco et al. 2022; ownership split
+  across training engineer, data, eval (the offline boundary), and research
+  (the no-run boundary).
+
 **Still pending:** the remaining language-model system sub-groups:
-- Language-model system sub-groups: `03-sft/` (what-it-costs,
-  what-model-size-changes, beyond-demonstrations, and the two chapters
-  that carry only the who-owns half — when-the-teacher-is-wrong and
-  the-template-is-a-contract), `05-serve/` (graph-execution, quantization,
-  speculative-decoding, observability and when-the-tail-waits,
+- Language-model system sub-groups: `05-serve/` (graph-execution,
+  quantization, speculative-decoding, observability and when-the-tail-waits,
   paging-the-cache), `06-agent/` (what-stops-it, what-fits-in-context,
   would-a-second-agent-help, when-the-tool-errors — which carries only the
   who-owns half and needs the fix-and-trade), `07-eval/` (metric-gaming,

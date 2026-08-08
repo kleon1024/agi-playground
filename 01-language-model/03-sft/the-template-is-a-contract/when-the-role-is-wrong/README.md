@@ -128,7 +128,7 @@ the reserved id), but it costs the pipeline a content constraint — no
 legitimate content may ever contain a marker string, because the only
 allowed source of a marker is the render code.
 
-## Who owns it
+## Who owns the loop
 
 The data pipeline owns the masker's tests — the main chapter named this
 handoff, and this detour executes it. The validator runs on raw rows

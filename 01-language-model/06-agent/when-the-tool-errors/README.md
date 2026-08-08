@@ -125,7 +125,7 @@ shape they agree on is the shape this chapter measures: the failure classes
 are enumerable, none resolve by retry alone, and the recovery turns have to
 be in the imitation data.
 
-## Who owns it
+## Who owns the loop
 
 - **The trace-construction team** owns error injection: the mix must contain
   real failures (timeouts, `exit=1`, truncation, empty results), not only

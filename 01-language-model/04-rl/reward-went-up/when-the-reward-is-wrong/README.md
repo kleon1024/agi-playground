@@ -116,7 +116,7 @@ negative today](../../../../02-personalized-discovery/recommendation/57-delayed-
 where the recommendation track runs the same freshness-versus-correctness
 trade on conversion labels.
 
-## Who owns it
+## Who owns the loop
 
 The label pipeline owns label trust: poison-rate sampling, staleness
 monitoring, and the "fresh enough" budget. The eval team owns the held-out

@@ -140,6 +140,74 @@ is a property of the code that was read, not an effect that was quantified, and
 no ablation was run at a higher learning rate to observe forgetting directly.
 Both are stated as mechanisms with named consequences, not as results.
 
+## The fix and its trade
+
+The failure this chapter treats is the cost that is invisible in the loss
+curve — the 3.1829-to-2.7828 improvement hides three prices, and each fix
+names its trade. Packing's trade is speed for a correctness subtlety:
+padding every example to the block would spend most of a batch's forward
+pass on tokens carrying no signal, so packing concatenates short examples
+and finishes the stage in ninety seconds — but once two unrelated
+conversations share a sequence, a plain causal mask lets late tokens in
+conversation B attend to all of conversation A. Production trainers fix this
+with a block-diagonal attention mask (TRL and torchtune both do); `core/`
+accepts the leak because building a custom mask would mean editing a file
+this stage is scoped not to touch. The blast radius is smaller than it
+sounds and the chapter states it precisely: loss masking depends only on
+`labels`, never on attention, so the model is never taught to predict a
+token from the wrong conversation — it occasionally spends a little
+attention capacity on an irrelevant neighbor.
+
+The learning-rate trade is the sharpest: a peak rate anywhere near
+pretraining's 6e-4, applied to a converged model, does not adjust it — it
+re-randomizes large parts of it before the objective has any chance to
+specialize gently, so `core/sft.py` defaults to 2e-5, roughly thirty times
+lower, with a 30-step warmup against pretraining's 500 because there are far
+fewer total steps to warm up across. The trade is explicit in the epoch
+structure: running once over ~10,000 examples would barely move the model,
+so SFT runs several epochs over a small set — and running many epochs at a
+pretraining-scale rate is precisely how catastrophic forgetting happens,
+presenting as fluent, grammatical text that has lost what the base model
+knew, which looks like success until you ask it something. The forgetting
+check is a probe against the base checkpoint, not the fine-tuning loss,
+since that loss only measures fit to the new objective.
+
+The third fix is the boundary between what better data moves and what it
+cannot: no new knowledge (not in the pretraining corpus, not in the chat
+turn), no ground truth (SFT imitates style, and a confidently-worded wrong
+answer in the training set teaches confident wrongness efficiently), no
+preference signal (that comparison is stage 04's job), and no capacity (a
+small model given excellent data still has a small model's capacity). The
+LIMA read — doubling the training set did not improve response quality while
+adding examples aimed at a genuinely new distribution (multi-turn dialogue)
+raised "excellent" responses from 45.2% to 76.1% — is the measured anchor
+for curation over volume (Zhou et al., LIMA, arXiv:2305.11206, 2023), and
+the chapter's caution is that LIMA is an argument that you need less data,
+not that curation substitutes for scale: it ran one 65B model, so whether a
+stronger base needs fewer examples is a reasonable inference from the
+Superficial Alignment Hypothesis and stays unmeasured until the cross-base
+comparison is run.
+
+## Who owns the loop
+
+- **The training engineer** owns the pack-and-mask contract: the accepted
+  attention leak, the `prod/` fix that does not have it, and the thirtyfold
+  learning-rate drop are their implementation decisions, disclosed rather
+  than hidden, with the blast-radius read as their evidence.
+- **The data team** owns the curation-versus-volume trade: the 9,500-
+  conversation set at 80.4% real tokens, the category coverage that decides
+  whether new data teaches a new distribution or re-teaches an old one, and
+  the LIMA caution that volume stops helping once the model already knows
+  how to answer the question.
+- **The evaluation team** owns the forgetting probe: catastrophic forgetting
+  produces text that reads well, so the fine-tuning loss cannot reveal it —
+  the check is a comparison against the base checkpoint on capabilities it
+  demonstrably had before SFT.
+- **The platform team** owns the four limits' boundary: no new knowledge, no
+  ground truth, no preference signal, and no capacity are not data bugs, and
+  a complaint that lands in one of them is escalated to pretraining or RL,
+  not to "more examples."
+
 ## Measure the packing win yourself
 
 Before calling `pack()`, compute what padding every example individually to

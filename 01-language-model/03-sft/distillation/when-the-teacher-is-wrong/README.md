@@ -124,7 +124,7 @@ wrong prior replacing a weak one — so screening teacher quality before
 generating costs tokens, and skipping the screen costs the student's own
 baseline.
 
-## Who owns it
+## Who owns the loop
 
 - **The data team** owns the teacher's error surface before anyone distils
   from it: a per-class accuracy audit of the teacher on the slices the

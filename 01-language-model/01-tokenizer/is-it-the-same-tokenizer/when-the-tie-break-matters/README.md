@@ -118,7 +118,7 @@ vocabulary that fragments numbers per-digit is a measurable handicap
 accepted at tokenizer time, before a single weight is trained, and
 re-choosing it later means re-training the tokenizer, not tuning the model.
 
-## Who owns it
+## Who owns the loop
 
 The tokenizer and training-data teams own the tie-break as a **contract**:
 the rule, the pre-tokenizer digit cap, and the byte base are pinned in the

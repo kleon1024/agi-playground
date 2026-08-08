@@ -225,6 +225,71 @@ tokenizer rather than only its weights.
 and be scored on it?* Everything above stays offline; none of it can prefer a
 response that is absent from the dataset.
 
+## The fix and its trade
+
+The failure this stage fixes is the base model's indifference to
+conversation: asked "What causes seasons on Earth?", the highest-probability
+continuation in web text is not necessarily an answer, and SFT does not teach
+new facts — it teaches the *shape* of a reply, which tokens are the model's
+turn, and where the turn ends. The fix has two parts. The loss mask is the
+central mechanism: `-100` is not an arbitrary sentinel but
+`cross_entropy`'s default `ignore_index`, so the loss is computed only on
+assistant tokens, and the trade is stated in the same diagram — everything up
+to `assistant\n` is masked because training on it teaches the model to write
+both sides of the conversation (the exact failure of skipping this step),
+while the closing `<|im_end|>` *is* trained on deliberately, because a model
+that never sees it as a target never learns to stop cleanly. The chat
+template is the second fix: the marker bytes are arbitrary — a model trained
+with `### Instruction:` learns that boundary just as well — so what matters
+is that exactly one convention is used consistently at train and inference
+time, and serving a ChatML-tuned model with Alpaca-formatted prompts
+degrades it toward base behavior. This repo's tokenizer takes `16385` and
+`16386` from the 127-id gap stage 02 left when padding the vocabulary to a
+multiple of 128; production tokenizers reserve chat tokens *before*
+pretraining so the embedding table never has to grow, and padding for
+alignment happens to leave exactly enough room to do the same thing one
+stage late, for free.
+
+The cost side is measured and it is the result to carry forward: three epochs
+over 9,500 conversations took 92.5 seconds and moved validation loss from
+3.1829 to a best of 2.7828, changing the form of the output (it answers, and
+stops) and nothing about what the model knows — the chocolate-desserts
+answer has the shape of a reply and no content, which is what 9.8M tokens of
+instruction data can and cannot do to a model that saw 3.0B tokens of
+pretraining. The step-0 value of 3.1829 against pretraining's 3.0984 looks
+like a regression and is not: different held-out distribution, loss counted
+only on assistant tokens, through a template the model has never seen — the
+only honest baseline for an SFT curve is its own step 0. Two costs of the
+1,024-token context arrive here: packing leaves 19.6% of trained positions
+as padding and 217 conversations (2.3% of the dataset) were discarded for
+exceeding a block, both recorded because they are real. And the four
+pre-data failure modes — an answer truncated at the block limit but trained
+as complete, the user prompt leaking into the supervised region, duplicate
+templates teaching one house style, and validation paraphrases of training
+records — each produce a plausible loss curve, which is why the wiring is
+checked before more examples are added (Zhou et al., LIMA, 2023, is the
+dated anchor for the curation-over-volume position this stage's cost chapter
+develops).
+
+## Who owns the loop
+
+- **The data team** owns the dataset contract: the four pre-data failure
+  modes (truncation, prompt leakage, template duplication, validation
+  paraphrase) are their acceptance checks before a single example is added,
+  and the category breakdown of the eval loss is their measurement.
+- **The training engineer** owns the mask and the template: the `-100`
+  boundary, the deliberately-trained closing marker, and the one-convention
+  rule are their correctness contract, and the before-and-after fixed-prompt
+  samples are their acceptance evidence.
+- **The evaluation team** owns the honest baseline: an SFT curve is compared
+  only to its own step 0 (the 3.1829-vs-3.0984 gap is a distribution change,
+  not a regression), and the form-yes-content-no read of the samples is the
+  result they license, not a benchmark average.
+- **The serving team** owns the template at inference: serving a model with
+  a different boundary string than it was trained on degrades it toward base
+  behavior, so the template version is a serve-time contract, not a
+  training-time detail.
+
 ## Exercises
 
 1. **Break the mask on purpose.** Comment out the loss-masking branch in

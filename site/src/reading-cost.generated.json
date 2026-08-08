@@ -105,11 +105,11 @@
   },
   "01-language-model/03-sft": {
     "level": "foundation",
-    "minutes": 10
+    "minutes": 14
   },
   "01-language-model/03-sft/beyond-demonstrations": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 12
   },
   "01-language-model/03-sft/distillation": {
     "level": "frontier",
@@ -137,11 +137,11 @@
   },
   "01-language-model/03-sft/what-it-costs": {
     "level": "applied",
-    "minutes": 10
+    "minutes": 14
   },
   "01-language-model/03-sft/what-model-size-changes": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 9
   },
   "01-language-model/04-rl": {
     "level": "applied",

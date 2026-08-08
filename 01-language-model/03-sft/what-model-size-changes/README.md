@@ -115,6 +115,56 @@ exists and the prior is thin, so SFT lands the format and nothing else. At
 65B-plus the prior is rich, so SFT mostly reshapes the surface — and with the
 right data, can push new facts in.
 
+## The fix and its trade
+
+The failure this chapter treats is the single-point claim: the 88M run shows
+form-yes-content-no, and one point cannot distinguish "SFT teaches shape,
+not content" from "SFT teaches shape at 88M and does something else at other
+sizes." The fix is the size axis, run where this repository can measure it
+and read where it cannot. The measured 5M point holds everything fixed
+except the starting weights: a pretrained base (4,941,504 parameters, Tiny
+Shakespeare, ~330k tokens) versus random initialization, the same recipe,
+the same 9,500 conversations, the same 357-step budget — and the table
+establishes two things. The base prior helps even at 5M: the pretrained arm
+starts lower (9.5188 vs 9.7475) and ends lower (8.6496 vs 8.8015), so the
+recipe alone is not the whole SFT result at any size. And neither arm lands
+the format — both produce word fragments, because at 5M there is not enough
+capacity to hold the chat template, the dialogue distribution, and fluent
+English at once. The axis reads as one mechanism: SFT moves the output
+distribution toward the fine-tuning data's surface, and how much it can move
+depends on the room the model has — capacity to hold the new surface without
+destroying the prior, and a prior rich enough to be surfaced.
+
+The trade is the evidence boundary, stated as a ladder of dated external
+results the repository cannot reach: at 65B, format is almost free (Zhou et
+al., LIMA, arXiv:2305.11206, 2023 — 1,000 curated demonstrations matched far
+more heavily trained systems on style); at scale, SFT can inject knowledge,
+but token-scaled versus fact-scaled SFT data decides whether new facts land
+(arXiv:2509.16596, Sep 2025); and SFT's format-stabilizing role persists —
+the same study reports removing SFT degrades RL's gains (Chu et al., "SFT
+Memorizes, RL Generalizes," ICML 2025, arXiv:2501.17161). The chapter's own
+two rows are not head-to-head (different tokenizer, corpus, device) and it
+never presents them as such; they are two measured points on an axis the
+external results extend, and the mechanism claim for frontier scale is
+attributed, dated, and not demonstrated here. What the fix buys is that the
+main stage's "SFT teaches shape, not content" becomes a size-dependent
+statement with a measured small end, a measured 88M point, and a dated large
+end — instead of a universal.
+
+## Who owns the loop
+
+- **The research team** owns the size-axis design: which points are measured
+  (5M, 88M) and which are attributed external results (65B and beyond), and
+  the rule that a claim about SFT at scale is dated and attributed, never
+  inferred from the local runs.
+- **The training engineer** owns the controlled comparison: everything fixed
+  except the starting weights, the random-init control that separates "the
+  base brought something" from "the recipe alone does this," and the
+  not-head-to-head disclaimer between the 5M and 88M rows.
+- **The evaluation team** owns the mechanism read: the format-vs-content
+  split at each size, the fragments-versus-fluent boundary, and the
+  handoff to RL where the same split reappears under a reward signal.
+
 ## Evidence boundary
 
 This chapter measured one new point (5M, two arms) and re-reads the recorded
