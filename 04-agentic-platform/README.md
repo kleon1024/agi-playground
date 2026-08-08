@@ -182,16 +182,20 @@ rejected. A real, modest, mixed result, not a clean win.
 [Stage 07](07-frontier/) then reads everything stages 00–06 recorded as the
 frontier question: the same loop — retry, grounding, verification, permission
 ladders, gates — is what every agentic surface that transacts now runs on,
-and the four frontier chapters each return a decision on top of the recorded
+and the six frontier chapters each return a decision on top of the recorded
 runs. The intent chapter reads the produced-vs-delivered gap (4/18 blind vs
 18/18 harness); the anatomy chapter audits the loop's control and compute
 planes and reads Claude Code, Codex, and Antigravity as the same five
 decisions; the governance chapter prices a reconciliation gate (14/18 blind
 calls rejected before delivery, zero tampering across 54 real model calls);
 and the product chapter draws the automate-versus-gate line as a routing
-table priced per delivered outcome. No model was called and no new run was
-executed to produce them — every number traces to this mission's `runs/`
-entries or to a dated external source.
+table priced per delivered outcome; the agent-is-the-action chapter reads the
+blind call as the un-reconciled agent (12/18 still failing, 11 non-applying)
+against the reconciled harness (18/18); and the adversary chapter reads the
+guardrail's decision boundary against its zero-firing real record, with the
+adaptation result that makes the assumed-adversary stance load-bearing. No
+model was called and no new run was executed to produce them — every number
+traces to this mission's `runs/` entries or to a dated external source.
 
 
 
@@ -221,6 +225,8 @@ artifact or a measurement the next stage consumes.
 | `07-frontier` | What does the software around the model own? | [harness-anatomy](07-frontier/harness-anatomy/) |
 | `07-frontier` | What does a governed agent actually do? | [control-plane-governance](07-frontier/control-plane-governance/) |
 | `07-frontier` | When should the agent act, and when should a human sign it? | [what-a-reasonable-agentic-product-is](07-frontier/what-a-reasonable-agentic-product-is/) |
+| `07-frontier` | When is the agent the action? | [the-agent-is-the-action](07-frontier/the-agent-is-the-action/) |
+| `07-frontier` | What does the adversary that adapts change? | [the-adversary-that-adapts](07-frontier/the-adversary-that-adapts/) |
 
 ## Landscape surveys
 

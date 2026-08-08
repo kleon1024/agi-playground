@@ -1529,7 +1529,7 @@
   },
   "04-agentic-platform": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 10
   },
   "04-agentic-platform/00-task-set": {
     "level": "applied",
@@ -1628,6 +1628,14 @@
     "minutes": 6
   },
   "04-agentic-platform/07-frontier/intent-to-delivery": {
+    "level": "frontier",
+    "minutes": 6
+  },
+  "04-agentic-platform/07-frontier/the-adversary-that-adapts": {
+    "level": "frontier",
+    "minutes": 7
+  },
+  "04-agentic-platform/07-frontier/the-agent-is-the-action": {
     "level": "frontier",
     "minutes": 6
   },

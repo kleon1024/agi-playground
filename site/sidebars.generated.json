@@ -2684,6 +2684,16 @@
             "type": "doc",
             "id": "04-agentic-platform/07-frontier/intent-to-delivery/index",
             "label": "Intent to delivery"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/07-frontier/the-adversary-that-adapts/index",
+            "label": "The adversary that adapts"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/07-frontier/the-agent-is-the-action/index",
+            "label": "The agent is the action"
           }
         ]
       },
