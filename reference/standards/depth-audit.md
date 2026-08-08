@@ -1685,6 +1685,34 @@ The foundations now carry the failure-mode lens the queue named first:
   al. 2024 (arXiv:2401.06066), Liu et al. 2024 (arXiv:2412.19437);
   detour: when-the-expert-goes-dead now carries the fix-and-trade.
 
+**Structural re-check 2026-08-08 (thirtieth audit increment):** a fresh
+scan found the parents of 02, 06, and 07 still missing the fix-and-trade
+section and every one of their five detours still missing who-owns,
+even though the summary above claimed the row done. Closed now, each
+section reusing the chapter's own measured numbers: 02 optimization
+parent's fix is the larger effective step on the shallow axis — at A = 10
+plain SGD stops flipping signs entirely (zero flips) and still needs 343
+steps, so the crawl, not the zigzag, sets the pace, and momentum (138)
+and Adam (82) win by moving faster there, with the A = 1000 divergence
+of SGD and momentum pricing the fixed-step-size side of the trade; its
+two detours now name owners (optimizer team for the update rule and mu
+knob, infra for conditioning and budget, research/eval or data/capacity
+for the surface-floor class where all four rules stall at the same
+0.0100). 06 significance parent's fix is the ship-on-the-interval rule —
+the same true +0.06 effect shows a larger gap at n=25 (0.2000) that the
+(−0.0400, 0.4400) interval does not support, versus n=300's 0.1333 with
+(0.0600, 0.2067); its two detours now name owners (measurement team for
+the report and pre-registration, statistics team for the correction
+choice at 0.59-to-0.22 false positives and 6/500-to-25/500 power cost,
+product owner for what a false win costs). 07 moe parent's fix is the
+balancing term — auxiliary loss at alpha = 1e-2, capacity factor, and
+Quantile Balancing — traded against routing quality and per-step
+histogram cost, with accuracy fixed at 1.000 in every cell; its detour
+now names owners (architecture for the balancing objective, serving for
+the capacity factor and drop, evaluation for the count-based utilization
+check). Every one of the nine chapters now carries both sections; the
+scan is clean for the whole foundations row.
+
 ### Multimodal generation — voice path (modality-imbalance row)
 
 **Status: done (seventeenth audit increment, 2026-08-08).**

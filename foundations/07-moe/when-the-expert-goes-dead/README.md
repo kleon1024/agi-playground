@@ -69,6 +69,34 @@ three fixes does is change the input distribution: the 4:1 skew is still
 there, and the balancing term is why the router's accuracy (1.000 in
 every cell) does not drop when it is added.
 
+## Who owns the loop
+
+Each fix in the previous section has one owner, tied to one row of the
+sweep:
+
+- **The model and architecture team** owns the balancing objective: the
+  auxiliary-loss weight, the quantile target, and the choice of a shared
+  expert. It owns the dead-expert failure — the top-1 no-shared row's
+  counts [45, 0, 6, 149] under the 4:1 skew, and the trade between
+  routing quality and fairness the alpha knob measures.
+- **The serving and infrastructure team** owns the capacity factor and
+  the drop: what happens when a real batch over-routes one expert. It
+  owns the dropping failure — the realized-count column (21.5x at top-1
+  with a shared expert) is what the batch waits on, not the routing
+  entropy, and the capacity factor trades dropped tokens against
+  per-expert throughput.
+- **The evaluation team** owns the utilization metric that decides
+  whether an expert is alive in production: per-expert routed counts over
+  a real traffic slice, not training-time entropy. It owns the
+  entropy-versus-imbalance failure — the sweep's entropy stays near
+  maximum (1.33-1.36 of ln 4) while the counts skew, so the only number
+  that proves an expert is dead is the count.
+
+When ownership is implicit, the architecture team balances a router whose
+capacity factor drops the tokens the serving team cannot buffer, and the
+evaluation team reports entropy as utilization — the same realized-count
+failure from three sides.
+
 ## Evidence boundary
 
 The recorded routing sweep (one toy, 4 experts, 4 patterns, one skew,

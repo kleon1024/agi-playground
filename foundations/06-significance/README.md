@@ -108,6 +108,30 @@ and the argument for running it routinely is one of the newest.
   real eval needs — that depends on the real effect size and per-item noise,
   neither of which this toy's synthetic values are a substitute for.
 
+## The fix and its trade
+
+The failure is reading the point estimate as the claim. The two rows make
+it legible: the same true +0.06 effect produces a larger observed gap at
+n=25 (0.2000) than at n=300 (0.1333), and the interval is what separates
+them — (−0.0400, 0.4400) includes zero, (0.0600, 0.2067) does not. The
+fix is a decision rule that ships on the interval, not the center:
+report the paired bootstrap interval beside the gap, and treat "the
+interval excludes zero" as the only claim that survives. The trade is
+measured by the same two rows. Pairing costs design discipline up front —
+the two systems must share the item set, and the resample has to draw
+item indices once and apply them to both outcomes — and pays in power:
+at n=300 the paired interval excludes zero where an unpaired read of two
+independent populations would leave the item-difficulty noise this
+design cancels still inside the interval. The rule also costs
+decisiveness at small N: a real effect at n=25 returns the no-ship
+verdict even though the effect is real, because the width, not the
+center, is what the data can support. And the single-comparison rule
+multiplies: applied to a family of pairs, the same alpha produces chance
+wins that the [multiple-comparisons detour](when-the-comparisons-multiply/)
+measures at 44.2 percent of naive experiments, cut to 16.8 percent by
+Benjamini-Hochberg at the measured cost of missing the true effect
+25/500 versus 6/500 times.
+
 ## Who owns the loop
 
 The ship/reject rule is only as honest as the ownership around it, and

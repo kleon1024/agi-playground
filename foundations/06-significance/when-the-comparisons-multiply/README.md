@@ -84,6 +84,32 @@ pre-registration — deciding the family and the q before looking at the
 p-values, which closes the variant where the family is defined by what
 happened to be significant.
 
+## Who owns the loop
+
+The family-wise failure stays fixed only if each owner holds one piece,
+and each is tied to one row of the audit:
+
+- **The evaluation and measurement team** owns the pre-registration: the
+  family — which comparisons count — and the q are decided before the
+  p-values exist. It owns the post-hoc-family failure, defining the
+  family by what happened to be significant, which is the one failure no
+  correction procedure can repair.
+- **The statistics and experiment team** owns the correction choice:
+  the family-wise bar (Bonferroni) versus the false-discovery-rate bar
+  (Benjamini-Hochberg). It owns the error-budget failure — the measured
+  trade between 0.59 and 0.22 false positives per experiment, and between
+  6/500 and 25/500 misses of the true pair, is this team's decision
+  against the product's tolerance, not the p-values'.
+- **The product owner** owns what a false win costs. It owns the
+  ship/reject consequence — pairs 3 and 9 ship as wins under naive
+  reading and both are null, so the team that cannot name the cost of a
+  null ship cannot choose between the two error budgets.
+
+When ownership is implicit, the measurement team reports the pair that
+fired, the statistics team corrects a family nobody pre-registered, and
+the product owner ships a null result — the same undefined-family failure
+from three sides.
+
 ## Evidence boundary
 
 The executed audit uses synthetic paired comparisons with known true

@@ -87,6 +87,32 @@ vision track measured
 ([the warmup-stability chapter](../../../01-language-model/vision/06-warmup-stability/)),
 not the mid-run flattening here.
 
+## Who owns the loop
+
+Each stall class has one owner, and the diagnostic is what assigns the
+class:
+
+- **The optimizer and algorithm team** owns the update rule and the mu
+  knob — the flat-direction class. It owns the crawl: plain SGD ending 6x
+  above the tolerance inside the 1,000-step budget while momentum and
+  Adam converge, with the escape-versus-ringing trade measured at mu=0.99
+  against mu=0.9.
+- **The training-infra team** owns the budget and the schedule — the
+  step cap is the contract a run is measured against, and warmup and warm
+  restarts are the schedule-level fixes for the early-instability and
+  attractor classes it has to hand the optimizer team a verdict on.
+- **The research and evaluation team, or the data and capacity owner,
+  owns the surface floor** — the class where every update rule stalls at
+  the same loss. The +0.01 run makes all four rules land on 0.0100, and
+  who fixes it changes by class: no learning rate moves a data or
+  capacity floor, so the diagnosis has to name the owner before anyone
+  retunes.
+
+When ownership is implicit, the optimizer owner retunes a learning rate
+that cannot move a surface floor, and the data owner washes data that
+cannot fix a flat-direction crawl — the same misdiagnosis from opposite
+sides.
+
 ## Evidence boundary
 
 The executed audit uses one flat-minimum surface with a fixed budget and

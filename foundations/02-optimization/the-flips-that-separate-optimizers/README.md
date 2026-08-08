@@ -59,6 +59,28 @@ same trade from the other side: on a flat minimum it is the memory that
 escapes the stall, and a mu turned too high re-creates a different stall
 as ringing.
 
+## Who owns the loop
+
+The flip count is only useful if someone owns the failure it names, and
+each owner is tied to one reading of the table:
+
+- **The optimizer and algorithm team** owns the update rule and the
+  flip-damping: the mu coefficient and the beta pair are the knobs that
+  turn 341 flips into 47 and then 4, and a run that rings instead of
+  walks is this team's failure to tune, not the surface's.
+- **The training-infra team** owns the conditioning: the A=100/B=1 bowl
+  is a statement about the problem's curvature, and feature scaling or
+  preconditioning that lowers the condition number changes what the flip
+  count is even measuring before the optimizer runs.
+- **The research and evaluation team** owns the mechanism-not-leaderboard
+  read: the step counts (343, 138, 82) are the outcomes and the flips per
+  step (0.99, 0.34, 0.05) are the mechanism, and a comparison that
+  reports only the former cannot say why one rule won.
+
+When ownership is implicit, the optimizer team tunes mu against a bowl
+the infra team never conditioned, and the eval team reports a ranking
+with no mechanism — the same oscillation failure from three sides.
+
 ## Evidence boundary
 
 The recorded optimizer comparison (one bowl, one start point, one loss

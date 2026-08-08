@@ -92,6 +92,32 @@ quantile-balancing bias term over routing scores — no auxiliary loss, and
 the realized-count imbalance it targets is the exact column this toy
 measures.
 
+## The fix and its trade
+
+The failure the table exposes is the realized-count imbalance, and the
+fixes are the balancing terms the production line adds to the objective.
+The auxiliary load-balancing loss (Switch Transformers: Fedus, Zoph &
+Shazeer, JMLR 23, 2022, arXiv:2101.03961) penalizes the router for
+concentrating its mass, with an alpha = 1e-2 weight that is the first
+trade knob: too weak, and the top-1 skew still kills an expert (the
+measured dead-expert row, counts [45, 0, 6, 149]); too strong, and the
+router stops choosing the expert that fits the input — routing quality
+pays for fairness. The capacity factor is the serving-side half of the
+same trade: it caps per-expert tokens in a batch and drops the overflow,
+so a router that looks balanced still loses information under a skewed
+real distribution. Quantile Balancing (DeepSeek-V3: Liu et al., 2024,
+arXiv:2412.19437) removes the auxiliary loss and biases the router logits
+from a histogram over routing scores, targeting the realized counts the
+batch waits on — the exact column this toy measures — at the cost of a
+per-step histogram pass. The shared expert absorbs the common structure
+so routed experts can specialize on the difference; its trade is that it
+takes a fixed share of every input's compute, and the toy never needs it,
+because the block-disjoint patterns have nothing in common — the top-1
+shared-expert row still shows 21.5x imbalance. Across all six cells
+accuracy stays 1.000: the balancing fixes move the counts, not the score,
+and the trade is measured in compute and routing quality, never in the
+accuracy column.
+
 ## Who owns the loop
 
 The routing sweep's counts are only useful if someone owns each failure

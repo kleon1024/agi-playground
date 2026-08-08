@@ -182,6 +182,40 @@ are where a real, high-dimensional loss surface is measured, with Adam as the
 optimizer actually used and never re-derived from a toy comparison like this
 one.
 
+## The fix and its trade
+
+The failure the bowl measures is the shallow-axis crawl, and the fix is a
+larger effective step along it. At A = 10 plain SGD stops oscillating
+entirely — zero sign flips instead of 341 — and still needs 343 steps,
+the same count as at A = 100: the zigzag was never the thing setting the
+pace. The shallow-axis decay is a fixed multiplier per step (0.981), and
+reaching the tolerance from y = 1 takes 343 of those decays whether or
+not the steep axis is ringing, so an update rule that moves faster along
+the flat direction converges first. Momentum averages the small
+shallow-axis gradients into a velocity that carries the iterate through
+the flat region (Sutskever et al., 2013, ICML) — 138 steps — and Adam
+normalizes each parameter's step by its own gradient history, which
+removes the steep-axis overshoot while growing the shallow-axis step
+(Kingma & Ba, 2015, ICLR) — 82 steps. The trade is the state each rule
+carries and the knob it adds: momentum, a velocity and a coefficient
+(mu) that trades escape speed against settling time; Adam, two
+per-parameter statistics and the beta1, beta2 pair. The trade has a
+measured failure on its far side, not just a cost: at A = 1000 the fixed
+step sizes that were stable at A = 100 diverge for both SGD and
+momentum, and only Adam still converges, because its step size adapts to
+the gradients it observes rather than to a curvature that no longer
+holds. The misdiagnosis is the part that costs teams weeks: a stalled
+run can be an optimizer failure (change the update rule; if the stall
+moves, this is the class) or a surface failure (every rule and every
+learning rate stalls at the same loss — a data or capacity floor no
+learning rate fixes, the class Dauphin et al., 2014, arXiv:1406.2572,
+argue dominates high-dimensional non-convex surfaces as saddles). The
+plateau detour ([when the training plateaus](when-the-training-plateaus/))
+measures both sides of that diagnostic in one run: plain SGD ends 6x
+above the tolerance inside a 1,000-step budget where momentum and Adam
+converge, and an irreducible +0.01 floor makes all four rules stall at
+the same 0.0100.
+
 ## Who owns the loop
 
 The step counts above are only useful if someone owns each failure the update

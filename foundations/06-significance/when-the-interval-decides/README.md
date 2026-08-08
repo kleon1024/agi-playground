@@ -59,6 +59,33 @@ measures what happens when a family of intervals is read one at a time —
 Benjamini-Hochberg correction cuts that to 16.8 percent at the measured
 cost of missing the true effect 25/500 versus 6/500 times.
 
+## Who owns the loop
+
+The interval rule survives only if someone owns each failure it exposes,
+and each owner is tied to one of the two rows:
+
+- **The evaluation and measurement team** owns the report and the rule:
+  the paired bootstrap interval sits next to the gap, and "excludes zero"
+  is the only claim that ships. It owns the center-reading failure — the
+  n=25 row's verdict (no ship) stands even though its gap is the larger
+  one, and reporting the point estimate alone is the exact mistake the
+  table exists to prevent.
+- **The experiment and statistics team** owns the test construction: the
+  paired resampling that cancels item-difficulty noise is what keeps the
+  interval's width honest. It owns the design failure — an unpaired read
+  of the same two score lists keeps the shared item noise inside the
+  interval and widens it, and the width is the number that decides.
+- **The product owner** owns the effect size worth shipping, which sets
+  whether the small-N decisiveness cost is affordable. It owns the budget
+  failure — at n=25 a real effect returns the no-ship verdict, and the
+  team that cannot say what effect size matters cannot say whether that
+  verdict is right or just expensive.
+
+When ownership is implicit, the measurement team ships a gap its own
+interval does not support, and the product owner waits for a stronger
+result that noise is just as likely to produce — the same
+center-versus-width mistake from opposite sides.
+
 ## Evidence boundary
 
 The recorded bootstrap (2,000 resamples per condition, one seed, synthetic
