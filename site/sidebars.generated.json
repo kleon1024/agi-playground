@@ -3652,6 +3652,11 @@
           },
           {
             "type": "doc",
+            "id": "reference/research/agentic-paradigm-restructuring",
+            "label": "Agentic paradigm restructuring"
+          },
+          {
+            "type": "doc",
             "id": "reference/research/lineages/index",
             "label": "Lineages"
           },
