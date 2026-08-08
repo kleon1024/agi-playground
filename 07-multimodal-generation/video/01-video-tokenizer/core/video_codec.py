@@ -25,13 +25,13 @@ import torch
 from torch import nn
 
 AUDIO_CODEC_CORE = (
-    Path(__file__).resolve().parents[3] / "07-realtime-voice" / "00-audio-codec" / "core"
+    Path(__file__).resolve().parents[3] / "voice" / "00-audio-codec" / "core"
 )
 sys.path.insert(0, str(AUDIO_CODEC_CORE))
 from codec import VectorQuantizer
 
 DATASET_CORE = (
-    Path(__file__).resolve().parents[3] / "08-video-generation" / "00-synthetic-video-dataset" / "core"
+    Path(__file__).resolve().parents[2] / "00-synthetic-video-dataset" / "core"
 )
 sys.path.insert(0, str(DATASET_CORE))
 from generate_video_dataset import HEIGHT, N_FRAMES, WIDTH

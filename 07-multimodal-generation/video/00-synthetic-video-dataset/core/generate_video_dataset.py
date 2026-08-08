@@ -40,8 +40,9 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 
 IMAGE_CORE = (
-    Path(__file__).resolve().parents[3]
-    / "05-vision-language-model"
+    Path(__file__).resolve().parents[4]
+    / "01-language-model"
+    / "vision"
     / "00-image-caption-task"
     / "core"
 )

@@ -34,7 +34,7 @@ from train_video_codec import train as train_codec
 from video_codec import N_FRAMES, VideoCodec
 
 MODEL_CORE = (
-    Path(__file__).resolve().parents[3] / "01-language-model-agent" / "02-pretrain" / "core"
+    Path(__file__).resolve().parents[4] / "01-language-model" / "02-pretrain" / "core"
 )
 sys.path.insert(0, str(MODEL_CORE))
 from model import Config, Transformer
