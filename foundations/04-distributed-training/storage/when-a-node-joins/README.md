@@ -40,6 +40,37 @@ between a node-join that costs minutes of I/O and one that costs a fraction
 of it. The placement fraction and the disk cost are the same story measured
 two ways.
 
+## The fix and its trade
+
+The fix is reading the placement choice off the recorded run: modulo's 0.802
+remap is not a bug in the numbers, it is the mechanism — `hash(key) %
+n_nodes` depends on the total node count, so changing 4 to 5 rehashes every
+key, and 1,604 keys (105 MB) must move. Consistent hashing moves 360 keys
+(24 MB) because the hash-ring positions of the new node's virtual points
+only supersede the nearest existing points; 0.180 is sampling noise around
+the 0.200 ideal, and the scheme's defining property is that a node change
+moves only the new node's share. The trade is the knob and the boundary:
+the virtual-node count is a load-balance tuning parameter this chapter does
+not sweep, and the run is local SSD placement only — it says nothing about
+replica-aware or rack-aware schemes, which the chapter's landscape covers
+(the scheme's origin: Karger et al., "Consistent Hashing and Random Trees,"
+STOC, 1997). What the fix does establish is that the fraction and the byte
+cost are the same decision measured twice, so a checkpoint format that
+expects world-size changes can price a node-join in advance.
+
+## Who owns the loop
+
+- **The storage team** owns the placement rule: the recorded 0.802-versus-
+  0.180 gap is their regression test for any node-count change, and the
+  remap fraction at a declared delta is the acceptance metric.
+- **The checkpoint-format owner** owns the shard-to-file assignment: the
+  sharded optimizer state this chapter's parent produces is placed under
+  this same rule, and modulo placement there means a world-size change
+  re-shards nearly everything.
+- **The training engineer** owns the cost in advance: resuming a job at a
+  different shard count triggers the remap, and the placement rule decides
+  whether that is 105 MB or 24 MB of I/O.
+
 ## Evidence boundary
 
 The recorded placement + real-disk-remap run (2,000 keys, 4->5 nodes, 64KB

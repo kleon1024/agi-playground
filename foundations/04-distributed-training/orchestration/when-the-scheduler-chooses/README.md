@@ -40,6 +40,34 @@ different answer to "who waits" — which is exactly the product decision an
 orchestrator makes. A scheduler that claims to make everything faster is
 lying; one that says who waits is telling the truth.
 
+## The fix and its trade
+
+The fix is measuring the right output. Makespan (0.0182s vs 0.0187s, within
+trial noise) is the wrong metric for a mixed-priority workload because the
+total compute is fixed and no policy can change it; the wait distribution
+is the output a scheduler actually controls. Read that way, the recorded
+run shows a policy that cuts high-priority wait ~6x (0.0074 -> 0.0012s) by
+paying 0.0020s of extra low-priority wait (0.0094 vs 0.0074) — the trade is
+not hidden, it is the same table. The fix's boundary is the model, not the
+principle: no preemption and no continuous arrival are modeled here, so a
+production scheduler (Slurm, Kubernetes) that can checkpoint and requeue a
+running job, or one that handles jobs arriving over time, faces the same
+who-waits decision with more powerful levers (the priority-queue
+reallocation view comes from Yoo, Jette, and Grondona, "SLURM: Simple Linux
+Utility for Resource Management," JSSPP, 2003).
+
+## Who owns the loop
+
+- **The platform team** owns the policy and the metric: reporting the wait
+  distribution (not makespan) as the scheduler's contract is what keeps the
+  reallocation honest, and the recorded trade table is the acceptance bar.
+- **The job owners** own the priority labels: the 6x cut is only as real as
+  the deadlines the labels encode, and a label system with no owner is
+  where the trade silently becomes arbitrary.
+- **The product or SLA owner** owns whose wait matters: the choice to favor
+  high-priority wait is a product decision about deadlines, and the
+  low-priority cost it imposes is the price that decision names.
+
 ## Evidence boundary
 
 The recorded scheduler run (2 slots, 3 trials per policy, warmup and

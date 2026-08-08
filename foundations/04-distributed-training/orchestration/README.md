@@ -102,6 +102,47 @@ scheduling, NVLink contention, or multi-node queueing (Slurm/Kubernetes
 scale) — that would need the Modal lane's multi-GPU labs, which have not run
 this comparison.
 
+## The fix and its trade
+
+The chapter's measured table is two fixes with two different trades. The
+first is the measurement protocol itself: the first version of this
+comparison reported FIFO's makespan at roughly double priority's (0.0389s
+vs 0.0202s), and that was not a scheduling effect — FIFO ran first and
+absorbed one-time NumPy BLAS warmup and page-cache cold-start cost that
+priority, running second, did not pay. The fix is a throwaway `warmup()`
+pass before either policy is timed, plus alternating which policy runs
+first across trials; the trade is that the protocol now costs trials and
+wall-clock to establish the null, but without it a measurement compares
+process state, not policy (the same confound this repository's own
+architecture-ablation and audio-latency chapters catch elsewhere).
+
+The second fix is the priority policy itself, and its trade is the whole
+point: priority scheduling cuts high-priority wait roughly 6x (0.0074s to
+0.0012s, ranges non-overlapping) while low-priority wait rises from 0.0074s
+to 0.0094s — almost exactly the amount high-priority wait fell — and
+makespan barely moves (0.0182s vs 0.0187s, within trial spread). A scheduler
+cannot make the total batch finish faster; the total compute is fixed. It
+reassigns whose wait shrinks and whose grows, which is a product decision
+about whose deadline matters, not a throughput mechanism (the same
+reallocation view underpins the priority-queue design of the Slurm
+scheduler: Yoo, Jette, and Grondona, "SLURM: Simple Linux Utility for
+Resource Management," JSSPP, 2003). The trade is that someone owns the
+priority labels, and a policy that never reallocates wait is not a
+scheduler, it is a queue.
+
+## Who owns the loop
+
+- **The platform team** owns the scheduler policy and its honest metrics: a
+  scheduler report that claims to make everything faster is lying, and the
+  wait-distribution table — whose wait shrank, whose grew — is the contract
+  the platform owes its job owners.
+- **The job owners** own the priority labels: the 6x cut only means
+  something if the labels encode a real deadline, and a pool where every
+  job is high priority has recreated FIFO with extra ceremony.
+- **The benchmarking owner** owns the protocol: warmup, alternating order,
+  and a reported null result are what keep a scheduling comparison from
+  measuring cold-start cost as a policy effect.
+
 ## Exercises
 
 1. Change `--slots` to 1 and to 4. Predict what happens to the gap between

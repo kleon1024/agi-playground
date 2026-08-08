@@ -44,6 +44,47 @@ asserted zero divergence holds: memory was saved without changing the
 mathematics of the update. That is the trade the rest of the distributed
 stack builds on.
 
+## The fix and its trade
+
+The four numbers in the table are two fixes, and each trade is stated in
+the same row that proves the fix works. The first fix is the assertion
+protocol: the 0.000119 pre-reduction delta is the evidence that the ranks
+genuinely saw different batches (if it were zero, DDP would be a no-op with
+added communication), and the asserted 0.0 post-reduction divergence is the
+evidence that the collective merged them — a silent desync, where one rank's
+gradient is skipped, produces plausible loss curves and no complaint, which
+is exactly why the run asserts agreement instead of hoping for it. The trade
+is that the assertion only proves lockstep on this toy: the chapter's own
+boundary concedes that communication cost is invisible on one machine, so
+the protocol answers "did the ranks agree" and not "what did agreeing cost."
+
+The second fix is ZeRO-1's sharding, and its trade is memory for
+communication: per-rank optimizer state drops from 2.62 MB to 1.05 MB
+(2.5x, not the 4x a world size of four suggests, because 5 tensors
+round-robined across 4 ranks cannot divide evenly — production shards by
+element count for exactly this reason) while each rank must broadcast the
+parameters it updated after every optimizer step. The recorded zero
+divergence under sharding is the point: memory was saved without changing
+the mathematics of the update, and the price is traffic the toy cannot
+measure (ZeRO: Rajbhandari, Rasley, Ruwase, and He, "ZeRO: Memory
+Optimizations Toward Training Trillion Parameter Models," SC, 2020).
+
+## Who owns the loop
+
+- **The training engineer** owns the assertion protocol: printing the
+  pre-reduce delta beside the post-reduce divergence is the diagnostic that
+  answers "are the ranks actually different, and did the merge actually
+  work," and a run that prints only the final loss has dropped both pieces
+  of evidence.
+- **The framework team** owns the sharding arithmetic: the ownership rule
+  (round-robin tensor count here, element count in production) decides the
+  memory split, and the broadcast after each optimizer step is the
+  communication cost this chapter's boundary hands to the cluster chapter.
+- **The platform team** owns the unmeasured half: what the collective
+  actually costs on real interconnect is the networking and topology
+  chapters' job, and the 2.5x-vs-4x gap is the warning that memory savings
+  follow the ownership rule, not the world size.
+
 ## Evidence boundary
 
 The recorded four-rank CPU simulation (gloo backend, one toy model, DDP and

@@ -141,6 +141,49 @@ most tasks do not.
 
 </details>
 
+## The fix and its trade
+
+Both confounds have a named control, and each control trades a cost the
+chapter states openly. The fix for confound one is not a better proxy but a
+second data point: run the comparison at two model sizes and trust only the
+conclusions where the ranking agrees at both, because curated, low-noise
+data helps a small model disproportionately — the proxy has little spare
+capacity to absorb noisy examples — so a mixture that wins small can invert
+large, and a flip between sizes is evidence the proxy comparison does not
+transfer for this particular mixture, not evidence about which size is
+correct. The trade is a doubled run budget and a narrower answer: the
+two-size ladder tells you where the ranking is stable, and deliberately says
+nothing about which size's ranking is right (the transfer assumption is the
+scaling-law methodology of Hoffmann et al., "Training Compute-Optimal Large
+Language Models," 2022).
+
+The fix for confound two is the comparable-teacher control plus a
+contamination-safe evaluation set: generate comparison data with a model of
+comparable size and capability so the difference is attributable to the
+method rather than the teacher, and score against a benchmark built
+independently of the generator — collected before it existed, or drawn from
+a source it provably never saw. The trade is that synthetic data then earns
+only what verification can support: it works where verification is cheaper
+than generation (code, arithmetic, proofs) and fails where the only filter
+is the generator marking its own work, and a contaminated win is
+indistinguishable from a real one (the synthetic-data line: Gunasekar et
+al., "Textbooks Are All You Need," 2023; the contamination measure: Sainz
+et al., "NLP Evaluation in Trouble," Findings of EMNLP, 2023).
+
+## Who owns the loop
+
+- **The research team** owns the two-size ladder: the proxy-size pair, the
+  budget it costs, and the rule that a ranking counts only where it is
+  stable across both sizes.
+- **The evaluation team** owns the contamination boundary: the held-out set
+  must be provably older than or independent of the generator, and a
+  benchmark that could have appeared in training data is not a measurement
+  of the method.
+- **The data team** owns the teacher choice: generation with a comparable
+  teacher is what keeps an observed win attributable to the method, and the
+  repository's own distillation run is the adjacent evidence that the
+  reference set, not the teacher, decided the winner.
+
 ## Evidence boundary and next step
 
 Neither confound has been demonstrated in this repository — no ablation has run

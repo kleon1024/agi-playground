@@ -135,6 +135,57 @@ just-in-time for its forward and freed immediately after. Read
 [the serving stage](../../01-language-model/05-serve/) for the inference-side counterpart, where
 the same memory pressure reappears as KV cache rather than optimizer state.
 
+## The fix and its trade
+
+The chapter's measured numbers are two fixes and the trade between them. The
+first fix is the assertion protocol itself: the run deliberately prints the
+pre-reduction gradient delta (0.000119) beside the post-reduction divergence
+(asserted 0.0, final weight divergence 0.00e+00) so that a silent desync —
+one rank's gradient skipped by a conditional branch, a parameter that receives
+no gradient in some batches — cannot pass for a healthy run. The failure it
+guards against does not crash: loss curves stay plausible while N slightly
+different models are being averaged into something none of them produced, and
+an unasserted training loop would never notice. The fix's cost is that the
+assertion is a guardrail, not a proof: it catches a skipped all-reduce on one
+parameter (exercise 1), but the chapter's own boundary concedes that on one
+machine every collective is nearly free, so the bandwidth trade-offs that
+dominate real multi-node training are invisible here and no throughput claim
+is made (Rajbhandari, Rasley, Ruwase, and He, "ZeRO: Memory Optimizations
+Toward Training Trillion Parameter Models," SC, 2020; Shoeybi et al.,
+"Megatron-LM: Training Multi-Billion Parameter Language Models Using Model
+Parallelism," 2019).
+
+The second fix is ZeRO's sharding itself, and its trade is explicit in the
+numbers: per-rank optimizer state drops from 2.62 MB to 1.05 MB (the 2.5x
+saving, not 4x, because 5 tensors round-robined across 4 ranks cannot divide
+evenly — production shards by element count for exactly this reason) while
+communication rises, because after the optimizer step each owner must
+broadcast the parameters it updated. Memory went down; traffic went up. That
+is not a bug in the trade — it is the definition of it: ZeRO trades a resource
+you have run out of (memory) for one you have not (bandwidth), and stages 2
+and 3 push the same trade further. The framework's production form of the
+same reduction — overlapping each parameter's all-reduce with the rest of
+backward — is the engineering that makes the trade affordable instead of
+disastrous.
+
+## Who owns the loop
+
+- **The training engineer** owns the assertion protocol: the pre-reduce delta
+  printed next to the post-reduce divergence is the diagnostic that answers
+  "are the ranks actually different, and did the collective actually merge
+  them" — a run that prints only the final loss has already lost the evidence
+  for both questions.
+- **The framework team** owns the sharding arithmetic: which tensors get
+  owned by which rank, the broadcast after each optimizer step, and the
+  overlap of communication with backward. The 2.5x-vs-4x gap is a property of
+  their ownership rule (tensor round-robin), and the element-count sharding
+  production uses is their fix.
+- **The platform team** owns what this machine cannot show: the bandwidth
+  cost of every collective on real interconnect, the memory ceilings that
+  decide whether ZeRO stage 1 is enough, and the tensor- and
+  pipeline-parallel paths whose bubble and collective arithmetic need a real
+  cluster. The chapter's evidence boundary is their handoff point.
+
 ## Exercises
 
 1. **Break the synchronization.** Skip the all-reduce on one parameter and

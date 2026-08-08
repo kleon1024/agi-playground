@@ -95,6 +95,43 @@ distributed synthetic keys (`shard-00000` through `shard-01999`). Real
 workloads have hot keys; consistent hashing's virtual-node count is itself a
 tuning knob for load balance that this chapter does not explore.
 
+## The fix and its trade
+
+The fix is the placement rule, and the recorded remap prices the failure it
+exists to prevent. Modulo hashing — `node = hash(key) % num_nodes` — is
+uniform and simple while the node count is fixed, and completely rebuilt
+the moment it changes, because the modulus itself changed: 0.802 of 2,000
+keys moved on a 4-to-5 node change, four times the unavoidable 0.200 ideal,
+and on real disk that is 105 MB moved versus consistent hashing's 24 MB.
+Consistent hashing moves only the keys whose nearest ring point was
+superseded by the new node's virtual points — 0.180, within two points of
+the floor — and its byte cost is the same story measured again (4.4x
+cheaper). The trade is what the chapter's own boundary concedes: consistent
+hashing trades modulo's trivial uniformity for a tuning knob (the virtual-
+node count, 100 here) whose load-balance behavior under real hot keys this
+chapter does not explore, and it says nothing about replication consistency
+or partial-failure semantics during a rebalance — all of which dominate a
+real storage system far more than the placement rule does (the scheme's
+origin: Karger et al., "Consistent Hashing and Random Trees: Distributed
+Caching Protocols for Relieving Hot Spots on the World Wide Web," STOC,
+1997; its production adoption in key-value stores: DeCandia et al.,
+"Dynamo: Amazon's Highly Available Key-value Store," SOSP, 2007).
+
+## Who owns the loop
+
+- **The storage team** owns the placement rule: choosing modulo versus
+  consistent hashing for a dataset whose node count is expected to change
+  is exactly this chapter's decision, and the remap-fraction test at a
+  declared node-count delta is its acceptance bar.
+- **The checkpoint-format owner** owns the shard assignment: the
+  optimizer-state slices this chapter's parent measures are keys under this
+  same rule, and a naive `shard_id % world_size` assignment forces a near
+  full re-shard on almost any world-size change — the ring-based
+  alternative is why production checkpoint formats avoid modulo placement.
+- **The training engineer** owns the world-size changes between runs: a job
+  resumed at a different shard count inherits the remap cost, and the
+  placement rule decides whether that cost is 105 MB or 24 MB.
+
 ## A brief history
 
 Consistent hashing predates distributed storage entirely.

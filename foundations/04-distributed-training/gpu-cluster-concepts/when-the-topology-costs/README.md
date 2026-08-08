@@ -43,6 +43,42 @@ that moves data faster. The chapter's own claim — the wiring decides which
 parallelism strategy is worth running — is the measured consequence of
 these three numbers.
 
+## The fix and its trade
+
+The fix is reading the coordination tax for what it is, so the wiring
+decision is made on the right curve. The recorded growth — x1.98 at world 4,
+x4.57 at world 8 — with a fixed 4 MB payload is the evidence that the cost
+scales with the coordination graph, not with the gradient, which means a
+faster NIC cannot cure it: the tax is per-rank-pair rendezvous, not bytes.
+What the curve buys is a quantitative rule for choosing among parallelism
+strategies — data parallelism pays the tax once per step and tolerates a
+slow link; tensor parallelism pays it many times per step and therefore
+belongs on the shortest, fastest path (Shoeybi et al., "Megatron-LM," 2019;
+the ring all-reduce being bandwidth-optimal comes from Thakur, Rabenseifner,
+and Gropp, "Optimization of Collective Communication Operations in MPICH,"
+2005).
+
+The trade is that the tax is only worth paying while the alternative is
+worse. The chapter's answer to "what makes it worth paying" is explicit:
+data parallelism pays the tax to split the batch, ZeRO-style sharding pays
+it to split the memory, and the decision is which tax is cheaper for a given
+model and data size. The recorded curve makes that comparison a number
+instead of a preference — but it is a local-machine number, and the
+evidence boundary is honest that real multi-node NICs, where latency and
+link topology change the curve, would re-fit the x1.98 and x4.57 themselves.
+
+## Who owns the loop
+
+- **The platform team** owns the topology and the rank count: the decision
+  to grow world size is a decision to buy coordination tax, and the curve
+  at fixed tensor size is the chart that prices it.
+- **The training engineer** owns the strategy choice: which parallelism
+  pays the tax how many times per step, and where each strategy is placed,
+  follows from this same curve.
+- **The benchmarking owner** owns the boundary: the recorded growth is
+  coordination overhead, and handing it to a bandwidth-hungry argument is
+  the conflation this chapter's label exists to prevent.
+
 ## Evidence boundary
 
 The recorded local-machine timings (world sizes 2/4/8, 4 MB tensor, 200

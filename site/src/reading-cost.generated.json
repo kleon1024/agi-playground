@@ -2013,59 +2013,59 @@
   },
   "foundations/03-backpropagation": {
     "level": "foundation",
-    "minutes": 9
+    "minutes": 11
   },
   "foundations/03-backpropagation/the-backward-pass-three-ways": {
     "level": "foundation",
-    "minutes": 2
+    "minutes": 4
   },
   "foundations/04-distributed-training": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "foundations/04-distributed-training/gpu-cluster-concepts": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "foundations/04-distributed-training/gpu-cluster-concepts/when-the-topology-costs": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "foundations/04-distributed-training/networking": {
     "level": "reference",
-    "minutes": 5
+    "minutes": 7
   },
   "foundations/04-distributed-training/networking/when-the-ring-beats-the-star": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "foundations/04-distributed-training/orchestration": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 6
   },
   "foundations/04-distributed-training/orchestration/when-the-scheduler-chooses": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "foundations/04-distributed-training/storage": {
     "level": "reference",
-    "minutes": 4
+    "minutes": 6
   },
   "foundations/04-distributed-training/storage/when-a-node-joins": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "foundations/04-distributed-training/when-the-ranks-agree": {
     "level": "foundation",
-    "minutes": 2
+    "minutes": 4
   },
   "foundations/05-is-the-difference-real": {
     "level": "applied",
-    "minutes": 10
+    "minutes": 12
   },
   "foundations/05-is-the-difference-real/the-two-confounds": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "foundations/06-significance": {
     "level": "applied",

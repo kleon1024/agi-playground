@@ -45,6 +45,39 @@ uses to show where each gradient term comes from. Without the checks, the
 engine's numbers would be the chapter's claim; with them, they are verified
 arithmetic.
 
+## The fix and its trade
+
+The fix is the two-reference-point verification protocol: engine against
+hand-derived calculus (0.0 difference) establishes that the implementation
+is correct, and engine against torch's `.backward()` (1.1e-16,
+floating-point noise) establishes that it is compatible with the framework
+everyone else uses. The trade is that the two checks are not redundant —
+"right" and "compatible" are different properties, and a naive autodiff bug
+would fail the first while a framework-mismatch would fail the second —
+but each one answers exactly one question, and together they are still
+scoped to one expression with three inputs. The protocol's payoff is that
+the engine's intermediate values become verified arithmetic the chapter can
+teach from instead of claims, at the cost of a boundary the detour states
+explicitly: these checks do not prove every autodiff implementation
+correct, only that this one matches both references on this expression.
+The 1.1e-16 gap is itself part of the fix — the assert threshold (1e-12)
+sits far above machine-epsilon noise so a real bug, which shows up at 1e-8
+or larger, cannot hide inside the tolerance.
+
+## Who owns the loop
+
+- **The framework team** owns the correctness side of the protocol: the
+  analytical reference is the ground truth a regression suite compares
+  against, and the diamond expression is the minimal case that catches
+  accumulation bugs.
+- **The training engineer** owns the compatibility side: matching torch on
+  the identical graph is what makes the engine interchangeable with the
+  framework the rest of the curriculum calls, and a mismatch is reported
+  as a framework problem, not an engine one.
+- **The evaluation owner** owns the threshold discipline: the assert sits
+  at 1e-12, far above the 1.1e-16 noise floor, so the check cannot pass a
+  real bug on tolerance alone.
+
 ## Evidence boundary
 
 The two recorded checks (one expression, three inputs, stdlib engine and

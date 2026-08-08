@@ -111,6 +111,50 @@ larger collective becomes bandwidth-bound rather than latency-bound. That
 crossover point, and everything past it, needs a real multi-GPU, multi-node
 cluster — the Modal lane, not this one.
 
+## The fix and its trade
+
+The failure this chapter exists to fix is the conflation of two different
+costs into one number. A benchmark that reports "all-reduce time" for a 4 MB
+tensor and then scales that number up to a training run has quietly assumed
+bandwidth dominates — but the measured curve here says the opposite: the
+payload never changes and the per-call time still grows x1.98 from world 2 to
+4 and x2.31 from 4 to 8, which is only explainable if coordination, not data,
+is what scales. The fix is the label, applied twice: the run reports
+coordination overhead as coordination overhead (and refuses to call it a
+bandwidth result), and the wiring decision follows the per-step count, not a
+single number — data parallelism pays one collective per optimizer step and
+so tolerates a slower link, while tensor parallelism pays collectives inside
+every affected layer and is therefore confined to the fastest link (NVLink,
+inside one node), with pipeline parallelism's point-to-point activations
+dominated by latency and bubble idle time instead (Shoeybi et al.,
+"Megatron-LM," 2019; Narayanan et al., "Efficient Large-Scale Language Model
+Training on GPU Clusters Using Megatron-LM," SC, 2021).
+
+The trade is the boundary of the fix. Naming the coordination regime correctly
+buys an honest analogy to one real regime — small messages on real clusters
+are latency-bound, which is why NCCL switches algorithm by message size — at
+the cost of leaving the bandwidth-bound regime unmeasured: the actual GB/s
+difference between NVLink, PCIe, and cross-node Ethernet, and the crossover
+point where a collective stops being latency-bound, are not producible on a
+CPU and this chapter says so rather than guessing. A reader who needs that
+crossover point must take it to a real cluster; the fix's honest label is
+what lets them know they still need to.
+
+## Who owns the loop
+
+- **The platform team** owns the wiring decision: which parallelism strategy
+  is placed on which link follows from how many times per step each strategy
+  pays a collective, and the per-layer placement is their call to make and
+  defend against "why is tensor parallelism only intra-node" reviews.
+- **The benchmarking owner** owns the label: a distributed benchmark that
+  reports coordination overhead as bandwidth (or vice versa) is the exact
+  failure this chapter exists to catch, and the world-size curve at fixed
+  tensor size is the diagnostic that tells the two regimes apart.
+- **The training engineer** owns the consequence: the near-linear growth
+  means world size is not a free knob, and gradient bucketing — grouping many
+  parameters into fewer, larger `all_reduce` calls — is the standard
+  mitigation once this arithmetic is visible.
+
 ## Exercises
 
 1. **Grow the tensor.** Re-run at `--tensor-mb 64` and `--tensor-mb 256`. If

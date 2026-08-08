@@ -1165,14 +1165,90 @@ each reusing the chapter's own measured numbers:
   engineer (health shape), eval (gap read and handoff), data team (the
   corpus-size lever that closes it).
 
-**Still pending:** foundations 03-05 (backpropagation,
-distributed training, is-the-difference-real), including their detours —
-`03-backpropagation/` (the-backward-pass-three-ways),
-`04-distributed-training/` (gpu-cluster-concepts and when-the-topology-costs,
-networking and when-the-ring-beats-the-star, orchestration and
-when-the-scheduler-chooses, storage and when-a-node-joins,
-when-the-ranks-agree), `05-is-the-difference-real/` (the-two-confounds) —
-then the language-model system sub-groups:
+**Done for foundations 03-05 (twenty-second audit increment, 2026-08-08).**
+Backpropagation, distributed training, and the significance chapter now
+carry the fix-and-trade and who-owns-the-loop sections the audit contract
+requires, each reusing the chapter's own measured numbers and citing dated
+sources:
+
+- 03 backpropagation: the accumulation-vs-assignment fix priced by the
+  diamond expression (flipping `+=` to `=` moves only the reused `a`, from
+  +0.3577 to -0.2504, while single-consumer `b` 0.3505 and `c` 0.5008 stay
+  correct — a dropped contribution corrupts tied embeddings silently) and
+  the two-check verification protocol (engine-vs-analytical 0.0,
+  engine-vs-torch 1.11e-16, float64's floor); Linnainmaa 1970 and
+  Rumelhart, Hinton, and Williams 1986 anchor the mechanism; ownership
+  split across framework (the `+=` invariant), training engineer (the
+  two-reference protocol), and platform (batching, devices, fusion as the
+  unclaimed layers).
+- 04 distributed training: the assertion protocol that catches silent rank
+  drift (pre-reduce delta 0.000119 beside the asserted 0.0 divergence — a
+  desync never crashes) and the ZeRO trade (optimizer state 2.62 to 1.05 MB
+  per rank, 2.5x not 4x because 5 tensors over 4 ranks cannot divide
+  evenly — production shards by element count; memory down, communication
+  up); Rajbhandari et al. 2020 (ZeRO), Shoeybi et al. 2019 (Megatron TP),
+  Narayanan et al. 2021 (Megatron pipeline); ownership split across
+  training engineer (assertion protocol), framework (sharding arithmetic),
+  and platform (the unmeasured bandwidth half).
+- 04 gpu-cluster-concepts and when-the-topology-costs: the conflation fix —
+  coordination, not bandwidth, is what grows (4 MB fixed payload, per-call
+  all-reduce 1.8181 to 3.5970 to 8.3138 ms, x1.98 then x2.31; growth x4.57
+  at world 8 read from the record) — so parallelism placement follows the
+  per-step collective count, not a single number; Thakur, Rabenseifner, and
+  Gropp 2005 (bandwidth-optimal ring), Shoeybi et al. 2019, Narayanan et
+  al. 2021; ownership split across platform (wiring), benchmark owner (the
+  latency-vs-bandwidth label), and training engineer (bucketing).
+- 04 networking and when-the-ring-beats-the-star: the ring-vs-star fix —
+  ring halves bytes per rank at every cell (star exactly 2x ring; world 8
+  32 MB: 1.0304s vs 0.5080s, time ratio 0.49x at 32 MB and 0.24x at 8 MB)
+  and the deadlock fix (send-then-receive blocking past the OS pipe buffer;
+  background-thread drain), trading liveness for per-rank thread overhead;
+  the byte ratio is the scaling law, with world-2 cells noisy because
+  latency dominates small payloads; Thakur et al. 2005; ownership split
+  across framework (collective implementation), training engineer (bucket
+  size decides which regime), and benchmark owner (multi-payload sweep).
+- 04 orchestration and when-the-scheduler-chooses: the measurement-protocol
+  fix that removed the cold-start confound (first run 0.0389s vs 0.0202s —
+  warmup order, not policy; fixed to 0.0182s vs 0.0187s) and the
+  reallocation read — priority cuts high-priority wait ~6x (0.0074 to
+  0.0012s) at the cost of low-priority wait (0.0074 to 0.0094s) with
+  makespan fixed; Yoo, Jette, and Grondona 2003 (Slurm); ownership split
+  across platform (policy and the wait-distribution metric), job owners
+  (priority labels), and benchmark owner (warmup and alternating order).
+- 04 storage and when-a-node-joins: the placement-rule fix — modulo remaps
+  0.802 (four times the 0.200 ideal) and moves 105 MB versus consistent
+  hashing's 0.180 and 24 MB on a real 4-to-5-node disk remap, because the
+  modulus change rehashes every key; consistent hashing trades modulo's
+  trivial uniformity for the virtual-node load-balance knob, with
+  replication and partial-failure semantics outside the run; Karger et al.
+  1997, DeCandia et al. 2007 (Dynamo); ownership split across storage
+  (placement rule), checkpoint-format owner (shard assignment), and
+  training engineer (world-size changes between runs).
+- 04 when-the-ranks-agree: the two-fix table — the assertion protocol
+  (0.000119 proves ranks differ, asserted 0.0 proves the merge) and the
+  ZeRO-1 trade (2.62 to 1.05 MB with divergence still 0.0; the 2.5x-vs-4x
+  gap is the ownership rule, not the world size); Rajbhandari et al. 2020;
+  ownership split across training engineer (the printed pair), framework
+  (sharding arithmetic), and platform (the unmeasured communication cost).
+- 05 is-the-difference-real: the multi-seed harness with a returnable
+  "not detectable" verdict — the crossover is measured (n=8 interval
+  -0.0214 ± 0.0271 spans zero; n=16 -0.0273 ± 0.0209 does not, torch/Welch
+  agreeing at p=0.0001), and the run honestly labels that the mixtures were
+  tuned to put the crossover on screen, so seed count is a property of the
+  effect; Hoffmann et al. 2022 (Chinchilla), Sainz et al. 2023
+  (contamination); ownership split across research (mixture and seed
+  protocol), eval (verdict contract), and training (transfer assumption).
+- 05 the-two-confounds: the two fixes are the two-size ladder (trust a
+  ranking only where it is stable across two sizes — a flip says the proxy
+  does not transfer, not which size is right; doubled run budget) and the
+  comparable-teacher control with a contamination-safe eval set (synthetic
+  data earns only what verification supports: works where verification is
+  cheaper than generation, fails where the filter is the generator marking
+  its own work); Hoffmann et al. 2022, Gunasekar et al. 2023, Sainz et al.
+  2023; ownership split across research (the ladder), eval (contamination
+  boundary), and data (teacher choice).
+
+**Still pending:** the language-model system sub-groups:
 - Language-model system sub-groups: `00-corpus/`, `02-pretrain/`
   (attention-variants, the-gate-that-beats-relu, upcycling and
   does-it-pay-off, latent-reasoning, architecture-ablations and

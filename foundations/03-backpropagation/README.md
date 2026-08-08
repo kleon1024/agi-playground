@@ -245,6 +245,50 @@ is executed.
 
 </details>
 
+## The fix and its trade
+
+The mechanism chapter's real content is two fixes, and both exist because
+the naive version fails silently. The first is accumulation instead of
+assignment in the backward walk: `a` is consumed twice (`d = a*b` and
+`f = e*a`), and a backward pass that writes `a.grad = ...` keeps only the
+last consumer's contribution. The run prices the failure: flipping `+=` to
+`=` moves only `a`, from +0.3577 to -0.2504, while `b` (0.3505) and `c`
+(0.5008) stay correct because each is consumed once — a dropped
+contribution does not crash a run, it quietly corrupts the reused
+parameters, which in a transformer means every tied embedding and every
+weight shared across positions. The second fix is the two-check
+verification protocol: hand-derived calculus proves the engine computes the
+right gradient (0.0 difference), and torch's own `.backward()` proves the
+engine computes the same thing the framework does (1.11e-16, float64's
+precision floor). The trade is that the checks buy trust in the engine's
+intermediate values — the exact values the chapter teaches with — at the
+cost of proving only this expression: one graph, three inputs, no tensors,
+no batching, no devices, no higher-order derivatives, and a Python object
+per scalar operation that "does not remotely resemble how a real training
+step executes." What the mechanism claims to transfer is the core — local
+derivatives applied one link at a time in reverse topological order, with
+accumulation at reused nodes — which is unchanged between this toy and the
+multi-billion-operation graph pretraining actually walks (Linnainmaa, 1970;
+Rumelhart, Hinton, and Williams, 1986; the Theano/Chainer/autograd/PyTorch
+lineage the chapter dates).
+
+## Who owns the loop
+
+- **The framework team** owns the accumulation invariant: `+=` at every
+  reused node is a correctness rule, not a style choice, and the diamond
+  expression is the minimal regression test that would catch an assignment
+  bug in any autodiff implementation.
+- **The training engineer** owns the two-check protocol: engine-vs-
+  analytical answers "is my implementation right," engine-vs-torch answers
+  "is it compatible with the framework everyone else uses," and a run that
+  ships with only one reference point cannot tell the difference between a
+  math bug and a framework mismatch.
+- **The platform team** owns what the toy does not claim: batching,
+  device placement, kernel fusion, bounded memory, and higher-order
+  derivatives are the layers a production autograd adds on top of the same
+  mechanism, and the boundary between the mechanism and those layers is
+  this chapter's evidence boundary.
+
 ## Reading the code
 
 `core/engine.py` is under 100 lines: the `Value` class and the one test

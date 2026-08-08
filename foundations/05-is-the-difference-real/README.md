@@ -109,6 +109,45 @@ purpose, not on the dataset from [the corpus stage](../../01-language-model/00-c
 proxy architecture, a committed seed count, and both confounds above checked
 before the comparison is trusted at target scale.
 
+## The fix and its trade
+
+The fix is the multi-seed paired harness with a returnable "not detectable"
+verdict, and the run prices both halves. The measured crossover is the
+evidence: at n=8 the 95% interval is -0.0214 ± 0.0271 and spans zero; at
+n=16 it is -0.0273 ± 0.0209 and does not, with the torch/Welch arm agreeing
+at the same n=16 (p=0.0001) — a different model and a different test, the
+same crossover. Below n=16, a reported winner is noise: one run per arm
+cannot separate "the mixture helped" from "this seed landed well," and a
+harness that always returns a winner has not solved that problem, it has
+hidden it. The trade is cost and honesty. The cost is arithmetic the chapter
+states openly — a two-arm, S-seed comparison at R minutes per run costs
+M x S x R minutes serial (320 minutes for 2 x 8 x 20, about 80 on four
+workers), and the runs only parallelize because they are independent. The
+honesty trade is sharper: the crossover at n=16 was placed there by search —
+the two mixtures were chosen until the effect was invisible at a handful of
+seeds and detectable by a few dozen — so the seed count needed is a property
+of the effect being chased, not a fixed convention, and a chapter arguing
+that harnesses manufacture wins had to label its own manufactured crossover
+as such (the seed-variance discipline and the "not detectable" verdict trace
+to the scaling-law methodology of Hoffmann et al., "Training Compute-Optimal
+Large Language Models," 2022, and to the contamination-aware evaluation
+line of Sainz et al., "NLP Evaluation in Trouble," Findings of EMNLP, 2023).
+
+## Who owns the loop
+
+- **The research or data team** owns the mixture decision and the seed
+  protocol: the seed set is committed before any result is read, and the
+  wall-clock arithmetic (M x S x R) is their budget, recomputed with their
+  own R rather than adopted from someone else's S.
+- **The evaluation team** owns the verdict contract: "not detectable at
+  this scale" must be a result the harness can actually return with the same
+  confidence as a win, and a harness that cannot say "we don't know yet" is
+  a tool that manufactures answers from noise.
+- **The training owner** owns the transfer assumption: the proxy-to-target
+  ranking is assumed to transfer, and the two confounds in the next chapter
+  are the checks that decide whether this comparison's winner is the
+  decision's winner.
+
 ## Run the harness
 
 [`core/ablation.py`](core/ablation.py) is a from-scratch, paired multi-seed

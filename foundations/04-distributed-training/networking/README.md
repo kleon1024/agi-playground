@@ -111,6 +111,51 @@ is where the actual training-relevant collective (via PyTorch's `gloo`
 backend) is measured; this chapter is the topology argument underneath it,
 not a replacement for it.
 
+## The fix and its trade
+
+The chapter's real content is two fixes, and the sweep prices both. The
+first is the ring topology in place of the naive star: at every one of the
+nine (world_size, payload) combinations the ring wins, and the mechanism is
+visible in the byte columns — `ring_bytes/rank` climbs toward roughly
+`2 x payload_size` and stops climbing as world size grows, while
+`star_bytes/rank` keeps growing because the coordinator's traffic, which is
+proportional to world size, is folded into the per-rank average. At 8 ranks
+and 32 MB, ring is roughly twice as fast (0.5080s vs 1.0304s) because each
+rank moves half the bytes. The trade is implementation surface: the ring
+requires splitting the array into P chunks, P-1 reduce-scatter steps, P-1
+all-gather steps, and neighbor bookkeeping, where the star is a first
+implementation a beginner can write correctly in an afternoon — the ring
+buying bandwidth efficiency at the cost of complexity that real frameworks
+assume for you (the ring's reduce-scatter-plus-allgather being
+bandwidth-optimal comes from Thakur, Rabenseifner, and Gropp, "Optimization
+of Collective Communication Operations in MPICH," 2005).
+
+The second fix is the deadlock lesson, and its trade is liveness for
+complexity. Both topologies deadlocked on the first attempt — send-then-
+receive around a cycle blocks forever once a chunk exceeds the OS pipe
+buffer (a few hundred KB), and the star coordinator deadlocks by writing
+its own reduced result into an unread queue at large payloads. The fix is
+the background communication thread per rank, which keeps the main thread
+free to drain incoming messages; the trade is that every rank now runs a
+thread whose queue the main loop must not outrun, and the bug's defining
+property — invisible at small payload, fatal at large — is exactly why a
+correctness check that only tests tiny arrays cannot be trusted.
+
+## Who owns the loop
+
+- **The framework team** owns the collective implementation: the ring
+  algorithm, the non-blocking send machinery, and the hardware-aware
+  topology selection (NCCL/gloo) are library code, and the deadlock class
+  this chapter reproduces is their regression test.
+- **The training engineer** owns the choice of collective and its
+  granularity: calling `all_reduce` once per parameter versus once per
+  gradient bucket changes how often the topology's byte economics apply,
+  and bucketing is the standard mitigation once this arithmetic is visible.
+- **The platform team** owns the boundary: this machine's loopback numbers
+  measure process scheduling and serialization overhead, not network
+  transport, and the datacenter's bandwidth ceilings and switch topology
+  are the unmeasured half that real multi-node decisions still need.
+
 ## A brief history
 
 The collective this chapter measures was not designed for training at all.

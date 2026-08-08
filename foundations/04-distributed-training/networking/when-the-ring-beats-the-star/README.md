@@ -41,6 +41,39 @@ halving matters. This is why the cluster chapter's wiring decision is not a
 fixed "ring is better" but a scaling law: the topology matters most exactly
 when the tensors are biggest.
 
+## The fix and its trade
+
+The fix is the byte-count read: star moves exactly twice the bytes per rank
+at every cell (3,670,016 vs 1,835,008 at 1 MB; 117,440,512 vs 58,720,256 at
+32 MB), because the star sends the full gradient to and from a central rank
+while the ring passes each shard around the ring once — and the wall-clock
+win at world 8 (0.59x at 1 MB, 0.24x at 8 MB, 0.49x at 32 MB) is the
+consequence of that halving, not a separate effect. The trade is that the
+advantage is a function of payload: at world 2 the cells are noisy (0.29x
+to 0.77x) because latency and process overhead dominate small transfers, so
+choosing a topology on a small-payload benchmark selects on noise, and the
+clean, large advantage only appears where bandwidth dominates. That is the
+scaling-law form the cluster chapter's wiring decision needs: the topology
+choice must be made at the tensor size the real workload will use, not at
+the size that fits a quick benchmark (the ring's reduce-scatter-plus-
+allgather being bandwidth-optimal comes from Thakur, Rabenseifner, and
+Gropp, "Optimization of Collective Communication Operations in MPICH,"
+2005).
+
+## Who owns the loop
+
+- **The framework team** owns the topology selection: whether the collective
+  implementation actually switches to a ring for large tensors, and where
+  the latency-bound crossover sits, is library behavior this chapter names
+  without reproducing.
+- **The training engineer** owns the payload size: gradient bucketing
+  decides how large each collective is, and this sweep is the argument for
+  making buckets large enough to sit in the bandwidth-bound regime where
+  the ring's advantage is real.
+- **The benchmarking owner** owns the sweep design: a cell-by-cell read at
+  multiple payloads is what separates the latency regime from the bandwidth
+  regime, where a single-payload number cannot.
+
 ## Evidence boundary
 
 The recorded localhost-IPC sweep (world sizes 2/4/8 x payloads 1/8/32 MB,
