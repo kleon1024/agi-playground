@@ -1395,6 +1395,10 @@
     "level": "applied",
     "minutes": 7
   },
+  "02-personalized-discovery/shared/54-online-experiments/when-the-experiments-overlap": {
+    "level": "applied",
+    "minutes": 6
+  },
   "02-personalized-discovery/shared/54-online-experiments/when-the-split-lies": {
     "level": "applied",
     "minutes": 4

@@ -227,3 +227,9 @@ executed read: the 39,244-users-per-arm figure derived from the sample-size
 formula, and the four levers (MDE, metric variance, CUPED, allocation and
 ramp) priced in calendar days, which is how the experiment that cannot
 finish this quarter gets its design verdict.
+
+A fifth detour: [the experiments overlap](when-the-experiments-overlap/) —
+the executed read: a shared bucket makes both experiments report 1.994 for
+effects that sum to 1.5 plus a 0.5 interaction, independent layers restore
+each experiment's own main effect, and only the 2x2 factorial reads the
+interaction.

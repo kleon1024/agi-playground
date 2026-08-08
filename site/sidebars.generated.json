@@ -2290,6 +2290,11 @@
               },
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/shared/54-online-experiments/when-the-experiments-overlap/index",
+                "label": "When the experiments overlap"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/shared/54-online-experiments/when-the-split-lies/index",
                 "label": "When the split lies"
               },
