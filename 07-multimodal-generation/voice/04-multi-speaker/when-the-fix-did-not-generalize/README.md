@@ -9,7 +9,8 @@ verified: 2026-08-06
 # The fix that did not generalize
 
 **Question:** [stage 04](../) retrains the codec at 10 speakers to test
-whether the 1-2 speaker fix from stage 05 generalizes. The stage's verdict
+whether the fix that escaped collapse on stage 03's narrow baseline
+generalizes. The stage's verdict
 is seed-dependent health — this chapter reads the three seeds' final
 codebook usage to make the frontier concrete.
 
@@ -29,11 +30,12 @@ seeds' final usage and MSE:
 
 ## Two readings
 
-**The 1-2 speaker fix does not generalize.** At 10 speakers the codebook
+**The stage-03 fix does not generalize.** At 10 speakers the codebook
 health is seed-dependent again — seed 1 healthy (63/64), seed 0 collapsed
 (18/64), seed 2 partial (32/64) — the same seed-dependence the codebook
-chapters measured at 1-2 speakers, now at the frontier. A fix that holds
-for a few speakers is not a fix for the population; the mechanism (dead
+chapters measured on stage 03's narrow baseline, now at the frontier. A fix
+that holds
+for a narrow baseline is not a fix for the population; the mechanism (dead
 codes, seed-dependent recovery) re-emerges as the data grows.
 
 **The collapsed seed pays a measurable price.** Reconstruction MSE tracks
@@ -53,8 +55,9 @@ recover at 10 speakers — that is stage 05's question, unanswered here.
 
 Answer each before opening it.
 
-**1. Stage 05's fix achieved 64/64 in all seeds at 1-2 speakers. Why does
-the same codec collapse at 10?**
+**1. Stage 03's recipe escaped collapse on its narrow baseline — 51-63/64
+codes in all three seeds. Why does the same recipe collapse seed-dependently
+at 10?**
 
 <details>
 <summary>Answer</summary>

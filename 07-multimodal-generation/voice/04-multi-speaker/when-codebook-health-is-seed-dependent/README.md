@@ -31,14 +31,14 @@ seeds:
 **No seed fully collapsed, and that is the first half of the result.** The
 eval MSEs all beat the silence baseline (4.3%, 38.2%, 22.7% margins) and
 every codebook has more than one active code — the 1-2-code collapse of
-stage 00's pilot is gone. The recipe that escaped at 1-2 speakers did not
-fail outright at 10.
+stage 00's pilot is gone. The recipe that escaped on stage 03's narrow
+baseline did not fail outright at 10.
 
 **Codebook health became seed-dependent, and that is the second half.**
 The same architecture, step count, LR, and seeds produce 18, 63, and 32
 of 64 codes. Seed 1's codebook is nearly full (63/64, entropy 0.760);
 seed 0's is a quarter used (18/64, entropy 0.405). The fix that was
-reliable at 1-2 speakers is now a coin flip per seed — the generalization
+reliable on stage 03's narrow baseline is now a coin flip per seed — the generalization
 gap stage 04 exists to record, and the exact problem stage 05's reset
 targets.
 
@@ -72,7 +72,8 @@ it is what a production codec cannot accept.
 <details>
 <summary>Answer</summary>
 
-It tests generalization. The 1-2 speaker recipe escaped collapse reliably;
+It tests generalization. The stage-03 recipe escaped collapse reliably on
+its narrow baseline;
 at 10 speakers the same recipe is seed-dependent. The fix that worked at
 small scale did not transfer cleanly to larger scale — which is exactly
 the "does the fix generalize" question stage 04 names, and the reason

@@ -1,10 +1,10 @@
 """Codebook health at 10 speakers: the fix that did not generalize.
 
-Stage 04 retrains the codec at 10 speakers, where the 1-2 speaker fix from
-stage 05 was supposed to carry. This script reads the three recorded seeds'
+Stage 04 retrains the codec at 10 speakers, where the stage-03 fix was
+supposed to carry. This script reads the three recorded seeds'
 final codebook usage and reconstruction MSE and lays out the seed-dependent
 health the stage found — the same seed-dependence the codebook chapters
-measured at 1-2 speakers, now at the frontier.
+measured on stage 03's narrow baseline, now at the frontier.
 
 Inputs (recorded, unchanged): ../runs/multi-speaker-seed{0,1,2}.json
 

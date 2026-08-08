@@ -1,6 +1,6 @@
 """Does a standard dead-code-reset fix stage 04's seed-dependent codebook
 utilization (18-63 of 64 codes used across seeds at 10 speakers, versus a
-tight 51-63 at 1-2 speakers)?
+tight 51-63 on stage 03's narrow baseline)?
 
 Reuses `Codec`/`CodecConfig`/`Encoder`/`Decoder` from stage 00 unchanged --
 only the `VectorQuantizer` is replaced with `ResetVectorQuantizer` below,

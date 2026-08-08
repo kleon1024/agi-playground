@@ -8,11 +8,11 @@ label: Codebook dead-code reset
 
 # Does a standard dead-code reset fix the seed-dependent codebook health stage 04 found?
 
-**Question:** stage 04 reran the fix that reliably escaped collapse for 1-2
-speakers (2000 steps, `lr=1e-3`, no architecture change) on a balanced
+**Question:** stage 04 reran the fix that reliably escaped collapse on stage
+03's narrow baseline (2000 steps, `lr=1e-3`, no architecture change) on a balanced
 10-speaker mix and found it never fully collapses, but codebook utilization
 becomes sharply seed-dependent — 18-63 of 64 codes used across 3 seeds,
-versus a tight 51-63/64 at 1-2 speakers. `mission.yaml`'s `does_not_prove`
+versus a tight 51-63/64 on stage 03's narrow baseline. `mission.yaml`'s `does_not_prove`
 named this as unresolved. This stage asks whether the standard fix for
 exactly this failure mode — periodic dead-code reset (Razavi, van den Oord &
 Vinyals, "Generating Diverse High-Fidelity Images with VQ-VAE-2," NeurIPS
@@ -35,7 +35,7 @@ seed 1: eval MSE 0.01717  vs silence 0.02750  (37.6% margin)   64/64 codes, entr
 seed 2: eval MSE 0.01733  vs silence 0.02746  (36.9% margin)   64/64 codes, entropy_ratio 0.791
 ```
 
-**Before this:** [stage 04](../04-multi-speaker/) found the 1-2-speaker fix
+**Before this:** [stage 04](../04-multi-speaker/) found the stage-03 fix
 still avoids full collapse at 10 speakers, but with codebook health
 (utilization, margin) that swings wildly by seed.
 

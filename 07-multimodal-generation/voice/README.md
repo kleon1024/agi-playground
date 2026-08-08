@@ -116,7 +116,7 @@ traces it.
 | [01 — Streaming decode](01-streaming-decode/) | does the existing KV-cache mechanism work unchanged for audio tokens? | verified |
 | [02 — Report](02-report/) | what does streaming cost in latency, and what does it buy or lose against the offline pass? | verified — MET |
 | [03 — Real speech and network](03-real-speech-and-network/) | does the same codec architecture and the same KV cache hold on real speech, over a real network? | verified |
-| [04 — Multi-speaker](04-multi-speaker/) | does the fix that escaped collapse for 1-2 speakers still work at 10? | verified |
+| [04 — Multi-speaker](04-multi-speaker/) | does the fix that escaped collapse on stage 03's data still work at 10? | verified |
 | [05 — Codebook reset](05-codebook-reset/) | does a standard dead-code reset fix the seed-dependent codebook health stage 04 found? | verified |
 | [06 — Which mechanism did it](06-which-mechanism-did-it/) | reset, EMA, or the two together — which half of VQ-VAE-2's fix actually did the work? | verified |
 
@@ -162,7 +162,9 @@ rigorously built. Full verdict in
 
 [Stage 03](03-real-speech-and-network/) retrained the identical codec
 architecture — no change — on LibriSpeech `dev-clean` (Panayotov et al.,
-2015; CC BY 4.0), 1-2 speakers. At stage 00's own step count the codec
+2015; CC BY 4.0), 2 speakers requested (1 served — see the [mix
+audit](04-multi-speaker/when-the-mix-is-not-what-you-asked/)). At stage
+00's own step count the codec
 reproduced stage 00's collapse story but did not escape it in time
 (codebook stuck at 1 of 64 codes); a controlled sweep showed the fix is
 specifically more steps at the same learning rate, not a higher one, and at
@@ -249,7 +251,8 @@ artifact or a measurement the next stage consumes.
 The codec and dataset are toy-scale by construction, so nothing here says
 anything about production speech quality or true full-duplex operation — the
 loop runs one direction at a time. Multi-speaker robustness is only
-partially tested: stage 03 uses 1-2 speakers, stage 04 extends this to 10 of
+partially tested: stage 03's data request was 2 speakers (the recorded runs
+served 1 — see the mix audit), stage 04 extends this to 10 of
 the corpus's 40+ dev-clean speakers, and neither is the full corpus. Nothing
 here diagnoses *why* stage 04's escape became seed-dependent, only that it
 did. Stage 05 shows dead-code reset closes that specific gap at 10 speakers,

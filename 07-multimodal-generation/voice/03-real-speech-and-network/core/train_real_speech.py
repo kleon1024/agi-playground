@@ -2,7 +2,8 @@
 still hold on real speech, not procedural tones?
 
 Retrains the *identical* `Codec`/`CodecConfig` (no architecture change) on a
-LibriSpeech `dev-clean` subset (1-2 speakers, `speech_data.py`), then reuses
+LibriSpeech `dev-clean` subset (2 speakers requested; the speaker-major
+slice served 2277 only -- see the mix audit), then reuses
 `audio_lm`'s LM training and `streaming_decode`'s naive-vs-cached generation
 functions unchanged -- the same reuse discipline stage 01 itself established
 for `engine.py`. This script is deliberately a thin orchestrator: every

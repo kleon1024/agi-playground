@@ -14,7 +14,10 @@ that codec's tokens. Neither result says anything about real speech, and
 neither result includes an actual network hop: both ran in one process, on
 one machine. This stage asks two separate questions with one shared setup --
 the identical codec architecture retrained on LibriSpeech `dev-clean`
-(Panayotov et al., 2015; CC BY 4.0), 1-2 speakers, and a real round trip over
+(Panayotov et al., 2015; CC BY 4.0) — 2 speakers requested (2277, 2035), 1
+served (2277), because the stage's builder slices a speaker-major list; the
+[mix audit](../04-multi-speaker/when-the-mix-is-not-what-you-asked/) replays
+the call — and a real round trip over
 this repository's own documented Tailscale link
 ([`reference/local-4090.md`](../../../reference/local-4090.md)) instead of a
 synthetic latency stress test.
@@ -39,6 +42,14 @@ downloads LibriSpeech `dev-clean` once (338MB, cached under a git-ignored
 and chunks each utterance into the exact same `CLIP_LEN=4096` (0.512s)
 format `00-audio-codec/core/audio_data.py` already produces, so every
 downstream consumer needs zero changes.
+
+Data-label correction: `build_dataset` slices `max_utterances` off a
+speaker-major list, so the recorded runs — 2 speakers requested, 40
+utterances — were served speaker 2277 only. The numbers below are a real
+single-speaker measurement; the [mix
+audit](../04-multi-speaker/when-the-mix-is-not-what-you-asked/) measures
+the gap, stage 04's `build_balanced_dataset` is the fix, and a true
+2-speaker re-run is queued as a follow-on.
 
 `core/train_real_speech.py` imports `Codec`/`CodecConfig` directly from
 [`00-audio-codec/core/codec.py`](../00-audio-codec/core/codec.py) --
@@ -166,7 +177,8 @@ sandbox, the same real deviation from `mission.yaml`'s local-GPU-lane
 framing stage 01 already recorded. Per-seed wall-clock: data build under 1s
 (cached after first download), codec training about 620-630s, LM training
 about 70-90s. \$0 marginal cost -- the LibriSpeech download is a one-time,
-free fetch (CC BY 4.0), and only 1-2 speakers' utterances are used, keeping
+free fetch (CC BY 4.0), and only a bounded utterance set is used (the
+recorded runs were served a single speaker; see the mix audit), keeping
 wall-clock comparable to the procedural-tone runs.
 
 ## What this stage does not establish

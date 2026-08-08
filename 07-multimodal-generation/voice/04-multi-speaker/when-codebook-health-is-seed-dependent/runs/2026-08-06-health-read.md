@@ -24,7 +24,7 @@ became seed-dependent. This run reads the JSONs and lays out the spread.
 ## Notes
 
 - No collapse in any seed, but the 18-vs-63 code spread is seed-dependent
-  — the same recipe that escaped reliably at 1-2 speakers no longer does
+  — the same recipe that escaped reliably on stage 03's narrow baseline no longer does
   at 10.
 - That fix-generalization gap is what stage 04 records and stage 05's
   reset targets.

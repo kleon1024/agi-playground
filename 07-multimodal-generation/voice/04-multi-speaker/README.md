@@ -6,18 +6,22 @@ verified: 2026-08-01
 label: Multi-speaker generalization
 ---
 
-# Does the same fix that escaped collapse for 1-2 speakers still work for 10?
+# Does the same fix that escaped collapse on stage 03's data still work for 10?
 
 **Question:** stage 03 retrained the same codec architecture on real speech
 and found it collapses at stage 00's own step count (600) but escapes cleanly
 at 2000 steps, same learning rate, across 3 seeds -- consistently landing on
-51-63 of 64 codebook entries. That result used only 1-2 LibriSpeech speakers.
+51-63 of 64 codebook entries. That result requested 2 LibriSpeech speakers
+(2277, 2035) and was served 1 (2277) -- stage 03's builder slices a
+speaker-major list, a gap the [mix audit](when-the-mix-is-not-what-you-asked/)
+measures. This stage uses the balanced 10-speaker mix instead.
 This stage asks whether the *same fix* (2000 steps, `lr=1e-3`, no other
 change) still works once speaker diversity rises to 10 -- a genuinely
 untested case, not a foregone conclusion.
 
 **The artifact this stage produces** is the same codec/LM pipeline stage 03
-produces, run on a 10-speaker mix instead of 1-2:
+produces, run on a balanced 10-speaker mix instead of stage 03's narrow
+baseline:
 
 ```
 seed 0: eval MSE 0.02712  vs silence 0.02833   (4.3% margin)   18/64 codes, entropy_ratio 0.405
@@ -27,7 +31,8 @@ seed 2: eval MSE 0.02122  vs silence 0.02746  (22.7% margin)   32/64 codes, entr
 
 **Before this:** [stage 03](../03-real-speech-and-network/) established that
 2000 steps at the original learning rate escapes the near-silence collapse
-for 1-2 real speakers, across 3 seeds, consistently.
+on its real-speech data (2 speakers requested, 1 served), across 3 seeds,
+consistently.
 
 ## What is reused, and what is new
 
@@ -40,8 +45,9 @@ discipline stage 03 itself established. The one new mechanism is
 `core/multi_speaker_data.py`: stage 03's own `speech_data.build_dataset`
 extracts all requested speakers' utterances into a single speaker-major list
 and only then slices the first `max_utterances`, which silently biases
-toward whichever speaker's directory sorts first once more than one or two
-speakers are requested. That bias is exactly wrong for a stage whose entire
+toward whichever speaker's directory sorts first -- the mix audit shows the
+bias already bites at the 2-speaker request stage 03 made. That bias is
+exactly wrong for a stage whose entire
 point is speaker diversity, so `build_balanced_dataset` bounds utterances
 *per speaker* before combining and shuffling, and refuses to proceed (raises,
 rather than silently under-testing) if the resulting eval split does not
@@ -50,17 +56,17 @@ cover every requested speaker. 10 dev-clean speakers were used: `2277`,
 (`3752`, `6313`, `3081`, `2428`, `5694`, `5895`, `7976`) chosen only for
 having enough archived utterances, not for any acoustic property.
 
-## Finding: no full collapse in any seed, but codebook health becomes seed-dependent in a way it wasn't at 1-2 speakers
+## Finding: no full collapse in any seed, but codebook health becomes seed-dependent in a way it wasn't on stage 03's baseline
 
 All three seeds beat both required naive baselines (silence and mean-signal),
-so the collapse-then-escape fix that worked for 1-2 speakers still prevents
+so the collapse-then-escape fix that worked on stage 03's narrow baseline still prevents
 *total* failure at 10 speakers. But the margin and codebook utilization that
-were tight and consistent at 1-2 speakers (51-63 of 64 codes, all three seeds
+were tight and consistent on stage 03's narrow baseline (51-63 of 64 codes, all three seeds
 within an entropy_ratio band of 0.787-0.870, improvement margin roughly 2x
 over baseline) are neither at 10 speakers:
 
 ```
-                1-2 speakers (stage 03)      10 speakers (this stage)
+                stage 03 (1 speaker served)   10 speakers (this stage)
 codes used:     51, 58, 63  of 64            18, 32, 63  of 64
 entropy_ratio:  0.787, 0.836, 0.870          0.405, 0.644, 0.760
 margin vs
@@ -70,12 +76,12 @@ margin vs
 Seed 0's run tells the clearest story: `vq_loss` in its training history
 (`runs/multi-speaker-seed0.json`) stays essentially flat and near-zero
 through step 1800, only spiking at step 1850 (`0.00185`) -- a much later and
-weaker escape signal than stage 03 ever saw at 2 speakers, and one that
+weaker escape signal than stage 03's runs ever showed, and one that
 plainly did not have enough remaining steps to fully develop before training
 stopped at step 2000. Seed 1, run with the identical step budget and
 learning rate, escaped far more completely (63/64 codes, 38% margin). Same
 fix, same step count, same learning rate, three different outcomes -- the
-step count that reliably escaped collapse for 1-2 speakers is no longer
+step count that reliably escaped collapse on stage 03's narrow baseline is no longer
 reliably sufficient once the codec has to represent 10 speakers' worth of
 acoustic variation in the same 64-entry codebook. This is a genuine, honest
 generalization boundary, not a repeat of stage 03's result at a different
@@ -134,8 +140,8 @@ numbers; the codec ran on CPU throughout.
 
 **Next:** none currently planned. A report stage, if this mission adds one,
 would need to fold this stage's seed-dependent result into the mission's
-overall acceptance verdict rather than treating stage 03's cleaner 1-2
-speaker result as the mission's last word on real speech.
+overall acceptance verdict rather than treating stage 03's cleaner
+single-speaker result as the mission's last word on real speech.
 
 A detour from here: [the fix that did not generalize](when-the-fix-did-not-generalize/)
 — the three seeds' codebook health at 10 speakers: 18/63/32 of 64 codes,
@@ -143,3 +149,5 @@ with MSE tracking usage (0.027 vs 0.017) — the seed-dependence returns at
 the frontier.
 
 Another detour: [no collapse — and a seed-dependent codebook](when-codebook-health-is-seed-dependent/) — the recorded seeds read: 18, 63, and 32 of 64 codes from the same recipe, which is the generalization gap stage 05 targets.
+
+Another detour: [the mix is not what you asked for](when-the-mix-is-not-what-you-asked/) — the naive builder serves 1 of 10 requested speakers (and, replaying stage 03's call, 1 of 2); the balanced builder serves all 10 in both splits, and stage 03's recorded runs turn out to have been single-speaker measurements.

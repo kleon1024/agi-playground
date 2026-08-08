@@ -1,5 +1,5 @@
 """Does stage 03's codec/LM result hold when speaker diversity increases from
-1-2 speakers to 10?
+stage 03's narrow baseline to 10?
 
 Reuses every low-level building block from
 [`03-real-speech-and-network/core/speech_data.py`](../../03-real-speech-and-network/core/speech_data.py)
@@ -8,8 +8,9 @@ per-clip chunking/normalization) -- the only new logic here is *balanced*
 per-speaker extraction. Stage 03's own `build_dataset` extracts all requested
 speakers' utterances into one speaker-major list and only then takes the
 first `max_utterances`, which silently biases toward whichever speaker's
-directory sorts first once more than one or two speakers are requested. That
-bias is exactly wrong for a mission whose entire point is speaker diversity,
+directory sorts first (a mix audit shows the bias already bites at the
+2-speaker request stage 03 made). That bias is exactly wrong for a mission
+whose entire point is speaker diversity,
 so this stage extracts a bounded number of utterances *per speaker* before
 combining and shuffling, guaranteeing every requested speaker actually
 contributes clips to both the train and eval split.

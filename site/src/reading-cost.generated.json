@@ -1817,7 +1817,7 @@
   },
   "07-multimodal-generation/voice/04-multi-speaker": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "07-multimodal-generation/voice/04-multi-speaker/when-codebook-health-is-seed-dependent": {
     "level": "applied",
@@ -1825,7 +1825,11 @@
   },
   "07-multimodal-generation/voice/04-multi-speaker/when-the-fix-did-not-generalize": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
+  },
+  "07-multimodal-generation/voice/04-multi-speaker/when-the-mix-is-not-what-you-asked": {
+    "level": "applied",
+    "minutes": 6
   },
   "07-multimodal-generation/voice/05-codebook-reset": {
     "level": "applied",

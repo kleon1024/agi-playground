@@ -2907,6 +2907,11 @@
                 "type": "doc",
                 "id": "07-multimodal-generation/voice/04-multi-speaker/when-the-fix-did-not-generalize/index",
                 "label": "When the fix did not generalize"
+              },
+              {
+                "type": "doc",
+                "id": "07-multimodal-generation/voice/04-multi-speaker/when-the-mix-is-not-what-you-asked/index",
+                "label": "When the mix is not what you asked for"
               }
             ]
           },

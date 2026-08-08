@@ -620,10 +620,7 @@ proves the fix worked.
 
 ### Language-model system — 00-07
 
-**Status: in progress (00-corpus data health, 01-tokenizer tie-break,
-02-pretrain divergence, 03-sft template contract and distillation,
-04-rl delayed/poisoned reward, 05-serve cascade, 06-agent recovery,
-07-eval gates audited, 2026-08-07).**
+**Status: done (fourth audit increment, 2026-08-07/08).**
 
 Stage 00 now carries the dirty-data failure the queue named first: a
 benchmark-contamination chapter with an executed run over 200 items, 60
@@ -887,8 +884,9 @@ and sample-construction detail the user asks for lives here.
 ### Foundations, infra-absorbed chapters, and remaining missions
 
 **Status: done for foundations 02-optimization, 06-significance, and
-07-moe (ninth audit increment, 2026-08-08); the remaining missions below
-are still pending.**
+07-moe, and for the voice path's modality-imbalance row (ninth and tenth
+audit increments, 2026-08-08); the remaining missions below are still
+pending.**
 
 The foundations now carry the failure-mode lens the queue named first:
 
@@ -919,12 +917,43 @@ The foundations now carry the failure-mode lens the queue named first:
   al. 2024 (arXiv:2401.06066), Liu et al. 2024 (arXiv:2412.19437);
   detour: when-the-expert-goes-dead now carries the fix-and-trade.
 
+### Multimodal generation — voice path (modality-imbalance row)
+
+**Status: done for the voice path's sample-construction half of the
+modality-imbalance row (2026-08-08); the codebook-collapse-checks half is
+already covered by the collapse/reset chapters and the seed-dependence
+runs.**
+
+The row's sample-construction failure is now measured
+(`04-multi-speaker/when-the-mix-is-not-what-you-asked`, 2026-08-08): the
+naive speaker-major builder (`speech_data.build_dataset`) slices
+`max_utterances` off a speaker-major list, so a 10-speaker request with a
+40-utterance cap serves speaker 2277 only — verdict "10 requested, 1
+served" in both splits, and "2 requested, 1 served" replaying stage 03's
+exact recorded call, which means stage 03's recorded "1-2 speakers" runs
+were 1-speaker measurements (its README and run record are corrected to
+match, and a true 2-speaker re-run is queued as a follow-on). The loud
+failure misdiagnoses itself ("raise max_utterances or add a speaker" — the
+real cause is the slice, not volume) and the completing failure is silent,
+which is why counting the served distribution is the case-finding step.
+The fix measured is the balanced builder's per-speaker utterance bound plus
+its eval-coverage guard; the trade is per-speaker budget vs corpus scale,
+with weighted category-aware sampling as the scale alternative (ESPnet
+category-power sampler; Google production ASR fairness rebalancing toward
+underperforming speaker cohorts, arXiv:2207.11345, 2022). Ownership split:
+the dataset-builder owner holds the served-distribution contract, eval owns
+the per-split coverage guard, and the training team inherits whatever the
+builder serves. Corpus: LibriSpeech (Panayotov et al., ICASSP 2015,
+DOI 10.1109/ICASSP.2015.7178964).
+
 Audit the remaining missions with the same lens: multimodal generation
-(codebook collapse, modality imbalance, streaming decode), quantitative
-research (as-of joins, restatements, purge), agentic platform (tool-result
-recovery), game AI (policy collapse, closed-loop divergence), bio-pharma
-modeling, and autonomous driving (perception failure, distribution shift,
-closed-loop evaluation).
+(codebook collapse and streaming decode are already covered by the voice
+stages' collapse/reset/health chapters and the modality-imbalance row
+above; the video path's codebook-collapse row is the remaining multimodal
+gap), quantitative research (as-of joins, restatements, purge), agentic
+platform (tool-result recovery), game AI (policy collapse, closed-loop
+divergence), bio-pharma modeling, and autonomous driving (perception
+failure, distribution shift, closed-loop evaluation).
 
 ## How an audit is marked done
 

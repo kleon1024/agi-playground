@@ -22,6 +22,14 @@ network measurement: <1s of actual pinging (200 round trips at ~10-40ms
 each), plus one-time SSH setup. LibriSpeech `dev-clean` download (338MB,
 one-time, \$0, CC BY 4.0) cached under a git-ignored `core/.cache/`.
 
+Data note: the recorded runs requested speakers 2277 and 2035 with the
+default 40-utterance cap, and `speech_data.build_dataset`'s speaker-major
+slice served speaker 2277 only — the codec/LM numbers below are a real
+single-speaker measurement. The [mix
+audit](../../04-multi-speaker/when-the-mix-is-not-what-you-asked/) replays
+the call and measures the served mix; stage 04's balanced builder is the
+fix, and a true 2-speaker re-run is the queued follow-on.
+
 ## Codec: collapses at 600 steps on real speech, escapes at 2000 -- same learning rate
 
 Diagnostic sweep (2000 steps each, held-out eval):

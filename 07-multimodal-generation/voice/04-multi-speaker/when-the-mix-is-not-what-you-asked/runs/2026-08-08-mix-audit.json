@@ -1,0 +1,107 @@
+{
+  "cache_state": "all probes served from the existing git-ignored LibriSpeech cache",
+  "date": "2026-08-08",
+  "probe_0_slice_mechanism": {
+    "first_40_utterances_by_speaker": {
+      "2277": 40
+    },
+    "requested_speakers": [
+      "2277",
+      "1462",
+      "2035",
+      "3752",
+      "6313",
+      "3081",
+      "2428",
+      "5694",
+      "5895",
+      "7976"
+    ]
+  },
+  "probe_a_stage03_call": {
+    "requested_speakers": [
+      "2277",
+      "2035"
+    ],
+    "served_eval": {
+      "2277": 60
+    },
+    "served_train": {
+      "2277": 256
+    },
+    "wall_clock_s": 0.028
+  },
+  "probe_b1_naive_10spk_at_stage_sizes": {
+    "message": "only 388 real-speech clips available from 40 utterances (('2277', '1462', '2035', '3752', '6313', '3081', '2428', '5694', '5895', '7976')); need 500. Raise max_utterances or add a speaker.",
+    "outcome": "raised"
+  },
+  "probe_b2_naive_10spk_completing": {
+    "requested_speakers": [
+      "2277",
+      "1462",
+      "2035",
+      "3752",
+      "6313",
+      "3081",
+      "2428",
+      "5694",
+      "5895",
+      "7976"
+    ],
+    "served_eval": {
+      "2277": 50
+    },
+    "served_train": {
+      "2277": 200
+    },
+    "wall_clock_s": 0.019
+  },
+  "probe_c_balanced_10spk": {
+    "per_speaker_utterances": 10,
+    "requested_speakers": [
+      "2277",
+      "1462",
+      "2035",
+      "3752",
+      "6313",
+      "3081",
+      "2428",
+      "5694",
+      "5895",
+      "7976"
+    ],
+    "served_eval": {
+      "1462": 9,
+      "2035": 15,
+      "2277": 13,
+      "2428": 10,
+      "3081": 11,
+      "3752": 9,
+      "5694": 5,
+      "5895": 8,
+      "6313": 5,
+      "7976": 15
+    },
+    "served_train": {
+      "1462": 44,
+      "2035": 35,
+      "2277": 50,
+      "2428": 38,
+      "3081": 34,
+      "3752": 46,
+      "5694": 31,
+      "5895": 45,
+      "6313": 26,
+      "7976": 51
+    },
+    "wall_clock_s": 0.069
+  },
+  "verdict": {
+    "balanced_eval_speakers": 10,
+    "balanced_train_speakers": 10,
+    "naive_completing_call_eval_speakers": 1,
+    "naive_completing_call_train_speakers": 1,
+    "naive_first_40_utterance_speakers": 1,
+    "requested_speakers": 10
+  }
+}

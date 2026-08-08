@@ -1,10 +1,18 @@
 """Real speech, in place of stage 00's procedural tones: LibriSpeech
-`dev-clean` (Panayotov et al., 2015; CC BY 4.0), sliced to 1-2 speakers so
-training stays comparable in wall-clock to the existing procedural-tone
-runs. Downloaded once via stdlib `urllib`/`tarfile` (same pattern
+`dev-clean` (Panayotov et al., 2015; CC BY 4.0), sliced to a bounded
+utterance count so training stays comparable in wall-clock to the existing
+procedural-tone runs. Downloaded once via stdlib `urllib`/`tarfile` (same pattern
 `03-quantitative-research/00-market-data/core/point_in_time.py`
 uses for its own external fetch), cached under a git-ignored `.cache/`
 directory next to this file -- never committed.
+
+Note on the served mix: `build_dataset` slices the first `max_utterances`
+files off a speaker-major list, so with two or more speakers requested the
+served data collapses toward the first speaker in the request order. This
+stage's recorded runs requested speakers 2277 and 2035 and were served
+speaker 2277 only (a [mix audit](../../04-multi-speaker/when-the-mix-is-not-what-you-asked/)
+replays the call); stage 04's `build_balanced_dataset` bounds utterances per
+speaker instead.
 
 FLAC has no stdlib decoder, so this is the one stage in this mission that
 shells out to an external binary (`ffmpeg`, already present on this host) to
@@ -117,8 +125,8 @@ def build_dataset(
     same fixed-length clip format `audio_data.build_dataset` produces, so
     every downstream consumer (`Codec`, `audio_lm`, `streaming_decode`)
     needs zero changes. `max_utterances` bounds wall-clock -- this mission's
-    guardrail is "1-2 speakers, minutes not hours," not "use the whole
-    corpus."
+    guardrail is "a bounded utterance set, minutes not hours," not "use the
+    whole corpus."
     """
     _download_archive()
     flac_files = _extract_speakers(speakers)[:max_utterances]

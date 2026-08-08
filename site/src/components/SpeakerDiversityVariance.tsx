@@ -22,13 +22,13 @@ export default function SpeakerDiversityVariance(): React.ReactElement {
       <label>
         <input type="radio" checked={seed === '2'} onChange={() => setSeed('2')} /> seed 2
       </label>
-      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75 }}>10 speakers, same fix (2000 steps, lr=1e-3) that reliably escaped collapse at 1-2 speakers</p>
+      <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75 }}>10 speakers, same fix (2000 steps, lr=1e-3) that reliably escaped collapse on stage 03's narrow baseline</p>
       <p>codebook used: <strong>{s.codes}/64</strong> codes (entropy_ratio {s.entropy.toFixed(3)})</p>
       <p>margin vs silence baseline: <strong>{s.margin.toFixed(1)}%</strong></p>
       <p style={{ fontSize: 'var(--type-sm)', opacity: 0.75 }}>
-        Reference, 1-2 speakers (stage 03, all three of its own seeds): 51-63/64 codes, entropy_ratio 0.787-0.870,
+        Reference, stage 03's narrow baseline (2 requested, 1 served; all three of its own seeds): 51-63/64 codes, entropy_ratio 0.787-0.870,
         margin ~52-54%. Same step count and learning rate, but at 10 speakers the outcome is no longer reliable --
-        seed 0 barely escapes (18/64, 4.3%) while seed 1 escapes as fully as any 1-2 speaker run (63/64, 38.2%).
+        seed 0 barely escapes (18/64, 4.3%) while seed 1 escapes as fully as any stage-03 run (63/64, 38.2%).
       </p>
     </div>
   );

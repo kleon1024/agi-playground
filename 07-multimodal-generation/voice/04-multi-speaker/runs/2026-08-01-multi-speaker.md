@@ -1,4 +1,4 @@
-# Multi-speaker codec retrain: does the 1-2 speaker fix generalize to 10?
+# Multi-speaker codec retrain: does the stage-03 fix generalize to 10?
 
 ## Commands
 
@@ -18,7 +18,8 @@ download), codec training 780-861s, LM training 83-87s. \$0 marginal cost.
 ## Codec: no full collapse in any seed, but codebook health becomes seed-dependent
 
 Same architecture, same step count (2000) and learning rate (1e-3) that
-escaped collapse reliably at 1-2 speakers (stage 03), rerun on a balanced
+escaped collapse reliably on stage 03's narrow baseline (2 speakers
+requested, 1 served), rerun on a balanced
 10-speaker mix:
 
 | seed | eval MSE | silence baseline | margin vs silence | codes used | entropy ratio |
@@ -27,7 +28,7 @@ escaped collapse reliably at 1-2 speakers (stage 03), rerun on a balanced
 | 1 | 0.01698 | 0.02750 | 38.2% | 63/64 | 0.760 |
 | 2 | 0.02122 | 0.02746 | 22.7% | 32/64 | 0.644 |
 
-Stage 03's 1-2 speaker result at the same step count, for comparison:
+Stage 03's result at the same step count, for comparison:
 
 | seed | eval MSE | silence baseline | margin vs silence | codes used | entropy ratio |
 |---|---|---|---|---|---|
@@ -36,9 +37,10 @@ Stage 03's 1-2 speaker result at the same step count, for comparison:
 | 2 | 0.01309 | 0.02766 | ~53% | 63/64 | 0.870 |
 
 All three 10-speaker seeds beat both required naive baselines (no full
-collapse), but the margin (4.3%-38.2%, vs. a consistent ~52-53% at 1-2
-speakers) and codebook utilization (18-63/64, vs. a consistent 51-63/64) are
-both far more seed-dependent than at 1-2 speakers. Full per-step
+collapse), but the margin (4.3%-38.2%, vs. a consistent ~52-53% on stage
+03's baseline) and codebook utilization (18-63/64, vs. a consistent
+51-63/64) are
+both far more seed-dependent than on stage 03's baseline. Full per-step
 `codec_history` in `multi-speaker-seed{0,1,2}.json` — seed 0's `vq_loss`
 stays flat and near-zero through step 1800, only beginning to spike at step
 1850, a materially later and weaker escape signal than any seed in stage 03
@@ -65,4 +67,6 @@ silently under-represented most of the 10 requested speakers). It also
 raises rather than proceeds if the eval split ends up missing a requested
 speaker — this guard fired during development at under-sized
 `n_train`/`n_eval` values and was left in as a permanent check, not removed
-once the run passed.
+once the run passed. The bias is not limited to 10 speakers: replaying
+stage 03's exact call (2 speakers, `max_utterances=40`) serves speaker 2277
+only — see the [mix audit](../when-the-mix-is-not-what-you-asked/).

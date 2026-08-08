@@ -10,7 +10,7 @@ run).
 
 ## Purpose
 
-Stage 04 retrains the codec at 10 speakers to test whether the 1-2 speaker
+Stage 04 retrains the codec at 10 speakers to test whether the stage-03 fix
 fix generalizes. This run reads the three seeds' final codebook usage and
 reconstruction MSE and lays out the seed-dependent health the stage found.
 
@@ -27,7 +27,7 @@ seed  codes  entropy      MSE
 
 - At 10 speakers the codebook health is seed-dependent again: seed 1 is
   healthy (63/64), seed 0 is collapsed (18/64), seed 2 partial (32/64).
-  The 1-2 speaker fix did not generalize — the same seed-dependence the
-  codebook chapters measured at 1-2 speakers returns at the frontier.
+  The stage-03 fix did not generalize — the same seed-dependence the
+  codebook chapters measured on stage 03's narrow baseline returns at the frontier.
 - Reconstruction MSE tracks usage (0.027 at 18/64, 0.017 at 63/64): the
   collapsed codebook's cost is measurable, not just a usage count.
