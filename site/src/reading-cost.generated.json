@@ -1981,23 +1981,23 @@
   },
   "foundations/00-attention": {
     "level": "foundation",
-    "minutes": 10
+    "minutes": 12
   },
   "foundations/00-attention/rope": {
     "level": "foundation",
-    "minutes": 4
+    "minutes": 6
   },
   "foundations/00-attention/what-it-costs": {
     "level": "foundation",
-    "minutes": 6
+    "minutes": 8
   },
   "foundations/01-first-training-loop": {
     "level": "foundation",
-    "minutes": 6
+    "minutes": 8
   },
   "foundations/01-first-training-loop/the-curve-that-takes-34-seconds": {
     "level": "foundation",
-    "minutes": 2
+    "minutes": 4
   },
   "foundations/02-optimization": {
     "level": "foundation",
