@@ -70,6 +70,31 @@ frames exactly this gap between the intended and the served allocation
 (Abdollahpouri et al., "Multi-sided Exposure Bias in Recommendation",
 KDD Workshop on Industrial Recommendation Systems 2020).
 
+## The fix and its trade
+
+The fix is to solve the constrained allocation with the floor binding
+instead of max-then-renormalise, and to measure the protected group's
+served exposure rather than the declared floor. The audit prices the
+repair — a declared 10 percent floor lands at 9.2 percent served (gap
++0.8 percent), and the gap grows with the floor level because
+renormalising the floored categories dilutes the group the floor was
+meant to protect: at a 15 percent floor only 12.6 percent is served
+(+2.4 percent). The per-group exposure telemetry, not the dashboard
+floor, is the number the policy team routes on.
+
+The trade is that the floor has a measured price, and the group
+definition decides whether the constraint even binds. The first ten
+points of floor move the tail from 1 percent to 9 percent of exposure
+for 0.0021 aggregate CTR (0.0355 to 0.0334), and the next ten cost more
+per point — the constraint-bites detour shows the price is a curve, not
+a flat rate. The fairness verdict itself flips with the definition: the
+tail clears its 10 percent floor across the catalogue (10.1 percent)
+while the mobile segment, 70 percent of traffic, leaves it at 8 percent
+— so who counts as the protected group is a policy decision made before
+the measurement, and the position-bias detour shows the raw labels can
+entrench the allocation further (position-adjusted CTR moves the tail
+from 14 to 36 percent of exposure).
+
 ## Who owns the loop
 
 The allocation only stays fair if someone owns each side of the budget,

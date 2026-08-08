@@ -70,6 +70,29 @@ Recommendations with Recurrent Neural Networks", ICLR 2016) — is exactly
 what this audit makes operational: stratify the lift before sizing the
 spend, and gate the boost on a second signal for depth-1 sessions.
 
+## The fix and its trade
+
+The fix is to stratify the lift by session depth before sizing the
+spend, and to gate the boost on a second signal for the sessions whose
+signal is weakest. The audit prices the repair — depth-1 sessions carry
+70 percent of traffic and earn a +0.0066 lift (58 percent of the blended
+share) against depth-4 sessions' +0.0118, so the blended +0.0079 that
+the cost model sees hides a nearly 2x ROI difference per session — and
+the depth split is the standing read before a realtime feature earns
+its place on the request path.
+
+The trade is that realtime state is paid per request for every session,
+including the shallow ones that benefit least: the detour measures p95
+climbing from 38ms to 118ms as realtime features grow, with twenty
+blowing through the 100ms deadline. Gating and pruning the signal set is
+the cost side of that trade, and the state itself can lie in both
+directions — the session boost decays back to the batch order within
+forty minutes, and a feature window that includes the label window
+scores a perfect 300/300 top-1 offline while the as-of feature the
+deployed model can actually use scores 33/300, so the audit must be run
+on the leak-safe feature, not the one that validates a model that cannot
+exist.
+
 ## Who owns the loop
 
 The lift only stays honest if someone owns each side of the trade, and

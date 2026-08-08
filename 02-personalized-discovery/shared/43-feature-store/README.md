@@ -73,6 +73,29 @@ training-snapshot-to-serving comparison, because the alternative is
 discovering the divergence in a production rank change you cannot
 explain.
 
+## The fix and its trade
+
+The fix is the store itself: freeze each feature at ingestion and serve
+that frozen value to both training and serving, with the as-of audit as
+the standing regression check. The executed read prices the repair — the
+store path serves the 0-hour age the model trained on, while the naive
+path serves 3-5 hours and reorders P1002 past P1001 on a feature the
+model never saw — and the audit names the divergence per feature
+(`age_hours` mean served-vs-trained delta +4.00, max +5.00, DIVERGENT)
+before it becomes an unexplained production rank change.
+
+The trade is that the store guarantees consistency, not freshness: if
+the world moves after ingestion, both sides share the stale value —
+consistently wrong, which is a different failure from the divergence
+this stage fixes. Freshness is a separate decision owned by stages 44
+and 46, and the refresh cadence prices it — a promo that lands mid-hour
+is served stale for 22 of 24 hours on a daily refresh and zero hours on
+streaming. The store also costs a per-feature contract: the feature
+owner must declare the default and the latency class, because a value
+that tolerates the batch lane buys cheap reads and a value that needs
+realtime buys the request path, and choosing wrong is a silent ranking
+decision.
+
 ## Who owns the loop
 
 The store sits between three owners, and the failure mode is born when

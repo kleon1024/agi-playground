@@ -71,6 +71,29 @@ can sink relevance below the no-signal default (Abdullah et al.,
 "Eliciting Auxiliary Information for Cold Start User Recommendation: A
 Survey", Applied Sciences 2021).
 
+## The fix and its trade
+
+The fix is to stratify the first-page policy by onboarding path and to
+route any path that underperforms the no-ask baseline back to the
+popularity default while its prior is re-measured. The audit prices the
+repair — the wrong-prior path serves 0.000 first-page NDCG against the
+0.122 popularity default and earns 0.18 retention against the 0.20
+no-ask baseline, while the right prior lifts the first page to 0.878 and
+retention to 0.55 — and the aggregate 0.254 hides the failing path
+because 60 percent of new users arrive via popularity, so the cohort
+comparison, not the blend, is the standing read.
+
+The trade is that every lever on the runway has a price, and the prior
+is a bet on an answer the user may not mean. A right prior buys 0.878,
+but a wrong one collapses relevance below doing nothing, which is why a
+failing path is reverted before its traffic share grows. Exploration
+during the runway is a tax, not a free lunch: greedy from a
+popularity-initialized estimate pays nothing on the runway average
+(0.817), while a fixed 10 percent exploration budget costs 0.022 and 30
+percent costs 0.090 — on a short horizon the prior moves the first page
+more than the exploration budget does. Asking questions has its own
+cost, which is the no-ask baseline every path is compared against.
+
 ## Who owns the loop
 
 The first page only improves if someone owns each side of the runway,

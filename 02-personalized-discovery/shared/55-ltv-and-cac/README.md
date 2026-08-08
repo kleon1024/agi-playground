@@ -66,6 +66,30 @@ own recency-frequency data (BG/NBD-style; Fader, Hardie & Lee,
 customer valuation in Gupta, Lehmann & Stuart, "Valuing Customers",
 Journal of Marketing Research 2004), before scaling spend.
 
+## The fix and its trade
+
+The fix is to re-measure LTV on the full retention curve — modeled from
+the cohort's own recency-frequency data (BG/NBD-style), not from the
+window that happens to have elapsed — and to report the ratio per
+horizon before scaling an acquisition bet. The audit prices the repair:
+at 3 months organic search tops the ranking (4.58) and paid installs
+sits above referral (0.88 vs 0.78), while at 24 months referral tops it
+(10.02) and organic reaches 9.86, with paid installs flat at 0.97
+throughout — the window you measured decides which channel you call the
+acquisition bet, so the curve, not the snapshot, is the verdict.
+
+The trade is that the curve costs data, and every input to the ratio
+drifts. Modeling the full retention curve needs per-cohort retention
+and revenue-per-user data over the horizon, which is exactly the
+measurement the fast-decay channel's numbers are built to avoid
+reporting; CAC and retention both shift after a launch, so the model
+needs a re-measurement cadence. The consequence of skipping the curve
+is the detour's read: a team that trusts the 3-month window keeps
+funding the channel that decays (paid installs, 0.94 at five months)
+and starves the one that ramps and stays (referral, clearing its cost
+at 3.06 and reaching 11.78 at 24 months) — the wrong acquisition bet
+scales on a snapshot.
+
 ## Who owns the loop
 
 The unit economics only stay honest if someone owns each side of the

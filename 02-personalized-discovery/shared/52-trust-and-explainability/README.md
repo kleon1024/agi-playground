@@ -69,6 +69,32 @@ Retrieval 2020); this audit is that criterion read per surface, and the
 fix is to surface the verifiable terms first on the failing surface or
 drop the black-box headline before the trust is spent.
 
+## The fix and its trade
+
+The fix is a per-surface verifiability bar: lead with the terms the
+user can check, and drop or reorder the black-box headline where the
+audit says it dominates. The audit prices the repair — the similar-users
+recs surface leads with an uncheckable claim on 70 percent of its items
+against a 62 percent aggregate, because its largest contribution (47
+percent, "similar users bought") is the term the user has no record to
+verify, while the verifiable terms ("you viewed this category" at 33
+percent, "category affinity" at 19 percent) are what actually build
+trust — and headline-verifiable share is the telemetry the product team
+routes on.
+
+The trade is that verifiable explanations are the smaller ones, and the
+policy has to be measured on users, not asserted. Leading with the
+checkable terms sacrifices the biggest coefficient when it is a black
+box, and the headline itself is fragile — the attribution-shift detour
+shows the same item's largest contribution flipping from unverifiable to
+verifiable depending on which counterfactual the tool subtracts, so the
+stability of the explanation is part of the claim. The cost of getting
+it wrong is measured: a 5 percent false-explanation rate nearly doubles
+opt-outs, and at 50 percent a seventh of users leave — the trust loss
+shows up later as opt-outs the platform blames on the model, which is
+why the measurement team owns opt-out and retention per surface, not the
+presence of a "why" button.
+
 ## Who owns the loop
 
 The explanation only builds trust if someone owns each side of the

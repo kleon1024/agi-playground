@@ -81,6 +81,32 @@ years of half-hour blocks. Bojinov, Simchi-Levi and Zhao (2023, Management
 Science) formalize the switchback design and its variance inflation; Uber's
 engineering practice is the field account of when it is worth it.
 
+## The fix and its trade
+
+The fix is the validity gate itself: check the split (allocation-ratio
+chi-square), the analysis-unit-to-randomization-unit match, and serial
+dependence before reading the outcome, so an experiment is INTERPRETABLE
+only when all three hold. The executed fixtures price the repair — the
+broken fixture's drifted bucket (51.5 percent against a declared 50/50)
+fails SRM with chi2 = 21.52, p = 3.51e-06 while its p = 0.03 outcome
+would have shipped a ghost, and the corrected log turns INTERPRETABLE
+(chi2 = 0.04, p = 0.832). The gate is cheap relative to what it stops:
+SRM fires at roughly 2,000 users while a 2 percent effect needs 78,000,
+so the split is checked daily, before the outcome test is read.
+
+The trade is that validity costs power, and the honest design is
+sometimes the slow one. Matching the analysis unit to the
+randomization unit means clustering standard errors instead of reading
+naive p-values — the session-nested analysis that skips it sees 24
+percent false positives at a declared alpha of 5 percent — and
+two-sided markets need switchback blocks whose variance inflation is
+severe: per-minute analysis rejects 53 percent of null experiments, and
+the block unit is so coarse that a 1 percent effect needs 36 years of
+half-hour blocks. Where ranking-only comparisons are the question, the
+traffic-efficient alternative is stage 38's interleaving, which is why
+the unit choice itself is owned by the product team, not the
+experimentation platform alone.
+
 ## Who owns the loop
 
 The experiment only proves what it claims if someone owns each side of

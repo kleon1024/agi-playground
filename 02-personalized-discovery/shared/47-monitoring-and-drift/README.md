@@ -70,6 +70,28 @@ for Machine Learning", SysML 2019), applied to the outcome gap instead
 of the input distribution: per-environment, per-slice, with a threshold
 that names the segment, not just the page.
 
+## The fix and its trade
+
+The fix is an online prediction-observation gap panel, per slice, with
+a named rollback authority on the other end of the alert. The executed
+trace prices the repair — the model predicts 0.040 while observed CTR
+falls to 0.020, and the EWMA crosses the threshold at hour 10 while
+offline NDCG stays flat at 0.712 because the eval shares the broken
+world — and the slice panel catches what the aggregate dilutes:
+category-a collapses to 0.010 (gap 0.030) and alerts at hour 10 under an
+aggregate gap of 0.003 that never fires.
+
+The trade is that the panel's thresholds are a false-alarm-versus-
+latency budget, and the slice definition decides whether the failure is
+findable at all. A tight threshold catches the break but fires on noise —
+at +/-0.002 the panel fires for seven hours — while a loose one waits
+until the break is unmistakable. Small slices carry their own noise: a
+500/day segment's daily test fires twice on noise and detects a real 50
+percent drop three days late, where a 14-day pooled window detects
+reliably at the price of latency. The panel names the slice, but the
+rollback authority owns what happens at hour 10, and without that named
+owner the alert fires into a vacuum.
+
 ## Who owns the loop
 
 The panel produces a signal; someone must own what happens next, and the

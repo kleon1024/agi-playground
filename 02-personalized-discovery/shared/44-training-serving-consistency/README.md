@@ -68,6 +68,28 @@ Learning", SysML 2019). The audit is a standing gate on every model
 promotion, because a skew this size survives the offline eval and only
 shows up as a live metric that moves against the offline one.
 
+## The fix and its trade
+
+The fix is serving-time feature logging plus a re-validation gate on
+live features: the serving team logs what it actually served, and the
+logged-versus-live distribution audit becomes a standing check on every
+model promotion. The executed read prices the repair — offline ranks
+P1001 first on a logged CTR of 0.042 while the live world serves a price
+whose real CTR is 0.026 and P1003 wins — and the audit names the drift
+per feature (`price` mean |live − logged| 4.000, max 7.000; `ctr` 0.010,
+max 0.016) where the offline eval stays silent because it shares the
+model's logged world.
+
+The trade is that the gate costs log volume and a threshold decision,
+and it does not cover every skew. Serving must write the real served
+feature vector, and each feature's divergence threshold must be tuned —
+too tight fires on noise, too loose certifies a moved world. The gate
+also stops at the input distribution: a label-window cut on
+partially-arrived labels biases the training distribution even when the
+features match, which is why the skew audit and the label-window audit
+(Chapelle, KDD 2014) run together and the label team owns the second
+check.
+
 ## Who owns the loop
 
 The skew is born in the handoff between three owners, and it is fixed by

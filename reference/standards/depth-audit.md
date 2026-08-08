@@ -223,6 +223,85 @@ three detours:
   retention-flattens, and the retention window that truncates (3-month
   view ranks paid above referral; 24-month reverses it 11.78 vs 0.97).
 
+**Structural re-check 2026-08-08 (thirty-fourth audit increment):** a
+fresh scan found the prior "done" claim repeated the ads pattern — the
+parents passed who-owns but carried no fix-and-trade section. Closed
+now, each reusing the chapter's own measured numbers. 43 feature
+store's fix is freezing each feature at ingestion and serving that
+frozen value to both sides, priced by the executed read — the naive
+path reorders P1002 past P1001 (17.5 vs 12.5) on a feature the model
+never saw, and the audit names the divergence per feature
+(`age_hours` mean served-vs-trained +4.00, max +5.00, DIVERGENT);
+traded against freshness, since a promo landing mid-hour is served
+stale 22 of 24 hours on a daily refresh and zero hours on streaming
+(Zipline, Strata 2018; Sculley et al. 2015). 44 training-serving
+consistency's fix is the logged-versus-live distribution gate itself
+(offline order P1001, P1002, P1003 vs live P1003, P1001, P1002; price
+mean |live minus logged| 4.000, max 7.000, ctr 0.010 and 0.016,
+DIVERGENT), traded against the fact that the gate only catches the
+drift — the logging path, label window, and join are owned elsewhere
+(TFX, KDD 2017; Breck et al. SysML 2019; Chapelle 2014). 45 feedback
+loops' fix is exposure-aware measurement (head 99 percent vs tail 0
+percent impression share, naive CTR 0.060 against true 0.030, IPS
+recovering 0.030), traded against propensity noise — a stale
+propensity estimate re-borrows the luck it was built to remove
+(Mansoury et al. CIKM 2020; Chaney et al. RecSys 2018; Abdollahpouri
+AIES 2019). 47 monitoring's fix is slice-aware drift detection — a
+category at 6 percent of traffic collapses to 0.010 (gap 0.030) while
+the aggregate 0.003 gap never fires, and the prediction-vs-observed
+gap widens pred 0.040 to observed 0.020 with an EWMA alert at hour 10 —
+traded against slice noise, since a 0.002 threshold fires at 7 hours
+while the 500-per-day alert catches a 50 percent drop 3 days late
+(Gama et al. 2014; Breck et al. 2019). 48 realtime's fix is
+depth-aware freshness — the 70 percent shallow sessions earn lift
+0.0066 (58 percent share) against 0.0118 at depth 4, blended 0.0079 —
+traded against latency (p95 38 to 118ms, 20 of the reads blowing the
+100ms deadline) and against the leaky feature that scores 300/300
+offline where the as-of window scores 33/300 (Hidasi et al. ICLR
+2016). 49 capacity's fix is load-shaped capacity planning — the p95 of
+the mixed load exceeds the 100ms deadline at every offered load, 55
+req/s runs p99 933ms with 68.8 percent over, and mean capacity 59
+req/s is the divergence load, not the answer — traded against tail
+hedging, which cuts the fanout-multiplied tail from 18.5 percent to
+3.4 percent at 2x work (Dean & Barroso CACM 2013). 50 cost-per-query's
+fix is the cascade with recall owned explicitly — 4.0 against 200,000
+exhaustive (50,000x), recall 25 percent at 10M, 46 percent at 100M, 68
+percent at 1B, cache at 90 percent hits taking the query to 0.44 —
+traded against the tail that misses the cache: 30 percent of queries
+pay the full 4.0 against a blended 1.91 (Han, Mao & Dally ICLR 2016).
+51 new-user's fix is a calibrated prior plus a bounded explore budget —
+popularity 0.122/0.24, the right prior 0.878/0.55, the confident wrong
+prior 0.000/0.18 below the no-ask baseline 0.050/0.20, all hidden by
+the aggregate 0.254 — traded against exploration as a tax on a short
+runway (greedy 0.817, 10 percent epsilon minus 0.022, 30 percent minus
+0.090; Abdullah et al. Applied Sciences 2021). 52 trust's fix is a
+verifiable-headline design — similar-users leads with an uncheckable
+claim on 47 percent of items (viewed-category 33, affinity 19; the
+surface reaches 70 percent uncheckable against 62 percent aggregate),
+and a 5 percent false rate roughly doubles opt-outs while 50 percent
+drives one in seven to leave — traded against counterfactual
+attribution that flips the headline (Zhang & Chen FTIR 2020). 53
+fairness's fix is serving-side allocation with a renormalisation guard
+— the declared 10 percent floor lands 9.2 percent served (+0.8), and
+the gap grows with the floor (15 percent floor to 12.6 served), cost
+measured at CTR 0.0355 to 0.0334 (0.0021), position-adjusted share
+14 to 36 percent — traded against the constraint cost and the
+definition-dependence that flips the verdict (Abdollahpouri et al.
+KDD workshop 2020). 54 online-experiments' fix is the three-fixture
+validity gate — SRM chi2 21.52, p 3.51e-06 on the drifted bucket
+(corrected log chi2 0.04, p 0.832), unit-mismatch SE gap 3.19x, and
+the switchback serial-dependence fixture — traded against power, since
+clustered errors cost 24 percent false positives when skipped and the
+per-minute switchback rejects 53 percent of nulls with a 1 percent
+effect needing 36 years (Kohavi/Tang/Xu 2020; Fabijan et al. 2019;
+Tang et al. 2010; Bojinov et al. 2023). 55 LTV/CAC's fix is
+horizon-matched unit economics — the 5-month view ranks organic 6.08,
+paid 0.94, referral 1.80, and the window decides the bet: 3 months
+ranks paid above referral while 24 months reverses it (referral 11.78
+vs 0.97), and a 35 percent retention floor moves LTV from \$27.54 to
+\$50.83 — traded against the noise and action lag of the long horizon
+(Fader, Hardie & Lee Marketing Science 2005; Gupta et al. JMR 2004).
+
 ### Personalized discovery — search 10-24, 35-37
 
 **Status: done (search mainline 10-13, advanced 19-24, and frontier

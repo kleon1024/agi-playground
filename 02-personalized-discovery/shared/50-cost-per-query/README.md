@@ -73,6 +73,30 @@ Compressing Deep Neural Networks with Pruning, Trained Quantization and
 Huffman Coding" (ICLR 2016) — cheaper per-candidate models, plus the
 candidate-budget cuts that reduce the volume itself.
 
+## The fix and its trade
+
+The fix is to re-attribute the query budget per stage whenever the
+catalogue or the model changes, and to optimize the stage the
+attribution says is dominant. The audit prices the repair — recall owns
+25 percent of the query budget at 10M items and 68 percent at 1B
+(total 4.00 to 9.31), so tuning fine-rank before recall is optimizing
+the wrong stage, and the same attribution discipline the mission applies
+to relevance has to apply to cost. The levers are cheaper per-candidate
+models (compression) and candidate-budget cuts that reduce the volume
+itself.
+
+The trade is that every lever moves quality against money, and the
+attribution is only as fresh as the last measurement. The large-model
+detour prices the quality side: a bigger fine-ranker adds 0.013 NDCG and
+doubles the daily cost of the stage. The cache lever is a head discount,
+not a capacity plan: unique tail queries never hit, so 30 percent of
+traffic still pays the full 4.0 units while the blended number reads
+1.91. The attribution itself needs sampled per-stage spans, and the
+50,000x gap that justified the funnel was measured at a catalogue size
+that no longer exists — which is why the cost team's re-attribution,
+not the launch-day ratio, is the number the budget decision is
+denominated in.
+
 ## Who owns the loop
 
 The attribution produces a number; someone must own what happens when

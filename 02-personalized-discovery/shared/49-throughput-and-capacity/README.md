@@ -73,6 +73,28 @@ Barroso make the same point for fan-out systems ("The Tail at Scale",
 Communications of the ACM, 2013): per-component latency means nothing
 once a query depends on the max of many components.
 
+## The fix and its trade
+
+The fix is to load-test with a deadline and cut the service tail before
+adding machines: no machine count satisfies a p95 deadline tighter than
+the service mix's own tail, so the levers are hedging, timeouts, and
+parallel shards on the slow component. The audit prices the repair — the
+p95 of the service mix (150ms) exceeds the 100ms deadline at every load
+while p50 stays at 10ms, and at 55 req/s the p99 reaches 933ms with 68.8
+percent of queries over the deadline — so the mean capacity (59 req/s)
+describes when the queue diverges, not when the page meets its budget.
+
+The trade is that cutting the tail spends latency budget or work
+elsewhere, and the capacity number expires whenever the inputs move. A
+hedge serves a redundant shard at 2x work to cut a fan-out's miss rate
+from 18.5 percent back to 3.4 percent, and the peak detour shows the
+arrival curve is part of the answer: at 2x the base load the p50 crosses
+into seconds and at 5x nearly every query misses the deadline, so the
+capacity scan has to be re-run when the deadline, the service-time
+distribution, or the launch calendar changes — the traffic team owns the
+arrival curve, the service owner owns the tail, and neither can be
+replaced by buying servers.
+
 ## Who owns the loop
 
 The scan produces a number; someone must own what happens when the

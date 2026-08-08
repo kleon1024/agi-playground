@@ -70,6 +70,29 @@ every serving log, because the concentration is invisible until the
 world changes and the starved tail was the only place the change would
 have shown.
 
+## The fix and its trade
+
+The fix is an explicit exploration budget with a propensity ledger: the
+traffic owner decides what share of requests may deviate from the greedy
+ranking, and every served row carries the probability the serving policy
+gave it so the log can correct itself. The audit prices both halves — the
+head's 99 percent impression share against the tail's 0 percent leaves
+the tail's CTR measured on five impressions, so the log cannot prove the
+tail is worse, only that it was not shown — and the
+when-the-policy-borrows-luck detour shows the correction working: a
+featured item's naive CTR reads 0.060 against a true 0.030, and IPS with
+the log's propensities recovers 0.030.
+
+The trade is that exploration spends the near-term objective, and the
+ledger is a logging decision made before the model can use it. Every
+impression given to the tail is a click given up at the head, so the
+exploration budget is a traffic allocation with a measurable tax, and a
+log without propensities cannot be corrected later no matter how good
+the model gets. The deeper limit is that any logged objective is
+entangled with the policy that collected it — exploration keeps the
+measurement honest, but it cannot make the serving log representative of
+a world the policy never showed.
+
 ## Who owns the loop
 
 The loop is a handoff problem between three owners, and exploration is
