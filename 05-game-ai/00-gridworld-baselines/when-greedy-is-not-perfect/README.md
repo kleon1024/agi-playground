@@ -41,6 +41,28 @@ have to earn.** Random solves 0.222 in 5.43 steps; greedy solves 0.824 in
 clear the greedy number to beat a cheap heuristic, and the recorded gap
 (0.222 -> 0.824) is what makes "beats the baseline" a meaningful claim.
 
+## The fix and its trade
+
+The fix is the lookahead itself: greedy evaluates all 4 actions and takes
+the one that minimizes Manhattan distance, which is what buys 82.4% with
+zero learning. The trade is the horizon — one step of lookahead cannot see
+around a wall, so it commits to dead ends and wastes its remaining budget
+there. That documented weakness is the point: the baseline is deliberately
+beatable so a trained policy has a real bar to clear, and the ceiling
+(82.4%, not 100%) is the policy's horizon, not the environment's
+difficulty. A team that replaces this baseline with an optimal solver
+would erase the space a trained policy is supposed to earn.
+
+## Who owns this loop
+
+The baseline owner. The greedy heuristic and its no-memory trap are a
+frozen reference: stage 01's verdict and stage 02's report both inherit
+these numbers, so the trap must stay documented (it is the reason the
+baseline is beatable) and the 500-trial protocol must stay reproducible.
+The environment owner separately owns the BFS-rejection guarantee that
+every board is solvable, which keeps the baseline's failure rate a
+property of the heuristic rather than of unlucky boards.
+
 ## Evidence boundary
 
 The committed baselines JSON (500 trials per baseline, one board size, one

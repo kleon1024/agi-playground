@@ -43,6 +43,32 @@ below the no-learning floor, which is exactly why the mission's report is an
 honest null rather than a partial win. The training signal is real; the
 behavior it could sharpen does not exist at cold-start scale.
 
+## The fix and its trade
+
+The collapse is not fixed here; it is diagnosed, and the diagnosis is what
+the audit needs. The reading isolates the mechanism — format credit is
+earned by emitting a legal string, so a policy that repeats one direction
+collects reward without reaching the goal, and group-relative advantage
+stays zero when every rollout in the group fails. The trade of this
+diagnostic frame is that it narrows the fix to the reward shape or the
+cold-start variance (the directions stage 03 and the diversity-direction
+detour test) while explicitly not claiming a training dial will work:
+"the training signal is real; the behavior it could sharpen does not exist
+at cold-start scale" is the honest boundary between a diagnosed failure
+and a fixed one.
+
+## Who owns this loop
+
+- **The reward owner** owns the format-credit shape that makes the
+  collapse earnable: the reading's central finding is that a reward
+  earnable without the outcome is what the policy exploits.
+- **The RL team** owns the greedy-vs-sampled evaluation contract that
+  surfaces the collapse — greedy success is the deployed metric, and the
+  gap between it and sampled success is the failure's signature.
+- **The evaluation owner** owns the random floor that turns the result
+  from "training didn't work" into "the policy is worse than random," the
+  specific mechanism the mission exists to document.
+
 ## Evidence boundary
 
 The three committed seed JSONs (200 steps each, one 5x5 board size, one

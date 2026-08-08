@@ -115,6 +115,37 @@ open question, not a formality: mission 01's own arithmetic policy never
 escaped it at 200 steps, which is exactly the wall this mission exists to
 check for on a different reward source.
 
+## The fix and its trade
+
+The fix this stage exists to build is the baseline pair itself, and the
+trade is that both numbers must land between degenerate and saturated.
+Random (0.222) is the no-learning floor: it proves the environment is not a
+zero-sum trap where any policy scores near zero. Greedy one-step lookahead
+(0.824) is the beatable bar: its no-memory wall trap (it oscillates when a
+route requires temporarily moving away from the goal) is what keeps it
+short of perfect, so a trained policy has a real, non-degenerate space to
+earn -- 0.222 to 0.824, against a stage-01 result that later lands below
+the floor entirely. A saturated greedy baseline would have left no room to
+beat; a near-zero one would have said more about task difficulty than about
+any policy. The cost of the check is that the greedy baseline is a
+deliberately weak target -- a team that beats it has beaten a heuristic
+with no memory, not a good policy -- which is exactly the honest bar
+`mission.yaml` asked for before any training compute was spent.
+
+## Who owns this loop
+
+- **The environment owner** owns the solvability guarantee: boards are
+  rejection-sampled via BFS so every generated grid is solvable, and an
+  unreachable goal would silently deflate every downstream success rate
+  for a reason unrelated to policy quality.
+- **The baseline owner** owns the two-reference contract and its
+  non-degeneracy rule (neither baseline may be near 0% or 100%), because
+  stage 01's verdict and stage 02's report both inherit these numbers.
+- **The evaluation owner** owns the greedy heuristic's documented trap:
+  the wall-oscillation behavior is a discoverable, stated failure mode,
+  not a hidden bug -- it is the reason the baseline is beatable and must
+  stay visible for the comparison to be fair.
+
 **Next:** stage 01 imports mission 01's GRPO mechanism unmodified and trains
 a policy against this environment's terminal reward.
 

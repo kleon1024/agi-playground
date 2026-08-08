@@ -99,6 +99,42 @@ chance often enough to take 199-200/200 real gradient steps. Confirmed as a
 genuine cold start rather than a broken environment or reward, since the
 same environment is 100% solvable by a simple scripted heuristic.
 
+## The fix and its trade
+
+This stage's fix is the solvability check that runs *before* training:
+hand-scripted 9-action sequences reach the goal across 5 layout seeds, and
+a wall-following heuristic reaches it on 500/500 trials. The check buys
+attribution -- the training null can be traced to the 0.4% random-success
+cold start rather than to an unsolvable room or a broken reward, which is
+what lets the stage report a real, explained finding instead of an
+environment bug. The trade is that the check is a necessary condition, not
+a fix: it proves the room is learnable by *some* policy, not that GRPO's
+cold start can find the signal. It also costs nothing at serving time -- it
+is a pre-training gate, not a runtime mechanism.
+
+The second, structural trade is the interleaved rollout itself. To make
+partial observability real, this stage breaks `grpo_loss`'s
+one-contiguous-span assumption and rebuilds the identical clipped-surrogate
+math against an explicit list of scattered action-token positions
+(`masked_grpo_loss`). That buys honest closed-loop evaluation at the cost
+of a custom training loop that must be re-verified against the original
+whenever mission 01's `grpo.py` changes -- a maintenance tax the mission
+accepts so that the MiniGrid result is not silently a fully-observed
+measurement wearing partial-observability clothing.
+
+## Who owns this loop
+
+- **The environment owner** owns the solvability contract: a room is only
+  a training target after a scripted heuristic proves it solvable, so the
+  training null can never be blamed on the environment.
+- **The RL team** owns the masked-loss variant and its verification against
+  mission 01's canonical `grpo_loss`; the scattered action-token slicing is
+  the load-bearing change and the risk of silent drift belongs to whoever
+  touches `grpo.py` next.
+- **The evaluation owner** owns the cold-start explanation: the 0.4%
+  random baseline is the number that turns "no gradient steps were ever
+  taken" from a bug report into a mechanistic finding.
+
 ## What this stage does not establish
 
 Whether a longer run, a larger group size, a denser or shaped reward (e.g.

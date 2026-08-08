@@ -48,6 +48,33 @@ provided the variance; here there is nothing to diversify. The honest
 response is the one stage 04 gives: report the null, and note that a denser
 reward (not more training) is the lever a non-sparse variant would pull.
 
+## The fix and its trade
+
+The fix is the density lever, named but not run: the reward must be dense
+enough that a cold-start policy observes reward variance, because GRPO's
+group-relative advantage is a group statistic that needs a mix of winning
+and losing rollouts to move. The trade is the one the three-environment
+table makes legible: degeneracy tracks baseline success (arithmetic ~0%
+→ 200/200 degenerate, grid-world 22.2% → 1/200, MiniGrid 0.4% → 80/80),
+so the fix is not a training dial — group size and entropy both failed at
+stage 03 — but the reward's density, which costs design effort and can
+introduce its own bias (a shaped reward changes what the policy learns to
+optimize). The reading deliberately stops at naming the lever rather than
+claiming it works.
+
+## Who owns this loop
+
+- **The reward owner** owns the density lever: the finding's actionable
+  conclusion is that a denser reward, not more training, is the direction
+  a non-sparse variant would pull.
+- **The evaluation owner** owns the baseline-success table that makes the
+  mechanism visible: degeneracy as a function of random-baseline success
+  is the cross-environment read that turns three separate nulls into one
+  pattern.
+- **The RL team** owns the honest reporting of a total cold start: 80/80
+  degenerate steps per seed is reported as a finding, never retrofitted
+  into a partial result.
+
 ## Evidence boundary
 
 The baseline and degeneracy numbers are the recorded runs' (grid-world

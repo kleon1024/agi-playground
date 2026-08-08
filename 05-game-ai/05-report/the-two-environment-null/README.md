@@ -41,6 +41,31 @@ the mechanism is in the training signal, not the domain. The verdict is
 the pattern across two environments, which is why the report reads the
 full chain rather than any single stage's number.
 
+## The fix and its trade
+
+The fix is the elevation rule that the acceptance bar's second disjunct
+enables: a rigorous, repeated negative becomes a deliverable (MET-as-null)
+instead of a `NOT MET` shortfall. The trade is the one the disjunct
+demands — the null only counts if it is reported with rigor (committed
+JSONs read mechanically, no hand-copied numbers), so the fix is
+conditional on the evidence discipline, and the verdict remains a
+boundary statement: it proves the cold-start mechanism is real and
+repeatable, not that the system works. A reader who skips the "null"
+qualifier would misread the mission's result as a win, which is why the
+report prints the qualifier in the verdict itself.
+
+## Who owns this loop
+
+- **The report owner** owns the verdict contract: `report.py` reads the
+  full chain's artifacts and prints MET-as-null with the qualifier in the
+  verdict line, never a softened paraphrase.
+- **The mission owner** owns the two-disjunct acceptance bar that makes
+  the elevation legitimate; the bar was written before stage 00 existed
+  and is applied as written, not reinterpreted after the numbers.
+- **The stage owners** own the individual `runs/` records the chain
+  verdict depends on — the pattern claim is only as strong as the
+  artifacts each stage committed.
+
 ## Evidence boundary
 
 The recorded full-chain report (stages 00-04 JSONs read mechanically, no

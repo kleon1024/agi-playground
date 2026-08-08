@@ -41,6 +41,26 @@ because the mission's question is whether RL adds anything over cheap
 heuristics. The 0.222-vs-0.824 gap is the honest space a trained policy
 would have to earn.
 
+## The fix and its trade
+
+The fix is measuring the floor before training: the random baseline (22.2%)
+is a no-learning control that makes "the trained policy learned nothing"
+a falsifiable claim. The trade is that the floor is a floor — beating it
+is the minimum, not a win. A policy that clears random by a hair has
+learned something but not enough, which is exactly why stage 01's later
+result (greedy 6.2-7.8%, *below* random) is read as a collapse rather than
+as a near-miss: the floor is what makes "worse than nothing" visible.
+
+## Who owns this loop
+
+The baseline owner, with the environment owner as the gate. The baseline
+owner keeps the 500-trial protocol and the fixed board construction
+(5x5, 4 walls, max_steps 12) frozen so the floor is comparable across
+stages; the environment owner's BFS-rejection guarantee is what keeps
+22.2% a property of random behavior rather than of unsolvable boards. A
+team that re-measures the floor with a different board distribution is
+comparing against a different claim.
+
 ## Evidence boundary
 
 The committed baselines JSON (500 trials per baseline, one board size, one

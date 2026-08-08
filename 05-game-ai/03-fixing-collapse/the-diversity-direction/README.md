@@ -57,6 +57,34 @@ result covers only the grid you ran. The verdict "neither fix worked" was
 accurate for two cells and wrong about the knob — the direction not tested
 is where the mechanism moved.
 
+## The fix and its trade
+
+The fix this detour isolates is group size, tested in the direction the
+original sweep never ran: `group_size=16` doubles greedy success (0.078 to
+0.156) and halves the greedy-to-sampled gap (0.104 to 0.042), because a
+wider group gives the reward statistic a larger spread to normalize
+against, so the few successful rollouts get sharper advantages. The trade
+is compute: a group of 16 is twice the rollouts per prompt, and the
+doubled greedy success sits on one seed — the detour names both the
+one-seed boundary and the need for the full 3-seed treatment before any
+claim. The stronger entropy bonus (0.05) is the counter-case: it spreads
+probability mass instead of concentrating it, collapsing greedy success to
+0.032 — the same knob, the wrong direction, which is the lesson the
+two-cell null taught.
+
+## Who owns this loop
+
+- **The RL team** owns the group-size dial as a measured lever, and the
+  one-seed boundary on this cell: the doubling is a promising direction,
+  not a result, and the owner reports it as such.
+- **The evaluation owner** owns the greedy-to-sampled gap as the
+  collapse metric: the gap halving (0.104 to 0.042) is what says the fix
+  acts on the collapse itself, not just on aggregate success.
+- **The reward owner** owns the interaction this result implies: if
+  wider groups fix the cold-start variance, the reward shape that
+  produced the variance in the first place remains the deeper suspect,
+  and the diversity finding is evidence for the reward's next iteration.
+
 ## Evidence boundary
 
 One seed per new cell, on the same single 5x5 grid-world as the recorded

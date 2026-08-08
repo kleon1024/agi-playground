@@ -59,6 +59,33 @@ floor of 0.222) is what the changed objective produced. That comparison is
 why the mission's null result is honest: it isolates the reward as the
 variable, because the architecture is a controlled constant.
 
+## The fix and its trade
+
+The fix this chapter installs is the controlled-variable frame itself:
+hold the architecture constant (mission 01's Transformer, imported
+unmodified) and change only the objective, so the collapse can be
+attributed to the reward's shape rather than to the network. The trade is
+that a controlled constant is also an unexamined one — the reading proves
+the reward is the variable *in this comparison*, not that the
+architecture is irrelevant at other scales (a larger model or a
+pretrained start could change the balance, and the boundary says so). The
+anatomy's verdict — format credit earnable without the outcome, plus a
+cold start with zero reward variance — is what lets the fix be aimed at
+the reward rather than at the model, which is the actionable outcome.
+
+## Who owns this loop
+
+- **The reward owner** owns the two-part objective, the named suspect:
+  the format credit that can be earned without reaching the goal is the
+  mechanism the reading identifies, and any fix to the collapse starts
+  with the reward's shape.
+- **The model team** owns the architecture-as-constant contract: the
+  same `Transformer` class stays unmodified across missions so the
+  comparison remains clean, and a model change is a new experiment, not
+  a silent edit.
+- **The evaluation owner** owns the per-seed outcome read (0.062-0.078
+  across three seeds) that keeps the verdict from resting on one draw.
+
 ## Evidence boundary
 
 The measured stage-01 config and the three recorded seed JSONs (200 steps

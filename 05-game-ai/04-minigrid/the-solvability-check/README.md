@@ -41,6 +41,33 @@ commit to a direction and hold it. A GRPO policy that cannot reach even
 the random floor's neighborhood is failing at something more basic than
 navigation.
 
+## The fix and its trade
+
+The fix is the solvability gate that runs before training: two
+independent checks (a hand-scripted 9-action sequence and a
+wall-following heuristic at 500/500) prove the room is solvable within the
+10-step budget before any compute is spent. The trade is that the gate
+proves learnability by *some* policy, not by GRPO's cold start — the
+100%-solvable environment is exactly what makes the later 80/80
+degenerate steps attributable to training rather than to the task, but it
+does nothing to prevent them. The gate is a necessary condition, not a
+fix: a team that treats the solvability check as the whole answer would
+miss that the 0.4% random floor is the actual mechanism behind the
+cold-start null.
+
+## Who owns this loop
+
+- **The environment owner** owns the solvability contract: a room enters
+  training only after a scripted heuristic proves it solvable, so a
+  training null can never be blamed on the environment.
+- **The evaluation owner** owns the random floor (2/500 = 0.4%) as the
+  mechanism read: it is the number that explains why every rollout group
+  draws zero variance.
+- **The RL team** owns the training outcome the gate makes interpretable:
+  with solvability proven, the 80/80 degenerate result is a cold-start
+  finding, not an environment bug, and the follow-up lever (a denser
+  reward) belongs to the reward owner.
+
 ## Evidence boundary
 
 The recorded MiniGrid run (MiniGrid-Empty-6x6-v0, max_steps 10, 500-trial

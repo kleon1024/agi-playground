@@ -55,6 +55,36 @@ explains why every rollout group drew zero variance. Per `mission.yaml`'s
 own guardrail, this is reported plainly as a null result, never
 retroactively rescaled or warm-started to manufacture a positive number.
 
+## The fix and its trade
+
+The fix this stage installs is the elevation rule that turns two separate
+failures into one verdict: a rigorous, repeated negative is the
+acceptance bar's second disjunct, not a `NOT MET` shortfall. Stage 02
+could only see stages 00-01 (greedy collapse, decisively below both
+baselines); this stage adds stage 03 (the collapse resists both obvious
+fixes) and stage 04 (the cold start is total on a provably solvable
+environment) and reads the whole chain as MET-as-null. The trade is
+exactly the one the acceptance bar names: an honest null is a deliverable,
+but it is also a ceiling -- the verdict certifies that the failure is
+explained and repeatable, not that the system works, and a reader who
+skips the "null" qualifier will misread the mission's result as a win. The
+stage's discipline is to make that reading impossible: the verdict prints
+`MET, as an honest null result` and the `does_not_prove` section lists
+everything outside the claim.
+
+## Who owns this loop
+
+- **The report/release owner** owns the verdict contract and the integrated
+  artifact: `report.py` reads every upstream `runs/` JSON and prints one
+  verdict, never a hand-copied number and never a softened paraphrase.
+- **Each stage owner** owns its own `runs/` record; the chain verdict is
+  only as strong as the artifacts it reads, which is why the report
+  refuses `CANNOT DETERMINE` when a file is missing.
+- **The mission owner** owns the guardrail against retroactive rescaling:
+  `mission.yaml` allows exactly two outcomes, beat-the-baselines or an
+  honest null, and this stage applies them as written rather than
+  inventing a third category to make the result friendlier.
+
 ## What this mission, taken as a whole, does not prove
 
 Per `mission.yaml`'s `does_not_prove`: nothing here generalizes to pixel

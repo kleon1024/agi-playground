@@ -50,6 +50,34 @@ calibration is gone — the same mechanism the collapse-sweep extension
 measured for greedy-decode, now visible in a decision the mission actually
 cares about.
 
+## The fix and its trade
+
+The fix is the trajectory diagnostic, not a training dial: reading
+tool_rate at early, mid, and late training separates the outcomes before
+the final verdict, because the divergence is visible by mid-training
+(seed 0 recovers to 0.533 while seeds 1-2 sit at 0.03 and 0.00). The
+trade is that the diagnostic sees the divergence without explaining it:
+the reading names group-diversity as the candidate mechanism, not the
+proof, and it explicitly does not claim a fix — the collapse is real and
+recorded. The value is the same one the diversity-direction detour
+measured for greedy decode: when the tool rate collapses, completions stop
+separating, the group statistic has nothing to normalize, and the
+calibration is gone — so the actionable lever is the reward variance the
+rollouts still produce, owned by the reward/group-size dial, not by a
+bigger final-eval.
+
+## Who owns this loop
+
+- **The evaluation owner** owns the trajectory read: a final-success-only
+  metric misses that the divergence happened early, so the diagnostic is
+  per-phase tool_rate, not the aggregate verdict.
+- **The reward owner** owns the tool-cost balance the collapse responds
+  to: the seeds differ in whether the outcome credit outweighed format
+  credit, which is the lever a fix would pull.
+- **The RL team** owns the mechanism claim's boundary: group-diversity is
+  the candidate explanation, cross-linked to the diversity-direction
+  measurement, and the reading keeps it a candidate rather than a proof.
+
 ## Evidence boundary
 
 Three seeds, one environment, the stage's recorded run. It shows the

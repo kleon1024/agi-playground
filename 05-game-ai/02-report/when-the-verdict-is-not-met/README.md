@@ -45,6 +45,32 @@ window). A policy whose greedy decode ignores the prompt cannot be saved by
 any margin — the verdict is NOT MET because the mechanism is broken, and
 the report shows that rather than leaving it at a number.
 
+## The fix and its trade
+
+The fix is the verdict's refusal to soften: NOT MET is reported because
+the acceptance bar allows exactly two outcomes (beat the baselines, or an
+honest null) and this result is neither — it is a third, real thing,
+non-degenerate training that still yields an undeployable policy, and the
+report names it as such instead of stretching it into the null category.
+The trade is that NOT MET is a ceiling, not a diagnosis: it says the
+policy is not worth deploying, while the catalogue — the fixed action
+string, the non-stabilizing training-time success — is what tells a
+reader *why* and where a fix would have to act. A report that shipped only
+the verdict would be correct and useless; the pairing of verdict and
+catalogue is the deliverable.
+
+## Who owns this loop
+
+- **The report owner** owns the verdict contract and the refusal
+  behavior: `report.py` reads committed artifacts, recomputes the margins
+  mechanically, and prints NOT MET without softening.
+- **The mission owner** owns the acceptance bar that makes NOT MET
+  meaningful: `mission.yaml` wrote the two-outcome rule before stage 00
+  existed, and the report applies it as written.
+- **The evaluation owner** owns the catalogue that carries the mechanism:
+  the per-seed fixed strings and the training-time peak fallback are the
+  evidence that the failure is structural, not marginal.
+
 ## Evidence boundary
 
 The committed baselines and GRPO JSONs, three seeds each; the failure

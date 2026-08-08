@@ -1589,87 +1589,87 @@
   },
   "05-game-ai/00-gridworld-baselines": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 6
   },
   "05-game-ai/00-gridworld-baselines/when-greedy-is-not-perfect": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "05-game-ai/00-gridworld-baselines/when-random-gets-22-percent": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "05-game-ai/01-grpo": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "05-game-ai/01-grpo/the-policy-anatomy": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "05-game-ai/01-grpo/when-the-policy-collapses": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "05-game-ai/02-report": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 6
   },
   "05-game-ai/02-report/when-the-margin-is-the-spread": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "05-game-ai/02-report/when-the-verdict-is-not-met": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "05-game-ai/03-fixing-collapse": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 6
   },
   "05-game-ai/03-fixing-collapse/the-diversity-direction": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "05-game-ai/03-fixing-collapse/when-the-fix-makes-it-worse": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "05-game-ai/04-minigrid": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "05-game-ai/04-minigrid/the-solvability-check": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "05-game-ai/04-minigrid/when-the-cold-start-is-total": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "05-game-ai/05-report": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "05-game-ai/05-report/the-two-environment-null": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "05-game-ai/05-report/when-the-null-is-elevated": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "05-game-ai/06-tool-use-rl": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 10
   },
   "05-game-ai/06-tool-use-rl/the-format-credit-trap": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "05-game-ai/06-tool-use-rl/when-two-seeds-stopped-paying": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "07-multimodal-generation": {
     "level": "frontier",

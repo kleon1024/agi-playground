@@ -43,6 +43,34 @@ recorded null says the training signal — not the group size or the
 exploration — is the wall, which is the finding stage 03 exists to
 document.
 
+## The fix and its trade
+
+The fix this detour contributes is the record of a regression, which the
+mission treats as a finding rather than a failure to hide. Small-group
+training produced single-character completions ('L' + EOS, one step on
+every example) — strictly worse than the baseline's "repeat one legal
+action" pattern — and the entropy bonus reproduced the baseline collapse
+exactly. The trade is the honest one the sweep is built to make: an
+intervention can make a cold start worse, and the recorded regression is
+what tells a team the training signal itself is the wall, so a fix aimed
+at group size or exploration would miss. The cost is that the null is a
+null — it narrows the search space without offering a working fix, and the
+diversity-direction detour (group 16) is where the mechanism actually
+moved.
+
+## Who owns this loop
+
+- **The RL team** owns the intervention record and the regression rule:
+  an intervention that makes the collapse strictly worse is a finding,
+  reported beside the numbers, never edited out of the sweep.
+- **The reward owner** owns the conclusion this regression feeds: two
+  training-signal fixes failing points at the reward shape as the wall,
+  which is the owner's suspect next.
+- **The evaluation owner** owns the per-configuration comparability: all
+  four configurations share the same grid-world, reward, and GRPO
+  mechanism, which is what makes the small-group regression attributable
+  to the group-size dial rather than to a changed environment.
+
 ## Evidence boundary
 
 The recorded collapse sweep (one 5x5 grid-world, stage-01 reward and GRPO

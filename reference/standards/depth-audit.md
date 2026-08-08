@@ -946,9 +946,78 @@ the per-split coverage guard, and the training team inherits whatever the
 builder serves. Corpus: LibriSpeech (Panayotov et al., ICASSP 2015,
 DOI 10.1109/ICASSP.2015.7178964).
 
-Audit the remaining missions with the same lens: game AI (policy collapse,
-closed-loop divergence), bio-pharma modeling, and autonomous driving
-(perception failure, distribution shift, closed-loop evaluation).
+Audit the remaining missions with the same lens: bio-pharma modeling, and
+autonomous driving (perception failure, distribution shift, closed-loop
+evaluation).
+
+### Game AI — 00-06
+
+**Status: done (fourteenth audit increment, 2026-08-08).**
+
+Every stage 00-06 and every detour now carries the fix-and-trade and
+who-owns-the-loop sections the audit contract requires, reusing the
+mission's measured numbers (no new runs):
+
+- 00 gridworld baselines: the baseline pair is the fix — random (0.222) is
+  the no-learning floor and greedy one-step (0.824) is the beatable bar
+  whose no-memory wall trap is documented, not hidden; the trade is that
+  beating greedy is a weak claim by design, and a saturated or near-zero
+  baseline would erase the space a trained policy must earn; ownership
+  split across baseline owner (frozen 500-trial protocol), environment
+  owner (BFS-rejection solvability), and evaluation owner (documented
+  trap keeps the comparison fair).
+- 01 grpo: the collapse is localized, not fixed — format credit is earned
+  without the goal, so greedy argmax ignores the board (6.2-7.8%, below
+  the 22.2% random floor) while sampled decode carries board signal
+  (14.4-21.0%); the trade is the greedy-vs-sampled gap itself, the
+  training metric and the serving metric diverging; ownership split
+  across RL team (both decode modes reported), reward owner (reward
+  shape is the suspect), evaluation owner (baselines that make "worse
+  than random" visible).
+- 02 report: the margin-vs-spread rule is the fix — greedy loses to random
+  decisively (-0.1493 vs 0.016 spread), sampled is within noise (-0.0433
+  vs 0.066); the trade is that small real effects are reported as noise
+  by design, and NOT MET is paired with the failure catalogue so the
+  verdict carries the mechanism; ownership split across report owner
+  (mechanical verdict from committed JSONs), RL team (seed spread as the
+  honesty unit), mission owner (the two-disjunct acceptance bar).
+- 03 fixing collapse: two interventions tried and priced — smaller groups
+  regress everything (degenerate steps 4-18/200, single-character
+  completions strictly worse than baseline) and an entropy bonus raises
+  mid-training entropy (1.3-1.7 nats) without moving the argmax; the
+  trade is the sweep's honesty — a null covers only the cells run, and
+  the diversity-direction detour (group 16: greedy 0.078 to 0.156,
+  one seed) is where the mechanism moved; ownership split across RL team
+  (greedy metric is the acceptance rule), reward owner (the reward shape
+  is the wall), evaluation owner (per-configuration comparability).
+- 04 minigrid: the solvability gate is the fix (hand-scripted 9-action
+  sequence and wall-following 500/500 before training), and the
+  interleaved masked-loss rollout buys honest partial-observability at a
+  maintenance tax; the trade is that the gate proves learnability by some
+  policy, not by GRPO's cold start — the 0.4% random floor is the
+  mechanism behind 80/80 degenerate steps, not an environment bug;
+  ownership split across environment owner (solvability contract), RL
+  team (masked-loss verification against canonical `grpo_loss`),
+  evaluation owner (cold-start attribution).
+- 05 report: the elevation rule turns the repeated two-environment null
+  into MET-as-null — grid-world alone was NOT MET, adding MiniGrid's
+  total cold start makes the pattern the acceptance bar's second disjunct
+  accepts; the trade is that the null is a deliverable only with rigor
+  (committed JSONs, mechanical reads) and remains a boundary statement,
+  never a win; ownership split across report owner (verdict prints the
+  "honest null" qualifier), mission owner (two-disjunct bar applied as
+  written), stage owners (artifacts the chain depends on).
+- 06 tool-use rl: the protocol fix (word decisions to single characters
+  `A`/`T`) is what unblocked training — the word version was 200/200
+  degenerate because a cold policy never spells a 4-6 character sequence
+  — and the format/outcome reward split is the standing trade (format
+  credit is the scaffold, and the lever on 2-of-3 seeds refusing the tool
+  is its balance); seed 0 matches the oracle at all 5 levels while seeds
+  1-2 collapse, and the spread (0.1408) exceeding both baseline margins
+  is reported as the honest third outcome; ownership split across
+  task/reward owner (protocol and credit split), RL team (per-seed spread
+  as acceptance), evaluation owner (baselines that define the headroom:
+  0.8654/0.9000/0.9780).
 
 ### Multimodal generation — video path (codebook-collapse row)
 

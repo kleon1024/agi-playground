@@ -78,6 +78,48 @@ convention (mission 01's zero-gradient run, stage 01's own NOT MET), a
 negative result stated plainly is the finding, not a placeholder for a
 positive one.
 
+## The fix and its trade
+
+The interventions this stage tried each carry a real cost, and the sweep's
+value is that it pays those costs and reports what they buy:
+
+- **Smaller groups** (`group_size=4`) tests the Fan et al. (2025) finding
+  that smaller rollout groups reduce collapse in classical RL. It is the
+  cheapest test to run (same code path, one parameter), and it fails
+  decisively here: degenerate steps rise to 4-18 per seed, and both greedy
+  and sampled success fall below stage 01's baseline on all 3 seeds. The
+  trade is now measured, not assumed: at this reward shape and scale,
+  smaller groups cost variance the policy needs, in the opposite direction
+  from the LLM-RLHF intuition where bigger groups usually help.
+- **An entropy bonus** (`entropy_coef=0.01`) directly targets the argmax
+  phenomenon. It does what it was designed to do -- mid-training entropy
+  rises measurably (1.3-1.7 nats) -- yet greedy success stays at baseline
+  (0.078). The trade is the important one: raising distribution entropy
+  does not move *which token wins the argmax*, and the deployed policy
+  reads only that token. The bonus buys diversity the serving path never
+  sees.
+
+The honest conclusion is that neither dial is the fix, and the stage says
+so rather than tuning until something looks positive. A combined
+intervention or a different reward shape remains untested and is named as
+such in the boundary below -- the sweep narrows the space, it does not
+claim to have searched it all.
+
+## Who owns this loop
+
+- **The RL team** owns the intervention sweep and its acceptance rule:
+  a fix must move the *greedy* success metric, not training-time or
+  sampled metrics, because deployment runs argmax.
+- **The reward owner** owns the reward shape this sweep holds fixed. The
+  result says the collapse resists training-signal dials at this scale,
+  which is evidence that the reward's sparse board-credit shape is the
+  suspect next -- a denser or shaped reward is the natural owner follow-up,
+  not a retry of the same dials.
+- **The evaluation owner** owns the per-seed reporting that keeps one
+  favorable seed from being stretched into a fix. The entropy-bonus
+  variant ran one seed; the boundary names that explicitly rather than
+  letting a single draw read as a result.
+
 ## What this stage does not establish
 
 Whether a larger model, more training steps, a different reward shape

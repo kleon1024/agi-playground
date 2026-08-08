@@ -154,6 +154,49 @@ now documented in three different environments. Full per-seed numbers,
 the failure/success catalogue, and compute in
 [`runs/2026-08-03-grpo-training.md`](runs/2026-08-03-grpo-training.md).
 
+## The fix and its trade
+
+The fix that unblocked this stage was a design change, not a training
+signal: the completion protocol moved from the words `ANSWER`/`TOOL` to
+the single characters `A`/`T`. The first real run with the word-based
+protocol returned all 200 of 200 degenerate steps -- a character-level
+policy over a ~40-symbol vocabulary almost never spells a specific 4-6
+character sequence in order, so every rollout scored `format = 0.0` and
+GRPO never took a gradient step. The trade is expressiveness for
+learnability: a 2-character legal alphabet (the same design the grid
+world's `ACTIONS = "UDLR"` uses) lets any of several single characters
+earn credit, at the cost of a narrower surface -- the policy can no longer
+"say" which tool or argument it wants, only that it wants one. That is the
+correct trade for this stage's single-tool question and a real limitation
+to name before a multi-tool extension.
+
+The second fix-and-trade is the format credit itself. `format_reward`
+rewards emitting a legal decision character without checking the
+arithmetic, which is what lets the policy learn *that* it should decide
+without first learning arithmetic -- but it is also the mechanism behind
+seed 0's capped 0.5 format credit (repeated `AAATTTTT` completions) and
+behind the format-credit trap detour, where reward can be earned without
+the outcome. The trade is a standing one: dense credit for the action
+shape, sparse credit for the outcome, and the two must be reported
+separately or a policy that exploits the format half looks better than it
+is.
+
+## Who owns this loop
+
+- **The task/reward owner** owns the protocol design (single-character
+  decisions) and the format-vs-outcome split. The word-protocol
+  degeneration was a reward-design bug, caught only because the stage
+  holds "change one mechanism at a time" and the reward is kept visible.
+- **The RL team** owns the per-seed spread as the acceptance rule. Seed 0
+  matches the oracle at all 5 levels; seeds 1-2 collapse to always-answer.
+  Because the spread (0.1408) exceeds both baseline margins, the 3-seed
+  mean is a third, honest outcome -- and the team that reports it has to
+  name that 2 of 3 seeds reproduce the mission's documented collapse.
+- **The evaluation owner** owns the baselines that make the headroom
+  visible: never-tool 0.8654, always-tool 0.9000, calibrated reference
+  0.9780 -- the reference is what a real policy cannot see (it only reads
+  the difficulty label), which is the honest definition of the headroom.
+
 ## What this stage does not establish
 
 This is a single-step, single-tool decision: one arithmetic problem, one

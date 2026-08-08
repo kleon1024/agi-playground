@@ -42,6 +42,35 @@ split is what makes that legible: format credit rewards the answer shape,
 not the decision to use the tool, and the seeds differ in whether the
 outcome credit outweighed it.
 
+## The fix and its trade
+
+The fix is the format/outcome reward split itself, and the trade is the
+trap it names: format credit is the scaffold that gets the policy to
+produce well-formed output at all (level-1 answer_rate 1.00 across all
+seeds), but it is earned without the tool decision, so it can dominate
+the outcome credit and leave the tool-unconditional. The recorded split
+is what makes the trap visible — seed 0's tool_rate 1.00 at level 5
+against seeds 1-2's 0.00 is the same reward, three different balances of
+the two credits. The fix's cost is that a reward that can be earned
+without the outcome will be, sometimes, exactly as the format-credit
+half intends; the answer is not to remove the scaffold (that is stage 01's
+collapse) but to weigh the outcome credit so the tool decision is worth
+learning — a weighting decision the reward owner owns and this detour
+measures rather than prescribes.
+
+## Who owns this loop
+
+- **The reward owner** owns the format/outcome weighting: the trap is a
+  property of the two-part reward, and the lever on seeds 1-2's refusal
+  to pay for the tool is the balance between the credits, not the
+  protocol.
+- **The evaluation owner** owns the per-level tool_rate read that makes
+  the trap legible: an aggregate mean reward of 0.743-0.884 hides whether
+  the policy is difficulty-conditioned or collapsed at the hard level.
+- **The RL team** owns the per-seed spread as the acceptance rule: 1 of
+  3 seeds calibrated is a result only if the spread is reported, which
+  the recorded run does.
+
 ## Evidence boundary
 
 The recorded seed JSONs (200 steps each, 1,000-trial eval, one reward

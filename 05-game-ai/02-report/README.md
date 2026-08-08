@@ -131,6 +131,37 @@ not undo the reuse finding -- it says this particular training budget, on
 this particular environment, produced a policy not worth deploying over
 either baseline, which is a real, useful, and unflattering answer.
 
+## The fix and its trade
+
+The fix this stage installs is a *reporting* rule, not a training fix: a
+margin counts only if it exceeds the measured seed-to-seed spread. Applied
+to stage 01's numbers, greedy-decode loses to random decisively
+(-0.1493 against a 0.016 spread) and sampled-decode is "within the noise
+band" (-0.0433 against 0.066) despite the negative point estimate. The
+trade is that real small effects get reported as noise -- a 3-seed spread
+is a coarse stand-in for a confidence interval, and a genuine but small
+gain below the spread is invisible by rule. That is the correct bias for
+this mission's acceptance bar: the alternative -- reporting any effect
+with the right sign -- is how a single favorable seed becomes a shipped
+policy. The refusal behavior (`CANNOT DETERMINE` naming the missing
+artifact) is the same rule applied to evidence: a report that cannot read
+its inputs does not print a verdict.
+
+## Who owns this loop
+
+- **The report owner** owns the verdict contract: `report.py` reads only
+  committed upstream `runs/` JSON, applies the margin-vs-spread rule
+  mechanically, and refuses a verdict when an artifact is missing. The
+  rule is the product; the script is the enforcement.
+- **The RL team** owns the per-seed spread as an input to the rule. The
+  verdict is only as honest as the seeds it covers -- 3 seeds here, and
+  the report names that as the boundary rather than implying a tighter
+  interval.
+- **The mission owner** owns the acceptance bar itself. `mission.yaml`
+  wrote "beat both baselines by more than spread, or report an honest
+  null" before stage 00 existed; this stage's job is to apply it, not to
+  soften it after the numbers arrived.
+
 A detour from here: [the honest NOT MET: how the verdict is
 built](when-the-verdict-is-not-met/) — the margins recomputed from the
 committed JSONs against the policy's own spread, and the failure catalogue

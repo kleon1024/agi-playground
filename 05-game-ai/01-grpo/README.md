@@ -154,6 +154,40 @@ mission 01's own arithmetic null result, which never escaped degenerate
 rollout groups at all; here training clearly moved, and still did not arrive
 at a board-conditional policy.
 
+## The fix and its trade
+
+The collapse is not fixed in this stage; it is *localized*, and the
+localization is the audit's contribution. What stage 01 establishes is
+which layer owns the failure: the format half of the two-part reward is
+learned (legal `U`/`D`/`L`/`R` strings throughout), while the
+board-conditioning half never sticks under argmax -- so the fix has to act
+on the policy's peakiness or the reward's shape, not on the vocabulary or
+the optimizer. That narrows the search at a real cost: the stage cannot
+itself say whether a larger model, a bigger KL budget, or a denser reward
+would clear it, and stage 03's follow-up pays that cost by testing two
+direct interventions and finding neither moves the argmax.
+
+The trade is the greedy-vs-sampled gap itself. Training optimizes the
+sampled distribution (14-21% success), but deployment runs argmax (6.2-7.8%)
+-- the metric that improves during training is not the metric the deployed
+policy is judged on. Any team that reads only training-time success (peak
+40-50% in this run) ships a policy that fails at serving; the per-seed
+greedy eval is the number that has to move.
+
+## Who owns this loop
+
+- **The model/RL team** owns the policy and the evaluation contract: both
+  decode modes (greedy and sampled) reported per seed, because the
+  training metric and the serving metric diverge.
+- **The reward owner** owns the two-part reward's shape. The dense format
+  credit is what trains; the sparse success bit is what the board
+  condition is supposed to learn -- and this run's verdict is that the
+  reward shape, not the optimizer, is the suspect.
+- **The evaluation owner** owns the baselines the policy must clear. The
+  greedy policy at 6.2-7.8% sits *below* the random floor (22.2%), which
+  is only visible because stage 00's baselines were measured before any
+  training spent compute.
+
 ## What this stage does not establish
 
 Whether more steps, more rollouts per group, a larger model, or a different

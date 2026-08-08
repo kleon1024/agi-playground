@@ -40,6 +40,34 @@ held-out board in 3/3 seeds — 'RRRR...' for seed 0, 'UUUU...' for seed 1,
 baselines that use it, and the fixed strings are the evidence, not an
 inference.
 
+## The fix and its trade
+
+The fix is the margin-vs-spread rule, applied mechanically: a comparison
+is a result only when the margin exceeds the policy's own seed spread,
+and these two comparisons pass that bar decisively (the -0.1493 and
+-0.7513 margins against a 0.016 spread). The trade is that the rule's
+strictness is a floor, not a substitute for mechanism: the spread check
+proves the loss is not a coin-flip, but the *reason* it is a loss — the
+fixed action string — is what the catalogue carries, and a report that
+stops at the arithmetic would be a number without a diagnosis. The rule
+also deliberately refuses to report small real effects: a margin inside
+the spread is a no-result by design, which is the correct bias for a
+mission whose acceptance bar demands beating baselines by more than
+run-to-run noise.
+
+## Who owns this loop
+
+- **The report owner** owns the comparison rule and its enforcement: the
+  margins are computed from committed artifacts, and the per-seed spread
+  is the unit of honesty — without it, the -0.1493 could read as a real
+  loss when it is, in fact, a decisive one for the wrong reason.
+- **The evaluation owner** owns the mechanism read behind the numbers:
+  the fixed action strings are the evidence that the loss is structural,
+  not marginal.
+- **The RL team** owns the seed spread as an input: 3 seeds is the stated
+  boundary of the comparison, and a team that wants a tighter verdict
+  must add seeds, not soften the rule.
+
 ## Evidence boundary
 
 The recorded outcome report (baselines and seed JSONs read mechanically).

@@ -46,6 +46,32 @@ only. The two-environment null — the cold-start boundary reproduced on the
 grid-world's near-miss and MiniGrid's total — is the mission's actual
 deliverable, and the verdict names it.
 
+## The fix and its trade
+
+The fix is the disjunct-aware verdict: the report reads both clauses of
+the acceptance bar and grades the mission against the one that applies,
+instead of defaulting to NOT MET because the policies lost. The trade is
+that the elevation is only legitimate when the null carries the rigor the
+bar demands — committed artifacts, mechanical reads, no re-training — so
+the fix converts a rigorous negative into a deliverable *at the cost of*
+foreclosing the win-reading: MET-as-null is a boundary statement (the
+cold-start mechanism is real and repeatable), not a claim that training
+produced a useful policy. A team that uses the disjunct to soften a weak
+positive would be abusing the same rule this stage applies honestly.
+
+## Who owns this loop
+
+- **The report owner** owns the verdict and its qualifier: the report
+  prints `MET (as an honest null result, extended across two
+  environments)` and the evidence boundary restates that the null does
+  not "count as winning."
+- **The mission owner** owns the two-disjunct bar and its application;
+  the disjunct exists in `mission.yaml`, and this stage's job is to
+  apply it as written, not to grade against one clause.
+- **The evaluation owner** owns the rigor gate: the null is only
+  elevatable if every upstream number is a committed, mechanically-read
+  artifact, which is the condition that keeps the elevation honest.
+
 ## Evidence boundary
 
 The recorded full-chain report and its environment verdicts; no re-training.
