@@ -56,6 +56,17 @@ spend leave returns too imprecise to guide a budget — so the advertiser
 who scales on the average is choosing a confident wrong number over an
 expensive right one.
 
+## Who owns the loop
+
+- **The advertiser's media buyer** owns scaling against the marginal
+  target: the spend level where the next dollar stops clearing the line
+  is its stop point, not the campaign average.
+- **The platform's measurement team** owns the marginal conversion curve
+  per audience segment — the CPA-climb read is its acceptance number.
+- **Finance and ads-operations** owns the reporting that surfaces the
+  marginal return instead of the headline average, so the walk-away
+  line is visible before the budget scales past it.
+
 ## Evidence boundary
 
 The executed scale-up over declared conversion decay (illustrative,

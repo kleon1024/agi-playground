@@ -53,6 +53,18 @@ reward side of getting the trade right — soft frequency capping lifted
 revenue 7.3 percent in Yahoo Gemini Native — and the trade itself is
 why the cap is a product decision, not a default.
 
+## Who owns the loop
+
+- **The ads-product team** owns the per-segment cap policy: where the
+  marginal exposure stops earning is a fatigue-curve decision per
+  segment, not a global default.
+- **The data and identity team** owns the exposure counters and the
+  fatigue curve estimated from them — the cap is only as honest as the
+  counter it reads.
+- **The ads-measurement team** owns the expected-click read that prices
+  the cap: the 40,000-versus-22,429 comparison is its acceptance number
+  for the fatigue claim.
+
 ## Evidence boundary
 
 The executed expected-click arithmetic over a declared impression count

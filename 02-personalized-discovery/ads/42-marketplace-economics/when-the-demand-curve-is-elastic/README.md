@@ -90,6 +90,18 @@ sets `buyers = sellers` as a declared simplification; real markets have
 asymmetric cross-side strengths, and measuring the actual strength is
 what separates a price from a guess.
 
+## Who owns the loop
+
+- **The marketplace and pricing team** owns the take rate against the
+  measured cross-side response, not the paying side's curve alone —
+  the 21.0 percent two-sided peak is its target.
+- **The two-sided growth team** owns the matched experiments that move
+  one side and measure the other, the only honest source of the
+  cross-side elasticity.
+- **The finance and ads-operations team** owns the revenue read at the
+  two-sided peak and the defense of a lower rate to stakeholders who
+  see only the per-transaction cut.
+
 ## Evidence boundary
 
 The executed two-sided model over declared response functions

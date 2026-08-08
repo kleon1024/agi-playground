@@ -88,6 +88,18 @@ aclanthology.org/2024.acl-long.54 — the CAMERA benchmark exists
 precisely because ad text lacks a standard feedback loop to score
 against).
 
+## Who owns the loop
+
+- **The generation and LLM team** owns the diversity control:
+  temperature and repetition penalties that push the generator off its
+  preferred mode, plus deduplication against delivered history.
+- **The creative selection and ranking team** owns fatigue-aware
+  scoring: treating already-delivered creative as worn before it is
+  scored, not after.
+- **The delivery and ads-intelligence team** owns the re-run share and
+  the per-ad exposure counts — the measured numbers that make the
+  collapse visible in the flight, not just at generation time.
+
 ## Evidence boundary
 
 The executed fatigue sweep over three declared collapse levels

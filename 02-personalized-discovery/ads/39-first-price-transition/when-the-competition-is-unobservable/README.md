@@ -81,6 +81,18 @@ levels too — at the price of a model-class risk, exactly the
 mis-specified-world row of the stage audit where the truth does not
 live in the assumed family.
 
+## Who owns the loop
+
+- **The demand-side bidding team** owns the probe budget: allocating
+  impressions to probing, keeping the grid wide, and refitting the
+  landscape on a schedule — the 100-trials row is its failure mode.
+- **The measurement and data team** owns the landscape fit: parametric
+  families fit to censored wins, with the model-class risk priced.
+- **The auction and pricing team** owns the signal the rule change took
+  away — first price censors the winner's log, so the estimation
+  problem this detour prices is a consequence of the rule the team
+  chose.
+
 ## Evidence boundary
 
 The executed probing audit over declared probe budgets (illustrative,

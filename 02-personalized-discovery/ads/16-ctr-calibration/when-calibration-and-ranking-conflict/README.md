@@ -43,6 +43,18 @@ numbers that overstate what the clicks are worth. That is why the ads
 stack needs both gates: calibration for the values, ranking for the
 order.
 
+## Who owns the loop
+
+- **The model and calibration team** owns the values gate: calibration
+  certifies the pCTR magnitudes before eCPM, the auction, and the budget
+  consume them.
+- **The ranking team** owns the order gate: ranking quality certifies
+  the ordering, and a shifted model that preserves order passes its
+  check by design.
+- **The ads-measurement team** owns the two-gate contract: enforcing
+  both before pCTR reaches eCPM, and catching the case where a
+  perfectly-ordered model is wrong everywhere.
+
 ## Evidence boundary
 
 The executed shifted model over four hand-built probabilities

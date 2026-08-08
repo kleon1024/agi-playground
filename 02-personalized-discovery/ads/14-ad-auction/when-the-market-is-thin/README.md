@@ -59,6 +59,20 @@ percent (eight). The trade is on the second part: more demand partners
 means more supply, integration, and fee negotiation, which is why the
 fallback reserve exists at all.
 
+## Who owns the loop
+
+- **The auction and marketplace-economics team** owns the reserve as the
+  fallback: setting the floor from the demand distribution per slot or
+  context, and monitoring the reserve-binding share — the thin-market
+  alarm this detour's sweep instruments.
+- **The supply and demand-acquisition team** owns bidder depth, the
+  durable fix the 0.25-vs-0.61 comparison prices: recruiting demand
+  partners and lowering the friction of entering the exchange is its
+  job, and the reserve only holds while depth is missing.
+- **The ads-measurement team** owns competition-stratified RPM:
+  reporting revenue per auction by bidder count so thinness is caught
+  as a market failure, not filed as noise.
+
 ## Evidence boundary
 
 The executed sweep (values drawn from U(0,1), fixed seed, 50,000 draws

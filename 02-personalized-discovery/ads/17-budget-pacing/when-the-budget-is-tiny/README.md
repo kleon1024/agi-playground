@@ -41,6 +41,18 @@ whether the budget can buy delivery at all. The two questions are
 different, and the tiny-budget case is where the confusion between them
 becomes visible.
 
+## Who owns the loop
+
+- **The campaign-management team** owns the sizing decision: raising the
+  budget until the per-hour cap clears the minimum viable spend, or
+  shrinking targeting — the fix this detour identifies as a planning
+  question, not a pacing one.
+- **The delivery and pacing team** owns pacing within the sized budget,
+  and the cap formula that exposes the viability boundary.
+- **The ads-measurement team** owns the viability check: reporting the
+  cap per hour against the auction's win rate so "the budget is too
+  small" is a measured fact, not a guess.
+
 ## Evidence boundary
 
 The executed controller over three budgets and one hand-built demand curve

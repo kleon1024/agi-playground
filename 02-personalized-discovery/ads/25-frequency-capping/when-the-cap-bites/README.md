@@ -53,6 +53,17 @@ cap 10), while soft capping preserves reach at the price of serving
 some impressions past the useful exposure range — the exact waste the
 [fatigue detour](../when-fatigue-hits/) prices.
 
+## Who owns the loop
+
+- **The ads-product team** owns the cap decision: set from the campaign
+  objective and the measured fatigue curve, not from a default.
+- **The delivery and ads-serving team** owns cap execution per user,
+  including the soft-capping alternative that blurs the
+  reach-frequency cliff.
+- **The ads-measurement team** owns the reach-frequency report: users
+  reached against impressions each, so the 10,000-versus-1,000 trade is
+  visible to the campaign's owner.
+
 ## Evidence boundary
 
 The executed allocation over a declared impression budget (illustrative,

@@ -55,6 +55,16 @@ collapse on another (Rysman 2009, "The Economics of Two-Sided
 Markets", Journal of Economic Perspectives 23(3):125-143, doi
 10.1257/jep.23.3.125).
 
+## Who owns the loop
+
+- **The marketplace and pricing team** owns the rate at the measured
+  revenue peak, moved only against measured volume response — the
+  collapse past the peak is its failure mode.
+- **The measurement team** owns the volume-response estimation that
+  turns "too high" into a curve property instead of a number.
+- **The finance and ads-operations team** owns the short-run revenue the
+  peak pricing forgoes, the cost side of not pricing the market out.
+
 ## Evidence boundary
 
 The executed sweep over a declared volume-response model (illustrative,

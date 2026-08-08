@@ -64,6 +64,18 @@ expensive to estimate (each slot position needs its own measured
 organic-value loss), which is why the mean keeps being used — and why
 the tail monitor exists to catch what the mean hides.
 
+## Who owns the loop
+
+- **The value-tree and ranking team** owns tail-priced admission:
+  per-context externality pricing that admits the ad only where the
+  whale is not the marginal item.
+- **The experimentation and measurement team** owns the tail monitor —
+  P90/P99 displacement by slot position and user slice — the read that
+  catches what the 0.2307 mean hides.
+- **The ads product team** owns the whale-context policy: where the
+  user's most valuable result sits, retention value beats the ad's
+  marginal revenue.
+
 ## Evidence boundary
 
 The executed distribution over 10,000 synthetic impressions with a fixed

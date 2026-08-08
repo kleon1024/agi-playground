@@ -61,6 +61,18 @@ an oscillation has started (Wang, Zhang & Yuan, 2017, *Foundations and
 Trends in Information Retrieval* 11(4-5), survey pacing and bidding
 together as one delivery-control problem).
 
+## Who owns the loop
+
+- **The delivery and pacing team** owns the gain and the correction
+  bound: capped per-hour corrections, smoothed measurement, and a
+  deadband are its levers.
+- **The ads-measurement team** owns the dark-hour alarm — the signature
+  that an oscillation has started — and the unspent-budget read that
+  prices the trade.
+- **The campaign-management team** owns the demand-volatility forecast
+  the gain is tuned against: an alternating 20/2 pattern needs a
+  different gain than a smooth curve.
+
 ## Evidence boundary
 
 The executed controller over a hand-built alternating demand pattern with

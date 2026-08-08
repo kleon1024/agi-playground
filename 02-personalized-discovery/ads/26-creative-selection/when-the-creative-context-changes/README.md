@@ -52,6 +52,17 @@ price it; the executed table shows the cost: serving the rich card
 everywhere leaves the compact creative's 0.06 search clicks on the
 table.
 
+## Who owns the loop
+
+- **The creative-ranking team** owns creative-by-placement scoring:
+  context is a feature of the model, so the feed and search values are
+  priced separately.
+- **The delivery and exploration team** owns per-cell cold-start
+  traffic — each new (creative, context) pair needs its own exploration
+  budget.
+- **The ads-measurement team** owns the per-context CTR verdict that
+  confirms the executed winner in production, per placement.
+
 ## Evidence boundary
 
 The executed per-context table over two declared creatives (illustrative,

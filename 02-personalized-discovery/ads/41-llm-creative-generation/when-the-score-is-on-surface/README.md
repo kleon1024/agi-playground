@@ -57,6 +57,18 @@ which is how a surface score that flatters the writer survives instead
 of a CTR that pays the bills. Stage 16's calibration discipline is the
 same medicine at the creative level.
 
+## Who owns the loop
+
+- **The creative selection and ranking team** owns the score: trained on
+  delivered-impression CTR, with the surface score demoted to a prior
+  that delivery evidence overrides.
+- **The generation and LLM team** owns the generator, whose output is
+  only as good as the feedback loop the scoring team's measurements
+  provide.
+- **The delivery and ads-intelligence team** owns the measured CTR and
+  the exploration rotation that keeps fresh measurements flowing to the
+  score.
+
 ## Evidence boundary
 
 The executed comparison over three declared creatives (illustrative,

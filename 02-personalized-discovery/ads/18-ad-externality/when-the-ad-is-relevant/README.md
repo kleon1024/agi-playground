@@ -41,6 +41,18 @@ combined pricing necessary: a relevant ad earns the right to a slot, an
 irrelevant one does not, and only the difference between the two tells
 them apart.
 
+## Who owns the loop
+
+- **The value-tree and ranking team** owns the admission rule: admit an
+  ad only when its user value clears the organic item it displaces, per
+  slot and per user.
+- **The experimentation and measurement team** owns the per-slice
+  externality estimate — relevance is per-user and per-context, so the
+  sign flip has to be measured, not assumed.
+- **The ads product team** owns the relevance bar the value tree prices
+  against, balancing ad revenue against the displacement cost this
+  detour quantifies.
+
 ## Evidence boundary
 
 The executed sign flip over three ad values against one hand-built

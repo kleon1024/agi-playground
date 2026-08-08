@@ -54,6 +54,18 @@ detour prices from above. The walk-away line is only as honest as the
 estimate that sets it, and the estimate is only as honest as the
 sample it was fit on.
 
+## Who owns the loop
+
+- **The bid-strategy team** owns the walk-away line: standing down when
+  the auction price passes the click's value, and re-setting the line
+  when the estimate moves.
+- **The conversion-model team** owns the estimate the line is set on:
+  value times conversion rate, corrected for the winner's-log and delay
+  biases the stage audit measures.
+- **The data and measurement team** owns label maturity per age cohort,
+  the input that keeps the conversion estimate — and therefore the
+  walk-away line — honest.
+
 ## Evidence boundary
 
 The executed price comparison against one declared value (illustrative,

@@ -40,6 +40,18 @@ against a wrong number and the wrong ad wins. The eCPM ranking is only as
 good as the estimate feeding it, which is why calibration precedes
 ranking in the ads stack, not follows it.
 
+## Who owns the loop
+
+- **The ranking and calibration team** owns the flip point as a
+  tolerance budget: keeping pCTR estimates inside the 0.075 knife-edge
+  is its acceptance number.
+- **The pricing and auction team** owns the rank key the estimate
+  feeds — a flipped winner changes which ad the auction prices, so the
+  realized column is part of its decision.
+- **The ads-measurement team** owns the realized-column re-audit after
+  every model or calibration change, the check that a small pCTR error
+  did not silently swap the winner.
+
 ## Evidence boundary
 
 The executed sweep over one ad pair (illustrative, deterministic). It

@@ -56,6 +56,18 @@ trade is that any rule is a decision about where ambiguous credit goes,
 and an implicit or ad hoc rule makes the experiment's winner a property
 of the rule, not of the rankings.
 
+## Who owns the loop
+
+- **The experimentation and measurement team** owns the tie rule,
+  declared before the run and applied to every shared document — an
+  implicit rule makes the winner a property of the rule.
+- **The ranking teams under comparison** own the shared-document
+  disclosure: which results both lists propose is the input the tie
+  rule must see.
+- **The measurement team** owns the pooled statistical test over
+  credits, so the tie handling is part of the reported answer, not a
+  hidden choice.
+
 ## Evidence boundary
 
 The executed check over one declared click (illustrative, deterministic,

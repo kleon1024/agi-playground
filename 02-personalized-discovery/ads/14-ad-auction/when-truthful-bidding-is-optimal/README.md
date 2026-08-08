@@ -54,6 +54,19 @@ first-price — the transition stage 39 audits. Each rule trades
 truthfulness against revenue; the executed utility table is the check
 that the truthful bid is the one an advertiser can defend.
 
+## Who owns the loop
+
+- **The auction and marketplace-economics team** owns the payment rule:
+  keeping the price decoupled from the bid is the mechanism property
+  this detour verifies, and moving a market to first price (stage 39)
+  is a rule change the same team owns.
+- **The demand-side and bidder-facing team** owns the truthful-bidding
+  contract: telling advertisers the bid is their value, and pricing any
+  rule change against the utility table this read executes.
+- **The ads-measurement team** owns the revenue consequence of the rule,
+  comparing the platform's take and the bidder population together,
+  never the rule alone.
+
 ## Evidence boundary
 
 The executed mechanism over three true values against one fixed rival set

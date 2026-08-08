@@ -78,6 +78,19 @@ epsilon or a trusted-server aggregator that avoids per-report noise
 altogether — both of which change the privacy bargain the stage
 measured.
 
+## Who owns the loop
+
+- **The measurement and privacy team** owns the epsilon budget per
+  report — but the flip rate is also a property of report shape, so the
+  privacy dial alone cannot fix it.
+- **The reporting and budget team** owns the granularity decision:
+  coarsening the report to the noise floor (merging the tail into
+  "other") is its call, and the misallocation read is its acceptance
+  number.
+- **The product and trust team** owns the trade — attribution detail
+  against the privacy bargain — decided with the budget team in the
+  room, not by a privacy parameter alone.
+
 ## Evidence boundary
 
 The executed granularity sweep over two declared report shapes

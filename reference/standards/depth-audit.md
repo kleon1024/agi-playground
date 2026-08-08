@@ -554,6 +554,16 @@ increment, 2026-08-08):
   average-hides-the-margin (the marginal dollar returns 1.96x while
   the average says 5.21x), roas-collapses, budget-moves.
 
+**Structural re-check 2026-08-08:** all 68 ads detours now carry the
+`## Who owns the loop` section before their evidence boundary, matching
+the search and shared detour convention. Each detour-level ownership
+split names the 2-3 teams whose handoff the detour's failure exposes,
+reusing the parent stage's team names and the detour's own measured
+numbers (the thin-market reserve-binding share, the 0.075 flip point,
+the 3.6 percent interleaving session cost, the 28,547-user power
+calculation, the 1.96x marginal dollar). With this, every stage in the
+ads range satisfies the audit contract at the parent and detour level.
+
 ### Personalized discovery — recommendation 31-34 (frontier)
 
 **Status: done (fifth audit increment, 2026-08-07).**

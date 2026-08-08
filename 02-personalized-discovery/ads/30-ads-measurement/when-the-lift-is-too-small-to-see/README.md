@@ -73,6 +73,19 @@ failure the [overcount detour](../when-attribution-overcounts/) names:
 the report credits the ad with the baseline. Small-increment campaigns
 need a cheaper decision surface, not a smaller experiment.
 
+## Who owns the loop
+
+- **The experimentation and measurement team** owns the power
+  calculation: an experiment is sized to the increment it must detect
+  (28,547 users per arm for 0.4 points at 80 percent power), and the CI
+  is reported with it.
+- **The ads platform team** owns the holdout cost — bigger experiments
+  exclude users from the ad — and the cheaper proxy metrics that trade
+  outcome fidelity for measurable movement.
+- **The shared experiment gate (stage 54)** owns the SRM check that runs
+  before the outcome is read, since the split fails at a fraction of
+  the traffic the effect needs.
+
 ## Evidence boundary
 
 The executed CI audit uses the normal approximation to the binomial

@@ -53,6 +53,18 @@ short, and the estimate chases noise and churns the selection; too
 long, and it lags the wear the way the lifetime average does — the
 0.06-forever estimate this detour names is the long-window extreme.
 
+## Who owns the loop
+
+- **The creative-ranking team** owns the recency-aware estimate: rolling
+  windows or decaying averages that follow wear, so the 0.06-forever
+  winner stops winning on history.
+- **The delivery and exploration team** owns the cold-start traffic
+  allocation that prices new creatives — the epsilon dial is its
+  control.
+- **The ads-measurement team** owns the per-creative-age split: CTR by
+  exposure history, so wear and quality are read separately in the
+  campaign report.
+
 ## Evidence boundary
 
 The executed comparison over three declared creatives (illustrative,

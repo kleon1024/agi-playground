@@ -90,6 +90,18 @@ too imprecise to trust. Until the curve is measured, the two rules
 disagree by exactly the dollars that are hardest to defend: the ones
 that return 1.96x while the report says 5.21x.
 
+## Who owns the loop
+
+- **The advertiser's media buyer** owns the cut decision at the margin:
+  scaling against the marginal target and cutting from the top
+  increment first, not in proportion.
+- **The platform's measurement team** owns the marginal curve per
+  segment and channel, produced by the incrementality experiments that
+  are the only honest source.
+- **Finance and ads-operations** owns the marginal reporting — the
+  number that shows the 1.96x dollar next to the 5.21x average, so the
+  budget is not decided against a confidently wrong average.
+
 ## Evidence boundary
 
 The executed cut table and the stage audit run over a declared concave

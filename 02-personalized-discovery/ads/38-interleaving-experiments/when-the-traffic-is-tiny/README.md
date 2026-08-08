@@ -54,6 +54,17 @@ confident wrong answer the blend-bias detour measures. The B2B
 either ships unmeasured or waits for traffic it does not have —
 interleaving's 400-user budget exists precisely to avoid that.
 
+## Who owns the loop
+
+- **The traffic owner** owns the design budget: with 800 users, a
+  10,000-user A/B never reaches significance, and interleaving's
+  400-user cost is the decision that ships the ranking change measured.
+- **The ranking team** owns the within-user comparison design — the list
+  is the unit, not the user.
+- **The experimentation and measurement team** owns the power check that
+  separates feasible from infeasible, and the risk of shipping
+  unmeasured when the A/B cannot run.
+
 ## Evidence boundary
 
 The executed feasibility comparison over two declared sample sizes

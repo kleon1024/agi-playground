@@ -55,6 +55,18 @@ fix is buying signal, which the
 prices: probing win rates is the only way the estimate's uncertainty
 shrinks, and probing spends margin.
 
+## Who owns the loop
+
+- **The demand-side bidding team** owns the shading estimate as a
+  distribution, not a point: bidding the optimum over the belief's
+  uncertainty, and hedging toward the side where error costs more.
+- **The measurement and forecasting team** owns the error-cost read —
+  the \$0.16-versus-\$0.25 sweep is its acceptance number for shading
+  quality.
+- **The auction and pricing team** owns the transition context the
+  estimate lives in: first price made the bid the price, which is why
+  the estimate's error lands directly in net value.
+
 ## Evidence boundary
 
 The executed sweep over a declared value and win model (illustrative,

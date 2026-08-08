@@ -54,6 +54,18 @@ the same peak-shaped trade (Evans 2009, "The Online Advertising
 Industry: Economics, Evolution, and Privacy", Journal of Economic
 Perspectives 23(3):37-60).
 
+## Who owns the loop
+
+- **The ads product and value-tree team** owns the load at the
+  total-value peak, adding a slot only while its marginal revenue covers
+  the organic value it displaces.
+- **The experimentation and measurement team** owns the
+  organic-displacement measurement per position, the input that prices
+  each slot honestly.
+- **The marketplace and pricing team** owns the shared elasticity shape
+  across the platform's levers — ad load and take rate are the same
+  peak-shaped trade, so neither is optimized in isolation.
+
 ## Evidence boundary
 
 The executed sweep over a declared ten-slot page (illustrative,

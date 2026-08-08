@@ -53,6 +53,17 @@ than the ad spend — the real-world zero-lift case). The alternative —
 hide the null and report the observed clicks — is the failure the
 detour measures: the report credits spend with no effect.
 
+## Who owns the loop
+
+- **The experimentation and measurement team** owns the null-default
+  reporting: a lift inside the CI is reported as "cannot distinguish
+  from zero," never as observed performance.
+- **The ads platform team** owns the control-group design that makes the
+  null visible — the exposed-versus-control comparison is its contract.
+- **The advertiser and budget owner** owns the reallocation the null
+  protects, the decision that suppressed-zero reporting would quietly
+  mislead.
+
 ## Evidence boundary
 
 The executed comparison over two declared rates (illustrative,

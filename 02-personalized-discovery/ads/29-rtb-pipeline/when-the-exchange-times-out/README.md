@@ -58,6 +58,17 @@ bidder-side half of the same decision — the exchange that times out
 at 5 percent is the exchange whose bidders sized their pipelines to
 the old `tmax`.
 
+## Who owns the loop
+
+- **The exchange-facing engineering team** owns `tmax` and the timeout
+  policy: how long bidders get before the slot closes is a
+  margin-sizing decision against the bidder-latency distribution.
+- **The RTB and bidder-facing team** owns sizing pipelines to the
+  contract — an exchange that times out at 5 percent is the exchange
+  whose bidders sized to the old `tmax`.
+- **The ads-measurement team** owns fill-rate by slot type, the revenue
+  read that turns a timeout rate into a slot that sells nothing.
+
 ## Evidence boundary
 
 The executed pricing over a declared request volume (illustrative,

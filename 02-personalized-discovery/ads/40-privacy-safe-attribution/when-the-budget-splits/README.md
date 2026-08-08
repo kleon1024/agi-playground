@@ -56,6 +56,18 @@ operational cost and trust model of a central server — the two ends
 of the privacy-budget spectrum the stage's budget decision has to pick
 between.
 
+## Who owns the loop
+
+- **The measurement and privacy team** owns the epsilon ledger: a DP
+  accountant that tracks every report's spend so the remaining budget is
+  visible the way a spend budget is.
+- **The reporting team** owns the report schedule against the total —
+  approving reports one at a time is how a shared resource gets
+  silently diluted.
+- **The product and trust team** owns the central-aggregator
+  alternative that trades per-report privacy for the operational cost
+  and trust model of a central server.
+
 ## Evidence boundary
 
 The executed split over three declared report counts (illustrative,

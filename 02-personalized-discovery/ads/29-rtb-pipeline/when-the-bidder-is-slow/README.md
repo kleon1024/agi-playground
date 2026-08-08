@@ -57,6 +57,17 @@ latency you are not spending on a better bid. The alternative — fit
 the median and hope the tail — is the exact failure the audit measures:
 the bidder that is late loses regardless of price.
 
+## Who owns the loop
+
+- **The RTB engineering and exchange-facing team** owns the deadline
+  contract: each stage gets a p99 budget whose sum fits the exchange's
+  `tmax`, not a median budget whose tail crosses it.
+- **The model and serving team** owns inference latency inside the
+  budget — a heavy model's p99 is a bidder's cost of entry.
+- **The feature and data team** owns the cache levers that turn a 30ms
+  stage into a 1ms stage, buying margin for the stages that cannot
+  cache.
+
 ## Evidence boundary
 
 The executed deadline check over three declared response times

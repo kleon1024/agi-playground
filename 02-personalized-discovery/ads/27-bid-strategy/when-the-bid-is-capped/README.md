@@ -52,6 +52,16 @@ inverse-propensity weighting of the stage's audit). The cap is the
 budget's risk dial, and its position is only as good as the estimate
 that sets the value under it.
 
+## Who owns the loop
+
+- **The bid-strategy team** owns the cap: set from the win-rate curve,
+  not the value equation alone, with the sweep's wins-versus-price shape
+  as its tuning instrument.
+- **The conversion-model team** owns the corrected estimate the cap sits
+  under — a winner's-log-inflated CVR justifies a cap 1.68x too high.
+- **The campaign owner** owns the risk level the cap expresses: how much
+  of the budget is at risk in pursuit of the click's value.
+
 ## Evidence boundary
 
 The executed sweep over five declared auction prices (illustrative,

@@ -58,6 +58,18 @@ privacy bar, or a trust boundary — which is why the collapse point has
 to be decided with the budget team in the room, not by a privacy
 parameter alone.
 
+## Who owns the loop
+
+- **The measurement and privacy team** owns the epsilon dial, set
+  against the decision it must preserve: the noisiest plausible draw
+  still has to keep the budget order intact.
+- **The reporting and budget team** owns the ordinal decision the noise
+  can break — the weekly-allocation flip is its risk, and coarsening the
+  report is its fallback.
+- **The product and trust team** owns the privacy promise the epsilon
+  choice trades against, and the trusted-aggregator alternative that
+  removes per-channel noise entirely.
+
 ## Evidence boundary
 
 The executed sweep over three declared epsilon levels with a fixed draw

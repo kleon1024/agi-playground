@@ -41,6 +41,18 @@ regression, learned rather than a single ratio), but the mechanism is the
 same: find the systematic gap and remove it before the estimate feeds
 eCPM, the auction, and the budget.
 
+## Who owns the loop
+
+- **The model and calibration team** owns the correction: fitting it on
+  logged impressions (Platt or isotonic) rather than a single ratio,
+  and re-auditing per slice.
+- **The data and logging team** owns the impression stream with slice
+  attributes, the input that decides whether the correction can be
+  per-slice or must stay global.
+- **The ads-measurement team** owns the before/after ECE gate: the
+  0.2450-to-0.0000 read is its acceptance number for every correction
+  shipped to eCPM, the auction, and the budget.
+
 ## Evidence boundary
 
 The executed correction over one hand-built estimate (illustrative,

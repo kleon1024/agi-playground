@@ -40,6 +40,17 @@ the curve; a platform that varies slot count per context is choosing
 where on the curve to sit. The value tree (stage 05) prices the
 combination, and this sweep is the input that makes the choice explicit.
 
+## Who owns the loop
+
+- **The value-tree and ranking team** owns the combined pricing: slot
+  count is a decision variable, and the ad-plus-organic slate is priced
+  at the chosen point on the displacement curve.
+- **The ads product team** owns the ad-load policy per context — where
+  the platform sits on the 0.60-to-0.20 curve is a product decision.
+- **The experimentation and measurement team** owns the displacement
+  measurement per position, the input that turns slot scarcity into a
+  priced externality instead of an assumed one.
+
 ## Evidence boundary
 
 The executed sweep over one hand-built organic-value list (illustrative,

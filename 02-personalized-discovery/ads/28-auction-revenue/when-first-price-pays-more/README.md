@@ -53,6 +53,17 @@ counter bidder learning, which the audit shows is a losing race
 (Google's 2019 first-price transition is the industrial version: the
 advantage was the transition's, not the settlement's).
 
+## Who owns the loop
+
+- **The marketplace economics team** owns the revenue read with the
+  bidder population: a first-price comparison is only valid for the
+  shading behavior it assumes.
+- **The auction engineering team** owns the rule choice — second price's
+  truthful-bidding stability versus first price's higher naive ceiling
+  — and the transition's settlement.
+- **The demand and bidder-facing team** owns the shading estimates and
+  their evolution, the input that decides which revenue number is real.
+
 ## Evidence boundary
 
 The executed comparison over one bid set and two declared behaviors

@@ -61,6 +61,17 @@ pattern and loses the other. Production picks the rule for its incentive
 properties, then measures the realized column to confirm the allocation
 matches the objective.
 
+## Who owns the loop
+
+- **The ranking team** owns the tie-break rule, chosen for its
+  incentive properties (by-bid) rather than its realized column.
+- **The pricing and auction team** owns the tie's auction consequence —
+  the rule changes the allocation, and the winner's price follows.
+- **The ads-measurement team** owns the realized-revenue audit of ties:
+  logging every tie with the rule that broke it, so a by-quality rule
+  that overpays under a generous estimate is caught on the realized
+  column.
+
 ## Evidence boundary
 
 The executed scenarios are two hand-built (bid, pCTR) pairs with no

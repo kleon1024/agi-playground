@@ -56,6 +56,18 @@ all. A reserve set too high for a thin market converts the auction into
 an empty slot, which is why the fallback and the demand-side fix
 (bidder depth) are tuned together.
 
+## Who owns the loop
+
+- **The auction and marketplace-economics team** owns the reserve
+  setting: choosing the floor per slot or context against the demand
+  distribution, with the kill-the-sale risk in view.
+- **The supply and demand-acquisition team** owns the demand side that
+  keeps the floor from binding — bidder depth is what stops every sale
+  from paying the reserve.
+- **The ads-measurement team** owns the fill-versus-revenue read: the
+  share of sales paying exactly the reserve is the monitor that catches
+  a floor set too high for the market it faces.
+
 ## Evidence boundary
 
 The executed sweep over one bid set (illustrative, deterministic). It

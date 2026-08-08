@@ -76,6 +76,18 @@ still has to be declared for shared documents, and the
 [tiny-traffic detour](../when-the-traffic-is-tiny/) covers the
 traffic budget that made interleaving necessary in the first place.
 
+## Who owns the loop
+
+- **The ranking team** owns the blend: which interleaving method and how
+  the lists are merged, and the random-start fix that removes the fixed
+  credit bias.
+- **The experimentation and measurement team** owns the pre-registered
+  randomization and the pooled comparison — a team that randomizes but
+  reads the variants as separate experiments halves its effective
+  sample.
+- **The traffic owner** owns the 3.6 percent session cost the balanced
+  design needs for the same confidence-interval width.
+
 ## Evidence boundary
 
 The executed audit simulates position clicks over two declared disjoint

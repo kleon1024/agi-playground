@@ -52,6 +52,17 @@ market leaves revenue on the table during the transition. The executed
 shape is the discipline: find the peak, then re-fit it on the settled
 market, not the launch market.
 
+## Who owns the loop
+
+- **The marketplace economics team** owns the reserve-from-demand-curve
+  estimate: the sweep's peak is a property of the demand distribution,
+  re-fit as the curve moves.
+- **The auction engineering team** owns the reserve mechanism inside the
+  auction rule, and the fill consequences of the floor.
+- **The ads-measurement team** owns the fill-versus-revenue monitor that
+  catches when a reserve tuned to a naive market is too high for the
+  settled one.
+
 ## Evidence boundary
 
 The executed sweep over a declared demand distribution (illustrative,

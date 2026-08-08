@@ -40,6 +40,18 @@ that. Production sets the floor per slot or context, which is why the
 reserve is part of the auction design (stage 14) rather than a separate
 policy on top of it.
 
+## Who owns the loop
+
+- **The auction and marketplace-economics team** owns the floor: setting
+  it from the demand distribution with the ranking's eCPMs in view,
+  since the reserve decides which ads are eligible before ranking runs.
+- **The ranking team** owns the eligibility-aware ranking — the 160 row
+  (an empty slot) is a ranking consequence it has to absorb, not a
+  reordering it can fix.
+- **The ads-measurement team** owns fill and revenue across reserve
+  settings, the read that prices the floor's trade against the demand
+  curve.
+
 ## Evidence boundary
 
 The executed combination over three hand-built ads (illustrative,

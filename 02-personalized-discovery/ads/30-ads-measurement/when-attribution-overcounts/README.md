@@ -53,6 +53,17 @@ last-click because it is simple and auditable — is the failure the
 detour measured: 0.6 of credit misplaced, next quarter's budget
 routed to the wrong channel, and no experiment to correct it.
 
+## Who owns the loop
+
+- **The experimentation and measurement team** owns the attribution
+  weights: calibrated to incrementality experiments on a sample of
+  spend, not the last-click default.
+- **The ads platform team** owns the holdout design that produces the
+  ground truth the weights are checked against.
+- **The advertiser and budget owner** owns the spend routing that
+  follows the credit — which is why a 0.6 misplaced credit becomes a
+  misallocated next quarter.
+
 ## Evidence boundary
 
 The executed credit comparison over one conversion with declared shares

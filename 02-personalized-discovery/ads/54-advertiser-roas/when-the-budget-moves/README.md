@@ -63,6 +63,18 @@ leave returns too noisy to guide budgets — the platform can lose share
 to a rival channel's confidently wrong average before its own honest
 number is ready.
 
+## Who owns the loop
+
+- **The platform's measurement team** owns the honest incrementality
+  that the advertiser's allocation is set against — the attributed
+  average over-credits the ads until an experiment corrects it.
+- **The advertiser's media buyer** owns the allocation on marginal or
+  incremental return across channels, the decision that moves the
+  platform's revenue.
+- **The ads product team** owns the relevance and placement that change
+  the measured return itself — the only lever that can win the
+  advertiser back once measured return says leave.
+
 ## Evidence boundary
 
 The executed split over declared ROAS values (illustrative,

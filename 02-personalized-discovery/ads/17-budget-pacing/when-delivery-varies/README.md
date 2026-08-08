@@ -45,6 +45,17 @@ fixed-cap outcome (20.5 unused at the end); the dynamic version uses that
 remaining number to adjust, which is the difference between a rule and a
 controller.
 
+## Who owns the loop
+
+- **The delivery and pacing team** owns the controller: turning the
+  remaining column into a feedback signal (loosen when behind, tighten
+  when ahead) instead of holding a fixed cap.
+- **The campaign-management team** owns the budget plan the controller
+  paces toward, including the demand shape it expects.
+- **The ads-measurement team** owns time-of-day delivery: the dark-hour
+  count and the unspent budget are its monitors for cap and controller
+  health.
+
 ## Evidence boundary
 
 The executed controller over one hand-built demand curve (illustrative,

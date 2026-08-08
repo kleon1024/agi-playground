@@ -53,6 +53,17 @@ longer and more varied than the corpus but fails to recover depth and
 distinctiveness, so a diversity knob without a measured distinctness
 check just produces longer near-copies.
 
+## Who owns the loop
+
+- **The generation and LLM team** owns the diversity controls: raising
+  temperature or applying repetition penalties so the batch contains
+  distinct messages before scoring.
+- **The creative selection and ranking team** owns the distinctness
+  check that runs before the score — normalized collapse is its gate.
+- **The measurement team** owns the normalized-distinctness metric that
+  catches punctuation-and-case copies, so selection is never choosing
+  between a copy and a punctuation edit.
+
 ## Evidence boundary
 
 The executed normalization over three declared variants (illustrative,

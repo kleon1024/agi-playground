@@ -59,6 +59,18 @@ but lags the shift. The executed read shows the failure that motivates
 the choice — a factor that is never refit converts a calibration fix
 into a new, larger bias.
 
+## Who owns the loop
+
+- **The model and calibration team** owns the refit cadence: a rolling
+  window that tracks the rate without chasing noise is its tuning
+  decision.
+- **The ads-measurement team** owns the drift monitor: per-window ECE on
+  fresh traffic, with the corrected-exceeds-raw signal as the alarm
+  that a fit has expired.
+- **The data and logging team** owns the fresh window that makes the
+  monitor honest — the correction is only as current as the traffic it
+  is checked against.
+
 ## Evidence boundary
 
 The executed read uses hand-built predictions and click vectors with no

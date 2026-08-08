@@ -53,6 +53,18 @@ read shows the same erosion), at the price of charging advertisers for
 the efficiency that cost them less — a margin the market may treat as
 just another take-rate increase.
 
+## Who owns the loop
+
+- **The measurement and forecasting team** owns the settled-state
+  forecast: modeling the learning curve (1.00 to 0.50 shading) instead
+  of pricing the naive day-one number.
+- **The auction and pricing team** owns the levers that move learning
+  speed — the reserve floor and demand-side tools — which makes the
+  forecast and the product decision coupled.
+- **The demand-side and bidder-facing team** owns the shading evolution
+  the forecast assumes, and the signal that says how fast the market
+  adapts.
+
 ## Evidence boundary
 
 The executed learning curve over three declared phases (illustrative,
