@@ -110,6 +110,47 @@ quality is both worse on average and far noisier, exactly the risk stage
 02's own report flagged as the more likely failure mode than a compute
 wall.
 
+## The fix and its trade
+
+The failure is that doubling a shape parameter breaks the reused code in a
+way that looks like a bug in the new stage: at `N_FRAMES = 16` with stage
+00's default `SPEED = 2`, travel distance reaches 30 pixels on a 32-pixel
+canvas and `_start_range` raises `ValueError: empty range in randrange(3,
+-1)` — a real geometric consequence, not a typo. Two `assert N_FRAMES == 8`
+guards in the reused code recorded the 8-frame assumption, and the cost and
+quality axes both move in ways the earlier stages predicted but had not
+measured: wall-clock grows ~4x for a 2x frame count (152.5s to a 660s mean,
+superlinear from the LM's attention cost), exact-match spreads from a
+2.7-point to a 24.6-point seed range, and reconstruction MSE holds inside
+seed noise (0.0851 vs 0.0856 mean).
+
+The fix is honest scope surgery, recorded rather than folded in silently:
+relax the guards to `assert N_FRAMES >= 1`, patch `SPEED` to 1 alongside
+`N_FRAMES` (restoring a travel distance of 15, close to stage 00's own 14,
+and a non-empty valid range for every sampled direction and half-size), and
+report the margin-versus-spread verdict the same way stage 02 did — margin
+0.0329 against spread 0.0074, over 4x, `MET` on all three seeds. The trade
+is that the change keeps comparability with stages 00-02 only by halving
+speed, so the 16-frame result measures "longer at the same geometry," not
+"longer at the same speed," and the wall-clock variance (567-709s across
+seeds) is reported as system variance rather than explained away.
+
+## Who owns this loop
+
+- **The dataset owner** owns the generator geometry: the travel-distance
+  constraint (`unit * SPEED * (N_FRAMES - 1)` must leave a valid start
+  range) is a property of the generator, and a frame-count change is a
+  dataset-validity event, not a model-tuning event.
+- **The model team** owns the scaling experiment: the reused code is called
+  unmodified, the two relaxed asserts and the speed patch are recorded in
+  this stage, and the margin-vs-spread read turns three seeds into a
+  verdict.
+- **The evaluation owner** owns the honest observation: the exact-match
+  spread widening (2.7 to 24.6 points) is reported as an open finding, not
+  explained away, because a metric that stays tight in pixel space while
+  scattering in token space is exactly the kind of signal a report must not
+  smooth over.
+
 ## Run it
 
 ```bash

@@ -44,6 +44,34 @@ sequence matches the oracle's, yet the reconstruction still clears the
 baseline (0.139 vs 0.200). The token metric has hit zero; the pixel metric
 is what the verdict rests on.
 
+## The fix and its trade
+
+The failure is that the mission's generation stages each sampled one corner
+of the grid, so no single stage could say which axis actually costs the
+generation. The fix is assembling the frontier from the recorded corners —
+8x1 (0.0804), 16x1 (0.0818), 8x2 (0.1429), 16x2 (0.1391) against the
+corresponding frame-repeat baselines — and the trade is that the frontier
+answer is lopsided: objects are the dominant axis (adding the second object
+roughly doubles MSE, 0.080 to 0.143) while length barely moves it (0.0804
+to 0.0818), because occlusion and interaction are the hard part, not
+duration. The exact-match floor at the 16x2 corner (0.00%) is the
+wrong-tokens lesson at the limit: no generated token sequence matches the
+oracle's, yet reconstruction still clears the baseline (0.139 vs 0.200),
+so the metric that hit zero is measuring something the feasibility
+question does not depend on.
+
+## Who owns this loop
+
+- **The evaluation owner** owns the frontier assembly: the four corners
+  are read from the stages' own recorded runs, seed 0 each, and the axis
+  dominance is scoped to the tested corners, not claimed as a scaling law.
+- **The model team** owns the per-corner verdicts: `MET` holds on the
+  whole grid because reconstruction against frame-repeat is the
+  acceptance line, not token identity.
+- **The codec owner** owns the named bottleneck: the object axis's cost is
+  the codec's capacity, which is the frontier's answer to where the next
+  increment belongs.
+
 ## Evidence boundary
 
 Four recorded corners, seed 0 each, the stages' own runs. It reads the

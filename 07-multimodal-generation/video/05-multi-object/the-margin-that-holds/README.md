@@ -41,6 +41,31 @@ limit instead of rescaling the number into a fake win — the tokenizer is
 what is missing, and stage 06's combined-axis run confirms it is the
 binding constraint.
 
+## The fix and its trade
+
+The failure is that a capacity stress can look like either a pass or a
+failure depending on which number is quoted: the MSE jump (0.0851 to
+0.1483) shows degradation while the margin read shows the generation still
+works. The fix is the margin-versus-spread check as the verdict's spine —
+0.0710 against a 0.0104 spread, 6.8x, `MET` on every seed — with the
+exact-match collapse read as the sharper signal of the discretization
+failure. The trade is that both statements stay true at once: capacity is
+stressed and the verdict holds, and reading one without the other would
+produce either a fake pass or a false failure.
+
+## Who owns this loop
+
+- **The model team** owns the two-metric reading: MSE measures the
+  compromise in pixel space; exact-match measures whether the token
+  sequence still matches, which is the sharper signal of a capacity
+  problem.
+- **The codec owner** owns the mechanism the numbers name: the nearest
+  codebook entry shifts when one token must represent two positions, and
+  the fix is a codec change, not an LM change.
+- **The evaluation owner** owns the verdict contract: the margin clears
+  the baseline beyond seed noise, so stage 05 closes `MET` on every seed
+  with the limit stated beside the pass.
+
 ## Evidence boundary
 
 The recorded stage-05 JSONs (three seeds, 8 frames, one recipe). It reads

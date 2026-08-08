@@ -1681,15 +1681,15 @@
   },
   "07-multimodal-generation/video/00-synthetic-video-dataset": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 6
   },
   "07-multimodal-generation/video/00-synthetic-video-dataset/when-the-collision-is-one": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/video/00-synthetic-video-dataset/when-the-seed-is-the-answer": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "07-multimodal-generation/video/01-video-tokenizer": {
     "level": "applied",
@@ -1705,63 +1705,63 @@
   },
   "07-multimodal-generation/video/02-generation-model": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 7
   },
   "07-multimodal-generation/video/02-generation-model/the-margin-vs-the-ceiling": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/video/02-generation-model/when-wrong-tokens-still-reconstruct": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "07-multimodal-generation/video/03-report": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "07-multimodal-generation/video/03-report/the-cost-quality-pair": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/video/03-report/when-the-cost-ceiling-is-roomy": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "07-multimodal-generation/video/04-longer-sequences": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "07-multimodal-generation/video/04-longer-sequences/when-the-cost-grows-faster": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/video/04-longer-sequences/when-the-frames-double": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/video/05-multi-object": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "07-multimodal-generation/video/05-multi-object/the-margin-that-holds": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/video/05-multi-object/when-two-shapes-share-a-token": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "07-multimodal-generation/video/06-longer-and-multi-object": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 10
   },
   "07-multimodal-generation/video/06-longer-and-multi-object/when-the-axes-compound": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/video/06-longer-and-multi-object/when-the-metric-hits-zero": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "07-multimodal-generation/voice": {
     "level": "applied",

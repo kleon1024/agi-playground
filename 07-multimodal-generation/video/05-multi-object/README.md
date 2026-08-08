@@ -113,6 +113,43 @@ on average and far noisier across seeds — the same kind of quality-not-compute
 risk stage 02's report first flagged and stage 04 confirmed along the
 frame-count axis, now also confirmed along the object-count axis.
 
+## The fix and its trade
+
+The failure is a genuine capacity question, not a code bug: nothing in the
+reused codec or LM guarantees that one 64-entry per-frame token can
+represent two shapes' positions at once, and the risk is that the stage
+silently rescales its own number into a fake win. The measured cost of the
+second object is a 74% reconstruction-error jump (0.0851 to 0.1483 mean
+MSE) with exact-match collapsing to 0.67-28.67% across seeds — the token
+now has to jointly encode both shapes' positions, and the nearest codebook
+entry shifts whenever it compromises. The wall-clock adds a second,
+unexplained symptom: seed2 ran in 203.8s against 523.2s/528.8s for the
+identical fixed step count, reported as system-load variance because no
+code path conditions duration on the seed.
+
+The fix is to report the limit instead of hiding it: the margin read
+(0.0710 against a 0.0104 spread, 6.8x, `MET` on every seed), the oracle gap
+(within 2.3% of the true-token ceiling), and the measured occlusion
+(79.1-82.0% of clips have some overlap, mean 0.87% of the frame) are all
+stated beside the capacity finding. The trade is that the verdict is a
+pass and a finding at once — the tokenizer is what is missing, and the
+stage says so rather than re-scaling the number into a fake win, which is
+what keeps the pass honest.
+
+## Who owns this loop
+
+- **The codec owner** owns the capacity limit: one 64-entry token per
+  frame carrying two positions is the binding constraint, and the fix for
+  the exact-match collapse lives in the codec (more entries, more tokens
+  per frame, or temporal encoding), not the sequence model.
+- **The dataset owner** owns the scene construction: the composite and the
+  `occlusion_stats` counter make the occlusion claim a measured property
+  of the generated clips rather than an assumption.
+- **The evaluation owner** owns the margin-vs-spread verdict and the
+  unexplained finding: seed2's exact-match outlier (28.67% beside 0.67%)
+  is reported as an open question, not resolved here, and the wall-clock
+  variance is labeled as system noise.
+
 ## Run it
 
 ```bash

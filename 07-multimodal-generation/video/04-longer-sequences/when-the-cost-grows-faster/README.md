@@ -42,6 +42,33 @@ headroom remains. The finding is the cost curve's shape: reconstruction
 holds, cost outruns the frames, and the tokenizer is still the binding
 constraint.
 
+## The fix and its trade
+
+The failure is an unchecked cost-growth assumption: stage 03 predicted the
+codec's per-frame cost scales roughly linearly and the LM's attention cost
+grows with sequence length, but neither number was measured before this
+stage ran the axis. The fix is the measurement itself — 152s to a 660s
+mean, 4.3x for a 2x frame count — and the trade is that the finding is the
+curve's shape, not a failure: the measured 4.3x sits between the codec's
+linearity and the LM's quadratic term (sequence length 9 to 17 tokens),
+which is the signature of both contributing, and the verdict stays `MET`
+because the margin (0.0329) clears the spread (0.0074) with the ceiling at
+31.5-39.4%. The cost axis is superlinear even at toy scale, which is
+exactly why the next axis test must watch it.
+
+## Who owns this loop
+
+- **The model team** owns the scaling claim: the cost growth is measured,
+  not derived, and the 4.3x is a data point between 8 and 16 frames, not a
+  curve.
+- **The infrastructure owner** owns the wall-clock read: the CPU-lane
+  times are recorded with their variance, so the cost finding stays
+  separate from system noise.
+- **The report owner** owns the headroom read: 39.4% of the ceiling max is
+  what lets stages 05-06 add scene complexity without a compute wall, and
+  the superlinear growth is flagged as the thing to watch when the scale
+  grows again.
+
 ## Evidence boundary
 
 The recorded stage-04 JSONs (three seeds, one recipe, CPU lane). It reads

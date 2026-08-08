@@ -41,6 +41,36 @@ the task is hard enough, exact-match has nowhere left to fall. The verdict
 still closes MET at 22-27% of the ceiling, and the model-to-oracle gap
 (0.0001 on one seed) says the tokenizer is what is missing.
 
+## The fix and its trade
+
+The failure is the open question neither single-axis stage could answer:
+if longer clips cost a little and two objects cost a lot, do the two
+compound? The fix is running the fourth corner — 16 frames and 2 objects —
+so all four cells of the grid exist. The trade is that the answer is two
+different stories: in pixel space the axes do not add (0.1375-0.1456 MSE
+sits inside the range the second object alone already cost, because frame
+count and object count both load the per-frame codec where pixel error
+accrues), while in token space they compound to the floor (exact-match
+0.000-0.007, with the seed spread collapsing because the all-or-nothing
+metric has nowhere left to fall). The near-zero oracle gap says the
+sequence model is not the limit — the tokenizer is — which is the same
+conclusion stages 04 and 05 reached separately, now measured where both
+difficulties are present at once.
+
+## Who owns this loop
+
+- **The model team** owns the fourth-corner run and its verdict: `MET` on
+  every seed at 22-27% of the ceiling, with the frame-count binding assert
+  holding all five module copies at 16.
+- **The codec owner** owns the named constraint: the model-to-oracle gap of
+  0.0001 on one seed means the LM is essentially as good as feeding the
+  true tokens, and the reconstruction error is the codec's, before the LM
+  even acts.
+- **The evaluation owner** owns the metric read: exact-match saturating at
+  the floor while MSE keeps reporting is the difference between an
+  all-or-nothing metric and a smooth one, made visible by running the task
+  past where one of them still works.
+
 ## Evidence boundary
 
 The recorded stage-06 JSONs (three seeds, one recipe, uncontended CPU

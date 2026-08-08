@@ -42,6 +42,32 @@ seed spread, and sits within 2.3% of the oracle (true-token) ceiling. The
 verdict is a finding, not a failure: the tokenizer is what is missing, and
 the mission says so instead of re-scaling the number into a fake win.
 
+## The fix and its trade
+
+The failure is that adding a second object breaks the per-frame token's
+capacity silently: one 64-entry token must carry both positions, and the
+limit shows as a ~74% reconstruction-error jump (0.0851 to 0.1483 mean
+MSE) with exact-match collapsing to 0.7-28.7% — the codec has to compromise
+on both objects, and any compromise changes which codebook entry is
+nearest. The fix is reading the axis 1-object versus 2-object with
+exact-match as the sharper signal, and the trade is that the two metrics
+disagree on purpose: MSE measures the compromise while exact-match measures
+the discretization failure, and reporting both is what lets the chapter
+call the result a capacity limit rather than a pass — even though the
+margin (0.0710 vs 0.0104 spread, 6.8x) still clears the bar.
+
+## Who owns this loop
+
+- **The codec owner** owns the capacity contract: the per-frame token's
+  joint encoding of both objects is the binding constraint along this
+  axis, the same pattern stage 04 found along the frame-count axis.
+- **The model team** owns the honest reporting: the pass is real and the
+  limit is real, and the mission keeps the verdict honest by stating both
+  instead of rescaling the number.
+- **The evaluation owner** owns the verdict's spine: the margin clears the
+  baseline 6.8x beyond seed noise and sits within 2.3% of the oracle, so
+  the `MET` read is not a seed-lucky number.
+
 ## Evidence boundary
 
 The committed stage-02 (1-object) and stage-05 (2-object) seed JSONs, three

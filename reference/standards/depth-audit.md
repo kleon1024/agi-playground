@@ -1950,6 +1950,20 @@ runs):
   contract per seed), evaluation (two-baseline comparison), and model
   team (inherits the vocabulary).
 
+**Structural re-check 2026-08-08 (twenty-ninth audit increment):** stages
+00 and 02-06 now carry the same `## The fix and its trade` and `## Who owns
+this loop` sections stage 01 carried, each before its evidence boundary,
+reusing each stage's own measured numbers (the 1-of-150 rejection against
+mission 05's 116 collisions and the near-35,600 effective space; the 37.2%
+baseline beat with the 6.7-22% exact-match caveat and the +0.0008
+wrong-token reconstruction gap; the margin 0.0430 vs spread 0.0078 verdict
+paired with 8.4-8.6% of the 1800s ceiling; the 4.3x cost for 2x frames and
+the 2.7-to-24.6-point exact-match spread; the 74% two-object MSE jump with
+exact-match collapsing to 0.67-28.67%; the 16x2 corner at 0.1375-0.1456
+MSE with exact-match 0.00-0.67% and the frame-count binding assert). With
+this, every chapter in the video path satisfies the audit contract at the
+parent and detour level.
+
 ### Bio-pharma modeling — 00-06
 
 **Status: done (fifteenth audit increment, 2026-08-08).**

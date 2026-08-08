@@ -43,6 +43,30 @@ verdict stays MET — margin 0.0329 vs 0.0074 spread — but the cost and
 quality reads together say the constraint is capacity (per-frame token
 representation), not compute.
 
+## The fix and its trade
+
+The failure is that one metric can say "nothing changed" while the task
+actually got harder — doubling frames leaves reconstruction MSE inside seed
+noise (0.0851 vs 0.0856 mean) while exact-match spreads from 2.7 to 24.6
+points and wall-clock grows ~4x. The fix is reading the axis across both
+metrics and the cost column, and the trade is that the honest price is
+three numbers instead of one: the 2x frame increase bought ~2x of nothing
+on the pixel metric while paying 4x in time and destroying token-level
+reliability. That read is what lets the chapter call the axis a real cost
+even though the headline MSE barely moved.
+
+## Who owns this loop
+
+- **The model team** owns the two-metric report: reconstruction and
+  exact-match are read together because each hides what the other reveals.
+- **The codec owner** owns the capacity read: the constraint is one
+  64-entry token per frame, not compute — there is wall-clock headroom
+  left (39.4% of the ceiling max), so adding compute would not fix the
+  exact-match collapse.
+- **The evaluation owner** owns the verdict: margin 0.0329 against spread
+  0.0074 keeps the stage `MET`, and the cost-and-quality pairing is what
+  keeps the read honest.
+
 ## Evidence boundary
 
 The committed stage-02 (8-frame) and stage-04 (16-frame) seed JSONs, three

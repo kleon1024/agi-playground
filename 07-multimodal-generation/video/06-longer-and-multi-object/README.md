@@ -124,6 +124,45 @@ that copies from it, patches stage 05's own copy as well, and then asserts all
 five agree — recorded in the run record as `frame_count_bindings`, all five
 reading 16.
 
+## The fix and its trade
+
+The failure is that five modules hold five independent copies of the frame
+count — `from generate_video_dataset import N_FRAMES` copies the *value* at
+import time rather than creating a live view of the exporting module's
+global, so setting the source to 16 after any of them has been imported
+changes nothing for that module. The failure mode is not a crash: `load_clips`
+reshapes a flat pixel array using its own copy of the frame count, so a
+disagreement would silently reinterpret 16-frame clips as 8-frame tensors
+and train on corrupted data that looks perfectly well-formed. The second
+failure is the question the grid answers: do the two hard axes add up, or
+does one dominate — longer clips cost a little, two objects cost a lot, and
+the combination was untested.
+
+The fix is the recorded binding discipline: the script patches the source
+before the first import that copies from it, patches stage 05's own copy as
+well, and then asserts all five agree — the run record lists
+`frame_count_bindings`, all five reading 16. The grid then fills the fourth
+corner (16 frames, 2 objects: MSE 0.1375-0.1456 against frame-repeat
+0.1998, exact-match 0.00-0.67%), and the oracle gap (0.0001 on one seed)
+names the tokenizer as the binding constraint. The trade is that the patch
+is a discipline, not an architecture fix — the duplicate constant will
+re-break unless the assert stays — and the MSE non-additivity is four
+measured points, not a scaling law.
+
+## Who owns this loop
+
+- **The code owner** owns the frame-count binding contract: the
+  patch-before-first-import sequence and the five-way assert are the
+  guardrail that turns a silent data-corruption failure into a recorded,
+  checked binding.
+- **The dataset owner** owns the geometry and occlusion claims: the 82.6%
+  of training clips with overlap and the 0.96% mean overlap are measured
+  properties, and the grid's corners share one generator.
+- **The evaluation owner** owns the grid read and the saturated metric:
+  exact-match's spread collapsed to 0.67 points because the metric hit its
+  floor — a metric pinned at zero cannot vary, so the tight spread is a
+  symptom of saturation, not evidence of reliability.
+
 ## What this stage does not establish
 
 Nothing about 3 or more objects, or about clips longer than 16 frames — the grid
