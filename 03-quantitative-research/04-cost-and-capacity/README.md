@@ -92,6 +92,55 @@ objective. Subtracting costs after selecting weights yields a different,
 worse portfolio because the optimizer never had the option to prefer a
 slightly weaker signal that is much cheaper to trade.
 
+## The fix and its trade
+
+The failure is that the paper return carries a liquidity bill that grows
+superlinearly with participation, and the two ceilings it creates are
+different numbers. On the declared 12% scenario, the discrete sweep peaks
+net dollar return at USD 25.16B and crosses total net-return breakeven at
+USD 125.78B, while the detour's full sweep puts the net-dollar peak at USD
+31.6B (about USD 1.46B a year net), turns negative at USD 100B, and shows
+the cliff where participation crosses 100% of daily volume. At a USD 10m
+book the cost stack is already measurable: 0.0398% participation per
+rebalance and 0.2780% annual cost, split into 0.0300% commission, 0.1200%
+spread, and 0.1280% impact — and impact, not commission or spread, is what
+creates the cliff, because it is superlinear in participation while the
+other two stay approximately linear.
+
+The fix is the pre-trade capacity screen and the capacity curve, with the
+impact coefficient fitted from the firm's own fills and expected costs
+placed inside a constrained optimization objective. The trade is measured
+ADV and volatility against declared spread, commission, and impact
+assumptions: the curve teaches the shape and the ownership boundary, while
+the absolute level waits for fills, quotes, order slices, and venue
+outcomes this repository does not have (Almgren, Thum, Hauptmann & Li,
+"Direct Estimation of Equity Market Impact," 2005; Tóth et al., "Anomalous
+Price Impact," 2011 — the square-root form is useful, its coefficient must
+be fitted from the firm's own fills). Subtracting costs after selecting
+weights yields a different, worse portfolio, because the optimizer never
+had the option to prefer a slightly weaker signal that is much cheaper to
+trade.
+
+## Who owns the loop
+
+- **Capacity and risk** own the screen and its assumptions: the
+  participation ceiling, the declared cost tiers, and the decision
+  boundary that can reject a research claim before anyone spends time on
+  execution engineering — the capacity result is a decision boundary, not
+  a recommendation.
+- **Execution** owns the fills that re-fit impact: timestamped fills,
+  order slices, and venue outcomes are the data that turn an assumed
+  coefficient into a measured one, and urgency, intraday volume shape,
+  correlated trading, borrow, and taxes are its missing inputs.
+- **Research** owns the paper return: the 12% scenario and the turnover
+  cadence the curve prices, and the admission that gross return is an
+  assumption rather than a brokerage bill.
+
+When the ownership is implicit, research reports a 12% paper return, risk
+screens it against someone else's impact assumptions, and execution
+discovers the coefficient was never theirs to fit — the symptom this stage
+opened with.
+
 ## What this curve does not prove
 
 Every impact coefficient, commission, spread tier, gross return, and cadence

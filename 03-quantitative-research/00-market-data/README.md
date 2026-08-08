@@ -193,6 +193,59 @@ amount of cleverness against a free API substitutes for it. Naming that
 limit here, rather than pretending two free endpoints solved it, is itself
 part of the discipline.
 
+## The fix and its trade
+
+The failure is that every join in a backtest quietly answers *which*
+restatement the market could see, and the naive answer is wrong in one
+direction. Measured across all 69 AAPL fiscal periods, a join keyed only on
+fiscal period mismatched the filed-at-the-time value on 4% of periods, with
+mean error 1.65% and a worst case of 3.83% of equity; Microsoft's FY2015
+assets were first filed at \$176.223B on 2015-07-31 and restated down by
+\$1.75B — about 1% — thirteen months later, so "what did the market know on
+2015-07-31" has two defensible answers and the naive join silently picks the
+wrong one. The same trust-the-field-name error hits prices: NVDA's declared
+10-for-1 split shows a day-over-day close ratio of 1.0075, not 0.1, so the
+vendor already applied the split and re-applying it would divide every
+pre-split price by ten a second time.
+
+The fix is availability-timestamp discipline enforced at the join: every
+fact carries a filed date alongside its value, the join is an as-of join
+(`pandas.merge_asof(..., direction="backward")` in the production lane)
+that returns the value filed at or before the decision date rather than the
+newest database value, and the split check compares a measured day-over-day
+ratio to a declared ratio before reconstructing anything. The trade is
+freshness for correctness: an as-of panel deliberately lags the newest
+restatement, because a value that was not knowable on the decision date is
+not a value the market could have traded on. Survivorship is the boundary
+the trade cannot buy with free data — only a licensed point-in-time vendor
+(CRSP, Compustat) supplies the historical universe including every name
+that stopped existing, and the discipline's cost is that the panel's answer
+is only ever as honest as the timestamps each source provides.
+
+## Who owns the loop
+
+- **The data owner** owns the availability timestamp: every price, filing,
+  and universe membership carries when it was knowable, and the
+  survivorship-free universe is a licensed point-in-time vendor's product,
+  not a free endpoint's. Elton, Gruber & Blake (Review of Financial
+  Studies, 1996) document survivorship bias in backtests at least that far
+  back, and the point-in-time database as a commercial category exists
+  because this class of error was common enough to be worth paying to
+  eliminate.
+- **The research platform** owns the join: filed-date joins with
+  `direction="backward"`, the split sanity check, and the guarantee that no
+  downstream table can silently substitute a later restatement for the
+  value knowable on a given date.
+- **The strategy team** owns what it inherits: every signal and backtest on
+  this panel inherits both the fix and the residual boundaries — free-data
+  survivorship limits and restatement frequency that varies by concept,
+  which a first-pass filter on a few XBRL tags makes visible.
+
+When the ownership is implicit, the data team ships "adjusted" prices
+without saying what they adjusted for, the platform joins on fiscal period,
+and the strategy inherits a look-ahead it never sees — the symptom this
+stage opened with.
+
 ## Exercises
 
 1. **Break the split check.** Point `check_split_already_applied` at an old

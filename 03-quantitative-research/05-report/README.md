@@ -115,6 +115,54 @@ a production reporting boundary: QuantStats, pyfolio/empyrical, or a
 hand-rolled metrics-store report are viable alternatives, but none may bypass
 the contract evaluator.
 
+## The fix and its trade
+
+The failure is that every earlier stage was allowed to fail safely, so the
+report is the one place the mission can quietly claim something it has not
+earned. The core report run against the current mission state returned
+CANNOT DETERMINE and named 18 missing inputs — fold-level candidate and
+baseline Sharpes, net and gross results, deflated Sharpe and its trial
+count, drawdown, capacity, point-in-time and survivorship checks, cost,
+latency, and regimes — and a verdict drawn from missing inputs is wrong,
+not cautious. Guardrails are vetoes, not bonus points: a strategy
+profitable only before costs, a name beyond 5% of trailing 20-day average
+dollar volume, drawdown beyond 1.5 times passive, a non-positive deflated
+Sharpe at the stated significance level, any point-in-time violation, or a
+survivor-only universe, and the verdict is NOT MET even when returns look
+impressive.
+
+The fix is the grouped refusal plus the integrated outcome artifact that
+turns it into MET or NOT MET: the report prints the quoted requirement,
+threshold, measured input, and pass/fail state, renders gross beside net
+so one cannot substitute for the other, and declares the 95% significance
+bar explicitly because the mission requires a stated level without naming
+one — hiding that choice inside formatting would recreate the post-hoc
+tuning the mission exists to prevent. The trade is momentum for honesty:
+CANNOT DETERMINE delivers no verdict and no decision, and that is its
+point — the refusal is a checklist that turns a blank report into the next
+concrete data task, where a plausible conclusion drawn from missing values
+would have been wrong.
+
+## Who owns the loop
+
+- **The report and release owner** owns the verdict contract: reading only
+  the `runs/` records, rendering verdicts against the declared acceptance
+  criteria, and refusing to paraphrase `mission.yaml` into a more flattering
+  score — a blank report is not conservative; a verdict drawn from it is
+  wrong.
+- **Each stage owner** owns its named inputs: every one of the 18 missing
+  items is produced by the stage whose decision it measures, recorded as a
+  run record the report can read without asking a human to transcribe it.
+- **The reader** owns the decision the itemization makes legible: the
+  verdict list separates discipline from outcome so a good headline number
+  cannot be read as approval, and the deflated-Sharpe input among the 18
+  carries the multiple-testing adjustment (Bailey & López de Prado, "The
+  Deflated Sharpe Ratio," 2014; Harvey & Liu, "Backtesting," 2015).
+
+When the ownership is implicit, every stage reports its best number,
+nobody owns the integrated artifact, and a headline Sharpe is read as
+approval — the failure the report's veto shape exists to prevent.
+
 ## What a passing report would still not promote
 
 The mission contract deliberately refuses to promote a new reusable capability

@@ -107,6 +107,53 @@ include SciPy's constrained solvers and commercial portfolio-optimization
 systems. They make a constraint solution auditable; they do not establish that
 the input signal works.
 
+## The fix and its trade
+
+The failure is that sizing is co-equal with the signal, and the constraint
+step re-breaks what it claims to enforce. The recorded run holds one
+momentum score fixed and changes only its translation into target weights:
+equal-weight decile and rank-proportional moved concentration from HHI
+0.6667 to 0.1776 and turnover from 0.638 to 0.348, while paper Sharpe
+spanned -0.68 to -1.20 across the four rules — two sizing rules applied to
+the same scores are two strategies. Applying a cap and then de-meaning
+inside each sector pushed positions back above the cap: 7 re-breaches for
+equal-weight decile, 47 for rank-proportional, 35 for signal-proportional,
+43 for volatility-scaled, and gross exposure fell from 2.00 to between
+0.16 and 1.32 because discarded notional is never redistributed. The
+cap-bites detour adds the policy's second failure: the cap binds only below
+0.25 on this universe, so a looser cap is an inert policy and a tighter one
+a hidden tax.
+
+The fix is a joint constrained optimizer — `prod/pandas_optimizer_rank.py`
+expresses cap, sector neutrality, and gross exposure in one pass, with
+SciPy's constrained solvers and commercial portfolio-optimization systems
+as alternatives — plus an availability timestamp on sector labels, so a
+reclassification obtained today cannot leak backward into a historical
+book. The trade is transparency and speed for constraint correctness: the
+sequential pipeline is readable line by line but silently breaks a
+constraint it claims to enforce, and the optimizer moves the audit point
+from a list of re-breach violations to a single declared contract. The
+optimizer makes the constraint solution auditable; it does not establish
+that the input signal works.
+
+## Who owns the loop
+
+- **Research** owns the sizing rule: the weighting belief — order, rank
+  step, or magnitude — is a hypothesis that belongs in the disclosed
+  strategy definition and, if varied, in the search log.
+- **Portfolio construction** owns the constraint pipeline: the optimizer,
+  the gross-exposure normalization, and the joint cap/neutrality contract
+  that replaces post-hoc clipping.
+- **Risk** owns the cap policy and its violation check: where the cap
+  binds on the current universe, what a re-breach costs, and whether the
+  policy is doing anything at all — nothing changes above 0.25, and a cap
+  that never binds is a policy that does nothing.
+
+When the ownership is implicit, research picks a rule, construction clips
+weights after the fact, and risk reports a cap that silently re-breaks —
+and nobody owns the strategy that the sizing decision actually created,
+the symptom this stage opened with.
+
 ## Evidence boundary and the next attack
 
 Every return here is a cost-free, capacity-free paper return. It is therefore

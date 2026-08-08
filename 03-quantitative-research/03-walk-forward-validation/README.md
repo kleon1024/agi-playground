@@ -100,6 +100,58 @@ a real implementation adds those operations and uses `scipy.stats` for the
 distributional correction. The script is not investment advice and it has not
 selected a strategy.
 
+## The fix and its trade
+
+The failure is that the evaluation boundary leaks in three distinct ways.
+Shuffling examples puts future observations straight into training, and
+chronological splitting hides a quieter second leak: a label at date *t*
+means the return from *t* through *t + 5*, so a training row immediately
+before a test block still consumes prices inside that block, and serial
+correlation makes a neighboring row a near-duplicate rather than an
+independent future test. Selection survives even a perfectly purged test:
+the winner of N noisy estimates is mechanically inflated. The recorded
+paths make the guardrail visible without arranging a prettier sequence —
+shuffled-invalid out-of-fold Sharpe 0.7393, chronological unpurged 0.9722,
+purged-and-gapped 0.9722 — and the fold-fit detour shows why reporting
+the in-fold number as the strategy is wrong: in-fold Sharpe 0.47-1.40
+against out-of-fold -1.06-3.74 across label widths, with boundary rows
+systematically different from the rest of the fold. With 14 disclosed
+trials, this run's protected statistic deflates to 0.3145.
+
+The fix is purge and embargo with an explicit eligibility boundary owned by
+the fold generator: it receives a test interval and constructs the blocked
+region, rather than hoping a generic splitter knows the label definition.
+The trade is usable rows for leak-freedom — more protection reduces the
+available data and can lower the apparent statistic, and that is not a
+reason to choose a smaller window, because the protected number is the one
+whose claim has a defensible boundary. The eligibility configuration is
+versioned with the experiment so a reviewer can reconstruct why every
+training row was eligible without trusting memory (López de Prado,
+*Advances in Financial Machine Learning*, Wiley, 2018, for the
+purge-and-embargo construction; Bailey & López de Prado, "The Deflated
+Sharpe Ratio," 2014, and Harvey & Liu, "Backtesting," 2015, for the
+selection adjustment).
+
+## Who owns the loop
+
+- **The backtest platform** owns the eligibility boundary: the fold
+  generator, the purge and embargo construction, and the versioned fold
+  configuration — `sklearn`'s `TimeSeriesSplit` supplies chronology but not
+  purge, so the platform, not the library, owns the protection.
+- **Research** owns the label definition and the information lag: changing
+  the forward horizon changes the purge the platform must apply, and
+  changing a feature's lag can change the embargo, so the label contract is
+  an input to the boundary, not a property of it.
+- **Statistics and evaluation** own the deflated out-of-fold read: the
+  trial count from stage 01's search log and the multiple-testing
+  adjustment, so the winner's meaning is corrected for the search that
+  produced it.
+
+When the ownership is implicit, the platform offers chronology without
+purge, research assumes the splitter knows its label, and evaluation
+deflates a winner whose search denominator nobody recorded — the symptom
+this stage opened with.
+
 ## What this still cannot establish
 
 Passing this stage would rule out one class of self-deception, not establish a

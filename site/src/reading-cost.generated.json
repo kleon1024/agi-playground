@@ -1425,7 +1425,7 @@
   },
   "03-quantitative-research/00-market-data": {
     "level": "foundation",
-    "minutes": 8
+    "minutes": 10
   },
   "03-quantitative-research/00-market-data/asof-vs-naive": {
     "level": "applied",
@@ -1437,7 +1437,7 @@
   },
   "03-quantitative-research/01-signal-research": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "03-quantitative-research/01-signal-research/the-search-log-read": {
     "level": "applied",
@@ -1449,7 +1449,7 @@
   },
   "03-quantitative-research/02-cross-sectional-rank": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 7
   },
   "03-quantitative-research/02-cross-sectional-rank/the-rank-that-becomes-a-position": {
     "level": "applied",
@@ -1461,7 +1461,7 @@
   },
   "03-quantitative-research/03-walk-forward-validation": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 7
   },
   "03-quantitative-research/03-walk-forward-validation/when-purge-matters": {
     "level": "applied",
@@ -1473,7 +1473,7 @@
   },
   "03-quantitative-research/04-cost-and-capacity": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 7
   },
   "03-quantitative-research/04-cost-and-capacity/the-capacity-ceiling": {
     "level": "applied",
@@ -1485,7 +1485,7 @@
   },
   "03-quantitative-research/05-report": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 7
   },
   "03-quantitative-research/05-report/the-three-way-verdict": {
     "level": "applied",

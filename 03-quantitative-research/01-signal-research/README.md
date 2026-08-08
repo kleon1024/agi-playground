@@ -117,6 +117,50 @@ measures the same null at 256, 1,024, and 4,096 candidates — what searching a
 thousand ideas does to the winner's meaning, and why the search denominator
 has to know whether candidates were independent or correlated.
 
+## The fix and its trade
+
+The failure is the search that inflates its own winner. The recorded run
+produced 32 coded variants whose best in-sample Spearman IC was 0.0947; on
+300 within-date permutations of the forward returns, the best of the same
+32-grid null averaged 0.0818, and 95 of the 300 null searches matched or
+exceeded the observed winner (p = 0.317). Widen the search and the problem
+scales: at 1,024 candidates, pure noise beats the recorded 0.0947 in all
+200 replicates. A result without its search denominator is not
+interpretable — one candidate that scores well and the best of thirty-two
+that score well are different claims.
+
+The fix is a recording requirement, not a permissible number: the
+machine-readable search log (`runs/search_log.jsonl`) written by the same
+code that computes each real-data statistic, plus the best-of-N null curve
+that stage 03's deflated read will consume. The trade is power for
+false-positive control — recording every variant costs nothing at search
+time but caps the winner's meaning, and the null comparison is only a
+diagnostic: the effective-trial denominator stays unobservable, because
+counting every correlated grid point as independent over-corrects while
+counting a whole family as one under-corrects, and the log cannot see
+ideas discarded before code existed. That the log is an artifact, not a
+memory, is what makes the later multiple-testing adjustment auditable.
+
+## Who owns the loop
+
+- **Research** owns the log: every executed variant, its parameters, and
+  its in-sample statistic, appended by the harness path that calculates the
+  value — a story about why momentum or value might exist can help decide
+  what to test first, but it is not evidence, because a story can be
+  attached to a winner after the fact.
+- **Statistics and evaluation** own the null and the deflation: the
+  best-of-N permutation curve and the trial count that the later evaluator
+  uses, with the multiple-testing problem made explicit (Bailey & López de
+  Prado, "The Deflated Sharpe Ratio," 2014; Harvey & Liu, "Backtesting,"
+  2015).
+- **Stage 03 (walk-forward evaluation)** owns the consumption: the deflated
+  read with the log's trial count as its denominator, so the search that
+  produced the candidate is adjusted for rather than ignored.
+
+When the ownership is implicit, the researcher reports the winner, the
+evaluator deflates with a guessed trial count, and the search that made the
+winner legible is never on the record — the symptom this stage opened with.
+
 ## Evidence boundary and next question
 
 This stage establishes no working signal, no expected return, and no live

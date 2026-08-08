@@ -2160,6 +2160,19 @@ its own measured numbers (no new runs), and cites dated sources:
   "The Deflated Sharpe Ratio," 2014, and Harvey & Liu, "Backtesting,"
   2015.
 
+**Structural re-check 2026-08-08 (twenty-eighth audit increment):** the
+six parents (stages 00-05) now carry the same `## The fix and its trade`
+and `## Who owns the loop` sections the detours carried, each before its
+evidence boundary, reusing the stage's own measured numbers (the 4% naive
+join mismatch and the MSFT \$1.75B restatement; the 95-of-300 matching null
+searches and the all-200-replicate noise beat at 1,024 candidates; the
+7-to-47 cap re-breaches and the -0.68-to-1.20 paper Sharpe range; the
+0.7393/0.9722/0.9722 paths and the 14-trial deflation to 0.3145; the USD
+25bn liquidity peak against the USD 125bn cost breakeven and the USD 31.6B
+net-dollar peak; the 18 named missing inputs behind CANNOT DETERMINE).
+With this, every chapter in the quant range satisfies the audit contract
+at the parent and detour level.
+
 ### Agentic platform — 00-06
 
 **Status: done (twelfth audit increment, 2026-08-08).**
