@@ -917,7 +917,7 @@
   },
   "02-personalized-discovery/search/19-query-expansion/when-the-correction-helps": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "02-personalized-discovery/search/19-query-expansion/when-the-typo-is-a-real-word": {
     "level": "applied",
