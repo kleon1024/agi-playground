@@ -277,87 +277,87 @@
   },
   "01-language-model/vision/00-image-caption-task": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "01-language-model/vision/00-image-caption-task/seed-vs-pixels": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "01-language-model/vision/00-image-caption-task/the-collision-that-closed-the-gap": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "01-language-model/vision/01-vision-fusion": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 11
   },
   "01-language-model/vision/01-vision-fusion/the-fused-attention-anatomy": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "01-language-model/vision/01-vision-fusion/where-the-decoder-looks": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "01-language-model/vision/02-report": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 7
   },
   "01-language-model/vision/02-report/the-economics-per-question": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "01-language-model/vision/02-report/when-the-category-breaks-down": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "01-language-model/vision/03-real-photo-task": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "01-language-model/vision/03-real-photo-task/the-id-based-guardrail": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "01-language-model/vision/03-real-photo-task/the-real-photo-guardrail": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "01-language-model/vision/04-real-photo-vision-fusion": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "01-language-model/vision/04-real-photo-vision-fusion/the-flipped-variance": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "01-language-model/vision/04-real-photo-vision-fusion/when-the-margin-is-narrow": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "01-language-model/vision/05-real-photo-report": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "01-language-model/vision/05-real-photo-report/the-answer-type-shaped-edge": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "01-language-model/vision/05-real-photo-report/when-the-api-still-wins": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "01-language-model/vision/06-warmup-stability": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 6
   },
   "01-language-model/vision/06-warmup-stability/the-collapse-that-warmup-closed": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "01-language-model/vision/06-warmup-stability/when-warmup-closed-the-collapse": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "02-personalized-discovery": {
     "level": "applied",
