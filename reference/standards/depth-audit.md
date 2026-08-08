@@ -1124,6 +1124,77 @@ honest verdict when the data is the problem:
   record), eval (per-endpoint caveat), and report (the "wider is not
   better" headline, scoped to the representation family).
 
+### Autonomous driving — 00-06
+
+**Status: done (sixteenth audit increment, 2026-08-08).**
+
+Every stage 00-06 now carries the fix-and-trade and who-owns-the-loop
+sections the audit contract requires, reusing the mission's measured
+numbers (no new runs, no new model calls). The named queue rows are the
+three failure modes the mission exists to measure — perception failure,
+distribution shift, and closed-loop evaluation:
+
+- 00 scenario simulator: the episode contract plus disjoint-seed
+  generation (train seeds 0-99, eval 100-149, checked programmatically),
+  so a policy that memorizes tracks is caught by the eval split; the trade
+  is that the determinism that makes everything scoreable is bought with a
+  declared omission (obstacle speed `vx` is schematized but static — the
+  collision check and render use fixed positions); the 0.002s generation
+  and the 0.8 obstacle-pixel figure are the numbers every later stage
+  reads; ownership split across simulator (episode contract and seed
+  ranges), eval (inherits the split), and render (the sparsity stage 01
+  exploits).
+- 01 perception baseline: the information-leak measurement with a hand
+  estimator as the honest baseline — learned lateral offset is 8x better
+  (0.072m vs 0.588m) and obstacle distance 14x worse (6.526m vs 0.469m)
+  because the render carries 0.8 obstacle pixels per frame; the trade is
+  an open-loop MAE that can disagree with closed-loop driving, and the
+  fix buys correct attribution — a policy blamed for failing avoidance
+  would be blamed for a boundary the render set; ownership split across
+  perception (the estimators and the MAE protocol), render (sparsity), and
+  downstream policy (inherits the boundary: densify the render or use
+  state).
+- 02 expert policy: the ceiling-and-floor pair from the same controller
+  (expert 0.92/0.08 vs lane-only floor 0.28/0.72), isolating the 0.64 gap
+  imitation must earn; the trade is that the expert sees true state, so it
+  does not demonstrate avoidance is learnable from the render, and its
+  four sandwich failures are the honest upper bound; ownership split
+  across expert (controller mechanisms and the stated sandwich mode), eval
+  (identical-scenario protocol), and mission (the minus-avoidance floor
+  contract).
+- 03 behavior cloning: the majority-action baseline (steer 0.883 vs 0.740)
+  plus open-loop-first ordering, with the joint figure 0.772 exposed as
+  hiding the dodge-frame minority; the trade is an open-loop metric that
+  rewards reproducing the dominant action, which is why the artifact
+  trained here is the exact one evaluated in the loop next; ownership
+  split across clone (demos and architecture), eval (majority baseline and
+  held-out frames), and report (the same-weights handoff to stage 04).
+- 04 closed-loop eval: in-loop evaluation on identical scenarios with
+  floor and ceiling beside the learner, imitation accuracy reported beside
+  completion on purpose — 0.77 joint accuracy collapses to 0.28
+  completion, statistically indistinguishable from the floor (0.28, 0.72,
+  mean x 35.2), and the declared verdict is NOT MET, reported rather than
+  tuned away; ownership split across eval (identical-scenario harness),
+  model (the same weights, no retraining), and mission (the acceptance
+  criterion and the declared next rung: weighted/labeled losses, then
+  DAgger-style on-policy querying, neither run here).
+- 05 harder scenarios: the hard split declared before the run and never
+  tuned against (curvature 0.3-0.7 to 0.9-1.4m, wavelength 14-22 to 9-13m,
+  obstacles 2-4 to 4-6, seeds 200-249); the boundary breaks on both sides —
+  expert 0.92 to 0.78, clone to 0.04 with a 0.72 timeout — and the speed
+  dimension is declared but not integrated, so the shift is a boundary of
+  this generator, not of real road geometry; ownership split across
+  scenario (frozen hard settings), eval (identical tracks), and report
+  (boundary-as-finding either way).
+- 06 report: a report that reads only the runs/ JSON files and renders
+  verdicts against the declared acceptance criteria — the five-row table
+  (0.28/0.92/0.28/0.78/0.04) beside the four-MET/one-NOT-MET verdict list,
+  with the imitation-vs-loop gap (0.77 vs 0.28) and does_not_prove stated
+  beside the numbers; the trade is that itemization separates discipline
+  from outcome, so the NOT MET headline stands plainly; ownership split
+  across report (reading-only verdict contract), stage owners (runs/
+  records), and mission (does_not_prove and the acceptance criteria).
+
 ### Quantitative research — 00-05
 
 **Status: done (eleventh audit increment, 2026-08-08).**

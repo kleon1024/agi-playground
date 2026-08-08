@@ -53,6 +53,31 @@ measured result, reported rather than tuned away; the declared next rung is
 weighted/labeled losses that rebalance the dodge frames, then DAgger-style
 on-policy querying, neither of which this topic runs.
 
+## The fix and its trade
+
+The fix is the in-loop evaluation itself: the stage-03 policy runs on the
+same 50 eval scenarios as the floor and the ceiling, and its imitation
+accuracy is reported beside its completion rate on purpose. The trade is
+the headline it produces: 0.77 joint imitation accuracy collapses to 0.28
+in-loop completion — statistically indistinguishable from the no-learning
+floor, whose numbers it exactly matches (0.28, 0.72, mean x 35.2). The
+verdict against the declared acceptance criterion is NOT MET, reported
+rather than tuned away. The fix buys the topic's central finding —
+compounding error and action imbalance compressed into one number — at the
+cost of a negative headline that the declared contract requires.
+
+## Who owns this loop
+
+- **The eval owner** owns the identical-scenario harness and the
+  three-outcome classification; the floor, ceiling, and learner run the
+  same episodes, so the comparison isolates the policy, not the track.
+- **The model owner** owns the stage-03 artifact: the same weights are
+  evaluated in the loop with no retraining, which is what makes the
+  0.77-to-0.28 gap a property of the method, not of a fresh model.
+- **The mission owner** owns the acceptance criterion and the declared
+  next rung (weighted/labeled losses, then DAgger-style on-policy
+  querying) — named here, run in a later topic if at all.
+
 ## Evidence boundary
 
 This failure is specific to this simulator's render sparsity (stage 01)

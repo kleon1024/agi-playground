@@ -46,6 +46,32 @@ was zero in-distribution, is the signature of the compounding failure
 amplified: on sharper curves the clone stalls against the first in-lane
 obstacle instead of committing to a dodge.
 
+## The fix and its trade
+
+The fix is the hard split declared before the run and never tuned against:
+curvature raised from 0.3-0.7 to 0.9-1.4m, wavelength cut from 14-22 to
+9-13m, obstacle count raised from 2-4 to 4-6, on seeds 200-249 — the same
+discipline a production eval holds itself to with held-out corridors and
+new geographies. The trade is that the boundary breaks on both sides of
+the table: the expert loses ground (0.92 to 0.78) because its reactive
+planner cannot thread denser obstacle fields, and the clone collapses
+(0.04 completion, 0.72 timeout, mean progress 12m). The shift is also
+deliberately incomplete — obstacle speed is declared but not integrated,
+since the collision check and render use static positions — so the boundary
+measured here is a boundary of this generator, not of any real road
+geometry.
+
+## Who owns this loop
+
+- **The scenario owner** owns the hard generator settings and seed range,
+  frozen before the eval runs so the finding cannot be tuned away.
+- **The eval owner** owns the identical-track protocol: expert and clone
+  face the same 50 hard scenarios, so the collapse is comparative, not
+  scenario-specific.
+- **The report owner** owns the boundary-as-finding contract: the shift
+  breaks on both sides and is reported as a result either way, never
+  adjusted until the in-distribution claim is settled.
+
 ## Evidence boundary
 
 The hard split shifts curvature, obstacle density, and declared obstacle

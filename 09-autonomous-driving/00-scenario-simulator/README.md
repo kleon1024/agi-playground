@@ -60,6 +60,32 @@ perception stage exploits: obstacles occupy under one pixel per frame on
 average, which is why distance-to-obstacle is so hard to recover from the
 render alone.
 
+## The fix and its trade
+
+The fix is the episode contract plus disjoint-seed generation: every
+episode ends in exactly one of three outcomes, and the train (seeds 0-99)
+and eval (seeds 100-149) ranges are disjoint by construction and checked
+programmatically, so a policy that memorizes tracks is caught by the eval
+split. The trade is that the determinism that makes everything scoreable —
+two policies cannot disagree about what happened — is bought with a
+declared omission: the obstacle schema carries a forward speed `vx`, but
+the collision check and render use static positions, so moving obstacles
+are a stated next rung, not a silent property. The 0.002s generation and
+the 0.8 obstacle-pixel figure are the two numbers every later stage reads:
+the first keeps the whole topic runnable on CPU, the second is the clue
+that perception will have to confront.
+
+## Who owns this loop
+
+- **The simulator owner** owns the three-outcome episode contract and the
+  disjoint seed ranges; no later completion rate exists without this
+  definition.
+- **The eval owner** inherits the split: every closed-loop number in
+  stages 02-06 traces to the eval scenarios declared here, before any
+  policy was tuned.
+- **The render owner** owns the obstacle-pixel sparsity (0.8 of 1024 per
+  frame) that stage 01 exploits and stage 04 pays for.
+
 ## Evidence boundary
 
 This simulator is not a claim about driving. It is a scoreable environment

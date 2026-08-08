@@ -52,6 +52,30 @@ of held-out frames and then drove exactly like a controller with no
 avoidance logic — imitation accuracy did not transfer to the loop, and the
 gap widened to total collapse on out-of-distribution scenarios.
 
+## The fix and its trade
+
+The fix is a report that reads only the runs/ JSON files and renders
+verdicts against the declared acceptance criteria — the five-row completion
+table (floor 0.28, expert 0.92, clone 0.28 in-distribution; expert 0.78,
+clone 0.04 hard) beside the four-MET/one-NOT-MET verdict list. The trade is
+the itemized structure: it separates the discipline from the outcome, so
+the NOT MET headline (clone 0.28 vs floor 0.28) stands plainly while the
+imitation-vs-loop gap (0.77 accuracy vs 0.28 completion) and the stated
+does_not_prove boundary read as evidence of a well-run mission, not as
+consolation. The fix buys one interpretation of seven stages — the
+artifact a learner can defend in an interview, where every figure traces
+to a run — at the cost of a negative headline the acceptance criteria
+demand be stated rather than hidden.
+
+## Who owns this loop
+
+- **The report owner** owns the reading-only verdict contract: the report
+  never computes a new number, it tabulates what runs/ already recorded.
+- **The stage owners** own the runs/ records each verdict reads; a verdict
+  without a traceable run is a defect in the stage, not the report.
+- **The mission owner** owns the does_not_prove boundary written next to
+  the numbers and the acceptance criteria the verdicts are judged against.
+
 ## Evidence boundary
 
 This topic does not make any claim about driving on real roads, real

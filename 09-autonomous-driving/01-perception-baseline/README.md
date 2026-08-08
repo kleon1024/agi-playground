@@ -55,6 +55,33 @@ must either densify the render or rely on the state the render was built
 from. This is a real, measured boundary, reported here before any policy is
 blamed for it.
 
+## The fix and its trade
+
+The fix is measuring the information leak before any control runs: a hand
+estimator as the honest baseline, a learned MLP as the challenger, both
+judged by MAE against the simulator's true state — not against each other
+and not against a loss a mean-predicting model can minimize. The trade is
+that the metric is open-loop and the finding is asymmetric: the learned
+estimator reads lateral offset 8x better than the hand baseline (0.072m
+vs 0.588m), and obstacle distance 14x worse (6.526m vs 0.469m), because
+the render's 0.8 obstacle pixels per frame carry almost no signal. The fix
+buys correct attribution — a policy later blamed for failing avoidance
+would be blamed for a boundary the render set — at the cost of an open-loop
+number that can still disagree with closed-loop driving, which is exactly
+what stages 03-04 exist to check.
+
+## Who owns this loop
+
+- **The perception owner** owns the two estimators and the MAE protocol;
+  the learned estimator's obstacle-distance failure is reported here as a
+  finding, not hidden until a policy crashes.
+- **The render owner** owns the 0.8-pixel sparsity that drives the
+  obstacle failure; densifying the render or leaning on simulator state
+  are the two declared paths downstream can take.
+- **The downstream policy owner** inherits the boundary: any controller
+  that steers from this render must either densify it or use the state it
+  was built from.
+
 ## Evidence boundary
 
 MAE is an open-loop perception metric: it says nothing about whether a

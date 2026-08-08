@@ -55,6 +55,33 @@ exactly where dodging would have been required. That imbalance is stage 04's
 problem: open-loop accuracy rewards reproducing dominant actions, and the
 in-loop test is where that strategy stops paying.
 
+## The fix and its trade
+
+The fix is the majority-action baseline plus the open-loop-first ordering:
+a 0.740 steer majority baseline means the cloned policy's 0.883 steer
+accuracy is real lane learning, and measuring imitation before the loop
+establishes the floor the loop will be compared against — while stating
+explicitly that this is the starting metric, not the stopping one. The
+trade is that the joint figure (0.772) hides the failure structure: dodge
+frames are a small minority of the 8,366 demo frames, and the steer head
+returns 0 wherever it is uncertain, which is exactly where dodging would
+have been required. The fix buys an honest "the policy knows something"
+at the cost of an open-loop number that actively rewards reproducing the
+dominant action — which is why the artifact trained here must be the exact
+one evaluated in the loop next.
+
+## Who owns this loop
+
+- **The clone owner** owns demo collection (8,366 frames) and the
+  140k-parameter two-head MLP; the action distribution is a property of
+  the demos, not an accident of training.
+- **The eval owner** owns the majority baseline and the held-out frame
+  protocol (7,432 frames), so an imbalanced distribution cannot be
+  mistaken for learning.
+- **The report owner** owns the handoff: the policy artifact trained here
+  is the exact one stage 04 evaluates in the loop, so the accuracy figure
+  and the completion figure describe the same weights.
+
 ## Evidence boundary
 
 This is open-loop imitation on expert states. It deliberately does not

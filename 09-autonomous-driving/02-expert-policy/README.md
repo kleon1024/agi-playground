@@ -55,6 +55,31 @@ to the sandwich configuration above. The 0.64 completion gap between floor
 and expert is the room imitation learning must recover; the expert's own
 0.08 collision rate is the honest boundary the learner cannot exceed.
 
+## The fix and its trade
+
+The fix is the ceiling-and-floor pair built from the same controller:
+the expert (0.92 completion, 0.08 collision) is the ceiling imitation can
+recover, and the lane-only version with the avoidance logic removed (0.28,
+0.72) is the no-learning floor — the 0.64 gap is the room behavior cloning
+must earn, isolated to exactly one variable. The trade is that the expert
+sees true state, so it does not demonstrate that avoidance is learnable
+from the render — stage 01 already showed the render barely carries
+obstacle distance — and its own four sandwich failures (no lateral offset
+safe when the dodge lane opens) are the honest upper bound the learner
+cannot exceed. The fix buys an attribution target for stage 04's verdict
+at the cost of a ceiling that is not a deployment candidate.
+
+## Who owns this loop
+
+- **The expert owner** owns the controller mechanisms (threat trigger,
+  dodge selection, hold-until-passed, speed governor) and the sandwich
+  failure as a stated mode, not a hidden bug.
+- **The eval owner** owns the closed-loop protocol: the expert and floor
+  run on the same 50 eval scenarios the learner will be judged on.
+- **The mission owner** owns the floor/ceiling contract — the floor is the
+  expert's controller minus avoidance, so stage 04's comparison isolates
+  exactly what avoidance contributes.
+
 ## Evidence boundary
 
 The expert sees true state, so it does not demonstrate that obstacle
