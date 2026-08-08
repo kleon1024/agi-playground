@@ -81,6 +81,61 @@ implement, and both are standard in production engines:
 Neither is possible under contiguous reservation, because there is no unit of
 cache small enough to share. The block is what makes sharing expressible.
 
+## The fix and its trade
+
+The failure mode is reservation itself: a request's cache is sized before
+its generation length is known, and production serving systems reported
+60-80% of KV cache memory wasted this way before PagedAttention. The waste
+is two kinds, and they respond to different fixes: internal fragmentation,
+where a sequence that finishes after 20 tokens but was sized for 1,024
+leaves 1,004 slots reserved and unusable while it lives, and external
+fragmentation, where two differently-sized reservations cannot lend each
+other unused space even when free memory sits between them. You find the
+case with a per-sequence allocation view, not a throughput number: the
+cache — 12 KiB per token here — decides how many requests a card can hold,
+so utilization is the metric, and this chapter is a memory-utilization
+argument with the mechanism measured, not a speedup claim.
+
+The fix is the page table operating systems found decades ago for the same
+problem: allocate fixed-size blocks — 16 tokens here, vLLM's original
+default — from a shared free list on demand, track them with a per-sequence
+block table mapping logical position to physical block, and return blocks
+the instant a sequence finishes. The trade is internal fragmentation
+against indirection overhead: the same 20-token sequence wastes 12 slots at
+16-token blocks (37.5% of its own allocation, versus 1,004 under
+reservation), 44 slots at 64-token blocks, and none at 4-token blocks — at
+the cost of a block table four times longer and four times as many lookups
+per attention step — while external fragmentation disappears entirely
+because every fixed-size block is interchangeable. The block also makes two
+production capabilities expressible that reservation structurally forbids:
+copy-on-write, where eight sampled completions from one prompt cost one
+copy of the prompt's cache, and prefix caching, where hashed blocks skip
+recomputing a repeated system prompt. The measured boundary is explicit:
+`PagedKVCache.read` gathers blocks into a contiguous tensor for readability
+and trades real performance for a shorter body of code, so no throughput
+number here transfers to a fused engine; the mechanism and its 60-80%
+before-state are attributed and dated — Kwon et al., "Efficient Memory
+Management for Large Language Model Serving with PagedAttention," SOSP
+2023.
+
+## Who owns the loop
+
+- **The serving-infrastructure team** owns the allocator and the block
+  table: the block-size choice that trades internal fragmentation against
+  indirection cost, and the free-list lifecycle that returns a finished
+  sequence's blocks to any waiting request immediately.
+- **The capacity team** owns the KV budget and admission: utilization is
+  the number that decides how many requests a card holds, and the 60-80%
+  waste figure is the before-state the paged allocator exists to remove.
+- **The kernel team** owns the fused path: a production engine fuses the
+  block gather into the attention computation itself, and the unfused
+  gather here is the stated reason no throughput number on this page
+  transfers.
+- **The observability team** owns the sharing gains that depend on the
+  traffic mix: prefix-cache hits and copy-on-write savings are
+  proportional to how much of the workload shares a preamble, which is a
+  measured property of the request mix, not of the allocator.
+
 ## What this chapter does not establish
 
 `PagedKVCache.read` gathers a sequence's blocks into a contiguous tensor for

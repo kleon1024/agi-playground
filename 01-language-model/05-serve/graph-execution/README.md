@@ -182,6 +182,58 @@ own output cannot tell you that.
 Commands, hardware, and every number above:
 [`runs/2026-07-29-graph-decode.md`](runs/2026-07-29-graph-decode.md).
 
+## The fix and its trade
+
+The failure mode is a step whose host cannot feed the device: the GPU spent
+part of every step idle, waiting for a host that could not issue work
+quickly enough. The symptom on this engine was 120 tokens per second at
+batch 1 that would not move whatever the algorithm did, and the profile
+identified it — 513 kernel launches per step, 7.36us each, 41.5% of host
+time, against 1.324ms of device time per step, a 6.87x ratio that means
+the card was busy 15% of the time. You find the case with a profile, not a
+benchmark: `Self CPU time total` against `Self CUDA time total` separates
+launch-bound from compute-bound and memory-bound in one read, and it also
+explains the serving chapter's puzzle — the naive engine *sped up* on
+longer sequences (104.7 to 132.8 tokens per second) because each launch
+covered the whole sequence and bought more arithmetic per launch.
+
+The fix is CUDA-graph capture: record the 513 launches once and replay them
+with a single call, which requires three real constraints — a device-side
+argmax, a device-side position written with `index_copy_`, and a fixed
+attention shape that masks over the entire preallocated cache. The trade is
+arithmetic for launches, paid in full: device time rose 2.12x (1.324 to
+2.807 ms per step) and wall-clock still fell 3x, measured at 2.92x, 3.05x
+and 3.06x across re-runs, with replay 15x more stable (1.9% versus 17%
+spread) because the host's scheduling jitter left the inner loop.
+`torch.compile` captures most of the win blind (2.47x from kernel fusion
+alone) but refuses graphs over buffers it cannot prove safe to mutate — the
+remaining gap is available only to code that can promise capture safety by
+construction. None of this transfers: batch 1, 88M parameters, and a
+1024-entry cache are the launch-bound corner of the space, and production
+engines bucket batch sizes and capture several graphs. Primary references,
+dated: NVIDIA, "CUDA Graphs" (2019); PyTorch, `torch.cuda.CUDAGraph` and
+`torch.compile` documentation.
+
+## Who owns the loop
+
+- **The serving-performance team** owns the profile and the capture
+  decision: launch-bound versus compute-bound is the verdict that decides
+  whether graphs, batching, or kernel work is the next move, and the
+  balanced 1.05x step is the handoff to the kernels themselves.
+- **The inference-engine team** owns the graph and its guardrail: the
+  identity check that refuses to print a speedup until the graphed decoder
+  reproduces the eager decoder's tokens exactly — a benchmark that never
+  reads its own output cannot see the fast-and-wrong failure this chapter's
+  first working version hit.
+- **The evaluation team** owns the statistic: medians over whole
+  generations hide the spread (17% eager versus 1.9% replay) that matters
+  more for tail latency than the median ever does, and the drift across
+  re-runs is why 3.06x is reported as "about 3x".
+- **The model team** inherits the profile as a scoped property: at this
+  batch size, cache, and parameter count the step is launch-bound, and a
+  serving-sized model's larger GEMMs hide the launches — the multiplier
+  transfers only after it is re-measured.
+
 ## What this does not establish
 
 - **That 3x transfers.** Batch 1, 88M parameters, a 1024-entry cache — the

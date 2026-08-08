@@ -185,27 +185,27 @@
   },
   "01-language-model/05-serve/graph-execution": {
     "level": "applied",
-    "minutes": 11
+    "minutes": 13
   },
   "01-language-model/05-serve/observability": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 7
   },
   "01-language-model/05-serve/observability/when-the-tail-waits": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "01-language-model/05-serve/paging-the-cache": {
     "level": "foundation",
-    "minutes": 6
+    "minutes": 9
   },
   "01-language-model/05-serve/quantization": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 11
   },
   "01-language-model/05-serve/speculative-decoding": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 11
   },
   "01-language-model/05-serve/when-the-cascade-loses": {
     "level": "applied",

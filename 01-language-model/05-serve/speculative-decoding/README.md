@@ -113,6 +113,58 @@ that round nets, cost more than the occasional accepted token saves. This is exa
 crossover sits between 15.9% and 37.9% acceptance on this model and hardware, not at some universal
 threshold.
 
+## The fix and its trade
+
+The failure mode is a draft that costs more than it saves: the target pays
+a full verification pass over every proposal regardless of how many survive
+it, so draft quality, not draft size, decides whether speculation is a win.
+The symptom is the measured crossover on one architecture — 1.58x at 37.9%
+acceptance (1.51 accepted tokens per round) and 0.94x at 15.9% (0.63 per
+round) — and you find the case by measuring acceptance per request slice,
+never assuming it: domain, temperature, and prompt style all change how
+often the draft is right, so a single number averaged over a mixed workload
+can hide a slice where speculation is a straight loss. An acceptance rate
+below 1 means the common case is a first-token rejection, and every one of
+those rounds still paid for k draft forward passes plus one wider target
+verification pass for a net gain of roughly one token.
+
+The fix is the one-pass verification contract: propose k tokens, run the
+candidate sequence through the target once — a transformer forward pass
+computes a prediction at every position, so one pass already contains the
+target's own argmax at all k proposed positions — and accept up to the
+first mismatch. Correctness is by construction: an accepted proposal equals
+the token the target's own greedy forward pass would have produced there
+anyway, the deterministic special case of rejection sampling, and the run
+asserts it (byte-identical output for both drafts over 200 tokens) rather
+than trusting the argument. The trade is that the draft and verification
+cost is paid every round, so a fast draft with poor acceptance is a net
+loss, and the crossover between 15.9% and 37.9% is specific to this draft
+size, target size, k=4, and corpus — not a universal threshold. Only the
+greedy variant is measured; the full stochastic algorithm verifies with
+probabilistic rejection sampling to keep the distribution exact under
+temperature (Leviathan, Kalman & Matias, 2023; Chen et al., 2023), a
+materially harder mechanism, and every number here is CPU wall-clock, so
+GPU speedup is not tested in this environment.
+
+## Who owns the loop
+
+- **The serving team** owns the pairing decision: which draft-target pair
+  and which k run on which traffic slice, measured per slice rather than
+  averaged over a mixed workload, and whether speculation stays enabled as
+  the workload's acceptance drifts.
+- **The evaluation team** owns the acceptance measurement and the identity
+  check: acceptance is the quantity that has to be measured per request
+  slice, and the byte-identical assert is what separates a speed claim from
+  a quality tradeoff.
+- **The model team** owns the draft: training steps, 600 versus 40, moved
+  the crossover on this hardware, so draft quality is the variable a team
+  controls when speculation loses — and the correctness guarantee means a
+  bad draft is never wrong, only slow.
+- **The product team** owns the SLO that speculation must not threaten:
+  per-slice acceptance and tail latency are the monitored contract, and
+  acceptance below the measured crossover is the trigger to fall back to
+  plain decoding for that slice.
+
 ## What this does not establish
 
 - **The full stochastic speculative decoding algorithm.** Only the deterministic/greedy variant is

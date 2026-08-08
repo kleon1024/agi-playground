@@ -1408,13 +1408,86 @@ uniform:
   across training engineer, data, eval (the offline boundary), and research
   (the no-run boundary).
 
+**Done for the serve sub-group (twenty-fifth audit increment, 2026-08-08).**
+The six pending `05-serve/` chapters now carry the fix-and-trade and
+who-owns-the-loop sections, reusing each chapter's own measured numbers (no
+new runs):
+
+- graph-execution: the launch-bound step (the card busy 15% of the time,
+  513 launches per step, 6.87x host-to-device) found with a profile rather
+  than a benchmark; fix is CUDA-graph capture, trading arithmetic for
+  launches (device time up 2.12x to 2.807 ms/step, wall-clock down 3x,
+  measured 2.92x/3.05x/3.06x, replay 15x more stable) with `torch.compile`
+  getting 2.47x blind and the remaining gap available only to code that can
+  promise capture safety; NVIDIA "CUDA Graphs" 2019, PyTorch
+  `torch.cuda.CUDAGraph` and `torch.compile` docs; ownership split across
+  serving-performance (profile verdict), inference-engine (identity-check
+  guardrail), evaluation (median-vs-spread statistic), and model (the
+  workload-scoped multiplier).
+- quantization: the smaller-checkpoint-slows-decoding failure (2.79x fewer
+  bytes, 0.76x eager) found with the correctness gate (greedy exact match
+  1/64 while cosine 0.99975 / KL 0.0027 — argmax flips on close top-2,
+  7.72% vs 6.44%) and the profile (device time up 35%, dequant materialises
+  fp32 every call); fix is the workload verdict — quantize only when decode
+  is bandwidth-bound and benchmark the runtime, never the file size —
+  trading memory for runtime work (3.98x layer bytes, torchao fused int8
+  slower still at 0.68x, unmeasured dispatch overhead stated as
+  hypothesis); Dettmers et al. 2022, Frantar et al. 2023, Xiao et al.
+  2023; ownership split across serving (axis and kernel-support decision),
+  evaluation (distributional gate and outlier slices), model (calibration
+  corpus), and kernel-infrastructure (fused path).
+- speculative-decoding: the draft-that-costs-more-than-it-saves failure
+  (1.58x at 37.9% acceptance vs 0.94x at 15.9%, same architecture, 600 vs
+  40 training steps) found by measuring acceptance per request slice; fix
+  is the one-pass verification contract — correctness by construction
+  (byte-identical output asserted over 200 tokens), the trade being draft
+  and verification cost paid every round and a workload-specific crossover,
+  with only the greedy variant measured (CPU wall-clock, no GPU) and the
+  stochastic algorithm cited externally (Leviathan, Kalman & Matias 2023;
+  Chen et al. 2023); ownership split across serving (pairing and k per
+  slice), evaluation (acceptance measurement), model (draft quality), and
+  product (the SLO speculation must not threaten).
+- observability: the mean-hides-the-tail failure (p50 18.45ms and mean
+  18.72ms hide the 29.94ms max, 1.6x the mean) found by collecting the
+  distribution — one perf-counter sample per step after 5 warmup steps,
+  read as p50/p95/histogram from the same 200 samples; fix is the reporting
+  contract (p50 and p95, never a lone mean), the trade being that
+  percentiles need enough samples to stabilise and that a counter and a
+  histogram answer different questions, with the CPU-only tail causes (GC,
+  OS jitter) explicitly not the production ones (data-loader stalls, NCCL
+  stragglers, checkpoint writes); Dean and Barroso, "The Tail at Scale,"
+  CACM 2013; ownership split across observability (distribution contract),
+  training-infrastructure (tail escalation), evaluation (budget decision),
+  and model (histogram-shape diagnostics).
+- observability when-the-tail-waits: the mean-based budget failure (a
+  25ms budget silently fails the 20% of steps above it) found by reading
+  the recorded distribution; fix is budgeting from p95 (21.14ms, above the
+  mean by 13% and below the max by 42%) or p99, trading strictness for
+  coverage, with the evidence boundary explicit (recorded 200-step artifact,
+  no GPU or multi-tenant extension); ownership split across observability
+  (histogram contract), serving (the timeout and percentile choice),
+  evaluation (budget decision), and model (max-vs-mean as the
+  hidden-tail signal).
+- paging-the-cache: the reservation failure (production systems reported
+  60-80% of KV cache wasted before PagedAttention; a 20-token sequence
+  sized for 1,024 wastes 1,004 slots) found with a per-sequence allocation
+  view — two kinds of waste that respond to different fixes; fix is the
+  page table (fixed-size blocks from a shared free list plus a per-sequence
+  block table, 16 tokens here), trading internal fragmentation against
+  indirection overhead (12 vs 44 vs 0 slots at 16/64/4-token blocks) while
+  eliminating external fragmentation and making copy-on-write and prefix
+  caching expressible; measured boundary explicit — the gather is unfused,
+  so no throughput number transfers; Kwon et al., SOSP 2023; ownership
+  split across serving-infrastructure (allocator and block size), capacity
+  (KV budget and admission), kernel (the fused path), and observability
+  (sharing gains as a property of the request mix).
+
 **Still pending:** the remaining language-model system sub-groups:
-- Language-model system sub-groups: `05-serve/` (graph-execution,
-  quantization, speculative-decoding, observability and when-the-tail-waits,
-  paging-the-cache), `06-agent/` (what-stops-it, what-fits-in-context,
-  would-a-second-agent-help, when-the-tool-errors — which carries only the
-  who-owns half and needs the fix-and-trade), `07-eval/` (metric-gaming,
-  red-teaming, who-decides-to-ship, whose-harness, why-believe-the-number).
+- Language-model system sub-groups: `06-agent/` (what-stops-it,
+  what-fits-in-context, would-a-second-agent-help, when-the-tool-errors —
+  which carries only the who-owns half and needs the fix-and-trade),
+  `07-eval/` (metric-gaming, red-teaming, who-decides-to-ship,
+  whose-harness, why-believe-the-number).
 - Remaining topics, checked after the above for any gap against the
   contract (personalized discovery, quantitative research, agentic
   platform, game AI, multimodal voice/video, bio-pharma, autonomous

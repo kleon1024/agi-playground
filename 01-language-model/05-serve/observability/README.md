@@ -73,6 +73,55 @@ histogram (or the percentiles computed from it) distinguishes the two.
 Reaching for a mean where a distribution is the real answer is the single
 most common observability mistake this chapter exists to name.
 
+## The fix and its trade
+
+The failure mode is the mean itself: it can look fine while a tail of slow
+steps quietly doubles a job's real completion time. The symptom on this run
+is exactly that — p50 18.45ms and mean 18.72ms look healthy, while the
+29.94ms max (1.6x the mean) and a p95 of 21.14ms are what a latency budget
+actually needs, and a mean over the 200 steps is pulled toward that tail
+without ever telling you the tail exists. You find the case by collecting
+the distribution rather than the aggregate: one `perf_counter` sample per
+forward, backward, and optimizer step, after five unmeasured warmup steps
+that absorb lazy-initialization cost, then reading p50, p95, and a
+histogram from the same 200 real samples — 175 of 200 steps in the two
+fastest buckets, a handful at 23-28ms that are almost certainly Python GC
+or OS scheduling jitter, not the model or the data.
+
+The fix is the reporting contract: p50 and p95, always, never a lone mean,
+with the histogram when the shape matters, and the trade is in what each
+instrument can and cannot claim. A counter and a histogram are different
+instruments — monotonic counters answer "how much work happened" with a
+single number, while step time is a distribution whose same mean can hide a
+uniform 18ms or a bimodal 15ms/40ms; percentiles need enough samples to
+stabilise, which is why the exercises raise `--steps` to 1000 and watch
+whether p95 holds (fixed jitter) or scales with step count (a real leak).
+The boundary is equally explicit: this is a CPU-only toy loop whose tail
+causes (GC, OS scheduling) are not the production ones (data-loader stalls,
+NCCL stragglers, checkpoint writes), and no metrics backend is built or
+claimed — the chapter teaches the statistic, not the Prometheus or
+OpenTelemetry pipeline that would serve it at scale. The argument itself is
+canonical and dated: Dean and Barroso, "The Tail at Scale," *Communications
+of the ACM* (2013), which showed at Google's production scale that a
+service's p99 governs user-perceived performance once a single slow
+straggler dominates a fan-out request.
+
+## Who owns the loop
+
+- **The observability team** owns the distribution contract: the
+  instrumentation on the training loop, and the p50/p95/histogram read as
+  the reporting standard every mission in this repository should follow.
+- **The training-infrastructure team** owns the tail's real causes on a
+  production job — data-loader stalls, NCCL stragglers, checkpoint writes —
+  which the local CPU lane's GC and OS jitter cannot represent, so a tail
+  that scales with step count is the leak signal that escalates to it.
+- **The evaluation team** owns the budget decision: a latency budget set
+  from the mean misses the steps above it, and only a percentile says how
+  often the timeout fires, which is the question a budget actually answers.
+- **The model team** inherits the distribution as a diagnostic: whether a
+  step-time change is jitter, a data problem, or a model change is read
+  from the shape of the histogram, not from a single number.
+
 ## What this does not show
 
 **No real GPU.** This run is CPU-only, on a model sized to run in

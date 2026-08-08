@@ -134,6 +134,60 @@ per-layer matmul sizes and batch-1 decode. A real fused kernel is not a substitu
 question this chapter actually answers: is the bottleneck bandwidth. It is not, at this scale, and
 no implementation of the same technique fixes a bottleneck it was never aimed at.
 
+## The fix and its trade
+
+The failure mode is trusting the argument instead of the runtime: a
+checkpoint 2.79x smaller in bytes decodes slower, because quantization was
+aimed at a bottleneck the profile had already ruled out. The symptom is the
+benchmark itself — 0.76x eager, 0.86x under CUDA-graph replay — and you
+find the cause with two checks that both have to be done right. The
+correctness gate first: greedy exact match fails 63 of 64 tokens while the
+first-position distributions sit at cosine similarity 0.99975 and KL 0.0027
+nats, because the top two logits were already close (7.72% versus 6.44%
+probability) and 8-bit rounding, about 3.2% mean relative per weight,
+crossed that gap, then compounding autoregressive divergence did the rest.
+Greedy match measures compounding argmax flips, not distributional
+closeness, so the gate is the distributional check at the first position —
+cosine above 0.99 and KL below 0.05 nats — never exact-match. The profile
+second: device time went up 35% (1.312 to 1.771 ms per step) because
+dequantising materialises a full-width fp32 tensor before every matmul —
+smaller bytes on disk, more work per call — and host time rose because that
+dequant is one more kernel launch per `Linear` in a step already proven
+launch-bound.
+
+The fix is therefore a workload verdict, not a format: quantize when decode
+is genuinely bandwidth-bound — a larger model, a larger batch, where
+arithmetic intensity sits near the ridge point — and benchmark the complete
+runtime, never the file size. The trade is memory for runtime work:
+per-channel INT8 weight-only cuts the layer bytes 3.98x (301,989,888 to
+75,829,248) and the whole model 2.79x, but a dequant-to-fp32 path adds an
+elementwise multiply-and-cast and a launch the fp32 path never paid, and
+torchao's real fused int8 GEMM was slower still (0.68x) — which rules out
+bandwidth as this model's bottleneck but leaves an unmeasured tensor-
+subclass dispatch overhead as a stated hypothesis, not a conclusion. The
+technique's lineage is dated and external: Dettmers et al., *LLM.int8()*
+(2022), per-channel weight quantization at scale; Frantar et al., GPTQ
+(2023), post-training weight-only quantization; Xiao et al., SmoothQuant
+(2023), the activation-quantization axis this chapter does not measure.
+
+## Who owns the loop
+
+- **The serving team** owns the deployment decision: which axis to
+  quantize, weight-only versus weight-and-activation, and which kernel
+  support the target hardware actually has — a smaller checkpoint that
+  falls back to a slow kernel is not a serving win.
+- **The evaluation team** owns the gate: the distributional check instead
+  of greedy match, plus accuracy on the outlier slices rather than only the
+  average, because one KL/cosine snapshot at one position says nothing
+  about long-generation quality or a downstream task score.
+- **The model team** owns the calibration corpus: how well post-training
+  quantization's scales cover the real input distribution is what decides
+  whether the measured 2.79x footprint transfers to the deployed workload.
+- **The kernel-infrastructure team** owns the fused path: a real int8 GEMM
+  is not a substitute for the question this chapter answers, and only a
+  kernel written and fused for the exact architecture would test the
+  bandwidth-bound regime the measurements say this model is not in.
+
 ## What this does not establish
 
 - **That INT8 weight-only quantization never helps.** It helps when decode is genuinely
