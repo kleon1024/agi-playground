@@ -100,6 +100,37 @@ Remaining mission-09 queue: none — all seven stages now carry at least one
 detour. The rest of the repo's queue lives in the table above and the audit
 notes below.
 
+## Shallow-chapter audit (topic 02, in progress from 2026-08-08)
+
+The depth pass re-audited the topic-02 detour chapters by core-prose word
+count. The search-measurement cluster (stages 19, 23, 24) and the
+cascade-consistency tail are the shallowest: eight chapters sit at
+557-611 words against the ~700-800 floor, and their evidence is a
+two-to-three-row toy read rather than a measured log. The failing pattern
+is the same in each: a mechanism claim ("correction recovers recall",
+"history is a prior", "session metrics catch recovery") backed by a
+hand-built example, with the real-log read deferred to "evidence
+boundary" instead of executed.
+
+| Chapter | Words (2026-08-08) | Defect | Planned repair | Status |
+|---|---|---|---|---|
+| `search/24-search-measurement/when-the-click-is-a-query` | 586 | two-query toy session; recovery rate never measured | real-log run (AOL 2006, 21.9M queries): session recovery, head/body/tail distribution, correction channel | shipped 2026-08-08 |
+| `search/19-query-expansion/when-the-correction-helps` | 569 | one misspelling against one hand-built index | the correction channel read from the 24-session run (recovered share via near-edit fix; fix-offered-still-nothing share) | queued |
+| `search/19-query-expansion/when-expansion-hurts` | 600 | toy precision read | tail-precision measurement over the same log (expansion on rare queries) | queued |
+| `search/23-personalized-search/when-the-user-history-helps` | 557 | three hand-built documents | per-user history quality read over the log (stale/absent history share per stratum) | queued |
+| `search/23-personalized-search/when-personalization-hurts` | 597 | toy over-personalization read | head-query over-personalization measurement (head queries almost never recover — the prior's failure boundary) | queued |
+| `search/24-search-measurement/when-the-zero-result-rate-matters` | 608 | synthetic pricing read | zero-click abandonment priced from the real log (recovered vs abandoned by stratum) | queued |
+| `recommendation/63-cascade-consistency/when-the-distillation-blurs` | 576 | toy teacher-noise read | sits beside the 1,462-word cascade-cut detour; needs the same treatment (noise transfer measured at the cut) | queued |
+| `recommendation/63-cascade-consistency/when-top-k-is-not-preserved` | 611 | toy cut read | cascade-cut sibling; measured top-K recall at the cut | queued |
+
+The repair pattern is fixed: one real query-log run (the AOL 2006
+collection, canonical public stand-in for a private production log)
+serves the whole search cluster — recovery by stratum, the correction
+channel, and the zero-result pricing all come from the same executed
+read. Each chapter keeps its own causal spine and gains the measured
+numbers, the distribution read, and the fix/trade/ownership structure the
+audit already shipped for mission 09.
+
 Audit notes from the 2026-08-08 pass:
 
 - The failure-mode ownership audit is complete repo-wide: every tutorial

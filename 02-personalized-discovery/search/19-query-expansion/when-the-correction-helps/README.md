@@ -66,7 +66,13 @@ The executed comparison over one misspelling against one hand-built
 index (illustrative, deterministic). It demonstrates the recovery; real
 correction value is measured over the query log, where some
 misspellings recover nothing because the catalog does not contain the
-intended item at all.
+intended item at all. The [query-log read in stage 24's session
+detour](../../24-search-measurement/when-the-click-is-a-query/) measures
+that boundary over 21.9 million real queries: about one in five
+zero-click queries recovers in-session, roughly a fifth of those
+recoveries are near-edit typo fixes, and a small slice had a near-edit
+fix attempted and still recovered nothing — the correction was right and
+there was nothing to find.
 
 ## Check your mental model
 

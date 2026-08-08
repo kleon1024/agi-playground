@@ -993,7 +993,7 @@
   },
   "02-personalized-discovery/search/24-search-measurement/when-the-click-is-a-query": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 7
   },
   "02-personalized-discovery/search/24-search-measurement/when-the-session-definition-moves": {
     "level": "applied",
