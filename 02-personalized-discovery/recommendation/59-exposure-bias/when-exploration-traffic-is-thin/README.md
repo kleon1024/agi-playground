@@ -35,6 +35,37 @@ no row exists to correct. That is what content-based recall (stage 01) is
 for: the only signal a never-shown item has is its own content. Exploration
 budget and content understanding are complementary, not alternative, fixes.
 
+## The fix and its trade
+
+The fix is to stop expecting one mechanism to cover the tail: exploration
+fixes bias only where it reaches, and content-based recall (stage 01) is
+what covers what exploration never shows. The executed read prices the
+reach arithmetic — 2% exploration across 20,000 rows reaches under 200
+distinct items in a 2,000-item catalogue, and 1,531 items (76.5%) never
+appear in the log at all.
+
+The trade, named: exploration budget is a coverage decision, not a
+fraction of traffic. Raising the budget buys reach at the price of
+serving quality now — every random impression is an impression the
+current policy did not choose — and the reach per budget point shrinks
+as the catalogue grows, so the budget has to be set against distinct-item
+reach measured per catalogue size, not against a nice-sounding
+percentage. The tail that exploration still cannot reach has no log row
+to correct, which is why content understanding is a complement, not a
+fallback: the two fixes cover different parts of the space.
+
+## Who owns the loop
+
+- **The serving and exploration team** owns the exploration budget and
+  the reach it actually buys, measured per catalogue size — a percentage
+  in a ticket is not a coverage plan.
+- **The recall and content team** owns the never-exposed tail: for items
+  with no log row, content embeddings are the only signal, and the
+  unreached set is this team's acceptance target.
+- **The evaluation team** owns the distinct-item reach measurement and
+  the long-tail quality read that says whether the uncovered items were
+  worth covering.
+
 ## Evidence boundary
 
 The executed coverage read over a synthetic exposure log (illustrative,

@@ -51,6 +51,40 @@ the shared trunk is the same failure as stage 56's population bias, one
 level down: the abundant task is the "wrong population" for the sparse
 one's representation.
 
+## The fix and its trade
+
+The fix is to give the sparse task a vote inside the shared trunk, with
+two levers of increasing structural commitment. Gradient balancing
+reweights the sparse task's loss — the executed read moves buy AUC from
+0.461 to 0.660 on a trunk where the click task's final gradient norm is
+0.484 against the buy task's 0.076. Gating (MMoE-lite) lands at buy AUC
+0.564 without a hand-tuned weight, improving on the naive trunk without
+the tuning cost.
+
+The trade, named: balancing is a hand-tuned weight that must be re-tuned
+whenever the task mix moves, and gating pays in structure — extra
+parameters and serving cost that only earn their keep when the tasks
+disagree about which expertise they need, which is exactly the collapsed
+gate in the detour. The cheapest form of the fix is not a fix at all but
+a diagnostic: log the per-task trunk gradient norms during training,
+because a share as imbalanced as 98.9%-to-1.1% is visible before any
+evaluation. The naive trunk looks like a model problem and is a sample
+and objective problem one level down.
+
+## Who owns the loop
+
+- **The model team** owns the trunk, the per-task loss weights, and the
+  learned gate audit — the gate weights are logged and checked per slice
+  before gating is trusted.
+- **The evaluation team** owns the per-task validation balance: the
+  acceptance read is buy AUC beside CTR AUC, never CTR AUC alone.
+- **The serving team** owns the cost of the chosen architecture — gating
+  is a serving decision as much as a modeling one, and a collapsed gate
+  pays for parameters that do nothing.
+- **The monitoring team** owns the per-task trunk gradient norms during
+  training, the number that says when the conflict has drifted back and a
+  weight or a gate needs re-tuning.
+
 ## Evidence boundary
 
 The executed synthetic read over 2,000 rows with declared task rates

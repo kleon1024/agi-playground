@@ -38,6 +38,36 @@ That is why the window is tuned like a hyperparameter and logged with the
 model, not picked by convention: the right choice depends on the conversion
 latency distribution of the specific funnel.
 
+## The fix and its trade
+
+The fix is to treat the label window as a hyperparameter and log it with
+the model, because it is a volume-versus-correctness knob with a measured
+sweet spot. The sweep on the same stream shows the whole curve: a 1-day
+window keeps 4,754 rows and 728 false negatives and halves the AUC to
+0.462; the 7-day window lands at 0.705; the 30-day window has clean labels
+but a quarter of the rows (1,217) and no better AUC (0.702). AUC peaks in
+the middle because that is where label quality meets volume.
+
+The trade, named: every window choice pays one direction and earns the
+other. A short window buys the freshest, largest training set at the price
+of rows that lie about conversions that have not happened yet; a long
+window buys clean labels at the price of volume and staleness. The plateau
+beyond the conversion-latency mass means the window is not "longer is
+better" — it is a per-funnel decision that has to be re-made when the
+product changes the conversion latency distribution.
+
+## Who owns the loop
+
+- **The label pipeline team** owns the window decision and the measured
+  conversion-delay distribution it is chosen against. The window is a
+  label-pipeline contract, not a model-team default.
+- **The model team** owns logging the window with the model and its
+  runs record, so a later AUC change is attributable to the label
+  contract and not to the model.
+- **The evaluation team** owns the window sweep and the re-check: when
+  the funnel changes, the sweep is re-run and the plateau re-located
+  before anyone tunes the model on the old optimum.
+
 ## Evidence boundary
 
 The executed sweep over a synthetic conversion-delay distribution

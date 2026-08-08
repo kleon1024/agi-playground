@@ -35,6 +35,39 @@ recovers the correlation to 0.986 — better than the exact propensities.
 In production the propensity model is itself logged and audited, because
 the correction is only as trustworthy as the estimate it divides by.
 
+## The fix and its trade
+
+The fix is to cap the inverse-propensity weight, and the executed read
+prices the repair precisely: exact propensities give a mean weight of 1.5
+and a correlation of 0.980, noisy ones explode the mean to 216.6 with a
+max of 10,000 and collapse the correlation to 0.376 — and a cap of 20
+recovers 0.986, better than the exact propensities. The cap trades a
+little unbiasedness for a lot of variance, and on this read the variance
+was the cheaper failure by a wide margin.
+
+The trade, named: capping is a bias dial, not a free lunch. Capped rows
+are not weighted by their true inverse propensity, so the estimate drifts
+in the capped slices — the question is whether the drift is smaller than
+the variance it removes, which has to be measured per slice, not set
+once. And the cap does nothing for the propensity model itself: a
+propensity that is systematically wrong still biases the corrected
+estimate, so the propensity estimator is logged and audited as its own
+artifact. The alternative — no cap, trust the weights — lets a handful of
+rows steer the entire fit and is indistinguishable from a bad model on
+the aggregate metrics.
+
+## Who owns the loop
+
+- **The model team** owns the propensity estimator and its per-slice
+  error audit — the correction is only as trustworthy as the estimate it
+  divides by.
+- **The training team** owns the cap as a variance-bias dial, set from
+  the measured weight distribution and the per-slice error, not from a
+  default.
+- **The evaluation team** owns the noisy-versus-capped read and the
+  slice where the cap's bias is re-measured when the logging policy
+  changes.
+
 ## Evidence boundary
 
 The executed read over a synthetic exposure log (illustrative,

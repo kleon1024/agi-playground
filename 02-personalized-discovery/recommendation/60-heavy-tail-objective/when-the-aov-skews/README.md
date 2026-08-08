@@ -37,6 +37,37 @@ amount model. The decomposed read keeps them separate — stage 60's
 decomposition is not only about the tail, it is about letting each lever
 be tuned and monitored on its own.
 
+## The fix and its trade
+
+The fix is to keep the rate and the amount as separate heads instead of
+regressing their product, so a product change moves only the lever it
+touches. The executed read shows why the separation is operational, not
+cosmetic: the flash-sale cohort doubles the order rate (0.030 to 0.060)
+and halves the conditional amount (25.00 to 18.00) while keeping expected
+GMV comparable to the standard cohort — regressing GMV directly folds both
+moves into one coefficient and cannot say which one changed.
+
+The trade, named: the decomposition replaces one target with two heads
+that each need their own tuning and monitoring. That is the point — a
+pricing change should move only the amount head and a launch that changes
+the rate should move only the rate head — but it costs a per-cohort
+calibration check on both heads after every product change. The cheap
+alternative, a single GMV target, hides which mechanism moved, so the
+first product change after launch quietly re-fits the wrong head and
+nobody can see it in the aggregate number.
+
+## Who owns the loop
+
+- **The model team** owns the head separation and its training contract:
+  the rate head and the amount head are trained and re-tuned
+  independently, which is the whole point of the fix.
+- **The product team** owns the AOV and rate changes and their rollout
+  record — a product change is an input to the model team, not an
+  accident the model absorbs.
+- **The evaluation team** owns the per-cohort calibration check on both
+  heads after product changes, so a change that should have moved one
+  lever is not silently absorbed by the other.
+
 ## Evidence boundary
 
 The executed read over three declared cohorts (illustrative,

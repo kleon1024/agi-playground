@@ -46,6 +46,40 @@ Every stage after recall assumes the candidate set is complete enough.
 The cascade's consistency is decided at the cut, not at the final ranker,
 and the cost of getting it wrong is paid in the final NDCG's blind spot.
 
+## The fix and its trade
+
+The fix is to optimize the cheap stage for what the final ranker values,
+not for clicks: distill the final score into the pre-rank as a soft label.
+The executed read prices the repair — a click-optimized pre-rank cuts
+1,500 items to 100 and keeps only 0.35 of the final top-20's recall, while
+the distilled pre-rank keeps 1.00, moving final NDCG from 0.967 to 1.000.
+Top-K recall at the cut is the metric that matters across a cascade,
+because no downstream model can re-rank an item the cut already removed.
+
+The trade, named: distillation makes the cheap stage depend on the
+expensive one — the teacher's score has to be stable and calibrated,
+because distillation copies the teacher, mistakes included (the blurs
+detour shows a noisy teacher's correlation dropping to 0.989 against
+0.998 clean, and the cascade inherits the error). And the fix costs real
+serving care: the distillation target and its calibration are artifacts
+that must be re-audited when the final ranker changes. The alternative —
+keep the CTR-optimized cut because its NDCG looks fine — is the blind
+spot this stage exists to name: final NDCG is computed on survivors, so a
+cascade that quietly discarded the answer looks healthy.
+
+## Who owns the loop
+
+- **The pre-rank model team** owns the distillation objective and its
+  re-training contract — the cut's objective is chosen against the final
+  ranker's choices, not against clicks.
+- **The final-ranker team** owns the teacher score's stability and
+  calibration, because the student inherits the teacher's errors.
+- **The serving team** owns the cut size as a budget decision and the
+  handoff that the cut's survival is measured, not assumed.
+- **The evaluation team** owns the top-K recall read at each cut against
+  the final ranker's choices — the metric that turns the cascade's
+  consistency from a hope into a number.
+
 ## Evidence boundary
 
 The executed synthetic read over a 1,500-item catalogue (illustrative,

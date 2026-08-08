@@ -709,99 +709,99 @@
   },
   "02-personalized-discovery/recommendation/56-entire-space-funnel": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "02-personalized-discovery/recommendation/56-entire-space-funnel/when-the-ctcvr-disagrees": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/56-entire-space-funnel/when-the-cvr-is-censored": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/57-delayed-feedback": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "02-personalized-discovery/recommendation/57-delayed-feedback/when-freshness-fights-correctness": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/57-delayed-feedback/when-the-window-is-too-short": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/58-negative-sampling": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "02-personalized-discovery/recommendation/58-negative-sampling/when-the-correction-overcorrects": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/58-negative-sampling/when-the-negative-rate-is-extreme": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/59-exposure-bias": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "02-personalized-discovery/recommendation/59-exposure-bias/when-exploration-traffic-is-thin": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/59-exposure-bias/when-the-propensity-is-noisy": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/60-heavy-tail-objective": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "02-personalized-discovery/recommendation/60-heavy-tail-objective/when-the-aov-skews": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/60-heavy-tail-objective/when-the-whale-dominates": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/61-multi-task-conflict": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "02-personalized-discovery/recommendation/61-multi-task-conflict/when-gating-does-not-help": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/61-multi-task-conflict/when-the-dominant-task-wins": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/62-funnel-consistency": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "02-personalized-discovery/recommendation/62-funnel-consistency/when-the-constraint-hurts": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/62-funnel-consistency/when-the-order-exceeds-the-click": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/63-cascade-consistency": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "02-personalized-discovery/recommendation/63-cascade-consistency/when-the-distillation-blurs": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/63-cascade-consistency/when-top-k-is-not-preserved": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/recommendation/64-auc-label-seesaw": {
     "level": "applied",

@@ -34,6 +34,37 @@ number. Reweighting the task loss or gating the experts is what gives the
 sparse task a say; the gradient share is the diagnostic that tells you
 when to bother.
 
+## The fix and its trade
+
+The fix is to rebalance the trunk gradient — reweight the task loss or
+gate the experts — and the executed read is the diagnostic that says when
+to bother: at a 10% click rate and a 0.1% purchase rate, the click task
+owns 98.9% of the trunk gradient and the purchase task 1.1%. A share that
+imbalanced means the representation is built for clicks, and the purchase
+head reads features that never encoded purchase signal — stage 61's buy
+AUC of 0.461 in a single number.
+
+The trade, named: rebalancing transfers gradient from the dominant task to
+the sparse one, so it trades a little click accuracy for purchase
+accuracy, and the weights have to be tuned on validation, not guessed —
+over-weight the sparse task and the trunk stops serving the abundant one.
+The cheapest form of the fix is the diagnostic itself: per-task trunk
+gradient norms logged during training make the imbalance visible before
+any model is judged, and say which task needs a weight before the
+evaluation, not after.
+
+## Who owns the loop
+
+- **The model team** owns the per-task gradient-norm logging and the
+  reweight — the share read is a training-time artifact, not an
+  evaluation-time surprise.
+- **The evaluation team** owns the per-task validation balance and the
+  guardrail that a reweighted trunk must not collapse the dominant task
+  below its bound.
+- **The monitoring team** owns the gradient-share read on every run, so a
+  distributional shift that re-imbalances the trunk is caught at training
+  time, not in a production metric dip.
+
 ## Evidence boundary
 
 The executed read over declared task rates (illustrative, deterministic).

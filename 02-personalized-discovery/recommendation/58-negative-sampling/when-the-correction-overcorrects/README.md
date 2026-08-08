@@ -35,6 +35,37 @@ rate after correction is the check that catches a wrong ratio, which is why
 sampling ratios are logged at sampling time, not assumed at training time.
 The correction is a formula; the formula's input is an operational fact.
 
+## The fix and its trade
+
+The fix is two operational habits, not a model change: log the sampling
+ratio at the moment it is applied, and after correction compare the
+resulting probabilities to the observed base rate on a validation slice.
+The executed read shows why the check exists — with the exact ratio the
+corrected p is 0.003 (true 0.005); with an assumed 1:10 against a real
+1:20 the corrected p lands half a decimal off, and the formula has no way
+to know it is wrong.
+
+The trade is that the fix converts a silent model error into an explicit
+operational alert, at the price of owning the alert. The base-rate
+comparison needs a defined tolerance and a slice definition, and it will
+fire on calibration noise if the tolerance is set too tight — so the
+threshold is a real decision, not a default. The alternative — trust the
+formula because the ratio "must be right" — is the failure mode itself:
+the correction cannot detect its own input error, and nothing downstream
+will.
+
+## Who owns the loop
+
+- **The sample and operations team** owns the ratio log: the real
+  sampling rate is recorded at sampling time, which is the only place it
+  is knowable.
+- **The model team** owns applying the correction and the per-slice
+  comparison to the observed base rate — the alert fires on a mismatch
+  between corrected probabilities and the measured rate.
+- **The evaluation team** owns the tolerance and the slice definition for
+  the alert, and the re-check when the sampling strategy changes (a new
+  ratio is a new contract, not a new number).
+
 ## Evidence boundary
 
 The executed read over declared ratio errors (illustrative,

@@ -56,6 +56,41 @@ isolates: the bias is in the labels, not the users, and every
 downstream decision — retraining cadence, budget pacing, LTV — inherits
 it unless the delay is modeled.
 
+## The fix and its trade
+
+The fix is a soft label instead of a longer wait: keep every row and give
+each in-flight row a label equal to the probability that it converts
+inside the window, estimated from the measured delay distribution and the
+base conversion rate. The executed read prices the repair — the naive
+model under-reads fresh traffic by a third (0.092 against a true 0.132)
+while the corrected model tracks it (0.142) on the same young snapshot,
+and the conversion AUC moves from 0.666 to 0.672.
+
+The trade is that the correction is only as good as the two numbers it is
+built from. The delay distribution and the base rate both drift as the
+product changes the funnel, so the estimator is a standing artifact with a
+re-check, not a one-time constant — a stale delay estimate turns the soft
+label back into a wrong hard label in new clothes. The alternative,
+waiting for maturity, is not a trade but a dead end: on a 3-day-old
+snapshot the mature set is empty by definition, so "wait for labels" means
+"do not train on the traffic you want to serve".
+
+## Who owns the loop
+
+- **The label pipeline team** owns the delay-distribution estimator, the
+  attribution window, and the base rate — the two inputs the soft label
+  multiplies. When the funnel changes (a new checkout step, a new market),
+  the re-estimation is this team's job, and it owns the alert when the
+  in-flight share of a young snapshot crosses the bound the estimator
+  assumes.
+- **The model team** owns the soft-label training and the fresh-traffic
+  read: the corrected model's score on young rows is the acceptance test,
+  not the offline AUC alone.
+- **The monitoring team** owns the under-read dashboard. The naive
+  artifact looks exactly like a launch dip or a real engagement decline
+  (stage 47's drift lens), so the monitoring read has to separate "labels
+  are censored" from "users changed" before anyone acts on the number.
+
 ## Evidence boundary
 
 The executed synthetic read over declared delay and snapshot

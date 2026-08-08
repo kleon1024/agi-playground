@@ -35,6 +35,35 @@ not know the conditional there, which is better than ranking on an exploded
 ratio. In production this is a slice-level decision: calibrate, then decide
 per slice whether the derived conditional is trustworthy.
 
+## The fix and its trade
+
+The fix is a two-step read per CTR slice: calibrate the CTCVR head, then
+set the clip where the error-to-signal ratio crosses a chosen bound. The
+three-row read shows the arithmetic: at a 2% CTR the honest p_pay is
+0.020, and a small absolute CTCVR error divides by 0.02 to become a 3x
+swing — so the slice-level clip is what keeps the derived conditional a
+probability instead of a ranked noise number.
+
+The trade, named: clipping is an admission that the model does not know
+the conditional in that slice, which means the system deliberately stops
+ranking there. That is better than ranking on an exploded ratio, but it
+is a real decision — the clip hides the small-CTR slice from the
+downstream value estimate, and the slice is often exactly where a
+long-tail item lives. The decision is per slice, not global, which is why
+it cannot be one constant set once at launch.
+
+## Who owns the loop
+
+- **The model team** owns the per-slice CTCVR error measurement and the
+  clip bound: it has to be derived from the measured error-to-signal
+  curve, not guessed.
+- **The serving team** owns the clip as a served decision — the derived
+  conditional that leaves the score path must already be clipped, because
+  downstream stages multiply whatever they receive.
+- **The evaluation team** owns the calibration check per CTR slice and
+  the re-check when the funnel changes (a new page, a new intent class —
+  the small-CTR regime moves).
+
 ## Evidence boundary
 
 The executed read over three declared rows (illustrative, deterministic).

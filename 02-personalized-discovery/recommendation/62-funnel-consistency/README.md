@@ -48,6 +48,41 @@ probabilities. A stage that emits an impossible probability does not fail
 on its own page; it fails inside every downstream product. Enforcing
 consistency at the read is cheaper than debugging the value estimate.
 
+## The fix and its trade
+
+The fix is to chain the marginals at the read: multiply the click
+marginal by the order conditional instead of reading the conditional as
+if it were a marginal. The executed read prices the repair — the broken
+read lands at an order log-loss of 0.672 with 649 of 1,000 impressions
+violating the funnel, and the chained read drops to 0.501 with zero
+violations by construction, because monotonicity is structural rather
+than clamped.
+
+The trade, named: the chain is only as honest as its inputs. It
+faithfully multiplies an overconfident click head's inflation straight
+through to the order probability — the constraint-hurts detour shows a
+2.25x-overconfident click head manufacturing a 0.27 order estimate
+against the independent model's correct 0.12 — so calibration must
+precede chaining, and the constraint is a consistency guard, not a
+substitute for honest heads. The cheap half of the fix is free: the
+violation rate needs no labels, so it can run continuously on serving
+traffic as the standing check.
+
+## Who owns the loop
+
+- **The label and sample team** owns the population each head trains on —
+  the conditional-as-marginal confusion is born here, when one head is
+  trained on clicked rows and another on the full space and the outputs
+  are compared as if they were the same thing.
+- **The model team** owns each head's output and its calibration — the
+  chain cannot repair a head that overstates its probability.
+- **The serving team** owns the chained read at score time: the value
+  estimate that leaves the score path must already be the chained
+  product, because downstream stages multiply whatever they receive.
+- **The monitoring team** owns the per-slice violation-rate alert — the
+  free check that catches a new head or a drifted population before the
+  value estimates are consumed.
+
 ## Evidence boundary
 
 The executed synthetic read over 1,000 held-out impressions (illustrative,

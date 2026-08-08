@@ -37,6 +37,40 @@ have to choose between staleness and lying labels. This is the same soft
 label as stage 57, applied to the freshness axis: keep all the rows, correct
 the ones whose outcome is not final.
 
+## The fix and its trade
+
+The fix is to reweight the in-flight rows by their remaining conversion
+mass instead of waiting for maturity — retraining cadence is not the
+lever, the label correction is. The executed read on a 0.3-2 day snapshot
+prices it: the corrected model reaches 0.732 against 0.712 naive on the
+same fresh rows, with 733 in-flight converters sitting inside the training
+set either way.
+
+The trade is that remaining conversion mass is an estimate with an
+expiration date. It is computed from the current delay distribution, and
+the moment the product changes the conversion funnel — a new step, a
+different market — the estimate is wrong and the soft label starts lying
+in the direction the product changed. The correction buys freshness without
+staleness, but it makes the label pipeline the freshness owner: a team
+that wants fresher models now depends on the delay estimator being
+re-measured, not on the retraining platform running more often.
+
+## Who owns the loop
+
+- **The label pipeline team** owns the remaining-conversion-mass
+  estimator and its re-check when the funnel changes — the soft label's
+  correctness is a label-time property, not a training-time one.
+- **The retraining platform team** owns the snapshot cadence decision and
+  the trade it contains: how young the snapshot is allowed to be is now a
+  label-pipeline input, because a young snapshot is a mostly-in-flight
+  one.
+- **The model team** owns applying the correction at train time and
+  reading the corrected model on fresh rows — the AUC on the young
+  snapshot is the acceptance metric.
+- **The evaluation team** owns the naive-versus-corrected comparison on
+  the same snapshot, so a freshness change is never confused with a
+  quality change.
+
 ## Evidence boundary
 
 The executed read over the young-snapshot synthetic stream (illustrative,

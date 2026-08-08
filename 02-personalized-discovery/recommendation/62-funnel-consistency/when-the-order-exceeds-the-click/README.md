@@ -36,6 +36,36 @@ Monitoring the violation rate is the cheapest funnel-consistency check a
 team can run, because it needs no labels: the contradiction is visible in
 the outputs themselves.
 
+## The fix and its trade
+
+The fix is to monitor the violation rate per slice on serving traffic and
+alert before the value estimates are consumed. The executed read shows the
+symptom the check exists to catch — on a strong-intent item the heads emit
+p(click) 0.12, p(order) 0.15, p(pay) 0.31, a probability that cannot
+exist — and the check is nearly free because it needs no ground truth:
+the contradiction is visible in the model outputs alone.
+
+The trade, named: the violation alert detects the symptom, not the cause.
+It tells a team that somewhere a conditional is being read as a marginal
+or two heads were trained on different populations, but it does not say
+which head is wrong — so the alert has to route to the head owners with
+the slice attached, or it becomes a number nobody can act on. The fix is
+therefore cheap to run and costs a routing decision, and the alternative
+— no check, trust the heads — is the failure itself: the next stage
+multiplies an impossible probability into the value estimate and the
+defect shows up downstream as a mystery.
+
+## Who owns the loop
+
+- **The serving and monitoring team** owns the violation-rate alert and
+  its per-slice definition — the check runs continuously on serving
+  traffic, which is the only place the contradiction is actually emitted.
+- **The model team** owns fixing the offending heads: each alert routes
+  back to the head whose population or calibration is wrong.
+- **The evaluation team** owns the slice definition and the alert
+  threshold — what counts as a violation slice has to be declared before
+  the alert, not tuned after it fires.
+
 ## Evidence boundary
 
 The executed read over three declared head outputs (illustrative,

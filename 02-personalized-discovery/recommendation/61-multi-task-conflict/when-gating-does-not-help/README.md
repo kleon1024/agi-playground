@@ -38,6 +38,35 @@ diagnostic is to look at the learned gate weights and the per-task gain
 over a plain shared bottom before committing to gating: if the gates are
 all one-hot on the same expert, the complexity is not earning its keep.
 
+## The fix and its trade
+
+The fix is a baseline-first discipline: train the shared bottom, measure
+the per-task gain, and only commit to gating when the gain is real — and
+log the gate weights so a later collapse is visible. The executed read
+shows the collapse the discipline exists to catch: the gate routes both
+tasks to expert0 (task 0 at 0.99, task 1 at 0.98), leaving one effective
+representation and two copies of the same trunk.
+
+The trade, named: the discipline costs one extra baseline run and a
+per-task comparison, and gating that passes it costs the parameters and
+serving latency of the bigger architecture. The failure mode is paying
+that cost for nothing: when both tasks want the same representation, the
+gate collapses and the model is a shared bottom with extra parameters —
+the complexity does not earn its keep. The alternative, shipping gating
+because it is the fashionable architecture, is exactly how a team ends up
+with a one-expert MMoE it cannot explain.
+
+## Who owns the loop
+
+- **The model team** owns the baseline-first comparison and the gate-weight
+  audit — the collapse is diagnosed from the learned weights, not from
+  the aggregate metrics.
+- **The serving team** owns the latency and parameter cost of gating, and
+  the contract that the cost is re-justified per task pair, not grandfathered.
+- **The evaluation team** owns the per-task gain over the shared bottom —
+  the acceptance read that turns "gating works" from a claim into a
+  measured delta.
+
 ## Evidence boundary
 
 The executed read over a task pair declared to agree (illustrative,

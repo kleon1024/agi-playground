@@ -51,6 +51,41 @@ policy's blind spots, the measurements inherit them too, so the exposure
 mechanism is the foundation under the mission's evidence, not a footnote
 about data hygiene.
 
+## The fix and its trade
+
+The fix is two corrections that address two different biases. Inverse
+propensity weighting removes the selection confound — who was shown — by
+reweighting each logged row by the inverse probability of exposure, and
+the executed read shows it moving the quality rank correlation from 0.874
+naive to 0.962. Random-exposure traffic is the gold reference at 0.995,
+because it is the only data clean of both selection and position bias.
+
+The trade, named: IPS is high-variance exactly where it matters — the
+inverse of a small, noisy propensity is a huge weight, and the executed
+noisy-propensity read collapses the correlation to 0.376 before a cap
+restores it. And IPS corrects selection, not position: a high-placed item
+still got a position boost inside its own click, so the correction
+requires a propensity model that is itself logged and audited, plus the
+random bucket — which costs real traffic that does not optimize the
+current policy. The cheap alternative, training on the log as-is, looks
+fine on the items the old model showed a lot and is blind everywhere
+else.
+
+## Who owns the loop
+
+- **The logging team** owns what is in the log — the exposure decision,
+  the position, and the click — because every correction downstream is
+  bounded by what this team records.
+- **The model team** owns the propensity estimator and its audit: the
+  correction is only as trustworthy as the estimate it divides by, and the
+  noisy-propensity read is its regression test.
+- **The serving and exploration team** owns the random-exposure bucket —
+  its size is a product decision that trades traffic for an unbiased
+  reference, and the bucket is the only full answer to position bias.
+- **The evaluation team** owns the naive-versus-corrected read on the
+  whole catalogue, including the never-shown tail where no correction has
+  a row to work with.
+
 ## Evidence boundary
 
 The executed synthetic read over a declared popularity confounder and

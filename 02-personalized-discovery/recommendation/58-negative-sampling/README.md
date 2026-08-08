@@ -51,6 +51,40 @@ to AUC and fatal to every downstream product, so the sampling ratio and
 its correction belong in the curriculum next to the calibration chapter,
 not inside it.
 
+## The fix and its trade
+
+The fix is to downsample the negatives so the positives get a vote, and
+then invert the sampling ratio at prediction time so the model's
+probabilities map back onto the true base rate. The executed read prices
+both halves: AUC is untouched by sampling (0.659 in every row), while ECE
+moves from 0.473 downsampled to 0.017 corrected — ranking metrics never
+see the break, and the correction is what the downstream arithmetic
+depends on.
+
+The trade, named: the correction is a formula, and its only input is an
+operational fact — the ratio actually applied at sampling time. A
+mislogged ratio passes straight through (the overcorrects detour lands
+the corrected probability half a decimal off), so the fix buys a
+calibrated score at the price of a logging contract and a base-rate
+check. The cheaper alternative — just downsample and ship the ranking —
+looks identical on AUC and quietly inflates every probability the value
+tree, auction, and pacing multiply downstream.
+
+## Who owns the loop
+
+- **The sample and data team** owns the exact sampling ratio, logged at
+  sampling time — not reconstructed at training time, because a ratio
+  that is assumed is a ratio that will be wrong.
+- **The model team** owns the correction at prediction time and the
+  slice-level calibration check against the observed base rate, which is
+  the cheapest detector of a mislogged ratio.
+- **The evaluation team** owns the ECE read alongside AUC in the
+  acceptance gate — a model whose ranking holds but whose probabilities
+  are inflated must fail review, not pass it.
+- **The downstream teams** (value tree, auction, pacing) own the contract
+  that every probability they consume is base-rate-correct, which is what
+  turns a sampling detail into a product-wide defect when it breaks.
+
 ## Evidence boundary
 
 The executed synthetic read over a declared 1:100 negative sampling ratio

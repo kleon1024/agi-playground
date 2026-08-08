@@ -35,6 +35,36 @@ positive signal a vote at all. The correction matters because the
 downsample changes the base rate: rank order survives, calibration does not
 (stage 58's own read).
 
+## The fix and its trade
+
+The fix is why stage 58 exists at all: at a 1:1000 positive-to-negative
+ratio, downsample the negatives so the positive signal can move the
+weights, then correct the base rate. The executed read prices the
+necessity — the negative class owns 99.0% of the gradient (10,000 of
+100,100 rows against 100 positives at 1.0%), so without the downsample
+the few positives cannot vote against that mass even when the model is
+still wrong.
+
+The trade, named: the downsample is a two-sided move. It rescues the
+gradient, but it changes the base rate the model learns, so every
+probability has to be corrected afterwards — and the correction is only as
+good as the ratio actually applied, which is why the sampling rate is
+tuned against the calibration check, not against AUC. A team that
+downsamples and stops there gets the ranking for free and pays for it in
+every downstream product that multiplies an inflated probability.
+
+## Who owns the loop
+
+- **The sample and data team** owns the negative sampling ratio and the
+  exact-rate log — the ratio is the dial that trades gradient balance for
+  base-rate distortion.
+- **The model team** owns the per-class gradient-share read during
+  training: logging the share is the diagnostic that says when the
+  downsample is needed and when it has gone too far.
+- **The evaluation team** owns the calibration check after correction —
+  the ECE read is the acceptance gate, because ranking metrics cannot see
+  the base-rate break.
+
 ## Evidence boundary
 
 The executed gradient-share read over declared counts (illustrative,

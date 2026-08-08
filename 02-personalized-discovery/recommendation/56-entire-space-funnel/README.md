@@ -53,6 +53,44 @@ population is biased even when its ranking looks fine, and the bias
 propagates into every product of probabilities downstream. This stage is
 where the funnel stops being a diagram and becomes the training scheme.
 
+## The fix and its trade
+
+The fix is to stop training the pay head on the clicked subset and model
+the funnel on the full exposure space instead: a CTR head and a CTCVR head
+train on every impression, and the pay conditional is derived as
+CTCVR over CTR. The executed read prices the repair — the same 936
+positives give the full-space head a CVR AUC of 0.740 against 0.735 on
+the clicked subset, and the head that scores the full funnel is no longer
+ranking a population it never trained on.
+
+The trade is that the trick moves the difficulty, it does not remove it.
+The derived conditional explodes wherever CTR is tiny — a small CTCVR
+error at 2% CTR is a 3x swing in p_pay (the
+[ratio that explodes](when-the-ctcvr-disagrees/) detour) — so the
+derivation needs a per-slice clip and a calibration check, not a global
+formula. And full-space training needs the joint label distribution and
+the funnel's intermediate events, which is a label-pipeline cost the
+clicked-subset shortcut never paid. The shortcut's real price is the
+0.448-versus-0.618 censored read: the head that never sees a non-click is
+worse than random on the funnel it is asked to score.
+
+## Who owns the loop
+
+- **The label and sample team** owns the joint click-and-pay label on the
+  full exposure space, the funnel's intermediate events, and the
+  eligibility record — the ground the two heads train on. Without the
+  full-space ground, the scheme collapses back into the censored subset.
+- **The model team** owns the two heads and the derived conditional:
+  the ratio is computed at score time, clipped per slice, and re-checked
+  where CTR is small.
+- **The evaluation team** owns the full-funnel read: CVR AUC and the
+  derived conditional's calibration must be measured on all impressions,
+  not on the clicked population the old head was judged on.
+- **The downstream teams** (value tree, auction, pacing) own the contract
+  that every probability they multiply is a marginal on the same exposure
+  space — which is what makes the clip and the calibration check their
+  concern, not just the ranking team's.
+
 ## Evidence boundary
 
 The executed synthetic read over declared click and pay rates
