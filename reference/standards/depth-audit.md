@@ -1611,7 +1611,21 @@ or attributed-and-dated evidence.
 contract (personalized discovery, quantitative research, agentic platform,
 game AI, multimodal voice/video, bio-pharma, autonomous driving are done as
 of the increments above; the check re-reads them because earlier user
-feedback flagged personalized discovery chapters as shallow).
+feedback flagged personalized discovery chapters as shallow). A fresh scan
+on 2026-08-08 measured the current coverage per topic:
+
+- 02-personalized-discovery: 265 chapters, 52-53 carry fix-and-trade and
+  who-owns sections — the largest gap, matching the user's shallow-content
+  flag; re-read stage ranges against the 265-chapter reality.
+- 03-quantitative-research: 19 chapters, 12 carry both — 7 missing.
+- 05-game-ai: 22 chapters, 21 carry both — 1 missing (no fix-and-trade).
+- 07-multimodal-generation: 46 chapters, 25 carry both — 21 missing, all
+  in the video path (voice path carries them).
+- 08-bio-pharma-modeling: 22 chapters, 21 carry both — 1 missing.
+- 09-autonomous-driving: 8 chapters, 7 carry both — 1 missing.
+
+The re-check works the topics in that order, one increment per topic, using
+the same fix-and-trade / who-owns contract as the language-model topic.
 
 The foundations now carry the failure-mode lens the queue named first:
 
