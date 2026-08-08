@@ -1,0 +1,2973 @@
+{
+  "train_frames": 8366,
+  "eval_frames": 7432,
+  "train_steer_counts": {
+    "0": 1003,
+    "1": 6353,
+    "2": 1010
+  },
+  "train_steer_share_straight": 0.759,
+  "weighted_steer_loss_weights": {
+    "0": 2.78,
+    "1": 0.439,
+    "2": 2.761
+  },
+  "epochs": 20,
+  "batch": 256,
+  "params": 139781,
+  "wall_s": {
+    "collect": 5.25,
+    "train": 3.62,
+    "open_loop": 0.03,
+    "in_loop": 6.04,
+    "probe": 8.06
+  },
+  "open_loop": {
+    "shipped": {
+      "eval_frames": 7432,
+      "class_counts_steer": {
+        "0": 973,
+        "1": 5497,
+        "2": 962
+      },
+      "steer_recall": {
+        "0": 0.589,
+        "1": 0.991,
+        "2": 0.561
+      },
+      "steer_precision": {
+        "0": 0.902,
+        "1": 0.876,
+        "2": 0.933
+      },
+      "dodge_recall": 0.602,
+      "dodge_precision": 0.959,
+      "near_obstacle_frames": 1944,
+      "near_dodge_recall": 0.551,
+      "near_dodge_precision": 0.976,
+      "steer_accuracy": 0.8827,
+      "throttle_accuracy": 0.866,
+      "joint_accuracy": 0.7718
+    },
+    "base": {
+      "eval_frames": 7432,
+      "class_counts_steer": {
+        "0": 973,
+        "1": 5497,
+        "2": 962
+      },
+      "steer_recall": {
+        "0": 0.768,
+        "1": 0.958,
+        "2": 0.569
+      },
+      "steer_precision": {
+        "0": 0.77,
+        "1": 0.9,
+        "2": 0.892
+      },
+      "dodge_recall": 0.699,
+      "dodge_precision": 0.855,
+      "near_obstacle_frames": 1944,
+      "near_dodge_recall": 0.664,
+      "near_dodge_precision": 0.793,
+      "steer_accuracy": 0.8828,
+      "throttle_accuracy": 0.8628,
+      "joint_accuracy": 0.7684
+    },
+    "weighted": {
+      "eval_frames": 7432,
+      "class_counts_steer": {
+        "0": 973,
+        "1": 5497,
+        "2": 962
+      },
+      "steer_recall": {
+        "0": 0.908,
+        "1": 0.699,
+        "2": 0.857
+      },
+      "steer_precision": {
+        "0": 0.524,
+        "1": 0.967,
+        "2": 0.465
+      },
+      "dodge_recall": 0.933,
+      "dodge_precision": 0.522,
+      "near_obstacle_frames": 1944,
+      "near_dodge_recall": 0.88,
+      "near_dodge_precision": 0.49,
+      "steer_accuracy": 0.747,
+      "throttle_accuracy": 0.8656,
+      "joint_accuracy": 0.6512
+    },
+    "oversampled": {
+      "eval_frames": 7432,
+      "class_counts_steer": {
+        "0": 973,
+        "1": 5497,
+        "2": 962
+      },
+      "steer_recall": {
+        "0": 0.848,
+        "1": 0.774,
+        "2": 0.846
+      },
+      "steer_precision": {
+        "0": 0.631,
+        "1": 0.957,
+        "2": 0.485
+      },
+      "dodge_recall": 0.9,
+      "dodge_precision": 0.583,
+      "near_obstacle_frames": 1944,
+      "near_dodge_recall": 0.792,
+      "near_dodge_precision": 0.613,
+      "steer_accuracy": 0.7927,
+      "throttle_accuracy": 0.8497,
+      "joint_accuracy": 0.6759
+    }
+  },
+  "in_loop": {
+    "shipped": {
+      "scenarios": 50,
+      "completion_rate": 0.28,
+      "collision_rate": 0.72,
+      "offroad_rate": 0.0,
+      "timeout_rate": 0.0,
+      "fail_seeds": [
+        101,
+        104,
+        105,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        118,
+        119,
+        121,
+        122,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        132,
+        133,
+        134,
+        135,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        144,
+        146,
+        147,
+        148
+      ],
+      "per_seed": [
+        {
+          "seed": 100,
+          "outcome": "completed",
+          "x": 60.24
+        },
+        {
+          "seed": 101,
+          "outcome": "collided",
+          "x": 23.63
+        },
+        {
+          "seed": 102,
+          "outcome": "completed",
+          "x": 60.24
+        },
+        {
+          "seed": 103,
+          "outcome": "completed",
+          "x": 60.18
+        },
+        {
+          "seed": 104,
+          "outcome": "collided",
+          "x": 44.61
+        },
+        {
+          "seed": 105,
+          "outcome": "collided",
+          "x": 21.82
+        },
+        {
+          "seed": 106,
+          "outcome": "completed",
+          "x": 60.22
+        },
+        {
+          "seed": 107,
+          "outcome": "collided",
+          "x": 39.23
+        },
+        {
+          "seed": 108,
+          "outcome": "collided",
+          "x": 26.04
+        },
+        {
+          "seed": 109,
+          "outcome": "collided",
+          "x": 32.03
+        },
+        {
+          "seed": 110,
+          "outcome": "collided",
+          "x": 19.41
+        },
+        {
+          "seed": 111,
+          "outcome": "collided",
+          "x": 31.43
+        },
+        {
+          "seed": 112,
+          "outcome": "collided",
+          "x": 21.83
+        },
+        {
+          "seed": 113,
+          "outcome": "collided",
+          "x": 16.44
+        },
+        {
+          "seed": 114,
+          "outcome": "collided",
+          "x": 33.23
+        },
+        {
+          "seed": 115,
+          "outcome": "collided",
+          "x": 33.22
+        },
+        {
+          "seed": 116,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 117,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 118,
+          "outcome": "collided",
+          "x": 41.01
+        },
+        {
+          "seed": 119,
+          "outcome": "collided",
+          "x": 20.02
+        },
+        {
+          "seed": 120,
+          "outcome": "completed",
+          "x": 60.19
+        },
+        {
+          "seed": 121,
+          "outcome": "collided",
+          "x": 52.44
+        },
+        {
+          "seed": 122,
+          "outcome": "collided",
+          "x": 12.36
+        },
+        {
+          "seed": 123,
+          "outcome": "completed",
+          "x": 60.24
+        },
+        {
+          "seed": 124,
+          "outcome": "completed",
+          "x": 60.18
+        },
+        {
+          "seed": 125,
+          "outcome": "collided",
+          "x": 12.36
+        },
+        {
+          "seed": 126,
+          "outcome": "collided",
+          "x": 42.82
+        },
+        {
+          "seed": 127,
+          "outcome": "collided",
+          "x": 27.24
+        },
+        {
+          "seed": 128,
+          "outcome": "collided",
+          "x": 21.82
+        },
+        {
+          "seed": 129,
+          "outcome": "collided",
+          "x": 14.04
+        },
+        {
+          "seed": 130,
+          "outcome": "collided",
+          "x": 18.83
+        },
+        {
+          "seed": 131,
+          "outcome": "completed",
+          "x": 60.22
+        },
+        {
+          "seed": 132,
+          "outcome": "collided",
+          "x": 50.63
+        },
+        {
+          "seed": 133,
+          "outcome": "collided",
+          "x": 25.43
+        },
+        {
+          "seed": 134,
+          "outcome": "collided",
+          "x": 39.23
+        },
+        {
+          "seed": 135,
+          "outcome": "collided",
+          "x": 20.02
+        },
+        {
+          "seed": 136,
+          "outcome": "completed",
+          "x": 60.2
+        },
+        {
+          "seed": 137,
+          "outcome": "collided",
+          "x": 18.84
+        },
+        {
+          "seed": 138,
+          "outcome": "collided",
+          "x": 14.64
+        },
+        {
+          "seed": 139,
+          "outcome": "collided",
+          "x": 7.68
+        },
+        {
+          "seed": 140,
+          "outcome": "collided",
+          "x": 38.02
+        },
+        {
+          "seed": 141,
+          "outcome": "collided",
+          "x": 27.22
+        },
+        {
+          "seed": 142,
+          "outcome": "collided",
+          "x": 15.23
+        },
+        {
+          "seed": 143,
+          "outcome": "completed",
+          "x": 60.22
+        },
+        {
+          "seed": 144,
+          "outcome": "collided",
+          "x": 15.83
+        },
+        {
+          "seed": 145,
+          "outcome": "completed",
+          "x": 60.22
+        },
+        {
+          "seed": 146,
+          "outcome": "collided",
+          "x": 15.24
+        },
+        {
+          "seed": 147,
+          "outcome": "collided",
+          "x": 12.36
+        },
+        {
+          "seed": 148,
+          "outcome": "collided",
+          "x": 12.37
+        },
+        {
+          "seed": 149,
+          "outcome": "completed",
+          "x": 60.24
+        }
+      ]
+    },
+    "base": {
+      "scenarios": 50,
+      "completion_rate": 0.28,
+      "collision_rate": 0.72,
+      "offroad_rate": 0.0,
+      "timeout_rate": 0.0,
+      "fail_seeds": [
+        101,
+        104,
+        105,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        118,
+        119,
+        121,
+        122,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        132,
+        133,
+        134,
+        135,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        144,
+        146,
+        147,
+        148
+      ],
+      "per_seed": [
+        {
+          "seed": 100,
+          "outcome": "completed",
+          "x": 60.23
+        },
+        {
+          "seed": 101,
+          "outcome": "collided",
+          "x": 23.63
+        },
+        {
+          "seed": 102,
+          "outcome": "completed",
+          "x": 60.24
+        },
+        {
+          "seed": 103,
+          "outcome": "completed",
+          "x": 60.17
+        },
+        {
+          "seed": 104,
+          "outcome": "collided",
+          "x": 44.61
+        },
+        {
+          "seed": 105,
+          "outcome": "collided",
+          "x": 21.81
+        },
+        {
+          "seed": 106,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 107,
+          "outcome": "collided",
+          "x": 39.23
+        },
+        {
+          "seed": 108,
+          "outcome": "collided",
+          "x": 26.03
+        },
+        {
+          "seed": 109,
+          "outcome": "collided",
+          "x": 31.42
+        },
+        {
+          "seed": 110,
+          "outcome": "collided",
+          "x": 19.41
+        },
+        {
+          "seed": 111,
+          "outcome": "collided",
+          "x": 31.42
+        },
+        {
+          "seed": 112,
+          "outcome": "collided",
+          "x": 21.82
+        },
+        {
+          "seed": 113,
+          "outcome": "collided",
+          "x": 16.43
+        },
+        {
+          "seed": 114,
+          "outcome": "collided",
+          "x": 33.23
+        },
+        {
+          "seed": 115,
+          "outcome": "collided",
+          "x": 33.21
+        },
+        {
+          "seed": 116,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 117,
+          "outcome": "completed",
+          "x": 60.2
+        },
+        {
+          "seed": 118,
+          "outcome": "collided",
+          "x": 41.01
+        },
+        {
+          "seed": 119,
+          "outcome": "collided",
+          "x": 19.41
+        },
+        {
+          "seed": 120,
+          "outcome": "completed",
+          "x": 60.18
+        },
+        {
+          "seed": 121,
+          "outcome": "collided",
+          "x": 52.44
+        },
+        {
+          "seed": 122,
+          "outcome": "collided",
+          "x": 12.36
+        },
+        {
+          "seed": 123,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 124,
+          "outcome": "completed",
+          "x": 60.19
+        },
+        {
+          "seed": 125,
+          "outcome": "collided",
+          "x": 12.36
+        },
+        {
+          "seed": 126,
+          "outcome": "collided",
+          "x": 42.82
+        },
+        {
+          "seed": 127,
+          "outcome": "collided",
+          "x": 27.23
+        },
+        {
+          "seed": 128,
+          "outcome": "collided",
+          "x": 21.21
+        },
+        {
+          "seed": 129,
+          "outcome": "collided",
+          "x": 14.04
+        },
+        {
+          "seed": 130,
+          "outcome": "collided",
+          "x": 18.82
+        },
+        {
+          "seed": 131,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 132,
+          "outcome": "collided",
+          "x": 50.63
+        },
+        {
+          "seed": 133,
+          "outcome": "collided",
+          "x": 25.43
+        },
+        {
+          "seed": 134,
+          "outcome": "collided",
+          "x": 39.23
+        },
+        {
+          "seed": 135,
+          "outcome": "collided",
+          "x": 20.02
+        },
+        {
+          "seed": 136,
+          "outcome": "completed",
+          "x": 60.2
+        },
+        {
+          "seed": 137,
+          "outcome": "collided",
+          "x": 18.84
+        },
+        {
+          "seed": 138,
+          "outcome": "collided",
+          "x": 14.64
+        },
+        {
+          "seed": 139,
+          "outcome": "collided",
+          "x": 7.68
+        },
+        {
+          "seed": 140,
+          "outcome": "collided",
+          "x": 38.02
+        },
+        {
+          "seed": 141,
+          "outcome": "collided",
+          "x": 27.22
+        },
+        {
+          "seed": 142,
+          "outcome": "collided",
+          "x": 15.23
+        },
+        {
+          "seed": 143,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 144,
+          "outcome": "collided",
+          "x": 15.83
+        },
+        {
+          "seed": 145,
+          "outcome": "completed",
+          "x": 60.22
+        },
+        {
+          "seed": 146,
+          "outcome": "collided",
+          "x": 15.23
+        },
+        {
+          "seed": 147,
+          "outcome": "collided",
+          "x": 12.36
+        },
+        {
+          "seed": 148,
+          "outcome": "collided",
+          "x": 12.36
+        },
+        {
+          "seed": 149,
+          "outcome": "completed",
+          "x": 60.23
+        }
+      ]
+    },
+    "weighted": {
+      "scenarios": 50,
+      "completion_rate": 0.32,
+      "collision_rate": 0.68,
+      "offroad_rate": 0.0,
+      "timeout_rate": 0.0,
+      "fail_seeds": [
+        101,
+        104,
+        105,
+        107,
+        108,
+        109,
+        111,
+        112,
+        113,
+        114,
+        115,
+        118,
+        119,
+        121,
+        122,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        132,
+        133,
+        134,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        144,
+        146,
+        147,
+        148
+      ],
+      "per_seed": [
+        {
+          "seed": 100,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 101,
+          "outcome": "collided",
+          "x": 23.62
+        },
+        {
+          "seed": 102,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 103,
+          "outcome": "completed",
+          "x": 60.16
+        },
+        {
+          "seed": 104,
+          "outcome": "collided",
+          "x": 44.61
+        },
+        {
+          "seed": 105,
+          "outcome": "collided",
+          "x": 21.81
+        },
+        {
+          "seed": 106,
+          "outcome": "completed",
+          "x": 60.19
+        },
+        {
+          "seed": 107,
+          "outcome": "collided",
+          "x": 39.23
+        },
+        {
+          "seed": 108,
+          "outcome": "collided",
+          "x": 26.03
+        },
+        {
+          "seed": 109,
+          "outcome": "collided",
+          "x": 31.42
+        },
+        {
+          "seed": 110,
+          "outcome": "completed",
+          "x": 60.57
+        },
+        {
+          "seed": 111,
+          "outcome": "collided",
+          "x": 31.41
+        },
+        {
+          "seed": 112,
+          "outcome": "collided",
+          "x": 24.56
+        },
+        {
+          "seed": 113,
+          "outcome": "collided",
+          "x": 50.09
+        },
+        {
+          "seed": 114,
+          "outcome": "collided",
+          "x": 33.22
+        },
+        {
+          "seed": 115,
+          "outcome": "collided",
+          "x": 33.21
+        },
+        {
+          "seed": 116,
+          "outcome": "completed",
+          "x": 60.18
+        },
+        {
+          "seed": 117,
+          "outcome": "completed",
+          "x": 60.2
+        },
+        {
+          "seed": 118,
+          "outcome": "collided",
+          "x": 41.0
+        },
+        {
+          "seed": 119,
+          "outcome": "collided",
+          "x": 19.41
+        },
+        {
+          "seed": 120,
+          "outcome": "completed",
+          "x": 60.18
+        },
+        {
+          "seed": 121,
+          "outcome": "collided",
+          "x": 52.42
+        },
+        {
+          "seed": 122,
+          "outcome": "collided",
+          "x": 51.35
+        },
+        {
+          "seed": 123,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 124,
+          "outcome": "completed",
+          "x": 60.17
+        },
+        {
+          "seed": 125,
+          "outcome": "collided",
+          "x": 12.35
+        },
+        {
+          "seed": 126,
+          "outcome": "collided",
+          "x": 42.82
+        },
+        {
+          "seed": 127,
+          "outcome": "collided",
+          "x": 27.23
+        },
+        {
+          "seed": 128,
+          "outcome": "collided",
+          "x": 21.21
+        },
+        {
+          "seed": 129,
+          "outcome": "collided",
+          "x": 14.04
+        },
+        {
+          "seed": 130,
+          "outcome": "collided",
+          "x": 18.82
+        },
+        {
+          "seed": 131,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 132,
+          "outcome": "collided",
+          "x": 50.61
+        },
+        {
+          "seed": 133,
+          "outcome": "collided",
+          "x": 25.42
+        },
+        {
+          "seed": 134,
+          "outcome": "collided",
+          "x": 39.22
+        },
+        {
+          "seed": 135,
+          "outcome": "completed",
+          "x": 60.55
+        },
+        {
+          "seed": 136,
+          "outcome": "completed",
+          "x": 60.19
+        },
+        {
+          "seed": 137,
+          "outcome": "collided",
+          "x": 18.83
+        },
+        {
+          "seed": 138,
+          "outcome": "collided",
+          "x": 14.63
+        },
+        {
+          "seed": 139,
+          "outcome": "collided",
+          "x": 51.08
+        },
+        {
+          "seed": 140,
+          "outcome": "collided",
+          "x": 38.01
+        },
+        {
+          "seed": 141,
+          "outcome": "collided",
+          "x": 27.22
+        },
+        {
+          "seed": 142,
+          "outcome": "collided",
+          "x": 15.22
+        },
+        {
+          "seed": 143,
+          "outcome": "completed",
+          "x": 60.19
+        },
+        {
+          "seed": 144,
+          "outcome": "collided",
+          "x": 15.83
+        },
+        {
+          "seed": 145,
+          "outcome": "completed",
+          "x": 60.19
+        },
+        {
+          "seed": 146,
+          "outcome": "collided",
+          "x": 15.23
+        },
+        {
+          "seed": 147,
+          "outcome": "collided",
+          "x": 12.35
+        },
+        {
+          "seed": 148,
+          "outcome": "collided",
+          "x": 12.36
+        },
+        {
+          "seed": 149,
+          "outcome": "completed",
+          "x": 60.21
+        }
+      ]
+    },
+    "oversampled": {
+      "scenarios": 50,
+      "completion_rate": 0.44,
+      "collision_rate": 0.56,
+      "offroad_rate": 0.0,
+      "timeout_rate": 0.0,
+      "fail_seeds": [
+        101,
+        104,
+        105,
+        107,
+        108,
+        112,
+        113,
+        114,
+        115,
+        118,
+        119,
+        121,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        132,
+        133,
+        134,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        144
+      ],
+      "per_seed": [
+        {
+          "seed": 100,
+          "outcome": "completed",
+          "x": 60.16
+        },
+        {
+          "seed": 101,
+          "outcome": "collided",
+          "x": 23.62
+        },
+        {
+          "seed": 102,
+          "outcome": "completed",
+          "x": 60.16
+        },
+        {
+          "seed": 103,
+          "outcome": "completed",
+          "x": 60.16
+        },
+        {
+          "seed": 104,
+          "outcome": "collided",
+          "x": 44.56
+        },
+        {
+          "seed": 105,
+          "outcome": "collided",
+          "x": 21.81
+        },
+        {
+          "seed": 106,
+          "outcome": "completed",
+          "x": 60.15
+        },
+        {
+          "seed": 107,
+          "outcome": "collided",
+          "x": 27.8
+        },
+        {
+          "seed": 108,
+          "outcome": "collided",
+          "x": 26.03
+        },
+        {
+          "seed": 109,
+          "outcome": "completed",
+          "x": 60.37
+        },
+        {
+          "seed": 110,
+          "outcome": "completed",
+          "x": 60.59
+        },
+        {
+          "seed": 111,
+          "outcome": "completed",
+          "x": 60.37
+        },
+        {
+          "seed": 112,
+          "outcome": "collided",
+          "x": 24.21
+        },
+        {
+          "seed": 113,
+          "outcome": "collided",
+          "x": 49.63
+        },
+        {
+          "seed": 114,
+          "outcome": "collided",
+          "x": 33.41
+        },
+        {
+          "seed": 115,
+          "outcome": "collided",
+          "x": 33.21
+        },
+        {
+          "seed": 116,
+          "outcome": "completed",
+          "x": 60.18
+        },
+        {
+          "seed": 117,
+          "outcome": "completed",
+          "x": 60.2
+        },
+        {
+          "seed": 118,
+          "outcome": "collided",
+          "x": 41.0
+        },
+        {
+          "seed": 119,
+          "outcome": "collided",
+          "x": 19.41
+        },
+        {
+          "seed": 120,
+          "outcome": "completed",
+          "x": 60.18
+        },
+        {
+          "seed": 121,
+          "outcome": "collided",
+          "x": 52.75
+        },
+        {
+          "seed": 122,
+          "outcome": "completed",
+          "x": 60.09
+        },
+        {
+          "seed": 123,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 124,
+          "outcome": "completed",
+          "x": 60.17
+        },
+        {
+          "seed": 125,
+          "outcome": "collided",
+          "x": 12.35
+        },
+        {
+          "seed": 126,
+          "outcome": "collided",
+          "x": 43.37
+        },
+        {
+          "seed": 127,
+          "outcome": "collided",
+          "x": 47.12
+        },
+        {
+          "seed": 128,
+          "outcome": "collided",
+          "x": 21.76
+        },
+        {
+          "seed": 129,
+          "outcome": "collided",
+          "x": 14.03
+        },
+        {
+          "seed": 130,
+          "outcome": "collided",
+          "x": 18.82
+        },
+        {
+          "seed": 131,
+          "outcome": "completed",
+          "x": 60.21
+        },
+        {
+          "seed": 132,
+          "outcome": "collided",
+          "x": 50.56
+        },
+        {
+          "seed": 133,
+          "outcome": "collided",
+          "x": 25.42
+        },
+        {
+          "seed": 134,
+          "outcome": "collided",
+          "x": 39.22
+        },
+        {
+          "seed": 135,
+          "outcome": "completed",
+          "x": 60.57
+        },
+        {
+          "seed": 136,
+          "outcome": "completed",
+          "x": 60.19
+        },
+        {
+          "seed": 137,
+          "outcome": "collided",
+          "x": 18.83
+        },
+        {
+          "seed": 138,
+          "outcome": "collided",
+          "x": 44.96
+        },
+        {
+          "seed": 139,
+          "outcome": "collided",
+          "x": 51.27
+        },
+        {
+          "seed": 140,
+          "outcome": "collided",
+          "x": 38.01
+        },
+        {
+          "seed": 141,
+          "outcome": "collided",
+          "x": 27.22
+        },
+        {
+          "seed": 142,
+          "outcome": "collided",
+          "x": 19.98
+        },
+        {
+          "seed": 143,
+          "outcome": "completed",
+          "x": 60.19
+        },
+        {
+          "seed": 144,
+          "outcome": "collided",
+          "x": 15.82
+        },
+        {
+          "seed": 145,
+          "outcome": "completed",
+          "x": 60.14
+        },
+        {
+          "seed": 146,
+          "outcome": "completed",
+          "x": 60.17
+        },
+        {
+          "seed": 147,
+          "outcome": "completed",
+          "x": 60.57
+        },
+        {
+          "seed": 148,
+          "outcome": "completed",
+          "x": 60.44
+        },
+        {
+          "seed": 149,
+          "outcome": "completed",
+          "x": 60.2
+        }
+      ]
+    }
+  },
+  "in_loop_probe": {
+    "shipped": {
+      "scenarios": 50,
+      "mean_nonzero_steer_share": 0.059,
+      "mean_lateral_offset_m": 0.143,
+      "mean_steps_per_episode": 76.3,
+      "easy_seeds": [
+        100,
+        102,
+        103,
+        106,
+        116,
+        117,
+        120,
+        123,
+        124,
+        131,
+        136,
+        143,
+        145,
+        149
+      ],
+      "easy_nonzero_steer_share": 0.068,
+      "easy_lateral_offset_m": 0.156,
+      "per_episode": [
+        {
+          "seed": 100,
+          "steps": 118,
+          "nz_steer": 0.0,
+          "lat": 0.19578231340207586
+        },
+        {
+          "seed": 101,
+          "steps": 57,
+          "nz_steer": 0.03508771929824561,
+          "lat": 0.18129658424161865
+        },
+        {
+          "seed": 102,
+          "steps": 118,
+          "nz_steer": 0.0,
+          "lat": 0.20558293624586868
+        },
+        {
+          "seed": 103,
+          "steps": 118,
+          "nz_steer": 0.19491525423728814,
+          "lat": 0.11914445459518135
+        },
+        {
+          "seed": 104,
+          "steps": 92,
+          "nz_steer": 0.06521739130434782,
+          "lat": 0.1415620869009155
+        },
+        {
+          "seed": 105,
+          "steps": 54,
+          "nz_steer": 0.1111111111111111,
+          "lat": 0.12898760322001485
+        },
+        {
+          "seed": 106,
+          "steps": 118,
+          "nz_steer": 0.05084745762711865,
+          "lat": 0.13767287751179558
+        },
+        {
+          "seed": 107,
+          "steps": 83,
+          "nz_steer": 0.024096385542168676,
+          "lat": 0.14855044271659726
+        },
+        {
+          "seed": 108,
+          "steps": 61,
+          "nz_steer": 0.0,
+          "lat": 0.1596229454759428
+        },
+        {
+          "seed": 109,
+          "steps": 71,
+          "nz_steer": 0.028169014084507043,
+          "lat": 0.15024597146834745
+        },
+        {
+          "seed": 110,
+          "steps": 50,
+          "nz_steer": 0.12,
+          "lat": 0.11956960995810259
+        },
+        {
+          "seed": 111,
+          "steps": 70,
+          "nz_steer": 0.08571428571428572,
+          "lat": 0.18960329927053818
+        },
+        {
+          "seed": 112,
+          "steps": 54,
+          "nz_steer": 0.037037037037037035,
+          "lat": 0.1419362307591682
+        },
+        {
+          "seed": 113,
+          "steps": 45,
+          "nz_steer": 0.0,
+          "lat": 0.0962681394245422
+        },
+        {
+          "seed": 114,
+          "steps": 73,
+          "nz_steer": 0.0273972602739726,
+          "lat": 0.15432017915467025
+        },
+        {
+          "seed": 115,
+          "steps": 73,
+          "nz_steer": 0.1095890410958904,
+          "lat": 0.15441930911244375
+        },
+        {
+          "seed": 116,
+          "steps": 118,
+          "nz_steer": 0.0847457627118644,
+          "lat": 0.17598289082351196
+        },
+        {
+          "seed": 117,
+          "steps": 118,
+          "nz_steer": 0.06779661016949153,
+          "lat": 0.13037759457940218
+        },
+        {
+          "seed": 118,
+          "steps": 86,
+          "nz_steer": 0.08139534883720931,
+          "lat": 0.12086115842495612
+        },
+        {
+          "seed": 119,
+          "steps": 51,
+          "nz_steer": 0.1568627450980392,
+          "lat": 0.12553116895882693
+        },
+        {
+          "seed": 120,
+          "steps": 118,
+          "nz_steer": 0.11016949152542373,
+          "lat": 0.12614784550483352
+        },
+        {
+          "seed": 121,
+          "steps": 105,
+          "nz_steer": 0.0,
+          "lat": 0.20682306424083108
+        },
+        {
+          "seed": 122,
+          "steps": 38,
+          "nz_steer": 0.10526315789473684,
+          "lat": 0.11155189894342345
+        },
+        {
+          "seed": 123,
+          "steps": 118,
+          "nz_steer": 0.0,
+          "lat": 0.17569238549001923
+        },
+        {
+          "seed": 124,
+          "steps": 118,
+          "nz_steer": 0.1694915254237288,
+          "lat": 0.11488253694057148
+        },
+        {
+          "seed": 125,
+          "steps": 38,
+          "nz_steer": 0.15789473684210525,
+          "lat": 0.09519951096945499
+        },
+        {
+          "seed": 126,
+          "steps": 89,
+          "nz_steer": 0.0449438202247191,
+          "lat": 0.14723794760694017
+        },
+        {
+          "seed": 127,
+          "steps": 63,
+          "nz_steer": 0.0,
+          "lat": 0.15770859761743614
+        },
+        {
+          "seed": 128,
+          "steps": 54,
+          "nz_steer": 0.14814814814814814,
+          "lat": 0.12489531752098265
+        },
+        {
+          "seed": 129,
+          "steps": 41,
+          "nz_steer": 0.0975609756097561,
+          "lat": 0.116202517727239
+        },
+        {
+          "seed": 130,
+          "steps": 49,
+          "nz_steer": 0.04081632653061224,
+          "lat": 0.15647407022937754
+        },
+        {
+          "seed": 131,
+          "steps": 118,
+          "nz_steer": 0.03389830508474576,
+          "lat": 0.1341744772983453
+        },
+        {
+          "seed": 132,
+          "steps": 102,
+          "nz_steer": 0.0196078431372549,
+          "lat": 0.16988584267909296
+        },
+        {
+          "seed": 133,
+          "steps": 60,
+          "nz_steer": 0.03333333333333333,
+          "lat": 0.17041693916980152
+        },
+        {
+          "seed": 134,
+          "steps": 83,
+          "nz_steer": 0.024096385542168676,
+          "lat": 0.21819464887444612
+        },
+        {
+          "seed": 135,
+          "steps": 51,
+          "nz_steer": 0.0784313725490196,
+          "lat": 0.13390190705606458
+        },
+        {
+          "seed": 136,
+          "steps": 118,
+          "nz_steer": 0.11864406779661017,
+          "lat": 0.1246194734176688
+        },
+        {
+          "seed": 137,
+          "steps": 49,
+          "nz_steer": 0.0,
+          "lat": 0.13338925511640423
+        },
+        {
+          "seed": 138,
+          "steps": 42,
+          "nz_steer": 0.0,
+          "lat": 0.12533366719545821
+        },
+        {
+          "seed": 139,
+          "steps": 28,
+          "nz_steer": 0.0,
+          "lat": 0.05821816765751112
+        },
+        {
+          "seed": 140,
+          "steps": 81,
+          "nz_steer": 0.07407407407407407,
+          "lat": 0.11765242034483278
+        },
+        {
+          "seed": 141,
+          "steps": 63,
+          "nz_steer": 0.09523809523809523,
+          "lat": 0.1276484139074085
+        },
+        {
+          "seed": 142,
+          "steps": 43,
+          "nz_steer": 0.046511627906976744,
+          "lat": 0.12281658444642143
+        },
+        {
+          "seed": 143,
+          "steps": 118,
+          "nz_steer": 0.05084745762711865,
+          "lat": 0.187477160295531
+        },
+        {
+          "seed": 144,
+          "steps": 44,
+          "nz_steer": 0.045454545454545456,
+          "lat": 0.12918562610251372
+        },
+        {
+          "seed": 145,
+          "steps": 118,
+          "nz_steer": 0.05084745762711865,
+          "lat": 0.1784618261594949
+        },
+        {
+          "seed": 146,
+          "steps": 43,
+          "nz_steer": 0.0,
+          "lat": 0.11265504671354964
+        },
+        {
+          "seed": 147,
+          "steps": 38,
+          "nz_steer": 0.10526315789473684,
+          "lat": 0.11832245753664739
+        },
+        {
+          "seed": 148,
+          "steps": 38,
+          "nz_steer": 0.02631578947368421,
+          "lat": 0.12462348369057731
+        },
+        {
+          "seed": 149,
+          "steps": 118,
+          "nz_steer": 0.01694915254237288,
+          "lat": 0.17239129177938461
+        }
+      ]
+    },
+    "base": {
+      "scenarios": 50,
+      "mean_nonzero_steer_share": 0.106,
+      "mean_lateral_offset_m": 0.131,
+      "mean_steps_per_episode": 76.2,
+      "easy_seeds": [
+        100,
+        102,
+        103,
+        106,
+        116,
+        117,
+        120,
+        123,
+        124,
+        131,
+        136,
+        143,
+        145,
+        149
+      ],
+      "easy_nonzero_steer_share": 0.103,
+      "easy_lateral_offset_m": 0.142,
+      "per_episode": [
+        {
+          "seed": 100,
+          "steps": 118,
+          "nz_steer": 0.05084745762711865,
+          "lat": 0.129655943979945
+        },
+        {
+          "seed": 101,
+          "steps": 57,
+          "nz_steer": 0.03508771929824561,
+          "lat": 0.18129658424161865
+        },
+        {
+          "seed": 102,
+          "steps": 118,
+          "nz_steer": 0.0,
+          "lat": 0.20558293624586868
+        },
+        {
+          "seed": 103,
+          "steps": 118,
+          "nz_steer": 0.2288135593220339,
+          "lat": 0.10594165753070238
+        },
+        {
+          "seed": 104,
+          "steps": 92,
+          "nz_steer": 0.10869565217391304,
+          "lat": 0.18063151106955128
+        },
+        {
+          "seed": 105,
+          "steps": 54,
+          "nz_steer": 0.2222222222222222,
+          "lat": 0.09906758109915405
+        },
+        {
+          "seed": 106,
+          "steps": 118,
+          "nz_steer": 0.059322033898305086,
+          "lat": 0.13523510664303207
+        },
+        {
+          "seed": 107,
+          "steps": 83,
+          "nz_steer": 0.024096385542168676,
+          "lat": 0.14855044271659726
+        },
+        {
+          "seed": 108,
+          "steps": 61,
+          "nz_steer": 0.06557377049180328,
+          "lat": 0.11485569762917772
+        },
+        {
+          "seed": 109,
+          "steps": 70,
+          "nz_steer": 0.11428571428571428,
+          "lat": 0.13427203022873832
+        },
+        {
+          "seed": 110,
+          "steps": 50,
+          "nz_steer": 0.24,
+          "lat": 0.1028780809606757
+        },
+        {
+          "seed": 111,
+          "steps": 70,
+          "nz_steer": 0.11428571428571428,
+          "lat": 0.1395040034307543
+        },
+        {
+          "seed": 112,
+          "steps": 54,
+          "nz_steer": 0.14814814814814814,
+          "lat": 0.10800419788741021
+        },
+        {
+          "seed": 113,
+          "steps": 45,
+          "nz_steer": 0.08888888888888889,
+          "lat": 0.07330964038657416
+        },
+        {
+          "seed": 114,
+          "steps": 73,
+          "nz_steer": 0.0273972602739726,
+          "lat": 0.15432017915467025
+        },
+        {
+          "seed": 115,
+          "steps": 73,
+          "nz_steer": 0.136986301369863,
+          "lat": 0.12330839364421797
+        },
+        {
+          "seed": 116,
+          "steps": 118,
+          "nz_steer": 0.0847457627118644,
+          "lat": 0.17731871360642062
+        },
+        {
+          "seed": 117,
+          "steps": 118,
+          "nz_steer": 0.11016949152542373,
+          "lat": 0.12374132011227244
+        },
+        {
+          "seed": 118,
+          "steps": 86,
+          "nz_steer": 0.08139534883720931,
+          "lat": 0.12071687104218952
+        },
+        {
+          "seed": 119,
+          "steps": 50,
+          "nz_steer": 0.24,
+          "lat": 0.1014587194871929
+        },
+        {
+          "seed": 120,
+          "steps": 118,
+          "nz_steer": 0.2033898305084746,
+          "lat": 0.10346668681020381
+        },
+        {
+          "seed": 121,
+          "steps": 105,
+          "nz_steer": 0.0,
+          "lat": 0.20682306424083108
+        },
+        {
+          "seed": 122,
+          "steps": 38,
+          "nz_steer": 0.21052631578947367,
+          "lat": 0.08681755709927141
+        },
+        {
+          "seed": 123,
+          "steps": 118,
+          "nz_steer": 0.11864406779661017,
+          "lat": 0.10445304662212439
+        },
+        {
+          "seed": 124,
+          "steps": 118,
+          "nz_steer": 0.16101694915254236,
+          "lat": 0.14685077496101
+        },
+        {
+          "seed": 125,
+          "steps": 38,
+          "nz_steer": 0.23684210526315788,
+          "lat": 0.09294239775361988
+        },
+        {
+          "seed": 126,
+          "steps": 89,
+          "nz_steer": 0.06741573033707865,
+          "lat": 0.1271211601401596
+        },
+        {
+          "seed": 127,
+          "steps": 63,
+          "nz_steer": 0.06349206349206349,
+          "lat": 0.12805702036952424
+        },
+        {
+          "seed": 128,
+          "steps": 53,
+          "nz_steer": 0.22641509433962265,
+          "lat": 0.11525433642233099
+        },
+        {
+          "seed": 129,
+          "steps": 41,
+          "nz_steer": 0.0975609756097561,
+          "lat": 0.1087522840633128
+        },
+        {
+          "seed": 130,
+          "steps": 49,
+          "nz_steer": 0.08163265306122448,
+          "lat": 0.14725938610725212
+        },
+        {
+          "seed": 131,
+          "steps": 118,
+          "nz_steer": 0.1016949152542373,
+          "lat": 0.09813957520125469
+        },
+        {
+          "seed": 132,
+          "steps": 102,
+          "nz_steer": 0.0196078431372549,
+          "lat": 0.17121446319624806
+        },
+        {
+          "seed": 133,
+          "steps": 60,
+          "nz_steer": 0.03333333333333333,
+          "lat": 0.17016396076389556
+        },
+        {
+          "seed": 134,
+          "steps": 83,
+          "nz_steer": 0.024096385542168676,
+          "lat": 0.22001002174878453
+        },
+        {
+          "seed": 135,
+          "steps": 51,
+          "nz_steer": 0.11764705882352941,
+          "lat": 0.1267094324837625
+        },
+        {
+          "seed": 136,
+          "steps": 118,
+          "nz_steer": 0.11864406779661017,
+          "lat": 0.12218055648783559
+        },
+        {
+          "seed": 137,
+          "steps": 49,
+          "nz_steer": 0.0,
+          "lat": 0.13338925511640423
+        },
+        {
+          "seed": 138,
+          "steps": 42,
+          "nz_steer": 0.0,
+          "lat": 0.12533366719545821
+        },
+        {
+          "seed": 139,
+          "steps": 28,
+          "nz_steer": 0.0,
+          "lat": 0.05821816765751112
+        },
+        {
+          "seed": 140,
+          "steps": 81,
+          "nz_steer": 0.07407407407407407,
+          "lat": 0.12610673991381494
+        },
+        {
+          "seed": 141,
+          "steps": 63,
+          "nz_steer": 0.06349206349206349,
+          "lat": 0.15063196622541283
+        },
+        {
+          "seed": 142,
+          "steps": 43,
+          "nz_steer": 0.13953488372093023,
+          "lat": 0.10580115322531536
+        },
+        {
+          "seed": 143,
+          "steps": 118,
+          "nz_steer": 0.11016949152542373,
+          "lat": 0.16954619087947415
+        },
+        {
+          "seed": 144,
+          "steps": 44,
+          "nz_steer": 0.13636363636363635,
+          "lat": 0.10488661810964249
+        },
+        {
+          "seed": 145,
+          "steps": 118,
+          "nz_steer": 0.06779661016949153,
+          "lat": 0.19165561111915796
+        },
+        {
+          "seed": 146,
+          "steps": 43,
+          "nz_steer": 0.13953488372093023,
+          "lat": 0.08620634824756902
+        },
+        {
+          "seed": 147,
+          "steps": 38,
+          "nz_steer": 0.2631578947368421,
+          "lat": 0.09600936770500954
+        },
+        {
+          "seed": 148,
+          "steps": 38,
+          "nz_steer": 0.21052631578947367,
+          "lat": 0.07940253537826847
+        },
+        {
+          "seed": 149,
+          "steps": 118,
+          "nz_steer": 0.025423728813559324,
+          "lat": 0.1717818831841939
+        }
+      ]
+    },
+    "weighted": {
+      "scenarios": 50,
+      "mean_nonzero_steer_share": 0.282,
+      "mean_lateral_offset_m": 0.152,
+      "mean_steps_per_episode": 83.2,
+      "easy_seeds": [
+        100,
+        102,
+        103,
+        106,
+        116,
+        117,
+        120,
+        123,
+        124,
+        131,
+        136,
+        143,
+        145,
+        149
+      ],
+      "easy_nonzero_steer_share": 0.247,
+      "easy_lateral_offset_m": 0.069,
+      "per_episode": [
+        {
+          "seed": 100,
+          "steps": 118,
+          "nz_steer": 0.15254237288135594,
+          "lat": 0.06690825330451156
+        },
+        {
+          "seed": 101,
+          "steps": 57,
+          "nz_steer": 0.38596491228070173,
+          "lat": 0.07579362399037137
+        },
+        {
+          "seed": 102,
+          "steps": 118,
+          "nz_steer": 0.13559322033898305,
+          "lat": 0.06444126455261344
+        },
+        {
+          "seed": 103,
+          "steps": 118,
+          "nz_steer": 0.4406779661016949,
+          "lat": 0.058116015111052736
+        },
+        {
+          "seed": 104,
+          "steps": 92,
+          "nz_steer": 0.2826086956521739,
+          "lat": 0.06606435631016849
+        },
+        {
+          "seed": 105,
+          "steps": 54,
+          "nz_steer": 0.5925925925925926,
+          "lat": 0.0632222150530324
+        },
+        {
+          "seed": 106,
+          "steps": 118,
+          "nz_steer": 0.23728813559322035,
+          "lat": 0.06550646968474383
+        },
+        {
+          "seed": 107,
+          "steps": 83,
+          "nz_steer": 0.12048192771084337,
+          "lat": 0.09006645352940579
+        },
+        {
+          "seed": 108,
+          "steps": 61,
+          "nz_steer": 0.13114754098360656,
+          "lat": 0.07073537421345975
+        },
+        {
+          "seed": 109,
+          "steps": 70,
+          "nz_steer": 0.17142857142857143,
+          "lat": 0.07678889763726837
+        },
+        {
+          "seed": 110,
+          "steps": 121,
+          "nz_steer": 0.39669421487603307,
+          "lat": 0.7931329121290369
+        },
+        {
+          "seed": 111,
+          "steps": 70,
+          "nz_steer": 0.4,
+          "lat": 0.07217387217968327
+        },
+        {
+          "seed": 112,
+          "steps": 60,
+          "nz_steer": 0.4,
+          "lat": 0.2657281065247108
+        },
+        {
+          "seed": 113,
+          "steps": 103,
+          "nz_steer": 0.0970873786407767,
+          "lat": 0.7482567190542251
+        },
+        {
+          "seed": 114,
+          "steps": 73,
+          "nz_steer": 0.1917808219178082,
+          "lat": 0.06489424576095605
+        },
+        {
+          "seed": 115,
+          "steps": 73,
+          "nz_steer": 0.3561643835616438,
+          "lat": 0.07951377596309649
+        },
+        {
+          "seed": 116,
+          "steps": 118,
+          "nz_steer": 0.3220338983050847,
+          "lat": 0.07044298132520405
+        },
+        {
+          "seed": 117,
+          "steps": 118,
+          "nz_steer": 0.22033898305084745,
+          "lat": 0.07341905955171343
+        },
+        {
+          "seed": 118,
+          "steps": 86,
+          "nz_steer": 0.3953488372093023,
+          "lat": 0.06193352256096751
+        },
+        {
+          "seed": 119,
+          "steps": 50,
+          "nz_steer": 0.56,
+          "lat": 0.06157043446757962
+        },
+        {
+          "seed": 120,
+          "steps": 118,
+          "nz_steer": 0.3220338983050847,
+          "lat": 0.06794658400158103
+        },
+        {
+          "seed": 121,
+          "steps": 105,
+          "nz_steer": 0.09523809523809523,
+          "lat": 0.070471596477189
+        },
+        {
+          "seed": 122,
+          "steps": 107,
+          "nz_steer": 0.205607476635514,
+          "lat": 0.8919050493806459
+        },
+        {
+          "seed": 123,
+          "steps": 118,
+          "nz_steer": 0.15254237288135594,
+          "lat": 0.075929233524564
+        },
+        {
+          "seed": 124,
+          "steps": 118,
+          "nz_steer": 0.3644067796610169,
+          "lat": 0.06650729686768693
+        },
+        {
+          "seed": 125,
+          "steps": 38,
+          "nz_steer": 0.5789473684210527,
+          "lat": 0.06624689109777444
+        },
+        {
+          "seed": 126,
+          "steps": 89,
+          "nz_steer": 0.20224719101123595,
+          "lat": 0.06904111716998194
+        },
+        {
+          "seed": 127,
+          "steps": 63,
+          "nz_steer": 0.12698412698412698,
+          "lat": 0.07060313823244313
+        },
+        {
+          "seed": 128,
+          "steps": 53,
+          "nz_steer": 0.5283018867924528,
+          "lat": 0.06146761328792473
+        },
+        {
+          "seed": 129,
+          "steps": 41,
+          "nz_steer": 0.24390243902439024,
+          "lat": 0.09196734496115264
+        },
+        {
+          "seed": 130,
+          "steps": 49,
+          "nz_steer": 0.3673469387755102,
+          "lat": 0.06861750967657758
+        },
+        {
+          "seed": 131,
+          "steps": 118,
+          "nz_steer": 0.15254237288135594,
+          "lat": 0.07184326049499189
+        },
+        {
+          "seed": 132,
+          "steps": 102,
+          "nz_steer": 0.21568627450980393,
+          "lat": 0.06343251184857693
+        },
+        {
+          "seed": 133,
+          "steps": 60,
+          "nz_steer": 0.26666666666666666,
+          "lat": 0.0747858530467388
+        },
+        {
+          "seed": 134,
+          "steps": 83,
+          "nz_steer": 0.21686746987951808,
+          "lat": 0.07755466782891021
+        },
+        {
+          "seed": 135,
+          "steps": 120,
+          "nz_steer": 0.325,
+          "lat": 0.7339616813565069
+        },
+        {
+          "seed": 136,
+          "steps": 118,
+          "nz_steer": 0.2542372881355932,
+          "lat": 0.06981525242051513
+        },
+        {
+          "seed": 137,
+          "steps": 49,
+          "nz_steer": 0.16326530612244897,
+          "lat": 0.0688194174564056
+        },
+        {
+          "seed": 138,
+          "steps": 42,
+          "nz_steer": 0.19047619047619047,
+          "lat": 0.06988815480637883
+        },
+        {
+          "seed": 139,
+          "steps": 103,
+          "nz_steer": 0.0970873786407767,
+          "lat": 1.0527195386311698
+        },
+        {
+          "seed": 140,
+          "steps": 81,
+          "nz_steer": 0.2962962962962963,
+          "lat": 0.07681091773566799
+        },
+        {
+          "seed": 141,
+          "steps": 63,
+          "nz_steer": 0.4126984126984127,
+          "lat": 0.07096454429280573
+        },
+        {
+          "seed": 142,
+          "steps": 43,
+          "nz_steer": 0.32558139534883723,
+          "lat": 0.0707463790273365
+        },
+        {
+          "seed": 143,
+          "steps": 118,
+          "nz_steer": 0.2796610169491525,
+          "lat": 0.06830109292437592
+        },
+        {
+          "seed": 144,
+          "steps": 44,
+          "nz_steer": 0.2727272727272727,
+          "lat": 0.07422058501585295
+        },
+        {
+          "seed": 145,
+          "steps": 118,
+          "nz_steer": 0.288135593220339,
+          "lat": 0.06419831321920315
+        },
+        {
+          "seed": 146,
+          "steps": 43,
+          "nz_steer": 0.13953488372093023,
+          "lat": 0.06919558141308912
+        },
+        {
+          "seed": 147,
+          "steps": 38,
+          "nz_steer": 0.6052631578947368,
+          "lat": 0.06631113040037159
+        },
+        {
+          "seed": 148,
+          "steps": 38,
+          "nz_steer": 0.2631578947368421,
+          "lat": 0.06995124721664694
+        },
+        {
+          "seed": 149,
+          "steps": 118,
+          "nz_steer": 0.13559322033898305,
+          "lat": 0.07647798197686119
+        }
+      ]
+    },
+    "oversampled": {
+      "scenarios": 50,
+      "mean_nonzero_steer_share": 0.283,
+      "mean_lateral_offset_m": 0.258,
+      "mean_steps_per_episode": 92.8,
+      "easy_seeds": [
+        100,
+        102,
+        103,
+        106,
+        116,
+        117,
+        120,
+        123,
+        124,
+        131,
+        136,
+        143,
+        145,
+        149
+      ],
+      "easy_nonzero_steer_share": 0.257,
+      "easy_lateral_offset_m": 0.081,
+      "per_episode": [
+        {
+          "seed": 100,
+          "steps": 118,
+          "nz_steer": 0.15254237288135594,
+          "lat": 0.06668908152805732
+        },
+        {
+          "seed": 101,
+          "steps": 57,
+          "nz_steer": 0.38596491228070173,
+          "lat": 0.07640696395882442
+        },
+        {
+          "seed": 102,
+          "steps": 118,
+          "nz_steer": 0.13559322033898305,
+          "lat": 0.06427382814692384
+        },
+        {
+          "seed": 103,
+          "steps": 118,
+          "nz_steer": 0.4067796610169492,
+          "lat": 0.06206485493630251
+        },
+        {
+          "seed": 104,
+          "steps": 92,
+          "nz_steer": 0.2826086956521739,
+          "lat": 0.06608597787781158
+        },
+        {
+          "seed": 105,
+          "steps": 54,
+          "nz_steer": 0.5185185185185185,
+          "lat": 0.06381165293501583
+        },
+        {
+          "seed": 106,
+          "steps": 118,
+          "nz_steer": 0.23728813559322035,
+          "lat": 0.06470967733507337
+        },
+        {
+          "seed": 107,
+          "steps": 65,
+          "nz_steer": 0.26153846153846155,
+          "lat": 0.10601142883500846
+        },
+        {
+          "seed": 108,
+          "steps": 61,
+          "nz_steer": 0.13114754098360656,
+          "lat": 0.07531525462197089
+        },
+        {
+          "seed": 109,
+          "steps": 119,
+          "nz_steer": 0.2773109243697479,
+          "lat": 0.5702959702829808
+        },
+        {
+          "seed": 110,
+          "steps": 121,
+          "nz_steer": 0.4049586776859504,
+          "lat": 0.7564194556959305
+        },
+        {
+          "seed": 111,
+          "steps": 129,
+          "nz_steer": 0.4496124031007752,
+          "lat": 0.5170836972776822
+        },
+        {
+          "seed": 112,
+          "steps": 59,
+          "nz_steer": 0.3559322033898305,
+          "lat": 0.29410384964014025
+        },
+        {
+          "seed": 113,
+          "steps": 103,
+          "nz_steer": 0.07766990291262135,
+          "lat": 0.7714672834377875
+        },
+        {
+          "seed": 114,
+          "steps": 84,
+          "nz_steer": 0.34523809523809523,
+          "lat": 0.313119244084396
+        },
+        {
+          "seed": 115,
+          "steps": 73,
+          "nz_steer": 0.3561643835616438,
+          "lat": 0.061958052523220855
+        },
+        {
+          "seed": 116,
+          "steps": 118,
+          "nz_steer": 0.3220338983050847,
+          "lat": 0.07105273273751175
+        },
+        {
+          "seed": 117,
+          "steps": 118,
+          "nz_steer": 0.22033898305084745,
+          "lat": 0.07341905955171343
+        },
+        {
+          "seed": 118,
+          "steps": 86,
+          "nz_steer": 0.37209302325581395,
+          "lat": 0.06753304368365556
+        },
+        {
+          "seed": 119,
+          "steps": 50,
+          "nz_steer": 0.48,
+          "lat": 0.06181409357520508
+        },
+        {
+          "seed": 120,
+          "steps": 118,
+          "nz_steer": 0.3220338983050847,
+          "lat": 0.06794658400158103
+        },
+        {
+          "seed": 121,
+          "steps": 107,
+          "nz_steer": 0.08411214953271028,
+          "lat": 0.07629928012388847
+        },
+        {
+          "seed": 122,
+          "steps": 124,
+          "nz_steer": 0.20967741935483872,
+          "lat": 0.8456035710396846
+        },
+        {
+          "seed": 123,
+          "steps": 118,
+          "nz_steer": 0.15254237288135594,
+          "lat": 0.075929233524564
+        },
+        {
+          "seed": 124,
+          "steps": 118,
+          "nz_steer": 0.3728813559322034,
+          "lat": 0.0621029209081877
+        },
+        {
+          "seed": 125,
+          "steps": 38,
+          "nz_steer": 0.5789473684210527,
+          "lat": 0.066671383220893
+        },
+        {
+          "seed": 126,
+          "steps": 90,
+          "nz_steer": 0.2,
+          "lat": 0.0711997096211482
+        },
+        {
+          "seed": 127,
+          "steps": 97,
+          "nz_steer": 0.16494845360824742,
+          "lat": 0.5366511523595587
+        },
+        {
+          "seed": 128,
+          "steps": 54,
+          "nz_steer": 0.48148148148148145,
+          "lat": 0.06446667150469423
+        },
+        {
+          "seed": 129,
+          "steps": 41,
+          "nz_steer": 0.3170731707317073,
+          "lat": 0.09545056640109374
+        },
+        {
+          "seed": 130,
+          "steps": 49,
+          "nz_steer": 0.3673469387755102,
+          "lat": 0.07046726228356721
+        },
+        {
+          "seed": 131,
+          "steps": 118,
+          "nz_steer": 0.15254237288135594,
+          "lat": 0.07306112182083949
+        },
+        {
+          "seed": 132,
+          "steps": 102,
+          "nz_steer": 0.21568627450980393,
+          "lat": 0.0632512292550073
+        },
+        {
+          "seed": 133,
+          "steps": 60,
+          "nz_steer": 0.26666666666666666,
+          "lat": 0.0747858530467388
+        },
+        {
+          "seed": 134,
+          "steps": 83,
+          "nz_steer": 0.21686746987951808,
+          "lat": 0.07755466782891021
+        },
+        {
+          "seed": 135,
+          "steps": 123,
+          "nz_steer": 0.3089430894308943,
+          "lat": 0.7639457805711072
+        },
+        {
+          "seed": 136,
+          "steps": 118,
+          "nz_steer": 0.2542372881355932,
+          "lat": 0.06981525242051513
+        },
+        {
+          "seed": 137,
+          "steps": 49,
+          "nz_steer": 0.16326530612244897,
+          "lat": 0.0688194174564056
+        },
+        {
+          "seed": 138,
+          "steps": 98,
+          "nz_steer": 0.23469387755102042,
+          "lat": 0.735781266756217
+        },
+        {
+          "seed": 139,
+          "steps": 106,
+          "nz_steer": 0.10377358490566038,
+          "lat": 1.0454863189380241
+        },
+        {
+          "seed": 140,
+          "steps": 81,
+          "nz_steer": 0.2222222222222222,
+          "lat": 0.07569306670094425
+        },
+        {
+          "seed": 141,
+          "steps": 63,
+          "nz_steer": 0.4126984126984127,
+          "lat": 0.07096454429280573
+        },
+        {
+          "seed": 142,
+          "steps": 53,
+          "nz_steer": 0.3584905660377358,
+          "lat": 0.3961429119016169
+        },
+        {
+          "seed": 143,
+          "steps": 118,
+          "nz_steer": 0.2796610169491525,
+          "lat": 0.0681043995634674
+        },
+        {
+          "seed": 144,
+          "steps": 44,
+          "nz_steer": 0.2727272727272727,
+          "lat": 0.07918068989547032
+        },
+        {
+          "seed": 145,
+          "steps": 118,
+          "nz_steer": 0.288135593220339,
+          "lat": 0.06497402185263387
+        },
+        {
+          "seed": 146,
+          "steps": 123,
+          "nz_steer": 0.13008130081300814,
+          "lat": 0.8684857535435386
+        },
+        {
+          "seed": 147,
+          "steps": 120,
+          "nz_steer": 0.38333333333333336,
+          "lat": 0.8993367214504647
+        },
+        {
+          "seed": 148,
+          "steps": 122,
+          "nz_steer": 0.16393442622950818,
+          "lat": 0.9279407200617844
+        },
+        {
+          "seed": 149,
+          "steps": 126,
+          "nz_steer": 0.30158730158730157,
+          "lat": 0.24502949384710612
+        }
+      ]
+    },
+    "expert": {
+      "scenarios": 50,
+      "mean_nonzero_steer_share": 0.253,
+      "mean_lateral_offset_m": 0.447,
+      "mean_steps_per_episode": 148.6,
+      "easy_seeds": [
+        100,
+        102,
+        103,
+        106,
+        116,
+        117,
+        120,
+        123,
+        124,
+        131,
+        136,
+        143,
+        145,
+        149
+      ],
+      "easy_nonzero_steer_share": 0.212,
+      "easy_lateral_offset_m": 0.089,
+      "per_episode": [
+        {
+          "seed": 100,
+          "steps": 118,
+          "nz_steer": 0.11864406779661017,
+          "lat": 0.09046364715171301
+        },
+        {
+          "seed": 101,
+          "steps": 201,
+          "nz_steer": 0.3781094527363184,
+          "lat": 0.8058139264278531
+        },
+        {
+          "seed": 102,
+          "steps": 118,
+          "nz_steer": 0.1016949152542373,
+          "lat": 0.08956517510817846
+        },
+        {
+          "seed": 103,
+          "steps": 118,
+          "nz_steer": 0.3728813559322034,
+          "lat": 0.07741108845147823
+        },
+        {
+          "seed": 104,
+          "steps": 159,
+          "nz_steer": 0.25157232704402516,
+          "lat": 0.5267324745078179
+        },
+        {
+          "seed": 105,
+          "steps": 175,
+          "nz_steer": 0.38285714285714284,
+          "lat": 0.6939555700098382
+        },
+        {
+          "seed": 106,
+          "steps": 118,
+          "nz_steer": 0.1694915254237288,
+          "lat": 0.09788652685760793
+        },
+        {
+          "seed": 107,
+          "steps": 111,
+          "nz_steer": 0.1981981981981982,
+          "lat": 0.5280950455897889
+        },
+        {
+          "seed": 108,
+          "steps": 86,
+          "nz_steer": 0.19767441860465115,
+          "lat": 0.5018663348147351
+        },
+        {
+          "seed": 109,
+          "steps": 154,
+          "nz_steer": 0.18831168831168832,
+          "lat": 0.5127931782220311
+        },
+        {
+          "seed": 110,
+          "steps": 146,
+          "nz_steer": 0.3424657534246575,
+          "lat": 0.4025151432893252
+        },
+        {
+          "seed": 111,
+          "steps": 168,
+          "nz_steer": 0.39880952380952384,
+          "lat": 0.6290677931615137
+        },
+        {
+          "seed": 112,
+          "steps": 154,
+          "nz_steer": 0.2727272727272727,
+          "lat": 0.46335872560406033
+        },
+        {
+          "seed": 113,
+          "steps": 176,
+          "nz_steer": 0.06818181818181818,
+          "lat": 0.6995735786873859
+        },
+        {
+          "seed": 114,
+          "steps": 177,
+          "nz_steer": 0.3672316384180791,
+          "lat": 0.6820013332587582
+        },
+        {
+          "seed": 115,
+          "steps": 148,
+          "nz_steer": 0.44594594594594594,
+          "lat": 0.4455150372283244
+        },
+        {
+          "seed": 116,
+          "steps": 118,
+          "nz_steer": 0.2966101694915254,
+          "lat": 0.08155290174163511
+        },
+        {
+          "seed": 117,
+          "steps": 118,
+          "nz_steer": 0.1864406779661017,
+          "lat": 0.09189976798922651
+        },
+        {
+          "seed": 118,
+          "steps": 168,
+          "nz_steer": 0.47619047619047616,
+          "lat": 0.6461736826945216
+        },
+        {
+          "seed": 119,
+          "steps": 162,
+          "nz_steer": 0.2962962962962963,
+          "lat": 0.5722825295266013
+        },
+        {
+          "seed": 120,
+          "steps": 118,
+          "nz_steer": 0.2711864406779661,
+          "lat": 0.09115556401308121
+        },
+        {
+          "seed": 121,
+          "steps": 148,
+          "nz_steer": 0.12837837837837837,
+          "lat": 0.47927592386277595
+        },
+        {
+          "seed": 122,
+          "steps": 142,
+          "nz_steer": 0.18309859154929578,
+          "lat": 0.43403873060966136
+        },
+        {
+          "seed": 123,
+          "steps": 118,
+          "nz_steer": 0.11864406779661017,
+          "lat": 0.09957324147085417
+        },
+        {
+          "seed": 124,
+          "steps": 118,
+          "nz_steer": 0.3728813559322034,
+          "lat": 0.07542873933096944
+        },
+        {
+          "seed": 125,
+          "steps": 163,
+          "nz_steer": 0.2822085889570552,
+          "lat": 0.6774936764910241
+        },
+        {
+          "seed": 126,
+          "steps": 148,
+          "nz_steer": 0.2972972972972973,
+          "lat": 0.4584624936622956
+        },
+        {
+          "seed": 127,
+          "steps": 163,
+          "nz_steer": 0.1901840490797546,
+          "lat": 0.6295295675653865
+        },
+        {
+          "seed": 128,
+          "steps": 202,
+          "nz_steer": 0.40594059405940597,
+          "lat": 0.842542888393608
+        },
+        {
+          "seed": 129,
+          "steps": 168,
+          "nz_steer": 0.25,
+          "lat": 0.5278390334169706
+        },
+        {
+          "seed": 130,
+          "steps": 176,
+          "nz_steer": 0.3068181818181818,
+          "lat": 0.6287917220339948
+        },
+        {
+          "seed": 131,
+          "steps": 118,
+          "nz_steer": 0.11864406779661017,
+          "lat": 0.0914246712033264
+        },
+        {
+          "seed": 132,
+          "steps": 155,
+          "nz_steer": 0.2838709677419355,
+          "lat": 0.5120925939799875
+        },
+        {
+          "seed": 133,
+          "steps": 202,
+          "nz_steer": 0.23267326732673269,
+          "lat": 0.7184563351279579
+        },
+        {
+          "seed": 134,
+          "steps": 163,
+          "nz_steer": 0.27607361963190186,
+          "lat": 0.4884914287163527
+        },
+        {
+          "seed": 135,
+          "steps": 179,
+          "nz_steer": 0.2905027932960894,
+          "lat": 0.6891279457898055
+        },
+        {
+          "seed": 136,
+          "steps": 118,
+          "nz_steer": 0.23728813559322035,
+          "lat": 0.08661879608242103
+        },
+        {
+          "seed": 137,
+          "steps": 176,
+          "nz_steer": 0.2159090909090909,
+          "lat": 0.6664070879038996
+        },
+        {
+          "seed": 138,
+          "steps": 182,
+          "nz_steer": 0.08791208791208792,
+          "lat": 0.7485086169100525
+        },
+        {
+          "seed": 139,
+          "steps": 131,
+          "nz_steer": 0.15267175572519084,
+          "lat": 0.3486519165172901
+        },
+        {
+          "seed": 140,
+          "steps": 148,
+          "nz_steer": 0.43243243243243246,
+          "lat": 0.45825811302680425
+        },
+        {
+          "seed": 141,
+          "steps": 160,
+          "nz_steer": 0.3,
+          "lat": 0.4460047711756804
+        },
+        {
+          "seed": 142,
+          "steps": 82,
+          "nz_steer": 0.17073170731707318,
+          "lat": 0.6889754132161277
+        },
+        {
+          "seed": 143,
+          "steps": 118,
+          "nz_steer": 0.2542372881355932,
+          "lat": 0.08530943359864253
+        },
+        {
+          "seed": 144,
+          "steps": 192,
+          "nz_steer": 0.2604166666666667,
+          "lat": 0.6055620494846853
+        },
+        {
+          "seed": 145,
+          "steps": 118,
+          "nz_steer": 0.23728813559322035,
+          "lat": 0.09550552177965316
+        },
+        {
+          "seed": 146,
+          "steps": 144,
+          "nz_steer": 0.09722222222222222,
+          "lat": 0.40470247126869335
+        },
+        {
+          "seed": 147,
+          "steps": 199,
+          "nz_steer": 0.3417085427135678,
+          "lat": 0.8232085309678635
+        },
+        {
+          "seed": 148,
+          "steps": 172,
+          "nz_steer": 0.23255813953488372,
+          "lat": 0.7092290453658372
+        },
+        {
+          "seed": 149,
+          "steps": 118,
+          "nz_steer": 0.11016949152542373,
+          "lat": 0.09897720088768622
+        }
+      ]
+    }
+  },
+  "transfer_vs_base": {
+    "shipped": {
+      "recovered_vs_base": [],
+      "regressed_vs_base": []
+    },
+    "base": {
+      "recovered_vs_base": [],
+      "regressed_vs_base": []
+    },
+    "weighted": {
+      "recovered_vs_base": [
+        110,
+        135
+      ],
+      "regressed_vs_base": []
+    },
+    "oversampled": {
+      "recovered_vs_base": [
+        109,
+        110,
+        111,
+        122,
+        135,
+        146,
+        147,
+        148
+      ],
+      "regressed_vs_base": []
+    }
+  }
+}

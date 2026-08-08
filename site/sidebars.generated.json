@@ -3328,9 +3328,19 @@
         ]
       },
       {
-        "type": "doc",
-        "id": "09-autonomous-driving/03-behavior-cloning/index",
-        "label": "Behavior cloning"
+        "type": "category",
+        "label": "Behavior cloning",
+        "link": {
+          "type": "doc",
+          "id": "09-autonomous-driving/03-behavior-cloning/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "09-autonomous-driving/03-behavior-cloning/when-the-rebalance-fixes-the-metric/index",
+            "label": "When rebalancing fixes the metric"
+          }
+        ]
       },
       {
         "type": "category",
@@ -3368,9 +3378,19 @@
         ]
       },
       {
-        "type": "doc",
-        "id": "09-autonomous-driving/06-report/index",
-        "label": "Report"
+        "type": "category",
+        "label": "Report",
+        "link": {
+          "type": "doc",
+          "id": "09-autonomous-driving/06-report/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "09-autonomous-driving/06-report/when-the-verdict-survives-resampling/index",
+            "label": "When the verdict survives resampling"
+          }
+        ]
       },
       {
         "type": "doc",

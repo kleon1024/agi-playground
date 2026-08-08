@@ -39,7 +39,7 @@ sub-chapters (for example mission 01's `is-it-the-same-tokenizer` and
 | 05 game AI | 7 (00..06) | 9 | `05-game-ai/lineage.md` | the-policy-anatomy (GRPO anatomy) | stages 02, 03, 05 carry no when-* detour |
 | 07 multimodal generation | 14 (voice 00..06 + video 00..06) | 22 | `voice/lineage.md` + `video/lineage.md` | voice codebook usage + video-token (VQ anatomy, both surfaces) | — |
 | 08 bio-pharma modeling | 7 (00..06) | 6 | `08-bio-pharma-modeling/lineage.md` | two-ways-to-read-a-molecule (representation anatomy) | stages 02, 04, 06 carry no when-* detour |
-| 09 autonomous driving | 7 (00..06) | 6 | `09-autonomous-driving/lineage.md` | none yet | stages 03-cloning and 06-report carry no detour; six detours landed 2026-08-08 under stages 00-02 and 04-05 (see the depth-pass spec) |
+| 09 autonomous driving | 7 (00..06) | 8 | `09-autonomous-driving/lineage.md` | none yet | eight detours landed 2026-08-08, one or more per stage (see the depth-pass spec) |
 
 ## Foundations
 
@@ -65,13 +65,12 @@ run and not be a defect.
 
 Mission 01 is the pattern: a stage states a decision, and one or more detours
 under it answer the decisions the main path asserts without showing, each
-backed by a run recorded in `runs/`. 258 `when-*` detour chapters across the
+backed by a run recorded in `runs/`. 260 `when-*` detour chapters across the
 eight topics, plus 9 foundations detours, as of 2026-08-08. The per-topic
-anatomy series is complete except for mission 09, which is a new topic with
-its first six detours just landed.
+anatomy series is complete: mission 09, the newest topic, now carries eight
+detours covering all seven of its stages.
 
-The active queue: mission 09 stages 03 and 06 have no detours, and the
-remaining depth-pass spec items are tracked in
+The active queue: the remaining depth-pass spec items are tracked in
 `docs/superpowers/specs/2026-08-05-curriculum-depth-pass.md`. The per-stage
 queues live there; this map is the state of the whole system as each queue
 is worked.

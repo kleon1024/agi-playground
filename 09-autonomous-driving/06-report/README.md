@@ -86,3 +86,10 @@ generator. The method-level finding — open-loop imitation accuracy can
 overstate in-loop competence — is what carries outside this repository.
 Numbers trace to
 [`runs/2026-08-07-report.json`](runs/2026-08-07-report.json).
+
+## Next
+
+The reading-only verdicts are stress-tested in
+[when the verdict survives resampling](when-the-verdict-survives-resampling/):
+every cell re-simulated per seed, a paired 2,000-draw bootstrap, and the
+finding that the two 0.28 cells are the same 14 scenarios.

@@ -90,3 +90,12 @@ expert on every held-out frame can still crash in the loop. That test is
 stage 04, and the policy artifact trained here is the exact one evaluated
 there. Numbers trace to
 [`runs/2026-08-07-clone.json`](runs/2026-08-07-clone.json).
+
+## Next
+
+The imbalance behind the 0.883 steer accuracy is opened in
+[when rebalancing fixes the metric](when-the-rebalance-fixes-the-metric/):
+a weighted-loss and an oversampled clone trained from the same demos, and
+why the best open-loop dodge recall is not the policy that completes the
+most episodes. The same artifact is then scored in the loop in
+[stage 04 — closed-loop evaluation](../04-closed-loop-eval/).

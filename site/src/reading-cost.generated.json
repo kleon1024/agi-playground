@@ -1975,6 +1975,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "09-autonomous-driving/03-behavior-cloning/when-the-rebalance-fixes-the-metric": {
+    "level": "applied",
+    "minutes": 6
+  },
   "09-autonomous-driving/04-closed-loop-eval": {
     "level": "applied",
     "minutes": 3
@@ -1997,7 +2001,11 @@
   },
   "09-autonomous-driving/06-report": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
+  },
+  "09-autonomous-driving/06-report/when-the-verdict-survives-resampling": {
+    "level": "applied",
+    "minutes": 6
   },
   "foundations": {
     "level": "foundation",

@@ -1,0 +1,1669 @@
+{
+  "draws": 2000,
+  "draw_size": 50,
+  "rng_seed": 7,
+  "hardware": {
+    "machine": "arm64",
+    "processor": "arm",
+    "torch": "2.10.0",
+    "numpy": "2.4.2"
+  },
+  "wall_s": {
+    "clone": 1.37,
+    "floor": 1.09,
+    "expert": 2.15,
+    "hard_clone": 5.51,
+    "hard_expert": 2.15,
+    "total": 12.27
+  },
+  "completion": {
+    "clone": 0.28,
+    "floor": 0.28,
+    "expert": 0.92,
+    "hard_clone": 0.04,
+    "hard_expert": 0.78
+  },
+  "per_seed": {
+    "clone": [
+      {
+        "seed": 100,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.24
+      },
+      {
+        "seed": 101,
+        "outcome": "collided",
+        "completed": false,
+        "x": 23.63
+      },
+      {
+        "seed": 102,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.24
+      },
+      {
+        "seed": 103,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.18
+      },
+      {
+        "seed": 104,
+        "outcome": "collided",
+        "completed": false,
+        "x": 44.61
+      },
+      {
+        "seed": 105,
+        "outcome": "collided",
+        "completed": false,
+        "x": 21.82
+      },
+      {
+        "seed": 106,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.22
+      },
+      {
+        "seed": 107,
+        "outcome": "collided",
+        "completed": false,
+        "x": 39.23
+      },
+      {
+        "seed": 108,
+        "outcome": "collided",
+        "completed": false,
+        "x": 26.04
+      },
+      {
+        "seed": 109,
+        "outcome": "collided",
+        "completed": false,
+        "x": 32.03
+      },
+      {
+        "seed": 110,
+        "outcome": "collided",
+        "completed": false,
+        "x": 19.41
+      },
+      {
+        "seed": 111,
+        "outcome": "collided",
+        "completed": false,
+        "x": 31.43
+      },
+      {
+        "seed": 112,
+        "outcome": "collided",
+        "completed": false,
+        "x": 21.83
+      },
+      {
+        "seed": 113,
+        "outcome": "collided",
+        "completed": false,
+        "x": 16.44
+      },
+      {
+        "seed": 114,
+        "outcome": "collided",
+        "completed": false,
+        "x": 33.23
+      },
+      {
+        "seed": 115,
+        "outcome": "collided",
+        "completed": false,
+        "x": 33.22
+      },
+      {
+        "seed": 116,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.21
+      },
+      {
+        "seed": 117,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.21
+      },
+      {
+        "seed": 118,
+        "outcome": "collided",
+        "completed": false,
+        "x": 41.01
+      },
+      {
+        "seed": 119,
+        "outcome": "collided",
+        "completed": false,
+        "x": 20.02
+      },
+      {
+        "seed": 120,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.19
+      },
+      {
+        "seed": 121,
+        "outcome": "collided",
+        "completed": false,
+        "x": 52.44
+      },
+      {
+        "seed": 122,
+        "outcome": "collided",
+        "completed": false,
+        "x": 12.36
+      },
+      {
+        "seed": 123,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.24
+      },
+      {
+        "seed": 124,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.18
+      },
+      {
+        "seed": 125,
+        "outcome": "collided",
+        "completed": false,
+        "x": 12.36
+      },
+      {
+        "seed": 126,
+        "outcome": "collided",
+        "completed": false,
+        "x": 42.82
+      },
+      {
+        "seed": 127,
+        "outcome": "collided",
+        "completed": false,
+        "x": 27.24
+      },
+      {
+        "seed": 128,
+        "outcome": "collided",
+        "completed": false,
+        "x": 21.82
+      },
+      {
+        "seed": 129,
+        "outcome": "collided",
+        "completed": false,
+        "x": 14.04
+      },
+      {
+        "seed": 130,
+        "outcome": "collided",
+        "completed": false,
+        "x": 18.83
+      },
+      {
+        "seed": 131,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.22
+      },
+      {
+        "seed": 132,
+        "outcome": "collided",
+        "completed": false,
+        "x": 50.63
+      },
+      {
+        "seed": 133,
+        "outcome": "collided",
+        "completed": false,
+        "x": 25.43
+      },
+      {
+        "seed": 134,
+        "outcome": "collided",
+        "completed": false,
+        "x": 39.23
+      },
+      {
+        "seed": 135,
+        "outcome": "collided",
+        "completed": false,
+        "x": 20.02
+      },
+      {
+        "seed": 136,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.2
+      },
+      {
+        "seed": 137,
+        "outcome": "collided",
+        "completed": false,
+        "x": 18.84
+      },
+      {
+        "seed": 138,
+        "outcome": "collided",
+        "completed": false,
+        "x": 14.64
+      },
+      {
+        "seed": 139,
+        "outcome": "collided",
+        "completed": false,
+        "x": 7.68
+      },
+      {
+        "seed": 140,
+        "outcome": "collided",
+        "completed": false,
+        "x": 38.02
+      },
+      {
+        "seed": 141,
+        "outcome": "collided",
+        "completed": false,
+        "x": 27.22
+      },
+      {
+        "seed": 142,
+        "outcome": "collided",
+        "completed": false,
+        "x": 15.23
+      },
+      {
+        "seed": 143,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.22
+      },
+      {
+        "seed": 144,
+        "outcome": "collided",
+        "completed": false,
+        "x": 15.83
+      },
+      {
+        "seed": 145,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.22
+      },
+      {
+        "seed": 146,
+        "outcome": "collided",
+        "completed": false,
+        "x": 15.24
+      },
+      {
+        "seed": 147,
+        "outcome": "collided",
+        "completed": false,
+        "x": 12.36
+      },
+      {
+        "seed": 148,
+        "outcome": "collided",
+        "completed": false,
+        "x": 12.37
+      },
+      {
+        "seed": 149,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.24
+      }
+    ],
+    "floor": [
+      {
+        "seed": 100,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.21
+      },
+      {
+        "seed": 101,
+        "outcome": "collided",
+        "completed": false,
+        "x": 23.62
+      },
+      {
+        "seed": 102,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.22
+      },
+      {
+        "seed": 103,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.17
+      },
+      {
+        "seed": 104,
+        "outcome": "collided",
+        "completed": false,
+        "x": 44.61
+      },
+      {
+        "seed": 105,
+        "outcome": "collided",
+        "completed": false,
+        "x": 21.81
+      },
+      {
+        "seed": 106,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.21
+      },
+      {
+        "seed": 107,
+        "outcome": "collided",
+        "completed": false,
+        "x": 39.23
+      },
+      {
+        "seed": 108,
+        "outcome": "collided",
+        "completed": false,
+        "x": 26.03
+      },
+      {
+        "seed": 109,
+        "outcome": "collided",
+        "completed": false,
+        "x": 31.43
+      },
+      {
+        "seed": 110,
+        "outcome": "collided",
+        "completed": false,
+        "x": 19.41
+      },
+      {
+        "seed": 111,
+        "outcome": "collided",
+        "completed": false,
+        "x": 31.41
+      },
+      {
+        "seed": 112,
+        "outcome": "collided",
+        "completed": false,
+        "x": 21.82
+      },
+      {
+        "seed": 113,
+        "outcome": "collided",
+        "completed": false,
+        "x": 16.43
+      },
+      {
+        "seed": 114,
+        "outcome": "collided",
+        "completed": false,
+        "x": 33.23
+      },
+      {
+        "seed": 115,
+        "outcome": "collided",
+        "completed": false,
+        "x": 33.21
+      },
+      {
+        "seed": 116,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.18
+      },
+      {
+        "seed": 117,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.2
+      },
+      {
+        "seed": 118,
+        "outcome": "collided",
+        "completed": false,
+        "x": 41.01
+      },
+      {
+        "seed": 119,
+        "outcome": "collided",
+        "completed": false,
+        "x": 19.41
+      },
+      {
+        "seed": 120,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.19
+      },
+      {
+        "seed": 121,
+        "outcome": "collided",
+        "completed": false,
+        "x": 52.43
+      },
+      {
+        "seed": 122,
+        "outcome": "collided",
+        "completed": false,
+        "x": 12.36
+      },
+      {
+        "seed": 123,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.22
+      },
+      {
+        "seed": 124,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.17
+      },
+      {
+        "seed": 125,
+        "outcome": "collided",
+        "completed": false,
+        "x": 12.35
+      },
+      {
+        "seed": 126,
+        "outcome": "collided",
+        "completed": false,
+        "x": 42.82
+      },
+      {
+        "seed": 127,
+        "outcome": "collided",
+        "completed": false,
+        "x": 27.23
+      },
+      {
+        "seed": 128,
+        "outcome": "collided",
+        "completed": false,
+        "x": 21.81
+      },
+      {
+        "seed": 129,
+        "outcome": "collided",
+        "completed": false,
+        "x": 14.04
+      },
+      {
+        "seed": 130,
+        "outcome": "collided",
+        "completed": false,
+        "x": 18.82
+      },
+      {
+        "seed": 131,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.22
+      },
+      {
+        "seed": 132,
+        "outcome": "collided",
+        "completed": false,
+        "x": 50.62
+      },
+      {
+        "seed": 133,
+        "outcome": "collided",
+        "completed": false,
+        "x": 25.42
+      },
+      {
+        "seed": 134,
+        "outcome": "collided",
+        "completed": false,
+        "x": 39.22
+      },
+      {
+        "seed": 135,
+        "outcome": "collided",
+        "completed": false,
+        "x": 20.02
+      },
+      {
+        "seed": 136,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.19
+      },
+      {
+        "seed": 137,
+        "outcome": "collided",
+        "completed": false,
+        "x": 18.83
+      },
+      {
+        "seed": 138,
+        "outcome": "collided",
+        "completed": false,
+        "x": 14.63
+      },
+      {
+        "seed": 139,
+        "outcome": "collided",
+        "completed": false,
+        "x": 7.68
+      },
+      {
+        "seed": 140,
+        "outcome": "collided",
+        "completed": false,
+        "x": 38.01
+      },
+      {
+        "seed": 141,
+        "outcome": "collided",
+        "completed": false,
+        "x": 27.22
+      },
+      {
+        "seed": 142,
+        "outcome": "collided",
+        "completed": false,
+        "x": 15.22
+      },
+      {
+        "seed": 143,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.19
+      },
+      {
+        "seed": 144,
+        "outcome": "collided",
+        "completed": false,
+        "x": 15.82
+      },
+      {
+        "seed": 145,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.2
+      },
+      {
+        "seed": 146,
+        "outcome": "collided",
+        "completed": false,
+        "x": 15.24
+      },
+      {
+        "seed": 147,
+        "outcome": "collided",
+        "completed": false,
+        "x": 12.36
+      },
+      {
+        "seed": 148,
+        "outcome": "collided",
+        "completed": false,
+        "x": 12.36
+      },
+      {
+        "seed": 149,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.21
+      }
+    ],
+    "expert": [
+      {
+        "seed": 100,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.21
+      },
+      {
+        "seed": 101,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.26
+      },
+      {
+        "seed": 102,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.22
+      },
+      {
+        "seed": 103,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.17
+      },
+      {
+        "seed": 104,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.39
+      },
+      {
+        "seed": 105,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.05
+      },
+      {
+        "seed": 106,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.21
+      },
+      {
+        "seed": 107,
+        "outcome": "collided",
+        "completed": false,
+        "x": 39.89
+      },
+      {
+        "seed": 108,
+        "outcome": "collided",
+        "completed": false,
+        "x": 25.76
+      },
+      {
+        "seed": 109,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.25
+      },
+      {
+        "seed": 110,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.13
+      },
+      {
+        "seed": 111,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.01
+      },
+      {
+        "seed": 112,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.56
+      },
+      {
+        "seed": 113,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.05
+      },
+      {
+        "seed": 114,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.09
+      },
+      {
+        "seed": 115,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.19
+      },
+      {
+        "seed": 116,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.18
+      },
+      {
+        "seed": 117,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.2
+      },
+      {
+        "seed": 118,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.21
+      },
+      {
+        "seed": 119,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.28
+      },
+      {
+        "seed": 120,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.19
+      },
+      {
+        "seed": 121,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.32
+      },
+      {
+        "seed": 122,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.44
+      },
+      {
+        "seed": 123,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.22
+      },
+      {
+        "seed": 124,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.17
+      },
+      {
+        "seed": 125,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.05
+      },
+      {
+        "seed": 126,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.05
+      },
+      {
+        "seed": 127,
+        "outcome": "collided",
+        "completed": false,
+        "x": 51.45
+      },
+      {
+        "seed": 128,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.15
+      },
+      {
+        "seed": 129,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.32
+      },
+      {
+        "seed": 130,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.27
+      },
+      {
+        "seed": 131,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.22
+      },
+      {
+        "seed": 132,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.42
+      },
+      {
+        "seed": 133,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.26
+      },
+      {
+        "seed": 134,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.38
+      },
+      {
+        "seed": 135,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.48
+      },
+      {
+        "seed": 136,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.19
+      },
+      {
+        "seed": 137,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.46
+      },
+      {
+        "seed": 138,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.1
+      },
+      {
+        "seed": 139,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.21
+      },
+      {
+        "seed": 140,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.2
+      },
+      {
+        "seed": 141,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.08
+      },
+      {
+        "seed": 142,
+        "outcome": "collided",
+        "completed": false,
+        "x": 20.16
+      },
+      {
+        "seed": 143,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.19
+      },
+      {
+        "seed": 144,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.49
+      },
+      {
+        "seed": 145,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.2
+      },
+      {
+        "seed": 146,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.55
+      },
+      {
+        "seed": 147,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.31
+      },
+      {
+        "seed": 148,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.14
+      },
+      {
+        "seed": 149,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.21
+      }
+    ],
+    "hard_clone": [
+      {
+        "seed": 200,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 8.17
+      },
+      {
+        "seed": 201,
+        "outcome": "collided",
+        "completed": false,
+        "x": 30.17
+      },
+      {
+        "seed": 202,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.44
+      },
+      {
+        "seed": 203,
+        "outcome": "collided",
+        "completed": false,
+        "x": 43.33
+      },
+      {
+        "seed": 204,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.21
+      },
+      {
+        "seed": 205,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 6.13
+      },
+      {
+        "seed": 206,
+        "outcome": "collided",
+        "completed": false,
+        "x": 16.41
+      },
+      {
+        "seed": 207,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.46
+      },
+      {
+        "seed": 208,
+        "outcome": "collided",
+        "completed": false,
+        "x": 46.92
+      },
+      {
+        "seed": 209,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.21
+      },
+      {
+        "seed": 210,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.09
+      },
+      {
+        "seed": 211,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.46
+      },
+      {
+        "seed": 212,
+        "outcome": "collided",
+        "completed": false,
+        "x": 25.99
+      },
+      {
+        "seed": 213,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 4.03
+      },
+      {
+        "seed": 214,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.44
+      },
+      {
+        "seed": 215,
+        "outcome": "collided",
+        "completed": false,
+        "x": 45.74
+      },
+      {
+        "seed": 216,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.21
+      },
+      {
+        "seed": 217,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.21
+      },
+      {
+        "seed": 218,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.65
+      },
+      {
+        "seed": 219,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.44
+      },
+      {
+        "seed": 220,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.44
+      },
+      {
+        "seed": 221,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 4.0
+      },
+      {
+        "seed": 222,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.16
+      },
+      {
+        "seed": 223,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.82
+      },
+      {
+        "seed": 224,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.08
+      },
+      {
+        "seed": 225,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.2
+      },
+      {
+        "seed": 226,
+        "outcome": "collided",
+        "completed": false,
+        "x": 14.0
+      },
+      {
+        "seed": 227,
+        "outcome": "collided",
+        "completed": false,
+        "x": 25.39
+      },
+      {
+        "seed": 228,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.43
+      },
+      {
+        "seed": 229,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.2
+      },
+      {
+        "seed": 230,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.2
+      },
+      {
+        "seed": 231,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.33
+      },
+      {
+        "seed": 232,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.72
+      },
+      {
+        "seed": 233,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 4.59
+      },
+      {
+        "seed": 234,
+        "outcome": "collided",
+        "completed": false,
+        "x": 40.32
+      },
+      {
+        "seed": 235,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.02
+      },
+      {
+        "seed": 236,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.58
+      },
+      {
+        "seed": 237,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.02
+      },
+      {
+        "seed": 238,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 2.0
+      },
+      {
+        "seed": 239,
+        "outcome": "collided",
+        "completed": false,
+        "x": 27.81
+      },
+      {
+        "seed": 240,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 2.76
+      },
+      {
+        "seed": 241,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.47
+      },
+      {
+        "seed": 242,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.73
+      },
+      {
+        "seed": 243,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.68
+      },
+      {
+        "seed": 244,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.7
+      },
+      {
+        "seed": 245,
+        "outcome": "collided",
+        "completed": false,
+        "x": 14.6
+      },
+      {
+        "seed": 246,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 2.99
+      },
+      {
+        "seed": 247,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.45
+      },
+      {
+        "seed": 248,
+        "outcome": "timeout",
+        "completed": false,
+        "x": 3.44
+      },
+      {
+        "seed": 249,
+        "outcome": "collided",
+        "completed": false,
+        "x": 30.8
+      }
+    ],
+    "hard_expert": [
+      {
+        "seed": 200,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.43
+      },
+      {
+        "seed": 201,
+        "outcome": "collided",
+        "completed": false,
+        "x": 29.91
+      },
+      {
+        "seed": 202,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.0
+      },
+      {
+        "seed": 203,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.44
+      },
+      {
+        "seed": 204,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.46
+      },
+      {
+        "seed": 205,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.29
+      },
+      {
+        "seed": 206,
+        "outcome": "collided",
+        "completed": false,
+        "x": 16.12
+      },
+      {
+        "seed": 207,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.49
+      },
+      {
+        "seed": 208,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.11
+      },
+      {
+        "seed": 209,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.56
+      },
+      {
+        "seed": 210,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.07
+      },
+      {
+        "seed": 211,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.06
+      },
+      {
+        "seed": 212,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.14
+      },
+      {
+        "seed": 213,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.44
+      },
+      {
+        "seed": 214,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.43
+      },
+      {
+        "seed": 215,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.33
+      },
+      {
+        "seed": 216,
+        "outcome": "collided",
+        "completed": false,
+        "x": 25.61
+      },
+      {
+        "seed": 217,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.52
+      },
+      {
+        "seed": 218,
+        "outcome": "collided",
+        "completed": false,
+        "x": 31.3
+      },
+      {
+        "seed": 219,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.44
+      },
+      {
+        "seed": 220,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.57
+      },
+      {
+        "seed": 221,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.18
+      },
+      {
+        "seed": 222,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.44
+      },
+      {
+        "seed": 223,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.37
+      },
+      {
+        "seed": 224,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.06
+      },
+      {
+        "seed": 225,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.01
+      },
+      {
+        "seed": 226,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.16
+      },
+      {
+        "seed": 227,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.03
+      },
+      {
+        "seed": 228,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.22
+      },
+      {
+        "seed": 229,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.05
+      },
+      {
+        "seed": 230,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.25
+      },
+      {
+        "seed": 231,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.2
+      },
+      {
+        "seed": 232,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.39
+      },
+      {
+        "seed": 233,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.48
+      },
+      {
+        "seed": 234,
+        "outcome": "collided",
+        "completed": false,
+        "x": 45.57
+      },
+      {
+        "seed": 235,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.21
+      },
+      {
+        "seed": 236,
+        "outcome": "collided",
+        "completed": false,
+        "x": 24.18
+      },
+      {
+        "seed": 237,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.04
+      },
+      {
+        "seed": 238,
+        "outcome": "collided",
+        "completed": false,
+        "x": 11.64
+      },
+      {
+        "seed": 239,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.12
+      },
+      {
+        "seed": 240,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.52
+      },
+      {
+        "seed": 241,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.05
+      },
+      {
+        "seed": 242,
+        "outcome": "collided",
+        "completed": false,
+        "x": 30.52
+      },
+      {
+        "seed": 243,
+        "outcome": "collided",
+        "completed": false,
+        "x": 9.62
+      },
+      {
+        "seed": 244,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.02
+      },
+      {
+        "seed": 245,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.29
+      },
+      {
+        "seed": 246,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.09
+      },
+      {
+        "seed": 247,
+        "outcome": "collided",
+        "completed": false,
+        "x": 20.21
+      },
+      {
+        "seed": 248,
+        "outcome": "completed",
+        "completed": true,
+        "x": 60.47
+      },
+      {
+        "seed": 249,
+        "outcome": "collided",
+        "completed": false,
+        "x": 39.1
+      }
+    ]
+  },
+  "seed_sets": {
+    "clone_winners": [
+      100,
+      102,
+      103,
+      106,
+      116,
+      117,
+      120,
+      123,
+      124,
+      131,
+      136,
+      143,
+      145,
+      149
+    ],
+    "floor_winners": [
+      100,
+      102,
+      103,
+      106,
+      116,
+      117,
+      120,
+      123,
+      124,
+      131,
+      136,
+      143,
+      145,
+      149
+    ],
+    "shared_winners": [
+      100,
+      102,
+      103,
+      106,
+      116,
+      117,
+      120,
+      123,
+      124,
+      131,
+      136,
+      143,
+      145,
+      149
+    ],
+    "clone_only_winners": [],
+    "floor_only_winners": [],
+    "shared_failures": [
+      101,
+      104,
+      105,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      118,
+      119,
+      121,
+      122,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      132,
+      133,
+      134,
+      135,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      144,
+      146,
+      147,
+      148
+    ],
+    "winners_iou": 1.0,
+    "clone_winners_subset_of_floor": true,
+    "clone_failures_subset_of_floor_failures": true,
+    "clone_solves_any_floor_failure": false
+  },
+  "bootstrap": {
+    "clone_minus_floor": {
+      "mean": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_gt": 0.0,
+      "p_lt": 0.0,
+      "p_tie": 1.0
+    },
+    "expert_minus_clone": {
+      "mean": 0.6408,
+      "ci95": [
+        0.5,
+        0.78
+      ],
+      "p_gt": 1.0,
+      "p_lt": 0.0,
+      "p_tie": 0.0
+    },
+    "hard_expert_minus_hard_clone": {
+      "mean": 0.7391,
+      "ci95": [
+        0.6,
+        0.86
+      ],
+      "p_gt": 1.0,
+      "p_lt": 0.0,
+      "p_tie": 0.0
+    }
+  },
+  "verdict": {
+    "stage_06_row": "cloned beats rule baseline",
+    "stage_06_point_verdict": "NOT MET (0.28 vs 0.28)",
+    "p_fresh_draw_shows_clone_above_floor": 0.0
+  }
+}

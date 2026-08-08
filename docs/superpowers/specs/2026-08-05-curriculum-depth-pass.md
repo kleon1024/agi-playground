@@ -77,9 +77,9 @@ the practice run that answers it.
 ## Mission 09 deep-dive slice (shipped 2026-08-08)
 
 Mission 09 (autonomous driving) is the newest topic: 7 stages, zero detours
-at the start of this pass. The first six detours landed 2026-08-08,
-each with an executed CPU run and the fix/trade/ownership structure, mapped
-to the mission's industrial failure modes.
+at the start of this pass. All eight detours landed 2026-08-08, each with an
+executed CPU run and the fix/trade/ownership structure, mapped to the
+mission's industrial failure modes.
 
 | Where | New chapter | Central question | Practice run | Status |
 |---|---|---|---|---|
@@ -89,10 +89,12 @@ to the mission's industrial failure modes.
 | 00-scenario-simulator | `when-the-margin-decides` | Does the collision margin or the finish line decide the completion rate? | margin + finish-line sweep, slack distribution over completed episodes | shipped |
 | 01-perception-baseline | `when-the-blob-lies` | What does a policy steering from blob estimates lose in the loop? | blob estimator MAE + belief-planner loop + four planner repairs + collision forensics | shipped |
 | 02-expert-policy | `when-the-handoff-crosses-the-band` | Are the expert's four failures really obstacle sandwiches? | sandwich-attribution test, per-seed decision traces, repair decomposition, fix-fix loop | shipped |
+| 03-behavior-cloning | `when-the-rebalance-fixes-the-metric` | Does rebalancing a skewed demo set fix the metric, and does that transfer to the loop? | weighted-loss and oversampled clones vs the shipped clone, open-loop recall/precision + in-loop completion + per-seed transfer | shipped |
+| 06-report | `when-the-verdict-survives-resampling` | Are the 0.28-vs-0.28 verdict cells the same scenarios, and does the verdict survive a different 50-seed draw? | per-seed re-simulation of all five report cells + paired 2,000-draw bootstrap + winner-set overlap | shipped |
 
-Remaining mission-09 queue: stages 03-cloning and 06-report carry no
-detour yet; the next slice can run the cloning-trust and report-evidence
-questions through the same audit.
+Remaining mission-09 queue: none — all seven stages now carry at least one
+detour. The rest of the repo's queue lives in the table above and the audit
+notes below.
 
 Audit notes from the 2026-08-08 pass:
 
@@ -103,11 +105,11 @@ Audit notes from the 2026-08-08 pass:
   (mission roots, surface roots, `prod/` code readmes).
 - `docs/curriculum-map.md` was regenerated 2026-08-08 from the tree: mission
   02 now counts 67 stages and 186 when-* detours, the mission list matches
-  the current eight topics, and a mission-09 row exists with its three new
+  the current eight topics, and a mission-09 row exists with its eight
   detours counted.
 - Mission 09 (autonomous driving) went from 7 stages and zero detour
-  chapters to six detours under stages 00-02 and 04-05 (this pass, above);
-  stages 03 and 06 remain bare and are the next queue slice.
+  chapters to eight detours covering all seven stages (this pass, above);
+  the mission's failure-mode queue is now closed.
 
 Not in this queue: chapters already deep (missions 01's corpus/tokenizer/
 pretrain, 07-eval's metric-gaming, mid-training), which only get deepened if
