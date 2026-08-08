@@ -63,6 +63,28 @@ long-context shape "Lost in the Middle" measures; Liu et al., TACL
 2024). The decision that follows: pin the first-turn grounding or
 compress the middle turns so the referent survives the window.
 
+## The fix and its trade
+
+The fix is to stratify resolution by session length and to make the
+first-turn grounding survive the window — pin it as a standing summary,
+or compress the middle turns instead of dropping the oldest. The
+executed audit prices the failure the fix removes: short sessions
+(3.2 turns) resolve at 0.980, long sessions (17.8 turns) at 0.380, and
+the aggregate 0.680 is a short-session artifact — truncation drops the
+oldest turns first, and the first-turn topic is exactly the grounding a
+follow-up like "back to the first pair" needs. This is the long-context
+shape "Lost in the Middle" measures (Liu et al., TACL 2024), and
+Radlinski and Craswell (CHIIR 2017) make the same point from the other
+side: the conversation state is the shared context, and losing part of
+it changes what a follow-up can mean.
+
+The trade, named: a bigger window is not the fix — it costs latency and
+still buries the grounding in the middle — while pinning the first-turn
+topic costs a standing-summary artifact and a retention policy, and
+compressing middle turns costs model complexity. The resolution metric
+per session length is the acceptance bar: a change ships only when the
+long-session stratum moves.
+
 ## Who owns the loop
 
 The session is the resolution surface's input, and the handoffs are

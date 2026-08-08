@@ -65,6 +65,26 @@ the training distribution. The decision that follows: gate the
 generative path to queries it can decode, and fall back to the dense
 or hybrid path for the tail.
 
+## The fix and its trade
+
+The fix is to gate the generative path to the queries it can decode, fall
+back to the dense or hybrid path for the tail, and verify every emitted
+ID against the corpus. The executed audit prices the failure the fix
+removes: head queries decode perfectly (recall@5 1.000, emitted-ID
+precision 1.000) while tail recall is 0.540 with 0.740 precision — a
+quarter of the emitted tail IDs do not exist — and the aggregate
+recall@5 of 0.770 is a head artifact. The decode is a trained behavior
+(the Differentiable Search Index; Tay et al., NeurIPS 2022), so it
+inherits the training distribution: the tail, where training has the
+least evidence, loses most of its recall.
+
+The trade, named: the generative path removes the index scan and the
+candidate step, and moves the cost into the decode — gating costs
+routing complexity, and ID verification costs the very latency the
+approach was meant to save. The fallback is the same discipline as the
+hybrid stage: coverage without choosing a blind spot, priced by where
+the decode breaks per stratum.
+
 ## Who owns the loop
 
 The decode is a trained behavior, so its quality is owned at the

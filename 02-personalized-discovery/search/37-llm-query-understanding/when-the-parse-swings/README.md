@@ -44,6 +44,34 @@ should broaden or ask, not silently choose the mode intent. The swing
 is the signal, and it is only visible because the log kept the samples
 instead of a single parse.
 
+## The fix and its trade
+
+The fix is the self-consistency pattern — sample the parse, take the
+majority, and let agreement be a confidence signal — and a decision rule
+that treats a thin majority as a judgment call rather than a committed
+parse. The executed samples price the failure: "apple watch" splits 3-2
+between product and service, and the minority parse routes to a
+different retrieval path (a watch for sale versus warranty service);
+"check my balance" never reaches 3/5, so the parse genuinely cannot
+decide between a bank balance, a game balance, and an account summary.
+Wang et al. (ICLR 2023) formalize the sampling pattern.
+
+The trade, named: sampling multiplies LLM calls per query — latency and
+cost — and the decision rule is the deeper consequence: a thin majority
+is not a parse to commit to, so the retrieval path must broaden or ask,
+never silently choose the mode intent. The swing is the signal, and it
+is only visible because the log kept the samples instead of a single
+parse — which is a logging contract, not a model choice.
+
+## Who owns the loop
+
+- **The LLM and query-understanding team** owns the sampling policy, the
+  agreement read, and the slot-confidence floor.
+- **The retrieval team** owns the broaden-or-ask path a thin majority
+  triggers.
+- **The evaluation team** owns the sample log that makes the swing
+  visible per query.
+
 ## Evidence boundary
 
 The executed sample parses over two hand-built queries (illustrative,

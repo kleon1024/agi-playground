@@ -35,6 +35,33 @@ cost. Asking preserves precision but adds a turn; broadening preserves
 the query's intent but returns a wider set; guessing risks filtering on
 a value the user never stated.
 
+## The fix and its trade
+
+The fix is to treat an empty slot as a decision with a declared policy —
+ask, broaden, or guess — because retrieval serves the keys it is given.
+The executed comparison prices the two ends: with origin None, retrieval
+broadens to every origin (more coverage, less precision); with origin
+sin, the index answers exactly. The empty slot is not neutral: asking
+preserves precision and adds a turn; broadening preserves the query's
+intent and returns a wider set; guessing risks filtering on a value the
+user never stated.
+
+The trade, named: the three options buy different things — a turn, a
+wider result set, or a false filter — and the policy must be chosen per
+slot and per product surface, not left to the retrieval default. The
+measurement that decides is precision-recall across the decision: the
+system that asks only when the ask is cheap, broadens when the slot is
+optional, and never guesses on a slot the query did not state.
+
+## Who owns the loop
+
+- **The retrieval team** owns the broaden, ask, or guess contract per
+  slot.
+- **The assistant team** owns the ask flow when the clarification is
+  worth the extra turn.
+- **The product owner** owns the cost tradeoff — the turn, the wider
+  set, or the filter risk — per surface.
+
 ## Evidence boundary
 
 The executed comparison over two declared queries (illustrative,

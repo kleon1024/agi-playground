@@ -37,6 +37,32 @@ to spell the right ID, and that ability decays as the set of IDs grows.
 The scaling curve is the frontier constraint — the approach that removes
 the index brings a decode bottleneck in its place.
 
+## The fix and its trade
+
+The fix is to measure the decode-accuracy scaling curve and gate the
+generative path where it falls — recall is a decode property, not an
+index property. The executed sweep prices the constraint: beam accuracy
+falls 0.98 at 100 docs to 0.93 at 1,000, 0.84 at 10,000, and 0.71 at
+100,000 — the odds of a decode error grow with the vocabulary, because
+the generator must spell exact IDs. The approach that removes the index
+brings a decode bottleneck in its place.
+
+The trade, named: the scaling curve decides where the generative path
+stops paying — at production corpus size, the decode accuracy that
+looked excellent on a demo catalogue is the number that decides whether
+the fallback carries most traffic. Gating and fallback cost routing
+complexity and latency, and the curve is what justifies them: the
+frontier constraint is measured, not assumed.
+
+## Who owns the loop
+
+- **The generative-model team** owns the decode-accuracy read over the
+  actual corpus at production size.
+- **The serving and fallback team** owns the routing gate that sends
+  the queries the decode cannot handle to the dense or hybrid path.
+- **The evaluation team** owns the scaling-curve measurement that sets
+  where the frontier constraint binds.
+
 ## Evidence boundary
 
 The executed sweep over a declared accuracy model (illustrative,

@@ -36,6 +36,34 @@ floor per slot: a slot is only filled when the model is confident the
 query stated it, and an invented constraint is worse than a missing one
 because it looks authoritative.
 
+## The fix and its trade
+
+The fix is a confidence floor per slot: a slot is only filled when the
+model is confident the query stated it. The executed comparison prices
+the failure: the over-parsed version invents max_price cheap and would
+filter the index by a constraint the user never stated — "flights to
+tokyo" says nothing about price, and the invented slot silently shrinks
+recall exactly like an over-eager rule, excluding every flight above
+the assumed price. An invented constraint is worse than a missing one
+because it looks authoritative.
+
+The trade, named: a confidence floor costs calibration and a slot
+schema — deciding what counts as "the query stated it" is per-slot
+work — and the alternative is a parse that over-commits structure the
+query does not carry. The retrieval consequence is the same as an
+over-eager rule: recall shrinks with no signal that a constraint was
+invented, which is why the floor belongs to the parse contract, not to
+the prompt.
+
+## Who owns the loop
+
+- **The query-understanding and LLM team** owns the slot schema and the
+  confidence floor per slot.
+- **The retrieval team** owns the key space the parse feeds, and the
+  fallback when a slot is below confidence.
+- **The product owner** owns the parse contract — when an invented
+  constraint is acceptable and when the model over-commits.
+
 ## Evidence boundary
 
 The executed comparison over one declared query (illustrative,

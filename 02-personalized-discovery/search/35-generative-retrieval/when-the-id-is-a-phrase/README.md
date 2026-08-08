@@ -46,6 +46,36 @@ reintroduces alongside the autoregressive model. The no-index claim
 softens: the index is gone from the scoring path, but a resolution
 lookup returns through the back door the moment IDs are human-readable.
 
+## The fix and its trade
+
+The fix is an ID format matched to the decode's strength, with the
+ambiguity resolved explicitly. The executed substring count prices the
+choice: with phrase IDs, "search" names 5 of 8 documents and "memory"
+names 5, while "transformer memory" and "sparse representations" each
+name 1 — the decode alone cannot say which document the query meant.
+The original DSI (Tay et al., NeurIPS 2022) assigns one atomic docid
+per document, so a correct decode names exactly one document — but the
+model must learn to spell arbitrary IDs. Bevilacqua et al. (NeurIPS
+2022) instead make the ID a substring of the document, easy to generate
+and ambiguous.
+
+The trade, named: atomic IDs are unambiguous and hard to spell; phrase
+IDs are easy to generate and ambiguous — and the ambiguity is pushed
+into a substring lookup that resolves the phrase against the corpus,
+which is exactly the compressed full-text index SEAL reintroduces
+alongside the autoregressive model. The no-index claim softens: the
+index is gone from the scoring path, but a resolution lookup returns
+through the back door the moment IDs are human-readable.
+
+## Who owns the loop
+
+- **The generative-model team** owns the ID-format decision and its
+  ambiguity measurement over the corpus.
+- **The serving team** owns the resolution lookup that phrase IDs
+  require, and its latency.
+- **The evaluation team** owns the match-distribution read that shows
+  how ambiguous a decode is per query class.
+
 ## Evidence boundary
 
 The executed substring count over eight hand-built titles (illustrative,

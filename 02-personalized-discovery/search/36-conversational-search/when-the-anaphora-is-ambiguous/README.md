@@ -36,6 +36,33 @@ entities, so it provides no resolution. The model has to decide which
 referent the pronoun points at, and an ambiguous session makes that
 decision unsafe to guess.
 
+## The fix and its trade
+
+The fix is to track referents, not just reuse the last query, and to make
+the resolution safe to guess — when the session offers two valid
+referents, the system must ask. The executed ambiguity prices the
+failure: "they" resolves plausibly to trail runners and ambiguously to
+road trainers — both were named in the session — and resolving it wrong
+changes the answer: "are they waterproof" against trail runners is a
+different question than against road trainers. The last query named
+both entities, so it provides no resolution at all.
+
+The trade, named: a coreference model costs training data and serving
+latency, and the clarification policy costs a turn — but guessing on an
+ambiguous session is the failure that converts a cheap answer into a
+wrong one. The system that cannot decide which referent a pronoun
+points at must say so, because the alternative is a confident answer to
+a question the user did not ask.
+
+## Who owns the loop
+
+- **The query-understanding team** owns referent resolution and its
+  ambiguity detection.
+- **The assistant team** owns the clarification policy — when to ask
+  instead of guess, and how the ask is phrased.
+- **The evaluation team** owns the resolution-quality read over real
+  sessions, including the ambiguous ones.
+
 ## Evidence boundary
 
 The executed check over one declared session (illustrative,

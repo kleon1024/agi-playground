@@ -64,6 +64,27 @@ majority (self-consistency; Wang et al., ICLR 2023,
 arXiv:2203.11171), and treat a low-confidence slot as a clarification
 or a broadening, never a silent guess.
 
+## The fix and its trade
+
+The fix is to sample the parse and take the majority — self-consistency —
+and to treat a low-confidence slot as a clarification or a broadening,
+never a silent guess. The executed audit prices the failure the fix
+removes: head parses agree at 1.000 and score 0.976 with zero
+low-confidence slots, while tail parses agree at only 0.520, score
+0.554, and carry 2.4 low-confidence slots per query — the aggregate
+quality of 0.765 is a head artifact, and the same query parsing into
+different intents across samples flips the retrieval path. Wang et al.
+(ICLR 2023, arXiv:2203.11171) establish the self-consistency pattern:
+sample, take the majority, and let agreement be a confidence signal.
+
+The trade, named: sampling costs LLM calls — latency and cost multiply
+per query — and the slot-confidence floor costs calibration; the
+alternative is a single logged parse that commits a judgment call as if
+it were a fact. The parse feeds every downstream decision, so the
+stability contract is owned at the model-serving boundary: a
+low-confidence slot must change the retrieval behavior, not silently
+filter it.
+
 ## Who owns the loop
 
 The parse feeds every downstream decision, so its stability is owned at

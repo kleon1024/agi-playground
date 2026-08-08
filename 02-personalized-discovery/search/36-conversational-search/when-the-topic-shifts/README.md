@@ -37,6 +37,34 @@ needs a topic boundary: when the intent class changes, the old context
 has to expire, or every follow-up after the shift is resolved against
 the wrong topic.
 
+## The fix and its trade
+
+The fix is a topic boundary: when the intent class changes, the old
+context has to expire, or every follow-up after the shift is resolved
+against the wrong topic. The executed session prices the failure: turn 1
+sets search_marathon, turn 3 shifts to search_hotel, and turn 4 — "any
+good ones near shibuya" — extends the hotel turn while the session
+context still points at marathon shoes, so it resolves search_marathon
+instead of search_hotel. The context that helped turn 2 became the trap
+by turn 4.
+
+The trade, named: topic detection costs a topic model and a shift signal
+on the serving path, and expiring context too eagerly loses legitimate
+cross-topic references ("the shoes from earlier, but in tokyo") — so
+the expiry rule is a product contract about when "still the same
+conversation" ends, not a model tuning detail. The boundary is what
+decides whether a follow-up after the shift resolves against the
+current topic or a stale one.
+
+## Who owns the loop
+
+- **The assistant team** owns the topic model and the expiry rule that
+  clears stale context.
+- **The product owner** owns the session contract — when a topic shift
+  ends the old context, and what the user is told.
+- **The query-understanding team** owns re-resolution after a shift, so
+  the follow-up is re-grounded on the new topic.
+
 ## Evidence boundary
 
 The executed resolution over one declared four-turn session

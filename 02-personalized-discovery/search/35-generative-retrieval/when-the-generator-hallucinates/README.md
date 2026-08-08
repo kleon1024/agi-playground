@@ -38,6 +38,31 @@ index is doing its job. It is a decode failure, and the only defense is
 verification, which costs the very latency the approach was meant to
 save.
 
+## The fix and its trade
+
+The fix is to verify every generated ID against the corpus — the index
+is the arbiter of what the generator may return. The executed check
+prices the failure: doc_02 and doc_03 exist, doc_99 does not — the
+emitted ID wastes a beam slot and the result is dropped at the corpus
+check. The hallucination is not an index failure; the index is doing
+its job. It is a decode failure, and the only defense is verification.
+
+The trade, named: the check costs the very latency the generative
+approach was meant to save — every generated ID requires a corpus
+lookup that the no-index design was supposed to remove. A retrieval
+model that manufactures IDs needs the arbiter regardless, and the
+measured hallucination rate over the actual corpus decides whether the
+latency trade is worth it at all.
+
+## Who owns the loop
+
+- **The generative-model team** owns the decode and its measured
+  hallucination rate over the corpus.
+- **The serving team** owns the verification check and its latency
+  budget — the arbiter runs on the serving path, not after the fact.
+- **The evaluation team** owns the emitted-ID precision read that turns
+  a wasted beam slot into a number.
+
 ## Evidence boundary
 
 The executed check over three declared generated IDs (illustrative,

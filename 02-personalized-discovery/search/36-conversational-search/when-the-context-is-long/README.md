@@ -49,6 +49,37 @@ deliberate retention: pin the first-turn grounding (a standing summary
 of the session topic), or compress the middle turns instead of dropping
 the oldest, so the referent survives the window.
 
+## The fix and its trade
+
+The fix is deliberate retention: pin the first-turn grounding as a
+standing summary of the session topic, or compress the middle turns so
+the referent survives the window. The executed sweep prices the
+failure: at 4 and 8 turns the first turn is kept and "back to the first
+pair" resolves at 1.0; at 9 turns the oldest turn is dropped and
+resolution falls to 0.8, then 0.2 at 12 and 0.1 at 24. Truncation is
+oldest-first, and the first turn — the topic — is exactly what a
+grounding-dependent follow-up needs. This is the "Lost in the Middle"
+shape (Liu et al., TACL 2024): models use the beginning and end of a
+long input far better than the middle, so where the grounding sits
+decides whether it resolves.
+
+The trade, named: a bigger window costs latency and still buries the
+grounding in the middle; pinning the first-turn topic costs a standing
+summary that must be kept fresh as the topic evolves; compressing the
+middle costs model complexity. Radlinski and Craswell (CHIIR 2017)
+frame the contract from the other side: the conversation state is the
+shared context, and losing part of it changes what a follow-up can
+mean.
+
+## Who owns the loop
+
+- **The conversational-search and assistant team** owns the retention
+  policy — the standing summary and the window design.
+- **The query-understanding team** owns the grounding the summary must
+  preserve, and its freshness as the topic evolves.
+- **The product owner** owns the session contract: what the user can
+  still refer back to, priced against the window cost.
+
 ## Evidence boundary
 
 The executed window sweep over declared resolution values
