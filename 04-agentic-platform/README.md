@@ -92,6 +92,7 @@ traces both.
 | [04 — How it fails](04-how-it-fails/) | how does it fail, and does it cheat? | verified |
 | [05 — The report](05-report/) | what did we actually establish? | verified |
 | [06 — Closing the loop](06-closing-the-loop/) | does seeing your own attempt's real outcome help, with still no tools? | verified |
+| [07 — The frontier](07-frontier/) | what happens when the loop has to deliver? | verified |
 
 [Stage 00](00-task-set/) has run. It mined this repository's 100 commits down to
 4 candidates and admitted **2**, because a task is admitted only if its test
@@ -178,6 +179,20 @@ applying-and-correct; no attempt in this batch moved from "applies but wrong"
 to resolved, and ten of the twelve retries still produced a diff `git apply`
 rejected. A real, modest, mixed result, not a clean win.
 
+[Stage 07](07-frontier/) then reads everything stages 00–06 recorded as the
+frontier question: the same loop — retry, grounding, verification, permission
+ladders, gates — is what every agentic surface that transacts now runs on,
+and the four frontier chapters each return a decision on top of the recorded
+runs. The intent chapter reads the produced-vs-delivered gap (4/18 blind vs
+18/18 harness); the anatomy chapter audits the loop's control and compute
+planes and reads Claude Code, Codex, and Antigravity as the same five
+decisions; the governance chapter prices a reconciliation gate (14/18 blind
+calls rejected before delivery, zero tampering across 54 real model calls);
+and the product chapter draws the automate-versus-gate line as a routing
+table priced per delivered outcome. No model was called and no new run was
+executed to produce them — every number traces to this mission's `runs/`
+entries or to a dated external source.
+
 
 
 ## Where each stage leaves the path
@@ -202,6 +217,10 @@ artifact or a measurement the next stage consumes.
 | `05-report` | The PARTIAL, read bullet by bullet | [when-the-partial-verdict](05-report/when-the-partial-verdict/) |
 | `06-closing-the-loop` | Does seeing the real outcome help — with still no tools? | [does-feedback-help](06-closing-the-loop/does-feedback-help/) |
 | `06-closing-the-loop` | Feedback fixed the fix, not the apply | [the-bimodal-retry](06-closing-the-loop/the-bimodal-retry/) |
+| `07-frontier` | Where does intent stop being delivered? | [intent-to-delivery](07-frontier/intent-to-delivery/) |
+| `07-frontier` | What does the software around the model own? | [harness-anatomy](07-frontier/harness-anatomy/) |
+| `07-frontier` | What does a governed agent actually do? | [control-plane-governance](07-frontier/control-plane-governance/) |
+| `07-frontier` | When should the agent act, and when should a human sign it? | [what-a-reasonable-agentic-product-is](07-frontier/what-a-reasonable-agentic-product-is/) |
 
 ## Landscape surveys
 

@@ -1599,6 +1599,26 @@
     "level": "applied",
     "minutes": 3
   },
+  "04-agentic-platform/07-frontier": {
+    "level": "frontier",
+    "minutes": 2
+  },
+  "04-agentic-platform/07-frontier/control-plane-governance": {
+    "level": "frontier",
+    "minutes": 8
+  },
+  "04-agentic-platform/07-frontier/harness-anatomy": {
+    "level": "frontier",
+    "minutes": 6
+  },
+  "04-agentic-platform/07-frontier/intent-to-delivery": {
+    "level": "frontier",
+    "minutes": 6
+  },
+  "04-agentic-platform/07-frontier/what-a-reasonable-agentic-product-is": {
+    "level": "frontier",
+    "minutes": 6
+  },
   "05-game-ai": {
     "level": "applied",
     "minutes": 9

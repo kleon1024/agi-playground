@@ -2633,6 +2633,36 @@
         ]
       },
       {
+        "type": "category",
+        "label": "The frontier",
+        "link": {
+          "type": "doc",
+          "id": "04-agentic-platform/07-frontier/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/07-frontier/what-a-reasonable-agentic-product-is/index",
+            "label": "A reasonable agentic product"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/07-frontier/control-plane-governance/index",
+            "label": "Control-plane governance"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/07-frontier/harness-anatomy/index",
+            "label": "Harness anatomy"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/07-frontier/intent-to-delivery/index",
+            "label": "Intent to delivery"
+          }
+        ]
+      },
+      {
         "type": "doc",
         "id": "04-agentic-platform/agent-memory-landscape",
         "label": "Agent memory landscape"
