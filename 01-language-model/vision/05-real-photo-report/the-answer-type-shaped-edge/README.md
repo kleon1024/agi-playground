@@ -39,6 +39,36 @@ number questions. The type split is where a future build could compete —
 not head-on against the API's overall dominance, but on the number
 questions where the API itself is weak.
 
+## The fix and its trade
+
+The fix is the artifact-traceability check: recompute the per-type split
+from the raw log rows instead of trusting the report's quoted numbers. The
+report's 0.637/0.366/0.240 could have been hand-copied or rounded; the
+recomputation from the 198-row log producing the same numbers is the
+evidence that the pattern is real and belongs to the data, not the prose.
+The trade is that the check confirms the verdict without changing it — the
+recomputation reproduces the recorded report (yes/no 0.637, number 0.240,
+within rounding) and leaves NOT MET intact — but it changes what a future
+build-vs-buy decision can target: the API is not uniformly dominant, and
+the number questions where it falls to 0.240, close to the self-trained
+arms, are the ground a targeted build could compete on instead of
+competing head-on. The discipline the fix enforces is the repository's own:
+a per-type claim traces to its rows, the same way every other claim traces
+to its run.
+
+## Who owns the loop
+
+- **The evaluation owner** owns the artifact-traceability check: the
+  recomputation from the raw log is an eval-standard gate that a claimed
+  pattern must pass before it is reported as the pattern's evidence.
+- **The model team** owns the where-to-compete read the type split
+  produces: the number questions where the API is weakest are a targeting
+  input for a future build, and the team owns the interpretation that a
+  category-level edge is not yet a measured win.
+- **The report owner** owns keeping the verdict stable: the recomputation
+  confirms NOT MET and must not be read as an upgrade of the mission's
+  answer.
+
 ## Evidence boundary
 
 The recorded real-photo API log (198 questions, one model, one prompt).

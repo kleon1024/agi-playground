@@ -41,6 +41,38 @@ photos can actually leak. The form changed, the invariant did not: no eval
 instance may be a train instance under the representation that can
 collide.
 
+## The fix and its trade
+
+The fix is moving the guardrail key from pixel hash to image id. The
+procedural stage checked pixels because rendered images could collide
+under different seeds (the recorded 116-collision lesson); real
+photographs essentially never collide byte-for-byte, so the check that
+matters is identity — the same COCO image appearing in both splits under a
+different annotation. The recorded build asserts 0 overlap and re-checks
+the written records, so the invariant "no eval instance is a train
+instance" survives the key change. The trade is that each key catches the
+leak its data type actually has and is blind to the other: a pixel hash
+would miss an id overlap, and an id check cannot catch a near-duplicate
+scene that was cropped or re-encoded into a new id. For real photographs
+the id check is the stronger one, because identity is where the realistic
+leak lives — but the chapter's point is that the guardrail is data-
+appropriate, not universally sufficient: a team working with edited or
+derived images would need a third key, not this one.
+
+## Who owns the loop
+
+- **The data pipeline** owns the guardrail key and its timing: the choice
+  of id over pixel hash is a pipeline decision, and the overlap is
+  asserted before the files are written, not after a leak shows up in the
+  eval numbers.
+- **The evaluation owner** owns the invariant the key serves: no eval
+  instance may be a train instance under the representation that can
+  collide, and the form of that check is allowed to change with the data
+  type without weakening the invariant.
+- **The data QA step** owns the post-hoc re-check on the written records,
+  which is what turns the asserted 0 into a verified 0 rather than an
+  assumption.
+
 ## Evidence boundary
 
 The recorded real-photo build (300/100 from VQA v2's 40,474-image

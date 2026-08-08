@@ -83,6 +83,44 @@ CPU only, network required (VQA v2's S3 mirror and COCO's image host), about
 inside the 30-minute ceiling `mission.yaml`'s stages 03-05 extension
 declares.
 
+## The fix and its trade
+
+The fix is to key each guardrail to the object that actually leaks in the
+new data regime. Pixel-hash disjointness was the right check for
+procedurally rendered shapes — the same image is reachable from two seeds —
+but real photographs are unique artifacts, so the realistic leak is the
+same COCO image appearing in both splits by id. The check moves to image
+id (asserted zero overlap before the files are written), and the scoring
+contract moves to VQA v2's own `answer_type` field: yes/no questions are
+kept only when the majority answer is literally "yes" or "no," and
+`number`/`other` only when the majority answer is a single alphanumeric
+word. The trade is priced in what the filter refuses: multi-word answers
+("a pair of scissors") are dropped rather than truncated, because
+truncating would score a partial match as if the model produced the
+intended answer — the filter makes every held-out item mechanically
+scoreable at the cost of excluding the free-form questions a judge-based
+contract would need. The second trade is the 32x32 downsample: it lets
+stage 04 reuse stage 01's architecture completely unchanged, and it may
+destroy information a larger patch grid would keep — a modeling question
+the data stage names and hands forward, not one it answers. The measured
+build keeps the answer-type mix close to VQA v2's known distribution
+(train 237 yes/no, 101 number, 261 other; eval 80/25/93), so the harder
+and easier categories stay represented on both sides of the split.
+
+## Who owns the loop
+
+- **The data pipeline** owns the filter and the id-based disjointness
+  check: which answer types survive the scoreable contract, and the
+  asserted zero image-id overlap, are pipeline decisions made before the
+  files are written.
+- **The evaluation owner** owns the scoreable contract itself: exact
+  string match needs an unambiguous target, and the filter is what keeps
+  the held-out comparison a real evaluation instead of a paraphrase game.
+- **The model team** owns the downsample question the data stage hands
+  forward: stage 04 inherits the 32x32 input and must report whether the
+  downsampling limited what the pathway could learn, rather than assuming
+  the reuse was free.
+
 ## What this task set is and is not
 
 300 train and 100 eval images is a few hundred, not VQA v2's full ~40,000-image

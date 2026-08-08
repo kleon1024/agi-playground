@@ -43,6 +43,35 @@ seed difference, the eval spread and the loss spread would move together;
 they do not. The warmup fixed an optimization-path divergence, not the
 seed variance itself — a distinction the eval number alone cannot show.
 
+## The fix and its trade
+
+The fix is the two-number contrast, and the contrast is the evidence: eval
+spread fell from 0.2309 to 0.0536 (fourfold) while the final train-loss
+spread stayed at 0.2302. If the collapse were an irreducible seed
+difference, the two spreads would move together; they do not, so the warmup
+stabilized the optimization path (seed 2: 0.2844 -> 0.4962) without
+changing what "fit" means for the task. The trade is that the fix's scope
+is exactly as narrow as its evidence: it does not remove the seed variance
+itself — seeds legitimately end at different minima, and the loss spread
+staying wide is the honest remainder — and it does not isolate which
+layer's gradient diverged, which the chapter names as beyond the stage's
+scope. What the contrast buys is a mechanism claim the eval number alone
+cannot support: "the warmup fixed the path, not the surface," which is the
+distinction a practitioner needs before deciding whether more warmup,
+more seeds, or a different LR would be the next lever.
+
+## Who owns the loop
+
+- **The model team** owns the mechanism claim: the path-vs-surface
+  distinction is a training-dynamics statement, supported by the recorded
+  contrast and left scoped to the stage's evidence.
+- **The evaluation owner** owns the two-number read: the eval-spread and
+  train-loss-spread pair must be reported together, because each alone
+  supports a different (wrong) conclusion.
+- **The report owner** owns the boundary: the warmup fixes the collapse it
+  was tested against, and the report must not extend the claim to
+  "warmup makes training seed-stable" — the loss spread says otherwise.
+
 ## Evidence boundary
 
 The recorded warmup run (3 seeds) and stage 01's recorded baseline; no new

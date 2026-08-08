@@ -41,6 +41,37 @@ of the synthetic margin (+0.1105): real photographs shrink the vision
 advantage to a sliver, which is why the real-photo chain still closes
 NOT MET against the hosted API.
 
+## The fix and its trade
+
+The fix is per-arm spread attribution: report each arm's own seed spread
+instead of one pooled number, because the comparison is not two equally
+noisy arms. The recorded read shows why it matters — a naive reader of
+"margin +0.0152 with spread 0.0707" would call it noise, while the per-arm
+read shows the spread belongs to the text-only control and vision is the
+deterministic side (0.0101). The trade is that the fix makes the margin
+attributable to the pathway without making it large: the same read that
+keeps +0.0152 a result also shows it is a sliver — a third of the
+synthetic margin — so the real-photo pathway is stable and weak at once,
+and the mission's verdict still closes NOT MET against the hosted API. The
+read's deeper point is that variance is a property of the
+data-architecture pair, not of either arm alone: stage 01's vision was the
+noisy arm (one collapsed seed), stage 04's is the stable one, and only
+per-arm numbers can show the flip.
+
+## Who owns the loop
+
+- **The evaluation owner** owns the per-arm spread read: the rule is
+  applied per arm, and a pooled number that swallows the margin is an
+  eval-format error, not a property of the result.
+- **The model team** owns the data-architecture variance property the flip
+  exposes: whether the seed sensitivity moved sides is a training
+  question, and the majority-answer-skew hypothesis for the control's
+  noise belongs to the model team to confirm or refute.
+- **The report owner** owns the verdict the margin feeds: the flip does
+  not change NOT MET against the hosted API, and the report must state the
+  sliver-size of the real margin beside the pathway's stability rather
+  than letting either number stand alone.
+
 ## Evidence boundary
 
 The recorded real-photo run (three seeds per arm, 599/198 QA pairs, one

@@ -57,6 +57,42 @@ blind text-only guess's accuracy depends heavily on which random seed's
 weights happen to land near that skew, while the image-conditioned model has
 an actual signal to anchor on across seeds.
 
+## The fix and its trade
+
+The fix is the per-arm spread read: the margin is judged against the arm's
+own seed-to-seed spread, not against a pooled number. That is the only
+read that keeps +0.0152 a result — vision's spread is 0.0101, a third of
+the margin — and it is also the read that exposes what flipped from stage
+01: text-only is now 7x noisier (0.0707 vs 0.0101), so the noise lives on
+the control side and the margin belongs to the stable vision arm. The
+trade is that the margin, while real by the rule, is a sliver: a third of
+the synthetic margin (+0.1105), so real photographs shrink the vision
+advantage toward zero even as they make it seed-stable. The likely reason
+is the VQA v2 answer distribution itself (Goyal et al., 2017): the real
+set's majority-answer skew per question type makes a blind text-only
+guess's accuracy depend on which seed's weights happen to land near the
+skew, while the image-conditioned model anchors on an actual signal across
+seeds — a hypothesis this stage states as unconfirmed, not as a finding.
+The stage's second deliverable is the reuse claim: zero code changes
+across synthetic-to-real, so the same +14,464-parameter pathway that saw
+rendered shapes learns to condition on real pixels too, at the disclosed
+cost of a CPU fallback (CUDA unreachable, allowed by `mission.yaml` and
+recorded rather than assumed away).
+
+## Who owns the loop
+
+- **The model team** owns the architecture-reuse claim and the training
+  recipe: the unchanged import path from stage 01 is the evidence for
+  reuse, and the CPU fallback is a run-environment fact the model team
+  discloses in the record.
+- **The evaluation owner** owns the per-arm spread rule and the per-seed
+  read: pooled spreads would misread this run, and the per-arm form is
+  what makes the narrow margin and the flipped variance legible.
+- **The report owner** owns the verdict against the hosted API, which
+  this stage does not run: stage 04 settles the self-trained half of the
+  acceptance bar, and stage 05 holds the result against the second
+  baseline.
+
 ## What this stage does not settle
 
 Whether this narrow margin survives against the hosted VLM API baseline —

@@ -60,6 +60,38 @@ the vision block and text never writing into vision. The anatomy's purpose
 is to make that choice visible before the mission's NOT MET verdict is
 read — the verdict is about build-vs-buy, not about the pathway's shape.
 
+## The fix and its trade
+
+The fix is the fused prefix design itself, and it exists to serve a
+specific failure: a decoder built for one causal text stream has exactly
+one attention shape, and grafting sight onto it naively means writing a
+second, hand-duplicated attention path that can silently drift from the
+first. The fused mask — one attention block, four quadrants — eliminates
+the second path: `FusedAttention` with `mask=None` reproduces mission 01's
+`is_causal=True` path exactly, so the text-only baseline is the same class
+with one constructor flag, not a parallel implementation. The trade is
+measured in the parameter delta: +14,464 — the patch projection plus the
+position table — is the entire cost of adding sight, against the
+cross-attention alternative (BLIP-2's Q-Former shape, Li et al., 2023;
+Flamingo's gated cross-attention, Alayrac et al., 2022) which adds a new
+q/k/v projection stack per layer and lets text write into vision at the
+cost of that drift surface. The fused-prefix choice is the shape LLaVA
+(Liu et al., 2023) and the other projector-based VLMs use at scale: the
+image is just a prefix, and the decoder's own attention does the work
+unchanged.
+
+## Who owns the loop
+
+- **The model architect** owns the fusion choice and its reuse contract:
+  the invariant is that a vision pathway may add an input path, never a
+  second attention implementation that can drift from the first.
+- **The evaluation owner** owns the `use_vision` on/off ablation that
+  measures what the pathway contributes; the anatomy chapter computes the
+  structure, and the ablation is the evidence for the pathway's effect.
+- **The report owner** owns keeping the structure verdict separate from the
+  build-vs-buy verdict: the NOT MET result is about cost and accuracy
+  against a hosted API, not about whether the fused design is correct.
+
 ## Evidence boundary
 
 The measured stage-01 config and recorded parameter totals; the mask

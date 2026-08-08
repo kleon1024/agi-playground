@@ -75,6 +75,43 @@ data, same seeds, closed the seed-2 collapse and tightened spread by more
 than 4x. This does not retroactively make stage 01's own reported result
 wrong; it answers the specific open question stage 01 named as future work.
 
+## The fix and its trade
+
+The fix is a linear LR warmup over the first 10% of optimizer steps (0 ->
+3e-3 across steps 0-185 of 1,860), applied as the single changed mechanism
+to stage 01's exact recipe. The measured effect: seed 2 moves from 0.2844 —
+below every text-only seed — to 0.4962; eval spread drops from 0.2309 to
+0.0536 (more than 4x); the mean rises 0.4375 to 0.4970; and all three
+warmup seeds individually beat text-only's mean by several times text-only's
+own 0.0459 spread. The mechanism the numbers support is an
+optimization-trajectory one: a fixed high LR at step 0 lets one seed's
+early updates push it into a degenerate region before any useful feature
+exists, and a warmup keeps the first 185 steps small enough for the pathway
+to survive initialization — the standard empirical fix for exactly this
+collapse class, documented when raising batch size or LR (Goyal et al.,
+2017) and present in transformer training from the original schedule
+(Vaswani et al., 2017). The trade is priced per attempt: one fraction (10%)
+was tried, not swept, so the result claims this fraction closed this
+specific collapse, not that 10% is optimal; text-only was not re-run, so
+nothing is claimed about its spread under warmup; and the final train-loss
+spread stayed 0.2302, which is the proof of the mechanism — warmup fixed
+the path divergence, not the seed variance itself.
+
+## Who owns the loop
+
+- **The model team** owns the training recipe, the hypothesis, and the
+  single-mechanism discipline: the warmup was the one thing changed, which
+  is what makes the before/after comparison attributable; the team also
+  owns the decision to test one fraction rather than silently sweep for
+  the best number.
+- **The evaluation owner** owns the per-seed before/after read and the
+  spread convention: the 4x tightening and the all-three-seeds-in-band
+  claim come from the recorded JSON, not from a headline.
+- **The report owner** owns the verdict's scope: stage 01's reported
+  result stands as recorded (this stage answers its named open question),
+  and the mission's build-vs-buy NOT MET is untouched by a stability fix
+  on the self-trained arm.
+
 ## What this stage does not establish
 
 One warmup fraction (10% of steps) was tried, not swept -- this result does

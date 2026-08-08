@@ -56,6 +56,35 @@ leaks (pixels, text, embeddings), not on the generator that produces it
 the count it rejects is the honest measure of how crowded the space is, and
 the distribution after rejection must be checked, not assumed.
 
+## The fix and its trade
+
+The fix is the widened state space (per-shape size and jitter, 48 -> 3,600
+single-shape outcomes) plus the distribution check, not the rejection
+sampler alone. The reproduction prices the trade in rejection counts: the
+fixed row rejects 29 candidates and restores the single-shape bucket (105,
+proportional to train's 696), while the recorded narrow-space attempt
+rejected 507 and filtered the bucket out of eval entirely. The naive row's
+17 collisions show the pixel check still fires before the fix; the point is
+that the check has to sit on the pixel representation, and the fix has to
+sit on the generator's state space. Every fix trades something: a wider
+space makes exact duplicates rarer but no longer impossible, and the
+rejection count is the honest price of crowding — 29 rejections today
+against 507 in the original space, which is exactly the difference the
+distribution check exists to keep visible.
+
+## Who owns the loop
+
+- **The data pipeline** owns the guardrail key (pixels, not seeds) and the
+  generator's state space; the reproduction that confirmed the pipeline
+  "as it stands today" is a data-engineering artifact, not a modeling one.
+- **The evaluation owner** owns the post-fix distribution check: the
+  collision count answers "no shared images," and a separate assertion
+  answers "the eval distribution is still proportional to train's." Both
+  must pass, and the second is the one a pixels-only guardrail cannot see.
+- **The report owner** owns disclosing the rejection burden (29 today, 507
+  in the recorded original) as the honest crowding measure, so a later
+  reader can see when a fix is papering over a crowded space.
+
 ## Evidence boundary
 
 The naive row uses adjacent seeds on the current widened generator; the

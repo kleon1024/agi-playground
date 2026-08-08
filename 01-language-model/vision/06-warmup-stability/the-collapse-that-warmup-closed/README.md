@@ -43,6 +43,39 @@ typical run. The mechanism: a fixed high LR at step 0 lets the vision
 pathway diverge before it has learned anything; a warmup keeps the early
 updates small enough to survive.
 
+## The fix and its trade
+
+The fix is a training-dynamics one: a linear LR warmup over the first 186
+of 1,860 steps (10%), with the model, data, and seeds unchanged. The
+trade is what makes the before/after comparison trustworthy: because only
+the LR schedule differs, the seed-2 recovery (0.2844 -> 0.4962) is
+attributable to the warmup rather than to any other variable. The fix
+costs something real — one warmup fraction (10%) was tried, not swept, so
+the claim is bounded to "this fraction closed this collapse," and a
+different fraction could work better, worse, or not at all. The mean rise
+(0.4375 -> 0.4970) is the second half of the trade's payoff: it rules out
+the reading "the spread shrank because one seed got lucky," because
+warmup is improving the typical run, not just rescuing the outlier. The
+mechanism claim — a fixed high LR at step 0 lets early updates push the
+pathway into a degenerate region before features form — is the standard
+empirical account of warmup (Goyal et al., 2017; Vaswani et al., 2017),
+supported here by the recorded seed-2 trajectory, though not isolated at
+the layer or gradient level.
+
+## Who owns the loop
+
+- **The model team** owns the LR schedule and the single-mechanism
+  discipline: the warmup is the one variable changed, which is the
+  condition that makes the before/after read causal rather than
+  correlational.
+- **The evaluation owner** owns the before/after read: both numbers —
+  spread 0.2309 -> 0.0536 and mean 0.4375 -> 0.4970 — must be reported
+  together, because the mean rise is what answers the "lucky seed"
+  interpretation.
+- **The report owner** owns the scope boundary: this answers stage 01's
+  named open question and does not retroactively revise stage 01's
+  recorded result, and the mission's build-vs-buy verdict is untouched.
+
 ## Evidence boundary
 
 The recorded warmup run (three seeds, 30 epochs, one architecture, one

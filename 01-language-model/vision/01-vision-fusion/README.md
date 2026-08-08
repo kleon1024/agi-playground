@@ -186,6 +186,45 @@ at these settings — stays visible instead of being tuned away after the fact.
 Full numbers, environment, and reasoning are in
 [the run record](runs/2026-07-31-vision-vs-text-only.md).
 
+## The fix and its trade
+
+The fix is the honest reading rule: a margin smaller than run-to-run spread
+is reported as no result, not as a win. The rule converts this stage's
+measured pair — gap to text-only +0.1105 against vision's own spread 0.2309
+— into a partial result, because the third seed (0.2844) collapsed below
+every text-only seed and made the aggregate undecidable. The trade is that
+the rule costs a clean verdict: two of three seeds beat every text-only
+seed by 17-18 points, and the stage still cannot say "vision wins." What it
+buys is that the mechanism's real claim — the pathway clearly can learn to
+use the image, and the collapse is optimization, not architecture — stays
+visible instead of being tuned away, with the untested warmup hypothesis
+handed forward as named future work rather than applied post hoc. The
+architecture's own trade is the fused mask itself: one shared attention
+with a bidirectional-vision/full-text-to-vision/causal-text rule set
+reuses mission 01's decoder unchanged (the whole cost is +14,464
+parameters), where a separate cross-attention module would add a new
+q/k/v stack per layer. Patch-embedding as a vision-token sequence is the
+shape ViT (Dosovitskiy et al., 2020) introduced; conditioning a text
+decoder on a fixed prefix is PaLM-E (Driess et al., 2023) and Flamingo's
+(Alayrac et al., 2022) production shape, and the contrastive route to a
+vision encoder (CLIP, Radford et al., 2021) is deliberately not used here
+because this mission's question is generative conditioning, not
+similarity.
+
+## Who owns the loop
+
+- **The model team** owns the architecture and the training recipe: the
+  fusion choice, the LR setting, and the deliberate decision to keep the
+  un-scheduled rate so the seed-sensitivity finding stays measurable.
+- **The evaluation owner** owns the per-seed spread rule and the text-only
+  control. The control is the diagnostic that tells you whether the
+  pathway sees pixels at all — without it, the dataset could leak through
+  language and the vision pathway would prove nothing.
+- **The report owner** owns the verdict shape: "partial win, not a clean
+  one," with the two-of-three-seeds evidence and the one-collapsed-seed
+  caveat stated together, and the warmup hypothesis named as the next
+  stage's question rather than erased.
+
 ## What "the image" actually is, at each end of this stage's evidence boundary
 
 The two images on the left are two of stage 00's demo fixtures

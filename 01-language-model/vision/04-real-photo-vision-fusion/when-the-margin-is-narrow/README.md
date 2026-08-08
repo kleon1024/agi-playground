@@ -42,6 +42,34 @@ naive reader of "margin +0.0152 with spread 0.0354" would call it noise;
 the per-arm read shows the spread belongs to the control, and the vision
 pathway is the deterministic side of the comparison.
 
+## The fix and its trade
+
+The fix is applying the spread rule per arm: a margin is a result when it
+exceeds the arm's own run-to-run spread, and vision's spread (0.0051) is a
+third of the margin — not the pooled-looking 0.0354, which belongs to the
+text-only control. The trade is that the rule's per-arm form is exactly
+what makes a narrow result legible, and the same form exposes how narrow
+it is: the real-photo margin is a third of the synthetic one (+0.1105), so
+the pathway's edge is task-dependent and shrinks on harder input. The
+narrowing is the honest measure of how much of the synthetic result
+carries to real photographs, and the chapter's verdict is that the mission
+must report it rather than extrapolate from the synthetic number — the
+sliver margin is real by the rule and far below what the hosted API
+achieves, which is why the real-photo chain still closes NOT MET.
+
+## Who owns the loop
+
+- **The evaluation owner** owns the per-arm form of the spread rule: a
+  pooled spread would misread this run, and the rule's application is an
+  eval-standard decision written before the margin is read.
+- **The model team** owns the task-dependence read: why the edge shrinks
+  from synthetic to real input is a modeling question (harder input,
+  majority-answer skew on the control), and the hypothesis belongs to the
+  team that would test it.
+- **The report owner** owns the verdict the three numbers feed: real by
+  the rule, narrow in size, noisy on the control — all three must appear
+  together, because each one alone misstates the result.
+
 ## Evidence boundary
 
 Three seeds each, the recorded real-photo run; the synthetic margin is the

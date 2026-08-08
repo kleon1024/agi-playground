@@ -45,13 +45,44 @@ verdict that is otherwise `NOT MET`.
 
 **The verdict is still NOT MET, and the category read does not overturn it.**
 The largest self-trained margin (+0.229 on `shape_color`) is still below the
-hosted API's per-category floor (0.769 on the same type); the build-vs-buy
+hosted API's per-category accuracy on the same type (0.969); the build-vs-buy
 answer is unchanged. What the category read changes is the *diagnosis*: the
 pathway is not failing because it cannot see, it is failing because what it
 sees is too weak to beat a stock API call. Stage 01's seed-2 collapse is the
 same story at the category level — that seed emits end-of-sequence
 immediately on `total_count` questions specifically, scoring 0/100 there
 while staying in line on every other category.
+
+## The fix and its trade
+
+The fix is the per-category margin read: instead of one aggregate, compute
+vision minus text-only inside each question type, because the *pattern* of
+margins — not their size — is the evidence that distinguishes conditioning
+on pixels from memorized phrasing. A pathway that improved on every
+category equally could be explained by better text memorization; the
+recorded concentration (shape_color +0.229, total_count +0.170, against
+leak-prone types at +0.017 and +0.010) is the signature of real pixel
+conditioning. The trade is that the category read changes the diagnosis,
+not the verdict: the largest self-trained margin (+0.229) still sits below
+the hosted API's per-category accuracy on the same type (0.969), so the
+build-vs-buy answer stays NOT MET. What the fix buys is that the mission's
+negative verdict no longer reads as "vision fusion does nothing" — it reads
+as "the pathway sees, and what it sees is too weak to beat a stock API
+call," which is the diagnosis a stakeholder needs before deciding what to
+build next.
+
+## Who owns the loop
+
+- **The evaluation owner** owns the category taxonomy and its run: the
+  per-category comparison is a separate artifact from the aggregate
+  report, and the margin pattern is read from it, not asserted.
+- **The report owner** owns keeping verdict and diagnosis separate: NOT
+  MET for build-vs-buy, real pixel-conditioning signal for the mechanism,
+  stated together without one erasing the other.
+- **The model team** owns the collapse diagnosis the category read makes
+  concrete: seed 2's 0/100 on total_count is a category-specific
+  generation collapse (EOS emitted right after the question), which is a
+  training-degradation story, not a broad architecture failure.
 
 ## Evidence boundary
 

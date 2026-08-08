@@ -56,6 +56,37 @@ The heatmap shows where the model *could* look; whether it *used* what it
 saw is a question about values and accuracy, which is why the mission's
 text-only baseline exists as the control.
 
+## The fix and its trade
+
+The fix is the accuracy control, not the heatmap: the text-only baseline is
+the diagnostic that tells you whether the model used the image, because a
+one-percent attention mass can carry the answer and a fifty-percent mass
+can carry nothing. The trade is that the fix costs an easy visualization —
+the naive "the decoder attends to the image when it needs it" story is
+false here (0.84x mass on the leak-proof color questions, about one percent
+absolute), and what replaces it is harder: the value vectors' content at
+this layer, or the prefix being read at earlier layers, are the two
+remaining candidates and this chapter does not adjudicate between them.
+The claim is scoped deliberately: attention is not the explanation *here*,
+which is the position Jain and Wallace (2019) argued for and Wiegreffe and
+Pinter (2019) qualified — attention can be explanatory under some
+conditions, so a diagnostic that only reads weights cannot tell you which
+case you are in.
+
+## Who owns the loop
+
+- **The evaluation owner** owns the diagnostic choice: the accuracy
+  control and the held-out split are the evidence for whether the pathway
+  used the pixels; a heatmap is a hypothesis generator, not a verdict.
+- **The model team** owns the mechanism question the chapter leaves open —
+  where the separation actually lives (values at this layer, earlier
+  layers, or both) — and is the owner who would run the probing that
+  answers it.
+- **The report owner** owns the separation claim itself, backed by the
+  recorded accuracy (50.1% vs 27.2% on color) and the text-only control,
+  so the weight story and the accuracy story are never confused in the
+  mission's verdict.
+
 ## Evidence boundary
 
 Layer 3 (the last of four), one seed, the stage's greedy eval forward; the

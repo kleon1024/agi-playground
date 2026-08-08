@@ -111,6 +111,46 @@ started, in
 and
 [`runs/2026-07-31-hosted-api-full.md`](runs/2026-07-31-hosted-api-full.md).
 
+## The fix and its trade
+
+The fix is the pre-declared acceptance bar plus the mechanical report:
+mission 05's contract says the pathway must beat *both* baselines by more
+than its own run-to-run spread, and `report.py` computes the verdict from
+the three real inputs and refuses to print anything if an artifact is
+missing (`CANNOT DETERMINE` names the file). The trade is that the report
+cannot soften after seeing the numbers — the verdict is NOT MET, and that
+is exactly the answer the bar was written to produce: at this scale, a
+stock `gpt-4o-mini` call at \$0.00128/question nearly doubles the
+self-trained pathway's accuracy, and since the pathway's training cost is
+\$0 marginal, no volume of API questions reaches that floor; the entire
+tradeoff sits on the accuracy axis, where hosted leads decisively (0.8329
+vs 0.4375). The fix does not erase the pathway's signal — the per-category
+read keeps it (shape_color 50.1% vs 27.2%, the widest margin and the one
+category where the question cannot leak), and `total_count` being the
+hardest category for every pathway including the API (53.0%) is a task
+floor, not an architecture defect. Per-category reporting is the VQA
+discipline going back to the original dataset (Antol et al., 2015),
+precisely because an aggregate can hide which question types a model
+exploits.
+
+## Who owns the loop
+
+- **The report owner** owns the verdict contract: the mechanical MET/NOT
+  MET read, the refusal to print without both artifacts, and the
+  verdict-plus-diagnosis pair (NOT MET for build-vs-buy, real signal on
+  the leak-proof categories) stated together.
+- **The mission owner and stakeholder** own the declared bar; it was
+  written into `mission.yaml` before stages 00-01 existed, which is what
+  makes the verdict a measurement rather than a post-hoc judgment.
+- **The evaluation owner** owns the category taxonomy and the per-seed
+  spread read that the verdict's noise band comes from; without the
+  category run, the seed-2 collapse (0/100 on total_count) would stay an
+  unexplained spread number instead of a named generation collapse.
+- **The model team** owns the reuse claim the verdict does not undo: the
+  NOT MET answer says the pathway is not worth deploying over the API
+  call, while stage 01's patch embedding and fused mask remain the only
+  genuinely new mechanism the mission needed to write.
+
 ## Run it
 
 ```bash

@@ -40,6 +40,36 @@ and there the API wins by a wide margin. The recorded pair (\$0.00128 vs
 \$0) is what turns the verdict from "depends on your budget" into "buy,
 not build."
 
+## The fix and its trade
+
+The fix is the per-question cost read: take the price from the actual bill
+(OpenRouter's `usage.cost`, not an estimate) and compare it per question,
+which collapses the decision onto the accuracy axis. The trade is that the
+cost axis is one-directional in this mission — \$0.00128 per question
+against \$0 marginal training — so the economics make the NOT MET verdict a
+clean one rather than a budget judgment, and they also make any volume
+argument moot: there is no number of API questions at which the
+self-trained pathway becomes cheaper, because its serving cost is zero.
+What the read buys is a defensible build-vs-buy answer: the recorded pair
+(\$0.00128 vs \$0) plus the accuracy gap (0.8329 vs 0.4375) is what turns
+"depends on your budget" into "buy, not build." A team whose self-trained
+pathway carried a real per-question serving cost, or whose API were priced
+high enough to matter, would face the two-directional case this chapter
+explicitly does not cover.
+
+## Who owns the loop
+
+- **The cost owner** (the team that pays the API bill) owns the
+  per-question read and the artifact it comes from; the price must trace
+  to the bill, not to a rate card quoted from memory.
+- **The report owner** owns the verdict the economics feed: the per-question
+  floor is part of the mechanical NOT MET output, stated beside the
+  accuracy comparison rather than instead of it.
+- **The stakeholder** owns the build-vs-buy decision the report serves; the
+  economics chapter's job is to make that decision one-directional when
+  the data says it is, and to refuse a "depends on your budget" verdict
+  that the recorded pair does not support.
+
 ## Evidence boundary
 
 The recorded hosted-API run (784 questions, cost from OpenRouter's

@@ -47,6 +47,37 @@ sets). The ID check asserts zero overlap and re-checks the written records
 — the guardrail is the same discipline (check the thing that leaks) aimed
 at the leak that real data actually has.
 
+## The fix and its trade
+
+The fix is the pair of decisions that make a real-photo held-out set
+scorable and leak-checked at once: the answer-type filter and the image-id
+disjointness check. The filter keeps only majority-answerable yes/no or
+single-word answers — 40,474 of 40,474 images still retain at least one
+scoreable pair — because those are the only answers exact string match can
+score mechanically; open-ended answers would need a judge, and a judge is a
+different evaluation contract that the mission does not adopt. The
+guardrail switches from pixels to ids because that is the representation
+real photographs can actually collide under. The trade is that the filter
+and the id check each buy one kind of honesty at the cost of another: the
+filter buys mechanical scoring and drops the free-form questions a
+judge-based eval would cover, and the id check buys identity-disjointness
+without catching near-duplicate derived images. Both are the "check the
+thing that leaks" discipline restated for the data type, which is the
+invariant the chapter reads across the two stages.
+
+## Who owns the loop
+
+- **The data pipeline** owns the filter and the guardrail key: which
+  answer types survive, and why image id replaces pixel hash for real
+  photos, are pipeline decisions recorded in the build record.
+- **The evaluation owner** owns the scoreable contract the filter serves:
+  the held-out comparison is only a real evaluation if every item has an
+  unambiguous mechanical target, and that is an eval-standard decision,
+  not a data-cleaning detail.
+- **The data QA step** owns the verification half: the asserted zero
+  overlap is re-checked against the written records, so the guardrail's
+  result is verified rather than claimed.
+
 ## Evidence boundary
 
 The recorded dataset record, no images downloaded. It reads the filter and

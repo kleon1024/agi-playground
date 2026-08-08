@@ -1007,6 +1007,103 @@ executed:
   constraint that makes shared-vocabulary strings weak evidence of
   distillation.
 
+### Language-model system — vision path (00-06)
+
+**Status: done (twentieth audit increment, 2026-08-08).**
+
+Every stage 00-06 and every detour in the vision path now carries the
+fix-and-trade and who-owns-the-loop sections the audit contract requires,
+reusing the mission's measured numbers (no new runs, no new model calls),
+and stages 04-06 — which previously carried no dated citations at all —
+are now anchored:
+
+- 00 task set: the leakage fix is widening the state space at the source
+  (per-shape size and position jitter, 48 -> 3,600 single-shape outcomes)
+  rather than patching with rejection sampling, which fixed the 116
+  pixel-hash collisions and silently emptied eval's single-shape bucket
+  (124 two-shape + 276 three-shape, zero one-shape) — a guardrail pass
+  with a broken dataset; the trade is priced as the rejection burden (29
+  today vs 507 in the recorded original), the 79/2000 train-internal
+  duplicates disclosed, and the distribution check as a second gate;
+  ownership split across data pipeline (generator and guardrail key),
+  eval (post-fix distribution check), and model team (inherited eval
+  properties); CCNet (Wenzek et al., 2019) and GPT-3 (Brown et al., 2020)
+  as the production-scale fuzzy-dedup anchors.
+- 01 vision fusion: the fix is the honest reading rule — margin 0.1105
+  smaller than vision's own spread 0.2309 is reported as a partial win,
+  not a clean one, because seed 2 (0.2844) collapsed below every text-only
+  seed while seeds 0-1 beat them by 17-18 points — with the untested
+  warmup hypothesis handed forward instead of tuned away post hoc; the
+  architecture trade is the fused mask itself (+14,464 parameters, the
+  entire cost of sight, against a cross-attention module's per-layer q/k/v
+  stack); ownership split across model team (recipe), eval (spread rule
+  and text-only control), report (partial-win verdict); ViT (Dosovitskiy
+  et al., 2020), PaLM-E (Driess et al., 2023), Flamingo (Alayrac et al.,
+  2022), CLIP (Radford et al., 2021) as the contrastive route deliberately
+  not taken.
+- 02 report: the fix is the pre-declared acceptance bar plus the mechanical
+  report (`report.py` prints MET/NOT MET or refuses with CANNOT DETERMINE)
+  — verdict NOT MET because the hosted API (0.8329, \$0.00128/question)
+  nearly doubles the self-trained pathway (0.4375, \$0 marginal), and the
+  per-category read keeps the signal (shape_color 50.1% vs 27.2%, the
+  leak-proof category); the trade is that the report cannot soften after
+  seeing the numbers, and `total_count` is a task floor (53.0% for the API
+  too); ownership split across report (verdict contract), stakeholder
+  (declared bar), eval (category taxonomy), model team (reuse claim); Antol
+  et al. (2015) for per-category VQA reporting. The audit also corrected a
+  number that did not trace to a run: the detour's "hosted API per-category
+  floor 0.769" is the recorded 0.969 (shape_color 253/261 in
+  `2026-07-31-hosted-api-full.md`).
+- 03 real-photo task: the fix is keying each guardrail to the object that
+  leaks — image id instead of pixel hash for real photographs (0 overlap
+  asserted and re-checked on written records) and VQA v2's own
+  `answer_type` as the scoreable filter (yes/no or single-word majority
+  answers only; multi-word dropped, never truncated) — priced as the
+  refused judge contract and the 32x32 downsample handed to stage 04;
+  ownership split across data pipeline, eval, and model team; VQA v2
+  (Goyal et al., 2017).
+- 04 real-photo fusion: the fix is the per-arm spread read — margin +0.0152
+  exceeds vision's own spread 0.0101 while text-only's 0.0707 spread is 7x
+  noisier, the variance flipped arms from stage 01 — and the trade is that
+  the real margin is a sliver (a third of the synthetic +0.1105), with the
+  majority-answer-skew hypothesis stated as unconfirmed and the CPU
+  fallback disclosed; ownership split across model team (reuse claim),
+  eval (per-arm rule), report (stage-05 verdict); VQA v2 (Goyal et al.,
+  2017) for the answer-type distribution the hypothesis leans on.
+- 05 real-photo report: the fix is completing the acceptance bar — the
+  hosted API on the identical 198-question set (0.4596 vs 0.2374,
+  -0.2222) — which confirms buy-not-build on real data, with the
+  answer-type-shaped edge (yes/no 0.638, other 0.366, number 0.240)
+  naming where a future build could compete; ownership split across report,
+  model team, stakeholder, eval; VQA v2 (Goyal et al., 2017).
+- 06 warmup stability: the fix is the linear 10%-of-steps LR warmup
+  (0 -> 3e-3 over steps 0-185 of 1,860) as the single changed mechanism —
+  seed 2 0.2844 -> 0.4962, spread 0.2309 -> 0.0536 (4.3x), mean 0.4375 ->
+  0.4970 — and the trade is priced per attempt: one fraction, not swept;
+  text-only not re-run; and the final train-loss spread stayed 0.2302,
+  proving the fix addressed the optimization path, not seed variance;
+  ownership split across model team (recipe and single-mechanism
+  discipline), eval (before/after read), report (scope); Goyal et al.
+  (2017) and Vaswani et al. (2017) as the warmup anchors.
+
+Detours audited in the same increment: seed-vs-pixels and
+the-collision-that-closed-the-gap (the guardrail that passes while the
+dataset breaks; the distribution check as the second gate),
+the-fused-attention-anatomy (fused prefix vs cross-attention; BLIP-2, Li et
+al., 2023 and LLaVA, Liu et al., 2023 as the two production shapes),
+where-the-decoder-looks (attention mass is not the explanation — 0.84x mass
+on the leak-proof questions; Jain & Wallace 2019 with Wiegreffe & Pinter
+2019 as the qualifier), the-economics-per-question (the per-question read
+that collapses build-vs-buy onto the accuracy axis), when-the-category-
+breaks-down (per-category margins as the pixels-vs-memorization signature),
+the-id-based-guardrail and the-real-photo-guardrail (guardrail keys follow
+the leak's mechanism), the-flipped-variance and when-the-margin-is-narrow
+(per-arm spreads; the noise lives on the control), the-answer-type-shaped-
+edge and when-the-api-still-wins (artifact-traceability recomputation;
+where the API is weak), and the-collapse-that-warmup-closed and
+when-warmup-closed-the-collapse (the eval-spread/train-loss-spread contrast
+as the mechanism proof).
+
 ### Foundations, infra-absorbed chapters, and remaining missions
 
 **Status: done for foundations 02-optimization, 06-significance, and

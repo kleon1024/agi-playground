@@ -43,6 +43,37 @@ weakest where counting is required. The recomputation (0.460 vs recorded
 0.4596, per-type within rounding) confirms the log and the report agree,
 so the type split is not an artifact.
 
+## The fix and its trade
+
+The fix is the three-arm read on the real-photo eval set: recompute the
+API's accuracy from the raw log (0.460, matching the recorded 0.4596
+within rounding) and hold the vision pathway, the text-only baseline, and
+the hosted API side by side on the identical 198 questions. The trade is
+that the completed comparison confirms the synthetic verdict on the harder
+input instead of leaving room for doubt: the API dominates both
+self-trained arms by -0.2222, far beyond any spread, so real photographs
+do not change the NOT MET answer. What the fix preserves is the precision
+of the diagnosis: the API's edge is not uniform — 63.7% on yes/no against
+24.0% on number — and the type split is the evidence for where a future
+build could compete (number questions, where the API is closest to the
+self-trained arms) rather than the mission's answer being read as "the
+API beats everything everywhere." The vision pathway still proves it sees
+real pixels (beats the blind baseline beyond its own spread), which is a
+different claim from the build-vs-buy verdict and must not be conflated
+with it.
+
+## Who owns the loop
+
+- **The evaluation owner** owns the recomputation and its rounding
+  boundary: 0.460 vs 0.4596 is a log-vs-record consistency check, and the
+  per-type agreement is the artifact-level proof the split is not prose.
+- **The report owner** owns the verdict's stability: NOT MET holds on real
+  photos, and the report must state the pathway's vision claim and the
+  build-vs-buy verdict as two different claims rather than one.
+- **The model team** owns the where-to-compete read: the number-question
+  weakness is a targeting input for a future build, owned as an
+  interpretation, not as a measured win.
+
 ## Evidence boundary
 
 The recorded raw log (198 questions) and the report's per-arm numbers. It

@@ -41,6 +41,35 @@ then silently emptied eval's single-shape bucket. Two failures, two
 checks: the guardrail has to verify the distribution survived the fix, not
 just that the collision count dropped to zero.
 
+## The fix and its trade
+
+The fix is the state-space widening (each shape draws a size and a position
+jitter, 48 -> 3,600 single-shape outcomes), with the distribution check as
+the second gate. Rejection sampling was the tempting patch — it closed the
+116 collisions — and it is exactly the patch that moved the failure: it
+silently emptied the single-shape bucket, so the eval set scored a clean
+guardrail pass while losing an entire category. The trade is priced in the
+two numbers the run reports together: collisions at 0 and an eval
+distribution proportional to train's (105 one-shape / 150 two-shape / 145
+three-shape). A wider state space is not free — exact duplicates become
+rarer rather than impossible, so the guardrail's zero is a property of the
+space, and the two checks answer two questions that a single collision
+count cannot: "no shared images" and "the eval distribution survived the
+fix."
+
+## Who owns the loop
+
+- **The dataset generator** owns the state space; widening it is the
+  durable fix, and the birthday-paradox math that made collisions
+  inevitable at k=48 is the generator's design input, not an eval surprise.
+- **The guardrail owner** owns both checks: the pixel-hash collision check
+  that caught the 116, and the distribution check that would have caught
+  the empty bucket. A guardrail that verifies one property and not the
+  other is the failure this chapter exists to name.
+- **The evaluation owner** owns reading the result: the collision count
+  alone would report success, and the per-bucket distribution is the only
+  number that shows the fix broke the data.
+
 ## Evidence boundary
 
 The recorded dataset-generation run (2,000/400 split, one generator, one

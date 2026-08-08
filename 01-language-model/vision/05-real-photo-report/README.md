@@ -70,6 +70,47 @@ the images are synthetic renders or real photographs, only on token count,
 which stayed essentially fixed (fixed prompt template, fixed 32x32 image
 size).
 
+## The fix and its trade
+
+The fix is completing the mission's acceptance bar: the real-photo chain
+had measured the vision pathway against the text-only control (stage 04),
+and this stage adds the second, harder comparison — the hosted VLM API on
+the identical 198-question eval set — then lets `report.py` compute the
+verdict mechanically, refusing to print without both artifacts. The trade
+is that the completed bar confirms the synthetic verdict on real data
+instead of softening it: the API (0.4596) nearly doubles the self-trained
+pathway (0.2374), a -0.2222 margin far beyond any spread, so the mission is
+NOT MET on real photographs exactly as on synthetic shapes. The fix does
+not flatten the result into one number: the per-type read (yes/no 0.638,
+other 0.366, number 0.240) shows the API's edge is answer-type-shaped —
+strongest where a real 50/50-ish prior makes the category easiest for any
+model, weakest where visual counting actually has to work — which is the
+evidence for where a future build could compete (number questions, where
+the API is closest to the self-trained arms) instead of head-on. What the
+verdict preserves is the reuse claim: stage 01's pathway learned a real,
+if narrow, signal from real photographs with zero code changes, and the
+build-vs-buy answer — buy, not build, at this scale — is now confirmed on
+real data rather than only on rendered shapes. The yes/no prior and the
+answer-type distribution this read leans on are VQA v2's own structure
+(Goyal et al., 2017).
+
+## Who owns the loop
+
+- **The report owner** owns the verdict contract: the mechanical MET/NOT
+  MET read, the refusal to print without stage 04's results and this
+  stage's raw log, and the verdict-plus-diagnosis pair (NOT MET overall,
+  answer-type-shaped gap) stated together.
+- **The model team** owns the reuse claim the verdict does not undo: the
+  zero-code-change path from stage 01 to stage 04 is the evidence, and the
+  team owns stating that the claim holds on real data even where the
+  accuracy does not.
+- **The stakeholder** owns the buy-not-build decision the report feeds; the
+  per-type read is the part of the report that tells them where a
+  different build could still find ground.
+- **The evaluation owner** owns the per-arm spread read and the cost
+  record (\$0.2534 over 198 questions from the bill), the two numbers the
+  verdict's noise band and its economics come from.
+
 ## Run it
 
 ```bash
