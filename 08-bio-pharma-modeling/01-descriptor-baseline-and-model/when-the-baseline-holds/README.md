@@ -52,6 +52,33 @@ edge is partly that it is a stable, cheap, ten-number summary of the
 molecule's obvious properties. That is the honest reading, not "simple beats
 learned."
 
+## The fix and its trade
+
+The fix is the per-endpoint scoreboard with the confounds broken out:
+descriptor wins on SR-MMP (0.8142 vs 0.7312, beyond a 0.008 model spread),
+model wins on NR-ER (0.6679 vs 0.6413, beyond its 0.011 spread), and PPAR
+is inside the model's 0.031 spread with no verdict. The trade is that the
+per-endpoint view refuses the easy headline either way: "simple beats
+complex" is wrong because the model wins on NR-ER, and "the model is
+better" is wrong because it loses decisively on SR-MMP. The real reading —
+the baseline wins where its near-determinism keeps a small signal visible,
+and the model's variance (±0.008 vs ±0.0005) is what its edge is partly
+made of — is more useful and harder to summarize, which is exactly why
+the scoreboard is the fix rather than a single comparison.
+
+## Who owns this loop
+
+- **The evaluation owner** owns the 18-checkpoint scoreboard (3 endpoints
+  x 2 arms x 3 seeds) and the per-endpoint verdict rule: a result only
+  counts beyond the larger seed spread, applied to every row.
+- **The model team** owns the variance story as the honest reading: the
+  baseline's edge is partly stability, and the model's noisier arm is
+  reported rather than hidden behind the NR-ER win.
+- **The dataset owner** owns the scarcity/split-shift connection the
+  no-verdict row exposes: PPAR is the largest label shift (+3.0pp) and
+  the scarcest positives, which the split chapter measures and this
+  scoreboard inherits.
+
 ## Evidence boundary
 
 Three endpoints, three seeds each, the recorded ROC-AUCs; the verdict rule

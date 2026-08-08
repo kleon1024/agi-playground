@@ -46,6 +46,29 @@ from-scratch character model at this data size — the opposite of the
 headline most training pipelines would want, and exactly the answer
 `mission.yaml` was written to allow.
 
+## The fix and its trade
+
+The fix is the spread-relative verdict rule the mission declared before
+running: a gap smaller than run-to-run spread is no result, and a gap
+larger is decisive. The trade is that decisiveness is a property of this
+comparison at this data size — the descriptor baseline wins by 0.0830
+against a 0.0159 spread (5x), so the loss is structural here, but the same
+rule would call a narrower margin a no-result even when a real effect
+exists. The rule buys an honest headline (the baseline refused to lose) at
+the cost of conservatism: it cannot distinguish "no effect" from "effect
+too small for this run to see."
+
+## Who owns this loop
+
+- **The report owner** owns the gap-vs-spread bar and the verdict
+  structure: NOT MET is read from the recorded means and spreads, never
+  from the trained model's nominal presence.
+- **The dataset owner** owns the measured 0.0 scaffold overlap that turns
+  the baseline's win into a generalization claim instead of a leak.
+- **The mission owner** owns the `does_not_prove` boundary that stops this
+  chapter from extending one endpoint's verdict to aging biology or drug
+  efficacy.
+
 ## Evidence boundary
 
 The recorded outcome report (2026-08-01), one endpoint, one scaffold split,

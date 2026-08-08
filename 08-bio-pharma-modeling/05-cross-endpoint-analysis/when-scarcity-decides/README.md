@@ -48,6 +48,28 @@ is a legible pattern (scarcest -> noisiest -> no verdict), not a fitted
 claim — which is the honest ceiling of a three-endpoint comparison, and why
 the mission's acceptance treats it as a pattern to investigate, not a law.
 
+## The fix and its trade
+
+The fix is delimiting the scarcity hypothesis instead of letting it absorb
+the whole result: scarcity explains the no-verdict row (PPAR's 118
+positives carry a 0.062 spread that swallows its 0.004 gap), and it does
+not explain the winners (SR-MMP and NR-ER resolve one each way, with
+counts that bracket PPAR's). The trade is that the delimitation leaves the
+winner question open — the chapter answers "where a winner can be seen"
+and explicitly does not answer "who wins and why," which needs endpoints
+beyond this panel. The fix buys a precise hypothesis at the cost of an
+unfinished one.
+
+## Who owns this loop
+
+- **The analysis owner** owns the grid and the two-direction read,
+  including the "not monotonic" verdict on the gap.
+- **The dataset owner** owns the positive counts and the scaffold-split
+  records the grid reads; the scarcity numbers are measured, not assumed.
+- **The report owner** owns the scoped conclusion: the hypothesis is about
+  noise, not about which representation wins, and that boundary stays in
+  the mission's conclusions.
+
 ## Evidence boundary
 
 The recorded cross-endpoint JSON, three endpoints, three seeds each. It

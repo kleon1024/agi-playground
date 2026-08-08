@@ -83,6 +83,36 @@ a finding.
 
 Full output and command: [`runs/2026-08-01-cross-endpoint-analysis.md`](runs/2026-08-01-cross-endpoint-analysis.md).
 
+## The fix and its trade
+
+The fix is the claim-separation rule: the stage splits "does the
+hypothesis hold" into two falsifiable questions — does positive-class
+count predict the model's *variance*, and does it predict *which approach
+wins* — and checks each half on its own. The trade is that the separation
+costs a conclusion: variance-vs-scarcity holds monotonically (118 → 0.0620,
+628 → 0.0227, 689 → 0.0159), but win/loss-vs-scarcity does not (SR-MMP 689
+and NR-ER 628, within 10% of each other, land on opposite sides), so the
+stage deliberately stops at the negative — no replacement variable is
+proposed, because fitting a new explanation to the same three outcomes that
+produced it would be overfitting a hypothesis to its own evidence. The
+refusal is the fix: three ranked points cannot support a correlation
+coefficient or p-value, and none is computed or implied.
+
+## Who owns this loop
+
+- **The analysis owner** owns the two-question separation and the
+  stop-at-the-negative rule: the table's verdicts are computed
+  programmatically from the seeds, and the unanswered second question is
+  reported as unanswered.
+- **The evaluation owner** owns the monotone-variance read as the
+  supported finding and the no-correlation boundary: the ranking is
+  confirmed with all three points, and the statistical limits of n=3 are
+  stated rather than papered over.
+- **The model team** owns the win/loss-negative as the actionable
+  consequence: since scarcity alone does not decide which approach wins,
+  the next endpoint or representation comparison must vary something other
+  than positive count.
+
 ## What this stage does not establish
 
 This is three endpoints out of Tox21's twelve, and Tox21 is one small public

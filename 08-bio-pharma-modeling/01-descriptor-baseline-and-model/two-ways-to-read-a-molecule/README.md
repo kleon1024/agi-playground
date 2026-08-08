@@ -41,10 +41,36 @@ The two approaches map the same molecule through different paths:
    representation is a fixed human-chosen summary: cheap, interpretable,
    and blind to anything those ten numbers do not capture.
 2. **SMILES path** — the molecule's string is tokenized into characters;
-   a 4-layer transformer (52-character vocabulary, 696,065 parameters)
-   learns which character sequences predict toxicity. The representation
-   is learned, not chosen: it can express arbitrary string patterns, at
-   the cost of 50x the parameters and 50x the wall-clock.
+  a 4-layer transformer (52-character vocabulary, 696,065 parameters)
+  learns which character sequences predict toxicity. The representation
+  is learned, not chosen: it can express arbitrary string patterns, at
+  the cost of 50x the parameters and 50x the wall-clock.
+
+## The fix and its trade
+
+The comparison is the fix: the same held-out split judged through two
+different paths makes the representation choice the visible variable. The
+trade is the cost asymmetry the table names — the descriptor path is
+ten human-chosen numbers fitted by a convex learner (~10 parameters,
+~2s/seed), while the SMILES path is 696,065 parameters and ~105s/seed,
+50x both. The learned path's bet is that arbitrary string patterns carry
+signal the ten numbers miss; the recorded outcome (0.8142 vs 0.7312, with
+the model's 0.0159 spread 16x the baseline's 0.0010) is what the bet cost.
+The chapter's job is to make the two paths comparable on the same split so
+the loss is attributable to the representation/learner choice rather than
+to a changed evaluation.
+
+## Who owns this loop
+
+- **The model team** owns the architecture and its cost profile: the
+  SMILES path's 50x parameter and wall-clock cost is a decision the team
+  made and the chapter reports, not a hidden tax.
+- **The evaluation owner** owns the same-split comparability: both arms
+  are judged on stage 00's scaffold split, which is what lets the 0.0830
+  gap read as a representation finding rather than an artifact.
+- **The dataset owner** owns the split both paths inherit; the descriptor
+  baseline's near-determinism (±0.0010) and the model's variance
+  (±0.0159) are both properties of the same data at different capacities.
 
 ## What the recorded outcome says about each
 

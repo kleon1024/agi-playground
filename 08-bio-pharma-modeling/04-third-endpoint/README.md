@@ -79,6 +79,39 @@ endpoint cannot resolve its exact shape. Full numbers, the correction detail,
 and the honest verdict on both questions:
 [`runs/2026-08-01-third-endpoint.md`](runs/2026-08-01-third-endpoint.md).
 
+## The fix and its trade
+
+The fix is the mid-range endpoint selection plus the correction discipline
+that surfaced a real error on the way. NR-ER (12.8% positive) is picked
+because it fills the imbalance range *between* the two tested extremes
+rather than extending it — a fourth endpoint outside the bracket would add
+no new information, while an interpolated point can falsify or confirm the
+scarcity-variance relationship's shape. The trade is that mid-range points
+land in the murkiest region: the result is a third, distinct outcome (model
+0.6679 vs descriptor 0.6413, a 0.0266 gap at 1.17x the model's 0.0227
+spread) that just clears the real-result bar, and the hypothesis holds
+directionally but not smoothly — the 43% spread difference between NR-ER and
+SR-MMP at nearly equal positive counts is exactly the kind of imperfection
+three seeds cannot resolve. The correction (stage 03's positive counts 148
+and 764 → verified 118 and 689) is part of the fix: numbers are checked
+against the actual `train.csv`, and both files were corrected without
+changing any verdict.
+
+## Who owns this loop
+
+- **The dataset owner** owns the endpoint-selection rationale and the
+  correction protocol: selection comes from stage 00's measured balance
+  table before results exist, and any cited count is verified by direct
+  count over the data file rather than trusted from prose.
+- **The evaluation owner** owns the thin-but-real verdict and its bar:
+  the 1.17x-spread gap clears the mission's result rule, and the
+  not-smooth relationship is reported as directionally-consistent but
+  unresolved, not as a clean correlation.
+- **The model team** owns the monotone spread-vs-scarcity read as the
+  stage's real finding: 118 → 0.0620, 628 → 0.0227, 689 → 0.0159 is the
+  evidence that scarcity inflates variance, with the caveat that 3 seeds
+  cannot resolve its exact shape.
+
 ## What this stage does not establish
 
 This is a third data point, not a survey: three of Tox21's 12 endpoints have

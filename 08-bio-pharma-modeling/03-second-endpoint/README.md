@@ -73,6 +73,38 @@ scarcity in a way a convex descriptor fit does not.
 Full per-seed numbers, environment, and the exact command:
 [`runs/2026-08-01-second-endpoint.md`](runs/2026-08-01-second-endpoint.md).
 
+## The fix and its trade
+
+The fix is the endpoint selection rule, and the trade is that generality
+comes at the cost of interpretability: NR-PPAR-gamma (2.9% positive, 6,450
+compounds) is picked because it is the most imbalanced endpoint in the
+panel — roughly 5x more imbalanced than SR-MMP with a different labeled
+count — so a finding that holds under it is a stronger claim than one on a
+similarly-balanced neighbor (SR-ARE at 16.2% was rejected as a
+near-duplicate). The cost is that a more extreme endpoint can be *harder
+to read*: the result is INCONCLUSIVE by the mission's own rule (model mean
+0.6591 vs descriptor 0.6554, a 0.0037 gap at 1/17th of the model's 0.0619
+seed spread), and the proximate cause — positive-class scarcity inflating
+small-model training variance (spread grows ~4x while the convex descriptor
+fit barely moves) — is offered as a measurable mechanism, not a proof. A
+team that picked the easy neighbor would have gotten a cleaner comparison
+and a weaker claim.
+
+## Who owns this loop
+
+- **The dataset owner** owns the endpoint-selection rationale: the choice
+  is made from stage 00's measured per-endpoint balance table *before*
+  any training result exists, so the extreme endpoint cannot be picked to
+  flatter an outcome.
+- **The evaluation owner** owns the INCONCLUSIVE verdict and its rule: the
+  gap-inside-spread reading is the mission's pre-declared "no result"
+  outcome, and the scarcity-variance mechanism is reported as a
+  hypothesis, not a conclusion.
+- **The model team** owns the spread growth as the diagnostic: the
+  trained model's seed spread growing ~4x between endpoints while the
+  descriptor baseline's stays flat is the number that localizes the
+  failure to small-model variance under scarcity.
+
 ## What this stage does not establish
 
 This is a second data point, not a survey: two of Tox21's 12 endpoints have

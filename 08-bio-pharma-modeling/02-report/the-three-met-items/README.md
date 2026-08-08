@@ -40,6 +40,30 @@ the headline does not mean the mission was sloppy — it means the
 discipline held while the result was negative, which is exactly what the
 declared contract is for.
 
+## The fix and its trade
+
+The fix is the itemized acceptance table, and the trade is that it
+separates the discipline from the outcome: three of four items hold
+(overlap 0.0 measured, runs entries present, does_not_prove stated) while
+the headline is a clear loss (gap 0.0830 vs spread 0.0159). The separation
+is what keeps a NOT MET from reading as sloppiness — the mission was
+well-run and the result was still negative, which is the strongest form
+of the honest finding. The cost is that the itemized view invites a
+"three of four" reading that softens the headline; the chapter resists it
+by naming the headline first and the items as evidence of discipline, not
+as partial credit.
+
+## Who owns this loop
+
+- **The report owner** owns the four-item acceptance structure and the
+  headline-first ordering: the NOT MET is stated plainly, and the three
+  met items are reported as discipline, not as a consolation.
+- **The dataset owner** owns the measured overlap item: the 0.0 is a
+  measured number from stage 00's check, never an assumed property.
+- **The mission owner** owns the does_not_prove contract that the fourth
+  item refers to, restated in both `mission.yaml` and the mission README
+  so the boundary is double-stated by design.
+
 ## Evidence boundary
 
 The recorded outcome report (stage 00/01 numbers read mechanically). It

@@ -54,6 +54,34 @@ this mission was built to do. A curriculum that only ever showed the trained
 model winning would be evidence of tuning toward a preferred answer, not of
 anything about SR-MMP.
 
+## The fix and its trade
+
+The fix is the verdict rule applied to a result the mission's framing
+exists to allow: when the gap exceeds the larger seed spread, the loss is
+reported as a clear, repeatable one — NOT MET, and the descriptor baseline
+is named the better model to ship. The trade is the exact inverse of the
+mission's "no result" rule: the spread check makes small effects invisible
+(a genuine but narrow model edge below 0.0159 would be reported as noise),
+and a clear loss is a ceiling — it certifies which model wins under these
+conditions without explaining *why*, which is the question stage 06's
+representation swap exists to isolate. The report deliberately refuses the
+friendlier reading: three of four acceptance items hold (overlap 0.0,
+runs entries, does_not_prove stated), and the headline stays a clear loss
+rather than a partial success.
+
+## Who owns this loop
+
+- **The report/release owner** owns the verdict contract: `report.py`
+  reads the committed `runs/` artifacts and applies the margin-vs-spread
+  rule mechanically (gap 0.0830 against a 0.0159 spread — a 5x decisive
+  win), never a hand-copied number.
+- **The model team** owns the trained model's seed spread as the honesty
+  unit: the 0.0159 spread is what turns 0.7312 into a decisive loss rather
+  than a near-miss.
+- **The mission owner** owns the acceptance bar written before stage 00:
+  the "gap smaller than spread = no result" rule makes the NOT MET verdict
+  a pre-declared outcome, not a post-hoc judgment.
+
 ## What this stage does not establish
 
 This verdict is scoped to exactly the conditions stage 00 and 01 ran under:

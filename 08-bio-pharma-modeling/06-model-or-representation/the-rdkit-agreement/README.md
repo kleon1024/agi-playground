@@ -45,6 +45,31 @@ from-scratch fingerprint is close enough to the standard that the
 representation result is about representations, not about a buggy
 implementation.
 
+## The fix and its trade
+
+The fix is the agreement check that validates the from-scratch
+fingerprint before the representation comparison is trusted: Tanimoto
+Spearman 0.9012 and a mean difference of 0.0171 mean the reimplementation
+ranks molecules almost identically to RDKit, so stage 06's conclusion is
+about representations, not about a buggy implementation. The trade is the
+choice of rank agreement over bit equality: no bit set matches (0 of 60)
+and the mean bits set differ (47.35 vs 42.97), so the check accepts
+implementations that differ in detail as long as the ordering they produce
+is close — the property the downstream use actually needs. The check buys
+a trustworthy comparison at the cost of not guaranteeing any specific bit
+convention matches RDKit's.
+
+## Who owns this loop
+
+- **The representation owner** owns the from-scratch implementation and
+  the agreement record that keeps it honest; the check runs whenever the
+  fingerprint changes.
+- **The eval owner** owns the choice of ranking agreement (Spearman) as
+  the metric that matches the downstream use.
+- **The stage 06 owner** owns the downstream conclusion that depends on
+  the check passing, and the "representation family, not this repo's bits"
+  boundary that keeps the width-sweep claim scoped.
+
 ## Evidence boundary
 
 The recorded agreement check (60 molecules, one radius/bits config, one

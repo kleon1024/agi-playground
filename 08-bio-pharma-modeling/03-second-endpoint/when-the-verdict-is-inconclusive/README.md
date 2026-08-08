@@ -42,6 +42,29 @@ SR-MMP) while the convex descriptor baseline's barely moves (0.0044 vs
 0.0010). The no-result is the variance showing up, and the variance is the
 scarcity showing up.
 
+## The fix and its trade
+
+The fix is the no-result rule the mission declared before any code ran: a
+gap smaller than the run-to-run spread is reported as INCONCLUSIVE, not as
+a win. The trade is that the rule costs a narrative — the trained model's
+mean (0.6591) is nominally above the descriptor baseline (0.6554), and the
+chapter refuses that lead because it is roughly 1/17th of the model's own
+0.0620 spread. The rule buys a verdict that cannot be flipped by a
+different seed at the cost of conservatism: it reports "no result" whenever
+the effect is real but smaller than this run's noise floor.
+
+## Who owns this loop
+
+- **The mission owner** owns the declared bar itself — "if the gap is
+  smaller than the spread, the honest answer is 'no result'" — because
+  that sentence was written into `mission.yaml` before training, not after
+  the seeds came back.
+- **The model owner** owns the seed protocol that makes the spread
+  measurable: six committed seed JSONs, three per arm, one architecture.
+- **The report owner** owns publishing the no-result as a real result,
+  with the 118-vs-689 positive count attached as the measurable cause
+  rather than a guess.
+
 ## Evidence boundary
 
 The six committed seed JSONs (one endpoint, three seeds per arm, one

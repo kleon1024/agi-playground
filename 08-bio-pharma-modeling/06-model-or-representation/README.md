@@ -120,6 +120,39 @@ to a Spearman correlation of **0.901**, with mean absolute difference 0.017 and
 worst case 0.123. Same chemistry, different hash. Details in
 [`runs/rdkit-agreement.json`](runs/rdkit-agreement.json).
 
+## The fix and its trade
+
+The fix is the representation swap with the confound broken out: swapping
+descriptors for a 2048-bit circular fingerprint isolates whether the
+baseline won because logistic regression on *any* fixed representation
+beats the trained model — and it did not (fingerprint loses on every
+endpoint, 0.6534 vs 0.8142 on SR-MMP). The trade is that the first swap
+could not tell "the representation carries less signal" from "the model at
+this width overfits" — the 2048-bit arm fit training almost perfectly
+(0.9995) and generalized badly (0.6534), a 0.346 gap — so the stage runs a
+width sweep (64/256/1024/2048 bits) to bound the capacity explanation. The
+sweep shows overfitting's shape (test peaks at 256 bits, 0.7135, then
+falls; train−test gap climbs monotonically) and still does not rescue the
+conclusion: the descriptor baseline's 0.8142 beats even the fingerprint's
+best width. The residual trade is stated, not hidden: the fingerprint arm
+was never regularized, so an L2 penalty at 2048 bits is an untried arm.
+
+## Who owns this loop
+
+- **The model team** owns the confound-breaking experiment: the width
+  sweep is the diagnostic that separates capacity from signal, and the
+  train-vs-test gap table is the evidence the 2048-bit number understated
+  the representation.
+- **The evaluation owner** owns the verdict rule and the residual: the
+  best-measured fingerprint width (0.7135) still loses to descriptors
+  (0.8142) on the same split and learner, and the untried
+  regularization arm is named as a boundary, not a conclusion.
+- **The representation owner** owns the from-scratch fingerprint's
+  equivalence claim: `core/`'s implementation and RDKit's generator agree
+  to Spearman 0.901 on Tanimoto ranking, which is what makes the
+  comparison to a production tool legitimate without claiming bit-for-bit
+  agreement.
+
 ## What this stage does not establish
 
 The fingerprint arm was never regularized. The width sweep bounds the capacity

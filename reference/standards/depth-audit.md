@@ -1054,6 +1054,76 @@ runs):
   contract per seed), evaluation (two-baseline comparison), and model
   team (inherits the vocabulary).
 
+### Bio-pharma modeling — 00-06
+
+**Status: done (fifteenth audit increment, 2026-08-08).**
+
+Every stage 00-06 and every detour now carries the fix-and-trade and
+who-owns-the-loop sections the audit contract requires, reusing the
+mission's measured numbers (no new runs, no new model calls). The named
+queue row is the scarcity-driven verdict loop — how a mission keeps an
+honest verdict when the data is the problem:
+
+- 00 dataset and property: the scaffold split that measures both axes —
+  leak (overlap 0.0, verified) and balance shift (train 14.8% vs test
+  19.7% positive on SR-MMP) — and the 12-endpoint balance detour that
+  names the 15.8%-positive panel and the 5,810 labeled compounds; the
+  trade is that a leak-free split can still move the minority class, so
+  overlap and balance are reported as separate properties, never merged;
+  ownership split across dataset owner (split construction and both
+  numbers), model owner (inherits the shift), and mission owner (the
+  split's generalization claim). Citations: Hansch & Fujita 1964; Bemis &
+  Murcko 1996; Wu et al. 2018 (12-task random-split means 0.822 KernelSVM
+  / 0.829 GC; per-endpoint ~0.90 refused as unverifiable).
+- 01 descriptor baseline and model: the two-arms comparison with seed
+  spreads reported per arm (descriptors 0.8142 ±0.0010 vs SMILES
+  transformer 0.7312 ±0.0159; model 696,065 params vs ~10); the trade is
+  that a single seed cannot separate signal from noise, so the verdict
+  rule is spread-relative by contract; ownership split across eval
+  (seed protocol), representation owner (the arms), and report (the
+  verdict bar).
+- 02 report: the itemized acceptance table that separates discipline from
+  outcome — three of four items hold while the headline is NOT MET (gap
+  0.0830, 5x the 0.0159 spread) — and the baseline-refuses-to-lose
+  detour that reads a decisive loss instead of a near-tie; the trade is
+  that itemization invites a "three of four" softening, resisted by
+  naming the headline first; ownership split across report (headline-first
+  structure), dataset (measured 0.0 overlap), and mission (double-stated
+  does_not_prove).
+- 03 second endpoint: the scarcest endpoint's split shift (NR-PPAR-gamma:
+  2.29% train vs 5.28% test positive, 2.3x; 118 train positives) and the
+  INCONCLUSIVE verdict (model 0.6591 vs descriptors 0.6554, gap 1/17th of
+  the model's 0.0620 spread); the trade is the declared no-result rule,
+  which costs a nominal lead to keep the verdict seed-proof; ownership
+  split across mission (the declared bar, written before training), model
+  (seed protocol), and report (no-result as a real result, with the
+  118-vs-689 count as the measurable cause).
+- 04 third endpoint: the mid-range point that separates the two claims —
+  NR-ER (12.8% positive, 628 train positives) gives the model its first
+  clean win (0.6679 vs 0.6413, margin 0.0265 clearing the 0.0227 spread;
+  corrected counts 118/689 and monotone spreads 0.0620/0.0227/0.0159);
+  the trade is that the win is endpoint-specific, never a general "the
+  model got better"; ownership split across mission (deliberate midpoint
+  selection), eval (win-beyond-spread bar), and report (scoped framing).
+- 05 cross-endpoint analysis: the directional n=3 read that records
+  variance-vs-scarcity as monotonic (118 -> 0.0620, 628 -> 0.0227, 689 ->
+  0.0159) and win/loss-vs-scarcity as not, refusing to compute a
+  correlation; the trade is the ceiling — a legible pattern, not a fitted
+  claim, and explicitly not a law; ownership split across analysis (n=3
+  ceiling), dataset (positive counts from split records), and report
+  (scoped conclusion).
+- 06 model or representation: the RDKit-agreement check (Tanimoto
+  Spearman 0.9012, mean difference 0.0171, 0/60 bit-identical) that
+  validates the from-scratch fingerprint so the representation finding is
+  about representations, and the width sweep that measures the
+  memorization knee (test AUC peaks at 256 bits 0.713, gap grows
+  monotonically 0.122 to 0.346 at 2,048; fingerprint loses everywhere on
+  SR-MMP 0.6534 vs 0.8142); the trade is rank agreement over bit equality,
+  and a per-endpoint knee that transfers nowhere without re-running;
+  ownership split across representation (implementation and agreement
+  record), eval (per-endpoint caveat), and report (the "wider is not
+  better" headline, scoped to the representation family).
+
 ### Quantitative research — 00-05
 
 **Status: done (eleventh audit increment, 2026-08-08).**

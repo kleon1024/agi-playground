@@ -40,6 +40,29 @@ model can beat the descriptor when it has enough positives. Scarcity
 decides where a winner can be seen; the third point is what shows that
 who wins depends on enough data.
 
+## The fix and its trade
+
+The fix is adding the mid-range endpoint to the comparison: with only
+SR-MMP and NR-PPAR-gamma, the mission could not separate "scarcity decides
+where a winner can be seen" from "who wins." NR-ER (12.8% positive, 628
+train positives) resolves the model's first clean win — margin +0.0265
+clears the larger spread 0.0227 — which is the third point that breaks the
+confound. The trade is that the win is endpoint-specific: the same
+architecture loses on SR-MMP, so the chapter cannot claim the model
+"got better," only that this endpoint has enough positives for its signal
+to beat its noise.
+
+## Who owns this loop
+
+- **The mission owner** owns the endpoint-selection decision — the
+  midpoint was chosen deliberately, not sampled — and the three-point
+  pattern it produces.
+- **The eval owner** owns the seed protocol and the win-beyond-spread bar
+  that decides whether +0.0265 is a result or a no-result.
+- **The report owner** owns the honest framing: a first win that is
+  explicitly not a general one, with the endpoint conditions stated beside
+  the number.
+
 ## Evidence boundary
 
 The recorded third-endpoint seeds (three per arm, one scaffold split, one

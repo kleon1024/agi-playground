@@ -45,6 +45,33 @@ cross-endpoint analysis (stages 03-05) meaningful: the imbalance
 spectrum is fixed in advance, so the scarcity-variance pattern was not
 reverse-engineered from which endpoint won.
 
+## The fix and its trade
+
+The fix is the pre-registered endpoint choice: SR-MMP (15.8%) is picked
+from the measured balance table because it is one of the two
+best-balanced endpoints and its assay has a single statable mechanism,
+with SR-ARE (16.2%) rejected as a near-duplicate and NR-PPAR-gamma (2.9%)
+kept as the extreme for later comparison. The trade is that choosing
+before seeing results costs the freedom to pick the flattering endpoint —
+which is exactly the point: a guardrail against choosing after the fact
+is what makes the later scarcity-variance pattern a finding instead of a
+reverse-engineered story. The cost of the pre-registration is that the
+chosen endpoint may be the harder one, which the mission accepts as the
+price of a claim.
+
+## Who owns this loop
+
+- **The dataset owner** owns the balance table and the choice: the rates
+  are computed directly from the downloaded CSV, recorded before any
+  training, and the selection rationale is fixed at that point.
+- **The evaluation owner** owns the audit-trail property: the fixed
+  imbalance spectrum is what makes stages 03-05's cross-endpoint
+  comparisons meaningful rather than post-hoc.
+- **The model team** inherits the chosen endpoint's difficulty: the
+  pre-registered choice means the trained model is judged on the harder
+  path, which the mission accepts as the price of a non-flattering
+  comparison.
+
 ## Evidence boundary
 
 The recorded dataset run (Tox21 CSV, 12 endpoints, one download). It reads

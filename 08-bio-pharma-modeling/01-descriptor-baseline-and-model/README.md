@@ -105,6 +105,42 @@ the stage is for:
 
 <!-- interactive: MoleculePropertyComparison -->
 
+## The fix and its trade
+
+The fix is the verification discipline applied to the published baseline:
+the primary source (Wu et al., 2018) was checked directly, and it reports a
+12-task mean under a *random* split (KernelSVM 0.822 / GC 0.829), not a
+per-endpoint scaffold-split number. The trade is that the comparison stays
+honest at the cost of being loose: no genuine per-endpoint SR-MMP number
+could be traced and verified, so the reported figure is context for where a
+reasonable descriptor-based Tox21 AUC sits, explicitly *not* a
+same-endpoint, same-split baseline to beat. An unverifiable web-surfaced
+number (~0.90-0.92) is refused rather than repeated, and the split mismatch
+is named — a scaffold split is harder than the random split the published
+number used, so even a matched per-endpoint number would need adjustment.
+A team that copied a number without the verification would present a
+cleaner-looking comparison that is a category error.
+
+The second fix-and-trade is architectural: importing mission 01's
+`Config`/`Block`/`RMSNorm` primitives unmodified and composing a
+character-level SMILES classifier avoids grafting a classifier onto an
+autoregressive object optimized for the wrong objective, at the cost of
+owning the pooling decision (the last real token's hidden state) as a
+deliberate, inspectable choice rather than an inherited default.
+
+## Who owns this loop
+
+- **The evaluation owner** owns the baseline-verification contract: the
+  published number is traced to its primary source, dated, and reported
+  with the split mismatch stated — never a recalled or unverifiable figure.
+- **The model team** owns the architecture reuse and the pooling decision:
+  the primitives stay unmodified from mission 01 so the comparison is
+  clean, and the last-token pooling is documented as a choice the
+  interactive makes the learner reason about.
+- **The dataset owner** owns the scaffold split both paths are judged on;
+  a baseline and a model compared on the same split are comparable, which
+  is the property this stage's pairing exists to guarantee.
+
 ## Result
 
 Full per-seed numbers, environment, and the exact commands:

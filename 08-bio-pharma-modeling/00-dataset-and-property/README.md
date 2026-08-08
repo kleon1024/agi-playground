@@ -102,6 +102,37 @@ Two things a shuffle-and-split would never reveal:
 Full numbers, the per-endpoint balance table, and the exact command:
 [`runs/2026-08-01-dataset-and-split.md`](runs/2026-08-01-dataset-and-split.md).
 
+## The fix and its trade
+
+The fix is the scaffold split, and the trade is that it is deliberately
+harder than the alternative: grouping by Murcko scaffold (Bemis & Murcko,
+1996) before assigning whole groups to train or test means held-out
+performance is actually a test of generalization to unseen ring systems,
+instead of a shuffle that lets near-identical molecules land on both sides
+of the cut. The cost is measured here, not assumed: the split's class
+balance shifts (train 14.8% vs test 19.7%) because whole same-labeled
+clusters move together, and all 1,467 acyclic compounds collide into one
+empty-scaffold group that lands entirely on the train side — so the test
+set says nothing about ring-free molecules. Those are the two things the
+overlap check (measured 0.0, not assumed) cannot fix, only reveal; a team
+that picks a scaffold split has to accept a non-i.i.d. split and report the
+balance shift beside the overlap number, which is exactly what this stage
+does.
+
+## Who owns this loop
+
+- **The dataset owner** owns the split construction and the overlap
+  measurement: the 0.0 overlap is checked on the actual output, never
+  assumed from the construction, and the SHA-256 of the downloaded CSV is
+  recorded so a re-run fetches the same file.
+- **The evaluation owner** owns the two revealed limits as documented
+  scope: the acyclic-group collision and the train/test balance shift are
+  named beside the result so a downstream AUC is not read as i.i.d.
+- **The model team** inherits the split: a trained model that later beats
+  the baseline can only claim generalization to the scaffold groups the
+  test side actually contains, and the dataset owner's scope notes are the
+  boundary of that claim.
+
 ## Run it
 
 ```bash

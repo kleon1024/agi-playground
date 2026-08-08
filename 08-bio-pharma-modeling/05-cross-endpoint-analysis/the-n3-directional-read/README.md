@@ -46,6 +46,27 @@ coefficient is computed or implied. The finding is a legible pattern
 honest limit of a three-endpoint comparison — and why the mission treats
 it as a pattern to investigate, not a law.
 
+## The fix and its trade
+
+The fix is the directional, non-fitted monotonicity check: the analysis
+records that variance falls as positives grow (689 -> 628 -> 118 with
+spreads 0.0159 -> 0.0227 -> 0.0620) and that the gap does not follow,
+while refusing to compute or imply a correlation coefficient. The trade is
+the ceiling this enforces: n=3 can show a legible pattern but cannot
+support a fitted claim, so the finding stays a pattern to investigate. The
+fix buys an honest cross-endpoint statement at the cost of saying nothing
+general — which is exactly what the mission's acceptance asked for.
+
+## Who owns this loop
+
+- **The analysis owner** owns the n=3 ceiling and the refusal to fit — the
+  recorded JSON contains the verdict rows, not a correlation.
+- **The report owner** owns the "pattern to investigate, not a law"
+  framing that keeps the ceiling visible in the mission's conclusions.
+- **The dataset owner** owns the positive counts (689, 628, 118) that the
+  monotonicity claim reads off; the numbers come from the split records,
+  not from the analysis.
+
 ## Evidence boundary
 
 The recorded cross-endpoint JSON (three endpoints, three seeds each, the

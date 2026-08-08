@@ -43,6 +43,27 @@ model's noise is small and the model wins where it has enough positives to
 beat its noise. The two directions are different claims, and the third
 point is what separates them.
 
+## The fix and its trade
+
+The fix is the third data point as a discriminator: NR-ER's model spread
+(0.0227) sits between the extremes (0.0159, 0.0620) and its margin
+(+0.0265) clears that spread, which is what separates the two claims — the
+variance direction is monotonic (scarcity -> noise), the gap direction is
+not (who wins depends on endpoint structure). The trade is that the
+discrimination is n=3 and directional: the chapter states the ceiling
+itself, and no monotonicity claim here is a fitted or general one. The
+third point buys the separation of the two questions at the cost of a
+pattern that still cannot be extrapolated.
+
+## Who owns this loop
+
+- **The stage 04 owner** owns the mid-range endpoint run and its six
+  committed seed JSONs.
+- **The analysis owner** owns the two-direction read: variance
+  monotonicity and gap non-monotonicity, each scoped to n=3.
+- **The mission owner** owns the acceptance wording that treats the
+  three-point pattern as "investigate further" rather than a law.
+
 ## Evidence boundary
 
 The six committed seed JSONs (one endpoint, three seeds per arm, one

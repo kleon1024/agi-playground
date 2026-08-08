@@ -47,6 +47,33 @@ the run-to-run spread are large enough that no winner emerges. The split
 does not decide the winner — but it does decide whether a winner can be
 seen at all.
 
+## The fix and its trade
+
+The fix is reporting the split's label shift beside the overlap number,
+instead of treating a scaffold split as clean by definition. The trade is
+that the measurement reveals a confound the split cannot remove: whole
+scaffold groups cluster by activity, so the test side is systematically
+more positive (shift 0.5 to 4.9pp across all three endpoints), and the
+shift is largest exactly where the verdict is noisiest (NR-PPAR-gamma's
+2.3x test/train ratio). The stage cannot fix the imbalance — that is a
+property of the data — so the fix is the disclosure: a downstream verdict
+is only interpretable with the shift named, because the split "does not
+decide the winner, but it does decide whether a winner can be seen."
+
+## Who owns this loop
+
+- **The dataset owner** owns the split diagnostics and their disclosure:
+  the overlap (0) and the label shift are both measured on the actual
+  output and reported together, so a clean overlap never reads as a clean
+  distribution.
+- **The evaluation owner** owns the shift-as-confound interpretation:
+  the +3.0pp shift on the scarcest endpoint is the data-side expression
+  of the same scarcity that produces the inconclusive verdict, and
+  connecting the two is the evaluation's job.
+- **The model team** inherits the shifted test balance as a stated
+  boundary: model performance on a more-positive test set is not
+  comparable to a same-distribution split without the caveat.
+
 ## Evidence boundary
 
 Three endpoints, one split seed each, the recorded summaries. It shows the

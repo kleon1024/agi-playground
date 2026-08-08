@@ -55,6 +55,31 @@ the field's, the bits are this repo's — which is why the width sweep's
 conclusion belongs to the representation *family* (circular fingerprints),
 not to this repository's bit convention.
 
+## The fix and its trade
+
+The fix is the width sweep itself: instead of assuming wider fingerprints
+are better, the grid measures the knee — test AUC peaks at 256 bits
+(0.713) and falls to 0.673 at 1,024 and 0.653 at 2,048, while train AUC
+climbs to 1.000 and the gap grows monotonically from 0.122 to 0.346. The
+trade is that the sweep's answer is scoped: the knee at 256 bits is for
+this endpoint and this logistic learner, and the conclusion belongs to the
+circular-fingerprint family, not to this repo's bit convention (the
+RDKit-agreement record makes that boundary explicit). The fix buys a
+measured "wider is not better" at the cost of a number that cannot be
+transferred without re-running the sweep.
+
+## Who owns this loop
+
+- **The representation owner** owns the sweep and the RDKit-agreement
+  record that scopes its conclusion to the representation family.
+- **The eval owner** owns the per-endpoint caveat — the stage's own note
+  says verdicts are per-endpoint, so the knee is reported as measured, not
+  promised elsewhere.
+- **The report owner** owns the headline the sweep supports: more capacity
+  without more generalizable signal is memorization, measured — and the
+  explicit note that a different learner might use the extra width
+  differently.
+
 ## Evidence boundary
 
 One endpoint (SR-MMP), three seeds per width, the recorded grid's own

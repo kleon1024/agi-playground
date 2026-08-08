@@ -43,6 +43,30 @@ minority class. The split shift is the data-side expression; the
 inconclusive verdict is the model-side expression. Reading both is what
 connects the no-result to its cause.
 
+## The fix and its trade
+
+The fix is measuring the split shift alongside overlap: a scaffold split
+can be leak-free (overlap 0, verified) and still move the minority class —
+NR-PPAR-gamma's test set comes out 2.3x more positive than train (5.28%
+vs 2.29%). The trade is that the check adds a number the main path does
+not need to headline: overlap-only reporting would have called the split
+clean, while shift reporting adds the caveat that balance moved. The check
+buys an honest connection between the split and the no-verdict — the shift
+is the data-side expression of the same scarcity the model's 0.0620 seed
+spread shows — at the cost of complicating "the split is leak-free" with
+"and also imbalanced."
+
+## Who owns this loop
+
+- **The dataset owner** owns the split construction and both numbers: the
+  measured 0.0 overlap and the measured 2.3x balance shift.
+- **The model owner** owns the seed spread (0.0620) that is the
+  model-side expression of the same scarcity; the two numbers are read
+  together, never as independent properties.
+- **The report owner** owns the verdict that separates the two expressions:
+  the shift explains why the split is hard, the inconclusive verdict says
+  the run cannot resolve it.
+
 ## Evidence boundary
 
 The recorded split summary (one endpoint, one scaffold split, one seed).
