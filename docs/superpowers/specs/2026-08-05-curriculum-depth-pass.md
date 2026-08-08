@@ -55,24 +55,40 @@ one stage that asserts a mechanism with no worked practice. The queue below
 is the "add more chapters" list; each entry names the central question and
 the practice run that answers it.
 
-| Mission | Where | New chapter / deepening | Central question | Practice run |
-|---|---|---|---|---|
-| 01 | 03-sft | `what-model-size-changes` | Does SFT's effect scale with model size? | 5M pretrained-SFT vs 5M random-init-SFT vs recorded 88M SFT (this spec's pilot) |
-| 01 | 00-corpus | mixture + agentic component | Where does agentic data enter the mix, and at what share? | agentic-format render run (2026-08-05) |
-| 01 | 02-pretrain | `when-the-curve-goes-wrong` (deepen, draft) | What can a loss curve tell you, and what can it not? | a seeded bad-run sweep |
-| 01 | 07-eval | `why-believe-the-number` (deepen, draft) | What is one number from a harness worth? | variance re-runs across seeds |
-| 02 | 06-mixing | mixing-weight chapter | What does a mixing weight actually trade off? | a two-weight ablation on the recall stage |
-| 02 | 01-content-understanding | cold-start / sparse-interaction chapter | What can you recommend before a user has history? | popularity baseline vs the fine-rank stage |
-| 03 | 01-signal-research | false-discovery chapter | Why does a search over 1,000 signals find losers? | permutation-null run at higher trial counts |
-| 03 | 03-walk-forward | fold-fit chapter (deepen) | Why is fold-specific fit not strategy fit? | the existing runs' per-fold curves |
-| 04 | 04-how-it-fails | failure taxonomy (deepen) | Which failure modes are structural vs fixable? | re-run the agent at three temperatures |
-| 04 | 03-cheap-or-expensive | cost curve (deepen) | Where is the cost-quality knee? | token-count curve from the recorded runs |
-| 05 | 01-vision-fusion | fusion mechanism | What does cross-attention actually fuse? | a weight/ablation study on the small VLM |
-| 06 | 01-grpo | advantage normalization (deepen) | What does GRPO's advantage normalization change? | the recorded GRPO run, recomputed by hand |
-| 07 | 00-audio-codec | codebook math (deepen) | Why does a VQ codebook collapse? | the recorded codec run's codebook statistics |
-| 08 | 01-video-tokenizer | codebook collapse (deepen) | What are the three failure modes, mechanistically? | the recorded codec run's three failure stats |
-| 09 | 01-descriptor-baseline | descriptor semantics | What does a fingerprint measure, and what does it miss? | the recorded grid's RDKit agreement |
-| foundations | 01-first-training-loop | worked backward pass | What does one backward pass compute, line by line? | a hand-traced backward pass vs autograd |
+| Mission | Where | New chapter / deepening | Central question | Practice run | Status (checked 2026-08-08) |
+|---|---|---|---|---|---|
+| 01 | 03-sft | `what-model-size-changes` | Does SFT's effect scale with model size? | 5M pretrained-SFT vs 5M random-init-SFT vs recorded 88M SFT (this spec's pilot) | shipped |
+| 01 | 00-corpus | mixture + agentic component | Where does agentic data enter the mix, and at what share? | agentic-format render run (2026-08-05) | shipped: `02-pretrain/mid-training` + agentic-formats + mix-seesaw runs |
+| 01 | 02-pretrain | `when-the-curve-goes-wrong` (deepen, draft) | What can a loss curve tell you, and what can it not? | a seeded bad-run sweep | shipped |
+| 01 | 07-eval | `why-believe-the-number` (deepen, draft) | What is one number from a harness worth? | variance re-runs across seeds | shipped |
+| 02 | 06-mixing | mixing-weight chapter | What does a mixing weight actually trade off? | a two-weight ablation on the recall stage | shipped: `shared/06-mixing/when-the-trade-weight-moves` |
+| 02 | 01-content-understanding | cold-start / sparse-interaction chapter | What can you recommend before a user has history? | popularity baseline vs the fine-rank stage | shipped as sibling surfaces: `shared/51-new-user-experience/when-the-user-is-new`, `search/23-personalized-search/when-the-new-user-is-the-majority` |
+| 03 | 01-signal-research | false-discovery chapter | Why does a search over 1,000 signals find losers? | permutation-null run at higher trial counts | shipped: `when-breadth-inflates-the-winner` |
+| 03 | 03-walk-forward | fold-fit chapter (deepen) | Why is fold-specific fit not strategy fit? | the existing runs' per-fold curves | shipped: `03-walk-forward-validation/when-purge-matters` |
+| 04 | 04-how-it-fails | failure taxonomy (deepen) | Which failure modes are structural vs fixable? | re-run the agent at three temperatures | shipped: `the-zero-failure-taxonomy` |
+| 04 | 03-cheap-or-expensive | cost curve (deepen) | Where is the cost-quality knee? | token-count curve from the recorded runs | shipped: `the-cost-quality-knee` |
+| 05 | 01-vision-fusion | fusion mechanism | What does cross-attention actually fuse? | a weight/ablation study on the small VLM | superseded: mission 05 restructured to gridworld + GRPO; no vision-fusion stage remains |
+| 06 | 01-grpo | advantage normalization (deepen) | What does GRPO's advantage normalization change? | the recorded GRPO run, recomputed by hand | shipped: `05-game-ai/01-grpo/the-policy-anatomy` |
+| 07 | 00-audio-codec | codebook math (deepen) | Why does a VQ codebook collapse? | the recorded codec run's codebook statistics | shipped: `voice/00-audio-codec/why-codebooks-collapse` + `when-silence-is-a-local-minimum` |
+| 08 | 01-video-tokenizer | codebook collapse (deepen) | What are the three failure modes, mechanistically? | the recorded codec run's three failure stats | shipped: `video/01-video-tokenizer/when-the-dead-codes-revive` + `what-a-video-token-is` |
+| 09 | 01-descriptor-baseline | descriptor semantics | What does a fingerprint measure, and what does it miss? | the recorded grid's RDKit agreement | shipped: `08-bio-pharma-modeling/01-descriptor-baseline-and-model/two-ways-to-read-a-molecule` |
+| foundations | 01-first-training-loop | worked backward pass | What does one backward pass compute, line by line? | a hand-traced backward pass vs autograd | pending — the only remaining queue item |
+
+Audit notes from the 2026-08-08 pass:
+
+- The failure-mode ownership audit is complete repo-wide: every tutorial
+  chapter README now carries `## The fix and its trade` (and, where the loop
+  crosses teams, `## Who owns the loop`), with numbers taken from the
+  chapter's own `runs/` record. The only READMEs without it are index pages
+  (mission roots, surface roots, `prod/` code readmes).
+- `docs/curriculum-map.md` is stale: it predates recommendation stages
+  56-65, search 35-37, and ads 38-42/54, lists 56 stages for mission 02
+  (the tree has 67), and is missing the 09-autonomous-driving row. The map
+  regeneration is the next index task.
+- Mission 09 (autonomous-driving) has 7 stages and zero detour chapters;
+  by this spec's own rule ("a stage that asserts a mechanism or a tradeoff
+  without a detour that walks it has a gap") it is the shallowest mission
+  and is queued behind the old-mission deepening the user prioritized.
 
 Not in this queue: chapters already deep (missions 01's corpus/tokenizer/
 pretrain, 07-eval's metric-gaming, mid-training), which only get deepened if
