@@ -92,3 +92,11 @@ This simulator is not a claim about driving. It is a scoreable environment
 whose only purpose is to make the imitation-and-closed-loop method
 measurable. Numbers here and in every later stage trace to runs in
 [`runs/`](runs/), recorded with the exact command and seeds.
+
+## Next
+
+The episode contract fixes the collision margin at 0.35m. Whether that
+number, not the policy, decides the completion rate is measured in
+[The completion rate is a property of the contract, not the policy](when-the-margin-decides/),
+and the same knife-edge lens carries into the perception stage:
+[The blob could not see the pass](../01-perception-baseline/when-the-blob-lies/).

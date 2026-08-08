@@ -1951,13 +1951,25 @@
     "level": "applied",
     "minutes": 3
   },
+  "09-autonomous-driving/00-scenario-simulator/when-the-margin-decides": {
+    "level": "applied",
+    "minutes": 5
+  },
   "09-autonomous-driving/01-perception-baseline": {
     "level": "applied",
     "minutes": 3
   },
+  "09-autonomous-driving/01-perception-baseline/when-the-blob-lies": {
+    "level": "applied",
+    "minutes": 8
+  },
   "09-autonomous-driving/02-expert-policy": {
     "level": "applied",
     "minutes": 3
+  },
+  "09-autonomous-driving/02-expert-policy/when-the-handoff-crosses-the-band": {
+    "level": "applied",
+    "minutes": 8
   },
   "09-autonomous-driving/03-behavior-cloning": {
     "level": "applied",

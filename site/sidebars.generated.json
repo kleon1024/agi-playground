@@ -3283,19 +3283,49 @@
     },
     "items": [
       {
-        "type": "doc",
-        "id": "09-autonomous-driving/00-scenario-simulator/index",
-        "label": "Scenario simulator"
+        "type": "category",
+        "label": "Scenario simulator",
+        "link": {
+          "type": "doc",
+          "id": "09-autonomous-driving/00-scenario-simulator/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "09-autonomous-driving/00-scenario-simulator/when-the-margin-decides/index",
+            "label": "When the collision margin decides the verdict"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "09-autonomous-driving/01-perception-baseline/index",
-        "label": "Perception baseline"
+        "type": "category",
+        "label": "Perception baseline",
+        "link": {
+          "type": "doc",
+          "id": "09-autonomous-driving/01-perception-baseline/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "09-autonomous-driving/01-perception-baseline/when-the-blob-lies/index",
+            "label": "When the nearest blob is the wrong thing to steer by"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "09-autonomous-driving/02-expert-policy/index",
-        "label": "Expert policy"
+        "type": "category",
+        "label": "Expert policy",
+        "link": {
+          "type": "doc",
+          "id": "09-autonomous-driving/02-expert-policy/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "09-autonomous-driving/02-expert-policy/when-the-handoff-crosses-the-band/index",
+            "label": "When the handoff crosses the band"
+          }
+        ]
       },
       {
         "type": "doc",

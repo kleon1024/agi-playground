@@ -89,3 +89,11 @@ controller using these estimates drives well. The closed-loop test is
 stages 03-04's job, and it can disagree with open-loop perception — a model
 that reads the lane perfectly can still drive off the road. Numbers trace
 to [`runs/2026-08-07-perception.json`](runs/2026-08-07-perception.json).
+
+## Next
+
+Stage 01 measures the leak open-loop. What a controller that actually
+steers from blob estimates loses in the loop is measured in
+[The blob could not see the pass](when-the-blob-lies/), and the expert
+those episodes are judged against is
+[stage 02](../02-expert-policy/).

@@ -33,9 +33,12 @@ attributed.
 | Speed governor | Creep toward obstacle zones (discrete steering can only hold an offset at low speed), accelerate in clear stretches |
 
 The controller is deliberately simple enough to read in one sitting. Its
-failure mode is the lesson: the four scenarios it cannot pass are "obstacle
-sandwiches" — obstacles at both lane edges within ~2m of an in-lane
-obstacle, where no lateral offset is safe at the moment the dodge lane opens.
+failure mode is the lesson: it loses four scenarios, and the attribution
+for why is a stated claim, not a fact — replaying each failure step by step
+shows the shared mechanism is the dodge-handoff transition, not the
+"obstacle sandwich" this stage first wrote down. The re-measurement lives
+under this stage, in
+[The expert's four failures are not sandwiches](when-the-handoff-crosses-the-band/).
 
 ## What we measured
 
@@ -50,10 +53,11 @@ python expert.py
 | Expert | 0.92 | 0.08 | 0.00 | 148.6 |
 
 The floor completes 14 of 50 scenarios — exactly the ones with no in-lane
-obstacle — and collides on the rest. The expert clears 46 of 50, losing four
-to the sandwich configuration above. The 0.64 completion gap between floor
-and expert is the room imitation learning must recover; the expert's own
-0.08 collision rate is the honest boundary the learner cannot exceed.
+obstacle — and collides on the rest. The expert clears 46 of 50, losing
+four to the dodge-handoff transition the detour under this stage traces.
+The 0.64 completion gap between floor and expert is the room imitation
+learning must recover; the expert's own 0.08 collision rate is the honest
+boundary the learner cannot exceed.
 
 ## The fix and its trade
 
@@ -64,16 +68,18 @@ recover, and the lane-only version with the avoidance logic removed (0.28,
 must earn, isolated to exactly one variable. The trade is that the expert
 sees true state, so it does not demonstrate that avoidance is learnable
 from the render — stage 01 already showed the render barely carries
-obstacle distance — and its own four sandwich failures (no lateral offset
-safe when the dodge lane opens) are the honest upper bound the learner
-cannot exceed. The fix buys an attribution target for stage 04's verdict
-at the cost of a ceiling that is not a deployment candidate.
+obstacle distance — and its own four handoff-transition failures are the
+honest upper bound the learner cannot exceed; the detour under this stage
+measures the repaired expert at 0.98 with one residual. The fix buys an
+attribution target for stage 04's verdict at the cost of a ceiling that is
+not a deployment candidate.
 
 ## Who owns this loop
 
 - **The expert owner** owns the controller mechanisms (threat trigger,
-  dodge selection, hold-until-passed, speed governor) and the sandwich
-  failure as a stated mode, not a hidden bug.
+  dodge selection, hold-until-passed, speed governor) and the
+  dodge-handoff failure as a stated mode, not a hidden bug — the
+  attribution itself is corrected under this stage.
 - **The eval owner** owns the closed-loop protocol: the expert and floor
   run on the same 50 eval scenarios the learner will be judged on.
 - **The mission owner** owns the floor/ceiling contract — the floor is the
@@ -88,3 +94,11 @@ carries obstacle distance. The expert is the ceiling, not a candidate
 deployment. Numbers trace to
 [`runs/2026-08-07-expert.json`](runs/2026-08-07-expert.json) and
 [`runs/2026-08-07-lane-only.json`](runs/2026-08-07-lane-only.json).
+
+## Next
+
+The four failures this stage attributed to sandwiches are replayed step by
+step in [The expert's four failures are not sandwiches](when-the-handoff-crosses-the-band/):
+the attribution does not survive contact with the traces, the repaired
+expert reaches 0.98 with one recorded residual, and stage 03's cloned
+policy is next measured against the repaired ceiling.

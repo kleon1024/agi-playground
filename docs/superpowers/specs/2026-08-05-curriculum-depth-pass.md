@@ -77,7 +77,7 @@ the practice run that answers it.
 ## Mission 09 deep-dive slice (shipped 2026-08-08)
 
 Mission 09 (autonomous driving) is the newest topic: 7 stages, zero detours
-at the start of this pass. The first three detours landed 2026-08-08,
+at the start of this pass. The first six detours landed 2026-08-08,
 each with an executed CPU run and the fix/trade/ownership structure, mapped
 to the mission's industrial failure modes.
 
@@ -86,11 +86,13 @@ to the mission's industrial failure modes.
 | 04-closed-loop-eval | `when-the-open-loop-lies` | Where does the 0.77-to-0.28 gap live, and why do the errors compound? | per-class imitation error + closed-loop divergence run | shipped |
 | 05-harder-scenarios | `when-the-policy-stalls` | What is a 72% timeout made of, and why is a stall a safety failure? | stall-profile run (creep, progress, safe state) | shipped |
 | 05-harder-scenarios | `when-the-aggregate-hides-the-corner` | Does the OOD boundary hold uniformly across the declared ODD? | per-cell split + coverage/n math | shipped |
+| 00-scenario-simulator | `when-the-margin-decides` | Does the collision margin or the finish line decide the completion rate? | margin + finish-line sweep, slack distribution over completed episodes | shipped |
+| 01-perception-baseline | `when-the-blob-lies` | What does a policy steering from blob estimates lose in the loop? | blob estimator MAE + belief-planner loop + four planner repairs + collision forensics | shipped |
+| 02-expert-policy | `when-the-handoff-crosses-the-band` | Are the expert's four failures really obstacle sandwiches? | sandwich-attribution test, per-seed decision traces, repair decomposition, fix-fix loop | shipped |
 
-Remaining mission-09 queue: stages 00-scenario-simulator, 01-perception,
-02-expert, 03-cloning, and 06-report carry no detour yet; the next slice
-can run the perception-latency, expert-trust, and report-evidence questions
-through the same audit.
+Remaining mission-09 queue: stages 03-cloning and 06-report carry no
+detour yet; the next slice can run the cloning-trust and report-evidence
+questions through the same audit.
 
 Audit notes from the 2026-08-08 pass:
 
@@ -104,8 +106,8 @@ Audit notes from the 2026-08-08 pass:
   the current eight topics, and a mission-09 row exists with its three new
   detours counted.
 - Mission 09 (autonomous driving) went from 7 stages and zero detour
-  chapters to three detours under stages 04-05 (this pass, above); stages
-  00-03 and 06 remain bare and are the next queue slice.
+  chapters to six detours under stages 00-02 and 04-05 (this pass, above);
+  stages 03 and 06 remain bare and are the next queue slice.
 
 Not in this queue: chapters already deep (missions 01's corpus/tokenizer/
 pretrain, 07-eval's metric-gaming, mid-training), which only get deepened if

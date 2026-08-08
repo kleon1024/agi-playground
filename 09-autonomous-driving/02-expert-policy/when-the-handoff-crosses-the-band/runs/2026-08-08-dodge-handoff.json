@@ -1,0 +1,1244 @@
+{
+  "command": "python dodge_handoff.py",
+  "hardware": {
+    "machine": "arm64",
+    "system": "Darwin",
+    "python": "3.11.14"
+  },
+  "cost_usd": 0.0,
+  "attribution_test": {
+    "sandwich_tol_2m_fail_seeds": [],
+    "sandwich_tol_3m_fail_seeds": []
+  },
+  "distribution": {
+    "cluster_seed_count": 32,
+    "non_cluster_seed_count": 18,
+    "fail_seeds_in_cluster": [
+      107,
+      108,
+      127,
+      142
+    ],
+    "fail_seeds_outside_cluster": []
+  },
+  "policy_rates": {
+    "base": {
+      "scenarios": 50,
+      "completion_rate": 0.92,
+      "collision_rate": 0.08,
+      "offroad_rate": 0.0,
+      "timeout_rate": 0.0,
+      "mean_steps": 148.6,
+      "fail_seeds": [
+        107,
+        108,
+        127,
+        142
+      ]
+    },
+    "precise_only": {
+      "scenarios": 50,
+      "completion_rate": 0.94,
+      "collision_rate": 0.06,
+      "offroad_rate": 0.0,
+      "timeout_rate": 0.0,
+      "mean_steps": 150.4,
+      "fail_seeds": [
+        107,
+        108,
+        127
+      ]
+    },
+    "transition_only": {
+      "scenarios": 50,
+      "completion_rate": 0.9,
+      "collision_rate": 0.1,
+      "offroad_rate": 0.0,
+      "timeout_rate": 0.0,
+      "mean_steps": 144.3,
+      "fail_seeds": [
+        108,
+        127,
+        133,
+        142,
+        144
+      ]
+    },
+    "v7_precise_and_transition": {
+      "scenarios": 50,
+      "completion_rate": 0.98,
+      "collision_rate": 0.02,
+      "offroad_rate": 0.0,
+      "timeout_rate": 0.0,
+      "mean_steps": 150.6,
+      "fail_seeds": [
+        133
+      ]
+    },
+    "v8_hold_safe": {
+      "scenarios": 50,
+      "completion_rate": 0.96,
+      "collision_rate": 0.04,
+      "offroad_rate": 0.0,
+      "timeout_rate": 0.0,
+      "mean_steps": 148.3,
+      "fail_seeds": [
+        133,
+        144
+      ]
+    },
+    "v9_hold_close": {
+      "scenarios": 50,
+      "completion_rate": 0.88,
+      "collision_rate": 0.12,
+      "offroad_rate": 0.0,
+      "timeout_rate": 0.0,
+      "mean_steps": 144.5,
+      "fail_seeds": [
+        108,
+        127,
+        133,
+        139,
+        142,
+        144
+      ]
+    },
+    "v10_cruise4": {
+      "scenarios": 50,
+      "completion_rate": 0.94,
+      "collision_rate": 0.06,
+      "offroad_rate": 0.0,
+      "timeout_rate": 0.0,
+      "mean_steps": 149.2,
+      "fail_seeds": [
+        108,
+        127,
+        144
+      ]
+    }
+  },
+  "residual_failure": {
+    "seed": 133,
+    "outcome": "collided",
+    "end_x": 39.15,
+    "collision_facts": {
+      "last_transition": {
+        "step": 70,
+        "x": 39.01,
+        "v": 1.84,
+        "cur_off": 0.48,
+        "target_off": 1.2,
+        "conflict_dx": 0.83,
+        "conflict_off": 0.0,
+        "swept": 2,
+        "dodge_off": 1.2
+      },
+      "end": {
+        "x": 39.01,
+        "v": 1.84,
+        "cur_off": 0.48,
+        "target_off": 1.2,
+        "conflict_dx": 0.83,
+        "conflict_off": 0.0,
+        "swept": 2,
+        "dodge_off": 1.2
+      },
+      "crossings": 52
+    },
+    "obstacles": [
+      {
+        "x": 46.8,
+        "y": 4.25,
+        "r": 0.53,
+        "vx": 0.83,
+        "off": 0.0
+      },
+      {
+        "x": 43.62,
+        "y": 3.12,
+        "r": 0.51,
+        "vx": 1.05,
+        "off": -1.2
+      },
+      {
+        "x": 39.84,
+        "y": 4.39,
+        "r": 0.55,
+        "vx": 0.26,
+        "off": 0.0
+      },
+      {
+        "x": 26.08,
+        "y": 4.49,
+        "r": 0.42,
+        "vx": 0.34,
+        "off": 0.0
+      }
+    ],
+    "decision_window": [
+      {
+        "x": 35.03,
+        "v": 4.42,
+        "cur_off": -1.02,
+        "target_off": -1.02,
+        "conflict_dx": 8.59,
+        "conflict_off": -1.2,
+        "swept": 2,
+        "dodge_off": -1.02
+      },
+      {
+        "x": 35.45,
+        "v": 4.12,
+        "cur_off": -1.01,
+        "target_off": -1.01,
+        "conflict_dx": 8.18,
+        "conflict_off": -1.2,
+        "swept": 2,
+        "dodge_off": -1.01
+      },
+      {
+        "x": 35.83,
+        "v": 3.82,
+        "cur_off": -1.01,
+        "target_off": 1.2,
+        "conflict_dx": 7.8,
+        "conflict_off": -1.2,
+        "swept": 2,
+        "dodge_off": 1.2
+      },
+      {
+        "x": 36.22,
+        "v": 3.96,
+        "cur_off": -0.96,
+        "target_off": 1.2,
+        "conflict_dx": 3.62,
+        "conflict_off": 0.0,
+        "swept": 2,
+        "dodge_off": 1.2
+      },
+      {
+        "x": 36.62,
+        "v": 4.1,
+        "cur_off": -0.86,
+        "target_off": 1.2,
+        "conflict_dx": 3.22,
+        "conflict_off": 0.0,
+        "swept": 3,
+        "dodge_off": 1.2
+      },
+      {
+        "x": 37.02,
+        "v": 4.24,
+        "cur_off": -0.7,
+        "target_off": 1.2,
+        "conflict_dx": 2.82,
+        "conflict_off": 0.0,
+        "swept": 3,
+        "dodge_off": 1.2
+      },
+      {
+        "x": 37.36,
+        "v": 3.94,
+        "cur_off": -0.51,
+        "target_off": 1.2,
+        "conflict_dx": 2.47,
+        "conflict_off": 0.0,
+        "swept": 3,
+        "dodge_off": 1.2
+      },
+      {
+        "x": 37.67,
+        "v": 3.64,
+        "cur_off": -0.3,
+        "target_off": 1.2,
+        "conflict_dx": 2.17,
+        "conflict_off": 0.0,
+        "swept": 2,
+        "dodge_off": 1.2
+      },
+      {
+        "x": 37.94,
+        "v": 3.34,
+        "cur_off": -0.11,
+        "target_off": 1.2,
+        "conflict_dx": 1.9,
+        "conflict_off": 0.0,
+        "swept": 2,
+        "dodge_off": 1.2
+      },
+      {
+        "x": 38.19,
+        "v": 3.04,
+        "cur_off": 0.06,
+        "target_off": 1.2,
+        "conflict_dx": 1.65,
+        "conflict_off": 0.0,
+        "swept": 2,
+        "dodge_off": 1.2
+      },
+      {
+        "x": 38.42,
+        "v": 2.74,
+        "cur_off": 0.22,
+        "target_off": 1.2,
+        "conflict_dx": 1.42,
+        "conflict_off": 0.0,
+        "swept": 1,
+        "dodge_off": 1.2
+      },
+      {
+        "x": 38.63,
+        "v": 2.44,
+        "cur_off": 0.34,
+        "target_off": 1.2,
+        "conflict_dx": 1.2,
+        "conflict_off": 0.0,
+        "swept": 1,
+        "dodge_off": 1.2
+      },
+      {
+        "x": 38.83,
+        "v": 2.14,
+        "cur_off": 0.42,
+        "target_off": 1.2,
+        "conflict_dx": 1.0,
+        "conflict_off": 0.0,
+        "swept": 2,
+        "dodge_off": 1.2
+      },
+      {
+        "x": 39.01,
+        "v": 1.84,
+        "cur_off": 0.48,
+        "target_off": 1.2,
+        "conflict_dx": 0.83,
+        "conflict_off": 0.0,
+        "swept": 2,
+        "dodge_off": 1.2
+      }
+    ]
+  },
+  "per_seed_traces": {
+    "107": {
+      "outcome": "collided",
+      "end_x": 39.89,
+      "collision_facts": {
+        "last_transition": {
+          "step": 69,
+          "x": 39.65,
+          "v": 3.02,
+          "cur_off": -0.88,
+          "target_off": 1.2,
+          "conflict_dx": -0.08,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": 1.2
+        },
+        "end": {
+          "x": 39.65,
+          "v": 3.02,
+          "cur_off": -0.88,
+          "target_off": 1.2,
+          "conflict_dx": -0.08,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": 1.2
+        },
+        "crossings": 70
+      },
+      "last_20_steps": [
+        {
+          "x": 34.71,
+          "v": 2.56,
+          "cur_off": -1.1,
+          "target_off": -1.2,
+          "conflict_dx": 1.82,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 34.98,
+          "v": 2.7,
+          "cur_off": -1.1,
+          "target_off": -1.2,
+          "conflict_dx": 1.55,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 35.22,
+          "v": 2.4,
+          "cur_off": -1.1,
+          "target_off": -1.2,
+          "conflict_dx": 1.31,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 35.48,
+          "v": 2.54,
+          "cur_off": -1.1,
+          "target_off": -1.2,
+          "conflict_dx": 1.05,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 35.74,
+          "v": 2.68,
+          "cur_off": -1.1,
+          "target_off": -1.2,
+          "conflict_dx": 0.79,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 35.98,
+          "v": 2.38,
+          "cur_off": -1.1,
+          "target_off": -1.2,
+          "conflict_dx": 0.55,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 36.23,
+          "v": 2.52,
+          "cur_off": -1.12,
+          "target_off": -1.2,
+          "conflict_dx": 0.3,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 36.5,
+          "v": 2.66,
+          "cur_off": -1.12,
+          "target_off": -1.2,
+          "conflict_dx": 0.03,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 36.74,
+          "v": 2.36,
+          "cur_off": -1.12,
+          "target_off": -1.2,
+          "conflict_dx": -0.2,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 36.99,
+          "v": 2.5,
+          "cur_off": -1.12,
+          "target_off": -1.2,
+          "conflict_dx": -0.45,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 37.25,
+          "v": 2.64,
+          "cur_off": -1.12,
+          "target_off": -1.2,
+          "conflict_dx": -0.72,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 37.53,
+          "v": 2.78,
+          "cur_off": -1.11,
+          "target_off": -1.2,
+          "conflict_dx": -1.0,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 37.78,
+          "v": 2.48,
+          "cur_off": -1.11,
+          "target_off": -1.2,
+          "conflict_dx": -1.24,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 38.04,
+          "v": 2.62,
+          "cur_off": -1.11,
+          "target_off": -1.2,
+          "conflict_dx": 1.54,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 38.31,
+          "v": 2.76,
+          "cur_off": -1.11,
+          "target_off": -1.2,
+          "conflict_dx": 1.26,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 38.56,
+          "v": 2.46,
+          "cur_off": -1.1,
+          "target_off": -1.2,
+          "conflict_dx": 1.02,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 38.82,
+          "v": 2.6,
+          "cur_off": -1.1,
+          "target_off": 1.2,
+          "conflict_dx": 9.76,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 1.2
+        },
+        {
+          "x": 39.09,
+          "v": 2.74,
+          "cur_off": -1.06,
+          "target_off": 1.2,
+          "conflict_dx": 9.48,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 1.2
+        },
+        {
+          "x": 39.37,
+          "v": 2.88,
+          "cur_off": -0.99,
+          "target_off": 1.2,
+          "conflict_dx": 9.2,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 1.2
+        },
+        {
+          "x": 39.65,
+          "v": 3.02,
+          "cur_off": -0.88,
+          "target_off": 1.2,
+          "conflict_dx": -0.08,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": 1.2
+        }
+      ]
+    },
+    "108": {
+      "outcome": "collided",
+      "end_x": 25.76,
+      "collision_facts": {
+        "last_transition": {
+          "step": 58,
+          "x": 25.64,
+          "v": 1.34,
+          "cur_off": 0.3,
+          "target_off": -1.2,
+          "conflict_dx": 0.85,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        "end": {
+          "x": 25.64,
+          "v": 1.34,
+          "cur_off": 0.3,
+          "target_off": -1.2,
+          "conflict_dx": 0.85,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        "crossings": 39
+      },
+      "last_20_steps": [
+        {
+          "x": 21.41,
+          "v": 2.64,
+          "cur_off": 1.08,
+          "target_off": 1.08,
+          "conflict_dx": 6.86,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.08
+        },
+        {
+          "x": 21.69,
+          "v": 2.78,
+          "cur_off": 1.07,
+          "target_off": 1.07,
+          "conflict_dx": 6.58,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.07
+        },
+        {
+          "x": 21.94,
+          "v": 2.48,
+          "cur_off": 1.07,
+          "target_off": 1.07,
+          "conflict_dx": 6.33,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.07
+        },
+        {
+          "x": 22.2,
+          "v": 2.62,
+          "cur_off": 1.07,
+          "target_off": 1.07,
+          "conflict_dx": 6.07,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.07
+        },
+        {
+          "x": 22.47,
+          "v": 2.76,
+          "cur_off": 1.07,
+          "target_off": 1.07,
+          "conflict_dx": 5.8,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.07
+        },
+        {
+          "x": 22.72,
+          "v": 2.46,
+          "cur_off": 1.07,
+          "target_off": 1.07,
+          "conflict_dx": 5.55,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.07
+        },
+        {
+          "x": 22.98,
+          "v": 2.6,
+          "cur_off": 1.06,
+          "target_off": 1.06,
+          "conflict_dx": 5.29,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.06
+        },
+        {
+          "x": 23.25,
+          "v": 2.74,
+          "cur_off": 1.06,
+          "target_off": 1.06,
+          "conflict_dx": 5.02,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.06
+        },
+        {
+          "x": 23.5,
+          "v": 2.44,
+          "cur_off": 1.06,
+          "target_off": 1.06,
+          "conflict_dx": 4.77,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.06
+        },
+        {
+          "x": 23.76,
+          "v": 2.58,
+          "cur_off": 1.06,
+          "target_off": 1.06,
+          "conflict_dx": 4.51,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.06
+        },
+        {
+          "x": 24.03,
+          "v": 2.72,
+          "cur_off": 1.06,
+          "target_off": -1.2,
+          "conflict_dx": 4.24,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 24.27,
+          "v": 2.42,
+          "cur_off": 1.03,
+          "target_off": -1.2,
+          "conflict_dx": 4.0,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 24.52,
+          "v": 2.56,
+          "cur_off": 0.96,
+          "target_off": -1.2,
+          "conflict_dx": 3.75,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 24.77,
+          "v": 2.7,
+          "cur_off": 0.87,
+          "target_off": -1.2,
+          "conflict_dx": 1.71,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 24.98,
+          "v": 2.4,
+          "cur_off": 0.75,
+          "target_off": -1.2,
+          "conflict_dx": 1.5,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 25.16,
+          "v": 2.1,
+          "cur_off": 0.64,
+          "target_off": -1.2,
+          "conflict_dx": 1.33,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 25.3,
+          "v": 1.8,
+          "cur_off": 0.53,
+          "target_off": -1.2,
+          "conflict_dx": 1.18,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 25.43,
+          "v": 1.5,
+          "cur_off": 0.45,
+          "target_off": -1.2,
+          "conflict_dx": 1.06,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 25.53,
+          "v": 1.2,
+          "cur_off": 0.38,
+          "target_off": -1.2,
+          "conflict_dx": 0.96,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 25.64,
+          "v": 1.34,
+          "cur_off": 0.3,
+          "target_off": -1.2,
+          "conflict_dx": 0.85,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        }
+      ]
+    },
+    "127": {
+      "outcome": "collided",
+      "end_x": 51.45,
+      "collision_facts": {
+        "last_transition": {
+          "step": 102,
+          "x": 51.34,
+          "v": 1.12,
+          "cur_off": -0.01,
+          "target_off": -1.2,
+          "conflict_dx": 0.96,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        "end": {
+          "x": 51.34,
+          "v": 1.12,
+          "cur_off": -0.01,
+          "target_off": -1.2,
+          "conflict_dx": 0.96,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        "crossings": 86
+      },
+      "last_20_steps": [
+        {
+          "x": 48.33,
+          "v": 2.42,
+          "cur_off": 1.13,
+          "target_off": 1.13,
+          "conflict_dx": 5.79,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.13
+        },
+        {
+          "x": 48.58,
+          "v": 2.56,
+          "cur_off": 1.13,
+          "target_off": 1.13,
+          "conflict_dx": 5.54,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.13
+        },
+        {
+          "x": 48.85,
+          "v": 2.7,
+          "cur_off": 1.13,
+          "target_off": 1.13,
+          "conflict_dx": 5.27,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": 1.13
+        },
+        {
+          "x": 49.09,
+          "v": 2.4,
+          "cur_off": 1.14,
+          "target_off": -1.2,
+          "conflict_dx": 5.03,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 49.35,
+          "v": 2.54,
+          "cur_off": 1.11,
+          "target_off": -1.2,
+          "conflict_dx": 4.78,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 49.61,
+          "v": 2.68,
+          "cur_off": 1.05,
+          "target_off": -1.2,
+          "conflict_dx": 4.52,
+          "conflict_off": 1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 49.83,
+          "v": 2.38,
+          "cur_off": 0.97,
+          "target_off": -1.2,
+          "conflict_dx": 2.47,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 50.01,
+          "v": 2.08,
+          "cur_off": 0.88,
+          "target_off": -1.2,
+          "conflict_dx": 2.29,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 50.16,
+          "v": 1.78,
+          "cur_off": 0.78,
+          "target_off": -1.2,
+          "conflict_dx": 2.14,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 50.28,
+          "v": 1.48,
+          "cur_off": 0.7,
+          "target_off": -1.2,
+          "conflict_dx": 2.02,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 50.38,
+          "v": 1.18,
+          "cur_off": 0.63,
+          "target_off": -1.2,
+          "conflict_dx": 1.92,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 50.49,
+          "v": 1.32,
+          "cur_off": 0.56,
+          "target_off": -1.2,
+          "conflict_dx": 1.81,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 50.61,
+          "v": 1.46,
+          "cur_off": 0.48,
+          "target_off": -1.2,
+          "conflict_dx": 1.69,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 50.71,
+          "v": 1.16,
+          "cur_off": 0.41,
+          "target_off": -1.2,
+          "conflict_dx": 1.6,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 50.81,
+          "v": 1.3,
+          "cur_off": 0.34,
+          "target_off": -1.2,
+          "conflict_dx": 1.49,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 50.93,
+          "v": 1.44,
+          "cur_off": 0.26,
+          "target_off": -1.2,
+          "conflict_dx": 1.37,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 51.03,
+          "v": 1.14,
+          "cur_off": 0.2,
+          "target_off": -1.2,
+          "conflict_dx": 1.28,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 51.13,
+          "v": 1.28,
+          "cur_off": 0.13,
+          "target_off": -1.2,
+          "conflict_dx": 1.17,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 51.25,
+          "v": 1.42,
+          "cur_off": 0.05,
+          "target_off": -1.2,
+          "conflict_dx": 1.05,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 51.34,
+          "v": 1.12,
+          "cur_off": -0.01,
+          "target_off": -1.2,
+          "conflict_dx": 0.96,
+          "conflict_off": 0.0,
+          "swept": 0,
+          "dodge_off": -1.2
+        }
+      ]
+    },
+    "142": {
+      "outcome": "collided",
+      "end_x": 20.16,
+      "collision_facts": {
+        "last_transition": {
+          "step": 57,
+          "x": 20.03,
+          "v": 1.22,
+          "cur_off": -0.58,
+          "target_off": 0.0,
+          "conflict_dx": 0.54,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        "end": {
+          "x": 20.03,
+          "v": 1.22,
+          "cur_off": -0.58,
+          "target_off": 0.0,
+          "conflict_dx": 0.54,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        "crossings": 33
+      },
+      "last_20_steps": [
+        {
+          "x": 17.34,
+          "v": 2.52,
+          "cur_off": -1.2,
+          "target_off": -1.2,
+          "conflict_dx": 3.23,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": -1.2
+        },
+        {
+          "x": 17.61,
+          "v": 2.66,
+          "cur_off": -1.21,
+          "target_off": 0.0,
+          "conflict_dx": 2.96,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 17.84,
+          "v": 2.36,
+          "cur_off": -1.18,
+          "target_off": 0.0,
+          "conflict_dx": 2.73,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 18.04,
+          "v": 2.06,
+          "cur_off": -1.14,
+          "target_off": 0.0,
+          "conflict_dx": 2.53,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 18.21,
+          "v": 1.76,
+          "cur_off": -1.08,
+          "target_off": 0.0,
+          "conflict_dx": 2.36,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 18.34,
+          "v": 1.46,
+          "cur_off": -1.03,
+          "target_off": 0.0,
+          "conflict_dx": 2.23,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 18.45,
+          "v": 1.16,
+          "cur_off": -0.99,
+          "target_off": 0.0,
+          "conflict_dx": 2.12,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 18.57,
+          "v": 1.3,
+          "cur_off": -0.94,
+          "target_off": 0.0,
+          "conflict_dx": 2.0,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 18.71,
+          "v": 1.44,
+          "cur_off": -0.89,
+          "target_off": 0.0,
+          "conflict_dx": 1.86,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 18.81,
+          "v": 1.14,
+          "cur_off": -0.86,
+          "target_off": 0.0,
+          "conflict_dx": 1.76,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 18.94,
+          "v": 1.28,
+          "cur_off": -0.83,
+          "target_off": 0.0,
+          "conflict_dx": 1.63,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 19.08,
+          "v": 1.42,
+          "cur_off": -0.8,
+          "target_off": 0.0,
+          "conflict_dx": 1.49,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 19.19,
+          "v": 1.12,
+          "cur_off": -0.77,
+          "target_off": 0.0,
+          "conflict_dx": 1.39,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 19.31,
+          "v": 1.26,
+          "cur_off": -0.74,
+          "target_off": 0.0,
+          "conflict_dx": 1.26,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 19.44,
+          "v": 1.4,
+          "cur_off": -0.71,
+          "target_off": 0.0,
+          "conflict_dx": 1.13,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 19.55,
+          "v": 1.1,
+          "cur_off": -0.69,
+          "target_off": 0.0,
+          "conflict_dx": 1.02,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 19.67,
+          "v": 1.24,
+          "cur_off": -0.66,
+          "target_off": 0.0,
+          "conflict_dx": 0.9,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 19.81,
+          "v": 1.38,
+          "cur_off": -0.63,
+          "target_off": 0.0,
+          "conflict_dx": 0.77,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 19.91,
+          "v": 1.08,
+          "cur_off": -0.6,
+          "target_off": 0.0,
+          "conflict_dx": 0.66,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        },
+        {
+          "x": 20.03,
+          "v": 1.22,
+          "cur_off": -0.58,
+          "target_off": 0.0,
+          "conflict_dx": 0.54,
+          "conflict_off": -1.2,
+          "swept": 0,
+          "dodge_off": 0.0
+        }
+      ]
+    }
+  },
+  "wall_clock_s": 15.05
+}
