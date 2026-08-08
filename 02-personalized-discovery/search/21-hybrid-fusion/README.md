@@ -72,6 +72,28 @@ trust decision is query-dependent. The decision that follows: tune the
 weight on the tail, report the swing per stratum, and never ship "the
 weight does not matter" from a head-dominated experiment.
 
+## The fix and its trade
+
+The fix is reciprocal rank fusion with a per-stratum weight audit and a
+per-set health check — the coverage promise only holds while both
+matchers are alive. The executed runs price the failure the fix
+removes: fusion rewards agreement (d1 and d4 appear in both sets and
+score roughly double the single-source survivors), but the weight
+decision is a tail decision — head queries move 0.020 with the weight
+while tail queries swing 0.343, from 0.451 served dense-only to 0.794
+balanced — and the flat aggregate sweep that concludes "the weight does
+not matter" is a head artifact. Cormack, Clarke and Büttcher (SIGIR
+2009) established RRF's mechanism: it rewards documents several
+rankings place highly.
+
+The trade, named: the weight is a product decision, not a tuning
+constant — it states which retrieval failure the platform trusts less
+(leaning lexical accepts vocabulary misses; leaning dense accepts
+exactness loss) — and it must be tuned on the tail and reported per
+stratum. The health check is the other half: without per-matcher
+result-count and latency signals, the hybrid silently degrades into
+whichever matcher is alive, and the list still looks like a fusion.
+
 ## Who owns the loop
 
 The fusion decides which matcher's confidence wins per query; someone

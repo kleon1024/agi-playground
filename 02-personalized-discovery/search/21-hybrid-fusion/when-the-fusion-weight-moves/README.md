@@ -35,6 +35,33 @@ meaning versus exact terms. It is not a tuning constant to be
 minimized — it is the platform stating which retrieval failure it
 trusts less, and the sweep is how that statement changes the result.
 
+## The fix and its trade
+
+The fix is to treat the weight as a product decision and set it against
+measured downstream quality per query class, not against the fused list
+alone. The executed sweep prices the decision: at w=0 the dense-only
+winner d2 takes the top slot (0.90); at w=1 the lexical-only winner d1
+does (0.90); at w=0.5 the blend edges to d1 by 0.05. The weight is the
+platform stating which retrieval failure it trusts less — leaning
+lexical trusts exact terms and accepts vocabulary misses; leaning dense
+trusts meaning and accepts exactness loss.
+
+The trade, named: the sweep shows the winner flip with the weight, so
+every choice of w trades one matcher's blind spot for the other's —
+and the measured downstream quality per query class is what makes the
+trade legible. A weight tuned on the fused list alone optimizes the
+score surface; a weight tuned per query class optimizes the served
+outcome, which is the number the product decision is read from.
+
+## Who owns the loop
+
+- **The fusion and ranking team** owns the weight and the per-stratum
+  swing report that shows where the weight decides.
+- **The product owner** owns the trust statement the weight encodes —
+  which retrieval failure the platform tolerates is a product call.
+- **The evaluation team** owns the downstream quality measurement per
+  query class that the weight is set against.
+
 ## Evidence boundary
 
 The executed sweep over three hand-built score pairs (illustrative,

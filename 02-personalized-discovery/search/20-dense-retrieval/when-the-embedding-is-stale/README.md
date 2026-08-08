@@ -40,6 +40,33 @@ indexing pipeline decision, not a model detail: the gap between
 embedding runs, and the queue of new items waiting in it, is where
 dense retrieval quietly loses coverage.
 
+## The fix and its trade
+
+The fix is to measure time-to-vector for new items and its recall cost
+per query class — embedding freshness is an indexing pipeline decision,
+not a model detail. The executed coverage check prices the failure:
+the five-item catalog has only 3 vectors, and item_d and item_e are
+unreachable by dense retrieval whatever their relevance, because they
+wait for the next embedding run. Their wait is a recall loss for every
+query they would have answered.
+
+The trade, named: more frequent embedding runs cost compute and pipeline
+load, and the gap between runs — plus the queue of new items waiting in
+it — is exactly where dense retrieval quietly loses coverage. The same
+staleness discipline as the retraining stage applies: the freshness
+schedule should be derived from the measured recall cost per query
+class, not from a fixed calendar, and the index rebuild must be
+monitored against the catalog's arrival rate.
+
+## Who owns the loop
+
+- **The serving and indexing team** owns the embedding run schedule and
+  the time-to-vector for new catalog items.
+- **The dense-retrieval model team** owns the vector freshness contract
+  and re-embeds when the recall cost is measured to be too high.
+- **The evaluation team** owns the per-query-class recall read that
+  converts a coverage gap into a recall number.
+
 ## Evidence boundary
 
 The executed coverage check over a five-item hand-built catalog

@@ -48,6 +48,36 @@ over it. The check is overlap rate: when the served overlap collapses,
 the fused list has stopped being a consensus and become an
 interleaving.
 
+## The fix and its trade
+
+The fix is to monitor the served overlap rate — when the overlap
+collapses, the fused list has stopped being a consensus and become an
+interleaving, and the system must know. The executed disjoint case
+prices why: with two disjoint four-document lists, every fused entry
+comes from exactly one matcher, the two rank-1 documents tie (both
+1/61), and the page order between them is a coin flip between the
+lexical prior and the dense prior. RRF's signal is agreement — Cormack,
+Clarke and Büttcher (SIGIR 2009) show it beating rank-learning methods
+precisely because it rewards documents several rankings place highly —
+and with disjoint sets that signal is empty.
+
+The trade, named: overlap monitoring costs a served-overlap read on the
+query distribution, and the alternative is a fused page that papers
+over a matcher failure — a disjoint result usually means one matcher
+silently failed to understand the query (a vocabulary gap in one, a
+sparse tail in the other). The operational question is not which fusion
+weight; it is whether the matchers are answering the same query at all.
+
+## Who owns the loop
+
+- **The evaluation and relevance team** owns the overlap-rate monitor
+  over the served query distribution.
+- **The retrieval teams** own the matcher health the disjoint signal
+  implicates — a collapsed overlap is a retrieval failure wearing a
+  fusion artifact.
+- **The fusion team** owns the empty-agreement detection and the alert
+  that fires before the interleaved page ships.
+
 ## Evidence boundary
 
 The executed fusion over two hand-built disjoint lists (illustrative,

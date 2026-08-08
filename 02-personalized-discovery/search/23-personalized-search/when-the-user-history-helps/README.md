@@ -36,6 +36,33 @@ query's meaning, and the prior is what personalization adds. The query
 still decides the candidate set — the history decides which reading of
 the query the user most likely meant.
 
+## The fix and its trade
+
+The fix is to treat history as a prior over the query's meaning, with
+measured history quality — the query still decides the candidate set,
+and the history decides which reading the user most likely meant. The
+executed disambiguation prices the mechanism: `apple` with a phone-heavy
+history (iphone battery, iphone cases) scores apple store support 0.9
+against fruit recipes 0.4 and apple pie recipe 0.3 — the prior lifts the
+intended reading without changing what the query could retrieve.
+
+The trade, named: history buys disambiguation at the price of history
+quality — a noisy or stale history weakens the prior it provides, and a
+stale one is stage 46's expiry in a different artifact, quietly shifting
+the reading of every ambiguous query. The boundary is the same as the
+over-personalization detour: the prior must stay a prior, because the
+moment it overrides the query's candidate set, personalization becomes
+a filter.
+
+## Who owns the loop
+
+- **The personalization model team** owns the history features and the
+  prior's strength per query class.
+- **The data team** owns history freshness and quality — a stale history
+  is a weak or wrong prior.
+- **The evaluation team** owns the disambiguation read that shows the
+  prior lifting the intended reading without hiding alternatives.
+
 ## Evidence boundary
 
 The executed scoring over three hand-built documents and one declared

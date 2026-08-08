@@ -48,6 +48,36 @@ returns shorts results will look healthy on both — the failure is a
 relevance miss that no funnel metric sees until a user types `shoes`
 instead.
 
+## The fix and its trade
+
+The fix is to stack log evidence on top of edit distance — click logs and
+query co-occurrence — because a real-word error is invisible to any
+string-level repair. The executed check prices the failure: `shorts` is
+a valid catalog term, so no correction fires; the nearest other term is
+`shirts` (distance 1); the distance to the intended `shoes` is 2, not
+even the nearest candidate; and BM25 serves shorts to a user who wanted
+shoes. The check "is this token known?" passes, so the error never
+reaches the corrector. Hirst and Budanitsky (2005) formalize the same
+class: real-word errors can only be detected from context, never from
+the lexicon.
+
+The trade, named: a log-derived context model costs click data, privacy
+surface, and a serving dependency — and the failure it catches is
+otherwise invisible: a `shorts` query that returns shorts results looks
+healthy on zero-result rate and click-through, so no funnel metric sees
+the relevance miss until a user types `shoes` instead. The repair is
+worth exactly the mis-serve volume the log evidence measures.
+
+## Who owns the loop
+
+- **The expansion team** owns the log-derived context model that detects
+  real-word errors.
+- **The data and logging team** owns the click and co-occurrence evidence
+  the model reads, including its privacy boundary.
+- **The relevance team** owns the mis-serve read — the funnel metrics
+  that look healthy while a real-word miss ships are their blind spot
+  to close.
+
 ## Evidence boundary
 
 The executed membership-and-distance check over one query and one

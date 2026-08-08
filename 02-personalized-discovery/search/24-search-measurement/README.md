@@ -65,6 +65,27 @@ incident-sized in its own row. The decision that follows: report the
 funnel per slice, and treat a slice whose rate is a third of the
 aggregate as an incident, not a rounding error.
 
+## The fix and its trade
+
+The fix is to report the funnel per slice and to break every zero-result
+query into its cause — catalog gap, misspelling, or vocabulary miss —
+because the same rate hides three different failures with three
+different fixes. The executed audit prices the failure the fix removes:
+the aggregate (1.67% conversion, 5.9% zero) looks normal while
+mobile-tail — 11% of traffic — converts at 0.20% with a 25% zero-result
+rate; the slice barely moves the mean, which is exactly why the mean
+cannot be the report. The zero-rate breakdown is equally structural: of
+four queries, one is a vocabulary miss ("headphones" — no such term in
+the index), two are catalog gaps (no earbuds in the catalogue; no
+misspelling correction for "heaphones"), and one is normal.
+
+The trade, named: per-slice reporting costs slice attributes on every
+log line, and the cause taxonomy costs validation against what actually
+fixed each zero — and the alternative is an aggregate that certifies a
+failing slice as "the funnel is flat." A slice whose rate is a third of
+the aggregate is an incident, not a rounding error, and a zero-result
+rate without its causes is a headline with no decision attached.
+
 ## Who owns the loop
 
 The funnel is the search surface's outcome; someone must own what the

@@ -47,6 +47,34 @@ This is also the measurement discipline the stage's own
 lift per slice, and check the traffic share of each slice, because the
 aggregate hides exactly this concentration.
 
+## The fix and its trade
+
+The fix is a cold-start policy for the no-history majority — a
+popularity or query-only prior, not a bigger model — paired with the
+per-slice lift report that shows who the model actually helps. The
+executed traffic-mix arithmetic prices the failure: new users are 70%
+of traffic and contribute +0.000, light-history users (20%) contribute
++0.020, and heavy-history users (10%) contribute +0.150 — the aggregate
++0.019 is a weighted average dragged toward "no effect" by the slice
+the model cannot personalize. Dou, Song and Wen (WWW 2007) measure the
+same shape at scale.
+
+The trade, named: the product decision is not the heavy-slice lift — it
+is what the 70% see before any history exists, and the cold-start prior
+trades personalization upside on the minority for a sane default on the
+majority. The aggregate without the slice report hides exactly this
+concentration, which is why the per-slice read and the traffic share
+are part of the acceptance bar, not an appendix.
+
+## Who owns the loop
+
+- **The data and product team** owns the traffic mix and the cold-start
+  policy for the no-history majority.
+- **The personalization model team** owns the no-history path — the
+  query-only prior the 70% actually see.
+- **The evaluation team** owns the per-slice lift reporting that stops
+  an aggregate from certifying a minority-only improvement.
+
 ## Evidence boundary
 
 The executed traffic-mix arithmetic over three illustrative slices

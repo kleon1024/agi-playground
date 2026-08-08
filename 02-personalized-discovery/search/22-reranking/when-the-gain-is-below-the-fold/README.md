@@ -48,6 +48,33 @@ by head and tail, because the tail is where the rich features misfire
 at the top (the stage's own [served-k audit](../runs/2026-08-07-rerank-audit.md)
 measures that slice collapsing at @3 while improving at @10).
 
+## The fix and its trade
+
+The fix is to report at the served k and audit per position — gains below
+the fold are not shipped value. The executed divergence prices the
+failure: the reranker promotes a grade-2 document from position 10 to 4,
+fixing the middle of the list (NDCG@10 improves 0.9592 to 0.9758), but
+mis-swaps positions 2 and 3, so the three-slot page shows a worse top-3
+(NDCG@3 falls 1.0000 to 0.9677). The offline experiment approves the
+reranker; the served surface says it hurt.
+
+The trade, named: the cross-encoder reranker (Nogueira and Cho 2019) is
+expensive enough that it runs on a shortlist, and the served page is
+even shorter — so the k gap between eval and serving is where the
+reranker's value leaks. Every ship needs the same check: report at the
+served k, audit per position, and slice by head and tail, because the
+tail is where rich features misfire at the top while the aggregate
+stays positive.
+
+## Who owns the loop
+
+- **The evaluation and product team** owns the surface contract — what k
+  the page actually serves, and the @10-versus-@3 audit.
+- **The ranking team** owns the served-k evaluation that decides whether
+  a rerank change ships.
+- **The serving team** owns the pool size that defines what the reranker
+  is allowed to reorder.
+
 ## Evidence boundary
 
 The executed comparison over one hand-built grade list (illustrative,

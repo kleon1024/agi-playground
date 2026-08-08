@@ -52,6 +52,37 @@ and to audit the cosine range itself: if the served distribution of
 similarities is a spike instead of a spread, the index is not ranking
 anything.
 
+## The fix and its trade
+
+The fix is to repair the space — contrastive or debiased training
+objectives, or post-hoc whitening — and to audit the cosine range
+itself: if the served distribution of similarities is a spike instead
+of a spread, the index is not ranking anything. The executed collapse
+prices the failure: in the healthy space cosine spans the full range
+(relevant d1 at +0.981, unrelated d5 at +0.000, opposite d4 at -1.000)
+and the relevant document wins; in the degenerate space all five
+documents sit inside +0.975..+0.990, the ranking is decided by noise
+offsets, and the unrelated d5 outranks the relevant d1. Ethayarajh,
+Duvenaud and Hirst (ACL 2019) measure the anisotropy directly; Gao et
+al. (ICLR 2019) connect the collapse to the training objective.
+
+The trade, named: contrastive objectives and debiasing cost training
+data and compute, and whitening costs a post-processing transform — and
+neither is a threshold-tuning shortcut, because the dense ranker still
+emits an order, so recall@k looks healthy while the order itself has
+become a frequency prior. The cosine-range audit is the cheap guard that
+catches the spike before the index is trusted.
+
+## Who owns the loop
+
+- **The dense-retrieval model team** owns the space and its training
+  objective — the anisotropy check is their shipping bar.
+- **The serving and indexing team** owns the cosine-range audit on the
+  served snapshot, so a collapsing space is caught in serving, not in
+  the next retrain.
+- **The evaluation team** owns the recall@k read that must be paired with
+  an order sanity check, since recall alone certifies a frequency prior.
+
 ## Evidence boundary
 
 The two hand-built concept spaces (illustrative, deterministic). They

@@ -35,6 +35,34 @@ a miss. The search report that counts only per-query success is
 measuring the system at its worst moment, before the user fixed the
 query for it.
 
+## The fix and its trade
+
+The fix is session metrics that catch the recovery that per-query
+metrics call a miss. The executed two-query session prices the framing:
+`heaphones` returns no click, then `headphones` clicks d2 — judged
+alone the first query is a failure, and judged as a session it is the
+intent the second query satisfied. The user reformulated, and the
+reformulation is itself the correction signal; a report that counts
+only per-query success measures the system at its worst moment, before
+the user fixed the query for it.
+
+The trade, named: session metrics depend on a session boundary
+definition, and the reformulation signal is strongest when the second
+query's success can be tied to the first query's intent — tying them
+costs a session-attribution model and the risk of crediting a different
+intent. The alternative, per-query verdicts, is simpler and
+systematically pessimistic on exactly the recovered sessions that
+measurement should reward.
+
+## Who owns the loop
+
+- **The analytics team** owns the session metric and its attribution
+  between reformulated queries.
+- **The product owner** owns the session definition the numbers are read
+  against.
+- **The data team** owns the reformulation evidence in the query log
+  that ties the second query's success to the first query's intent.
+
 ## Evidence boundary
 
 The executed two-query session (illustrative, deterministic). It

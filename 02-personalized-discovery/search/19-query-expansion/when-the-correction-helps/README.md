@@ -34,6 +34,32 @@ produces a nicer string but no recovered documents has changed nothing,
 which is why stage 19 measures correction at the index rather than at
 the string.
 
+## The fix and its trade
+
+The fix is to price correction at the index — document hits recovered —
+not at the query string. The executed recovery prices it: the raw query
+`heaphones` retrieves 0 documents; the corrected `headphones` retrieves
+3. A correction that produces a nicer string but recovers nothing has
+changed nothing, which is why stage 19 measures correction at retrieval
+rather than at spelling.
+
+The trade, named: the index-side read costs an evaluation harness and a
+declared relevance bar, and it reveals the correction's real boundary —
+over the query log, some misspellings recover nothing because the
+catalog does not contain the intended item at all, and no corrector can
+repair a document that does not exist. Candidate generation from the
+catalog and a language prior over what the user meant are the additional
+costs of turning a distance table into a production correction.
+
+## Who owns the loop
+
+- **The expansion team** owns the correction candidates and the language
+  prior that picks among near-distance terms.
+- **The retrieval team** owns the recovery read — the document hits the
+  corrected query recovers against the declared relevance bar.
+- **The data team** owns the query log where correction value is
+  measured, including the misspellings that recover nothing.
+
 ## Evidence boundary
 
 The executed comparison over one misspelling against one hand-built

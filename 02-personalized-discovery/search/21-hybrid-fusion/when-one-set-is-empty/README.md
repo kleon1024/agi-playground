@@ -34,6 +34,34 @@ still looks like a fused list — which is why fusion needs a health
 check per set: the system has to know it lost a matcher, because the
 coverage promise stage 21 makes is only true while both sets are alive.
 
+## The fix and its trade
+
+The fix is a health check per matcher — result counts and latency as
+served signals — because the coverage promise stage 21 makes is only
+true while both sets are alive. The executed degradation prices the
+failure: with both matchers the fused list leads d2, d1, d4, d3, d5;
+with the dense set empty it is simply the lexical ranking d1, d2, d3.
+Nothing flags the change — the output still looks like a fused list —
+while every document that only dense retrieval would have found,
+including the vocabulary-mismatch matches fusion exists to keep, is
+gone.
+
+The trade, named: per-matcher monitoring costs signals and alerting on
+each retrieval path, and the alternative is a silent recall loss that
+only shows up as a user-visible gap — an empty or stale matcher is
+indistinguishable from a working one at the list level. The coverage
+contract of hybrid search is a liveness property, and liveness needs
+the monitor, not the fusion formula.
+
+## Who owns the loop
+
+- **The retrieval teams** own their sets' health — an empty or stale
+  matcher is their artifact failing, not the fusion's.
+- **The serving team** owns the per-matcher result-count and latency
+  monitoring that raises the alarm.
+- **The evaluation team** owns the coverage-promise read that converts a
+  degraded list into a recall number.
+
 ## Evidence boundary
 
 The executed degradation over two hand-built lists (illustrative,

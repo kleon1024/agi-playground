@@ -74,6 +74,28 @@ freshness is a tail decision — refresh for the tail, or fall back to
 the hybrid path in [stage 21](../21-hybrid-fusion/) for the queries the
 stale vectors cannot serve.
 
+## The fix and its trade
+
+The fix is to treat embedding freshness as a tail decision — refresh for
+the tail, or fall back to the hybrid path for the queries a stale vector
+set cannot serve — and to audit the fresh-versus-stale gap by stratum.
+The executed audit prices the failure the fix removes: head queries
+survive a stale index (fresh recall@5 1.000 to stale 0.940, gap -0.060)
+while tail queries lose most of their retrieval (1.000 to 0.400, gap
+-0.600) — the aggregate gap of -0.330 makes the snapshot look usable
+while every unit of the loss is tail recall. Huang et al. (KDD 2020)
+document the industrial two-tower design at Facebook search, including
+the hard-negative sampling between ranks 101-500 that decides how well
+the tail is represented in the first place.
+
+The trade, named: the vector space is the index, and its quality is the
+training data — better tail representation costs harder negative
+sampling and more training data, and freshness costs embedding-run
+compute on every schedule change. The alternative to both, hybrid
+fusion (stage 21), keeps coverage by letting the lexical path carry the
+queries the stale vectors cannot, at the price of a fusion rule that
+must be measured.
+
 ## Who owns the loop
 
 The vector space is the retrieval index; someone must own what serves

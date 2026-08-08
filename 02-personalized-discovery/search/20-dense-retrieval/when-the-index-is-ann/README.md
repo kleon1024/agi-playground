@@ -38,6 +38,32 @@ latency budget, exact search is an option; when it does not, ANN is not
 a quality choice but the only working choice, and the recall loss at
 the boundary is the price of scale.
 
+## The fix and its trade
+
+The fix is ANN with a measured recall-versus-scanned curve, with the
+operating point chosen against the search p95 budget. The executed
+curve prices the trade: scanning 100 of 100,000 vectors returns 0.001
+recall, 1,000 returns 0.010, 10,000 returns 0.100, and only a full scan
+reaches 1.000. Exact retrieval is full recall at full latency; ANN
+scans a fraction and accepts a recall loss at the boundary.
+
+The trade, named: when the catalogue fits the latency budget, exact
+search is an option; when it does not, ANN is not a quality choice but
+the only working choice — and the recall loss at the boundary is the
+price of scale. The p95 budget decides where on the curve the system
+can afford to sit, and the curve must be measured per index
+configuration (index parameters change the shape), never assumed
+linear.
+
+## Who owns the loop
+
+- **The serving and indexing team** owns the ANN configuration and the
+  scan budget it consumes per request.
+- **The retrieval team** owns the recall measurement per index
+  configuration — the curve is their artifact, not a vendor number.
+- **The product owner** owns the p95 target that fixes the operating
+  point on the curve.
+
 ## Evidence boundary
 
 The executed linear scan model (illustrative, deterministic, uniform

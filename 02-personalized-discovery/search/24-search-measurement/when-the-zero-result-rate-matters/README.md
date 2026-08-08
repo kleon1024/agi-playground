@@ -35,6 +35,34 @@ well ranked results satisfy queries that have results; the zero-result
 rate measures the queries where ranking never ran, which is where the
 funnel loses users before quality can matter.
 
+## The fix and its trade
+
+The fix is to price the zero-result rate through abandonment as a
+coverage metric with a revenue shape, with the causes attached. The
+executed pricing shows the shape: 100,000 daily queries, 8,000
+zero-result (8%), and at 60% abandonment an estimated 4,800 lost users
+per day. NDCG and MRR measure how well ranked results satisfy queries
+that have results; the zero-result rate measures the queries where
+ranking never ran, which is where the funnel loses users before quality
+can matter.
+
+The trade, named: the pricing depends on an abandonment rate that must
+be measured from follow-up session behavior, not assumed — and the
+headline 8% without the cause breakdown (catalog gap versus misspelling
+versus vocabulary miss) cannot decide between a supply fix, a query-
+repair fix, and a retrieval-model fix. The zero-result rate earns its
+place in the report only when it carries both the revenue shape and the
+decision attached.
+
+## Who owns the loop
+
+- **The analytics team** owns the abandonment pricing and the
+  zero-result cause taxonomy.
+- **The data team** owns the follow-up session behavior the abandonment
+  rate is measured from.
+- **The product owner** owns the fix decision the causes imply — supply,
+  query repair, or retrieval — and the budget that goes with it.
+
 ## Evidence boundary
 
 The executed pricing over declared daily volume and abandonment rates

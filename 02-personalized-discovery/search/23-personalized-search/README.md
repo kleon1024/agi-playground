@@ -66,6 +66,27 @@ follows: report the lift per slice, check the traffic share of each
 slice, and pair the model with a cold-start policy for the no-history
 majority.
 
+## The fix and its trade
+
+The fix is to report the lift per slice, check the traffic share of each
+slice, and pair the model with a cold-start policy for the no-history
+majority. The executed audit prices the failure the fix removes: the
+aggregate lift +0.070 is entirely the history-bearing slice — heavy-tail
+queries lift +0.250 and heavy-head +0.050 while new-user tail queries
+degrade -0.020 and new-user head gain +0.000. Dou, Song and Wen (WWW
+2007) measure the same dependence at scale: personalization gains vary
+by user and query type, with head queries and low-history users gaining
+little.
+
+The trade, named: personalization adds context to the query, and the
+context's risk is overriding the query's actual intent — the blend
+needs a guardrail that lets the query win when history narrows coverage.
+The traffic-mix arithmetic makes the second trade explicit: with 70% of
+sessions carrying no history, the product decision is the cold-start
+policy (a popularity or query-only prior), not the heavy-slice lift —
+and the aggregate number, without the slice report, certifies a model
+that helps 10% of users as a platform-wide improvement.
+
 ## Who owns the loop
 
 Personalization changes what each user sees; someone must own what the

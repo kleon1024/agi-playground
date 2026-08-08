@@ -81,6 +81,29 @@ the benefit is query-dependent, which is what the stratification makes
 visible. The decision that follows is to gate expansion by stratum, not
 to ship it everywhere on the strength of the average.
 
+## The fix and its trade
+
+The fix is to measure expansion at the index — the recall it recovers —
+and to gate it by stratum instead of shipping it everywhere on the
+strength of the average. The executed audit prices the failure the fix
+removes: over a 24-query log (12 head, 12 tail), head queries recover
+0.000 (base and expanded recall both 1.000) while taking on 1.00
+irrelevant hit each, and the tail carries all of the +0.467 lift (0.350
+to 0.817) — the aggregate reports +0.233 as if it applied everywhere.
+The correction side is priced the same way: `heaphones` sits one edit
+away from `headphones` (and five from the next candidate), the raw
+query matches nothing, and the corrected query recovers the catalog —
+the value of a correction is the recall it recovers, not its distance
+score.
+
+The trade, named: expansion buys tail recall at the price of head
+precision — 1.00 noise units per head query for zero lift — and Xu and
+Croft (SIGIR 1996) showed local per-query analysis beats global
+expansion for exactly this reason: the benefit is query-dependent,
+which is what the stratification makes visible. The gate by stratum
+costs an audit on every policy change, and the alternative is an
+aggregate report that certifies a system that worsened head traffic.
+
 ## Who owns the loop
 
 The expansion changes what retrieval is allowed to see; someone must own

@@ -905,99 +905,99 @@
   },
   "02-personalized-discovery/search/19-query-expansion": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "02-personalized-discovery/search/19-query-expansion/when-expansion-hurts": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/19-query-expansion/when-the-correction-helps": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/19-query-expansion/when-the-typo-is-a-real-word": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "02-personalized-discovery/search/20-dense-retrieval": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "02-personalized-discovery/search/20-dense-retrieval/when-everything-is-equidistant": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "02-personalized-discovery/search/20-dense-retrieval/when-the-embedding-is-stale": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/20-dense-retrieval/when-the-index-is-ann": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/21-hybrid-fusion": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "02-personalized-discovery/search/21-hybrid-fusion/when-one-set-is-empty": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/21-hybrid-fusion/when-the-fusion-weight-moves": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/21-hybrid-fusion/when-the-sets-disagree-entirely": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "02-personalized-discovery/search/22-reranking": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "02-personalized-discovery/search/22-reranking/when-the-gain-is-below-the-fold": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "02-personalized-discovery/search/22-reranking/when-the-rerank-budget-is-tight": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/22-reranking/when-the-reranker-disagrees": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/23-personalized-search": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "02-personalized-discovery/search/23-personalized-search/when-personalization-hurts": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/23-personalized-search/when-the-new-user-is-the-majority": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/23-personalized-search/when-the-user-history-helps": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/24-search-measurement": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 6
   },
   "02-personalized-discovery/search/24-search-measurement/when-the-click-is-a-query": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/24-search-measurement/when-the-session-definition-moves": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "02-personalized-discovery/search/24-search-measurement/when-the-zero-result-rate-matters": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "02-personalized-discovery/search/35-generative-retrieval": {
     "level": "applied",

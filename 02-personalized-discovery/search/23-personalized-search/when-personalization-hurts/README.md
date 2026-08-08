@@ -34,6 +34,33 @@ shoes, hiking boots, and slippers are gone. The query's own signal has
 to win sometimes: personalization is a prior over meaning, and a prior
 that overrides the query stops being a prior and becomes a filter.
 
+## The fix and its trade
+
+The fix is a coverage guard per query class — the mission's catalogue
+coverage guardrail applied to search — that stops the history prior from
+overriding a broad query. The executed narrowing prices the failure: for
+`shoes` without history the result set spans running shoes, dress shoes,
+hiking boots, and slippers (four categories); with a trail-running
+history it collapses to trail runners, running shoes, trail shoes, and
+trail boots (one category). When the user's intent is broader than their
+history, personalization hides relevant results.
+
+The trade, named: personalization is a prior over meaning, and a prior
+that overrides the query stops being a prior and becomes a filter —
+the guard costs a coverage floor per query class and a blend rule that
+lets the query's own signal win, and the alternative is a personalized
+page that optimizes the affinity model while the broad query's actual
+intent goes unserved.
+
+## Who owns the loop
+
+- **The personalization model team** owns the affinity model and the
+  guardrail that stops context from overriding the query.
+- **The ranking team** owns the blend — relevance plus affinity — and
+  the rule that lets the query win when history narrows.
+- **The product team** owns the coverage promise per query class, priced
+  against the personalization lift the narrowing buys.
+
 ## Evidence boundary
 
 The executed comparison over one query and one declared history

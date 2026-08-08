@@ -35,6 +35,34 @@ context and fruit in another, and the ambiguity is the cost. No new
 relevant hits were added. Expansion needs a sense signal to know which
 meaning the user intended before it widens the query.
 
+## The fix and its trade
+
+The fix is a sense signal before the query is widened — expansion must
+know which meaning the user intended — measured as added relevant recall
+against added irrelevant retrieval. The executed ambiguity prices the
+failure: the base query `apple` returns 4 hits, all relevant; expansion
+still returns 4 but now includes the wrong senses (phone and laptop
+documents), and zero new relevant hits were added. Expansion traded
+precision for recall and lost on both: `apple` means phone in one
+context and fruit in another, and the ambiguity is the cost.
+
+The trade, named: a sense model costs context signals the string does not
+carry — click evidence and query co-occurrence — and adds a model and a
+serving dependency to the expansion path. The alternative, expanding
+without a sense signal, widens every ambiguous term and lets the index
+outrank noise it was never meant to see. Real expansion systems measure
+the added relevant recall against the added irrelevant retrieval over
+the query log before shipping a term-sense model.
+
+## Who owns the loop
+
+- **The expansion team** owns the sense model and the gate that stops an
+  ambiguous term from widening.
+- **The retrieval team** owns the noise the widened query introduces and
+  the outranking cost it imposes on the index.
+- **The data and logging team** owns the click and co-occurrence evidence
+  the sense signal is derived from.
+
 ## Evidence boundary
 
 The executed comparison over one ambiguous term (illustrative,

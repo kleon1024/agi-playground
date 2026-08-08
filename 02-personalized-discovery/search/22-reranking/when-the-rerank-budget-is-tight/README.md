@@ -34,6 +34,33 @@ filter on what the reranker can fix — a tight budget hides recall. The
 expensive model's value is capped by the pool the budget allows, so the
 pool size is a quality decision, not an operational detail.
 
+## The fix and its trade
+
+The fix is to measure the recall lost at the pool boundary against the
+latency saved, per query class — the pool size is a quality decision, not
+an operational detail. The executed cutoff prices the failure: a
+document with a 0.99 reranker score sits at position 5 of the first
+stage, and with k=3 or k=4 the reranker never sees it — the score is
+real but unreachable, and only k=5 lets it through. The first stage's
+cutoff is a filter on what the reranker can fix: a tight budget hides
+recall.
+
+The trade, named: a tighter pool saves cross-encoder latency on every
+request and loses the reranker's verdict on everything below the line —
+the expensive model's value is capped by the pool the budget allows.
+The operating point comes from the per-query-class measurement: queries
+whose rerank gains sit deep in the first-stage order pay more for a
+bigger pool than queries whose gains sit at the top.
+
+## Who owns the loop
+
+- **The serving and infrastructure team** owns the budget and the top-k
+  cutoff it permits.
+- **The ranking team** owns the recall-lost read at the pool boundary —
+  a hidden 0.99 score is their artifact failing.
+- **The evaluation team** owns the per-query-class latency-versus-recall
+  measurement that sets the operating point.
+
 ## Evidence boundary
 
 The executed sweep over one hand-built score list (illustrative,

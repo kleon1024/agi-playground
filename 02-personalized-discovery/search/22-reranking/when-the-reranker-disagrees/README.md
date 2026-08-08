@@ -36,6 +36,32 @@ stage's verdict. The disagreement is what makes the reranker worth its
 latency, and the pool boundary decides how much of that better verdict
 the system actually applies.
 
+## The fix and its trade
+
+The fix is to measure agreement per query class and tune the pool to the
+queries where disagreement is valuable. The executed comparison prices
+both sides: the first stage ranks d1, d2, d4, d3, d5 and the reranker
+ranks d3, d2, d5, d4, d1 — the top-3 differ entirely. The disagreement
+is the point: if the two stages always agreed, the reranker would be
+dead weight. It is also the risk: the budget only reranks a pool, and
+anything outside it keeps the first stage's verdict.
+
+The trade, named: the pool boundary decides how much of the reranker's
+better verdict the system actually applies — a small pool trusts the
+cheap stage's order everywhere outside it, and a large pool pays
+cross-encoder latency even on queries where the two stages would have
+agreed anyway. Tuning the pool to the query classes where disagreement
+is valuable spends the budget where the reranker earns it.
+
+## Who owns the loop
+
+- **The ranking team** owns the reranker and the per-query-class
+  agreement measurement.
+- **The serving team** owns the pool boundary that decides how much of
+  the better verdict reaches the page.
+- **The evaluation team** owns the disagreement-value read — the query
+  classes where the rich features change the outcome for the better.
+
 ## Evidence boundary
 
 The executed comparison over five hand-built documents with declared

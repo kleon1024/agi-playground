@@ -47,6 +47,35 @@ interpretable if the segmentation did not change with it — the
 offline-consistency version of the question is "is the metric stable
 under the definition, or is the definition what moved?"
 
+## The fix and its trade
+
+The fix is to own, document, and freeze the session definition before
+the numbers mean anything. The executed segmentation prices why: the
+same six-event log segmented by a 30-minute timeout yields 2 sessions,
+100% success, 0% zero-result sessions, and 3.0 queries per session,
+while topic continuation yields 5 sessions, 40% success, 60%
+zero-result sessions, and 1.2 queries per session — two teams with two
+definitions reach opposite conclusions about whether search improved.
+Jones and Klinkner (CIKM 2008) show a fixed timeout is a weak proxy for
+the real boundary: search topics span timeouts, and a timeout both
+merges distinct topics and splits one topic across sessions.
+
+The trade, named: topic segmentation costs measured topic boundaries
+over the production query log, and the alternative is a definition that
+drifts with the calendar. The offline-consistency discipline is the
+same as the rest of the mission: a funnel change between two months is
+only interpretable if the segmentation did not change with it — the
+question is whether the metric moved or the definition did.
+
+## Who owns the loop
+
+- **The analytics team** owns the session definition and its change
+  control — a definition change is a metric change, not a bug fix.
+- **The data team** owns production sessionization and the measured
+  topic boundaries it is built on.
+- **The product owner** owns the interpretation of month-over-month
+  funnel changes, which is only valid under a frozen definition.
+
 ## Evidence boundary
 
 The executed segmentation over one hand-built six-event log

@@ -62,6 +62,27 @@ shortlist is short and the served page shorter. The decision that
 follows: report at the served k, audit per position, and slice the
 rerank experiment by head and tail before shipping.
 
+## The fix and its trade
+
+The fix is to evaluate the reranker at the served k, audit per position,
+and slice the experiment by head and tail before shipping. The executed
+audit prices the failure the fix removes: the first stage's order d1-d5
+becomes d4, d2, d5, d1, d3 — 4 of 5 positions change — but the head
+stratum agrees at @10 and @3 (delta +0.080/+0.050) while the tail
+improves +0.080 at @10 and degrades -0.080 at @3. The @10 experiment
+approves the reranker on the aggregate while the served @3 report says
+the page got worse, and the entire loss is tail: the reranker's fixes
+land in the middle of the list, below the three served slots. Nogueira
+and Cho (2019) describe the cross-encoder reranker production systems
+deploy, and its cost is why the shortlist is short and the served page
+shorter.
+
+The trade, named: the reranker buys richer features for a small pool at
+the price of cross-encoder latency, and the pool boundary decides how
+much of the first stage's verdict survives — the audit's @10-versus-@3
+split is what stops a middle-of-the-list fix from shipping as a page
+improvement.
+
 ## Who owns the loop
 
 The reranker changes the order the user sees; someone must own the k
