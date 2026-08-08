@@ -140,6 +140,43 @@ You cannot fix this model by making it bigger. That is the entire argument for
 why [stage 00](../../01-language-model/00-corpus/) — building a real corpus — comes
 before stage 02.
 
+## The fix and its trade
+
+The loop's real content is its three built-in diagnostics, and each one is
+the fix for a failure that otherwise goes silent until much later. The
+step-0 sanity check: the starting loss 4.3266 sits just above
+`ln(65) = 4.174`, the cross-entropy of a uniform distribution over 65
+characters. That landing zone is the contract — a step-0 loss far above
+means a bug in initialization, the loss, or the label alignment that no
+amount of training will fix, and one far below means the labels are leaking
+into the inputs. The gap read: "is it still learning?" cannot be answered
+by either curve alone; the train/val distance is the quantity that
+separates the early transfer (iterations 0-250 split 1.7891 vs 1.7824,
+essentially all of it) from the late memorization (1750-2000 split 0.0091
+vs 0.0064, with the gap grown from 0.0006 to 0.2630). And the
+data-not-model lesson: this model saw its 1.1MB corpus about 30 times over,
+while compute-optimal training for 10.75M parameters wants on the order of
+215M unique tokens (Hoffmann et al., 2022); we supplied roughly 0.3M. The
+trade is that the loop is honest about its own ceiling — "bubzed" and
+"ladiest" are the shape of English with no meaning, and the widening gap is
+that memorization becoming visible — which is exactly the argument for why
+corpus construction comes before pretraining in this curriculum.
+
+## Who owns the loop
+
+- **The training engineer** owns the loop's health checks: the step-0 loss
+  against `ln(vocab_size)` and the curve shape (val 4.327 to 1.538 in 34
+  seconds). A flat or rising curve is a mechanical bug — wrong mask, wrong
+  loss reduction, a learning rate that diverges — not a tuning question.
+- **The data team** owns the generalization ceiling: the corpus is the
+  binding constraint, and the widening train/val gap is their signal, not
+  a model defect. Fix the data, keep the model identical, and the samples
+  improve without a single architecture change.
+- **The evaluation owner** owns the overfitting read: the gap growth is
+  reported as a diagnostic with a known boundary — this loop's job is the
+  mechanism, not generalization — and the gap is where the later
+  curriculum (data scale, regularization, evaluation) begins.
+
 ## Reading the code
 
 `core/train_gpt.py` is ~190 lines. The parts worth pausing on:

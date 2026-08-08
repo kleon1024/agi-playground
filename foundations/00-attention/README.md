@@ -304,6 +304,54 @@ transformation are two separate jobs, done by two separate sublayers.
 
 </details>
 
+## The fix and its trade
+
+Every mechanism in this chapter is a fix for a failure the naive version
+produces. Read as a canvas, the decoder block is six failure modes with six
+measured trades:
+
+| Mechanism | Failure it fixes | The measured trade |
+|---|---|---|
+| Score scaling | saturated softmax (unscaled scores at $\sigma=8$, $e^{24}$ vs $e^{-24}$, one-hot, no gradient to losers) | scaled to $\sigma=1$, ratio $e^6 \approx 403$: sharp enough to select, soft enough to learn |
+| Causal mask | future leakage at training time | visible only in training; at serving the same rule is why a prefix cannot reuse keys it has not seen |
+| Multi-head + GQA | one similarity function cannot cover syntax, locality, reference, long range | 12 query heads keep retrieval power, 4 KV heads cut the cache to a third (12.0 vs 36.0 MiB) |
+| RoPE | position swap leaves attention unchanged | wavelength ladder: fast dims give locality, slow dims carry range, but "computable beyond training length" is not "learned" |
+| Residual + pre-norm | gradients die crossing depth | identity path keeps information flowing; post-norm needs warmup to train at all |
+| SwiGLU | one projection cannot both select and transform | three matrices per block, 4,718,592 parameters, where the model keeps what it knows |
+
+The trade that runs through all six rows is the same one: every
+failure-prevention mechanism spends capacity, memory, or trainability to buy
+trainability, and the chapter's worked numbers exist so the cost is seen
+next to the benefit. Softmax scaling costs nothing and buys the whole
+retrieval mechanism; GQA buys a third of the cache for full retrieval
+capacity but commits the architecture to a KV budget serving will live
+with; RoPE buys relative geometry but hands the "did the model actually
+learn long range" question to data and evaluation. The production
+implementations that compute the same things faster (FlashAttention's exact
+softmax, made IO-aware; Dao et al., 2022) follow the pattern this chapter's
+reference list closes: none of them changes what a mechanism computes, only
+where intermediate state lives.
+
+## Who owns the loop
+
+- **The model architecture team** owns the block shape: head counts, RoPE
+  theta, norm placement, and the FFN expansion are chosen once and felt
+  everywhere, in the parameter count, the cache, and whether training is
+  stable. The six numbers that fix the whole budget in
+  [what a block costs](what-it-costs/) are this team's decision surface.
+- **The serving team** owns the KV-cache consequence: the 12-query/4-KV
+  head split is an architecture decision that shows up as the concurrency
+  ceiling at inference, which is why serving treats cache allocation as its
+  central problem rather than a detail.
+- **The evaluation team** owns the claims RoPE does not deliver: extended
+  context is computable beyond the training length, and whether the model
+  learned to use those distances is an eval question, not an architecture
+  guarantee.
+- **The training team** owns the residual and norm-placement consequences:
+  the pre-norm highway is what keeps this loop trainable without warmup,
+  and moving the norm onto the highway moves warmup from optional to
+  required.
+
 ## Evidence boundary and next step
 
 This chapter explains a decoder block; it does not establish that a model

@@ -1113,18 +1113,66 @@ bio-pharma modeling and autonomous driving — were subsequently audited in
 full as their own sections (fifteenth and sixteenth audit increments,
 2026-08-08).**
 
-**Remaining, after the vision-path audit (twentieth increment):** the
-following sections are still `pending` and are worked next, in order:
+**Done for foundations 00-01 (twenty-first audit increment, 2026-08-08).**
+The decoder-block and first-training-loop sections now carry the
+fix-and-trade and who-owns-the-loop sections the audit contract requires,
+each reusing the chapter's own measured numbers:
 
-- Foundations 00-01, 03-05 (attention, first training loop, backpropagation,
-  distributed training, is-the-difference-real), including their detours —
-  `00-attention/` (rope, what-it-costs), `01-first-training-loop/`
-  (the-curve-that-takes-34-seconds), `03-backpropagation/`
-  (the-backward-pass-three-ways), `04-distributed-training/`
-  (gpu-cluster-concepts and when-the-topology-costs, networking and
-  when-the-ring-beats-the-star, orchestration and when-the-scheduler-chooses,
-  storage and when-a-node-joins, when-the-ranks-agree), `05-is-the-difference-real/`
-  (the-two-confounds).
+- 00 attention: the block read as six failure modes with six measured
+  trades — score scaling against saturated softmax (sigma 8 to 1, e^24
+  vs e^-24 ratio falling to e^6 about 403), the causal mask against
+  future leakage, GQA against cache growth (12.0 vs 36.0 MiB, 683 vs
+  2,048 concurrency on a 24GB card), RoPE against position-swap
+  invariance (wavelength ladder, delta-3 scores identical to machine
+  precision), residual + pre-norm against gradients dying across depth,
+  SwiGLU against a single projection that cannot both select and
+  transform (4,718,592 parameters per block) — with ownership split
+  across architecture (block shape), serving (KV-cache ceiling), eval
+  (context-extension claims), and training (norm placement); Vaswani et
+  al. 2017, Zhang & Sennrich 2019, Shazeer 2020, Su et al. 2021, Dao et
+  al. 2022, Ainslie et al. 2023 as the dated anchors.
+- 00 attention / rope: the fix is the rotation itself (position
+  information that makes attention depend on the gap, not the absolute
+  positions), priced by the wavelength ladder and the `rope_theta` knob —
+  raising the base to 500k stretches dim 31's wavelength 47,117 to 2.08
+  million positions — with the trade that theta is a geometry knob, not a
+  capability knob (Su et al. 2021; Peng et al. 2023; Roziere et al. 2023);
+  ownership split across architecture (theta), eval (did the model learn
+  to use the stretched geometry), and training data (documents that
+  exercise long range).
+- 00 attention / what-it-costs: the fix is the three-budget distinction —
+  parameters fixed, cache linear in context times concurrency, score
+  matrix quadratic in context — because conflating the three growth
+  curves is how capacity estimates go wrong by an order of magnitude;
+  each line's mitigation measured (GQA one-third cache, FlashAttention
+  tiling the score matrix out of the budget, weight tying holding the
+  embedding at 14.4%); ownership split across architecture (the six
+  numbers that fix the total), serving (cache and concurrency ceiling),
+  and training (what the arithmetic does not cover: optimizer state,
+  activations, fragmentation).
+- 01 first training loop: the fix is the three built-in diagnostics — the
+  step-0 sanity check (4.3266 vs ln(65) = 4.174: far above is a bug, far
+  below is label leakage), the gap read that answers "still learning?"
+  from the train/val distance rather than either curve (gap +0.0006 to
+  +0.2630), and the data-not-model lesson (0.3M tokens supplied vs ~215M
+  compute-optimal for 10.75M parameters; Hoffmann et al. 2022) —
+  ownership split across training engineer (health checks), data team
+  (generalization ceiling), and eval (overfitting read with its boundary).
+- 01 first training loop / the-curve-that-takes-34-seconds: the fix is
+  reading the curve as a pair — descent shape as health check, gap as the
+  generalization signal — because the val number still improves to the
+  end while the gap widens monotonically; ownership split across training
+  engineer (health shape), eval (gap read and handoff), data team (the
+  corpus-size lever that closes it).
+
+**Still pending:** foundations 03-05 (backpropagation,
+distributed training, is-the-difference-real), including their detours —
+`03-backpropagation/` (the-backward-pass-three-ways),
+`04-distributed-training/` (gpu-cluster-concepts and when-the-topology-costs,
+networking and when-the-ring-beats-the-star, orchestration and
+when-the-scheduler-chooses, storage and when-a-node-joins,
+when-the-ranks-agree), `05-is-the-difference-real/` (the-two-confounds) —
+then the language-model system sub-groups:
 - Language-model system sub-groups: `00-corpus/`, `02-pretrain/`
   (attention-variants, the-gate-that-beats-relu, upcycling and
   does-it-pay-off, latent-reasoning, architecture-ablations and

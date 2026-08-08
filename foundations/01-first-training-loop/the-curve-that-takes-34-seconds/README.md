@@ -44,6 +44,38 @@ overfitting on 1.1MB of text. It is a diagnostic, not a failure: the
 chapter's job is the loop, not generalization, and the gap is where the
 later curriculum (data scale, regularization, evaluation) begins.
 
+## The fix and its trade
+
+The fix is reading the curve as a pair: the descent shape is the loop's
+health check, and the gap is the generalization signal. The recorded run
+prices both on the same table — val falls 4.327 to 1.538 (the loop learns
+fast, and a loss that does not fall this way is a mechanical bug, not a
+tuning question), while the train/val gap grows monotonically from +0.001
+to +0.263 (training keeps improving while validation stalls, the textbook
+signature of memorizing 1.1MB of text). The trade is that the two readings
+point in opposite directions and must be held together: the val number
+still improves to the end (1.664 to 1.538), so "is it still learning?"
+answered from the val curve alone would say yes — the gap is the number
+that says each later step buys less generalization and more memorization.
+The same data-ratio argument that made the parent chapter's "fix the data,
+not the model" lesson (Hoffmann et al., 2022: compute-optimal training
+wants roughly 20 tokens per parameter, against this run's 0.3M tokens for
+10.75M parameters) is what this chapter's gap is measuring on a single
+curve.
+
+## Who owns the loop
+
+- **The training engineer** owns the health shape: the recorded descent is
+  the reference a broken loop is compared against, and a deviation is a
+  mechanical failure, not a tuning knob.
+- **The evaluation owner** owns the gap read: the monotonic widening is
+  reported as a diagnostic with a boundary — this toy's job is the loop,
+  not generalization — and as the handoff point where data scale,
+  regularization, and evaluation begin.
+- **The data team** owns the correction the gap points at: the corpus size
+  is the lever that closes it, and closing it is a data decision, not an
+  architecture change.
+
 ## Evidence boundary
 
 The recorded 2000-iteration run (one seed, one architecture, one 1.1MB

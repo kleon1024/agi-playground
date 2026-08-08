@@ -189,6 +189,42 @@ attention, continuous batching, and quantization).
 
 </details>
 
+## The fix and its trade
+
+The fix is the three-budget distinction, because conflating the three
+growth curves is how capacity estimates go wrong by an order of magnitude.
+Parameters are fixed, paid once: the whole model is 88,197,888 parameters,
+determined exactly by six numbers you already chose. The KV cache is linear
+in context and linear in concurrency — the number that decides how many
+users a card can hold. The score matrix is quadratic in context and does
+not depend on concurrency at all. Each line gets its own mitigation, and
+the chapter measures each trade: grouped-query attention cuts the cache to
+a third (12.0 MiB vs 36.0 MiB per 1,024-token sequence) with identical
+retrieval capacity, which moves the 24GB-card concurrency ceiling from 683
+to 2,048 full-context sequences (Ainslie et al., 2023, introduced GQA);
+FlashAttention removes the score matrix from the memory budget entirely by
+tiling, not by changing the result or the quadratic arithmetic (Dao et al.,
+2022); and weight tying keeps the embedding at 14.4% of the model, where
+untying would add the same 14% for "at this scale, very little." The
+pattern the chapter names — preserve the invariant, change the system
+boundary — is the same move paged attention, continuous batching, and
+quantization apply to the other two lines of the same budget.
+
+## Who owns the loop
+
+- **The model architecture team** owns the six numbers that fix the whole
+  budget: head counts, `d_model`, `d_ff`, vocabulary size, and context
+  length determine the parameter total exactly, and the KV-head count is
+  the one number the serving team cannot compensate for later.
+- **The serving team** owns the cache and concurrency ceiling: the 683 vs
+  2,048 concurrency ratio on a 24GB card is a serving decision surface,
+  and cache allocation, not weights, is what decides how many users a card
+  can hold at 7B and above.
+- **The training team** owns what the arithmetic does not cover: optimizer
+  state, activation workspace, fragmentation, and allocator padding are
+  measured at runtime, not derived, which is why the chapter marks every
+  number here as a floor the model must allocate, not what a runtime does.
+
 ## Evidence boundary and next step
 
 Every number here is arithmetic over a declared configuration, not a

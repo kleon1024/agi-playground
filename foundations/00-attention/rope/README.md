@@ -66,6 +66,44 @@ theta changes: at 10k the high-frequency dims complete several cycles within
 the model uses that oscillation to attend to near or far tokens is learned;
 the encoding only supplies the geometry.
 
+## The fix and its trade
+
+RoPE is the fix for a specific failure: without position information, two
+swapped earlier tokens leave the attention calculation unchanged, so the
+model cannot tell "the cat sat on the mat" from "the mat sat on the cat."
+The fix is the rotation itself, and the run prices its two properties. The
+measured trade is the wavelength ladder: delta-3 scores are identical to
+machine precision at positions (5,2), (100,97), and (1000,997), because the
+rotation cancels absolute positions and leaves only the gap — that is the
+property absolute position embeddings do not have. But the same formula
+forces a compromise across dimensions: dim 0 wraps every ~6.3 positions
+(fine-grained locality), dim 31 takes ~47,117 positions per full rotation
+(long-range order), and both live in the same vector only because they
+occupy different dimensions. The `rope_theta` knob is the long-context
+decision: raising the base to 500k stretches dim 31's wavelength from
+47,117 to 2.08 million positions, which is exactly what long-context
+models do when they raise the base to keep the low-frequency dims from
+wrapping inside the target context (Su et al., 2021, introduces the
+encoding; the extended-context practice is documented by Peng et al., 2023,
+and the 32k/64k Code Llama scaling by Roziere et al., 2023). The trade is
+that theta is a geometry knob, not a capability knob: it changes what the
+encoding can represent, and whether the model uses those distances is
+still a training-and-eval question.
+
+## Who owns the loop
+
+- **The model architecture team** owns `rope_theta` and the base: the
+  value is a config line in the 88M model, and raising it is a
+  long-context commitment the whole deployment inherits.
+- **The evaluation team** owns the claim that follows: extended context
+  works only if the model learned to use the stretched geometry, and
+  proving that is an eval task (long-range retrieval probes), not an
+  architecture assertion.
+- **The training-data team** owns showing the model the long-range signal
+  at all: a high theta without documents that actually exercise positions
+  thousands of tokens apart buys nothing, which is why the encoding and
+  the corpus move together.
+
 ## Evidence boundary
 
 This chapter computes the rotation arithmetic on one fixed random (q, k)
