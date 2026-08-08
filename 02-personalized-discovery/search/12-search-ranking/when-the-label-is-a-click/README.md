@@ -40,6 +40,34 @@ unbiased estimate of relevance. The lesson is that implicit labels are
 not free grades — they carry the recording process's bias, and the
 correction is part of the labeling, not a downstream afterthought.
 
+## The fix and its trade
+
+The fix is inverse-propensity weighting: divide each click by its
+position's exposure to recover an unbiased estimate of relevance. The
+executed exposure model prices the failure: position 1 shows observed
+0.80 (relevance 0.8 x exposure 1.0), position 2 shows 0.30 (0.6 x 0.5),
+and position 3 shows 0.10 (0.4 x 0.25) — the same item clicked more at
+the top is exposure, not relevance, and a ranker trained on raw clicks
+learns to exploit position rather than meaning.
+
+The trade, named: IPW needs measured exposure from the serving logs, not
+assumed position curves — and exposure-corrected labels carry higher
+variance in low-exposure positions, which the loss must tolerate or
+stabilize. Implicit labels are not free grades: they carry the recording
+process's bias, so the correction is part of labeling, not a downstream
+afterthought. The alternative — training on raw clicks — optimizes
+position, which is the exact failure the correction exists to remove.
+
+## Who owns the loop
+
+- **The logging and serving team** owns the measured exposure — the IPW
+  denominator comes from their logs, and a logging cutoff change silently
+  shifts every propensity.
+- **The labeling and relevance team** owns the propensity estimate and its
+  re-validation when serving changes.
+- **The ranking team** owns the variance-aware training that tolerates
+  high-IPW weights in low-exposure positions.
+
 ## Evidence boundary
 
 The executed bias model over one hand-built relevance set (illustrative,

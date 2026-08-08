@@ -52,6 +52,36 @@ per-position NDCG@k curves — report several metrics and check the
 rank-gap audit, because the metric being optimized is the one that gets
 gamed.
 
+## The fix and its trade
+
+The fix is the metric suite plus per-position NDCG@k curves, checked
+against a rank-gap audit — because the metric being optimized is the one
+that gets gamed. The executed games price the failure: the mrr gamer
+(grades 1, 3, 3, 3, 3) scores MRR 1.0000, identical to the honest
+spread's 1.0000, while NDCG is the only row that separates them (0.7519
+versus 0.8140) — MRR is binary, a grade-1 near-miss at the top is worth
+the same as a grade-3 perfect match, and everything after the first hit
+is ignored. The ndcg gamer (3, 2, 2, 0, 0) normalizes to 1.0000 with an
+empty tail because a sorted top-3 is the ideal of its own grades.
+
+The trade, named: the suite costs more labels and per-position review,
+and even then the games compound online — click-based metrics inherit
+position bias, so a system optimizing click-through learns to exploit it
+(Joachims, KDD 2002). The rank-gap audit is the piece that cannot be
+skipped: it names which metric each ranking exploits before the
+leaderboard certifies a gamer as perfect.
+
+## Who owns the loop
+
+- **The evaluation and relevance team** owns the suite, the per-position
+  curves, and the rank-gap audit — the gamer detection is their signal.
+- **The ranking team** owns the objective risk: tuning to the
+  leaderboard metric rather than to relevance is a model-team failure
+  the audit exists to expose.
+- **The product and search owner** owns what the metric must serve —
+  first-hit precision, coverage, or graded relevance — and resolves a
+  divergence by stating which ranking the users need.
+
 ## Evidence boundary
 
 The four rankings are hand-engineered grade lists (illustrative,

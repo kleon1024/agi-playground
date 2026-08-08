@@ -72,6 +72,27 @@ Burges ("From RankNet to LambdaRank to LambdaMART: An Overview",
 MSR-TR-2010-82, 2010) is the reference for why smooth list-aware losses
 are the production answer to this sensitivity.
 
+## The fix and its trade
+
+The fix is a label-consistency audit that re-fits the ranker on re-graded
+batches — a direction-only gate undercounts — plus a smooth list-aware
+loss when the fragility is measured. The executed audit prices the
+failure: NDCG@A swings 0.5727-0.6209 with zero model change, and batch C
+flips three learned pair preferences while changing no pair direction.
+The flipped pairs are the smallest-margin pairs of the clean fit (margins
+0.017-0.056, the four smallest of 23), which is the boundary
+concentration that makes a one-grade label move bite. Burges (2010)
+motivates the production answer: smooth list-aware losses such as
+LambdaRank/LambdaMART are what absorb this sensitivity.
+
+The trade, named: redundant grading with majority vote dilutes
+single-grader boundary noise at the price of a larger labeling budget and
+a grader-agreement bar; margin-aware losses smooth the objective where
+small label movements would flip a preference, at the price of training
+complexity. The objective choice (pointwise versus pairwise) is itself
+measured, not asserted: NDCG arbitrates 0.6209 versus 0.5804 on the
+eight-item set, and the metric, not the loss, is the contract.
+
 ## Who owns the loop
 
 The ranker learns from labels someone produced; the handoffs around the

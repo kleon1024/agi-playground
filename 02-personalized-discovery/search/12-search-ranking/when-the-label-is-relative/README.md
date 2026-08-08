@@ -55,6 +55,37 @@ otherwise flip a preference. The ranker downstream in
 its metrics inherit the same fragility, which is why the audit contract
 holds the labels to the same scrutiny as the model.
 
+## The fix and its trade
+
+The fix is redundant grading with majority vote, plus a margin-aware or
+list-aware loss where the audit measures fragility. The executed sweep
+prices both: 12 of 13 single ±1 grade flips leave NDCG and the learned
+order exactly unchanged — label noise is concentrated, and it moves the
+model only where the learned score is already undecided (item 6's pair
+sits on margin 0.0439, the third smallest of 23). Two-flip re-gradings
+swing NDCG to 0.5727 and 0.6209 with zero model change, and batch C flips
+three learned preferences while changing no pair direction — the
+direction-only gate undercounts the fragility.
+
+The trade, named: majority-vote redundant grading dilutes single-grader
+boundary noise at the price of a larger labeling budget and a grader
+agreement bar; margin-aware losses — Burges, MSR-TR-2010-82 (2010) —
+smooth the objective where small label movements would flip a preference,
+at the price of training complexity. The re-fit audit is the cost that
+must be paid every time the label set changes, because a model that
+"improves" without a model change is a label change wearing a result.
+
+## Who owns the loop
+
+- **The labeling and relevance team** owns the redundant-grading policy,
+  the grader-agreement bar, and the majority vote that dilutes boundary
+  noise.
+- **The ranking team** owns the loss choice — margin-aware variants are
+  adopted only when the audit shows the boundary concentration.
+- **The evaluation team** owns the frozen label set NDCG is computed
+  against, and the re-audit that fires when the leaderboard moves without
+  a model change.
+
 ## Evidence boundary
 
 The sweep re-fits the stage's own eight-item set under declared

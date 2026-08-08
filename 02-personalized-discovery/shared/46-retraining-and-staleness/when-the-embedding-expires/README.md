@@ -42,6 +42,35 @@ assumed the vectors describe the item; the expiry is the same staleness
 as stage 46's main read, living in a different artifact, invisible to a
 retrain that only touches the ranker.
 
+## The fix and its trade
+
+The fix is to make "retrain" reach the index, not just the model weights —
+and to measure embedding freshness against current queries on the same
+measured-gap principle as model retraining. The executed comparison prices
+the failure: with stale vectors, recall@3 is 2/3; with refreshed vectors,
+3/3. The mechanism is visible per item — P1001's stale similarity reads
+0.81 where the refreshed embedding says 0.30, and P1002/P1003/P1005
+recover the other way — the vectors describe the taste of the day they
+were ingested, not the current query.
+
+The trade, named: index rebuilds cost compute, pipeline load, and cache
+invalidation, and they must be scheduled against a freshness read — the
+alternative is a retrain that touches only the ranker while a dated
+snapshot keeps serving retrieval, which is the same staleness as the
+stage's main read living in a different artifact. The panel that names
+when a cohort is due (the stage's VOLATILE FIRST read) is the same
+measurement applied to embeddings: the expiry is per-artifact, and each
+artifact needs its own trigger.
+
+## Who owns the loop
+
+- **The retrieval team** owns the index rebuild and its freshness schedule
+  — the recall drop is their artifact's staleness.
+- **The feature platform team** owns the embedding pipeline that refreshes
+  the vectors on demand.
+- **The monitoring team** owns the freshness read against current queries,
+  so an expiring index is caught before recall visibly drops.
+
 ## Evidence boundary
 
 The executed comparison over five declared items (illustrative,

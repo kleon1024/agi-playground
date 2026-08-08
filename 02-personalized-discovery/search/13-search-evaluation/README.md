@@ -73,6 +73,27 @@ Joachims ("Optimizing Search Engines Using Clickthrough Data", KDD
 2002) is why click-based online variants of the same games compound
 through position bias.
 
+## The fix and its trade
+
+The fix is a declared metric suite — graded labels, per-position NDCG@k
+curves, and a rank-gap audit that names which metric each ranking
+exploits. The executed audit prices the failure the fix removes: MRR ties
+five rankings as joint best that NDCG separates across five ranks, and
+the first-hit gamer F is MRR-perfect (1.0000) while NDCG-fifth (0.7519).
+The blind spots are structural: B's good spread scores MRR 1.0000 —
+identical to A's single good hit — and C's NDCG 1.0000 hides a grade-0
+miss at position 3, because the top-weighted discount makes the tail
+nearly invisible. Järvelin and Kekäläinen (2002) motivate graded,
+position-discounted gain for exactly this reason; Joachims (2002) shows
+how click-based online variants compound through position bias.
+
+The trade, named: a suite plus a rank-gap audit costs measurement depth —
+more labels, more curves, more review — and the alternative is a single
+leaderboard metric that the ranking team will optimize and therefore
+game. The metric decides what the team optimizes next, so the divergence
+between leaderboards is the signal that someone must state which ranking
+the users actually need; the product owner, not the ranker, resolves it.
+
 ## Who owns the loop
 
 The metric decides what the team optimizes next; someone must own the

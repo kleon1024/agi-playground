@@ -70,7 +70,32 @@ environment-dependent and derivable from the logs, so the trigger should
 be derived from the measured error per cohort, not assumed by a
 calendar.
 
-## Who owns the retraining trigger
+## The fix and its trade
+
+The fix is to derive the retraining trigger from the per-cohort staleness
+panel instead of a calendar. The executed runs price the failure the fix
+removes: a model snapshot ranks its own world exactly (0 wrong pairs at
+hour 0) and then ages — 5 wrong pairs at hour 6, 6 at hour 12 — while a
+snapshot from hour 6 holds the error to 1 pair at hour 12. The panel
+names which cohort is due: the volatile cohort already ranks 2 pairs
+wrong at hour 6 while the stable cohort is still exact, so a trigger
+tuned to the aggregate leaves the fast movers stale longest. Verachtert,
+Jeunen, and Goethals (2023) show the same property from the data side:
+the rate at which a model becomes stale is environment-dependent and
+derivable from the logs, so the trigger should be derived from measured
+error per cohort, not assumed by a calendar.
+
+The trade, named: retraining is a budget decision. An error trigger
+buying freshness needs per-hour truth labels (stage 47's panel), a
+compute budget for the retrains themselves, and pipeline, index-rebuild,
+and cache-invalidation costs — the when-the-peak-hits detour prices the
+purchase at one extra retrain for a threefold cut in stale exposure, and
+the cost owner decides whether the purchase is worth it. When the
+ownership is implicit, retraining is either too rare (the snapshot
+silently ages) or too frequent (the platform retrains on noise and
+spends the budget on jitter).
+
+## Who owns the loop
 
 Retraining is a budget decision, and the trigger sits at the handoff of
 three owners:

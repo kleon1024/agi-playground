@@ -41,6 +41,33 @@ correction (edit distance to the nearest index term) or a retrieval
 matcher tolerant of near-misses. The boundary is the lesson: normalization
 handles how the word is written, correction handles how it is spelled.
 
+## The fix and its trade
+
+The fix is query correction — edit distance to the nearest index term —
+or a retrieval matcher tolerant of near-misses. The executed variants
+price the boundary: "wirless headphones" still matches (the misspelling
+is in a different token, and "headphones" is intact) while "heaphones"
+and "hedphones" never become "headphones" — the token is different, so
+exact-match retrieval fails. Normalization handles how the word is
+written; correction handles how it is spelled.
+
+The trade, named: correction costs a vocabulary and an edit-distance or
+learned matcher, and it risks changing valid terms — the vocabulary
+mismatch detour (stage 19) shows a real catalog term must never fire
+correction, so the matcher needs a guard against correcting a query into
+a different intent. Tolerant matching moves the cost into the index (a
+near-miss retrieval structure) and risks recall of near-duplicate terms,
+so the choice is which artifact absorbs the fuzziness.
+
+## Who owns the loop
+
+- **The query-understanding team** owns the correction vocabulary and the
+  guard that keeps valid terms from being rewritten.
+- **The retrieval team** owns the matcher and the near-miss index when
+  tolerance lives in retrieval rather than in correction.
+- **The data team** owns vocabulary updates as the catalog grows — a
+  stale vocabulary silently ages the correction path.
+
 ## Evidence boundary
 
 The executed variants over four hand-built spellings (illustrative,

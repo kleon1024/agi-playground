@@ -36,6 +36,35 @@ the query with context — or deliberately hedges the ranking across
 intents, showing both the category and the "best of" list. The short
 query is the boundary case where the pipeline's assumptions are exposed.
 
+## The fix and its trade
+
+The fix is to give the classifier signal beyond the token — previous
+queries, device, time, and user history — or to deliberately hedge the
+ranking across intents. The executed run prices the failure: five
+one-word queries ('shoes', 'iphone', 'flight', 'headphones', 'fix') all
+normalize to a single token with no intent signal, and 'shoes' could be
+navigational (the category page), transactional (buy shoes), or
+informational (which are best) — the rules would label it navigational by
+default, and the label says little about what the user wants.
+
+The trade, named: context features cost a user-state dependency with
+latency and privacy implications, and they do not exist for the first
+interaction of a new user — which is exactly the cold-start slice the
+recommendation track's guardrails watch. Hedging (showing both the
+category and the "best of" list) costs page real estate and pushes the
+disambiguation to the ranker, trading classifier confidence for a
+present-but-ambiguous candidate set.
+
+## Who owns the loop
+
+- **The query-understanding team** owns the context features and the
+  hedge policy — the short query is their boundary case.
+- **The product team** owns how much page real estate a hedge may consume
+  for ambiguous queries.
+- **The serving and privacy teams** own the user-state dependency the
+  context features require, including the cold-start path where no state
+  exists yet.
+
 ## Evidence boundary
 
 The executed classifier over five hand-built one-word queries

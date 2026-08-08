@@ -39,6 +39,32 @@ optimized for @5 it tolerates a weak first slot. The k is part of the
 evaluation contract, exactly as the mission's own nDCG@10 declares its
 cutoff.
 
+## The fix and its trade
+
+The fix is to declare k with the metric — "NDCG@5" is a different claim
+than "NDCG@3", and the k is part of the evaluation contract, exactly as
+the mission's nDCG@10 declares its cutoff. The executed sweep prices the
+flip: the same ranking [0, 3, 2, 0, 1] scores NDCG@1 0.000 — the top
+item is irrelevant, so the ranking looks like a total failure — then
+0.500 at k=3 and 0.546 at k=5. The same ranking is "bad at @1" and
+"decent at @5".
+
+The trade, named: @1 optimizes top-slot precision and will bury strong
+results below the top; @5 rewards deep-list quality and tolerates a weak
+first slot. The k must match the product surface being measured — a
+surface that shows the first result as the headline needs a different
+contract than a list users scan down — and the k, once declared, must
+not move with the results.
+
+## Who owns the loop
+
+- **The evaluation team** owns the k declaration and the sweep that shows
+  the verdict's k-dependence.
+- **The product owner** owns the surface decision — what users see first
+  determines the k the metric must measure.
+- **The ranking team** owns the optimization target implied by the
+  declared k, and the burying risk when the target is top-slot precision.
+
 ## Evidence boundary
 
 The executed k-sweep over one hand-built ranking (illustrative,

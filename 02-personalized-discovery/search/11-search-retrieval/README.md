@@ -79,6 +79,29 @@ scoring; Karpukhin et al. ("Dense Passage Retrieval for Open-Domain
 Question Answering", EMNLP 2020) are the dense alternative the audit
 points to as the fix.
 
+## The fix and its trade
+
+The fix is hybrid retrieval — lexical for exact terms and entities, dense
+for meaning, fused into one candidate set — audited by a per-query
+recall read. The executed audit prices the failure the fix removes:
+aggregate recall@3 is 0.90, but "cheap headphones" loses d6
+("affordable bluetooth earbuds budget friendly") because it shares no
+query term and scores 0.0000 — the document is cut before ranking, so no
+ranker downstream can recover it. The partial-match contrast shows the
+grading: "running shoes" keeps d7 ("sneakers athletic footwear") because
+one term hits, while zero overlap is an absolute miss. Robertson and
+Zaragoza (2009) formalize the lexical scoring; Karpukhin et al. (2020)
+are the dense alternative the audit points to as the fix.
+
+The trade, named: hybrid retrieval costs a dense index and a fusion rule,
+both of which must be measured on a real corpus — and every widening of
+the retrieval net trades recall for precision. The expansion example
+prices it: lifting doc6 into the top-3 also pulls a false positive into
+the candidate set, and the reranker pays the precision bill downstream.
+The zero-score cut is the hard gate: it is unrecoverable after retrieval,
+which is why the recall bar and the zero-score policy belong to named
+owners rather than to BM25 defaults.
+
 ## Who owns the loop
 
 Retrieval is a hard gate; someone must own what the gate cuts, and the

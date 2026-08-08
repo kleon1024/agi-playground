@@ -58,6 +58,35 @@ candidate count per query, pushing the disambiguation downstream where
 [stage 12's ranker](../../12-search-ranking/) can use features, not
 keyword order.
 
+## The fix and its trade
+
+The fix is either a confidence-aware intent model with an explicit
+ambiguous bucket, or dual-path retrieval that carries both candidate
+types and lets the ranker decide. The executed routing prices the
+failure: four of seven queries misroute and NDCG@3 drops from 1.0000 to
+0.3333 — every misroute is a query the keyword classifier cannot commit
+on ("cheap how to fix iphone screen" fires transactional and
+informational, and the rule order checks transactional first; "nike or
+adidas" fires no keyword and falls back to navigational entity pages).
+The candidate set is the wrong type before ranking begins.
+
+The trade, named: dual-path retrieval guarantees the right type is
+present but raises candidate count per query, pushing disambiguation
+downstream where stage 12's ranker can use features instead of keyword
+order — the structural price is more expensive-stage traffic. The
+ambiguous-bucket alternative costs a defined fallback and a confidence
+floor, and trades a confident wrong route for a hedge that the retrieval
+path must honor.
+
+## Who owns the loop
+
+- **The query-understanding team** owns the confidence floor and the
+  ambiguous bucket — the misroute rate is their acceptance number.
+- **The retrieval team** owns the dual-path contract and the fallback
+  behavior when a query is declared ambiguous.
+- **The ranking team (stage 12)** owns the disambiguation features that
+  decide between the carried candidate types.
+
 ## Evidence boundary
 
 The corpus is a hand-built synthetic set of thirteen type-tagged docs

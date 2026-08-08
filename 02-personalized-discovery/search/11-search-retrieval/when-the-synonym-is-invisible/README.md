@@ -42,6 +42,35 @@ lexical and dense retrieval fail differently, which is why production
 search is hybrid: BM25 for exact terms and entities, dense for meaning,
 fused into one candidate set.
 
+## The fix and its trade
+
+The fix is a matcher that scores meaning, not spelling — dense retrieval,
+or lexical scoring augmented with a synonym-aware term. The executed run
+prices the failure: doc6 ("running footwear lightweight athletic
+sneakers") scores 1.0448 against doc3's 2.8608 for "running shoes" —
+semantically near-identical, ranked at half the relevance, because
+"footwear" does not equal "shoes". The vocabulary mismatch is a graded
+failure, not an all-or-nothing one: partial lexical overlap under-ranks
+meaning.
+
+The trade, named: a dense matcher places doc6 beside doc3 ("footwear" and
+"shoes" embed near each other) but costs a trained embedding model, an
+index, and a fusion rule; lexical scoring stays cheap and precise on
+exact terms and entities, which is why the production answer is hybrid
+rather than either path alone. The two matchers fail differently — the
+synonym case here, the exact-entity case in reverse — and the fusion rule
+is the artifact that decides which failure a query inherits.
+
+## Who owns the loop
+
+- **The retrieval team** owns the fusion rule that combines the lexical
+  and dense candidate sets.
+- **The embedding and model team** owns the dense index and its freshness —
+  a stale vector set is stage 46's expiry in a different artifact.
+- **The relevance team** owns the graded labels that expose under-ranking,
+  since an all-or-nothing relevance judgment hides the partial-match
+  failure.
+
 ## Evidence boundary
 
 The executed index over a six-document synthetic corpus (deterministic,

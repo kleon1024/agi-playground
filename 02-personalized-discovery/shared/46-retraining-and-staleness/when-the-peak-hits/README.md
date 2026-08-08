@@ -59,6 +59,35 @@ decision: schedule retraining to maximize accuracy within a fixed
 resource budget, and derive the staleness rate from the data rather than
 assuming it.
 
+## The fix and its trade
+
+The fix is an error-triggered retrain that fires when the measured error
+changes, not when the clock does. The executed spike prices the
+difference: the calendar retrained at hour 12, mid-spike, serving the
+stale order for every spike hour (8-11) and again after the world snapped
+back (13-14) — 2 retrains, 12 error-hours — while the adaptive trigger
+retrained at hour 8, the first measurable spike hour, and at hour 13,
+holding stale exposure to one hour per change — 3 retrains, 4 error-hours.
+The retraining decision is the when, not the count.
+
+The trade, named: the trigger costs one extra retrain and a per-hour error
+measurement (exactly the panel stage 47 builds), and the cost owner must
+decide whether the purchase is worth it — the executed run's answer is a
+threefold reduction in stale exposure for one retrain, but real systems
+must weigh compute, pipeline load, and cache invalidation per cohort.
+Verachtert, Jeunen, and Goethals (2023) formalize the same decision:
+schedule retraining to maximize accuracy within a fixed resource budget,
+and derive the staleness rate from the data rather than assuming it.
+
+## Who owns the loop
+
+- **The retraining platform** owns the trigger and decides when a cohort
+  is due — the trigger is a platform service, not a model team's cron job.
+- **The cost owner** owns the retrain's price and how aggressive the
+  trigger may be — one extra retrain for a threefold cut is their call.
+- **The monitoring team** owns the per-hour error signal the trigger reads,
+  without which the calendar is the only option left.
+
 ## Evidence boundary
 
 The executed spike over six declared items (illustrative, deterministic).

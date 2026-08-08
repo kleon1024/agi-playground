@@ -71,6 +71,30 @@ noisiness and sparseness of query data — so the classifier inherits the
 noise, and the audit shows where it concentrates: the long tail of
 short, rare, ambiguous queries.
 
+## The fix and its trade
+
+The fix is a confidence-aware intent model with an explicit ambiguous
+bucket, audited by a stratified intent-mix read. The executed audit prices
+the failure the fix removes: over a 32-query log (12 head, 20 tail), all
+three keyword-collision queries are tail queries — 15% of tail versus 0%
+of head — and each is assigned silently by rule order, so the aggregate
+mix says the rule order is fine while the tail carries every ambiguity.
+Intent labels in production are click-derived and noisy, which Kumar et
+al. 2020 (arXiv:2001.04345) build for shopping search while accounting
+for exactly this sparseness; the classifier inherits the noise, and the
+stratified audit shows where it concentrates.
+
+The trade, named: an explicit ambiguous bucket trades classification
+coverage for retrieval flexibility — a query declared ambiguous costs a
+defined fallback path instead of a confident wrong route. The
+alternative, dual-path retrieval, guarantees the right candidate type is
+present but raises candidate count per query and pushes disambiguation
+downstream to stage 12's ranker, which can use features where keyword
+order cannot. The confidence floor below which intent is declared
+ambiguous is a tunable that trades misroute rate against retrieval
+complexity, and it belongs to the query-understanding team, not to the
+rule author.
+
 ## Who owns the loop
 
 The pipeline assigns intent; someone must own what each assignment

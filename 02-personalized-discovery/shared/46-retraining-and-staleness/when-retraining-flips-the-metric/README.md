@@ -38,6 +38,34 @@ shift is only visible online. A model that wins the offline metric and
 loses the page is not a better model; it is a different policy that the
 offline eval cannot see.
 
+## The fix and its trade
+
+The fix is to make the retrain decision with the metric that matches the
+goal, and to confirm it with an A/B — an offline leaderboard is the wrong
+judge. The executed comparison prices the failure: the retrained model
+scores higher offline (ndcg@5 0.917 to 1.000) while its exposure-weighted
+CTR falls (0.0289 to 0.0282). The offline labels were logged under the
+old policy, where the top position inflated its own clicks; NDCG believes
+that log, and the online page does not.
+
+The trade, named: an A/B is the only honest judge, and it costs traffic
+and time before the decision — which is exactly why teams default to the
+offline metric that flatters the retrain. The exposure shift is invisible
+to any offline replay of the old policy's log, so the repair is not a
+better offline metric; it is an online confirmation that the model that
+wins the list also wins the page. A model that wins offline and loses the
+page is not a better model; it is a different policy the offline eval
+cannot see.
+
+## Who owns the loop
+
+- **The evaluation team** owns the goal-matched metric and the A/B design
+  — the offline-vs-online flip is their case to catch.
+- **The model team** owns the retrain decision and does not ship a retrain
+  on an offline win alone.
+- **The experimentation platform team** owns the live A/B that confirms
+  the exposure shift, since the change is only visible under real traffic.
+
 ## Evidence boundary
 
 The executed comparison over one declared slate (illustrative,

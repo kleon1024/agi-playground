@@ -41,6 +41,33 @@ discounted); the mediocre mis-order scores 0.922. The graded, top-weighted
 metric sees what MRR cannot — which is why evaluation reports both, and
 why the metric choice is declared before the system is built.
 
+## The fix and its trade
+
+The fix is to report both metrics together and to declare the metric
+choice before the system is built. The executed blind spot prices why:
+all three rankings score MRR 1.0000 — one perfect hit and nothing else,
+strong hits mis-ordered, and mediocre hits mis-ordered all have their
+first hit at position 1 — while NDCG separates them (1.000, 0.871,
+0.922). MRR records only the first relevant hit's position; the graded,
+top-weighted metric sees what MRR cannot.
+
+The trade, named: the choice between them is a product decision, not a
+statistical one — MRR rewards first-hit precision at the price of
+ignoring everything after the first hit, and NDCG rewards deep-list
+quality at the price of top-weighted insensitivity. Reporting one alone
+invites the blind spot; reporting both without a declared arbiter invites
+a leaderboard that disagrees with itself, which is the divergence the
+audit exists to surface.
+
+## Who owns the loop
+
+- **The evaluation team** owns reporting both metrics and the rank-gap
+  read that makes the divergence visible.
+- **The product owner** owns the declared choice — which ranking the page
+  must deliver is a product statement, made before the system is built.
+- **The ranking team** owns the risk of overfitting the leaderboard metric
+  and re-checks the objective when the metric choice changes.
+
 ## Evidence boundary
 
 The executed metrics over three hand-built graded rankings (illustrative,

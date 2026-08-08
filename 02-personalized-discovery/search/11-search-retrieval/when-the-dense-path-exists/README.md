@@ -39,6 +39,35 @@ reverse — so production search runs both and fuses the candidate sets.
 The contrast is the mechanism that makes hybrid a design rather than an
 afterthought.
 
+## The fix and its trade
+
+The fix is hybrid search: run BM25 and the dense path, and fuse the two
+candidate sets with an explicit rule. The executed contrast prices why
+neither path alone suffices: the embedding scores meaning, not spelling —
+cosine similarity is 0.816 for doc_running_shoes, 0.408 for
+doc_running_footwear (the synonym doc BM25 under-ranked), and 0.000 for
+doc_headphones. The vector places the synonym beside the word it means,
+where the lexical index left it half-scored.
+
+The trade, named: hybrid costs a trained embedding model, a dense index,
+and the fusion rule — and the two paths fail differently, which is the
+reason both must run. Dense blurs exact entities (a product code or model
+number embeds near unrelated terms), where BM25 is exact; BM25 misses
+meaning, where dense is exact. The fusion rule is the decision point:
+how a query is split between the two candidate sets determines which
+failure the user sees, and it must be measured on a real corpus rather
+than assumed.
+
+## Who owns the loop
+
+- **The retrieval team** owns the fusion rule and the per-query split
+  between the lexical and dense paths.
+- **The embedding and model team** owns the trained vectors, their index,
+  and their refresh schedule.
+- **The relevance team** owns the graded labels that measure whether the
+  fused candidate set serves meaning and exact entities in the right
+  proportions.
+
 ## Evidence boundary
 
 The executed hand-built concept-vector contrast (illustrative,

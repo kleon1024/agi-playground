@@ -39,6 +39,35 @@ generation would favor pairwise. The lesson is the one the stage
 established: report both formulations against the metric, and let NDCG
 arbitrate rather than asserting a winner.
 
+## The fix and its trade
+
+The fix is to report every formulation against the metric and let NDCG
+arbitrate, and to re-check the objective choice when the candidate list
+length changes. The executed extension prices the drift: on eight items
+the pointwise/pairwise NDCG difference is 0.04 (0.6209 versus 0.5804);
+on sixteen items it widens to 0.058 (0.5747 versus 0.5169). With more
+items, pairwise learns the comparisons that dominate the list while
+pointwise's absolute scores have more room to disagree — the objective
+choice matters more as the candidate list grows.
+
+The trade, named: a longer list costs retrieval-stage traffic and rerank
+compute, and it changes which objective wins — the sixteen-item result
+happens to favor pointwise, but that is an instance, not a law. The list
+length is itself a cascade decision (stage 11's candidate-set size and
+stage 03's cut), so the loss choice must be re-measured whenever the cut
+moves; an objective selected once for an eight-item demo is a
+leaderboard gamble at production list length.
+
+## Who owns the loop
+
+- **The ranking team** owns the objective choice and re-runs the
+  formulation comparison whenever the list length changes.
+- **The retrieval team** owns the candidate-set size that sets the list
+  length the ranker sees.
+- **The evaluation team** owns the metric arbitration — NDCG on the frozen
+  label set decides which formulation ships, not the loss's own
+  training error.
+
 ## Evidence boundary
 
 The executed rankers over a sixteen-item list derived by perturbing the

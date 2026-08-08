@@ -55,6 +55,36 @@ formalize the lexical scoring; Karpukhin et al. ("Dense Passage
 Retrieval for Open-Domain Question Answering", EMNLP 2020) motivate the
 dense alternative.
 
+## The fix and its trade
+
+The fix is synonym expansion or a dense path, because the zero-overlap cut
+is otherwise unrecoverable. The executed run prices both sides: with
+"cheap headphones" alone, doc6 ("affordable earbuds budget friendly")
+shares no term — not "cheap", not "headphones", since "earbuds" is a
+different token — ties at 0.0000, and is cut from the candidate set
+(recall@3 0.00, doc6 score 0.0000). The ranker downstream can only
+re-order what it was handed. Adding the synonyms "affordable budget"
+lifts doc6 to the top (recall@3 1.00, score 3.3903) but also pulls doc7 —
+"cheap running shoes on sale" — in as a false positive for headphones.
+
+The trade, named: expansion fixes recall and costs precision, and the
+reranker pays the bill — retrieval widens to protect recall, and ranking
+re-tightens at the price of more expensive-stage traffic. Production
+search runs expansion (stage 19) or a dense path (stage 20) precisely
+because the zero-overlap cut happens before any ranker sees the
+candidate; Robertson and Zaragoza (2009) formalize the lexical scoring,
+and Karpukhin et al. (2020) motivate the dense alternative.
+
+## Who owns the loop
+
+- **The retrieval team** owns the zero-score policy and the candidate-set
+  size — the absolute cut is their gate.
+- **The query-understanding team** owns the expansion lists and their
+  precision risk — a stale or over-broad list shows up as false positives
+  downstream.
+- **The ranking team** owns the precision bill: the false positives the
+  widening brings in are re-tightened here, at measurable cost.
+
 ## Evidence boundary
 
 The corpus is the stage's five documents plus two synthetic additions
