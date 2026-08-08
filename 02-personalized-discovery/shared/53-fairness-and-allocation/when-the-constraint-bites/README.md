@@ -38,6 +38,34 @@ decision lives — how much relevance the platform is willing to spend on
 how visible a tail. Diminishing returns run both ways: each additional
 point of floor buys less tail reach and costs more aggregate clicks.
 
+## The fix and its trade
+
+The fix is to set the floor against the measured exposure curve and the
+platform's stated price for tail visibility, choosing the level at the
+knee where further constraint stops being worth its clicks. The executed
+sweep prices the curve — the first ten points of floor move the tail
+from 1 to 9 percent and cost 0.0021 aggregate CTR, and the next ten move
+it only to 15 percent at a higher cost of 0.0027 per point, so the
+first points buy the cheapest visibility and the later ones the most
+expensive.
+
+The trade is that diminishing returns run both ways: each additional
+point of floor buys less tail reach and costs more aggregate clicks,
+and the decision is not "is fairness good" but "where on this curve
+does the platform sit". The bend is re-measured as the catalogue or the
+objective changes, because the price of the last few points is a
+property of the current catalogue and traffic, not a constant the floor
+decision can assume.
+
+## Who owns the loop
+
+- **The ranking and policy team** owns the floor level and sets it at
+  the measured knee, not at a round number.
+- **The measurement team** owns the exposure curve and the aggregate-CTR
+  cost per point, the two inputs the curve is built from.
+- **The product and business owner** declares the price of tail
+  visibility, the value that says where on the curve the platform sits.
+
 ## Evidence boundary
 
 The executed sweep over declared floors (illustrative, deterministic). It

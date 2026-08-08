@@ -50,6 +50,35 @@ cost per query is highest and where recall owns the spend. The fixes
 that actually move the tail cost are candidate-budget cuts and cheaper
 recall for cold queries, not a bigger cache.
 
+## The fix and its trade
+
+The fix is to attack the tail where it is: candidate-budget cuts and
+cheaper recall for cold queries, not a bigger cache. The executed
+stratification prices the failure — the head (40 percent of traffic)
+hits 95 percent of the time and pays 0.25 units, the mid pays 2.02, and
+the tail (30 percent of traffic) never repeats and pays the full 4.0,
+so the blended 1.91 against the uncached 4.00 hides that a third of
+traffic still pays the full cascade. Personalization shrinks the repeat
+rate, pushing more traffic from the head into the tail and lowering the
+blended saving toward the tail's full-cost share.
+
+The trade is that the repair is a quality-versus-cost decision at the
+tail, where recall already dominates the budget as the catalogue grows:
+cutting the candidate budget saves per-query cost and risks recall
+misses on exactly the cold, unique queries the tail is made of. The
+measurement team must report the query-frequency distribution and the
+hit rate by segment before the cache is sized against the blended
+number, so the head discount is not mistaken for a capacity plan.
+
+## Who owns the loop
+
+- **The recall and candidate-generation team** owns the candidate-budget
+  cuts and the cheaper cold-query recall path the tail needs.
+- **The measurement team** owns the query-frequency distribution and the
+  per-segment hit rate, the numbers that expose the blended average.
+- **The cost owner** owns the per-query budget at the tail, where the
+  worst cost and the worst recall economics meet.
+
 ## Evidence boundary
 
 The executed arithmetic over three declared traffic segments

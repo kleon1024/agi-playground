@@ -36,6 +36,33 @@ queries the mean never saw. The tail is a property of the distribution,
 not a rounding error: the 5% of queries that take 150ms accumulate in the
 queue at high load and become the p99 the users actually feel.
 
+## The fix and its trade
+
+The fix is to set capacity against the percentile the deadline names,
+using the full measured service-time distribution, not the mean. The
+executed simulation prices the failure — at the mean's verdict (59 req/s)
+94.3 percent of queries miss the 100ms deadline, at 80 percent of that
+load 43.6 percent still miss, and even at 50 percent (29 req/s) the tail
+keeps 16.8 percent over. A server provisioned on the mean spends its
+budget failing the slow queries the mean never saw.
+
+The trade is that capacity set on the percentile is headroom the server
+does not use most of the day: the gap between mean capacity and
+percentile capacity is the cost of the tail, paid in idle hardware so
+the slow 5 percent do not compound into the p99 users feel. The
+service-time distribution, measured, is the input; the deadline is the
+constraint; and the owner of the deadline decides which percentile the
+capacity is actually bought for.
+
+## Who owns the loop
+
+- **The capacity team** measures the full service-time distribution and
+  sizes against the percentile the deadline names.
+- **The serving team** owns the deadline and the queue behavior that
+  turns the slow 5 percent into the felt p99.
+- **The product owner** decides which percentile the surface's deadline
+  implies, since a 100ms p99 and a 100ms p50 buy different fleets.
+
 ## Evidence boundary
 
 The executed queue simulation over declared service times (illustrative,

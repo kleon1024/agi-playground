@@ -36,6 +36,33 @@ is a cost line, and cost per query is the unit it is measured in. The
 upgrade is not wrong — it is priced, and the price competes with every
 other way to spend the same budget.
 
+## The fix and its trade
+
+The fix is to price the upgrade in cost-per-query units and compare it
+against the other ways the same budget could be spent, instead of
+shipping on the NDCG gain alone. The executed comparison prices the
+choice — the small fine-rank model costs 1.0 units per query at NDCG
+0.618 and the large one 2.0 units at 0.631, so 0.013 of quality doubles
+the stage's daily bill from 10,000,000 to 20,000,000 units at 10M
+queries.
+
+The trade is that the gain is real but small, and the budget it spends
+is not: the same 10M extra units a day could buy deeper recall, a cache
+that cuts the whole cascade's cost, or a second experiment. Model size
+is a cost line measured in the same unit capacity planning spends, so
+the decision needs the measured live-traffic NDCG, the real per-query
+cost delta, and the opportunity cost of the same budget elsewhere —
+without those, the upgrade is an assertion, not a decision.
+
+## Who owns the loop
+
+- **The model team** owns the upgrade decision and must bring the
+  measured NDCG on live traffic, not the benchmark number.
+- **The measurement team** owns the real per-query cost delta and the
+  opportunity-cost comparison against other budget uses.
+- **The cost and finance owner** owns the budget line the per-query unit
+  feeds, the same denominator capacity planning uses.
+
 ## Evidence boundary
 
 The executed comparison over declared costs and NDCG values

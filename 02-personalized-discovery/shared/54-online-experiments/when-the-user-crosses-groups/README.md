@@ -68,6 +68,38 @@ sessions after every switch — both price the experiment's power, which is
 why 09's report and this stage both demand the trade be stated before the
 run.
 
+## The fix and its trade
+
+The fix is structural, not model-side: analyze at the randomization unit
+(per user, or cluster-robust standard errors at the user level), declare
+a washout window when users can cross arms, and use layered
+randomization where two experiments run on the same users (Tang et al.,
+KDD 2010). The executed runs price both failures — per-session analysis
+rejects 24.0 percent of null experiments against a declared 5 percent,
+with the naive standard error understating the clustered one by the
+design effect sqrt(3) = 1.73; and the carryover run shows the naive
+estimate at +0.428 against the true +0.5, recovering to +0.495 once the
+first session after each switch is dropped.
+
+The trade is that every fix prices the experiment's power: per-user
+analysis has less effective sample than per-session, and washout windows
+waste the first sessions after every arm switch, so the cost is stated
+before the run rather than discovered in the analysis. Both failures are
+properties of the design, not of the model — no ranker can fix a
+standard error computed over the wrong independence assumption, and no
+estimator can recover an effect from control sessions that were never
+clean — which is why the unit, the washout, and the layering are owned
+before the experiment starts.
+
+## Who owns the loop
+
+- **The experimentation-platform team** owns the analysis-unit check and
+  the clustered analysis at the randomization unit.
+- **The product and analysis team** owns the washout-window decision,
+  set from the logged sequences of arm exposure.
+- **The measurement team** owns the within-user ICC measurement and the
+  power statement that prices the unit and washout before the run.
+
 ## Evidence boundary
 
 The simulations are synthetic and deterministic. They demonstrate the

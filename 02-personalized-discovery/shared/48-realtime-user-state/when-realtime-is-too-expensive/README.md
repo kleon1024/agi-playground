@@ -39,6 +39,33 @@ signal does not change minute to minute belong in the batch path, not on
 the critical one. The hybrid is not a compromise — it is the accounting:
 put a feature live only when its freshness beats the latency it costs.
 
+## The fix and its trade
+
+The fix is the hybrid as an accounting rule: put a feature on the
+request path only when its freshness beats the latency it costs, and
+keep the rest on the batch path. The executed sweep prices the choice —
+the batch-only path sits at p95 38ms, ten realtime features reach 78ms,
+and twenty blow through the 100ms deadline at 118ms. Every live feature
+is a latency budget spent, and the features whose signal does not change
+minute to minute belong off the critical path.
+
+The trade is that the line between live and batch moves: a feature that
+justifies the request-path spend under one deadline is fatal under a
+tighter one — the detour's 20-feature case is fine for a 200ms budget
+and over for 100ms. The accounting must be re-run as the deadline or the
+model changes, and the freshness of each signal is re-measured rather
+than assumed, so the hybrid is a decision, not a fixed list.
+
+## Who owns the loop
+
+- **The serving team** owns the request-path latency budget and what is
+  allowed on the critical path.
+- **The feature-owner team** declares how fast each signal's value
+  changes, the freshness claim the budget is priced against.
+- **The measurement team** re-runs the latency-and-lift accounting when
+  the deadline or the model changes, so the line is re-measured, not
+  assumed.
+
 ## Evidence boundary
 
 The executed sweep over a declared p95 model (illustrative,

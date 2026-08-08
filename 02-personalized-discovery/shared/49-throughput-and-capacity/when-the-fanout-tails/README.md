@@ -51,6 +51,34 @@ query-level tail, and it is a function of the fan-out factor and the
 slow component's share — which is why a capacity team sizes against the
 query path, not the component average.
 
+## The fix and its trade
+
+The fix is to size against the query-level tail — a function of the
+fan-out factor and the slow component's share — and to budget hedging
+where the deadline demands it. The executed simulation prices the
+failure: the identical 1 percent slow component produces 1.1 percent
+queries over 500ms at fan-out 1, 5.2 percent at fan-out 5, and 18.5
+percent at fan-out 20, because the query is the max over its shards.
+Hedging cuts the miss rate to 3.4 percent, since a hedged query only
+misses when both copies draw a slow shard (0.185 squared).
+
+The trade is that hedging is 2x shard work: the second copy doubles the
+load on the very shards the query depends on, so the repair has a
+capacity cost that the measurement team must price against the deadline
+it protects. A per-shard p99 means nothing once a query depends on the
+max of many shards, so the capacity number that matters is the
+query-level tail — measured per query type, because fan-out differs
+across the product.
+
+## Who owns the loop
+
+- **The capacity team** sizes against the query path and the query-level
+  tail, not the component average.
+- **The serving-infrastructure team** owns the fan-out factor per query
+  type and the hedging budget that cuts the amplified tail.
+- **The measurement team** measures the actual fan-out factor and the
+  slow component's share, the two inputs the sizing formula depends on.
+
 ## Evidence boundary
 
 The executed simulation over 10,000 declared queries (illustrative,

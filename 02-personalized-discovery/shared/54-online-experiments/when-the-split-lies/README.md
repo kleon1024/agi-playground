@@ -65,6 +65,17 @@ and a config change cannot drift apart silently. Cost: a small amount of
 platform engineering, traded against every experiment that would otherwise
 report a ghost.
 
+## Who owns the loop
+
+- **The experimentation-platform team** owns the daily allocation-ratio
+  check and the config that declares the expected split at experiment
+  creation, so bucketing and config cannot drift apart silently.
+- **The bucketing and config team** owns the constant whose change broke
+  the split, and the revert that restores it.
+- **The product and analysis team** owns the rerun decision when an
+  experiment "won" while the split was broken, since a ghost win is not
+  a result.
+
 ## Evidence boundary
 
 The simulation is deterministic (crc32 hashing, fixed user ids) and

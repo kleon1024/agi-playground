@@ -38,6 +38,35 @@ the world, which is what the store prevents. A ranker that trains on one
 world and serves another is not wrong about either; it is unmoored, and
 the disagreement is invisible until the slate changes under it.
 
+## The fix and its trade
+
+The fix is the as-of read itself: score serving with the same frozen
+feature values training used, so the ranker always reorders on a world it
+has seen. The executed read prices the failure — train order P1001,
+P1002, P1003 against serve order P1002, P1001, P1003, with P1001 falling
+17.5 to 12.5 while P1002 holds 17.5 on an age feature the model never
+trained on. With the store in place, the divergence disappears by
+construction rather than by inspection.
+
+The trade is that identical reads are not the whole repair: the serve
+world still moves, and the frozen value ages until refresh. The store
+cannot tell a legitimate fast-mover (an item that genuinely gets old)
+from a read bug, so the feature owner must declare which divergences are
+expected, and the prediction-observation gap of stage 47 is the standing
+check that the frozen read still matches the world it serves. The store
+trades away the ability to lie silently; it does not trade away the
+feature owner's obligation to say how fast the value moves.
+
+## Who owns the loop
+
+- **The feature-owner team** declares what each feature means and how
+  fast it legitimately moves, so a serve-time reorder is classified as
+  expected drift or a read bug.
+- **The serving and ranking team** owns the serve-time feature
+  computation and the slate that reorders under it.
+- **The monitoring team** owns the prediction-observation gap of stage
+  47 that catches the divergence the store cannot see.
+
 ## Evidence boundary
 
 The executed read over three declared items (illustrative, deterministic).

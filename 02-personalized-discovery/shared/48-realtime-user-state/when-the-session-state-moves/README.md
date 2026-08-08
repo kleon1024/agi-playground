@@ -38,6 +38,34 @@ decision lives. A boost that never decays keeps the user trapped in one
 mood; one that decays too fast never changes the page; the curve sets the
 horizon of "recent" per surface.
 
+## The fix and its trade
+
+The fix is a per-signal, per-surface decay rate set against the user's
+measured return rhythm: the curve sets the horizon of "recent" for each
+surface. The executed decay prices the choice — two minutes after the
+view the session boost 0.0097 lifts the second audio item above the
+cable item, by twenty minutes the boost 0.0015 is too small and the
+batch order is back, and at forty minutes the 0.0002 boost leaves the
+batch order untouched. The session state is not binary; its age is the
+feature.
+
+The trade is the two failure shapes of a wrong rate: a boost that never
+decays keeps the user trapped in one mood and one view owns the page for
+hours, and a boost that decays too fast never changes the page and the
+realtime state is decorative. The right half-life matches the surface's
+real return rhythm — measured from behavior, not chosen by taste — and
+the rate is owned per signal, because a mood signal and a freshness
+signal do not share a curve.
+
+## Who owns the loop
+
+- **The ranking and feature-owner team** owns the decay rate per signal,
+  the horizon of "recent" for the slate.
+- **The measurement team** owns the return-rhythm measurement the rate
+  is set against, since the half-life is a behavior fact, not a taste.
+- **The product team** owns the per-surface horizon decision and the
+  stability-versus-freshness trade each surface tolerates.
+
 ## Evidence boundary
 
 The executed decay over three declared read times (illustrative,

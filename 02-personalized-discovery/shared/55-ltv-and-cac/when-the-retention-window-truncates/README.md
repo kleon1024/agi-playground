@@ -50,6 +50,37 @@ channels: the review is reading windows, not curves. The fix is to
 report LTV/CAC per horizon and to model the curve's shape — especially
 the ramp and the tail — before scaling any acquisition spend.
 
+## The fix and its trade
+
+The fix is to report LTV/CAC per horizon and model the curve's shape —
+ramp, decay, and tail — before scaling any acquisition spend, instead
+of reading a truncated window as the truth. The executed comparison
+prices the failure: at three months paid installs looks like the better
+bet (0.88 against referral's 0.78) because its decaying curve is fully
+visible, while referral's slowly-ramping users show only \$3.10 of LTV
+against a true \$47.10 — 0.78 against a true 11.78. A team that reads
+the window and stops ranks the wrong channel.
+
+The trade is that curve modeling costs more than window reading and
+depends on the ramp and tail being measured: the classic approaches
+(Fader, Hardie & Lee, Marketing Science 2005; Gupta, Lehmann & Stuart,
+JMR 2004) trade the simplicity of the observed months for a
+recency-frequency model whose shape is the verdict. The production tell
+is a channel review that keeps promoting fast-decay channels — the
+review is reading windows, not curves — and the gap between a channel's
+windowed and true numbers is itself the diagnostic that says the review
+must read the curve.
+
+## Who owns the loop
+
+- **The analytics and finance team** owns the horizon in every LTV
+  number and the curve model the verdict is computed from.
+- **The growth and acquisition team** owns the scaling decision and must
+  hold a channel until its curve shape — not its 3-month snapshot — is
+  known.
+- **The measurement team** owns the per-cohort retention curves and the
+  ramp-and-tail estimates the model depends on.
+
 ## Evidence boundary
 
 The executed comparison over two declared 24-month retention curves

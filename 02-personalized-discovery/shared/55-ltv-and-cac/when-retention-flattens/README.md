@@ -37,6 +37,36 @@ month's revenue: keeping an existing user from leaving adds the whole
 future stream, while acquiring a new one (stage 55's CAC) pays the
 acquisition cost first.
 
+## The fix and its trade
+
+The fix is to measure the retention floor per cohort and treat discovery
+as a floor lever: LTV is priced on the floor, and retention work — which
+is what good discovery is — changes it. The executed projection prices
+the difference: both cohorts decay at the same rate for months, yet the
+decaying cohort (floor 0) holds 1 percent at month 12 and is worth
+\$27.54, while the flattening cohort (floor 35 percent) holds 35 percent
+and is worth \$50.83 — the floor nearly doubles LTV because the flat
+tail compounds over the whole horizon.
+
+The trade is that the floor is worth more than any single month's
+revenue, and the work that raises it is slower to measure than an
+acquisition campaign: keeping an existing user from leaving adds the
+whole future stream, while acquiring a new one pays the acquisition cost
+first. A discovery improvement that shifts the floor is therefore worth
+more than the same effort spent on new users, but only if the floor is
+validated on live cohorts — the projection is a mechanism demo until the
+real retention curve confirms it.
+
+## Who owns the loop
+
+- **The discovery and ranking team** owns the floor lever, the retention
+  work that keeps users compounding.
+- **The measurement team** owns the per-cohort retention curves and the
+  live-cohort validation of the floor.
+- **The growth and finance owner** owns the LTV pricing that puts a
+  dollar value on a floor point, the number that prioritizes retention
+  against acquisition spend.
+
 ## Evidence boundary
 
 The executed 24-month projection over declared retention curves

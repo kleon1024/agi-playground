@@ -36,6 +36,32 @@ chose it. The feedback loop is not just a popularity story; it is a
 per-user one, and the same multiplicative dynamics that concentrate the
 head concentrate a user's view. The user's own clicks are the fuel.
 
+## The fix and its trade
+
+The fix is a per-user diversity floor: measure the share of each page
+outside the user's history and enforce a floor on it, so the bubble stops
+closing before the user's other interests are starved. The executed loop
+prices the failure — one liked category grows from 33 percent of the
+page at epoch 1 to 70 percent at epoch 5 and 94 percent at epoch 10, all
+without the user choosing it.
+
+The trade is diversity against precision: every impression the floor
+forces outside the user's history is one the personalized model believes
+is worse, so a floor set too high degrades relevance and a floor set too
+low lets the bubble close anyway. The floor is a separate decision from
+the catalogue-level tail measure of stage 45's main run — a system can
+fix one and keep the other — and it must be set per user class, because
+an explorer and a repeat buyer do not tolerate the same floor.
+
+## Who owns the loop
+
+- **The ranking team** enforces the per-user diversity floor on the
+  served page.
+- **The measurement team** owns the per-user category-share metric and
+  reports the bubble closing before the floor is hit.
+- **The product team** sets the floor against the relevance cost, since
+  the personalized model's precision is what the floor trades away.
+
 ## Evidence boundary
 
 The executed per-user loop over ten declared epochs (illustrative,

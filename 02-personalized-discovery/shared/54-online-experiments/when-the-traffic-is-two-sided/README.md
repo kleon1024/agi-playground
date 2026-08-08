@@ -71,6 +71,37 @@ traffic; marketplace-wide changes — a fee structure, a matching rule, a
 reserve price — belong in switchback, with the timeline priced before the
 experiment starts.
 
+## The fix and its trade
+
+The fix is to choose the unit by the interference strength, not by
+habit: marketplace-wide changes — a fee structure, a matching rule, a
+reserve price — belong in switchback with the timeline priced before the
+run, and ranking-only tweaks belong in interleaving, which compares
+rankings within the same session at a fraction of the traffic. The
+executed run prices the failure: per-minute analysis treats 5,040
+minutes as independent when the effective unit is 28 blocks and rejects
+53 percent of null experiments, while block-level analysis restores the
+declared 5 percent at 3 percent false positives.
+
+The trade is that switchback contains the intervention in time and pays
+for it in power: the block unit is coarse, the minimum detectable effect
+at 80 percent power is 0.43 block-SD, and a 1 percent effect needs
+roughly 36 years of half-hour blocks (Bojinov, Simchi-Levi and Zhao,
+Management Science 2023; Uber's engineering practice as the field
+account). The block length itself trades autocorrelation against power —
+five-minute blocks autocorrelate at rho1 0.71, above the gate's 0.2
+threshold — so the decision is made before the experiment starts, when
+the interference strength and the effect size are both known.
+
+## Who owns the loop
+
+- **The experimentation-platform team** owns the switchback design, the
+  serial-dependence gate, and the block-length choice.
+- **The product and marketplace team** declares whether the change is
+  marketplace-wide, the call that decides the unit before the run.
+- **The analysis team** prices the power timeline before the experiment
+  starts, so a small effect never enters a switchback it cannot resolve.
+
 ## Evidence boundary
 
 The simulations are synthetic, deterministic, and null (no treatment

@@ -37,6 +37,34 @@ is where the cache decision is measured: how much of the budget a cache
 saves depends on how often the same query returns, which is a property of
 the traffic, not of the cache.
 
+## The fix and its trade
+
+The fix is to decide the cache on the measured hit-rate curve per query
+class, with staleness-costed invalidation rules — not on hope about how
+often traffic repeats. The executed sweep prices the curve: the full
+path costs 4.0 units per query, and the served query falls to 2.02 at 50
+percent hits, 0.44 at 90 percent, and 0.09 at 99 percent, because a miss
+still pays the full path and a hit pays only the cheap cache read.
+
+The trade is that the cache swaps freshness for cost, exactly like a
+stale model in stage 46: a cached slate is a snapshot, and the fresher
+the user's state, the more the cache is wrong about it. The invalidation
+policy is where the balance is set — how old a cached value may be
+before the savings stop paying — and the hit rate is a property of the
+traffic, so the measurement team reports it per query class before the
+cache size is chosen.
+
+## Who owns the loop
+
+- **The serving-infrastructure team** owns the cache, its size, and the
+  invalidation rules that balance freshness against savings.
+- **The measurement team** measures the hit rate per query class and the
+  staleness cost of a cached slate, the two numbers the cache decision
+  is priced on.
+- **The product and feature owner** declares how stale each surface's
+  slate may be, the same freshness decision stage 46 makes for model
+  snapshots.
+
 ## Evidence boundary
 
 The executed sweep over a declared full cost (illustrative,

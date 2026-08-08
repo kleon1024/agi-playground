@@ -38,6 +38,34 @@ cheap to generate and expensive to get wrong: each false claim converts
 the trust the feature was supposed to build into evidence against the
 platform.
 
+## The fix and its trade
+
+The fix is to gate the explanation feature on the measured cost: track
+the false-explanation rate on live traffic, measure the retention
+response, and ship or keep the feature only when the measured cost
+clears the trust it is supposed to build. The executed curve prices the
+stakes — a 5 percent false rate nearly doubles opt-outs from 1.0 to 1.8
+percent, 20 percent false drives 5.2 percent of users to leave, and 50
+percent drives 13.0 percent, because each false claim is a lie the user
+can check against their own history.
+
+The trade is the asymmetry between a missing explanation and a false
+one: a missing one is neutral, and a false one converts the trust the
+feature was bought to build into evidence against the platform. Gating
+on the measured cost means shipping fewer explanations when the false
+rate is high — the feature is cheap to generate and expensive to get
+wrong, so the measurement team's false-rate and retention numbers, not
+the feature's availability, decide whether the copy stays on the page.
+
+## Who owns the loop
+
+- **The explainability team** owns the false-explanation-rate measurement
+  on live traffic, the number the gate is priced on.
+- **The product team** owns the feature-gate decision and the
+  missing-versus-false trade each surface tolerates.
+- **The measurement and analytics team** owns the retention response,
+  the second half of the cost that decides whether the feature stays.
+
 ## Evidence boundary
 
 The executed curve over declared opt-out responses (illustrative,

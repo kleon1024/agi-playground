@@ -39,6 +39,36 @@ which is why monitoring lives online, not in the eval harness. A metric
 that cannot move when the service is failing is not a metric for the
 service.
 
+## The fix and its trade
+
+The fix is to pair every offline metric with an online instrument that
+does not share the serving path — the gap panel is the one that moved.
+The executed twelve-hour read prices the failure: offline NDCG holds
+flat at 0.712 across all twelve hours while observed CTR halves from
+0.039 to 0.020 and the gap grows from 0.001 to 0.020, because the eval's
+labels come from the same broken feed the model trained on. A metric
+that cannot move when the service is failing is not a metric for the
+service.
+
+The trade is that the online instrument costs serving-path plumbing and
+is noisier at small scale, where the offline harness is cheap and
+stable — which is exactly why teams lean on it until the failure. The
+offline number can never be the last line of defence, because at the
+moment of failure its inputs are the same corrupted ones; the online gap
+is not a complement to the eval, it is the only instrument that measures
+the serving world directly.
+
+## Who owns the loop
+
+- **The monitoring team** owns the online gap instrument and its alert
+  path, the only signal that moves during the failure.
+- **The evaluation and measurement team** audits each offline metric for
+  what it shares with the serving path, so its blindness is known before
+  the break.
+- **The serving team** provides the live observation feed the gap
+  computes against, since the instrument cannot exist without a
+  serving-side read.
+
 ## Evidence boundary
 
 The executed twelve-hour comparison (illustrative, deterministic). It

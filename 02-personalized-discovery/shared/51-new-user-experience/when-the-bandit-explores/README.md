@@ -54,6 +54,36 @@ its cost when the horizon is long enough to repay it (Thompson, 1933,
 for the posterior-sampling original; the bandit's regret accounting is
 the standard measure of the tax).
 
+## The fix and its trade
+
+The fix is to choose where the tax is paid rather than to explore more:
+warm priors and shared user segments move the first page more than an
+exploration budget, and a budget is only worth its cost when the horizon
+is long enough to repay it. The executed runway prices the trade —
+popularity-initialized greedy reaches a 0.817 runway average for free,
+a fixed 10 percent budget costs 0.022 of relevance, 30 percent costs
+0.090, and Thompson, though it prices exploration by posterior
+uncertainty, still pays 0.087 on a 20-round horizon.
+
+The trade is that every exploration round on the new-user runway is a
+round of worse relevance, and the tax scales with how short the horizon
+is: the production tell is a new-user cohort whose early-session
+relevance trails the same cohort a week later, which is the cohort
+paying the tax. The repair is not a bigger budget but a shorter runway —
+better priors and shared segments shorten the horizon the budget must
+bridge, and the measurement team owns the runway length and the
+retention value of early relevance that make the repayment check
+possible.
+
+## Who owns the loop
+
+- **The ranking and policy team** owns the exploration budget and the
+  implicit-exploration fallback the prior provides.
+- **The growth team** owns the warm priors and shared user segments
+  that shorten the runway the budget must bridge.
+- **The measurement team** owns the runway-length and early-relevance
+  numbers that decide whether an exploration budget repays its tax.
+
 ## Evidence boundary
 
 The executed policy comparison over one declared 20-round runway

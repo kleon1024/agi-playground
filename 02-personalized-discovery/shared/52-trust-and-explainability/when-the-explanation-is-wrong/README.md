@@ -41,6 +41,35 @@ is how strongly the model can use a feature; the contribution is how much
 it actually did for this item. Confusing the two ships a headline that
 the score never acted on.
 
+## The fix and its trade
+
+The fix is to explain the contribution, not the coefficient, and to
+validate the explanation against the served decision: does the story
+match what the score actually did for this item. The executed read
+prices the failure — "similar users bought" holds the largest weight
+(+0.200) but a small value (0.3), so its contribution is 0.0600, while
+price's contribution is -0.0800 and is the largest by magnitude. The
+coefficient headline ships a claim the score never acted on, and the
+user's local evidence — the price in front of them — catches it.
+
+The trade is that contribution-based explanation costs per-item
+computation and a validation pass the coefficient shortcut skips: the
+weight is how strongly the model can use a feature, the contribution is
+how much it actually did here, and only the latter is checkable by the
+user. The explanation system is validated against the served decision
+rather than against the model's parameters, and the validation is what
+keeps the cheap-to-generate headline from becoming a lie the user can
+check.
+
+## Who owns the loop
+
+- **The explainability and ML team** owns the contribution computation
+  and the validation of the headline against the served decision.
+- **The product and UX team** owns what the user can check locally,
+  since a claim contradicting the visible price is the failure shape.
+- **The measurement team** owns the explanation-vs-decision audit that
+  catches the coefficient shortcut before it ships.
+
 ## Evidence boundary
 
 The executed comparison over one declared item (illustrative,

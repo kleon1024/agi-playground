@@ -37,6 +37,34 @@ rest of the day, or paid for with dropped queries at the peak. The
 decision is the trade between the two, and it belongs to whoever knows
 what a dropped query costs.
 
+## The fix and its trade
+
+The fix is to make capacity a decision against the arrival curve: buy
+standby servers that idle most of the day, or pay with dropped queries
+when the spike lands. The executed spike prices the choice — at 1x (30
+req/s) the p99 is 267ms with 18.8 percent over the 100ms deadline, at 2x
+(60 req/s) the p99 is 11,850ms with 99.4 percent over, and at 5x (150
+req/s) every query misses. The peak does not raise the average; it floods
+the queue.
+
+The trade is the idle cost of standby capacity against the cost of a
+dropped query at the peak, and it is a business decision, not a latency
+one: servers that sit unused for twenty-three hours a day are a line
+item on the budget, and a search that returns nothing during the
+ten-minute spike is users who left. The owner who knows what a dropped
+query costs chooses where on the curve to sit, and the capacity team
+supplies the arrival curve that makes the choice explicit.
+
+## Who owns the loop
+
+- **The capacity-planning team** owns the arrival-curve measurement and
+  the standby-versus-drop tradeoff options.
+- **The serving team** owns the queue and deadline behavior under the
+  spike, the constraint the capacity is bought against.
+- **The product and business owner** decides what a dropped query costs
+  and where on the curve the service sits, since that cost is a business
+  fact, not a latency one.
+
 ## Evidence boundary
 
 The executed spike over three declared multiples (illustrative,

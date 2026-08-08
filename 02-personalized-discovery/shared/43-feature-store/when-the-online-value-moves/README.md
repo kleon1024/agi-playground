@@ -48,6 +48,35 @@ owner declares which lane a value needs (Simha and Hoh, "Building the
 Airbnb User Price Recommendation Engine", Strata Data Conference New
 York, 2018).
 
+## The fix and its trade
+
+The fix is a per-feature latency class: the feature owner declares how
+fast each value moves, and the store serves that value through the lane
+that honors it, exactly as stage 46 decides how old a model snapshot may
+get. The executed sweep prices the choice — the mid-hour promo price is
+served stale for 1 hour on an hourly refresh, 6 on an 8-hour one, and 22
+of 24 hours on a daily one, with streaming at zero and the wrong pair
+P1002-versus-P1003 constant throughout.
+
+The trade is freshness against write cost and refresh work: streaming
+serves the change the hour it lands at per-event write cost, the daily
+batch costs almost nothing to maintain and ages the hot features, and
+the hourly lane sits in between. There is no free cadence — the feature
+owner prices the staleness each class serves against how fast the value
+moves, and the store enforces the declared lane instead of leaving the
+refresh interval to whoever happens to schedule it.
+
+## Who owns the loop
+
+- **The feature-owner team** declares the latency class and the refresh
+  cadence for each feature, the decision stage 43's contract explicitly
+  leaves open.
+- **The serving-infrastructure team** owns the lanes the store serves
+  from and enforces the declared class per feature.
+- **The measurement team** owns the staleness audit that verifies what
+  each class actually served, since the interval is the decision and the
+  served hours are the evidence.
+
 ## Evidence boundary
 
 The executed sweep over one declared promo (illustrative, deterministic).

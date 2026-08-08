@@ -36,6 +36,34 @@ property, not a model one. The same shape as stage 44's main read, seen
 from the serving side: the world moved, and whichever side read it last
 is the one the model is right about.
 
+## The fix and its trade
+
+The fix is a per-feature staleness budget enforced at serving: the
+feature owner declares how long each value may serve the last snapshot,
+fast movers read live, slow ones ride the batch lane. The executed read
+prices the failure — P1001's logged \$49 ctr 0.042 describes a price the
+user no longer sees (live \$56, ctr 0.026), P1003's logged \$19 ctr
+0.018 sits against live \$24 ctr 0.030, and P1002's estimate matches
+only because its price never changed.
+
+The trade is latency against staleness: reading live removes the lag and
+couples every request to the feature source; serving the snapshot keeps
+the read cheap and ages the value. The decision lives in the pipeline's
+staleness budget, not in the model — the model sees what it is given —
+which is why the levers are serving-time feature logging and stage 43's
+store write path, not retraining. Each feature's budget is set against
+how fast the value moves, and the audit is what tells the owner whether
+the budget held.
+
+## Who owns the loop
+
+- **The feature-owner team** declares how long each value may serve the
+  last snapshot and which features must read live.
+- **The serving-infrastructure team** enforces the staleness budget and
+  owns the live-read path for the fast movers.
+- **The measurement team** audits per-feature served age so the owner
+  learns whether the declared budget held before the rank changes.
+
 ## Evidence boundary
 
 The executed comparison over three declared items (illustrative,

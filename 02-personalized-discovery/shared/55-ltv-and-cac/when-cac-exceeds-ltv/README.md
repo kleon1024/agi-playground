@@ -36,6 +36,33 @@ that looks cheapest at the signup (paid installs at \$8.00 versus
 referral at \$3.50 in CAC) is the one that loses money, because its
 users' retention does not cover the acquisition.
 
+## The fix and its trade
+
+The fix is to make the ratio the gate: a channel below 1 is capped or
+fixed before it is scaled, and the fix lives on the retention side, not
+the install price. The executed read prices the verdict — organic
+search at \$2.00 CAC returns \$12.15 (6.08), referral at \$3.50 returns
+\$10.70 (3.06), and paid installs at \$8.00 returns \$7.50 (0.94) and
+loses money. The channel that looks cheapest at signup is the one that
+loses, because its users leave before paying back their cost.
+
+The trade is that scaling a below-1 channel is a negative-ROI action —
+each extra paid install adds another \$0.50 of loss, so volume makes the
+loss larger, and the alternative is to cap a channel that may still be
+growing a cohort the window has not fully seen. The gate is only as
+honest as the measurement behind it: per-channel retention curves and
+revenue per user, measured over the attribution window, are what turn
+"cheap install" from an acquisition fact into a liability verdict.
+
+## Who owns the loop
+
+- **The growth and acquisition team** owns the channel-scaling gate and
+  caps or fixes a below-1 channel before scaling it.
+- **The measurement and analytics team** owns the per-channel retention
+  curves and revenue per user that the ratio is computed from.
+- **The finance owner** owns the ratio-gate decision and the volume
+  arithmetic that makes a below-1 channel a growing liability.
+
 ## Evidence boundary
 
 The executed five-month LTV over three declared channels (illustrative,

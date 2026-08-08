@@ -53,6 +53,37 @@ collapses without moving the page-level number — is why slice-aware
 monitoring exists at all, and why the slice definition (which dimensions
 you slice on) decides whether the collapse is findable.
 
+## The fix and its trade
+
+The fix is to change the sample size, not the threshold: pool related
+segments to raise n, apply shrinkage toward the aggregate, or accept the
+pooled window's latency for slices that cannot be pooled. The executed
+simulation prices the failure — the 500/day slice carries the drop with
+a daily standard deviation 0.00876, nearly half the 0.020 drop itself,
+so the daily test fires twice on pre-drop noise and detects the real
+drop at day 13, three days late; the pooled 14-day test detects at day
+23 with zero false alarms for every segment. Tightening the threshold
+only moves the failure from missed detections to pager storms.
+
+The trade is latency against reliability: pooling shrinks the standard
+deviation by the square root of the window (0.00876 over sqrt(14) is
+0.00234, turning a 2.3-sigma event into an 8.5-sigma one) and pays
+detection latency, never signal. A tighter daily threshold pays
+reliability for noise without gaining signal. And the slice definition
+itself — which dimensions the panel slices on — is the upstream
+decision that decides whether the collapse is findable at all, so the
+monitoring team owns that choice as carefully as the threshold.
+
+## Who owns the loop
+
+- **The monitoring team** owns the slice definitions and the pooling
+  dimensions, the decision that decides whether a collapse is findable.
+- **The data and analytics team** owns the shrinkage and pooled
+  estimators that raise effective sample size on small slices.
+- **The on-call operator** accepts the pooled window's latency for
+  slices that cannot be pooled, since the trade is theirs to live with
+  during the incident.
+
 ## Evidence boundary
 
 The executed simulation over three declared segment sizes (illustrative,

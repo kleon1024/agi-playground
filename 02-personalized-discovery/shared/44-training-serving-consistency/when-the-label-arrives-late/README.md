@@ -38,6 +38,34 @@ traffic that answered quickly. The fix is to hold out the unconfirmed
 window and train on fully-labelled data, not to trust a cut that is
 really a filter.
 
+## The fix and its trade
+
+The fix is a holdout window: hold out the unconfirmed label period and
+train only on fully-labelled data, with the window set against the
+measured label-arrival distribution. The executed cut prices the failure
+— at hour 6, P1002 and P1003 have zero visible conversions and estimate
+0.0000 against a true 0.0300, while P1001 (fast-converting) estimates
+0.0400 correctly, so the training set represents the traffic that
+answered quickly, not the traffic.
+
+The trade is volume against recency: a longer window labels more
+conversions fully but ages the training data, and a shorter window keeps
+the data fresh while re-introducing the bias for slow-converting items.
+The window is a per-goal decision — a conversion that arrives in a day
+and one that arrives in a month do not tolerate the same holdout — and
+the same bias hides in any online metric computed on partial labels, so
+the metric side needs the identical windowing discipline.
+
+## Who owns the loop
+
+- **The logging team** owns the label-arrival distribution measurement
+  that sets the holdout window.
+- **The training-platform team** enforces the holdout and never trains on
+  a partially-observed target.
+- **The metric and measurement team** applies the same window to online
+  metrics computed on partial labels, so the bias cannot hide there
+  either.
+
 ## Evidence boundary
 
 The executed cut over three declared items (illustrative, deterministic).

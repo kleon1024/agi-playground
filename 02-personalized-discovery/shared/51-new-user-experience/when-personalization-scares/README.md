@@ -37,6 +37,34 @@ on a single signup click reads as a misread, and the user never comes
 back to correct it — the retention cost of the confident prior is paid
 before the user has a chance to disagree.
 
+## The fix and its trade
+
+The fix is to let the prior own a bounded share of the first page, with
+the boost strength set against the prior's measured accuracy and the
+retention cost of the narrowed page. The executed mix prices the choice
+— no prior leaves the clicked category at a fifth of the page, a weak
+prior (0.006) raises it to 30 percent, and a strong one (0.020) to 40
+percent, with the category count unchanged at 3 the whole time. The
+boost does not add categories; it shifts the balance until the page is a
+bet on one click rather than a sample of the catalogue.
+
+The trade is that the stronger the prior, the less of the catalogue the
+user sees before proving they want it — and the new user has no
+relationship to correct a misread with, so a page that narrows on a
+single signup click reads as "this is not for me" and the retention cost
+is paid before the user can disagree. The measurement team reports the
+prior's accuracy and the narrowed-page retention cost together, because
+the strength decision needs both numbers on the same page.
+
+## Who owns the loop
+
+- **The growth and onboarding team** owns the signup ask and the prior
+  it produces, the claim the first page is built on.
+- **The ranking team** owns the boost strength on the slate and the
+  share of the page the prior may hold.
+- **The measurement team** owns the prior-accuracy and retention-cost
+  numbers the strength decision is priced on.
+
 ## Evidence boundary
 
 The executed mix over three declared prior strengths (illustrative,

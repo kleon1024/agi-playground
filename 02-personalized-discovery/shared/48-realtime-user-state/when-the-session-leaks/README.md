@@ -50,6 +50,34 @@ lift on the request path. When you see that gap, audit the feature
 timestamps first — a session feature that knows the future is not
 insight, it is the label wearing a costume.
 
+## The fix and its trade
+
+The fix is the time-ordered join, the same discipline stage 44 applies
+to labels: every session feature's observation window must end before
+the label's window starts, enforced per feature before training. The
+executed comparison prices the failure — the leaky feature scores ndcg@10
+0.245 with 300/300 top-1 hits, against the honest as-of feature's 0.101
+and 33/300, so the leaky model ships excellent and produces nothing at
+serve time, where the future clicks it encodes do not exist.
+
+The trade is that the honest feature looks decisively worse offline,
+which is exactly why the leak survives review — a team shipping on the
+offline number keeps the costume. The repair costs a per-feature
+timestamp contract and the discipline to audit before training, and the
+production tell is the signature gap: an offline eval that beats the
+online A/B by a wide margin, or a session model with no request-path
+lift. When that gap appears, the timestamps are the first thing to
+audit.
+
+## Who owns the loop
+
+- **The feature-owner team** timestamps each session feature's
+  observation window and declares where it ends.
+- **The training-platform team** enforces the time-ordered join and
+  audits timestamps before every training cut.
+- **The measurement team** owns the offline-versus-online gap, the
+  signature that tells a leaky feature from a real one.
+
 ## Evidence boundary
 
 The executed comparison over 300 declared sessions (illustrative,

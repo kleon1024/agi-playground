@@ -39,6 +39,33 @@ a default, so the store must make the default explicit and auditable —
 the rule engine (stage 07) is where the policy belongs, not buried in a
 feature reader.
 
+## The fix and its trade
+
+The fix is an explicit, auditable missing-value policy: the feature
+owner declares the default per feature, the store logs every read that
+served a default, and the policy lives in stage 07's rule engine rather
+than inside a feature reader. The executed read prices the failure — the
+zero default promotes P1004 (ctr 0.025) above P1001 (ctr 0.032) and to
+rank 1, where the true \$39 price puts it at rank 2 — so the store's
+silent choice moved the slate as much as the real value would.
+
+The trade is between two explicit policies, not between a default and
+nothing. A default keeps the new item in the race but may rank it on a
+value nobody chose; disqualifying the item on a missing feature protects
+the rank but costs coverage for exactly the fresh items the store is
+built to onboard. Whoever declares the default also declares the
+disqualification rule, and the audit log is what makes either choice
+reviewable instead of invisible.
+
+## Who owns the loop
+
+- **The feature-owner team** declares the default and whether a missing
+  value disqualifies the item from ranking at all.
+- **The ranking and rule-engine team** owns where the policy lives (stage
+  07's rules, not the feature reader) and enforces it consistently.
+- **The feature-store team** logs every default-served read so the
+  decision can be audited after the fact.
+
 ## Evidence boundary
 
 The executed read over four declared items (illustrative, deterministic).

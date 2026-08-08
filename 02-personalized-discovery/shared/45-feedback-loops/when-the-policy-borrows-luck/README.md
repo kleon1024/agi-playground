@@ -48,6 +48,36 @@ luck is recorded, so exploration must be logged with the policy version
 that produced it — propensities are not a property of the item, they are
 a property of the policy that served it.
 
+## The fix and its trade
+
+The fix is to log exploration with the policy version that produced it
+and estimate propensities per version, so the correction divides by the
+probability that actually generated each row. The executed read prices
+the failure — the naive log calls A 0.060 and B 0.015 where the true
+CTR of both is 0.030; IPS with the producing propensity recovers 0.030
+for each, and the stale column shows what happens when the policy
+changes and the stored propensity describes a policy that no longer
+exists: the correction reproduces the bias it was meant to remove
+(0.060 and 0.015 again).
+
+The trade is that propensity estimation is itself noisy and the repair
+decays as fast as the propensity model is refreshed: every policy change
+starts a re-estimation cycle, and until it lands, the log is corrected
+with the wrong weights. The row-to-policy-version pairing is the
+contract that makes the cycle possible — propensities are not a property
+of the item but of the policy that served it, and the correction is only
+as honest as that pairing.
+
+## Who owns the loop
+
+- **The logging and data team** pairs every logged row with the policy
+  version that produced it, the contract the correction depends on.
+- **The measurement and analytics team** estimates propensities per
+  version and refreshes them when the serving policy changes.
+- **The ranking and policy team** owns the policy-change signal that
+  triggers the re-estimation, since it is the only team that knows when
+  the old weights stopped describing the log.
+
 ## Evidence boundary
 
 The executed read over two declared items (illustrative, deterministic).

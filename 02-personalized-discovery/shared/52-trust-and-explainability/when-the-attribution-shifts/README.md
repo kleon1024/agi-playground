@@ -53,6 +53,38 @@ counterfactual the explanation answers — "compared with what?" — and to
 verify the chosen baseline against the comparison the user actually
 makes, not the one that makes the headline verifiable.
 
+## The fix and its trade
+
+The fix is to name the counterfactual the explanation answers — "compared
+with what?" — and to verify the chosen baseline against the comparison
+the user actually makes, not the one that makes the headline verifiable.
+The executed flip prices the failure: the same score against the zero
+baseline headlines "similar users bought" (+0.0198, unverifiable) and
+against the mean baseline headlines "you viewed this category" (+0.0053,
+verifiable), with price moving from -0.0240 to -0.0016 and category
+affinity flipping sign from +0.0080 to -0.0120. Neither answer is wrong;
+both are correct statements of the same linear score against different
+counterfactuals.
+
+The trade is that no attribution is baseline-free, and pinning one is a
+product decision hiding inside a modeling choice: whichever baseline the
+tool picks decides which claim the user sees, and two teams computing
+"why was this shown" for the same item can surface different headlines,
+both insisting theirs is correct. The repair costs a stability audit
+across the baselines users plausibly hold, and the Shapley-style methods
+that make the baseline explicit (Lundberg & Lee, NeurIPS 2017) trade a
+larger computation for a defensible, named reference.
+
+## Who owns the loop
+
+- **The explainability and ML team** owns the baseline choice and the
+  stability audit that checks the headline across plausible
+  counterfactuals.
+- **The product team** owns the user-visible claim the baseline decides,
+  since the headline is a product decision wearing a modeling costume.
+- **The measurement team** owns the verifiability check of the pinned
+  counterfactual against the comparison users actually make.
+
 ## Evidence boundary
 
 The executed contribution comparison over one declared item and two

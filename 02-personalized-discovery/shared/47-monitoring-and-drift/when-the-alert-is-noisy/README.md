@@ -37,6 +37,35 @@ both tight and quiet. Setting it requires measuring the noise floor
 first, and the choice belongs to the operator who knows the cost of each
 miss.
 
+## The fix and its trade
+
+The fix is to set the threshold on the measured noise floor of each
+panel, per metric, and revisit it when traffic or the model changes —
+not on hope about how quiet a tight band will be. The executed sweep
+prices the failure: at +/-0.002 the panel fires on seven hours including
+three that are jitter (hours 2, 3, 7), +/-0.005 fires only on the break
+hours, and +/-0.010 stays calm but loses hour 8 of the break. The
+threshold cannot be both tight and quiet.
+
+The trade is time-to-detection against false-alarm cost, and no sweep
+removes it: a band wide enough to ignore the noise is wide enough to
+delay the alert, and a band tight enough to catch the break early is
+tight enough to page on jitter. The choice belongs to the operator who
+knows what a missed hour costs against what a pager storm costs, and the
+measurement team's job is to supply the noise floor that makes that
+choice explicit instead of guessed.
+
+## Who owns the loop
+
+- **The monitoring team** measures the per-panel noise floor and keeps
+  the threshold set against it, revisiting when traffic or the model
+  changes.
+- **The on-call operator** owns the threshold decision, since only the
+  operator knows the cost of a missed hour against a false alarm.
+- **The model and serving team** signals the metric or model change that
+  invalidates a threshold, so the panel is re-tuned before it goes quiet
+  or loud.
+
 ## Evidence boundary
 
 The executed sweep over a declared break at hour 8 (illustrative,

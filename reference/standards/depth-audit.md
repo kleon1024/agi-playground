@@ -302,6 +302,101 @@ vs 0.97), and a 35 percent retention floor moves LTV from \$27.54 to
 \$50.83 — traded against the noise and action lag of the long horizon
 (Fader, Hardie & Lee Marketing Science 2005; Gupta et al. JMR 2004).
 
+**Structural re-check 2026-08-08 (thirty-fifth audit increment):** a
+detour-level scan of the same range found all 36 detours missing the
+fix-and-trade section, and all but the split-lies detour missing
+who-owns (stage 46's three already carried both from the earlier pass).
+Closed now, each reusing the detour's own measured numbers: the
+feature-divergence detour's fix is the as-of read itself (train order
+P1001, P1002, P1003 against serve order P1002, P1001, P1003) traded
+against the feature owner's obligation to say how fast a value moves;
+the missing-feature detour's fix is an explicit, auditable default
+policy (the zero default promotes P1004 to rank 1 where the true \$39
+price puts it at rank 2) traded against disqualifying fresh items
+entirely; the online-value-moves detour's fix is a per-feature latency
+class (1 stale hour on hourly refresh against 22 of 24 on daily)
+traded against write cost, the same freshness decision stage 46 makes
+for snapshots. The label-arrives-late detour's fix is a holdout window
+(the hour-6 cut estimates P1002 and P1003 at 0.0000 against a true
+0.0300) traded against volume and recency; the join-looks-ahead detour's
+fix is the as-of join plus a temporal leak audit (label-time join
+separates 1.00, as-of 0.00) traded against an offline number that
+honesty makes look worse. The filter-bubble detour's fix is a per-user
+diversity floor (33 to 94 percent liked-category share by epoch 10)
+traded against precision; the popularity-collapse detour's fix is
+exploration budgeted before the change (item 15 at 0.1 percent share
+150 rounds after becoming best) traded against head efficiency; the
+policy-borrows-luck detour's fix is policy-version-paired propensity
+logging (IPS recovers 0.030 for both items, stale propensities
+reproduce 0.060 and 0.015) traded against re-estimation cost. The
+alert-is-noisy detour's fix is a threshold set on the measured noise
+floor (+/-0.002 fires on three jitter hours, +/-0.010 loses the break
+hour) traded against detection latency; the drift-is-silent detour's
+fix is an online instrument that does not share the serving path
+(NDCG flat 0.712 while observed CTR halves 0.039 to 0.020) traded
+against serving-path plumbing; the slice-hides detour's fix is sample
+size, not threshold (500/day fires twice on noise and detects 3 days
+late; pooled detects day 23 with zero false alarms) traded against
+latency. The session-leak detour's fix is the time-ordered join (leaky
+300/300 top-1 against as-of 33/300) traded against an offline number
+that looks worse; the realtime-is-too-expensive detour's fix is
+latency-and-freshness accounting (20 features blow the 100ms deadline
+at 118ms) traded against a line that moves with the deadline; the
+session-state-moves detour's fix is a per-surface decay rate (boost
+0.0097 at 2 minutes to 0.0002 at 40) traded against the mood that never
+releases or the state that is decorative. The fanout-tails detour's fix
+is query-level tail sizing with budgeted hedging (1.1 to 18.5 percent
+over 500ms at fan-out 20, hedged 3.4) traded against 2x shard work;
+the peak-arrives detour's fix is capacity against the arrival curve
+(2x load pushes p99 to 11,850ms) traded against idle standby; the
+tail-costs detour's fix is percentile sizing (mean capacity 59 req/s
+misses 94.3 percent of deadlines) traded against idle headroom. The
+cache-pays detour's fix is hit-rate-curve sizing (90 percent hits to
+0.44 units) traded against staleness, stage 46's trade one level down;
+the model-is-too-big detour's fix is cost-per-query pricing (0.013 NDCG
+for 10M extra units a day) traded against opportunity cost; the
+tail-misses detour's fix is candidate-budget cuts for cold queries
+(blended 1.91 hides the 30 percent paying 4.0) traded against recall
+misses on the cold tail. The personalization-scares detour's fix is a
+bounded prior share (strong prior owns 40 percent of the page) traded
+against the catalogue the user never sees; the bandit-explores detour's
+fix is choosing where the exploration tax is paid (greedy 0.817
+against 30 percent epsilon 0.728) traded against a shorter runway; the
+user-is-new detour's fix is a falsifiable prior (right 0.878, wrong
+0.000, below popularity 0.122) traded against the ask's own risk. The
+attribution-shifts detour's fix is a named counterfactual (zero
+baseline headlines "similar users bought", mean headlines "you viewed
+this category") traded against the baseline's cost; the
+explanation-is-wrong detour's fix is contribution, not coefficient
+(largest weight +0.200 against largest contribution -0.0800) traded
+against per-item computation; the trust-erodes detour's fix is gating
+the feature on measured cost (5 percent false nearly doubles opt-outs)
+traded against shipping fewer explanations. The constraint-bites
+detour's fix is a floor at the measured knee (first 10 points cost
+0.0021, next 10 cost 0.0027 per point) traded against aggregate CTR;
+the groups-cross detour's fix is a named group before measurement
+(mobile 8 percent against catalogue 10.1) traded against definition
+complexity; the policy-is-biased detour's fix is position adjustment
+before fairness (tail 14 to 36 percent exposure) traded against
+re-estimation as the policy changes. The split-lies detour's gate is
+the daily SRM check plus a declared-ratio config (corrected split p
+0.858) traded against reruns of experiments that won while broken; the
+user-crosses-groups detour's fix is the randomization-unit analysis
+and washout (24 percent false positives at declared 5 percent; carryover
+-0.072 to -0.005) traded against power; the traffic-is-two-sided
+detour's fix is the unit chosen by interference strength (per-minute
+53 percent false positives, 1 percent effect needing 36 years) traded
+against the block unit's power. The cac-exceeds-ltv detour's fix is the
+ratio gate (paid installs 0.94 against referral 3.06) traded against
+capping a channel whose cohort the window has not fully seen; the
+retention-flattens detour's fix is the floor as the LTV lever (35
+percent floor nearly doubles \$27.54 to \$50.83) traded against the
+measurement lag of retention work; the retention-window-truncates
+detour's fix is per-horizon reporting and curve modeling (referral 0.78
+at 3 months against 11.78 at 24) traded against the cost of modeling
+the ramp and tail. Every detour in 43-55 now satisfies the audit
+contract at the parent and detour level.
+
 ### Personalized discovery — search 10-24, 35-37
 
 **Status: done (search mainline 10-13, advanced 19-24, and frontier

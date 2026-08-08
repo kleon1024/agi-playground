@@ -50,6 +50,36 @@ group before measuring fairness, report both views, and treat the
 definition as a policy decision owned by the team setting the floor —
 not a reporting detail the dashboard picks.
 
+## The fix and its trade
+
+The fix is to define the group before measuring fairness, report both
+views, and treat the definition as a policy decision owned by the team
+setting the floor — not a reporting detail the dashboard picks. The
+executed flip prices the failure: under a 10 percent floor the mobile
+segment leaves the tail at 8 percent (minus 2), desktop at 15 percent
+(plus 5), and the catalogue-wide view at 10.1 percent (plus 0.1) — the
+same served allocation looks fair and unfair at once, and the
+definition decides the verdict.
+
+The trade is that no definition is neutral: group definitions carry
+demographic assumptions (Ekstrand et al., FAT* 2018), and reporting per
+segment costs dashboard and analysis complexity where the aggregate was
+cheap. The catalogue number is not a lie — it is the average the
+majority segment's shortfall and the minority's surplus cancel into —
+and the repair is to name the protected group before reading any number,
+so a fairness report is a verdict on a declared definition, not a
+dashboard default.
+
+## Who owns the loop
+
+- **The policy and floor-setting team** owns the group definition, the
+  decision that makes the fairness verdict answerable.
+- **The measurement team** reports exposure per segment, so the
+  aggregate that clears the bar cannot hide the majority segment that
+  does not.
+- **The product team** names the segments the product actually serves,
+  since the definition must match the surface the allocation runs on.
+
 ## Evidence boundary
 
 The executed exposure table over two declared segments (illustrative,

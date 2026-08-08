@@ -39,6 +39,34 @@ visibility, so the raw CTR is a ranking decision dressed as data. Any
 allocation built on it (stage 53) inherits the bias, which is why
 position adjustment comes before the fairness question, not after.
 
+## The fix and its trade
+
+The fix is to estimate the position effect from the platform's own logs
+and adjust CTR before ranking on it — a measurement correction, not a
+fairness grant. The executed read prices the difference: raw CTR hands
+the tail 14 percent of exposure (P1003 at 8, P1004 at 5), and the
+position-adjusted numbers move it to 36 percent (20 and 16), with
+P1001's inflated 0.048 at 53 percent exposure falling to 0.036 and 35
+percent. Top-of-page clicks are inflated by visibility, so the raw
+estimate is a ranking decision dressed as data.
+
+The trade is that the adjustment itself depends on the policy that
+collected the data: a position effect estimated under the old serving
+policy is stale the moment the policy changes, so the correction must be
+re-estimated, not installed once. Doing fairness before the correction
+spends the constraint compensating for a measurement error instead of
+fixing the error, which is why the adjusted estimate comes first and the
+floor (stage 53's own question) is decided after the CTRs are honest.
+
+## Who owns the loop
+
+- **The measurement and analytics team** estimates the position effect
+  from the logs and owns its re-estimation when the policy changes.
+- **The ranking team** ranks on the adjusted CTR and treats the raw
+  estimate as the confounded number it is.
+- **The policy team** signals the serving change that invalidates the
+  adjustment, since a stale position effect is a fresh bias.
+
 ## Evidence boundary
 
 The executed comparison over four declared items (illustrative,

@@ -37,6 +37,36 @@ free knowledge; it is a claim about the user that the platform cannot yet
 verify, and the cost of a wrong claim is a first page that matches
 nothing the user wants.
 
+## The fix and its trade
+
+The fix is to treat the onboarding prior as a falsifiable claim: measure
+its accuracy on the real signup flow and pair it with reserved
+exploration slots that can disprove it, so a wrong claim is caught
+before it owns the first page. The executed bet prices the stakes — the
+right prior lifts first-page NDCG@10 from popularity's 0.122 to 0.878,
+and the wrong prior collapses it to 0.000, because every slot is filled
+by the mistaken category and the user's true interests are ranked out
+entirely.
+
+The trade is that the asking itself is a risk: users do not always say
+what they mean, and the option set shapes the answer, so the bet is on
+both the user's honesty and the design of the ask. A confident wrong
+prior is worse than no prior — popularity at least matches some users
+some of the time — and the hedge is exploration, which costs relevance
+on the short runway but is the only mechanism that catches the wrong
+claim. The onboarding team owns the ask, the ranking team owns the
+reserved slots, and the measurement team owns the accuracy number the
+bet is priced on.
+
+## Who owns the loop
+
+- **The growth and onboarding team** owns the signup ask and the prior
+  it produces, including the option set that shapes the answer.
+- **The ranking team** owns the reserved exploration slots that can
+  disprove the claim before it owns the whole page.
+- **The measurement team** owns the prior-accuracy measurement on the
+  live flow, the number that says whether the bet is paying.
+
 ## Evidence boundary
 
 The executed NDCG comparison over declared priors (illustrative,

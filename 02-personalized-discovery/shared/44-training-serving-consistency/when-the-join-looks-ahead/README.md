@@ -53,6 +53,36 @@ label arrival, and check feature timestamps — a leakage check inspects
 whether the feature could have been known when the decision was made, not
 whether the holdout score looks reasonable.
 
+## The fix and its trade
+
+The fix is the as-of join plus a temporal leak audit: snapshot every
+training feature at decision time, never at label arrival, and check per
+feature whether the value could have been known when the decision was
+made. The executed join prices the failure — the label-time join
+separates the 900 rows perfectly (1.00 separable, P1001's feature 0.020
+to 0.024, raised by its own early conversions) where the as-of join
+returns two identical rows (0.00) and nothing to rank on. The leak
+passes its own holdout because the holdout shares the leaked
+distribution, so the repair is a timestamp audit, not a better eval.
+
+The trade is that honesty is often less impressive offline: the as-of
+join gives the model nothing to separate, which looks like a worse
+dataset until the live page confirms it. The temporal audit costs a
+per-feature timestamp contract and the discipline to run it before every
+training cut, and the last-line check is a live metric that moves in the
+opposite direction of the offline one — the only signal that cannot be
+leaked.
+
+## Who owns the loop
+
+- **The logging and feature-owner team** timestamps every feature
+  snapshot at decision time and declares what a serve-time read would
+  have returned.
+- **The training-platform team** enforces the as-of join and runs the
+  per-feature leakage audit before each cut.
+- **The measurement team** owns the live metric that moves opposite to
+  the offline one, the only place a leaked model is caught.
+
 ## Evidence boundary
 
 The executed join over two declared items (illustrative, deterministic).
