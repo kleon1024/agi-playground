@@ -267,6 +267,19 @@ whole system pays.
 | [`55-ltv-and-cac`](shared/55-ltv-and-cac/) | The user lifecycle that decides which growth is real growth | new to this mission | verified mechanism + audit run |
 
 
+### The frontier stage (10)
+
+The operations track ran the deployed system. The frontier stage asks the
+question the loop's existence implies: recommendation, search, and advertising
+are converging on intent-to-delivery as their decision surface — Google folded
+search into a conversational loop, OpenAI moved ads inside the answer thread —
+and the convergence changes which mechanisms are load-bearing. The three
+chapters read this mission's own recorded runs against that claim.
+
+| Stage | Deliverable | Layer | Status |
+|---|---|---|---|
+| [`10-frontier`](shared/10-frontier/) | The loop as a surface: session search, generation replacing score, ads inside the answer | new to this mission | verified |
+
 
 ## Where each stage leaves the path
 
@@ -413,6 +426,9 @@ artifact or a measurement the next stage consumes.
 | `55-ltv-and-cac` | The user who costs more than they return is a liability at any volume | [when-cac-exceeds-ltv](shared/55-ltv-and-cac/when-cac-exceeds-ltv/) |
 | `55-ltv-and-cac` | The user who stops leaving is worth more than the user who stops coming | [when-retention-flattens](shared/55-ltv-and-cac/when-retention-flattens/) |
 | `55-ltv-and-cac` | The observed window decides the channel verdict | [when-the-retention-window-truncates](shared/55-ltv-and-cac/when-the-retention-window-truncates/) |
+| `10-frontier` | When does the result page become a conversation? | [the-conversational-surface](shared/10-frontier/the-conversational-surface/) |
+| `10-frontier` | What replaces the score? | [verification-replaces-score](shared/10-frontier/verification-replaces-score/) |
+| `10-frontier` | What survives of the auction? | [ads-inside-the-loop](shared/10-frontier/ads-inside-the-loop/) |
 
 ## What makes this hard to prove
 

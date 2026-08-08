@@ -2012,6 +2012,31 @@
           },
           {
             "type": "category",
+            "label": "The frontier",
+            "link": {
+              "type": "doc",
+              "id": "02-personalized-discovery/shared/10-frontier/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/10-frontier/ads-inside-the-loop/index",
+                "label": "Ads inside the loop"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/10-frontier/the-conversational-surface/index",
+                "label": "The conversational surface"
+              },
+              {
+                "type": "doc",
+                "id": "02-personalized-discovery/shared/10-frontier/verification-replaces-score/index",
+                "label": "Verification replaces score"
+              }
+            ]
+          },
+          {
+            "type": "category",
             "label": "Feature store",
             "link": {
               "type": "doc",

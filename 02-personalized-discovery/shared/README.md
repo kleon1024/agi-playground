@@ -53,6 +53,18 @@ decide whether the system pays for itself.
 | [`54-online-experiments`](54-online-experiments/) | Whether a shipped change helped, read through a validity gate | [verified](54-online-experiments/runs/) |
 | [`55-ltv-and-cac`](55-ltv-and-cac/) | Whether a user is worth acquiring and keeping | [verified](55-ltv-and-cac/runs/) |
 
+## The frontier stage (10)
+
+The operations track ends where the deployed system runs. The frontier stage
+asks what happens when the loop itself becomes the surface: search as a
+conversation, generation replacing the score, and ads inside the answer
+thread. The three chapters read this mission's own recorded runs against the
+agentic-paradigm restructuring, not a new model.
+
+| Stage | What it decides | Evidence |
+|---|---|---|
+| [`10-frontier`](10-frontier/) | Which mechanisms survive when the loop becomes the surface | [verified](10-frontier/the-conversational-surface/runs/) |
+
 The [`ads/`](../ads/) and [`recommendation/`](../recommendation/) tracks add
 the surfaces' own stages; the [`search/`](../search/) track does the same for
 the explicit-query loop.

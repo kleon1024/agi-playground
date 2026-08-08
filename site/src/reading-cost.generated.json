@@ -1219,6 +1219,22 @@
     "level": "applied",
     "minutes": 4
   },
+  "02-personalized-discovery/shared/10-frontier": {
+    "level": "frontier",
+    "minutes": 2
+  },
+  "02-personalized-discovery/shared/10-frontier/ads-inside-the-loop": {
+    "level": "frontier",
+    "minutes": 7
+  },
+  "02-personalized-discovery/shared/10-frontier/the-conversational-surface": {
+    "level": "frontier",
+    "minutes": 6
+  },
+  "02-personalized-discovery/shared/10-frontier/verification-replaces-score": {
+    "level": "frontier",
+    "minutes": 7
+  },
   "02-personalized-discovery/shared/43-feature-store": {
     "level": "applied",
     "minutes": 7
