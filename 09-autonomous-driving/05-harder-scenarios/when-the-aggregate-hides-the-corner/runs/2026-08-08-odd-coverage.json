@@ -1,0 +1,115 @@
+{
+  "command": "python odd_coverage.py",
+  "hardware": {
+    "machine": "arm64",
+    "system": "Darwin",
+    "python": "3.11.14"
+  },
+  "cost_usd": 0.0,
+  "declared_hard_amplitude_range": [
+    0.9,
+    1.4
+  ],
+  "n_cells": 3,
+  "scenarios": 50,
+  "cells": [
+    {
+      "cell": "[0.90, 1.07)",
+      "n": 15,
+      "amp_range_seen": [
+        0.904,
+        1.066
+      ],
+      "clone": {
+        "completed": 0.067,
+        "collision": 0.533,
+        "offroad": 0.0,
+        "timeout": 0.4,
+        "completion_ci95": [
+          0.012,
+          0.299
+        ]
+      },
+      "expert": {
+        "completed": 0.733,
+        "collision": 0.267,
+        "offroad": 0.0,
+        "timeout": 0.0,
+        "completion_ci95": [
+          0.48,
+          0.891
+        ]
+      }
+    },
+    {
+      "cell": "[1.07, 1.23)",
+      "n": 16,
+      "amp_range_seen": [
+        1.068,
+        1.211
+      ],
+      "clone": {
+        "completed": 0.062,
+        "collision": 0.25,
+        "offroad": 0.0,
+        "timeout": 0.688,
+        "completion_ci95": [
+          0.011,
+          0.283
+        ]
+      },
+      "expert": {
+        "completed": 0.812,
+        "collision": 0.188,
+        "offroad": 0.0,
+        "timeout": 0.0,
+        "completion_ci95": [
+          0.569,
+          0.934
+        ]
+      }
+    },
+    {
+      "cell": "[1.23, 1.40)",
+      "n": 19,
+      "amp_range_seen": [
+        1.237,
+        1.389
+      ],
+      "clone": {
+        "completed": 0.0,
+        "collision": 0.0,
+        "offroad": 0.0,
+        "timeout": 1.0,
+        "completion_ci95": [
+          0.0,
+          0.168
+        ]
+      },
+      "expert": {
+        "completed": 0.789,
+        "collision": 0.211,
+        "offroad": 0.0,
+        "timeout": 0.0,
+        "completion_ci95": [
+          0.566,
+          0.915
+        ]
+      }
+    }
+  ],
+  "zero_success_cells": [
+    {
+      "cell": "[1.23, 1.40)",
+      "n": 19,
+      "clopper_pearson_upper_95": 0.176
+    }
+  ],
+  "confidence_target": {
+    "upper_bound_target": 0.05,
+    "n_per_cell_needed": 72,
+    "total_scenarios_for_all_cells": 216,
+    "estimated_wall_clock_s": 24.3
+  },
+  "wall_clock_s": 7.67
+}

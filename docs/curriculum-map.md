@@ -1,77 +1,77 @@
 # Curriculum map — how every chapter relates
 
-> Dated 2026-08-06. Generated from the repository tree and the depth-pass
-> audit. This is the authoritative index of the tutorial system: what each
-> mission owns, which stage each detour belongs to, where the lineage and
-> model-anatomy content lives, and which stages still lack the deep-dive
-> chapters the program requires.
+> Dated 2026-08-08. Regenerated from the repository tree (not from memory):
+> stage counts are numbered chapter directories at the topic's stage depth,
+> detour counts are `when-*` sub-chapter directories, and every gap note was
+> re-checked against the tree this pass. This is the authoritative index of
+> the tutorial system: what each topic owns, which stage each detour belongs
+> to, where the lineage and model-anatomy content lives, and which stages
+> still lack the deep-dive chapters the program requires.
 
 ## The spine and the four sections
 
-Missions are the only curriculum spine: a learner starts from a stakeholder
-problem and stays on the mission until it links to the mechanism or
-engineering reference the next decision needs. Foundations and infra are
-support libraries reached at that point, never read front to back. Reference
-holds contracts, standards, and dated research.
+Topics are the only curriculum spine: a learner starts from a stakeholder
+problem and stays on the topic until it links to the mechanism or
+engineering reference the next decision needs. Foundations and reference are
+support libraries reached at that point, never read front to back.
 
-Reading order is decided by the reader's decision, indexed in `site/topics.mdx`.
-The level field encodes what each chapter assumes: foundation (a mechanism
-later chapters assume), applied (a decision with a measured tradeoff),
-frontier (an edge-of-evidence claim), reference (contributor surface). The
-beginner-to-frontier path is mission-first; each detour returns an artifact
-the stage consumes.
+Reading order is decided by the reader's decision, indexed in
+`site/topics.mdx`. The level field encodes what each chapter assumes:
+foundation (a mechanism later chapters assume), applied (a decision with a
+measured tradeoff), frontier (an edge-of-evidence claim), reference
+(contributor surface). The beginner-to-frontier path is topic-first; each
+detour returns an artifact the stage consumes.
 
-## Mission map
+## Topic map
 
-| Mission | Stages | Existing detours | Lineage survey | Anatomy chapters | Deep-dive gap |
+Counts verified 2026-08-08. "Stages" are the numbered main-path chapters;
+"when-* detours" are the deep-dive sub-chapters that answer a decision the
+main path asserts without showing. Some stages also carry non-`when-`
+sub-chapters (for example mission 01's `is-it-the-same-tokenizer` and
+`why-believe-the-number`), which the detour counts below do not include.
+
+| Topic | Stages | when-* detours | Lineage survey | Anatomy chapters | Deep-dive gap |
 |---|---|---|---|---|---|
-| 01 language-model system | 8 (00-corpus..07-eval) | 39 detours across every stage, at least two each | 01-language-model-system.md | attention-variants (KV anatomy), the-kl-leash, the-gate-that-beats-relu | — |
-| 02 personalized discovery | 56 (00..55) | 122 detours, every stage at least two | 02-personalized-discovery.md | value-tree (strategy anatomy) | — |
-| 03 quantitative research | 6 (00..05) | 12 detours, two per stage | 03-quantitative-research.md | rank-to-position (sizing anatomy) | no-gap |
-| 04 code agent | 7 (00..06) | 14 detours, two per stage | 04-code-agent.md | agent loop (harness anatomy) | — |
-| 05 vision-language | 7 (00..06) | 14 detours, two per stage | 05-vision-language.md | fused attention (VLM anatomy) | — |
-| 06 game AI | 7 (00..06) | 14 detours, two per stage | 06-game-ai.md | policy+reward (RL anatomy) | — |
-| 07 realtime voice | 7 (00..06) | 14 detours, two per stage | 07-realtime-voice.md | codebook usage (VQ anatomy) | — |
-| 08 video generation | 7 (00..06) | 14 detours, two per stage | 08-video-generation.md | video token (VQ anatomy) | — |
-| 09 bio-pharma | 7 (00..06) | 14 detours, two per stage | 09-bio-pharma.md | two representations (molecule anatomy) | — |
+| 01 language-model system | 8 (00-corpus..07-eval) | 18 | `01-language-model/lineage.md` + `vision/lineage.md` | attention-variants (KV anatomy), the-kl-leash, the-gate-that-beats-relu | stage 07-eval carries no when-* detour (its depth lives in `why-believe-the-number`); stages 01 and 06 have one each |
+| 02 personalized discovery | 67 (00..65 across recommendation/search/ads, plus shared/) | 186 | `02-personalized-discovery/lineage.md` | value-tree (strategy anatomy) | — |
+| 03 quantitative research | 6 (00..05) | 6 | `03-quantitative-research/lineage.md` | the-rank-that-becomes-a-position (sizing anatomy) | stage 00-market-data carries no when-* detour |
+| 04 agentic platform | 7 (00..06) | 5 | `04-agentic-platform/lineage.md` | agent loop (harness anatomy) | stages 00, 05, 06 carry no when-* detour |
+| 05 game AI | 7 (00..06) | 9 | `05-game-ai/lineage.md` | the-policy-anatomy (GRPO anatomy) | stages 02, 03, 05 carry no when-* detour |
+| 07 multimodal generation | 14 (voice 00..06 + video 00..06) | 22 | `voice/lineage.md` + `video/lineage.md` | voice codebook usage + video-token (VQ anatomy, both surfaces) | — |
+| 08 bio-pharma modeling | 7 (00..06) | 6 | `08-bio-pharma-modeling/lineage.md` | two-ways-to-read-a-molecule (representation anatomy) | stages 02, 04, 06 carry no when-* detour |
+| 09 autonomous driving | 7 (00..06) | 3 | `09-autonomous-driving/lineage.md` | none yet | stages 00-03 and 06 carry no detour; the first three detours landed 2026-08-08 under stages 04-05 (see the depth-pass spec) |
 
-## Foundations and infra
+## Foundations
 
-Foundations (8 chapters, 9 detours): 00-attention (+ what-it-costs, + rope),
-01-first-training-loop (+ the-curve-that-takes-34-seconds),
+Foundations (8 chapters, 9 `when-*` detours): 00-attention (+ what-it-costs,
++ rope), 01-first-training-loop (+ the-curve-that-takes-34-seconds),
 02-optimization (+ the-flips-that-separate-optimizers),
-03-backpropagation (+ the-backward-pass-three-ways),
-04-distributed-training (+ when-the-ranks-agree),
-05-is-the-difference-real (+ the-two-confounds),
-06-significance (+ when-the-interval-decides),
-07-moe (+ when-the-expert-goes-dead). These own the mechanism; missions
-link at the decision that needs it.
-
-Infra (7 chapters, 7 detours): 01-networking (+ when-the-ring-beats-the-star),
-02-storage (+ when-a-node-joins), 03-orchestration (+ when-the-scheduler-chooses),
-04-observability (+ when-the-tail-waits), 05-gpu-cluster-concepts
-(+ when-the-topology-costs), 06-gpu-dedup-at-scale
-(+ when-verification-goes-quadratic), 07-rollout-concurrency
-(+ when-the-heavy-tail-waits). These name the mission stage they are the
-substrate for.
+03-backpropagation (+ the-backward-pass-three-ways, shipped and verified),
+04-distributed-training (+ when-the-ranks-agree, with the four machine
+chapters networking/storage/orchestration/gpu-cluster-concepts each carrying
+one detour), 05-is-the-difference-real (+ when-the-comparisons-multiply),
+06-significance (+ when-the-interval-decides), 07-moe
+(+ when-the-expert-goes-dead). These own the mechanism; topics link at the
+decision that needs it.
 
 ## Reference
 
-Standards (mission-contract, lesson-and-run-contract), research passes
-(01-06, dated), mid-training, and the lineage surveys. Reference is the only
-place a page may have no run and not be a defect.
+Standards (mission-contract, lesson-and-run-contract), the model-lineages
+index (`reference/research/lineages/`), and the dated research material in
+each topic's own directory. Reference is the only place a page may have no
+run and not be a defect.
 
 ## The gap the deep-dive program closes
 
-Mission 01 is the pattern: every stage carries its detours. Missions 02-09,
-foundations, and infra now have every chapter covered with at least two
-detours (audited 2026-08-06): each detour answers a different decision than
-its parent, in mission-01 style (README + core + runs, an interactive when
-the mechanism is manipulable), and every number traces to the recorded run.
-247 detour chapters across the nine missions, plus 9 foundations and 7 infra
-detours. The per-model anatomy series is complete: one structure chapter per
-mission (KV/attention for 01, value-tree for 02, rank-to-position for 03,
-agent loop for 04, fused attention for 05, policy+reward for 06, VQ codebook
-for 07, video token for 08, molecule representations for 09). The per-stage
-queues live in `docs/superpowers/specs/2026-08-05-curriculum-depth-pass.md`;
-this map is the state of the whole system as each queue is worked.
+Mission 01 is the pattern: a stage states a decision, and one or more detours
+under it answer the decisions the main path asserts without showing, each
+backed by a run recorded in `runs/`. 255 `when-*` detour chapters across the
+eight topics, plus 9 foundations detours, as of 2026-08-08. The per-topic
+anatomy series is complete except for mission 09, which is a new topic with
+its first three detours just landed.
+
+The active queue: mission 09 stages 00-03 and 06 have no detours, and the
+remaining depth-pass spec items are tracked in
+`docs/superpowers/specs/2026-08-05-curriculum-depth-pass.md`. The per-stage
+queues live there; this map is the state of the whole system as each queue
+is worked.

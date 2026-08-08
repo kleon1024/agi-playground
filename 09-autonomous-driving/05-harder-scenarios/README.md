@@ -80,3 +80,14 @@ so speed is declared but not integrated (stage 00). The boundary measured
 here is a boundary of this simulator's generator, not of any real road
 geometry. Numbers trace to
 [`runs/2026-08-07-hard.json`](runs/2026-08-07-hard.json).
+
+## Next
+
+Two detours open the boundary row. [When the policy stalls](when-the-policy-stalls/)
+profiles what the 0.72 timeout is made of — a creep to a standstill at the
+first obstacle, never committing — and reads it through the operational
+design domain and the minimal risk maneuver. [When the aggregate hides the corner](when-the-aggregate-hides-the-corner/)
+splits the same 50 scenarios into declared curvature cells and shows the
+0.04 aggregate flattening a cliff: completion falls to zero and the failure
+mode shifts from collision to stall as the ODD hardens, with the per-cell
+evidence priced.

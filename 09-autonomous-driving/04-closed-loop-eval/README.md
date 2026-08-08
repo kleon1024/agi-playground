@@ -84,3 +84,13 @@ This failure is specific to this simulator's render sparsity (stage 01)
 and this expert's action distribution — it is evidence about the method's
 failure mode, not about every behavior-cloning system. Numbers trace to
 [`runs/2026-08-07-closed-loop.json`](runs/2026-08-07-closed-loop.json).
+
+## Next
+
+The 0.77-to-0.28 gap is opened further in
+[when the open-loop score lies](when-the-open-loop-lies/): where the
+imitation error actually lives (per-action class), how early the clone's
+trajectory leaves the expert's, and why the expert disagrees with the
+learner on 59% of the states the learner drives. The same policy is then
+run out of distribution in
+[stage 05 — harder scenarios](../05-harder-scenarios/).

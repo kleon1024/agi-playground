@@ -72,7 +72,25 @@ the practice run that answers it.
 | 07 | 00-audio-codec | codebook math (deepen) | Why does a VQ codebook collapse? | the recorded codec run's codebook statistics | shipped: `voice/00-audio-codec/why-codebooks-collapse` + `when-silence-is-a-local-minimum` |
 | 08 | 01-video-tokenizer | codebook collapse (deepen) | What are the three failure modes, mechanistically? | the recorded codec run's three failure stats | shipped: `video/01-video-tokenizer/when-the-dead-codes-revive` + `what-a-video-token-is` |
 | 09 | 01-descriptor-baseline | descriptor semantics | What does a fingerprint measure, and what does it miss? | the recorded grid's RDKit agreement | shipped: `08-bio-pharma-modeling/01-descriptor-baseline-and-model/two-ways-to-read-a-molecule` |
-| foundations | 01-first-training-loop | worked backward pass | What does one backward pass compute, line by line? | a hand-traced backward pass vs autograd | pending — the only remaining queue item |
+| foundations | 01-first-training-loop | worked backward pass | What does one backward pass compute, line by line? | a hand-traced backward pass vs autograd | shipped: `03-backpropagation/the-backward-pass-three-ways` (verified 2026-08-06, run recorded) |
+
+## Mission 09 deep-dive slice (shipped 2026-08-08)
+
+Mission 09 (autonomous driving) is the newest topic: 7 stages, zero detours
+at the start of this pass. The first three detours landed 2026-08-08,
+each with an executed CPU run and the fix/trade/ownership structure, mapped
+to the mission's industrial failure modes.
+
+| Where | New chapter | Central question | Practice run | Status |
+|---|---|---|---|---|
+| 04-closed-loop-eval | `when-the-open-loop-lies` | Where does the 0.77-to-0.28 gap live, and why do the errors compound? | per-class imitation error + closed-loop divergence run | shipped |
+| 05-harder-scenarios | `when-the-policy-stalls` | What is a 72% timeout made of, and why is a stall a safety failure? | stall-profile run (creep, progress, safe state) | shipped |
+| 05-harder-scenarios | `when-the-aggregate-hides-the-corner` | Does the OOD boundary hold uniformly across the declared ODD? | per-cell split + coverage/n math | shipped |
+
+Remaining mission-09 queue: stages 00-scenario-simulator, 01-perception,
+02-expert, 03-cloning, and 06-report carry no detour yet; the next slice
+can run the perception-latency, expert-trust, and report-evidence questions
+through the same audit.
 
 Audit notes from the 2026-08-08 pass:
 
@@ -81,14 +99,13 @@ Audit notes from the 2026-08-08 pass:
   crosses teams, `## Who owns the loop`), with numbers taken from the
   chapter's own `runs/` record. The only READMEs without it are index pages
   (mission roots, surface roots, `prod/` code readmes).
-- `docs/curriculum-map.md` is stale: it predates recommendation stages
-  56-65, search 35-37, and ads 38-42/54, lists 56 stages for mission 02
-  (the tree has 67), and is missing the 09-autonomous-driving row. The map
-  regeneration is the next index task.
-- Mission 09 (autonomous-driving) has 7 stages and zero detour chapters;
-  by this spec's own rule ("a stage that asserts a mechanism or a tradeoff
-  without a detour that walks it has a gap") it is the shallowest mission
-  and is queued behind the old-mission deepening the user prioritized.
+- `docs/curriculum-map.md` was regenerated 2026-08-08 from the tree: mission
+  02 now counts 67 stages and 186 when-* detours, the mission list matches
+  the current eight topics, and a mission-09 row exists with its three new
+  detours counted.
+- Mission 09 (autonomous driving) went from 7 stages and zero detour
+  chapters to three detours under stages 04-05 (this pass, above); stages
+  00-03 and 06 remain bare and are the next queue slice.
 
 Not in this queue: chapters already deep (missions 01's corpus/tokenizer/
 pretrain, 07-eval's metric-gaming, mid-training), which only get deepened if

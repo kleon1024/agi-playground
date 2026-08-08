@@ -21,6 +21,7 @@ own the context.
 | 06 — realtime voice | [lineage.md](../../../07-multimodal-generation/voice/lineage.md) |
 | 07 — video generation | [lineage.md](../../../07-multimodal-generation/video/lineage.md) |
 | 08 — bio-pharma modeling | [lineage.md](../../../08-bio-pharma-modeling/lineage.md) |
+| 09 — autonomous driving | [lineage.md](../../../09-autonomous-driving/lineage.md) |
 
 The per-topic anatomy-chapter queue, the deep-dive-per-chapter rule, and
 the style standards live in

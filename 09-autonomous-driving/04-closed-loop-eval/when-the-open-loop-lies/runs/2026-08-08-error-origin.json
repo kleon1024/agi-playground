@@ -1,0 +1,76 @@
+{
+  "command": "python error_origin.py",
+  "hardware": {
+    "machine": "arm64",
+    "system": "Darwin",
+    "python": "3.11.14"
+  },
+  "cost_usd": 0.0,
+  "part1_per_class_errors": {
+    "eval_frames": 7432,
+    "steer_by_class": {
+      "left": {
+        "count": 973,
+        "fraction": 0.1309,
+        "accuracy": 0.5889
+      },
+      "center": {
+        "count": 5497,
+        "fraction": 0.7396,
+        "accuracy": 0.9909
+      },
+      "right": {
+        "count": 962,
+        "fraction": 0.1294,
+        "accuracy": 0.5613
+      }
+    },
+    "throttle_by_class": {
+      "brake": {
+        "count": 1147,
+        "fraction": 0.1543,
+        "accuracy": 0.3348
+      },
+      "accelerate": {
+        "count": 6285,
+        "fraction": 0.8457,
+        "accuracy": 0.9629
+      }
+    },
+    "dodge_frames": {
+      "count": 1935,
+      "fraction": 0.2604,
+      "joint_accuracy": 0.4961
+    },
+    "straight_frames": {
+      "count": 5497,
+      "fraction": 0.7396,
+      "joint_accuracy": 0.8688
+    }
+  },
+  "part2_closed_loop_divergence": {
+    "scenarios": 50,
+    "outcomes": {
+      "completed": 0.28,
+      "collision": 0.72,
+      "offroad": 0.0,
+      "timeout": 0.0
+    },
+    "divergence": {
+      "threshold_lat_m": 0.5,
+      "mean_first_divergence_step": 143.5,
+      "median_first_divergence_step": 52.0,
+      "fraction_never_diverged": 0.28
+    },
+    "on_policy_expert_disagreement": {
+      "steps_labeled": 3814,
+      "fraction_expert_acts_differently": 0.5928
+    },
+    "mean_final_lateral_deviation_m": 0.73
+  },
+  "wall_clock_s": {
+    "part1": 2.52,
+    "part2": 2.5,
+    "total": 5.02
+  }
+}

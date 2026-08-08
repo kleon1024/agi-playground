@@ -1,0 +1,78 @@
+{
+  "command": "python stall_profile.py",
+  "hardware": {
+    "machine": "arm64",
+    "system": "Darwin",
+    "python": "3.11.14"
+  },
+  "cost_usd": 0.0,
+  "hard_expert": {
+    "scenarios": 50,
+    "outcome_rates": {
+      "completed": 0.78,
+      "collision": 0.22,
+      "offroad": 0.0,
+      "timeout": 0.0
+    },
+    "progress": {
+      "mean_x": 52.68,
+      "median_x": 60.15073227224637,
+      "x_bucket_fractions": {
+        "0-15": 0.04,
+        "15-30": 0.1,
+        "30-45": 0.06,
+        "45-60": 0.02
+      }
+    },
+    "timed_out_episodes": {
+      "count": 0,
+      "mean_creep_fraction": null,
+      "stuck_at_end_fraction": 0.0,
+      "mean_final_speed": null,
+      "mean_obstacles_passed": null,
+      "mean_x": null
+    },
+    "completed_episodes": {
+      "count": 39,
+      "mean_creep_fraction": 0.019
+    },
+    "all_episodes_mean_creep_fraction": 0.023
+  },
+  "hard_cloned": {
+    "scenarios": 50,
+    "outcome_rates": {
+      "completed": 0.04,
+      "collision": 0.24,
+      "offroad": 0.0,
+      "timeout": 0.72
+    },
+    "progress": {
+      "mean_x": 12.23,
+      "median_x": 3.6171759450732495,
+      "x_bucket_fractions": {
+        "0-15": 0.76,
+        "15-30": 0.08,
+        "30-45": 0.08,
+        "45-60": 0.04
+      }
+    },
+    "timed_out_episodes": {
+      "count": 36,
+      "mean_creep_fraction": 0.968,
+      "stuck_at_end_fraction": 1.0,
+      "mean_final_speed": 0.0,
+      "mean_obstacles_passed": 0.0,
+      "mean_x": 3.611
+    },
+    "completed_episodes": {
+      "count": 2,
+      "mean_creep_fraction": 0.025
+    },
+    "all_episodes_mean_creep_fraction": 0.709
+  },
+  "wall_clock_s": {
+    "expert": 2.22,
+    "cloned": 5.79,
+    "total": 8.01
+  }
+}

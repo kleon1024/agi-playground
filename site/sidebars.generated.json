@@ -3303,14 +3303,39 @@
         "label": "Behavior cloning"
       },
       {
-        "type": "doc",
-        "id": "09-autonomous-driving/04-closed-loop-eval/index",
-        "label": "Closed loop eval"
+        "type": "category",
+        "label": "Closed loop eval",
+        "link": {
+          "type": "doc",
+          "id": "09-autonomous-driving/04-closed-loop-eval/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "09-autonomous-driving/04-closed-loop-eval/when-the-open-loop-lies/index",
+            "label": "When the open-loop score lies"
+          }
+        ]
       },
       {
-        "type": "doc",
-        "id": "09-autonomous-driving/05-harder-scenarios/index",
-        "label": "Harder scenarios"
+        "type": "category",
+        "label": "Harder scenarios",
+        "link": {
+          "type": "doc",
+          "id": "09-autonomous-driving/05-harder-scenarios/index"
+        },
+        "items": [
+          {
+            "type": "doc",
+            "id": "09-autonomous-driving/05-harder-scenarios/when-the-aggregate-hides-the-corner/index",
+            "label": "When the aggregate hides the corner"
+          },
+          {
+            "type": "doc",
+            "id": "09-autonomous-driving/05-harder-scenarios/when-the-policy-stalls/index",
+            "label": "When the policy stalls"
+          }
+        ]
       },
       {
         "type": "doc",

@@ -1967,9 +1967,21 @@
     "level": "applied",
     "minutes": 3
   },
+  "09-autonomous-driving/04-closed-loop-eval/when-the-open-loop-lies": {
+    "level": "applied",
+    "minutes": 5
+  },
   "09-autonomous-driving/05-harder-scenarios": {
     "level": "applied",
     "minutes": 3
+  },
+  "09-autonomous-driving/05-harder-scenarios/when-the-aggregate-hides-the-corner": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "09-autonomous-driving/05-harder-scenarios/when-the-policy-stalls": {
+    "level": "applied",
+    "minutes": 4
   },
   "09-autonomous-driving/06-report": {
     "level": "applied",
