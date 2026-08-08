@@ -1995,6 +1995,11 @@
               },
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/shared/09-report/when-the-case-is-hiding/index",
+                "label": "When the case is hiding"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/shared/09-report/when-the-guardrail-vetoes/index",
                 "label": "When the guardrail vetoes"
               }

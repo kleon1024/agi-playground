@@ -1197,7 +1197,7 @@
   },
   "02-personalized-discovery/shared/09-report": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "02-personalized-discovery/shared/09-report/the-variance-that-decides": {
     "level": "applied",
@@ -1206,6 +1206,10 @@
   "02-personalized-discovery/shared/09-report/when-the-baseline-moves": {
     "level": "applied",
     "minutes": 4
+  },
+  "02-personalized-discovery/shared/09-report/when-the-case-is-hiding": {
+    "level": "applied",
+    "minutes": 6
   },
   "02-personalized-discovery/shared/09-report/when-the-guardrail-vetoes": {
     "level": "applied",
