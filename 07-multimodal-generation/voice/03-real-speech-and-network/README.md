@@ -16,7 +16,10 @@ one machine. This stage asks two separate questions with one shared setup --
 the identical codec architecture retrained on LibriSpeech `dev-clean`
 (Panayotov et al., 2015; CC BY 4.0) — 2 speakers requested (2277, 2035), 1
 served (2277), because the stage's builder slices a speaker-major list; the
-[mix audit](../04-multi-speaker/when-the-mix-is-not-what-you-asked/) replays
+original recorded runs are single-speaker measurements, and a
+[balanced re-run](runs/2026-08-08-two-speaker-rerun.md) supplies the
+measured two-speaker numbers; the [mix
+audit](../04-multi-speaker/when-the-mix-is-not-what-you-asked/) replays
 the call — and a real round trip over
 this repository's own documented Tailscale link
 ([`reference/local-4090.md`](../../../reference/local-4090.md)) instead of a
@@ -48,8 +51,12 @@ speaker-major list, so the recorded runs — 2 speakers requested, 40
 utterances — were served speaker 2277 only. The numbers below are a real
 single-speaker measurement; the [mix
 audit](../04-multi-speaker/when-the-mix-is-not-what-you-asked/) measures
-the gap, stage 04's `build_balanced_dataset` is the fix, and a true
-2-speaker re-run is queued as a follow-on.
+the gap, and stage 04's `build_balanced_dataset` is the fix, which the
+[two-speaker re-run](runs/2026-08-08-two-speaker-rerun.md) then
+executed: three seeds, both speakers served in both splits, all three
+escapes and beat both baselines (eval MSE 0.01521-0.01746, 54-64/64
+codes, entropy 0.788-0.813) — inside the same healthy band as the
+single-speaker numbers below.
 
 `core/train_real_speech.py` imports `Codec`/`CodecConfig` directly from
 [`00-audio-codec/core/codec.py`](../00-audio-codec/core/codec.py) --
@@ -181,6 +188,37 @@ free fetch (CC BY 4.0), and only a bounded utterance set is used (the
 recorded runs were served a single speaker; see the mix audit), keeping
 wall-clock comparable to the procedural-tone runs.
 
+## The fix and its trade
+
+The fix is the controlled step sweep at the unchanged learning rate: at
+stage 00's own 600-step budget the codec collapses on real speech (eval
+MSE 0.0272 ties the silence baseline, 1/64 codes), and the sweep shows
+2000 steps at `lr=1e-3` escapes by ~step 1400-1800 (0.01306, 58/64 codes)
+while `lr=3e-3` never escapes (0.02722, 3/64) — so the fix is more time in
+the recipe, not a higher rate. The trade is that the escape window is
+input-dependent: real speech needed roughly 3x the steps tones needed, so
+"the recipe that worked" is a property of the data-codec pair, and the
+data-label correction the mix audit forces — the recorded runs requested
+two speakers and were served one — is settled by the balanced re-run:
+with both speakers genuinely in the mix, the recipe still escapes on all
+three seeds (0.01521/0.01553/0.01746, 62/64/54 codes), so the fix holds
+for the two-speaker claim the label originally made. The network half is
+real but path-specific: 200 round trips on this DERP-relayed Tailscale
+link (p50 9.66ms, p95 42.46ms, max 85.25ms) do not generalize to
+arbitrary internet paths.
+
+## Who owns this loop
+
+- **The data owner** owns `speech_data.py` and the served-mix label: the
+  speaker-major slice is the bug, the corrected "1 speaker served" label
+  is the honest record, and stage 04's balanced builder — now executed as
+  the two-speaker re-run — is the fix.
+- **The recipe owner** owns the step-count fix and the sweep that proved
+  it; the production runs at 2000 steps are the measured consequence.
+- **The network owner** owns the real round trip and its scoping: the
+  p95/max are the realtime tail, and the measurement is reported as this
+  link's numbers, never merged with local decode latency.
+
 ## What this stage does not establish
 
 Nothing about multi-speaker or multilingual robustness -- only 2 of
@@ -195,11 +233,10 @@ connection. No GPU-lane numbers for training; the codec ran on CPU.
 **Next:** a report stage, if this mission adds one, would hold both this
 result and stage 01/02's against `mission.yaml`'s acceptance bar together.
 
-A detour from here: [the real network is where the realtime margin
-goes](when-the-network-is-the-tail/) — the recorded Tailscale round trip
-read beside the decode budget: the cache keeps decode flat, and the
-network's p95/max (42/85ms) are where the realtime tail lives.
-
-Another detour: [the realtime margin is the network's tail](when-the-network-is-the-tail/) — the recorded ping distribution read: p50 9.7ms but p95 42.5ms and max 85.3ms, a 4.4x p95/p50 the budget must absorb.
+A detour from here: [the realtime margin is the network's
+tail](when-the-network-is-the-tail/) — the recorded ping distribution
+read: p50 9.7ms but p95 42.5ms and max 85.3ms, a 4.4x p95/p50 the budget
+must absorb; the cache keeps decode flat, so the network's p95/max are
+where the realtime tail lives.
 
 Another detour: [the escape window is input-dependent](when-the-recipe-broke-then-fixed/) — the recorded sweep read: the synthetic recipe collapses on real speech at 600 steps and escapes by 2000, while a higher LR never escapes.

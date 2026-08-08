@@ -5,7 +5,7 @@ episode here: the agent only ever sees a 7x7 patch in front of itself, so it
 must act on what it currently sees and re-observe after every move.
 
 What is reused unmodified: `Config`/`Transformer` from
-`../../../01-language-model-agent/04-rl/core/grpo.py` (the exact same
+`../../../01-language-model/04-rl/core/grpo.py` (the exact same
 architecture every other stage in this mission uses), and the k3 KL
 estimator / clipped-surrogate math grpo.py's own `grpo_loss` implements --
 copied here as `masked_grpo_loss` because `grpo_loss` assumes the
@@ -36,7 +36,7 @@ import torch
 import torch.nn.functional as F
 from env_render import EOS_ID, PAD_ID, VOCAB, encode, itos, render_step
 
-_GRPO_DIR = Path(__file__).resolve().parents[3] / "01-language-model-agent" / "04-rl" / "core"
+_GRPO_DIR = Path(__file__).resolve().parents[3] / "01-language-model" / "04-rl" / "core"
 sys.path.insert(0, str(_GRPO_DIR))
 from grpo import Config, Transformer
 

@@ -46,6 +46,32 @@ the codebook update on top of the reset, and only there. The 2x2 answer is
 unambiguous across seeds: the reset carried the work, and the EMA's value
 is conditional on the reset existing.
 
+## The fix and its trade
+
+The fix is the factorial's credit assignment: with all four cells measured
+across three seeds, the reset's main effect is a large improvement (recorded
+seed-0: -0.0084 MSE, +46 codes) while EMA-alone is worse than plain in all
+three seeds (+0.0012 MSE, -17 codes), and the reset+ema corner is the best
+(0.0181/0.0168/0.0205) but only marginally ahead of reset-only — so the
+reset carried the work, and EMA's value is conditional on the reset
+existing. The trade is that the answer is unambiguous about attribution
+only within this codec configuration: the grid says which mechanism did the
+work on this codec, this dataset, these hyperparameters, and a single-arm
+study would have over-attributed to either the reset alone or the pair —
+which is exactly the misreading the full grid exists to prevent.
+
+## Who owns this loop
+
+- **The eval owner** owns the main-effects protocol and the three-seed
+  grid; the recorded effects (-0.0084/+0.0012, +46/-17 codes) are the
+  attribution, read from the runs, never a narrative.
+- **The codec owner** owns the two mechanisms and the harness that crossed
+  them; the corner-reproduction checks are what make the two new arms
+  measured rather than approximate.
+- **The report owner** owns the scoped conclusion: the credit assignment
+  is conditional on this configuration, and the answer is reported as such
+  rather than as a general property of EMA.
+
 ## Evidence boundary
 
 Three seeds, the stage's recorded factorial; the main effects are the

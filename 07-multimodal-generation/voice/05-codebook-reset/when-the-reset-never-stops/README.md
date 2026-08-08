@@ -62,6 +62,32 @@ work. This chapter supplies the bill that comparison should reduce: if EMA
 keeps codes alive, the total reset load should drop; if not, the reset is
 doing the heavy lifting and the maintenance cost is the price of health.
 
+## The fix and its trade
+
+The fix is reading the reset trajectory as the cost view of the mechanism:
+the final 64/64 usage hides the bill that produced it — 1,893/1,848/1,388
+codes reset per run, the first event reviving 60-63 of 64 codes at step 50,
+then a sustained ~240-248 codes per 200-step window through step ~1,400
+before collapsing to 14, 3, then 1 late in training. The trade is that the
+healthy final number is a maintained steady state, not a cure: the codebook
+keeps dying and being revived for most of the run, and health arrives only
+in the final ~400 steps — so the reset bill is the price of health on this
+codec, and the chapter's value is pricing that bill before stage 06's 2x2
+decides whether EMA can cut it.
+
+## Who owns this loop
+
+- **The codec owner** owns the reset-log telemetry that makes the trajectory
+  measurable; without per-window counts, "64/64 final usage" overstates
+  stability.
+- **The eval owner** owns the trajectory read and its boundary: three seeds,
+  one codec config, 2,000 steps — the bill is shown to be sustained on this
+  configuration, not claimed to generalize across codec sizes.
+- **The mission owner** owns the cost-priced comparison: stage 06's 2x2 is
+  judged against this bill — if EMA keeps codes alive, reset load should
+  drop; if not, the reset is the mechanism and the maintenance is the
+  price.
+
 ## Evidence boundary
 
 Three seeds, the stage's own recorded runs, 2,000 steps, synthetic clips.

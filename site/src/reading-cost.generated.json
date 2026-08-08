@@ -1769,63 +1769,63 @@
   },
   "07-multimodal-generation/voice/00-audio-codec": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "07-multimodal-generation/voice/00-audio-codec/when-silence-is-a-local-minimum": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/voice/00-audio-codec/why-codebooks-collapse": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "07-multimodal-generation/voice/01-streaming-decode": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "07-multimodal-generation/voice/01-streaming-decode/when-the-cache-pays": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "07-multimodal-generation/voice/01-streaming-decode/when-the-logits-match": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/voice/02-report": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "07-multimodal-generation/voice/02-report/the-five-acceptance-lines": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/voice/02-report/when-the-transfer-is-clean": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/voice/03-real-speech-and-network": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 9
   },
   "07-multimodal-generation/voice/03-real-speech-and-network/when-the-network-is-the-tail": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/voice/03-real-speech-and-network/when-the-recipe-broke-then-fixed": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/voice/04-multi-speaker": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "07-multimodal-generation/voice/04-multi-speaker/when-codebook-health-is-seed-dependent": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/voice/04-multi-speaker/when-the-fix-did-not-generalize": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "07-multimodal-generation/voice/04-multi-speaker/when-the-mix-is-not-what-you-asked": {
     "level": "applied",
@@ -1833,27 +1833,27 @@
   },
   "07-multimodal-generation/voice/05-codebook-reset": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "07-multimodal-generation/voice/05-codebook-reset/when-reset-reaches-64-64": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/voice/05-codebook-reset/when-the-reset-never-stops": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "07-multimodal-generation/voice/06-which-mechanism-did-it": {
     "level": "applied",
-    "minutes": 10
+    "minutes": 11
   },
   "07-multimodal-generation/voice/06-which-mechanism-did-it/the-half-that-did-the-work": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "07-multimodal-generation/voice/06-which-mechanism-did-it/when-the-corners-reproduce": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "08-bio-pharma-modeling": {
     "level": "applied",

@@ -94,6 +94,32 @@ missing -- it says `CANNOT DETERMINE` and names exactly which file is
 absent, the same discipline this repository's other report stages already
 established.
 
+## The fix and its trade
+
+The fix is the mechanically applied five-line acceptance contract:
+`report.py` reads the stage 00/01 JSONs directly and prints MET only when
+all five lines hold independently — codec 0.0111 and LM 0.2581 each beat
+both naive baselines, the oracle sanity check lands at 0.0113, the
+offline-vs-streaming gap is a true zero (30/30 clips, max logit gap
+1.19e-05), and zero lines of reused serving code changed. The trade is
+that the report's MET says nothing about difficulty: the claim this
+mission tested — does an already-proven mechanism transfer unchanged — is
+an easier bar than missions 05/06's NOT MET verdicts, and the report says
+so plainly rather than treating MET as a quality score. A single verdict
+number would also hide which line was load-bearing, so the five lines stay
+visible.
+
+## Who owns this loop
+
+- **The report owner** owns the reading-only verdict contract: refuse to
+  print when an input is missing (`CANNOT DETERMINE`), never soften the
+  comparison after seeing the numbers.
+- **The stage owners** own the JSON artifacts each line reads; the verdict
+  is only as honest as the runs it tabulates.
+- **The mission owner** owns the five acceptance lines declared in
+  `mission.yaml` before stage 00 existed, and the honest framing of what
+  a MET verdict does and does not prove.
+
 ## What this does not establish
 
 No CUDA GPU was available anywhere in this mission's build, so nothing here

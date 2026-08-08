@@ -1,0 +1,300 @@
+{
+  "seed": 2,
+  "speakers": [
+    "2277",
+    "2035"
+  ],
+  "n_train": 256,
+  "n_eval": 60,
+  "data_wall_clock_s": 0.02809779206290841,
+  "codec_wall_clock_s": 574.2394231669605,
+  "lm_wall_clock_s": 67.58238333300687,
+  "codec_history": [
+    {
+      "step": 0,
+      "recon_loss": 0.060206376016139984,
+      "vq_loss": 0.009958241134881973
+    },
+    {
+      "step": 50,
+      "recon_loss": 0.027918605133891106,
+      "vq_loss": 9.819731531024445e-06
+    },
+    {
+      "step": 100,
+      "recon_loss": 0.02388465590775013,
+      "vq_loss": 4.4274647734710015e-06
+    },
+    {
+      "step": 150,
+      "recon_loss": 0.024962127208709717,
+      "vq_loss": 3.7877985050727148e-06
+    },
+    {
+      "step": 200,
+      "recon_loss": 0.02842828258872032,
+      "vq_loss": 3.1293047868530266e-06
+    },
+    {
+      "step": 250,
+      "recon_loss": 0.029826508834958076,
+      "vq_loss": 2.5286126401624642e-06
+    },
+    {
+      "step": 300,
+      "recon_loss": 0.025360770523548126,
+      "vq_loss": 1.820304987631971e-06
+    },
+    {
+      "step": 350,
+      "recon_loss": 0.03010575845837593,
+      "vq_loss": 1.3394910638453439e-06
+    },
+    {
+      "step": 400,
+      "recon_loss": 0.024728164076805115,
+      "vq_loss": 8.366315569219296e-07
+    },
+    {
+      "step": 450,
+      "recon_loss": 0.024706829339265823,
+      "vq_loss": 4.3945513539256353e-07
+    },
+    {
+      "step": 500,
+      "recon_loss": 0.026034556329250336,
+      "vq_loss": 6.083993753236427e-07
+    },
+    {
+      "step": 550,
+      "recon_loss": 0.02438068762421608,
+      "vq_loss": 4.155170643116435e-07
+    },
+    {
+      "step": 600,
+      "recon_loss": 0.0287946667522192,
+      "vq_loss": 1.905490876197291e-06
+    },
+    {
+      "step": 650,
+      "recon_loss": 0.025850452482700348,
+      "vq_loss": 1.0583128187136026e-06
+    },
+    {
+      "step": 700,
+      "recon_loss": 0.03014669567346573,
+      "vq_loss": 6.209764933373663e-07
+    },
+    {
+      "step": 750,
+      "recon_loss": 0.026639174669981003,
+      "vq_loss": 6.173133897391381e-07
+    },
+    {
+      "step": 800,
+      "recon_loss": 0.031001871451735497,
+      "vq_loss": 2.704398411879083e-06
+    },
+    {
+      "step": 850,
+      "recon_loss": 0.02986777201294899,
+      "vq_loss": 7.742045227132621e-07
+    },
+    {
+      "step": 900,
+      "recon_loss": 0.031399838626384735,
+      "vq_loss": 3.143238927805214e-06
+    },
+    {
+      "step": 950,
+      "recon_loss": 0.03011513501405716,
+      "vq_loss": 1.3726196357310982e-06
+    },
+    {
+      "step": 1000,
+      "recon_loss": 0.02645239606499672,
+      "vq_loss": 1.2710809187410632e-06
+    },
+    {
+      "step": 1050,
+      "recon_loss": 0.02789231203496456,
+      "vq_loss": 1.3059561752015725e-06
+    },
+    {
+      "step": 1100,
+      "recon_loss": 0.020465180277824402,
+      "vq_loss": 1.1592296687013004e-06
+    },
+    {
+      "step": 1150,
+      "recon_loss": 0.028426112607121468,
+      "vq_loss": 2.822980604832992e-06
+    },
+    {
+      "step": 1200,
+      "recon_loss": 0.029497675597667694,
+      "vq_loss": 2.5206682039424777e-06
+    },
+    {
+      "step": 1250,
+      "recon_loss": 0.027709756046533585,
+      "vq_loss": 2.678832515812246e-06
+    },
+    {
+      "step": 1300,
+      "recon_loss": 0.030425764620304108,
+      "vq_loss": 3.5286686852487037e-06
+    },
+    {
+      "step": 1350,
+      "recon_loss": 0.030239230021834373,
+      "vq_loss": 5.789505848952103e-06
+    },
+    {
+      "step": 1400,
+      "recon_loss": 0.02759884111583233,
+      "vq_loss": 8.818458809400909e-06
+    },
+    {
+      "step": 1450,
+      "recon_loss": 0.029591504484415054,
+      "vq_loss": 0.03865921497344971
+    },
+    {
+      "step": 1500,
+      "recon_loss": 0.028851347044110298,
+      "vq_loss": 0.010431833565235138
+    },
+    {
+      "step": 1550,
+      "recon_loss": 0.023580754175782204,
+      "vq_loss": 0.013191767036914825
+    },
+    {
+      "step": 1600,
+      "recon_loss": 0.02079184725880623,
+      "vq_loss": 0.008824920281767845
+    },
+    {
+      "step": 1650,
+      "recon_loss": 0.02144961804151535,
+      "vq_loss": 0.014732791110873222
+    },
+    {
+      "step": 1700,
+      "recon_loss": 0.02408008836209774,
+      "vq_loss": 0.007887127809226513
+    },
+    {
+      "step": 1750,
+      "recon_loss": 0.019787294790148735,
+      "vq_loss": 0.0052573177963495255
+    },
+    {
+      "step": 1800,
+      "recon_loss": 0.02302585542201996,
+      "vq_loss": 0.0033277510665357113
+    },
+    {
+      "step": 1850,
+      "recon_loss": 0.0196999441832304,
+      "vq_loss": 0.006288941018283367
+    },
+    {
+      "step": 1900,
+      "recon_loss": 0.013620361685752869,
+      "vq_loss": 0.005600263364613056
+    },
+    {
+      "step": 1950,
+      "recon_loss": 0.01798994094133377,
+      "vq_loss": 0.008225171826779842
+    }
+  ],
+  "codec_eval_mse": 0.017455512657761574,
+  "baseline_mse": {
+    "silence": 0.027464834973216057,
+    "mean_signal": 0.027589457109570503
+  },
+  "beats_silence": true,
+  "beats_mean_signal": true,
+  "codebook_usage": {
+    "unique_codes_used": 54,
+    "codebook_size": 64,
+    "entropy_ratio": 0.7879574308543754
+  },
+  "codec_examples": [
+    {
+      "clip_index": 0,
+      "speaker_id": "2035",
+      "utterance_id": "2035-147961-0000",
+      "reference_wav": "example_clips/real0_reference.wav",
+      "reconstructed_wav": "example_clips/real0_reconstructed.wav",
+      "per_clip_mse": 0.011725397780537605
+    },
+    {
+      "clip_index": 1,
+      "speaker_id": "2277",
+      "utterance_id": "2277-149874-0000",
+      "reference_wav": "example_clips/real1_reference.wav",
+      "reconstructed_wav": "example_clips/real1_reconstructed.wav",
+      "per_clip_mse": 0.008905686438083649
+    },
+    {
+      "clip_index": 2,
+      "speaker_id": "2277",
+      "utterance_id": "2277-149896-0015",
+      "reference_wav": "example_clips/real2_reference.wav",
+      "reconstructed_wav": "example_clips/real2_reconstructed.wav",
+      "per_clip_mse": 0.019732456654310226
+    }
+  ],
+  "streaming_correctness": {
+    "max_logit_gap_over_all_clips": 3.409385681152344e-05,
+    "mean_logit_gap": 1.171429951985677e-05,
+    "all_token_sequences_matched": true,
+    "n_clips_total": 60
+  },
+  "latency_s_local_cpu": {
+    "naive_early_steps": {
+      "p50": 0.0012720830272883177,
+      "p95": 0.0019972079899162054,
+      "mean": 0.0013736423376637201
+    },
+    "naive_late_steps": {
+      "p50": 0.0014784159138798714,
+      "p95": 0.00218954193405807,
+      "mean": 0.0015928624484998484
+    },
+    "cached_early_steps": {
+      "p50": 0.001167624955996871,
+      "p95": 0.0018625829834491014,
+      "mean": 0.0012467245889517169
+    },
+    "cached_late_steps": {
+      "p50": 0.0010974998585879803,
+      "p95": 0.0012688750866800547,
+      "mean": 0.0011275718011893331
+    }
+  },
+  "examples": [
+    {
+      "clip_index": 0,
+      "speaker_id": "2035",
+      "utterance_id": "2035-147961-0000",
+      "tokens_match": true
+    },
+    {
+      "clip_index": 1,
+      "speaker_id": "2277",
+      "utterance_id": "2277-149874-0000",
+      "tokens_match": true
+    },
+    {
+      "clip_index": 2,
+      "speaker_id": "2277",
+      "utterance_id": "2277-149896-0015",
+      "tokens_match": true
+    }
+  ]
+}

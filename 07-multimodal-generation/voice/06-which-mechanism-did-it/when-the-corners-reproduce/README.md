@@ -43,6 +43,32 @@ reset is the mechanism that fixes utilization; the EMA refines it. The
 factorial design is what separates the two contributions that a single
 "did the fix work" run could not.
 
+## The fix and its trade
+
+The fix is validating the harness before reading the new arms: the two
+published corners must reproduce the mission's own numbers to full float —
+`plain` equals stage 04's 0.02712 and `reset-only` equals stage 05's
+0.01875, bit-for-bit, with identical usage, entropy, and reset counts — so
+the two new cells (ema-only 1/64, reset+ema 64/64 at entropy 0.933) are
+measured against a known baseline rather than a re-implementation that
+merely resembles it. The trade is the cost of the guarantee: the factorial
+ran all four arms for three seeds at ~74 minutes per seed (3.68 hours of
+process time), and the ema-only corner — the cell that rules out
+misattributing the fix to EMA — is exactly the arm a two-arm study would
+have omitted.
+
+## Who owns this loop
+
+- **The eval owner** owns the bit-for-bit reproduction check; the exact
+  matches are what make "the grid is four cells of one experiment" a
+  verifiable claim.
+- **The codec owner** owns the harness that crossed the two mechanisms;
+  the forward-pass comparison against stage 00's original `VectorQuantizer`
+  anchors the `plain` corner independently of reading the code.
+- **The report owner** owns the measured-not-approximate boundary: the two
+  new corners are reported as real measurements, and the ema-only collapse
+  as the cell that assigns the fix's credit to the reset.
+
 ## Evidence boundary
 
 The recorded factorial run (three seeds, four arms each, one dataset, ~74

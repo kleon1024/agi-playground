@@ -56,7 +56,7 @@ sys.path.insert(
     0,
     str(
         Path(__file__).resolve().parents[4]
-        / "missions" / "01-language-model-agent" / "02-pretrain" / "core"
+        / "01-language-model" / "02-pretrain" / "core"
     ),
 )
 from model import Config, Transformer

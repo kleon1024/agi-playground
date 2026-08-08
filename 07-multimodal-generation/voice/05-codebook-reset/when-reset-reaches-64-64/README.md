@@ -43,6 +43,31 @@ steps reset heavily, later steps almost not at all. The taper is the
 evidence the reset is a maintenance loop, not a constant scramble: it
 fixes the codebook and then mostly stops being needed.
 
+## The fix and its trade
+
+The fix is the dead-code reset itself: codes whose EMA count falls below
+the threshold (1.0) are reinitialized every 50 steps, and the measured
+before/after closes the seed-dependent gap — 64/64 codes in every seed (vs
+stage 04's 18/63/32), entropy 0.79-0.83, margins tightening to the
+33.8%-37.6% band. The trade is that the mechanism's signature is also its
+cost: 1,893/1,848/1,388 resets per run, front-loaded early and tapering as
+the codebook stabilizes — which is exactly why the healthy final number
+reads as a maintained steady state rather than a cure (the sibling chapter
+prices that bill), and why 64/64 usage is a utilization claim, not a
+quality score.
+
+## Who owns this loop
+
+- **The codec owner** owns the reset mechanism and its threshold contract
+  (every 50 steps, below 1.0); the reset log is part of the run record, so
+  the mechanism's work is verifiable, not inferred.
+- **The eval owner** owns the before/after read: the same recipe as stage
+  04 with only the quantizer changed, which is what isolates the mechanism
+  as the one variable under test.
+- **The mission owner** owns the maintenance-cost boundary: the taper (early
+  churn, late quiet) is reported so the reset's price is visible, and
+  stage 06's 2x2 exists to test whether EMA halves that bill.
+
 ## Evidence boundary
 
 The recorded reset-codec JSONs (three seeds, same recipe as stage 04, only

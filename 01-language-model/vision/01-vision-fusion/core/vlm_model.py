@@ -1,6 +1,6 @@
 """A patch-embedding vision prefix fused into mission 01's decoder.
 
-[`02-pretrain/core/model.py`](../../../01-language-model-agent/02-pretrain/core/model.py)
+[`02-pretrain/core/model.py`](../../../01-language-model/02-pretrain/core/model.py)
 hardcodes exactly one input path (`nn.Embedding(vocab_size, d_model)`, causal
 attention only). This file imports the pieces of that model that are already
 architecture-agnostic -- `RMSNorm`, `SwiGLU`, and the RoPE cache/apply
@@ -28,7 +28,6 @@ sys.path.insert(
     0,
     str(
         Path(__file__).resolve().parents[3]
-        / "01-language-model-agent"
         / "02-pretrain"
         / "core"
     ),

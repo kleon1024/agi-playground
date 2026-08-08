@@ -41,6 +41,30 @@ the next 150 steps). Higher LR and longer training are what get the
 decoder out; a lower LR would have stayed stuck. The recorded before/after
 is the argument for the training recipe, not just the architecture.
 
+## The fix and its trade
+
+The fix is recognizing the collapse as a local minimum, which redirects
+the intervention from the loss to the exit: against a zero-mean signal,
+outputting near-silence is genuinely locally optimal (recon MSE 0.325,
+1-2 of 64 codes used), so no loss change helps and the escape (0.32 to
+0.03 over ~150 steps) is bought by the recipe — higher LR and longer
+training. The trade is that the plateau characterizes this task's
+zero-mean signal, and a loss-only read reports "training is working"
+while the codec is broken; the codebook-usage counter is the number that
+catches it. The fix buys the right diagnosis at the cost of requiring
+two metrics where one seems enough.
+
+## Who owns this loop
+
+- **The codec owner** owns the recipe that buys the escape: the lr/steps
+  that cross the minimum, and the exit mechanism when the loss cannot
+  move.
+- **The eval owner** owns the usage counter beside the loss; the 1-2/64
+  figure is the load-bearing diagnostic, never omitted from a verdict.
+- **The mission owner** owns the both-numbers rule this chapter teaches:
+  a healthy-looking loss without codebook health is a collapsed codec,
+  and later stages inherit that reading discipline.
+
 ## Evidence boundary
 
 The recorded codec training run (one pilot, one escape, synthetic tone

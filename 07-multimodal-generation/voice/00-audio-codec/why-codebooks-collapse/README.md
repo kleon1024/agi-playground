@@ -72,6 +72,32 @@ update is the direct ancestor of the reset/EMA 2x2 the mission measures in
 [stage 05](../../05-codebook-reset/). The full line is in
 [the realtime-voice lineage](../../lineage.md).
 
+## The fix and its trade
+
+The fix is measuring the collapse as a trajectory instead of a footnote:
+logging codebook usage every 25 steps turns "collapse" into a legible,
+measured process (1 code at step 0, 2 at 200, 13 at 300, peaking at 14
+with entropy 0.520 at 400, then losing codes at 500 before ending at
+15/64) and exposes its three properties: the whole batch starts on one
+code, recovery is slow and non-monotonic, and it is seed-dependent (seed 0
+ends healthy at 34/64, seed 7 at 15/64 from identical code). The trade is
+that one seed and one configuration cannot certify the codebook — the
+trajectory view is what makes a single healthy run insufficient evidence,
+and the chapter does not measure how RVQ or EMA would change the shape
+(stage 05's 2x2 exists for that).
+
+## Who owns this loop
+
+- **The codec owner** owns the usage telemetry contract: per-step
+  bincounts and entropy are recorded in the run, not reconstructed after
+  the fact.
+- **The eval owner** owns the per-seed protocol that exposes
+  seed-dependence; one healthy seed is reported as one data point, never
+  as a certificate.
+- **The mission owner** owns the downstream handoff: the seed-dependence
+  measured here is the exact phenomenon stage 04 records at the frontier
+  and stage 05/06's reset/EMA grid is built to fix.
+
 ## Evidence boundary
 
 One seed, one codec config, 600 steps, on the stage's synthetic clips. It

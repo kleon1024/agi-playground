@@ -49,7 +49,7 @@ from train_grpo import (
     sample_problem,
 )
 
-_GRPO_DIR = Path(__file__).resolve().parents[3] / "01-language-model-agent" / "04-rl" / "core"
+_GRPO_DIR = Path(__file__).resolve().parents[3] / "01-language-model" / "04-rl" / "core"
 sys.path.insert(0, str(_GRPO_DIR))
 from grpo import Config, Transformer, grpo_loss
 

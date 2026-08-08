@@ -157,6 +157,36 @@ process time in total, \$0 marginal cost on the already-cached LibriSpeech
 archive. Full numbers in
 [`runs/2026-08-05-factorial-vq.md`](runs/2026-08-05-factorial-vq.md).
 
+## The fix and its trade
+
+The fix is the 2x2 factorial — reset crossed against EMA, all four cells —
+which turns the two mechanisms from a confound into two measured effects,
+each computed twice, plus the corner-reproduction checks that anchor the
+two new cells to the mission's published numbers (plain reproduces stage
+04 and reset-only reproduces stage 05 to the full float). The measured
+answer has the shape only a 2x2 can show: `ema-only` collapses the
+codebook to 1/64 codes and lands worse than silence on every seed, while
+EMA's effect flips sign between the two halves of the grid (without reset
+-0.405/-0.760/-0.644 entropy, with reset +0.108/+0.058/+0.084) — there is
+no "the EMA effect" to report. The trade is that the answer is mechanism
+identity, not hyperparameters: one value each of `ema_decay`, `epsilon`,
+`reset_every`, and `dead_threshold` were tried, so the grid says which
+switch does the work, not what value is best, and the quality effect of EMA
+on top of reset contains zero and is reported as inconclusive.
+
+## Who owns this loop
+
+- **The codec owner** owns the factorial harness and the corner-reproduction
+  checks; without bit-for-bit confirmation of the published corners, the
+  two new cells would be measured against a re-implementation that merely
+  resembles the baseline.
+- **The eval owner** owns the main-effects protocol and the three-seed
+  grid; the sign flip is a property of the design, reported as such.
+- **The mission owner** owns the acceptance metric boundary: reconstruction
+  stays the number the mission accepts on, entropy stays the diagnostic
+  that explains why it moved — a more uniform codebook is not automatically
+  a better codec.
+
 ## What this stage does not establish
 
 Nothing about `ema_decay` or `epsilon` beyond the single values tried (0.99 and

@@ -126,6 +126,32 @@ archive), codec training 780-861s, LM training 83-87s. \$0 marginal cost --
 no new download; all 10 speakers come from the `dev-clean` archive stage 03
 already fetched.
 
+## The fix and its trade
+
+The fix is the balanced per-speaker builder plus the three-seed protocol:
+`build_balanced_dataset` bounds utterances per speaker before combining and
+raises unless every requested speaker appears in the eval split, so the
+ten-speaker request actually serves ten speakers (the naive builder would
+have served one), and the result is read across three seeds rather than one
+healthy run. The measured outcome is honest in both directions: no seed
+fully collapses (18/32/63 of 64 codes, margins 4.3%-38.2% over silence,
+and the KV-cache check still holds at 2.22e-05 max logit gap), but the
+escape that was reliable on stage 03's narrow baseline is now
+seed-dependent — the trade of scaling the claim is that reliability became
+a coin flip, which is the exact problem stage 05's reset targets.
+
+## Who owns this loop
+
+- **The dataset-builder owner** owns the balanced mix and the eval
+  coverage guard; a builder that silently changes the served distribution
+  is a correctness bug, not a tuning knob.
+- **The eval owner** owns the three-seed protocol and the per-speaker MSE
+  breakdown, which is what shows the added variance is a
+  training-dynamics effect, not one hard-to-encode voice.
+- **The model owner** owns the seed-dependent health the fix exposes: the
+  capacity claim (64 entries are the representational budget) and the
+  handoff to stage 05's dead-code reset.
+
 ## What this stage does not establish
 
 Still not the full 40+-speaker `dev-clean` corpus -- 10 speakers, chosen for
@@ -141,7 +167,9 @@ numbers; the codec ran on CPU throughout.
 **Next:** none currently planned. A report stage, if this mission adds one,
 would need to fold this stage's seed-dependent result into the mission's
 overall acceptance verdict rather than treating stage 03's cleaner
-single-speaker result as the mission's last word on real speech.
+result — its original runs and the [balanced two-speaker
+re-run](../03-real-speech-and-network/runs/2026-08-08-two-speaker-rerun.md)
+— as the mission's last word on real speech.
 
 A detour from here: [the fix that did not generalize](when-the-fix-did-not-generalize/)
 — the three seeds' codebook health at 10 speakers: 18/63/32 of 64 codes,

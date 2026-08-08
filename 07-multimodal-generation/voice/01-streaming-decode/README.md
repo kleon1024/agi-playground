@@ -113,6 +113,32 @@ CPU only -- no CUDA GPU was available in this environment, a real deviation
 from `mission.yaml`'s "local GPU lane" framing, stated plainly rather than
 assumed away. ~190s wall-clock, \$0 marginal cost.
 
+## The fix and its trade
+
+The fix is the identity-check discipline plus the two-scale latency
+measurement: the cache's correctness is checked at logit level (30/30
+clips identical, max logit gap 1.19e-05 against the repo's own `TOL=2e-5`)
+so identical tokens cannot hide a confidence shift, and the speed benefit
+is measured at the native 48-token length and a 500-step stress test (naive
+tail grows 6.9x, cached stays at 1.3x). The trade is that the benefit is
+length-conditional — at this mission's actual clip length the cache is
+statistically indistinguishable from full recompute, so the mechanism is a
+pure win only where sequences are long enough to need it, and the logit
+check is the load-bearing precondition that keeps the speedup from being a
+different model.
+
+## Who owns this loop
+
+- **The serving owner** owns the imported `Config`/`Transformer`/`KVCache`
+  classes: zero lines changed, which is itself the finding that the
+  mechanism is modality-neutral.
+- **The eval owner** owns the logit-level comparison protocol and the
+  per-step timing harness; the same tolerance and methodology the repo's
+  own text test uses.
+- **The mission owner** owns the two-scale reporting contract: the native
+  length and the stress test are both reported, never one flattering
+  number.
+
 ## What this stage does not establish
 
 No GPU-lane numbers; nothing about the paged/continuous-batching layer

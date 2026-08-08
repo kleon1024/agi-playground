@@ -85,7 +85,7 @@ mission contract's guardrail against memorization passing as sight.
 Reused unmodified, by direct import from mission 01's own files rather than
 reimplementation: RoPE, RMSNorm, SwiGLU, and the mixed-precision training loop
 in
-[`../01-language-model-agent/02-pretrain/core/model.py`](../02-pretrain/core/model.py).
+[`../01-language-model/02-pretrain/core/model.py`](../02-pretrain/core/model.py).
 This is the same cross-mission convention mission 04 already uses to import
 mission 01's agent harness — a `sys.path` import into that file's classes, not
 a duplicated copy.

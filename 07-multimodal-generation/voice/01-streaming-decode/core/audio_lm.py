@@ -1,7 +1,7 @@
 """Train a causal Transformer language model over the audio codec's own
 discrete token vocabulary -- the audio-token analogue of mission 01's
 text-token pretraining, using the *identical* `Config`/`Transformer` classes
-[`engine.py`](../../../01-language-model-agent/05-serve/core/engine.py)
+[`engine.py`](../../../01-language-model/05-serve/core/engine.py)
 itself imports, not a reimplementation. Nothing in either class assumes
 text: a token is just an integer id into an embedding table either way.
 This is the model stage 01 hands to the KV-cache decode loop -- the object
@@ -29,7 +29,7 @@ sys.path.insert(0, str(CODEC_DIR))
 from audio_data import build_dataset
 from codec import Codec, CodecConfig
 
-ENGINE_DIR = Path(__file__).resolve().parents[3] / "01-language-model-agent" / "05-serve" / "core"
+ENGINE_DIR = Path(__file__).resolve().parents[4] / "01-language-model" / "05-serve" / "core"
 sys.path.insert(0, str(ENGINE_DIR))
 from engine import Config, Transformer
 

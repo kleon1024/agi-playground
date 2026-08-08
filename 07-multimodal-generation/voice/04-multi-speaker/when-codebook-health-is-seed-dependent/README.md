@@ -42,6 +42,30 @@ reliable on stage 03's narrow baseline is now a coin flip per seed — the gener
 gap stage 04 exists to record, and the exact problem stage 05's reset
 targets.
 
+## The fix and its trade
+
+The fix is the three-seed protocol that turns reliability into a measured
+property: the same architecture, step count, LR, and recipe produce 18, 63,
+and 32 of 64 codes (entropy 0.405/0.760/0.644, eval MSE
+0.02712/0.01698/0.02122), so "no collapse" is reported as the first half of
+the result and seed-dependence as the second. The trade is that the read is
+uncomfortable on purpose: no seed fully collapsed and every seed beats the
+silence baseline, yet the capacity claim is unreliable — a seed using 18 of
+64 entries is silently leaving 46 unused, and a production codec cannot
+accept that variance. The fix buys a reliability verdict at the cost of
+denying the "it works" reading that any single healthy seed would support.
+
+## Who owns this loop
+
+- **The eval owner** owns the seed protocol; a single healthy run is
+  reported as one data point, never as evidence the codebook is safe.
+- **The codec owner** owns the capacity claim the utilization figures make:
+  the 64 entries are the representational budget, and seed-dependence in
+  usage is a reliability defect, not a quality curiosity.
+- **The mission owner** owns the handoff the seed-dependence justifies:
+  the frontier gap is the reason stage 05 tests a mechanism (dead-code
+  reset) rather than a bigger hyperparameter sweep.
+
 ## Evidence boundary
 
 The recorded multi-speaker JSONs (three seeds, balanced 10-speaker

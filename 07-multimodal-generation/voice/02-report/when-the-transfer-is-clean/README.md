@@ -44,6 +44,31 @@ Config/Transformer/KVCache were imported unmodified. A transfer that needed
 no rewrite is evidence the mechanism was modality-neutral, which is the
 claim the mission exists to test.
 
+## The fix and its trade
+
+The fix is treating the diff count as the sharpest line in the transfer
+claim: `engine.py`'s Config/Transformer/KVCache were imported and called
+exactly as written, zero lines changed, which is the direct evidence that
+the mechanism is modality-neutral — a transfer that needed a rewrite would
+have been a port, not a transfer. The trade is that the claim rests on the
+measured artifacts' scope: the committed stage 00/01 JSONs are one seed
+each on synthetic tone clips over the CPU lane, the latency numbers are CPU
+wall-clock (a real deviation from `mission.yaml`'s GPU-lane framing, stated
+in the stage's own report), and the zero gap (1.19e-05) and the 6.9x-vs-1.3x
+divergence at 500 steps are read from those artifacts, not re-derived.
+
+## Who owns this loop
+
+- **The serving owner** owns the unchanged engine import: zero lines
+  changed is a measured property of the code path, the positive finding
+  the mission exists to check for.
+- **The eval owner** owns the two-scale latency protocol and the logit-level
+  gap; the numbers are read from the committed JSONs, never recomputed into
+  a nicer shape.
+- **The report owner** owns the scoped claim: the transfer is clean for
+  this token modality, this codec, this lane — the boundary stays beside
+  the verdict.
+
 ## Evidence boundary
 
 The committed stage 00/01 JSONs (one seed each, synthetic tone-sequence

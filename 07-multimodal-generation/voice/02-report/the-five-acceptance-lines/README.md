@@ -41,6 +41,31 @@ what establishes that. Every other line is about quality or cost; this
 one is about identity — without it, the latency numbers would describe a
 different model, not an optimization.
 
+## The fix and its trade
+
+The fix is the five-line acceptance structure itself: each line fails
+independently — the codec could beat both baselines while the LM loses, the
+gap could be nonzero while latency looks great, the reused code could
+change — so the verdict is MET only when all five hold (codec 0.0111 and
+LM 0.2581 each beat silence 0.3251 / mean-signal 0.3001, the gap is a true
+zero at 1.19e-05, and zero lines of reused code changed). The trade is that
+the structure costs a single flattering number: a one-line "MET" would hide
+which line was load-bearing, and the oracle sanity check (0.0113, close to
+the codec's own 0.0111) is what separates the two components' responsibility
+— without it, the LM's 0.2581 gap could be misread as a codec failure
+rather than the sequence model's contribution.
+
+## Who owns this loop
+
+- **The report owner** owns the five-line verdict and its refusal to print
+  a single collapsed number; the itemized structure is the auditability.
+- **The stage owners** own the artifacts each line reads — the stage 00/01
+  JSONs — and the oracle, which bounds what the codec could possibly
+  achieve.
+- **The mission owner** owns the contract the five lines came from: the
+  acceptance lines were declared in `mission.yaml` before stage 00 existed,
+  so the verdict cannot be softened after the numbers arrive.
+
 ## Evidence boundary
 
 The recorded outcome report (stage 00/01 JSONs read mechanically). It

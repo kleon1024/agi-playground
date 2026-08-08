@@ -885,8 +885,10 @@ and sample-construction detail the user asks for lives here.
 
 **Status: done for foundations 02-optimization, 06-significance, and
 07-moe, and for the voice path's modality-imbalance row (ninth and tenth
-audit increments, 2026-08-08); the remaining missions below are still
-pending.**
+audit increments, 2026-08-08). The remaining missions named below —
+bio-pharma modeling and autonomous driving — were subsequently audited in
+full as their own sections (fifteenth and sixteenth audit increments,
+2026-08-08).**
 
 The foundations now carry the failure-mode lens the queue named first:
 
@@ -919,36 +921,164 @@ The foundations now carry the failure-mode lens the queue named first:
 
 ### Multimodal generation — voice path (modality-imbalance row)
 
-**Status: done for the voice path's sample-construction half of the
-modality-imbalance row (2026-08-08); the codebook-collapse-checks half is
-already covered by the collapse/reset chapters and the seed-dependence
-runs.**
+**Status: done (seventeenth audit increment, 2026-08-08).**
 
-The row's sample-construction failure is now measured
-(`04-multi-speaker/when-the-mix-is-not-what-you-asked`, 2026-08-08): the
-naive speaker-major builder (`speech_data.build_dataset`) slices
+Every stage and detour in the voice path now carries the fix-and-trade and
+who-owns-the-loop sections the audit contract requires. The row has two
+halves: the sample-construction failure (who is actually in the mix) and
+the codebook-collapse checks (is the codebook healthy).
+
+The sample-construction half is measured
+(`04-multi-speaker/when-the-mix-is-not-what-you-asked`): the naive
+speaker-major builder (`speech_data.build_dataset`) slices
 `max_utterances` off a speaker-major list, so a 10-speaker request with a
 40-utterance cap serves speaker 2277 only — verdict "10 requested, 1
 served" in both splits, and "2 requested, 1 served" replaying stage 03's
 exact recorded call, which means stage 03's recorded "1-2 speakers" runs
-were 1-speaker measurements (its README and run record are corrected to
-match, and a true 2-speaker re-run is queued as a follow-on). The loud
-failure misdiagnoses itself ("raise max_utterances or add a speaker" — the
-real cause is the slice, not volume) and the completing failure is silent,
-which is why counting the served distribution is the case-finding step.
-The fix measured is the balanced builder's per-speaker utterance bound plus
-its eval-coverage guard; the trade is per-speaker budget vs corpus scale,
-with weighted category-aware sampling as the scale alternative (ESPnet
-category-power sampler; Google production ASR fairness rebalancing toward
-underperforming speaker cohorts, arXiv:2207.11345, 2022). Ownership split:
-the dataset-builder owner holds the served-distribution contract, eval owns
-the per-split coverage guard, and the training team inherits whatever the
-builder serves. Corpus: LibriSpeech (Panayotov et al., ICASSP 2015,
-DOI 10.1109/ICASSP.2015.7178964).
+were 1-speaker measurements. The loud failure misdiagnoses itself ("raise
+max_utterances or add a speaker" — the real cause is the slice, not
+volume) and the completing failure is silent, which is why counting the
+served distribution is the case-finding step. The fix is the balanced
+builder's per-speaker utterance bound plus its eval-coverage guard; the
+trade is per-speaker budget vs corpus scale, with weighted category-aware
+sampling as the scale alternative (ESPnet category-power sampler; Google
+production ASR fairness rebalancing toward underperforming speaker
+cohorts, arXiv:2207.11345, 2022). Ownership split: the dataset-builder
+owner holds the served-distribution contract, eval owns the per-split
+coverage guard, and the training team inherits whatever the builder
+serves. The queued follow-on — the true two-speaker re-run of stage 03
+(`runs/2026-08-08-two-speaker-rerun.md`) — is executed: balanced builder,
+three seeds, both speakers (2277, 2035) served in both splits, all three
+seeds escape with healthy codebooks (eval MSE 0.01521-0.01746, 54-64/64
+codes, entropy 0.788-0.813), inside the same healthy band as stage 03's
+single-speaker numbers, so the "1-2 speakers" claim is a measured
+two-speaker result, not a corrected label. Corpus: LibriSpeech (Panayotov
+et al., ICASSP 2015, DOI 10.1109/ICASSP.2015.7178964).
 
-Audit the remaining missions with the same lens: bio-pharma modeling, and
-autonomous driving (perception failure, distribution shift, closed-loop
-evaluation).
+The codebook-collapse half now carries the sections across every stage and
+detour, reusing the mission's measured numbers:
+
+- 00 codec: the recipe is the fix — `lr=1e-3` and 600 steps escape the
+  silence local minimum that `lr=3e-4` plateaued on (eval MSE 0.01114 vs
+  the 0.32510 silence baseline, 27x; 34/64 codes, entropy 0.733); the
+  trade is that the recipe is a property of the data-codec pair (stage 03
+  shows real speech needs roughly 3x the steps) and a healthy seed is not
+  evidence the codebook is safe (seed 7 ends at 15/64 from identical
+  code); ownership split across codec owner (architecture and
+  lr/steps), eval owner (baseline pair and usage counter — the number a
+  loss-only read reports as success), and mission owner (does_not_prove
+  boundary).
+- 00 why-codebooks-collapse: measuring the collapse as a trajectory turns
+  "collapse" into a legible process (1 code at step 0, 2 at 200, 13 at
+  300, peaking at 14 with entropy 0.520 at 400, then losing codes before
+  ending at 15/64); the trade is that one seed and one configuration
+  cannot certify the codebook — the trajectory view is what makes a single
+  healthy run insufficient evidence; ownership split across codec owner
+  (usage telemetry contract), eval owner (per-seed protocol), and mission
+  owner (the handoff stage 04 records at the frontier).
+- 00 when-silence-is-a-local-minimum: recognizing the collapse as a local
+  minimum redirects the intervention from the loss to the exit (recon MSE
+  0.325 at the plateau, 1-2/64 codes; escape 0.32 to 0.03 over ~150
+  steps bought by higher LR and longer training); the trade is a
+  two-metric discipline where one seems enough; ownership split across
+  codec owner (the exit mechanism), eval owner (the usage counter as the
+  load-bearing diagnostic), and mission owner (the both-numbers rule).
+- 01 streaming-decode: the identity-check discipline plus the two-scale
+  latency measurement — correctness at logit level (30/30 clips, max logit
+  gap 1.19e-05 against `TOL=2e-5`), speed at the native 48-token length
+  and a 500-step stress (naive tail 6.9x, cached 1.3x); the trade is that
+  the benefit is length-conditional — at this mission's clip length the
+  cache is statistically indistinguishable from full recompute; ownership
+  split across serving owner (zero lines changed in the imported engine
+  classes), eval owner (logit protocol and timing harness), and mission
+  owner (two-scale reporting contract).
+- 01 when-the-cache-pays: the two-half claim — cached must reproduce the
+  naive completion token-for-token (3/3 clips) before latency counts as a
+  speedup (p50 1.43ms to 9.81ms vs 1.15ms to 1.50ms at 500 steps); the
+  trade is that the benefit is conditional by construction — a KV cache
+  that changed the answer would be a correctness bug that happens to be
+  faster; ownership split across serving owner (identity precondition),
+  eval owner (two-scale protocol), and report owner (realtime framing).
+- 01 when-the-logits-match: identity is checked at logit level, not token
+  level — token equality alone would call a confidence shift "identical"
+  (max logit gap 1.19e-05, mean 5.27e-06); the trade is that the check is
+  stronger than a token-id comparison and therefore load-bearing; a
+  nonzero gap would mean the speedup is a different model, not an
+  optimization; ownership split across eval owner (the repo's own
+  tolerance), serving owner (behavior-preservation contract), and report
+  owner (the load-bearing line).
+- 02 report: the five-line acceptance contract — codec 0.0111 and LM
+  0.2581 each beat both baselines (silence 0.3251 / mean-signal 0.3001),
+  the oracle lands at 0.0113, the offline-vs-streaming gap is a true zero
+  (1.19e-05), and zero lines of reused code changed; the trade is that MET
+  says nothing about difficulty and a single collapsed verdict would hide
+  which line was load-bearing; ownership split across report owner
+  (reading-only verdict contract), stage owners (JSON artifacts), and
+  mission owner (the five lines declared in `mission.yaml` before stage 00
+  existed).
+- 03 real speech and network: the controlled step sweep at the unchanged
+  LR — 600 steps collapse on real speech (0.0272 ties silence, 1/64),
+  2000 steps escape by ~step 1400-1800 (0.01306-0.01369, 51-63/64,
+  entropy 0.787-0.870) while `lr=3e-3` never escapes (0.02722, 3/64) — so
+  the fix is more time in the recipe, not a higher rate, and the network
+  tail (p50 9.66ms, p95 42.46ms, max 85.25ms) is real but path-specific;
+  the trade is the input-dependent escape window and the data-label
+  correction, now settled by the balanced two-speaker re-run (above);
+  ownership split across data owner (served-mix label and balanced
+  builder), recipe owner (step-count fix and the sweep that proved it),
+  and network owner (this link's numbers, never merged with local decode
+  latency).
+- 04 multi-speaker: the balanced per-speaker builder plus the three-seed
+  protocol — 10 speakers actually served, no seed fully collapsing
+  (18/63/32 of 64 codes, margins 4.3%-38.2%, KV-cache check still holds
+  at 2.22e-05); the trade is that scaling the claim turns the reliable
+  escape into seed-dependence — the frontier stage 05's reset exists to
+  close; ownership split across dataset-builder owner (served mix and
+  eval-coverage guard), eval owner (three-seed protocol and per-speaker
+  MSE breakdown), and model owner (the capacity claim).
+- 05 codebook reset: periodic dead-code reset (Razavi, van den Oord &
+  Vinyals, VQ-VAE-2, NeurIPS 2019) closes the seed-dependent gap — 64/64
+  codes in every seed (vs 18/63/32), margins tightening from 4.3%-38.2% to
+  33.8%-37.6%, reset logs 1,893/1,848/1,388 per run tapering as the
+  codebook stabilizes; the trade is that the reset eliminates dead codes,
+  not that it produces a uniform codebook (entropy stays 0.79-0.83), and
+  only half of VQ-VAE-2's fix was tested (EMA deliberately excluded so the
+  two mechanisms could not be confounded); ownership split across codec
+  owner (reset mechanism and threshold contract), eval owner (before/after
+  read with only the quantizer changed), and mission owner (the
+  maintenance-cost boundary).
+- 06 which mechanism did it: the 2x2 factorial (reset x EMA, all four
+  cells, three seeds) with corner-reproduction checks anchoring the new
+  cells to the published numbers (plain reproduces stage 04, reset-only
+  reproduces stage 05 to full float) — ema-only collapses the codebook to
+  1/64 and lands worse than silence on every seed, and EMA's effect flips
+  sign between the two halves of the grid (-0.405/-0.760/-0.644 without
+  reset, +0.108/+0.058/+0.084 with); the trade is that the answer is
+  mechanism identity, not hyperparameters — one value each was tried, and
+  the quality effect of EMA on top of reset contains zero and is reported
+  as inconclusive; ownership split across codec owner (factorial harness
+  and corner reproduction), eval owner (three-seed main-effects protocol),
+  and report owner (scoped conclusion).
+
+The detours complete the same contract with their own measured reads:
+seed-dependence as a measured property at the frontier (18/63/32 of 64
+codes, entropy 0.405/0.760/0.644, MSE 0.02712/0.01698/0.02122, and the
+realtime contract met on the worst seed, not the average); the fix's
+generalization boundary (the stage-03 recipe holds where the data was
+narrow and fails where it was not); the reset trajectory priced as the
+cost view (1,893/1,848/1,388 resets, the first event reviving 60-63/64
+codes at step 50, then ~240-248 per 200-step window until the final ~400
+steps go quiet); the factorial corners reproduced bit-for-bit at ~74
+minutes per seed (3.68 hours of process time, with the ema-only cell the
+arm a two-arm study would have omitted); and the tail read that
+redirects the optimization (a 4.4x p95/p50 the realtime budget must
+absorb, where the cache keeps decode flat and the lever is network-side).
+Citations carried by the chapters: van den Oord et al., NeurIPS 2017
+(VQ-VAE); Razavi et al., NeurIPS 2019 (VQ-VAE-2 reset); Zeghidour et al.,
+2021 (SoundStream); Défossez et al., 2022 (EnCodec); Kumar et al., 2023
+(DAC); Yu et al., 2022 (Orca); Kwon et al., 2023 (PagedAttention/vLLM);
+Panayotov et al., ICASSP 2015 (LibriSpeech); ESPnet category-power
+sampler; Google ASR fairness, arXiv:2207.11345, 2022.
 
 ### Game AI — 00-06
 

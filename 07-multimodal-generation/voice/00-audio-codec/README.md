@@ -103,6 +103,32 @@ uv run --group torch python train_codec.py --steps 600 --lr 1e-3 --n-train 512 -
 CPU only, ~2 minutes wall-clock. No hosted-API spend, matching
 `mission.yaml`'s `cost_budget`.
 
+## The fix and its trade
+
+The fix is the training recipe itself: `lr=1e-3` and 600 steps, chosen
+because the first attempt (`lr=3e-4`) plateaued at the silence baseline
+with a 1-2-code collapsed codebook, and the single-clip overfit check
+showed the decoder sits in a genuine local minimum where near-silence is
+locally optimal against a zero-mean signal. The measured result — eval MSE
+0.01114 vs the 0.32510 silence baseline (27x), 34/64 codes used with
+entropy 0.733 — clears the stage's acceptance bar. The trade is that the
+recipe is a property of this data-codec pair, not a universal constant:
+stage 03 shows real speech needs roughly 3x the steps to escape the same
+minimum, and the codebook-collapse detour shows a healthy seed is not
+evidence the codebook is safe (seed 7 ends at 15/64 from identical code).
+
+## Who owns this loop
+
+- **The codec owner** owns the architecture and the recipe: the encoder,
+  the 64-entry straight-through codebook, the decoder, and the lr/steps
+  that escape the minimum instead of tuning the loss.
+- **The eval owner** owns the baseline pair (silence and mean-signal) and
+  the usage counter; the codebook-usage number is what catches a collapse
+  a loss-only read reports as success.
+- **The mission owner** owns the does_not_prove boundary: this stage says
+  nothing about streaming, real speech, or multi-speaker audio, and later
+  stages are where those claims get tested.
+
 ## What this stage does not establish
 
 Nothing about streaming or per-chunk latency -- this stage reconstructs

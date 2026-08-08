@@ -46,6 +46,32 @@ is the evidence that the bottleneck moved: local decode is tight, the
 network is not, and any end-to-end latency claim has to be made against
 the tail, not the mean.
 
+## The fix and its trade
+
+The fix is reporting the latency distribution, not the mean: a realtime
+service fails on the slow requests, so the budget is set by the tail — the
+recorded 200-ping round trip (p50 9.7ms, p95 42.5ms, max 85.3ms, a 4.4x
+p95/p50 ratio) is what a 48-token completion's ~72ms decode budget must
+absorb. The trade is that the number is path- and day-specific: one host,
+one session, one DERP-relayed Tailscale path, so it does not generalize to
+arbitrary internet paths — and the fix's value is redirecting the
+optimization: since the network variance dominates the end-to-end tail,
+another microsecond of decode buys little, and the lever is
+network-side (closer deployment, fewer hops, or a budget that tolerates
+the p95).
+
+## Who owns this loop
+
+- **The network owner** owns the ping protocol and its scoping: 200 round
+  trips, 64 bytes each way, one path, reported as this link's numbers on
+  this day.
+- **The serving owner** owns the decode budget the network sits under; the
+  split is what keeps local latency and network latency as two honestly
+  distinguished numbers.
+- **The mission owner** owns the realtime contract: the p95/max, not the
+  mean, is the acceptance-relevant tail, and stage 03 exists because a
+  mechanism-only MET says nothing about the real constraint it runs under.
+
 ## Evidence boundary
 
 The recorded ping run (200 pings, one host, 64 bytes each way, one

@@ -3,7 +3,7 @@ unmodified: `rollout_group` (autoregressive sampling with per-token
 log-probs), `token_logprobs` (teacher-forced re-scoring), `grpo_loss`
 (clipped surrogate + KL leash against a frozen reference), `Rollout`, and
 `Config`/`Transformer` are all imported directly from
-`../../../01-language-model-agent/04-rl/core/grpo.py`, not reimplemented --
+`../../../01-language-model/04-rl/core/grpo.py`, not reimplemented --
 the same import this mission's every prior training stage (01-grpo,
 04-minigrid) has used. What changes, exactly as it did moving from stage 01
 to stage 04, is the rollout environment and the reward function: this
@@ -35,7 +35,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from env_text import DIGIT_LEVELS, EOS_ID, PAD_ID, VOCAB, Problem, decode, encode, sample_problem
 from reward import compute_reward, extract_decision
 
-_GRPO_DIR = Path(__file__).resolve().parents[3] / "01-language-model-agent" / "04-rl" / "core"
+_GRPO_DIR = Path(__file__).resolve().parents[3] / "01-language-model" / "04-rl" / "core"
 sys.path.insert(0, str(_GRPO_DIR))
 from grpo import Config, Rollout, Transformer, grpo_loss, rollout_group
 

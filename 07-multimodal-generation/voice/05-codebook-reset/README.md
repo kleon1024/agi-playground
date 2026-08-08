@@ -95,6 +95,35 @@ finding is that dead-code reset eliminates *dead* codes, not that it
 produces a perfectly uniform codebook. That distinction is not tested
 further here.
 
+## The fix and its trade
+
+The fix is periodic dead-code reset (Razavi, van den Oord & Vinyals,
+VQ-VAE-2, NeurIPS 2019): every 50 steps, any entry whose EMA usage count
+has fallen below 1.0 is reinitialized to a random encoder output from the
+current batch. The measured result closes the seed-dependent gap stage 04
+found — all three seeds land on 64/64 codes used (vs 18/63/32), and the
+margin band tightens from 4.3%-38.2% to 33.8%-37.6% — with the reset logs
+(1,893/1,848/1,388 resets per run, tapering as the codebook stabilizes) as
+the mechanism's signature. The trade is that the reset eliminates dead
+codes, not that it produces a perfectly uniform codebook (entropy stays at
+0.79-0.83 below the 1.0 ceiling), only half of VQ-VAE-2's fix was tested
+(EMA was deliberately excluded so the two mechanisms could not be
+confounded), and the values tried (50, 1.0) are shown to be sufficient, not
+optimal.
+
+## Who owns this loop
+
+- **The codec owner** owns the `ResetVectorQuantizer` mechanism and its
+  threshold contract; everything else — encoder, decoder, dataset,
+  speakers, seeds — is stage 04's setup, unchanged, so the one variable
+  under test is the VQ mechanism.
+- **The eval owner** owns the before/after read across seeds: the usage
+  and margin numbers, and the reset log that proves the mechanism does the
+  work rather than being incidental.
+- **The mission owner** owns the uniformity-versus-quality boundary: 64/64
+  usage is the utilization claim, not a quality score, and stage 06 exists
+  because that distinction needs the EMA half measured.
+
 ## What this stage does not establish
 
 Only the dead-code-reset half of VQ-VAE-2's fix was tested; whether adding

@@ -1,7 +1,7 @@
 """A small from-scratch classifier over character-level SMILES, reusing this
 repository's own RoPE/RMSNorm/SwiGLU/GQA decoder blocks -- the same
 `Config`/`Block`/`RMSNorm` missions 05, 07, and 08 already reuse unmodified
-from [mission 01's pretraining core](../../../01-language-model-agent/02-pretrain/core/model.py)
+from [mission 01's pretraining core](../../../01-language-model/02-pretrain/core/model.py)
 for a non-text vocabulary.
 
 Those three missions import the *whole* `Transformer`, next-token head
@@ -34,7 +34,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-CORE_DIR = Path(__file__).resolve().parents[3] / "01-language-model-agent" / "02-pretrain" / "core"
+CORE_DIR = Path(__file__).resolve().parents[3] / "01-language-model" / "02-pretrain" / "core"
 sys.path.insert(0, str(CORE_DIR))
 from metrics import roc_auc
 from model import Block, Config, RMSNorm, build_rope_cache

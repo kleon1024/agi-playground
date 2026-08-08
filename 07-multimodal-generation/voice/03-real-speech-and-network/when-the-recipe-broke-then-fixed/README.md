@@ -44,6 +44,32 @@ input-dependent, which is why the production run fixed the step count
 rather than tuning the LR. The sweep is the evidence that "the recipe
 that worked" was a property of the input, not the method.
 
+## The fix and its trade
+
+The fix is the controlled sweep at the fixed learning rate: at 600 steps
+the recipe that escaped synthetic tones collapses on real speech (silence
+tie, 1/64 codes), 2000 steps at the unchanged `lr=1e-3` escapes by ~step
+1400-1800 (eval MSE 0.01306, 58/64 codes), and `lr=3e-3` never escapes
+(0.02722, 3/64) — so the intervention is more time in the recipe, not a
+new mechanism or a higher rate. The trade is that the escape window is
+input-dependent: the recipe that worked was a property of the data-codec
+pair, the higher-LR intuition that held on synthetic tones is ruled out on
+real speech, and the production seeds (0.01306/0.01369/0.01309, 51-63/64
+codes) carry that scoped meaning — they prove the step-count fix works on
+this input, not that the recipe is universal.
+
+## Who owns this loop
+
+- **The recipe owner** owns the step-count fix and the sweep that proved
+  it; the production run at 2000 steps is the measured consequence of the
+  diagnostic, never the diagnostic itself.
+- **The eval owner** owns the three-arm comparison (600, 2000, higher LR)
+  and the production-seed protocol; the sweep is what makes "the fix is
+  time, not rate" a measured claim.
+- **The mission owner** owns the input-dependence boundary: the escape
+  window is a property of the data-codec pair, so the recipe's transfer to
+  harder input is tested (stage 04), never assumed.
+
 ## Evidence boundary
 
 The recorded real-speech run (diagnostic sweep + three production seeds,

@@ -58,7 +58,7 @@ result.
 ## The training loop is imported, not rebuilt
 
 This mission's core training code imports GRPO directly from
-[`../01-language-model-agent/04-rl/core/grpo.py`](../01-language-model/04-rl/core/grpo.py)
+[`../01-language-model/04-rl/core/grpo.py`](../01-language-model/04-rl/core/grpo.py)
 — the rollout sampler, the group-normalized advantage, the clipped surrogate,
 and the KL leash against a frozen reference are unmodified. What changes is
 the rollout environment (an episode in a game, not a single text completion)

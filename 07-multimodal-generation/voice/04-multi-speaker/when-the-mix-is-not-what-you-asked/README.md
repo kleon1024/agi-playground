@@ -160,7 +160,9 @@ coverage.
 
 Back to [stage 04's multi-speaker run](../), or to the
 [codebook-health detours](../when-codebook-health-is-seed-dependent/). The
-follow-on this chapter queues: re-run stage 03 with a per-speaker-bounded
-builder (three seeds, roughly 35 minutes on this lane) so the "1-2
-speakers" claim becomes a measured two-speaker result instead of a
-corrected label.
+follow-on this chapter queued is now executed: the [two-speaker
+re-run](../../03-real-speech-and-network/runs/2026-08-08-two-speaker-rerun.md)
+ran stage 03 with the per-speaker-bounded builder across three seeds, both
+speakers served in both splits, all three seeds escaping with healthy
+codebooks (eval MSE 0.01521-0.01746, 54-64/64 codes) — the "1-2 speakers"
+claim is now a measured two-speaker result instead of a corrected label.

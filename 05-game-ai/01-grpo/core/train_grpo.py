@@ -3,7 +3,7 @@ unmodified: `rollout_group` (autoregressive sampling with per-token
 log-probs), `token_logprobs` (teacher-forced re-scoring), `grpo_loss`
 (clipped surrogate + KL leash against a frozen reference), `Rollout`, and
 the checkpoint helpers are all imported directly from
-`../../01-language-model-agent/04-rl/core/grpo.py`, not reimplemented. The
+`../../01-language-model/04-rl/core/grpo.py`, not reimplemented. The
 grid vocab (`env_text.py`) is built specifically so `PAD_ID == 0` and
 `EOS_ID == 1` there too, matching `grpo.py`'s own hardcoded constants --
 that is what lets those imported functions run against a completely
@@ -41,7 +41,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from env_text import EOS_ID, PAD_ID, VOCAB, decode, encode, render_prompt
 from reward import compute_reward, extract_actions
 
-_GRPO_DIR = Path(__file__).resolve().parents[3] / "01-language-model-agent" / "04-rl" / "core"
+_GRPO_DIR = Path(__file__).resolve().parents[3] / "01-language-model" / "04-rl" / "core"
 sys.path.insert(0, str(_GRPO_DIR))
 from grpo import Config, Rollout, Transformer, grpo_loss, rollout_group
 

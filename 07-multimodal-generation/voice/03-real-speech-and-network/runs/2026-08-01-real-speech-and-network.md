@@ -28,7 +28,7 @@ slice served speaker 2277 only — the codec/LM numbers below are a real
 single-speaker measurement. The [mix
 audit](../../04-multi-speaker/when-the-mix-is-not-what-you-asked/) replays
 the call and measures the served mix; stage 04's balanced builder is the
-fix, and a true 2-speaker re-run is the queued follow-on.
+fix, now executed as the [two-speaker re-run](2026-08-08-two-speaker-rerun.md).
 
 ## Codec: collapses at 600 steps on real speech, escapes at 2000 -- same learning rate
 

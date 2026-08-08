@@ -45,7 +45,7 @@ observation text rather than forming one contiguous span, `grpo_loss`'s
 slicing assumption breaks -- `masked_grpo_loss` replicates the identical
 clipped-surrogate-plus-k3-KL math against an explicit list of action-token
 positions instead. `Config`/`Transformer` (the architecture) are reused
-unmodified from `../../01-language-model-agent/04-rl/core/grpo.py`, the
+unmodified from `../../01-language-model/04-rl/core/grpo.py`, the
 same as every other stage in this mission.
 
 ## Confirming the room is solvable before training

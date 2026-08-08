@@ -22,8 +22,6 @@ import torch
 
 _MODEL_DIR = (
     Path(__file__).resolve().parents[3]
-    / "missions"
-    / "01-language-model-agent"
     / "02-pretrain"
     / "core"
 )

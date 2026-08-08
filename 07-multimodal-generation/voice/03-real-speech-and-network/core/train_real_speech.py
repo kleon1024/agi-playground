@@ -99,12 +99,32 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--device", type=str, default="cpu")
     ap.add_argument("--out", type=Path, default=None)
+    ap.add_argument(
+        "--balanced",
+        action="store_true",
+        help="use stage 04's per-speaker-bounded balanced builder (the mix-audit "
+        "fix) instead of the naive speaker-major slice, so a multi-speaker "
+        "request actually serves every requested speaker",
+    )
     args = ap.parse_args()
 
     t0 = time.perf_counter()
-    train_clips, eval_clips = build_dataset(
-        args.n_train, args.n_eval, args.seed, speakers=tuple(args.speakers), max_utterances=args.max_utterances
-    )
+    if args.balanced:
+        MSP_DIR = Path(__file__).resolve().parents[2] / "04-multi-speaker" / "core"
+        sys.path.insert(0, str(MSP_DIR))
+        from multi_speaker_data import build_balanced_dataset
+
+        train_clips, eval_clips = build_balanced_dataset(
+            args.n_train,
+            args.n_eval,
+            args.seed,
+            speakers=tuple(args.speakers),
+            per_speaker_utterances=args.max_utterances,
+        )
+    else:
+        train_clips, eval_clips = build_dataset(
+            args.n_train, args.n_eval, args.seed, speakers=tuple(args.speakers), max_utterances=args.max_utterances
+        )
     data_wall = time.perf_counter() - t0
     train_wf = torch.stack([c.waveform for c in train_clips])
     eval_wf = torch.stack([c.waveform for c in eval_clips])

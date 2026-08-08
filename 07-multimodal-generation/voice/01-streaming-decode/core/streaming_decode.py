@@ -2,7 +2,7 @@
 unchanged for audio tokens, and what does the cache actually buy?
 
 Reuses `KVCache`, `_forward_with_cache`, and `build_rope_cache` directly from
-[`engine.py`](../../../01-language-model-agent/05-serve/core/engine.py) --
+[`engine.py`](../../../01-language-model/05-serve/core/engine.py) --
 the same building blocks its own `KVCacheEngine.generate()` wraps, called
 directly here because per-step timing and per-step logits (what this stage
 needs to measure) are not something that wrapper exposes. No line of
@@ -32,7 +32,7 @@ import torch
 from audio_lm import build_lm_config, build_lm_dataset, train_codec, train_lm
 from torch.nn import functional as F
 
-ENGINE_DIR = Path(__file__).resolve().parents[3] / "01-language-model-agent" / "05-serve" / "core"
+ENGINE_DIR = Path(__file__).resolve().parents[4] / "01-language-model" / "05-serve" / "core"
 sys.path.insert(0, str(ENGINE_DIR))
 from engine import Config, KVCache, Transformer, _forward_with_cache, build_rope_cache
 
@@ -100,7 +100,7 @@ def run_latency_stress(vocab_size: int, seq_len: int, seed: int, device: str) ->
     `engine.py`'s own `_bench_naive`/`_bench_kvcache` use `list(range(n))` --
     a pure timing stress test, not a claim about audio quality) to check
     whether the same divergence documented for text in
-    `../../../01-language-model-agent/05-serve/README.md` shows up for this
+    `../../../01-language-model/05-serve/README.md` shows up for this
     audio-token vocabulary too, at a length actually long enough to reveal it.
     """
     torch.manual_seed(seed + 2)

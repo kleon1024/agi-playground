@@ -44,6 +44,32 @@ count footnote; it is a real quality cost on the worst seed, which is why
 the stage reports it and why the reset/EMA 2x2 (stage 05/06) exists as the
 next line of the fix.
 
+## The fix and its trade
+
+The fix is measuring the fix's generalization boundary instead of assuming
+it carries: the stage-03 recipe that escaped collapse reliably on its
+narrow baseline is rerun at 10 speakers, and the verdict is seed-dependent
+health — seed 1 healthy (63/64), seed 0 collapsed (18/64), seed 2 partial
+(32/64) — with reconstruction MSE tracking usage (0.027 at 18/64 vs 0.017
+at 63/64). The trade is that the finding is the frontier itself: the
+intervention held where the data was narrow and failed where it was not,
+which is a generalization failure of the fix, not of the mechanism — and
+the collapsed seed's quality penalty is real per-request, because a
+realtime contract is met or missed on the worst seed a user is routed to,
+not on the average.
+
+## Who owns this loop
+
+- **The model owner** owns the fix's generalization claim: the recipe's
+  reliability was measured on a small population, and this stage records
+  where that measurement stops being true.
+- **The eval owner** owns the per-seed protocol and the MSE-usage
+  breakdown that shows the collapse is a quality cost, not a usage-count
+  footnote.
+- **The mission owner** owns the reported-frontier contract: the boundary
+  is written down as a finding (stage 05/06's 2x2 is the next line), never
+  tuned away or hidden behind a single healthy seed.
+
 ## Evidence boundary
 
 Three seeds, 10 speakers, the stage's recorded runs. It reads the final

@@ -40,6 +40,30 @@ not an optimization. The logit-level zero is the precondition that lets
 stage 02's latency numbers be read as a pure win — and it is why the
 report states the gap explicitly rather than assuming it.
 
+## The fix and its trade
+
+The fix is checking identity at logit level, not token level: two decodes
+can emit the same token ids with different probabilities, so token equality
+alone would call a confidence shift "identical" — the max logit gap
+(1.19e-05, mean 5.27e-06) at machine-epsilon scale is the only reading that
+makes "identical" a precise claim. The trade is that the check is stronger
+than a token-id comparison and therefore the load-bearing one: a real
+divergence would first show up here, before any token id flipped, and a
+nonzero gap would mean the cache changes the model — the speedup would be a
+different model, not an optimization, and stage 02's verdict would not be
+clean.
+
+## Who owns this loop
+
+- **The eval owner** owns the logit-level protocol and the repo's own
+  tolerance (`TOL=2e-5`); the comparison follows the same methodology the
+  text test uses, never a weaker ad-hoc check.
+- **The serving owner** owns the cache's behavior-preservation contract:
+  the zero gap is a property of the implementation, verified, not assumed.
+- **The report owner** owns the load-bearing line: the logit-level zero is
+  what lets stage 02's latency numbers be read as a pure win, and it is
+  stated explicitly in the verdict rather than implied.
+
 ## Evidence boundary
 
 The recorded streaming JSON (30 clips, one seed, logit-level comparison,
