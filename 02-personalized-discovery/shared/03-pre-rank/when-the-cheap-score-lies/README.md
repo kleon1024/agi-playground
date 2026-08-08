@@ -45,6 +45,33 @@ would be catastrophic, and production pre-rankers tune the cheap scorer
 until the disagreement is a few percent, because that is the price of the
 latency win.
 
+## The fix and its trade
+
+The fix is to measure the flip rate at the cut — agreement between the cheap
+and the fine score on which side of the line each candidate falls — and tune
+the cheap scorer until the disagreement is a few percent. The executed table
+prices the failure: 6 of 10 items sit on different sides of the cut, and the
+direction matters. Cheap-cuts-fine-keeps {5, 7, 9} are gone forever — the
+fine ranker never sees them and no downstream repair exists; cheap-keeps-
+fine-cuts {0, 2, 4} only waste fine-rank compute and are recoverable.
+
+The trade, named: flip rate is bought with cheap-stage fidelity, which costs
+latency — the exact thing the cut exists to save. A cheap scorer faithful
+enough to agree with the fine ranker on most candidates costs more per
+request than a popularity sort, so the pre-rank team must know the latency
+budget before tuning. The flip rate is the contract that says the cut is a
+filter, not a ranker: the cheap score keeps what it can afford to, and the
+fine score decides what actually ranks.
+
+## Who owns the loop
+
+- **The pre-rank team** owns the cheap scorer and its flip-rate measurement
+  against the fine score — the number that says the cut is safe to keep.
+- **The fine-rank team** owns the agreement read: they define the fine score
+  the flip rate is measured against.
+- **The serving team** owns the latency budget that bounds how faithful the
+  cheap scorer is allowed to be.
+
 ## Evidence boundary
 
 The executed hand-built score table (illustrative, deterministic). It

@@ -46,6 +46,34 @@ not a popularity sort: the long-tail surface rate is the part of the
 catalogue the cheap scorer exists to keep, and the popularity scorer loses
 it by construction.
 
+## The fix and its trade
+
+The fix is to set the keep size from the surface-rate curve, not from the
+cheap scorer's own accuracy. The executed sweep prices the trade as a curve:
+cheap-proxy surface 0.55/0.85/1.00/1.00 at keep 50/100/200/300, with
+popularity overall plateauing at 0.55 and long-tail at 0.000 for every keep.
+On this catalogue the curve flattens around keep 100-200 — below that the cut
+is nearly free, above it the fine ranker is the only stage that can raise
+surface further.
+
+The trade, named: a tight cut saves the latency the funnel's per-request
+budget needs and pays in surface; a loose cut protects surface and spends the
+budget the fine ranker was allowed. The popularity scorer's 0.000 long-tail
+at every keep is the boundary case: no keep size repairs a scorer with no
+signal for cold items, so the sweep measures the proxy's price, not its
+blindness. The popularity-only column is the reason the sweep must be run
+per proxy, not once for the stage.
+
+## Who owns the loop
+
+- **The pre-rank team** owns the keep sweep and the chosen operating point on
+  the surface curve.
+- **The serving team** owns the per-request latency budget that makes the cut
+  necessary.
+- **The evaluation team** owns the fine-rank ceiling read (1.000) that says
+  surface is recoverable downstream — and the long-tail column that says it
+  is not for popularity-only scoring.
+
 ## Evidence boundary
 
 One synthetic catalogue, one seed, three scorers, four keep sizes. It shows

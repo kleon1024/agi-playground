@@ -41,6 +41,34 @@ statement about correlation: the serving path has to schedule refreshes
 so that misses do not arrive together, which is a design decision, not an
 operational accident.
 
+## The fix and its trade
+
+The fix is to schedule cache refreshes so that misses do not arrive
+together — stagger the refresh across the TTL window with jitter instead
+of refreshing every key at once. The executed run prices the failure:
+over 100 requests (2 ms hit, 50 ms miss), the synchronized policy
+clusters 20 misses into one window and pushes the p95 to 50 ms, while the
+staggered policy performs identical work and holds the p95 at 2 ms. The
+cost is not in the misses; it is in the correlation between them.
+
+The trade, named: stagger buys tail latency at the price of a small,
+bounded staleness window — some requests see a value refreshed slightly
+earlier than the synchronized schedule would allow, and that window must
+be accepted by the feature owner. Tail latency is a scheduling property
+as much as a compute one, which is why the p95 budget is a statement
+about correlation: the serving path has to design the miss pattern, not
+discover it in production.
+
+## Who owns the loop
+
+- **The serving team** owns the refresh schedule, the TTL design, and the
+  jitter policy.
+- **The feature and model teams** own the staleness window the stagger
+  introduces — the freshness contract for each cached value.
+- **The evaluation team** owns the p95 measurement under realistic miss
+  correlation, since a benchmark with uniform misses certifies the wrong
+  policy.
+
 ## Evidence boundary
 
 The executed hand-built request timeline (illustrative, deterministic).

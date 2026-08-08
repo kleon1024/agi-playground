@@ -73,6 +73,40 @@ more user value than the last one did. Stage 06's job is to make this curve
 visible; where a business sits on it is a business decision. This chapter's
 job is to show the knee is a real, measured shape, not a metaphor.
 
+## The fix and its trade
+
+The fix is to expose the trade curves — constraint versus penalty, and ad
+revenue versus displaced organic value — instead of shipping one opaque
+score. The executed ablation prices both: the default penalty (decay 0.5)
+returns raw value 2.1853, a measured 0.1782 below the no-penalty optimum
+(2.3634, three sports items), while the hard cap returns 2.2624 — on this
+catalogue the constraint keeps more raw value *and* is a promise you can
+point to, so the two mechanisms are not interchangeable and the arithmetic
+shows which is cheaper.
+
+The trade, named: a penalty is flexible but indefensible — nothing in the
+0.1782 says whether the diversity was worth it — and a constraint is
+auditable but must be re-checked when the catalogue shape changes. The ad
+curve has its own knee: below trade rate 3 the fixed ads cannot cross the
+weakest organic slot, and between 3 and 5 revenue grows 1.423 to 1.885
+while displaced value grows 1.266 to 2.026, dropping revenue per displaced
+dollar from 1.12 to 0.93 — the point where each additional revenue dollar
+costs more user value than the last one did. Exposing that knee is the
+engineering obligation; where the business sits on it is a business
+decision.
+
+## Who owns the loop
+
+- **The mixer team** owns the ablation sweep and re-runs it when the
+  catalogue or value function changes.
+- **The ads and monetization team** owns the trade-rate operating point and
+  the displacement read per ad load.
+- **The product owner** owns where the business sits on the curve — the knee
+  is input to the decision, not the decision itself.
+- **The evaluation team** owns the per-segment read, so a placement that
+  displaces a valuable organic result for a new user or a sparse category
+  is visible before it becomes an aggregate trend.
+
 ## Evidence boundary
 
 This run measures one synthetic catalogue at one seed, reusing the stage's

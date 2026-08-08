@@ -41,6 +41,35 @@ weights. Production fine-rankers buy freshness with retraining cadence —
 daily, hourly, or online updates — and the cadence is an explicit choice
 against the measured decay curve, exactly the curve this run draws.
 
+## The fix and its trade
+
+The fix is to set the retraining cadence from the measured decay curve, not
+from a calendar habit. The executed run prices the failure: freezing the
+score order at day 0 and moving the true grades drops NDCG 1.000 to 0.628
+to 0.505 to 0.437 to 0.371 over days 0-4 — a quality loss with no change
+to the model's weights, which is the exact failure mode that makes "train
+once, deploy forever" unaffordable for a moving catalogue.
+
+The trade, named: freshness costs compute and pipeline latency, and the
+cadence is a contract against the curve. A daily retrain buys back the
+day-1 0.628 read at the price of a nightly training job; an hourly or
+online update buys more at the price of pipeline stability and label
+window trade-offs (the delayed-feedback window from the recommendation
+track is the same decision). The curve also names the guardrail: the team
+must pick the maximum acceptable NDCG drop and derive the cadence from it,
+because the alternative is a staleness SLA that nobody owns.
+
+## Who owns the loop
+
+- **The model team** owns the retraining cadence, chosen against the decay
+  curve and the maximum acceptable drop.
+- **The data pipeline team** owns the freshness of the training window —
+  the cadence is only as good as the lag between event, label, and training
+  snapshot.
+- **The product team** owns the staleness SLA: the maximum NDCG drop a
+  deployed model may reach before a refresh is mandatory is a product
+  promise, priced against the compute budget.
+
 ## Evidence boundary
 
 The executed hand-built distribution shift (illustrative, deterministic).

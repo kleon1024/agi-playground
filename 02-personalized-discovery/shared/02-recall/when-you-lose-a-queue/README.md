@@ -48,6 +48,36 @@ downstream ranking cannot repair, because the candidates a missing queue
 would have found are simply absent, and no perfect ranker ranks an item that
 was never retrieved.
 
+## The fix and its trade
+
+The fix is to run the queues in parallel and union their outputs, and to
+treat each queue as non-replaceable — the measured sweep is the evidence.
+Disabling any one queue drops aggregate coverage 5-20 points (two_tower
+0.84, lexical 0.80, item_to_item 0.95, freshness 0.84 against 1.00), and
+the other queues recover only 4-16 of the disabled queue's 20 targets, by
+incidental overlap rather than by design.
+
+The trade, named: the union is not interchangeable parts, and the deepest
+case is item_to_item — only 4 of its 20 targets are recovered elsewhere,
+while it is also the slowest queue (a graph traversal over history). The
+queue with the worst latency profile carries the least redundant coverage,
+which is precisely why it cannot be dropped for speed; dropping it saves
+latency and permanently removes the items only it can find. The fix pays
+the latency of every queue, including the slow one, because the alternative
+is a recall hole that no perfect ranker downstream can repair.
+
+## Who owns the loop
+
+- **The retrieval team** owns each queue's provenance assignment and the
+  coverage-by-queue read — the sweep is its regression test that no queue
+  has been silently removed.
+- **The serving team** owns the union latency, including the slow tail of
+  item_to_item: a timeout that drops the slow queue must record the smaller
+  union as degraded, never as full recall.
+- **The evaluation team** owns the non-recoverability metric — the number
+  that says how many of a disabled queue's targets the others absorb, which
+  is what turns "we can drop it for speed" into a falsifiable claim.
+
 ## Evidence boundary
 
 One synthetic catalogue, one seed, 20 users; the queues and provenance

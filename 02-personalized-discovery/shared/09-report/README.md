@@ -61,6 +61,49 @@ Variance belongs in the decision, not only in an appendix. The contract requires
 
 The report should preserve comparisons over time without moving goalposts. If the catalogue, split, metric definition, or eligibility policy changes, label it as a new evaluation context and rerun both baselines. Do not append incomparable points to a trend line. The most valuable result can be a documented failure: it tells the next system exactly which baseline, guardrail, slice, or budget stopped complexity from becoming value.
 
+## The fix and its trade
+
+The fix is a tri-state verdict (MET / NOT MET / CANNOT DETERMINE) rendered
+from immutable run artifacts against the predeclared mission contract, with
+guardrails as vetoes and variance inside the decision instead of in an
+appendix. The breached fixture prices the failure the fix removes: the
+candidate beats both baselines beyond seed variance — nDCG@10 0.4102 versus
+0.3012 for popularity and 0.3552 for item-item CF, with the 0.0550 gap to
+CF clearing the candidate's own 0.0230 seed spread — and the verdict is
+still NOT MET because the cold-start guardrail fell below its baseline
+(0.271 versus 0.298). A system that improves the average while taxing new
+users has not improved personalization; it found a different way to be
+unfair, and the guardrail is the veto that says so.
+
+The trade, named: honest verdicts cost evidence — seed-level arrays (at
+least five seeds), per-window baselines, failure catalogues, and a refusal
+path — and the refusal is the core lesson: with no artifact the evaluator
+returns CANNOT DETERMINE and names the missing primary metric, guardrails,
+cost, and failure catalogue. The dated-window requirement is its own
+trade: a claim that names its window is narrower but true, and the
+executed drift run shows why — the same system beats popularity in w1
+(0.42/0.38), loses in w2 (0.45/0.46), and wins again in w3 (0.44/0.39) as
+the baseline swings with the demand curve. An undated headline is a claim
+that silently stops holding. Offline replay is not online outcome: logged
+interactions were produced by a previous policy and cannot reveal items
+never exposed, so every number this mission reports is bounded by that
+fact.
+
+## Who owns the loop
+
+- **The evaluation team** owns the verdict and the artifact schema — they
+  read `mission.yaml` and do not decide after seeing results which
+  baseline, metric, or threshold would have been easier to pass.
+- **Each stage owner** owns the per-stage evidence the report consumes
+  (seed-level metrics, guardrails, latency, cost, failure cases); a missing
+  measurement blocks a success claim just as a breached constraint does.
+- **The product owner** owns the mission contract — the baselines,
+  guardrails, and thresholds declared before the system existed.
+- **The release owner** owns the report as a release gate, with ownership
+  and a next action named for every missing field or failure slice, while
+  never letting that naming silently convert uncertainty into success or
+  failure.
+
 A detour from here: [a headline win that is still NOT
 MET](when-the-guardrail-vetoes/) — the breached fixture read: the candidate
 beats both baselines beyond seed variance (0.4102 vs 0.3012/0.3552), and the

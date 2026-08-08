@@ -125,6 +125,41 @@ every cut ratio. Full numbers:
 
 <!-- interactive: PreRankSurfaceRate -->
 
+## The fix and its trade
+
+The fix is to make pre-rank a real proxy, not a popularity sort, and to set
+the cut from the surface-rate curve instead of from the cheap score's own
+quality. The executed runs price the failure the fix removes: popularity-only
+surfaces **0.000** of the true long-tail top items on every seed while its
+overall surface reads a healthy 0.100-0.400 — the aggregate hides the
+failure — and a sweep over the cut size shows the cost is a curve:
+cheap-proxy surface 0.55/0.85/1.00/1.00 at keep 50/100/200/300, with
+popularity overall plateauing at 0.55 and long-tail stuck at 0.000 at every
+keep.
+
+The trade, named: surface costs compute. A tighter cut saves per-request
+latency and drops 45% of the true top items; the fine ranker's 1.000 ceiling
+is the price of running the expensive model over everything. The decision
+that matters is where the surface curve flattens — below the knee the cut is
+nearly free, above it the fine ranker is the only stage that can repair what
+the cut already threw away. Since the read is against the mission metric
+(nDCG@10), the cut budget and the long-tail promise are decided here, before
+the fine ranker ever runs.
+
+## Who owns the loop
+
+- **The pre-rank team** owns the proxy and the cut: whether candidates are
+  scored by content or by popularity, and the keep size that trades surface
+  against latency.
+- **The serving team** owns the latency budget the cut exists to protect —
+  the per-request compute the fine ranker is allowed, which sets the keep
+  size.
+- **The evaluation team** owns the stratified surface-rate read (overall and
+  long-tail) per configuration, so a proxy that passes the aggregate while
+  emptying the tail stays visible.
+- **The product team** owns the long-tail promise — how much of the tail must
+  surface is a product decision, priced against head recall.
+
 ## Reproducing
 
 ```bash

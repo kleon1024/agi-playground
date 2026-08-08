@@ -41,6 +41,37 @@ falls through both, and no threshold setting brings it back — which is why
 the stage's cold-coverage number (25% at 0.65) is the honest cost of
 precision, not a bug to tune away.
 
+## The fix and its trade
+
+The fix is to stop treating reach as one number: the behaviour queue's
+coverage is a fact about the log (63% at every threshold), and the content
+queue's coverage is a dial the threshold controls (100% to 25% cold
+coverage across the sweep). The executed read prices the separation — union
+coverage falls 100% to 72% and cold coverage 100% to 25% while behavioural
+coverage never moves, because the two queues have different owners of
+reach.
+
+The trade, named: a threshold can never rescue an item neither queue
+reaches. The behaviour queue stops at what the log recorded; the content
+queue stops at what the threshold keeps; an item that is both cold and
+low-confidence falls through both, and no threshold setting brings it back.
+The honest reading is that 25% cold coverage at 0.65 is the cost of
+precision, not a bug to tune away — the fix is not a better threshold but a
+queue that reaches the double-miss, which is content understanding's job,
+not the threshold's.
+
+## Who owns the loop
+
+- **The content and label team** owns the threshold and the cold-coverage
+  number it produces — the dial belongs to the label side of the funnel.
+- **The data and logging team** owns the behaviour queue's reach, which is
+  a fact about the interaction log and changes only when the log changes.
+- **The recall team** owns the union and the double-miss: an item neither
+  queue reaches is a recall gap this team has to fill with a signal that
+  does not depend on either queue.
+- **The evaluation team** owns the per-queue coverage read, so a change in
+  one queue's reach is never confused with a change in the other's.
+
 ## Evidence boundary
 
 The recorded synthetic sweep (300 items, 112 cold, one seed). It reads that

@@ -40,6 +40,33 @@ rule that matches none is a defect. The executed run is the minimal
 demonstration — the two rows marked silent are the ones a coverage check
 would have caught before the empty set ever reached a user.
 
+## The fix and its trade
+
+The fix is a coverage invariant: every rule must match at least one item
+in the catalogue, and a rule that matches none is a defect — not a
+hypothesis about a quiet catalogue. The executed run prices the failure:
+the intended rule keeps two items (fresh sneakers, used jacket), the
+misspelled attribute defaults to False, every item fails the rule, and the
+engine returns an empty set without throwing or logging. Dead policy is
+invisible because an empty set is a valid output for a rule engine.
+
+The trade, named: the coverage check costs a runtime invariant and
+catalogue access per rule, and it is the difference between a policy
+rolled out and a policy that exists only in code review. It complements —
+does not replace — the policy-example tests: representative inputs with
+expected kept and removed IDs plus a counterexample that must remain
+allowed. The executed run's two silent rows are exactly what the coverage
+check catches before the empty set reaches a user.
+
+## Who owns the loop
+
+- **The platform team** owns the coverage invariant and the catalog access
+  it depends on — a zero-match rule fails the build, not the page.
+- **The policy owner** owns rule review: author, owner, justification,
+  effective time, targeted surface, test cases, and rollback.
+- **The evaluation team** owns the regression fixtures that keep a typo'd
+  rule from re-entering the catalogue unnoticed.
+
 ## Evidence boundary
 
 The executed hand-built rule table (illustrative, deterministic). It

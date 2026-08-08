@@ -50,6 +50,36 @@ most of the latency reduction the funnel can offer, and the candidates you
 keep past that point cost little — so recall quality argues for a bigger
 cut without paying much latency.
 
+## The fix and its trade
+
+The fix is to treat the pre-rank cut as the funnel's latency dial and to
+pick the operating point from the joint latency-surface curve, not from
+either number alone. The executed sweep prices the shape: end-to-end p95
+climbs 45.8/46.4/47.9/49.3/52.6/60.4 ms across cuts 50 to 1,000 while
+fine-rank's p95 grows 4.1/5.2/7.3/9.5/13.7/24.4 ms — the cut is a lever on
+exactly the stage whose ~12x per-candidate cost justifies the two-stage
+design. The curve flattens at the low end: tightening 100 to 50 saves
+about half a millisecond because recall, value-tree, and mixing fixed
+costs dominate once fine-rank is small.
+
+The trade, named: a tighter cut saves the latency budget and pays in
+surface — stage 03's surface-rate curve is the other side of the same
+dial, and the two numbers must be read together. A bigger cut buys recall
+quality that is nearly free below the knee (candidates kept past ~100-300
+cost little latency), so the operating point is a joint decision: the
+latency budget the serving team owns against the surface rate the pre-rank
+team owns, under the mission's p95-300 ms target.
+
+## Who owns the loop
+
+- **The serving team** owns the cut and the end-to-end budget it must fit.
+- **The pre-rank team** owns the surface-rate consequence of the cut — the
+  latency read without the surface read is half a decision.
+- **The product team** owns the target p95 and the recall promise the cut
+  must honor.
+- **The evaluation team** owns the joint latency-surface measurement, so
+  the operating point is chosen from both curves at once.
+
 ## Evidence boundary
 
 The stage's own synthetic timing model (illustrative constants, not a

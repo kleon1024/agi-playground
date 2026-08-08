@@ -40,6 +40,37 @@ would propagate into every downstream combination. Platt scaling cuts it
 precondition the next stage's arithmetic needs. The ECE rows are why
 calibration is a gate, not a polish step.
 
+## The fix and its trade
+
+The fix is to treat calibration as a gate before downstream arithmetic, and
+to calibrate on a set the calibrator never saw. The executed panels price
+the fix: Platt scaling drops the click head's ECE from 0.0722 to 0.0552 on
+the default trunk and from 0.0956 to 0.0555 on the wide trunk — the two
+trunks converge to the same post-calibration ECE, which is exactly what a
+calibrator is supposed to do. The isotonic lane fitting the same held-out
+set to ECE 0.0000 is the trap: a calibrator with enough capacity memorizes
+the validation set, so a 0.0000 ECE is evidence of leakage, not of quality.
+
+The trade, named: calibration buys downstream arithmetic at the price of
+ranking headroom and a held-out set. A monotone recalibration (Platt) can
+only bend probabilities, never reorder the rank, so it is safe for the
+ranker and necessary for stage 05's value arithmetic — but every calibrated
+number must be re-checked when the training distribution moves, because the
+calibrator and the model decay on different schedules. The ECE gate is
+where the "0.3 is supposed to mean 0.3" contract is enforced before any
+product-facing number is built from it.
+
+## Who owns the loop
+
+- **The model team** owns the calibration gate — Platt on a held-out set is
+  the shipping bar, and the isotonic-overfit trap is theirs to catch.
+- **The value-tree team (stage 05)** owns the consumption contract: they
+  receive calibrated probabilities and must re-check ECE when the value
+  arithmetic changes.
+- **The evaluation team** owns the ECE measurement on a set that did not fit
+  the calibrator, and the re-check when either the model or the calibrator
+  is retrained.
+
 ## Evidence boundary
 
 The recorded fine-rank run (synthetic interactions, two trunk sizes, click

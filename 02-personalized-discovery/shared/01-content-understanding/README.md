@@ -33,6 +33,43 @@ At threshold 0.00, the executed 300-item harness reached 100% of the catalogue t
 
 Label noise is still consequential. A wrong hierarchical label can be amplified by recall, counted by diversity, boosted by editorial policy, and presented as a factual explanation. Confidence is not correctness. The demo's reported accuracy is only on synthetic items the harness already knows the answer for; in a real system, accuracy measured on convenient head samples says little about the tail. Tail annotation must be sampled and audited separately, because that is where the system has the least behavioural evidence and the strongest incentive to overclaim.
 
+## The fix and its trade
+
+The fix is the content queue itself: a label-and-embedding path that can
+retrieve an item before any interaction exists, with a confidence threshold
+chosen against a declared downstream objective and a sliced evaluation set.
+The executed harness prices the mechanism — at threshold 0.00 the union
+reaches 100% of the catalogue and 100% of the 112 cold items through
+content; at 0.65 cold coverage falls to 25% while label accuracy among
+retained items reaches 100%.
+
+The trade, named: raising the threshold does not improve labels, it removes
+the least-certain labels, disproportionately from the tail the content
+queue exists to rescue. The behaviour queue is untouched (63% coverage at
+every threshold) because its reach is a fact about the log, not a label
+dial. And the deeper trade is provenance: a wrong hierarchical label can be
+amplified by recall, counted by diversity, and presented as explanation, so
+confidence is not correctness — tail annotation must be sampled and audited
+separately. The fix buys cold-start reach at the price of owning the
+taxonomy version, the model version, and the input hash alongside every
+label, so a silent taxonomy-mix after backfill is impossible.
+
+## Who owns the loop
+
+- **The content and label team** owns the taxonomy and the label sources:
+  what the label is allowed to say, which path produces it (rules,
+  classifier, VLM), and the provenance record that makes an item's
+  representation reproducible.
+- **The model team** owns the threshold decision and its trade: the
+  threshold is chosen against a declared objective and sliced evaluation
+  set, never overall label accuracy.
+- **The recall team** consumes the queue: the content route stands in for
+  real learned embeddings until content understanding graduates from
+  synthetic to production data, and cold coverage is this team's input to
+  stage 02's union.
+- **The evaluation team** owns the per-leaf precision and cold-coverage
+  read, and the human review of the rejected and low-confidence tail.
+
 ## Reproduce and choose a production path
 
 ```bash

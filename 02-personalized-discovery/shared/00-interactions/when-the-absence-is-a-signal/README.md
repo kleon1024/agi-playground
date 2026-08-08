@@ -41,6 +41,36 @@ failures. The two zeros must be separated at the log level, because every
 downstream stage (recall, ranking, value) inherits whatever the
 interaction model did with them.
 
+## The fix and its trade
+
+The fix is to separate the two zeros at the log level before any model sees
+the data: a zero click after exposure (item C, 1000 exposures, 0 clicks) is
+an implicit negative, and a zero with zero exposure (item D) is silence.
+The executed read prices the distinction — C's zero is a measured outcome
+of showing the item, D's is a missing row — and every downstream stage
+inherits whichever treatment the interaction model chose.
+
+The trade, named: treating the zeros separately costs the log team an
+exposure record for every item, shown or not, which is real logging volume
+that a click-only log never paid. The alternative — merging the zeros — is
+cheaper to record and doubly wrong: shown-and-rejected items become
+indistinguishable from never-shown ones, and never-shown items carry a safe
+zero that rewards absence, pushing the incentive away from showing anything
+at all. The exposure row is the price of learning which items to demote.
+
+## Who owns the loop
+
+- **The logging team** owns the exposure row: an impression, a position,
+  and the item, recorded whether or not it was clicked. The separation of
+  the two zeros is a log-level decision, not a model-time one.
+- **The model team** owns using the implicit negative correctly — C is a
+  training signal, D is not a negative and not a positive, and treating D
+  as either is a modeling error.
+- **The serving team** owns the exposure policy itself: which items get
+  shown is what creates C-type rows, and the exploration that creates
+  D-type rows is a serving decision with a coverage cost (stage 59's thin
+  exploration read).
+
 ## Evidence boundary
 
 The executed hand-built exposure log (illustrative, deterministic). It

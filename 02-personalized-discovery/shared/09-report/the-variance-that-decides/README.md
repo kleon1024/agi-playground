@@ -43,6 +43,36 @@ spread decides whether a gap counts, and the guardrail decides whether the
 mission passes — neither is an appendix, and the fixture renders both in
 one table so the headline cannot be read without the veto.
 
+## The fix and its trade
+
+The fix is to require at least five seeds and to reject any positive mean
+gap not larger than its uncertainty margin — variance is a veto input, not
+an appendix. The fixture's seed arrays price the rule: the candidate's
+per-seed spread is 0.0230 and its gap to item-item CF is +0.0550, so the
+headline is real by the mission's own rule; one seed would be a coin flip,
+five narrow the uncertainty into a margin the evaluator can check. The
+verdict is still NOT MET because the cold-start guardrail (0.271 versus
+0.298) is a veto that outranks the headline.
+
+The trade, named: multi-seed evaluation costs compute — every arm must be
+run five times, and the cost lands on the model team — and the margin
+rule rejects real but noisy wins that a single run would have certified.
+The report's rendering discipline is the other half: variance and the
+guardrail are both inputs to the same verdict, so a win that does not clear
+its own spread is reported as NOT MET, and a win that clears its spread
+but breaches a guardrail is reported as NOT MET for a different reason.
+
+## Who owns the loop
+
+- **The evaluation team** owns the seed-level reporting and the margin
+  rule — the normal-approximation spread comparison is a readable teaching
+  choice, not a substitute for a test matched to a real experiment's
+  dependence structure.
+- **Each stage owner** owns running the required number of seeds and
+  recording them with command, revision, split, and environment.
+- **The product owner** owns the guardrail that outranks the headline —
+  the veto is a mission promise, not an evaluator preference.
+
 ## Evidence boundary
 
 The committed breached fixture (explicitly synthetic and illustrative —

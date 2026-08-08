@@ -41,6 +41,37 @@ the same numbers flipping across windows. That is not a flaw in the
 report; it is the correct scope of the claim. The baseline is the demand
 curve, and the demand curve moves.
 
+## The fix and its trade
+
+The fix is to recompute the baseline over the same window as the system and
+date every claim to that window. The executed drift run prices why: the
+system's quality barely moves (0.42, 0.45, 0.44) while the popularity
+baseline swings 0.38, 0.46, 0.39, flipping the verdict from beats to loses
+to beats across weeks — the verdict is a property of the period, not of
+the system, because the baseline is the demand curve and the demand curve
+moves.
+
+The trade, named: a dated claim is narrower but true, and the alternative
+is an undated headline that silently stops holding. The discipline also
+means labeling a new evaluation context — when the catalogue, split,
+metric definition, or eligibility policy changes, rerun both baselines and
+never append incomparable points to a trend line. The hidden cost is in
+the plumbing: a change in logging cutoff or eligibility can dominate a
+model change while leaving a familiar metric label unchanged, which is why
+the report must record the exact command, revision, split, and checksums
+next to the arrays.
+
+## Who owns the loop
+
+- **The evaluation team** owns same-window baseline recomputation and the
+  evaluation-context label when inputs change.
+- **The data pipeline team** owns the logging cutoff and eligibility rules
+  that can move a baseline without a model change — their changes are
+  context changes, not noise.
+- **The product owner** owns the windowed claim: the mission outcome is the
+  lift over the declared baseline during the measured period, and no wider
+  claim is licensed by the report.
+
 ## Evidence boundary
 
 The executed hand-built period table (illustrative, deterministic). It

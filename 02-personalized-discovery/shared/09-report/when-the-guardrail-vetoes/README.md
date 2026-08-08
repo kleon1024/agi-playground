@@ -44,6 +44,35 @@ is not an arbitrary gate; it is the mission's own promise about whom the
 system helps, and the report refuses to let a higher average hide a
 regression on that promise.
 
+## The fix and its trade
+
+The fix is to treat guardrails as vetoes and render the breach in the same
+output as the headline, so the two cannot be read separately. The committed
+fixture prices why: the candidate beats both baselines beyond seed variance
+— nDCG@10 0.4102 versus 0.3012 (popularity) and 0.3552 (item-item CF) — and
+the verdict is still NOT MET because the cold-start guardrail fell below
+its baseline (0.271 versus 0.298). The report's tri-state verdict is what
+makes the veto legible: a higher average that taxes new users is not an
+intermediate result, it is a different way to be unfair.
+
+The trade, named: veto discipline costs a contract written before results —
+the guardrail thresholds must be declared in `mission.yaml`, because a
+guardrail chosen after seeing the breach is not a gate, it is a
+rationalization. The breached slice is the mission's own promise: cold-start
+coverage is new users with fewer than five interactions, exactly the people
+personalization is supposed to help, and the veto refuses to let the
+headline hide a regression on that promise.
+
+## Who owns the loop
+
+- **The evaluation team** owns the verdict rendering — the breach and the
+  headline ship in one table, and NOT MET is returned whenever a required
+  guardrail fails.
+- **The product owner** owns the guardrail thresholds and the promise they
+  encode about whom the system helps.
+- **The mission owner** owns the predeclared contract the veto is checked
+  against — no guardrail may be added or relaxed after seeing results.
+
 ## Evidence boundary
 
 The committed synthetic fixture (explicitly illustrative — it demonstrates

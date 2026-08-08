@@ -44,6 +44,34 @@ heisenbug. The engine's precedence and empty-set check are what turn that
 output into a decision (fail, fall back, or return nothing) instead of a
 silent blank page.
 
+## The fix and its trade
+
+The fix is a joint-application check plus explicit empty-set semantics: the
+engine must distinguish "there were no candidates" from "the policy
+intersection removed all candidates" and then choose a declared fallback,
+escalate to an operator, or return a transparent unavailable state — never
+bypass a safety rule merely to populate a page. The executed read prices
+the failure: EU regional alone keeps 10 of 16, safety alone keeps 6, and
+applied together they keep zero — a system that tests rules individually
+passes, and only the joint check finds the intersection.
+
+The trade, named: the joint check costs a test matrix that grows with the
+rule set, and a fallback trades policy strictness for page fill — each
+fallback must itself be a policy decision with an owner, because the
+default fallback (return nothing) is exactly the silent blank page the
+check exists to prevent. The empty set is a real, reproducible output of
+this engine, which is what makes it a lesson instead of a heisenbug.
+
+## Who owns the loop
+
+- **The policy owner** owns the rules whose intersection can empty a
+  request context.
+- **The platform team** owns the joint check, the empty-set decision, and
+  the declared fallback for every rule set.
+- **The evaluation team** owns the joint test matrix and re-runs it when
+  any rule changes — the solo-removal breakdown is the diagnostic that
+  turns an empty set into a named cause.
+
 ## Evidence boundary
 
 The recorded policy evaluation (fixed synthetic candidates, one

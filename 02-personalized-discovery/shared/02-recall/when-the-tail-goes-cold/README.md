@@ -40,6 +40,36 @@ baseline and the wrong behavior for a discovery goal — which is why the
 mission's recall stage has to decide which tail it serves before it
 builds the index, not after.
 
+## The fix and its trade
+
+The fix is to decide which tail the recall stage serves before building the
+index, and the executed read prices why the decision must be explicit:
+under a power-law demand curve, the top 100 of 1,000 items hold 69.3% of
+demand, and a 200-item recall pass keeps only 100 of the 900 tail items.
+An index that learns from interactions is dense and accurate exactly where
+the demand already is — which is the correct behavior for a
+popularity-driven baseline and the wrong behavior for a discovery goal.
+
+The trade, named: serving the tail costs head recall, and the cost is
+measured per policy. A coverage floor, a separate tail index, or
+exploration in candidate generation raises the tail's slot share at a
+priced cost to head recall — the executed pass shows the default outcome
+(100 of 900) and a deliberate policy changes it. The alternative is leaving
+the trade to the demand curve, which is not a decision at all: the head
+wins the candidate slots silently, and the discovery failure is attributed
+to the model instead of to the index objective.
+
+## Who owns the loop
+
+- **The retrieval team** owns the index objective — whether the candidate
+  pass optimizes demand or reserves tail slots is decided here, before the
+  index is built.
+- **The product team** owns the discovery goal: how much tail coverage the
+  system must serve is a product promise, priced against head recall.
+- **The evaluation team** owns the tail-coverage read per pass, so the
+  decision's cost is visible as a number and re-checked when the demand
+  curve moves.
+
 ## Evidence boundary
 
 The executed hand-built power-law model (illustrative, deterministic). It

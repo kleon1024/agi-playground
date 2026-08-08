@@ -47,6 +47,36 @@ what makes the dial usable. The sweep is the evidence that the trade is
 real and asymmetric: the marginal labels are the tail, and they cost 4
 accuracy points to keep. That is the honest price of cold-start coverage.
 
+## The fix and its trade
+
+The fix is to choose the threshold against a declared downstream objective
+and a sliced evaluation set, and the recorded sweep is the evidence the
+trade is real and asymmetric: raising the threshold from 0.00 to 0.65 moves
+label accuracy only 96% to 100% while cold coverage collapses 100% to 25%
+and union coverage 100% to 72%. The labels removed were mostly correct —
+that is why accuracy moved only 4 points — and they were disproportionately
+the tail labels the content queue exists to rescue.
+
+The trade, named: precision for the head is paid for with reach for the
+tail, and the threshold is the dial that sets the price. The sweep shows
+the honest cost of cold-start coverage: keeping the marginal tail labels
+costs 4 accuracy points, and a threshold that maximizes head accuracy
+destroys reach for sparse categories. The alternative — pick the threshold
+that makes the retained set look clean — is the failure itself, because
+accuracy on retained items is an easy-head number by construction.
+
+## Who owns the loop
+
+- **The content and label team** owns the threshold and the trade curve it
+  sets — the dial is chosen against a downstream objective, never against
+  overall label accuracy.
+- **The product team** owns the cold-start objective: whether 25% cold
+  coverage is acceptable is a product decision about who the system must
+  serve.
+- **The evaluation team** owns the sliced read — per-leaf precision, cold
+  coverage, missing-content rate — that turns the threshold choice from an
+  argument into a measured curve.
+
 ## Evidence boundary
 
 The recorded synthetic sweep (300 items, 112 cold, one seed); it reads the

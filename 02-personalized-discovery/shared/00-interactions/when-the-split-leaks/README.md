@@ -46,6 +46,37 @@ in the train set that predicts their earlier test rows. A time split
 removes that mechanism by construction; no amount of model quality fixes a
 mismatch that lives in the test, not in the model.
 
+## The fix and its trade
+
+The fix is the time split itself: one global cutoff, train before it, test
+at or after it, which removes the leak by construction rather than by
+detection. The recorded numbers price why the mechanism matters — the
+popularity floor itself shifts between splits (0.0389 time vs 0.0496
+random), so a leaking train set does not merely flatter the model, it moves
+the number every later stage is measured against.
+
+The trade, named: the time split costs training volume. Every test row at or
+after the cutoff is unavailable for training, and rows whose future is
+unknown cannot be used the way a random split uses them — the honest split
+is strictly smaller. The alternative is the 99.1% leak: each user's later
+interactions sit in the train set that predicts their earlier test rows,
+which is the mechanism by which a model memorizes its own answer key. The
+leak's size is not a reason to shrug; it is the reason the split is the
+first stage in the funnel.
+
+## Who owns the loop
+
+- **The data pipeline team** owns the split contract: the cutoff rule, the
+  test fraction, and the leakage-count gate that fails a pipeline that
+  leaks the future.
+- **The evaluation team** owns the popularity floor as the acceptance
+  baseline, measured on the same split the model is judged on — comparing
+  a model score on one split to a floor on the other compares two different
+  experiments.
+- **The model team** inherits the boundary: any model trained inside a
+  leaking split is evaluated on inflated numbers, and no modeling fix
+  downstream repairs a mismatch that lives in the test.
+
 ## Evidence boundary
 
 The recorded MovieLens split run (2026-07-30), one dataset, one test

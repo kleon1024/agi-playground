@@ -39,6 +39,35 @@ and the latency advantage narrows but does not disappear. That residual is
 the honest boundary: an approximate index trades a bounded recall loss for
 latency, and the recall loss is a property of the index, not a bug.
 
+## The fix and its trade
+
+The fix is the ef-search dial: an approximate index's recall is a parameter
+you set, not a property you discover afterward. The recorded comparison
+prices the dial — raising ef-search from its default to 64 bought recall
+from 0.913 to 0.984 at a measured latency cost (0.576 to 0.714 ms, against
+the exact index's 1.133 to 0.911 ms). The trade is not "approximate is
+free"; it is "you can buy recall back, and here is the measured price."
+
+The trade, named: the gap to exact never fully closes. Even at ef-search
+64, approximate recall is 0.984, not 1.0 — 1.6% of the exact index's
+retrievals are lost — and the latency advantage narrows but does not
+disappear. That residual is the honest boundary: the recall loss is a
+property of the index, and it matters whenever the lost item is the one a
+user wanted, because recall feeds everything downstream and a missed
+candidate cannot be recovered by a better ranker. The operator chooses the
+point on the curve by deciding what the request budget can pay.
+
+## Who owns the loop
+
+- **The retrieval team** owns the index settings and the recall-latency
+  curve they trace — the ef-search dial is a retrieval contract, logged
+  with the model.
+- **The serving team** owns the latency side of the bargain: how much time
+  the request budget can give recall decides where on the curve the index
+  runs.
+- **The evaluation team** owns the recall@25-vs-exact read, which keeps the
+  approximate index honest about what it loses and at what price.
+
 ## Evidence boundary
 
 The recorded FAISS comparison (5,000 synthetic items, 32-dim vectors, 160

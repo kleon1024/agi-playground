@@ -41,6 +41,35 @@ decision, which is the mission's requirement for an auditable rule layer —
 the same property that lets an empty set be diagnosed by its solo-removal
 breakdown instead of reported as a number.
 
+## The fix and its trade
+
+The fix is to map the rule-by-context frontier — the grid that shows which
+rule combinations empty the set — and to attach the fired rule and its
+human-readable explanation to every decision. The executed grid prices
+why: US keeps 3/6/6/6 across caps 1-4 while EU is empty at every cap — the
+emptiness is region-determined, not cap-determined, because the engine's
+precedence runs blocks terminal before caps, and an engine that only
+reports "no candidates" hides exactly that distinction. The knob that
+looks tunable (the cap) is irrelevant to the EU emptiness.
+
+The trade, named: the frontier mapping is per-rule-set work and must be
+re-mapped whenever a rule changes, and the audit record costs keeping the
+decision record with the impression event rather than in mutable logs —
+the price of being able to evaluate the exact version and context that
+produced a result. What it buys is a "why was this shown" answer attached
+to the decision, which is the difference between a diagnosed policy
+interaction and a number.
+
+## Who owns the loop
+
+- **The platform team** owns the frontier tooling and the decision record
+  stored with the impression.
+- **The policy owner** owns the rules that determine where the frontier
+  falls — the grid exists to make their interactions visible.
+- **The evaluation team** owns re-mapping the frontier when any rule or
+  policy version changes, so a silent emptiness shift is caught as a
+  policy change, not a serving anomaly.
+
 ## Evidence boundary
 
 One synthetic item set, the stage's DEFAULT_RULES, two regions, four caps.

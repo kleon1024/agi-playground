@@ -25,6 +25,44 @@ Recall demonstrates the other composition rule. Four queues run serially at the 
 
 There are two primary levers. Do less work: reduce the candidate count that expensive fine-rank scores after pre-rank has cut it. Do work concurrently: fan out independent recall queues. Stage 02's `prod/faiss_recall.py` is the concrete approximate-nearest-neighbour boundary; it trades exact recall for index latency rather than making exhaustive scoring appear cheap. A cache is a third, different tool. At an observed 0.803 hit rate, this run lowered mean to 7.00ms but p95 only to 34.52ms, because cache misses continue to populate the upper tail.
 
+## The fix and its trade
+
+The fix is a measured end-to-end latency budget composed from per-stage
+distributions — never from summed p95s — with three levers: less work
+(the pre-rank cut), more concurrency (parallel recall fan-out), and a
+cache whose refreshes are scheduled, not synchronized. The executed run
+prices the failure each lever removes: summing the parallel run's per-stage
+p95s gives 54.74 ms against a measured 49.31 ms — 5.43 ms of phantom
+latency from a rule that feels right — while serial recall (52.73/72.71 ms)
+versus parallel (31.22/49.31 ms) shows the critical path, not the sum, is
+what the request pays.
+
+The trade, named: parallel fan-out changes the request's critical path but
+adds queue and thread cost; a timeout that returns a smaller union when a
+queue straggles trades recall for tail latency and must be measured, not
+hidden; and a cache at 0.803 hit rate lowers the mean to 7.00 ms while
+leaving the p95 at 34.52 ms, because misses populate the upper tail. The
+stage model's distributions are disclosed and hand-chosen, so this stage
+establishes the composition arithmetic against the mission's p95-300 ms
+target — it does not establish that any real service is within budget,
+which is the boundary the production path exists to close.
+
+## Who owns the loop
+
+- **The serving team** owns the end-to-end budget, the per-stage
+  distribution measurement (HDR histograms or a metrics store that
+  preserves tail samples), and the timeout semantics per stage.
+- **Each stage owner** owns its stage's latency budget and the assumption
+  behind its distribution — a stage whose latency is asserted instead of
+  measured moves the whole budget.
+- **The recall and retrieval team** owns the fan-out shape and the
+  straggler timeout that trades recall for tail latency.
+- **The platform team** owns the cache and its refresh scheduling — the
+  p95 is a scheduling property, not a compute one.
+- **The evaluation team** owns budget verification against production
+  traffic, since a local simulation with assumed distributions cannot
+  certify the online target.
+
 ## Evidence boundary and production path
 
 ```bash

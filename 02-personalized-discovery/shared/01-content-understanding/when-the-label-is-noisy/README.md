@@ -44,6 +44,35 @@ weighting label sources — and the threshold only decides how much noise
 to let through. That ordering is why stage 01's classifier is built on
 the interaction log, not on a model's own confidence.
 
+## The fix and its trade
+
+The fix is to clean the label source before classification, because the
+threshold gates confidence, not truth. The executed read prices the claim:
+all four kept items cleared 0.70, and two of them (c: news labeled recipe,
+d: recipe labeled news) carry the wrong label — kept-set precision falls
+from 100% to 50% with the threshold unchanged.
+
+The trade, named: raising the threshold removes some noise and also removes
+correctly-labeled low-confidence items — item e's label is right, it is just
+uncertain, and it is cut. The lever that actually fixes precision is
+upstream — resolving c and d against a trusted signal before the model
+learns from them — and the threshold only decides how much noise to let
+through. The cheaper-looking alternative, tuning the threshold up until the
+kept set looks clean, narrows the window without changing what is inside
+it, and keeps the model trained on the same noisy source that produced the
+wrong labels in the first place.
+
+## Who owns the loop
+
+- **The label and annotation team** owns the source: cleaning c and d
+  against a trusted signal is an upstream fix, and the label source's
+  precision is this team's metric.
+- **The model team** owns the classifier and the honest use of confidence —
+  confidence is a property of the model, never a guarantee about the label.
+- **The evaluation team** owns kept-set precision by label source, so a
+  precision drop is attributable to the source, not to the threshold, and
+  the threshold trade (e is cut despite being right) is visible per run.
+
 ## Evidence boundary
 
 The executed hand-built label table (illustrative, deterministic). It

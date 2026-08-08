@@ -129,6 +129,43 @@ Every input above is synthetic — `make_items`'s four archetypes, not a fit to
 any observed population — so this confirms the mechanics, not a real
 platform's actual weights.
 
+## The fix and its trade
+
+The fix is to treat the combination function, the weights, and the trade
+rate as the product strategy expressed as arithmetic — and to make
+calibration the precondition that keeps the statement true. The executed
+runs price the choice: the multiplicative rule's top pick flips at
+satisfaction weight 0.165 while the additive rule does not flip until 0.410
+(steps=200, 12 items, seed 42) — less than half the weight buys the same
+reordering under the stricter rule — and a click-shaped item ranks 8/12
+under the sum versus 11/12 under the product at w_sat=0.5, so the function
+choice is a belief about whether a very high click can compensate a low
+satisfaction. Both converge on item_1 at w_sat=1.0, which locates the
+disagreement exactly where product strategy is decided.
+
+The trade, named: a weighted sum treats objectives as substitutes and a
+weighted product treats them as requirements, and the calibration break
+shows what happens when the precondition is violated — with weights held
+fixed and click predictions inflated 1.6x, the slate reorders 8 of 12
+items, silently shipping a different strategy than the one the weights
+declared. The ad auction has its own lever: the ad enters only at
+trade_rate 0.8 and displaces item_6 at organic value 0.499, so the trade
+rate is the monetization policy — how much organic value an ad may
+displace — priced per slate instead of asserted.
+
+## Who owns the loop
+
+- **The product team** owns the weights and the combination function — the
+  strategy itself, expressed as arithmetic.
+- **The model team** owns the calibrated predictions the arithmetic
+  consumes: stage 04's ECE gate is the contract that keeps the weights
+  meaning what the strategy assumed.
+- **The ads and monetization team** owns the trade rate and its displacement
+  read — the organic value an ad may displace is a policy they set and
+  measure.
+- **The evaluation team** owns the slate-reorder read (8 of 12) as the
+  calibration-break alarm that fires before a product-facing metric moves.
+
 ## Reproducing
 
 ```bash

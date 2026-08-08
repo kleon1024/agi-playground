@@ -42,6 +42,35 @@ unusually valuable duplicate outweigh the diversity loss. The recorded
 contrast (cap vs penalty) is the difference between an auditable obligation
 and a trade the product owner must accept.
 
+## The fix and its trade
+
+The fix is to build the hard case into the benchmark before trusting a beam
+width — a heuristic that always wins is a benchmark that forgot to contain
+the approximation loss. The executed read prices the trap: beam widths 1,
+2, 3, and 9 all match the exhaustive optimum (2.2624) on the stage's
+catalogue, and greedy top-5 produces 3 sports items (cap violated) while
+cap=2 restores 2.2624 — the catalogue is simple enough that even a greedy
+prefix search finds the optimum, so width-1 success proves nothing about
+real slate geometry.
+
+The trade, named: honest benchmarking costs catalogue construction — the
+team must vary the seed, category cap, and catalogue shape until the beam
+and the exhaustive search disagree, because that is the only way to see
+the compute-quality curve the width dial buys. A constraint (cap) and a
+penalty are different promises: the cap is an auditable obligation with an
+owner, while a penalty lets an unusually valuable duplicate outweigh the
+diversity loss — the executed cap-versus-penalty contrast is the difference
+between an obligation and a trade the product owner must accept.
+
+## Who owns the loop
+
+- **The mixer team** owns the beam width and the benchmark construction —
+  the hard case is their test fixture, not a discovery made in production.
+- **The evaluation team** owns the exhaustive-versus-beam comparison per
+  catalogue shape, so approximation loss is measured, not assumed absent.
+- **The product team** owns the diversity constraint the beam must honor —
+  "never more than two sports items" is a promise with an owner.
+
 ## Evidence boundary
 
 The recorded slate run (synthetic values, one catalogue, seed 42, trade

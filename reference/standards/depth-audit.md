@@ -78,7 +78,13 @@ the audit contract above.
 
 ### Personalized discovery — recommendation 56-63
 
-**Status: done (first audit increment, 2026-08-07).**
+**Status: done (first audit increment, 2026-08-07; structural re-check
+2026-08-08).**
+
+Re-checked 2026-08-08: all 24 chapters now carry `## The fix and its trade`
+and `## Who owns the loop` before their evidence boundary, the trade named
+with the measured number, and the ownership split per stage (which team
+owns the label, the cut, the traffic, the retrain).
 
 Failure modes audited with measured runs: entire-space funnel (CTCVR under
 sparse CTR), delayed feedback (freshness vs correctness, window size),
@@ -91,7 +97,20 @@ consistency (pre-rank vs final ranker, distillation blur, top-k preservation).
 
 ### Personalized discovery — shared 00-09 (retrieval to report)
 
-**Status: done (second audit increment, 2026-08-07).**
+**Status: done (second audit increment, 2026-08-07; structural re-check
+2026-08-08).**
+
+Re-checked 2026-08-08 across all 10 stages — 40 chapters (10 parents and
+30 detours): every chapter now carries `## The fix and its trade` (the
+failure named first, the measured trade named) and `## Who owns the loop`
+(cross-team handoffs per stage) before its evidence boundary. Stage
+numbers are reused verbatim from the recorded runs: pre-rank surface
+0.000 long-tail vs 0.100-0.400 overall; fine-rank weighted transfer
+recovering dwell -0.080 to 0.809; value-tree multiplicative flip at 0.165
+vs additive 0.410; mixing cap 2.2624 vs penalty 2.1853 and the ad knee at
+revenue/displaced 1.12 to 0.93; rule-engine EU+safety joint empty set;
+serving p95-sum 54.74 vs measured 49.31; report guardrail veto 0.271 vs
+0.298 with a 0.4102 headline still NOT MET.
 
 Every stage 00-09 satisfies the contract: each opens with an operational
 symptom (the split that leaks, the latency that kills the page, the rule

@@ -32,6 +32,43 @@ Watch for why this empty-set detection matters: independently reasonable policie
 
 Every rule has recall cost. The run reports it as candidates removed out of the requested set. That makes policy tradeoffs inspectable: safety and licensing may justify a loss of reach, while an accidental cap may not. Rules do not merely explain an existing slate; they constrain what later learned stages can ever choose.
 
+## The fix and its trade
+
+The fix is declarative policy in data with an explicit precedence (blocks
+terminal, boosts annotating surviving scores, caps after ranking), a
+decision record per impression, and a per-rule fail-closed or fail-open
+contract — so that an external owner can read, change, and be accountable
+for a rule without waiting for a model retrain. The executed run prices the
+failure the fix removes: US regional removes 10/16 candidates (keeps 6),
+tightening the per-creator cap 2 to 1 removes 3 more, and in the EU
+request the regional rule alone removes 6/16 while the safety rule alone
+removes 10/16 — yet applied together they empty the set. Neither rule
+empties the catalogue alone; the intersection does, and the engine must
+report the joint condition instead of silently returning a blank slate.
+
+The trade, named: every rule has recall cost — candidates removed out of
+the requested set — and the tradeoff is inspectable per rule: safety and
+licensing may justify a loss of reach while an accidental cap may not.
+Fail-closed rules (licensing, safety) cost availability when the evaluator
+is down; fail-open rules (an editorial boost) risk showing content the
+policy meant to omit, so the choice belongs in each rule's contract.
+Temporary rules that mask model defects must carry an expiry, owner, and
+remediation path — otherwise policy accumulates into a second, untestable
+ranker. The speed of the layer (minutes to edit a policy versus days to
+retrain) is the point, not a reason to evade review.
+
+## Who owns the loop
+
+- **The external policy owner** (legal, safety, contractual, editorial)
+  owns each rule and revises it on a policy timescale — this is why the
+  layer exists.
+- **The platform team** owns the engine, the precedence, the decision
+  record, and the fail-closed/fail-open contracts.
+- **The product team** owns the recall tradeoff per rule — the cost is
+  measured per rule, and the acceptance of that cost is a product call.
+- **The model team** owns the remediation path for any rule that masks a
+  model defect, including the expiry that forces a real fix.
+
 ## Change quickly without claiming correctness
 
 The production example includes a CEL-style policy document and evaluator. Production alternatives include Open Policy Agent/Rego and a feature-flag-plus-policy service. Each should version policies, capture the evaluated inputs, and make rollout/rollback ownership explicit. A policy edit can then take minutes, while retraining a model could take days. That speed is the point of the layer, not a reason to evade review.

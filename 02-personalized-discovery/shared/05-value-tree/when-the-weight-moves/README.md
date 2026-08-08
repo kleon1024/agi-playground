@@ -54,6 +54,37 @@ on item_1 at w_sat=1.0 — when satisfaction is everything, substitutes and
 requirements rank identically. The disagreement lives in the middle of the
 weight range, which is exactly where product strategy is decided.
 
+## The fix and its trade
+
+The fix is to treat the weights as a product decision and audit them with a
+fine sweep, because a coarse sweep hides where the strategy actually flips.
+The executed run prices the choice: additive top-1 runs item_8/item_8/
+item_5/item_1 and multiplicative item_8/item_11/item_6/item_1 across
+w_sat 0/0.33/0.67/1.0 — same predictions, same weights, different winners
+in the middle of the range — and the fine sweep (steps=200) locates the
+flip at 0.165 for the product versus 0.410 for the sum. A platform that
+weights click at 0.9 and one that weights satisfaction at 0.9 are not
+tuning variants; they are different products on the same predictions.
+
+The trade, named: the combination function encodes the belief — a sum
+treats objectives as substitutes, a product as requirements — and the
+click-shaped item (8/12 under the sum, 11/12 under the product at
+w_sat=0.5) is the price of choosing wrong. The fine sweep costs compute
+but buys the flip points, which are the numbers the product decision is
+made on; the coarse demo sweep would certify either function as "fine"
+and miss that the disagreement lives exactly in the range where strategy
+is decided.
+
+## Who owns the loop
+
+- **The product team** owns the weights and the combination function — the
+  sweep exists to make their decision legible, not to tune it.
+- **The model team** owns the flip-point sweep and reports the winners per
+  weight so the decision is read from numbers, not from a docstring.
+- **The serving team** owns the configuration that carries the chosen
+  weights into production — a weights change is a product change with an
+  experiment attached, not a code deploy.
+
 ## Evidence boundary
 
 One synthetic 12-item set, one seed, two combination functions. It shows the

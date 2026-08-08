@@ -41,6 +41,37 @@ shows the mechanism at its strongest — the point of the tree is that user
 value and revenue are priced together, and the dislike demonstrates that
 user value can be revoked, not just accumulated.
 
+## The fix and its trade
+
+The fix is to treat explicit negatives as first-class value signals: user
+value is revocable, not just accumulable, and the tree must price the
+revocation. The executed run shows the mechanism at its strongest: item x
+falls from the top of the slate (0.65) to below the fold (-0.15) on one
+dislike — its user value (0.8) zeroes out and the revenue term (0.3) is
+all that remains — while y and z, untouched, keep their scores. One
+signal rewrites the trade, which is exactly the responsiveness a value
+tree is supposed to have.
+
+The trade, named: explicit signals are rare but strong, and their absence
+is the default — the tree learns most user values from the weaker implicit
+signals of stage 00, so responsiveness is only as good as signal
+freshness. The repair is a feedback pipeline that converts a dislike into
+an updated user-value component with bounded latency; the cost is the
+pipeline and the noise it must survive, because a false-negative
+rejection is as consequential as a real one. The tree's job is to make
+the trade visible per item, and the executed flip is the number the
+product decision is read from.
+
+## Who owns the loop
+
+- **The product team** owns the feedback contract — what counts as a
+  rejection and how fast it must change the value is a product decision.
+- **The model team** owns the signal pipeline that turns explicit feedback
+  into updated user-value components within the agreed latency.
+- **The evaluation team** owns the flip read: a before-and-after slate
+  comparison per feedback type, so the tree's responsiveness is measured,
+  not assumed.
+
 ## Evidence boundary
 
 The executed hand-built slate (illustrative, deterministic). It

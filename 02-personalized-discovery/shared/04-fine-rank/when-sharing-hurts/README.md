@@ -43,6 +43,35 @@ exactly this — the shared model's transfer is not a property of the
 architecture alone; it is a property of how the tasks' gradients are
 weighted, which is the lever the fine-ranker actually tunes.
 
+## The fix and its trade
+
+The fix is to measure transfer per objective — shared versus trained alone —
+and to set the gradient weighting from that grid, not from the
+architecture. The executed grid prices the fix: naive weighting gives click
+-0.037 and completion -0.023 while satisfaction gains +0.051; balanced
+weighting recovers click to +0.001 and completion to -0.001 while
+satisfaction turns -0.040. Transfer is direction-dependent and the weights
+decide which task pays, which is the Caruana 1997 result made operational:
+the shared trunk helps when tasks are balanced and hurts when one dominates
+the loss scale.
+
+The trade, named: no weighting makes every task win — the grid always has a
+loser, and the weighting is a product decision about which objective must
+not pay. The dwell row's None is its own lesson: a continuous target
+(seconds) cannot be scored by a binary ranking metric, so the transfer read
+for that task must be defined before the grid is run, or the team reports a
+metric that does not exist.
+
+## Who owns the loop
+
+- **The model team** owns the gradient weighting and re-runs the transfer
+  grid whenever the task set changes.
+- **The product team** owns the task priority the weights encode — which
+  objective must not pay is a product call, priced by the grid.
+- **The evaluation team** owns the per-task transfer read and the metric
+  definition per task, including the dwell-row trap of scoring a continuous
+  target with a binary metric.
+
 ## Evidence boundary
 
 One seed per cell, 200 synthetic examples, 40 epochs; the directions are the

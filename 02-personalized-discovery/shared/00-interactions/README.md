@@ -156,6 +156,42 @@ prefer this," only "this ranks the previously-observed interactions better
 than the baseline." The mission's `does_not_prove` section says this
 plainly, true before a single model exists.
 
+## The fix and its trade
+
+The fix is the time split plus the iterative eligibility filter, and the
+recorded run prices both. The time split leaks 0 of 1,223 test rows where a
+random split leaks 17,885 of 18,055 (99.1%) — the model never sees the
+future, which is the one property a live system is guaranteed to have. The
+iterative filter loops until nothing changes, because dropping a sparse item
+can push a user below threshold and dropping that user can push another item
+below its own; a one-pass filter silently loses users like 175 (24 to 12)
+whose own data was fine.
+
+The trade, named: every element of the fix costs volume for honesty. The
+filter drops 10,562 rows (6,074 of 9,724 movies have under 5 ratings), and
+the time split refuses the extra rows a random split would happily include
+as free training data. The popularity floor moves with the boundary too —
+hit-rate@20 is 0.0389 under the honest split, 0.0496 under the leaking one —
+so the honest number is lower and is the only one every later stage should
+be compared against. A team that takes the random split's better-looking
+numbers is not saving data; it is comparing the model to a baseline measured
+on different rules.
+
+## Who owns the loop
+
+- **The data pipeline team** owns the split contract and the eligibility
+  filter: the time cutoff, the min-interaction thresholds, and the loop
+  that converges. The leakage count is its regression test.
+- **The evaluation team** owns the leakage gate and the popularity floor as
+  the acceptance baseline: a model result is only comparable to the floor
+  measured on the same split.
+- **The model team** inherits the boundary: every downstream model is
+  trained and judged inside this stage's split, and a leak that survives
+  here inflates every later number regardless of model quality.
+- **The logging team** owns what the log records at all — exposure,
+  position, and the absence that is a signal (the detour) — because the
+  split can only be honest about what the log captured.
+
 ## Reproducing
 
 ```bash

@@ -42,6 +42,37 @@ trade rate is the same product decision as the weight sweep — a policy
 about how much organic value an ad may displace — made measurable instead
 of asserted.
 
+## The fix and its trade
+
+The fix is to re-check calibration before trusting the value arithmetic,
+and to treat a slate reorder under fixed weights as a calibration alarm,
+not as a strategy change. The executed read prices the failure: with click
+predictions inflated 1.6x and every weight untouched, the top slots
+reorder — the honest and miscalibrated rankings disagree across the slate,
+and the stage's default demo counts 8 of 12 items moving. The value tree
+is deterministic; the strategy did not change; only the meaning of the
+input number did.
+
+The trade, named: the repair is stage 04's ECE gate plus a re-check when
+the training distribution moves, and it costs a held-out set and a
+recalibration cadence — the alternative is silently shipping a different
+product than the weights declared. The ad auction shows the same failure
+in policy form: at trade_rate 0.2 and 0.5 the ad's utility does not clear
+the organic bar, and at 0.8 it enters and displaces item_6 (organic value
+0.499) — a miscalibrated organic score changes which items an ad is
+allowed to displace, which is a revenue decision wearing an arithmetic
+error.
+
+## Who owns the loop
+
+- **The model team** owns the calibration gate that prevents the break —
+  the ECE number is the shipping bar for every prediction the tree
+  consumes.
+- **The evaluation team** owns the slate-reorder read as the break
+  detector: fixed weights, moving slate, and a calibration audit fires.
+- **The ads and monetization team** owns the trade-rate and displacement
+  read, and re-validates it whenever the organic scoring changes.
+
 ## Evidence boundary
 
 The recorded weight sweep and auction (12 and 30-item synthetic catalogues,

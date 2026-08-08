@@ -124,6 +124,42 @@ catalogue is still small enough to also compute the exact answer — which
 stops being true at production scale, and is the reason `08-serving`, later
 in this mission, has to budget for it rather than assume it away.
 
+## The fix and its trade
+
+The fix is the multi-queue union, and the recorded run prices why no single
+queue can do the job: disabling one queue drops aggregate coverage 5-20
+points (two_tower 0.84, lexical 0.80, item_to_item 0.95, freshness 0.84
+against a 1.00 baseline), and the other queues recover only 4-16 of the
+disabled queue's 20 targets — by incidental overlap, not by design. The
+union is not interchangeable parts; each queue owns targets no other queue
+reaches, and item_to_item, the slowest queue, carries the least redundant
+coverage (4/20 recoverable), which is why it cannot be dropped for speed.
+
+The trade, named: the fix pays in recall-bought-back cost at two levels.
+Running more queues costs serving latency — parallel recall at the slowest
+wait, with a timeout that returns a smaller union instead of failing the
+request (stage 08's read). And the approximate index that makes candidate
+generation affordable trades a bounded recall loss for latency: the
+recorded FAISS comparison shows 0.913 recall at 0.576 ms and 0.984 at 0.714
+ms against the exact index's 1.133-0.911 ms, and the gap to exact never
+fully closes. Recall is the one stage nothing downstream repairs, so both
+costs are paid once, at the funnel's entry, deliberately.
+
+## Who owns the loop
+
+- **The retrieval team** owns the queues and their provenance: each queue's
+  structural blind spot is a designed property, and the disable-sweep
+  coverage is its regression test.
+- **The serving team** owns the union's latency: fan-out, timeouts, and the
+  approximate-index settings (ef-search) that trade recall for speed are
+  serving decisions made against the stage 08 budget.
+- **The evaluation team** owns the coverage-by-provenance read — the number
+  that says a missing queue is a permanently missing class of items, not a
+  small overlap the others will absorb.
+- **The content team** (stage 01) owns the inputs the two-tower queue
+  depends on until real embeddings exist — a placeholder the stage names
+  explicitly rather than hiding.
+
 ## Evidence boundary
 
 Nothing in this stage is a claim about the mission's real catalogue or real

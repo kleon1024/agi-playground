@@ -42,6 +42,34 @@ critical path, not the sum, is what the request pays. The 80% cache row
 collapses p95 to 34.52 ms. Parallel fan-out and caching are real changes to
 the request's critical path, and the run measures each.
 
+## The fix and its trade
+
+The fix is to compose stage distributions by simulation or replay and read
+the end-to-end tail from the sample — summing per-stage p95s is the wrong
+arithmetic, and the executed run prices the error: the p95-sum (54.74 ms)
+sits 5.43 ms above the measured parallel p95 (49.31 ms). Means add for
+the serial path; tail percentiles do not, because a request is slow only
+when its own stage draws align in the tail and separate stages' slow
+requests usually land on different traces.
+
+The trade, named: honest composition costs sampling and disclosed
+distribution assumptions — this run's lognormal medians and spreads are
+hand-chosen and must be replaced by per-stage measurements from real
+traffic before the numbers mean anything about production. What the
+composition model is good for, even with assumed inputs, is the shape: it
+separates the serial sum (52.73/72.71 ms), the parallel critical path
+(31.22/49.31 ms), and the cache that changes both (7.00/34.52 ms), which
+is the budget conversation the serving team must have per stage.
+
+## Who owns the loop
+
+- **The serving team** owns the composition model and its assumptions, and
+  re-runs it when any stage changes.
+- **Each stage owner** owns their stage's real measured distribution —
+  the model is only as good as the inputs.
+- **The evaluation team** owns verification against production tail
+  samples, so the 5.43 ms phantom never becomes a budget decision.
+
 ## Evidence boundary
 
 The recorded latency harness (5,000 simulated requests, hand-chosen and

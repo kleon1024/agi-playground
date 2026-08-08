@@ -31,6 +31,47 @@ Remember that an ad is not extra inventory — it replaces an organic result at 
 
 The engineering obligation is to expose this curve. Where a business chooses to sit on it is a business decision. A system that reports ad revenue but not the organic item it displaced has hidden the cost, not avoided it. This is also why position bias is part of mixing: replacing slot one is not equivalent to replacing slot five, and a slot-allocation system must know the difference.
 
+## The fix and its trade
+
+The fix is to keep three separable obligations instead of folding them into
+one score: the ranker owns predicted value, the mixer owns the interaction
+between items and slots, and policy owns hard eligibility. The executed
+runs price why the separation matters: on the stage's catalogue the category
+cap (a constraint) keeps raw value 2.2624 and is a promise you can point
+to, while the default diversity penalty (decay 0.5) keeps only 2.1853 —
+the constraint beats the penalty on both axes on this catalogue, and the
+penalty's 0.1782 cost is a number nothing in the value function justifies.
+Beam width shows the measurement trap: widths 1, 2, 3, and 9 all match the
+exhaustive 2.2624 optimum, which proves this catalogue, not the beam — a
+benchmark where a heuristic always wins normally forgot to contain the hard
+case.
+
+The trade, named: a constraint is auditable but brittle (an infeasible
+request needs an explicit fallback), a penalty is flexible but indefensible
+(0.1782 for one more category — worth it? no number says), and beam width
+trades compute for approximation only where the hard case exists. The ad
+curve is the same discipline in monetization form: revenue per displaced
+dollar falls from 1.12 to 0.93 between trade rates 3 and 5 — the knee
+where each extra revenue dollar costs more user value than the last one
+did — and the engineering obligation is to expose that curve, not to pick
+the point on it.
+
+## Who owns the loop
+
+- **The ranker team** owns predicted value.
+- **The mixer team** owns the item-times-slot interaction, the beam width,
+  and the constraint-versus-penalty choice.
+- **Policy** owns hard eligibility — the obligations that no slate may
+  violate.
+- **The ads and monetization team** owns the trade rate and the displacement
+  read per ad load.
+- **The product owner** owns where the business sits on the ad curve and how
+  much diversity the user is promised.
+- **The evaluation team** owns the per-segment read: a high-revenue
+  placement can displace an especially valuable organic result for a new
+  user, a sparse category, or a constrained region while looking harmless
+  in aggregate.
+
 ## Reproduce and scale honestly
 
 ```bash

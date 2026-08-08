@@ -43,6 +43,32 @@ makes pre-rank honest: a proxy that cannot see the tail would pass the
 overall surface-rate check while quietly emptying the long tail, and the
 long-tail column exists to catch exactly that.
 
+## The fix and its trade
+
+The fix is to stratify the surface-rate read: report the long-tail column
+next to the overall number, and let the long-tail column be the one that
+decides. The executed table prices why: popularity-only scores 0.100-0.400
+overall while its long-tail surface is 0.000 on all four seeds and at funnel
+scale (2,000 items) — an aggregate read would certify a proxy that is
+silently empty exactly where discovery happens.
+
+The trade, named: a stratified read needs enough tail items per run to be
+stable, and it forces the team to decide what "tail" means before the run.
+The cheap proxy's 0.111-0.200 long-tail surface at demo scale shows the
+repair is real cold-item signal (content), not a bigger cut — and at the
+funnel's actual cut ratio both proxies collapse to 0.000, so the long-tail
+column is also the number that stops the team from promising a capability
+the funnel's cut ratio does not deliver.
+
+## Who owns the loop
+
+- **The evaluation team** owns the stratified read — the long-tail column is
+  a per-run report, not a one-time analysis.
+- **The product team** owns the tail promise the column is measured against:
+  which items count as the tail is a product definition.
+- **The pre-rank team** owns the proxy's cold-item signal: content or
+  embedding similarity, not popularity, is what makes the column nonzero.
+
 ## Evidence boundary
 
 The recorded surface-rate runs (600 and 2,000-item synthetic catalogues,

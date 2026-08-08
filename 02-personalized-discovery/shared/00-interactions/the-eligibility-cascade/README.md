@@ -40,6 +40,35 @@ fraction, and exactly the kind of silent edge a one-pass implementation
 would ship. The recorded run names three of them so the mechanism is a
 concrete row, not an abstraction.
 
+## The fix and its trade
+
+The fix is to make the filter iterate until nothing changes, and the
+recorded run shows why the loop is the point, not a detail: 8 of 610 users
+(user 175 at 24 to 12, user 598 at 21 to 16, user 578 at 27 to 17) fell
+below the floor only after their sparse items were removed. A one-pass
+filter fixes the immediate offenders and ships the second-order ones, which
+is the silent edge the loop exists to close.
+
+The trade, named: the loop trades a bounded amount of extra compute for
+eligibility correctness. It must be capped — a few passes on real logs —
+because a pathological filter could oscillate, and every extra pass is a
+small tax on the pipeline. The alternative, filtering once and assuming the
+job is done, is cheaper per run and wrong in a small but real fraction of
+users, exactly the kind of edge that surfaces as a mysterious model-quality
+gap on the cold slice rather than a pipeline bug.
+
+## Who owns the loop
+
+- **The data pipeline team** owns the eligibility thresholds and the
+  convergence cap — the filter's loop is a pipeline contract, not a model
+  decision.
+- **The evaluation team** owns the drop audit by reason: every removed row
+  is classified as item-sparsity, user-sparsity, or cascade, so a later
+  model-quality change on a slice can be traced to an eligibility decision.
+- **The downstream teams** (recall, ranking, value) own the contract that
+  the population they score is the post-filter one, and that a user who was
+  dropped for eligibility was never meant to be in their training set.
+
 ## Evidence boundary
 
 The recorded MovieLens split run (one dataset, default thresholds). It

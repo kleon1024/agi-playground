@@ -133,6 +133,42 @@ not a better calibration in general. Full output:
 
 <!-- interactive: MultiTaskBalancing -->
 
+## The fix and its trade
+
+The fix is scale-normalized task weighting plus a calibration gate before
+anything downstream consumes the probabilities. The recorded run prices the
+failure the fix removes: with naive equal weighting, dwell recovers only
+0.658 to 0.803 on the small trunk and goes **negative** (-0.080 to 0.809) on
+the wider trunk — more capacity and more training make naive weighting
+worse, because the raw-seconds objective dominates the shared trunk. Balanced
+weighting recovers 0.803-0.809 regardless of trunk size, so the fix is the
+weighting, not the architecture.
+
+The trade, named: weighting decides which task pays. The transfer grid shows
+balanced weighting fixing click (-0.037 to +0.001) and completion (-0.023 to
+-0.001) while satisfaction turns negative (+0.051 to -0.040) — the shared
+trunk cannot make every task win, and the weights are a product decision
+about which objective must not pay, not a tuning freebie. Calibration has
+its own trade: Platt scaling cuts the click head's ECE from 0.0722 to 0.0552
+on a held-out set, while the isotonic lane fits the same set to ECE 0.0000 —
+which is overfitting the calibrator, not better calibration. The ECE gate
+exists because stage 05 does arithmetic on these numbers, and uncalibrated
+probabilities would propagate into every downstream combination. The
+mechanism is Caruana's multi-task learning (Caruana 1997): a shared
+representation helps exactly when the tasks' gradients are balanced.
+
+## Who owns the loop
+
+- **The model team** owns the weighting scheme and the calibration gate —
+  the transfer grid and the ECE number are the acceptance bar for shipping
+  the shared model.
+- **The evaluation team** owns the per-task transfer read and the ECE
+  measurement on a set that did not fit the calibrator; the isotonic 0.0000
+  trap is theirs to catch.
+- **The value-tree team (stage 05)** owns the calibration contract: they
+  consume these probabilities as arithmetic inputs, and a calibration break
+  upstream shows up first as a reordered value tree, not as a click metric.
+
 ## Reproducing
 
 ```bash
