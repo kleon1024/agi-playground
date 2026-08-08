@@ -116,7 +116,7 @@ boundary" instead of executed.
 |---|---|---|---|---|
 | `search/24-search-measurement/when-the-click-is-a-query` | 586 | two-query toy session; recovery rate never measured | real-log run (AOL 2006, 21.9M queries): session recovery, head/body/tail distribution, correction channel | shipped 2026-08-08 |
 | `search/19-query-expansion/when-the-correction-helps` | 569 | one misspelling against one hand-built index | the correction channel read from the 24-session run (recovered share via near-edit fix; fix-offered-still-nothing share) | shipped 2026-08-08 |
-| `search/19-query-expansion/when-expansion-hurts` | 600 | toy precision read | tail-precision measurement over the same log (expansion on rare queries) | queued |
+| `search/19-query-expansion/when-expansion-hurts` | 600 | toy precision read | tail-precision measurement over the same log (expansion on rare queries) | shipped 2026-08-08 (per-stratum reformulated-no-click column added to the shared run) |
 | `search/23-personalized-search/when-the-user-history-helps` | 557 | three hand-built documents | per-user history quality read over the log (stale/absent history share per stratum) | queued |
 | `search/23-personalized-search/when-personalization-hurts` | 597 | toy over-personalization read | head-query over-personalization measurement (head queries almost never recover — the prior's failure boundary) | queued |
 | `search/24-search-measurement/when-the-zero-result-rate-matters` | 608 | synthetic pricing read | zero-click abandonment priced from the real log (recovered vs abandoned by stratum) | shipped 2026-08-08 |

@@ -58,10 +58,10 @@ zero-click: abandoned      6,494,805       29.7%             63.6%
 per-query report counts 46.6% of queries as failures (zero clicks); the session read reclassifies 19.9% of those as recovered sessions
 
 == 3. the distribution read: recovery by query frequency ==
-stratum        queries   traffic  zero-click of zero-click recovered of zero-click abandoned
-head         2,719,046     12.4%       50.8%                    4.3%                   90.5%
-body         7,559,784     34.6%       41.8%                   13.0%                   74.1%
-tail        11,597,353     53.0%       48.8%                   27.5%                   51.3%
+stratum        queries   traffic  zero-click of zero-click recovered  of zero-click reformulated, no click of zero-click abandoned
+head         2,719,046     12.4%       50.8%                    4.3%                                  5.2%                   90.5%
+body         7,559,784     34.6%       41.8%                   13.0%                                 12.9%                   74.1%
+tail        11,597,353     53.0%       48.8%                   27.5%                                 21.2%                   51.3%
 
 == 4. the correction channel: what recovers, and what never does ==
 recovered via near-edit typo fix (edit distance <= 2): 470,885 ( 23.2% of recovered)
@@ -76,6 +76,9 @@ RECOVERED SESSION: the per-query failure rate overstates loss; the session read 
 
 ## Notes
 
+- Rerun 2026-08-08 after adding the per-stratum
+  reformulated-no-click column to the distribution read; the script is
+  deterministic and every earlier number reproduced exactly.
 - The bounded 25-query attribution window is a definition choice; an
   unbounded "any later query in the session" scan makes the read
   quadratic on pathological long sessions and attributes recoveries

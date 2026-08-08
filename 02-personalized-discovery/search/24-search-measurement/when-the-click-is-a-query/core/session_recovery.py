@@ -336,7 +336,8 @@ def main() -> int:
 
     print()
     print("== 3. the distribution read: recovery by query frequency ==")
-    print(f"{'stratum':<10}{'queries':>12}{'traffic':>10}{'zero-click':>12}{'of zero-click recovered':>24}{'of zero-click abandoned':>24}")
+    print(f"{'stratum':<10}{'queries':>12}{'traffic':>10}{'zero-click':>12}"
+          f"{'of zero-click recovered':>24}{'of zero-click reformulated, no click':>38}{'of zero-click abandoned':>24}")
     for stratum in ("head", "body", "tail"):
         stratum_queries = sum(
             bucket_verdict[f"{k}:{stratum}"]
@@ -348,11 +349,13 @@ def main() -> int:
             + bucket_verdict[f"abandoned:{stratum}"]
         )
         recovered = bucket_verdict[f"recovered:{stratum}"]
+        reformulated_no_click = bucket_verdict[f"reformulated_no_click:{stratum}"]
         abandoned = bucket_verdict[f"abandoned:{stratum}"]
         print(
             f"{stratum:<10}{stratum_queries:>12,}{pct(stratum_queries, queries):>9}%"
             f"{pct(stratum_zero, stratum_queries):>11}%"
             f"{pct(recovered, stratum_zero):>23}%"
+            f"{pct(reformulated_no_click, stratum_zero):>37}%"
             f"{pct(abandoned, stratum_zero):>23}%"
         )
 
