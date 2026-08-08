@@ -884,12 +884,51 @@ and sample-construction detail the user asks for lives here.
 ### Language-model — LLM-track increments (tokenizer, mix, SFT, distillation)
 
 **Status: done for the tokenizer edge-case, data-mix, format-conflict, and
-distillation rows (eighteenth audit increment, 2026-08-08). The
-serving/cascade-latency row (05-serve/when-the-cascade-loses, which has
-who-owns but no fix-and-trade) and the eval-gate row (07-eval/eval-gates,
-same shape) remain in the queue above, as do the 04-rl stage chapters
-beyond the reward-gaming row (rollout-concurrency, the-group-relative-trick,
-the-kl-leash, what-a-real-loop-adds).**
+distillation, serving/cascade-latency, eval-gate, and remaining 04-rl
+rows (nineteenth audit increment, 2026-08-08). The LLM track is now
+covered end to end by the audit contract.**
+
+The final increment closes the rows the queue still named:
+
+- Serving/cascade latency. `05-serve/when-the-cascade-loses` now carries
+  the fix-and-trade section its who-owns half lacked: the fix is the
+  calibration band (threshold set against a measured confidence-to-accuracy
+  curve per slice, budget tuned with it on the tail), the trade is that
+  every threshold buys one direction and pays in the other (loosening
+  admits the confident-wrong band, 60% accepted / 18% match at tau=0.3;
+  tightening escalates 92-99% and the cascade runs slower than the target
+  alone, 0.98x/0.91x/0.89x; the winning band at tau=0.5 is 1.45x at 58%
+  match and is a product decision), and the budget converts a
+  quality-preserving gate into a garbage fallback at the tail (13% match
+  under the 5-call budget). The stage README and `why-concurrency-pays`
+  carry the same sections from the same increment.
+- Eval gates. `07-eval/eval-gates` now carries the fix-and-trade section
+  its who-owns half lacked: the fix is the joint sweep executed before a
+  candidate exists (the 0.275 flat floor is the evidence that the category
+  rule stopped binding and the aggregate rule is doing all the work), the
+  trade is that no threshold removes both errors (tightening from 0.50 to
+  0.05 moves false blocks 0.000 to 0.423; loosening to 0.65 moves false
+  passes 0.000 to 1.000), and which side a team accepts is a policy
+  decision written before the gate is tuned.
+- 04-rl stage chapters beyond the reward-gaming row. `rollout-concurrency`
+  names the fix as the scheduling policy rather than more workers (async
+  beats lockstep at every pool size, 1.73x at 2 where lockstep pays 20
+  batch boundaries against 1.30x at 8 where it pays 5) and the trade as
+  staleness for makespan (Noukhovitch et al. 2024/ICLR 2025, AReaL 2025).
+  `the-group-relative-trick` names the fix as the statistic plus its
+  guardrails (normalize, skip the degenerate group, one-sided clip) and
+  the trade as the zero-sum normalization, the skipped gradient of a
+  no-variance group, and the 1.2x pessimism cap. `the-kl-leash` names the
+  fix as the always-non-negative k3 estimator (the naive difference's
+  -0.693 at new/ref 0.5 becomes +0.307) and the trade as softness and
+  asymmetry (cutting mass charged harder than adding it, 0.307 vs 0.193;
+  beta owns magnitude, the estimator owns sign). `what-a-real-loop-adds`
+  names the fixes as the clipped objective, the verifier-as-published-
+  artifact, the sampler as part of the loop, and prompt caching — each
+  with its trade, carried on the chapter's dated published citations
+  (Schulman et al. 2017; Shao et al. Feb 2024; DAPO Mar 2025; GSPO Jul
+  2025; GMPO Jul 2025/ICLR 2026; Anthropic 14 Aug 2024; OpenAI 1 Oct 2024)
+  per its no-run survey boundary.
 
 The tokenizer, mix, template, and distillation rows of the LLM queue are now
 executed:

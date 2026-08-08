@@ -106,6 +106,46 @@ not merely "run more matmuls per second" — is what a real Modal-lane,
 multi-GPU rollout deployment would need to reproduce this toy's async policy
 at real scale, per [the Modal lane guide](../../../reference/modal.md)'s decision table.
 
+## The fix and its trade
+
+The fix is the scheduling policy, not more workers: a fixed pool of rollout
+workers pulls the next pending trajectory the instant one finishes, and no
+batch boundary exists to strand the fast workers beside a straggler. The
+measured verdict is that the gap is the batch-boundary count, not the
+worker count — async beats lockstep at every pool size tried, and the
+biggest win is at the fewest workers (1.73x at 2, where lockstep pays 20
+batch boundaries, against 1.30x at 8, where it pays 5). Adding workers
+shrank lockstep's wall-clock but never closed the gap, because each batch
+boundary is one more chance for the heavy tail to idle the whole pool.
+
+The trade, named: async buys the makespan at the price of staleness. A
+training step consumes rollouts that finished slightly earlier and are
+therefore slightly off-policy — the exact cost Noukhovitch et al.,
+"Asynchronous RLHF" (2024; ICLR 2025), names for removing the global
+synchronization barrier, and the trade AReaL (2025, arXiv:2505.24298)
+builds its whole architecture around. Lockstep is the honest policy only
+where trajectory length is near-uniform; the moment the tail appears, the
+same lockstep discipline that cost nothing in
+[foundations/04-distributed-training/orchestration](../../../foundations/04-distributed-training/orchestration/)
+(fixed-cost jobs) becomes the idle-time tax this run measures. A team that
+keeps the batch boundary is choosing staleness-free data over wall-clock,
+and that choice belongs in the training contract, not the scheduler.
+
+## Who owns the loop
+
+- **The rollout-infrastructure team** owns the scheduler: lockstep vs.
+  async, pool size, the shared queue, and the makespan benchmark — the run
+  that refuses to report a speedup until both policies consume the same
+  trajectory list (this toy feeds one list to both, so the difference is
+  the policy).
+- **The training team** owns the staleness budget: how off-policy a rollout
+  may be before the update refuses it, which is the price the async policy
+  pays for its makespan and the contract the async fix must state.
+- **The evaluation team** owns the length-distribution read: the heavy-tail
+  mixture is the assumption the whole gap rests on, and it has to be
+  measured on the real workload — a team that never checks its episode
+  lengths is optimizing a straggler that may not exist.
+
 ## 5. What this does not establish
 
 **No GPU was used anywhere in this chapter, and no real distributed system

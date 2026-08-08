@@ -64,6 +64,49 @@ not capped. The clip is a one-sided brake — it stops one good group from
 driving the policy arbitrarily hard, which is the pessimistic bound
 `grpo_loss` implements and the reason GRPO stays stable without a critic.
 
+## The fix and its trade
+
+The fix is the statistic itself, with its guardrails: normalize the group,
+skip the degenerate group, and let the clip cap the positive side. The
+normalization is what makes a sparse verifier reward trainable — two wins
+in eight become +1.732 for the winners and -0.577 for the losers, so the
+update concentrates on the members that separated themselves instead of
+diluting across the group. The degenerate-group skip is the guardrail that
+keeps a zero-variance group (all 0.0, or any all-equal reward) from feeding
+0/0 into the gradient — the 200/200 null this mission hit is exactly that
+case, and skipping is the standard response. And the one-sided clip is the
+brake that keeps one good group from driving the policy arbitrarily far in
+a single step.
+
+The trade, named: every fix costs something. Normalization is zero-sum —
+mean-zero by construction, so every push up inside a group is paid for by a
+push down — which is fine for learning a direction and useless for raising
+absolute reward. Skipping the degenerate group costs its gradient entirely:
+a group with no variance contributes nothing, and the only cure is
+reward-shape work (give the verifier variance), not advantage arithmetic.
+The clip caps positive movement at 1.2x while leaving the negative side
+uncapped, which is a pessimism bias: it slows the climb in exchange for
+the guarantee that no single update destroys the policy. The three
+guardrails are the whole reason the statistic stays stable without a
+learned critic; removing any one of them reintroduces the failure the other
+two exist to contain.
+
+## Who owns the loop
+
+- **The RL training team** owns the statistic and its guardrails: the
+  normalization, the degenerate-group threshold (this repo's `1e-6`), the
+  skip rule, and the clip epsilon — all frozen in `core/grpo.py`, which is
+  the contract this chapter's arithmetic checks.
+- **The reward and verifier team** owns the degenerate-group rate: a
+  group with zero variance is a reward-shape failure, not an optimizer
+  failure, and its fix (verifier variance, prompt diversity, sampling
+  temperature) belongs in the reward pipeline, not the loss.
+- **The evaluation team** owns the per-group read: the sparse-group and
+  healthy-spread cases above are the reference shapes a live run's
+  advantage distributions are compared against, and a run that never
+  produces a healthy group is a data problem even when the loss looks
+  alive.
+
 ## Evidence boundary
 
 This chapter computes the advantage statistic on synthetic groups mirroring

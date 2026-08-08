@@ -161,7 +161,7 @@
   },
   "01-language-model/04-rl/rollout-concurrency": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 9
   },
   "01-language-model/04-rl/rollout-concurrency/when-the-heavy-tail-waits": {
     "level": "applied",
@@ -169,19 +169,19 @@
   },
   "01-language-model/04-rl/the-group-relative-trick": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 6
   },
   "01-language-model/04-rl/the-kl-leash": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "01-language-model/04-rl/what-a-real-loop-adds": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 12
   },
   "01-language-model/05-serve": {
     "level": "foundation",
-    "minutes": 12
+    "minutes": 14
   },
   "01-language-model/05-serve/graph-execution": {
     "level": "applied",
@@ -209,11 +209,11 @@
   },
   "01-language-model/05-serve/when-the-cascade-loses": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 9
   },
   "01-language-model/05-serve/why-concurrency-pays": {
     "level": "applied",
-    "minutes": 11
+    "minutes": 13
   },
   "01-language-model/06-agent": {
     "level": "applied",
@@ -249,7 +249,7 @@
   },
   "01-language-model/07-eval/eval-gates": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 10
   },
   "01-language-model/07-eval/metric-gaming": {
     "level": "applied",

@@ -126,7 +126,34 @@ from more than one rule cannot be read by varying a single threshold and
 treating the rest of the system as absent — full numbers and both isolated
 sweeps: [`runs/2026-08-01-eval-gate-sweep.md`](runs/2026-08-01-eval-gate-sweep.md).
 
-## Who owns it
+## The fix and its trade
+
+The fix is the joint sweep, executed before the gate is tuned against a
+candidate: vary each rule while holding the others at their real operating
+values, and read the crossover — not a single threshold in isolation. The
+case-finding step is the flat floor at 0.275: the category-ceiling sweep
+goes flat past ceiling 0.65 at exactly the same rate the aggregate-delta
+rule produced at 0.15, which is the evidence that one rule stopped binding
+and the other is doing all the work. A team that sweeps the aggregate
+delta alone would set a gate against its own noise; a team that sweeps the
+ceiling alone would tune the dead rule and keep the aggregate's false-pass
+rate hidden under it. The declared-rule contract — population, metric,
+direction, tolerance, decision, written down before a candidate exists — is
+what turns the tradeoff curve from an artifact of the last candidate into a
+policy the gate executes.
+
+The trade, named: every threshold trades one error type for the other, and
+no threshold removes both. Tightening the aggregate delta from 0.50 to 0.05
+moves false blocks from 0.000 to 0.423 while false passes stay at zero;
+loosening it to 0.65 holds false blocks at zero while false passes rise to
+1.000. The crossover — the point where the two curves cross, around 0.35 —
+is where neither error dominates, and which side a team accepts is a
+policy decision, not a gate property. The cost of the fix is that a joint
+sweep is more expensive to run and to read than a single-threshold chart,
+and its acceptance test is the hidden-floor check: a second rule must never
+be tunable into the regime where the first rule silently stops mattering.
+
+## Who owns the loop
 
 The eval team owns the gate's definition and its sweep — the tradeoff curve
 above is a policy artifact, so it is written down *before* a candidate exists,

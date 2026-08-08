@@ -45,6 +45,46 @@ range (max 0.045 at an extreme 0.3x drift): the leash is a soft constraint
 that the update is free to pay, not a hard wall. The reference anchors the
 policy; it does not freeze it.
 
+## The fix and its trade
+
+The fix is the estimator, chosen for one property: the k3 form is unbiased
+and always non-negative, so the leash only ever restrains drift toward the
+reference and never rewards it. The naive log-difference is the failure the
+fix exists for — at new/ref 0.5 it reports -0.693, a negative "KL" that
+would push the update *away* from the reference with sign-flipping gradient
+noise. The same drift measured by k3 is +0.307, and the toll at beta 0.04
+is 0.012: a small, always-correct charge instead of a signed, sometimes-
+wrong one. The asymmetry is deliberate, not a quirk: cutting probability
+mass is charged harder than adding it (0.307 vs. 0.193 at equal magnitude),
+which is the direction that actually threatens the reference policy, and
+the toll stays soft so the update can pay it when the reward justifies the
+drift.
+
+The trade, named: every choice in the leash is a strength-and-direction
+trade, and the numbers are what make it legible. A hard wall would
+guarantee closeness and stop learning; a zero beta is no leash at all; the
+actual setting (beta 0.04, max toll 0.045) keeps the policy close while
+letting genuine reward signal through. The k3 estimator fixes the sign, not
+the magnitude — the magnitude is beta, which is tunable, and tuning it
+against a real run's KL trajectory is the job the recorded RL runs own.
+The leash's existence keeps the policy close; beta decides how close, and
+the two claims must not be conflated in a training report.
+
+## Who owns the loop
+
+- **The RL training team** owns the estimator and beta: which KL form
+  `grpo.py` uses, the beta value, and the KL-vs-reward ledger that decides
+  whether a drift was worth its toll.
+- **The evaluation team** owns the KL trajectory read: per-token and
+  per-step drift against the reference is the number that tells a team
+  whether the leash is binding (drift flat, reward rising) or being paid
+  through (both rising) — the same divergence discipline as the reward-
+  gaming chapter's disagreement trio.
+- **The model and release team** owns the frozen reference itself: the
+  leash is only meaningful against a pinned reference policy, so the
+  reference's version and its freeze date are part of the training
+  contract, not an implementation detail.
+
 ## Evidence boundary
 
 The arithmetic is `grpo.py`'s own, computed across the drift range; no model

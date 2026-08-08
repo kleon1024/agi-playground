@@ -100,6 +100,45 @@ fixed per-step costs dominate, which is why graphs are worth 4.7x here. On a
 serving-sized model the GEMMs are large enough to hide the launches and the
 same flag buys far less. The mechanism transfers; the multiplier does not.
 
+## The fix and its trade
+
+The fix is to separate the two things continuous batching is, and build both.
+The scheduling policy — admit and evict at every forward pass, free the
+blocks the instant a sequence finishes — is this chapter's engine, and it
+buys nothing alone: 1.05x across 1 to 16 requests, because a per-request
+Python loop has nothing to amortise. The fused kernel is what makes the
+policy pay: the same policy through vLLM's paged-attention kernel returns
+14.0x at sixteen requests, and CUDA graphs remove a separate per-step cost
+for a flat ~4.7x, so the two multiply to 89x. Production engines (Orca's
+iteration-level scheduling, Yu et al., OSDI 2022; vLLM's fused kernels,
+Kwon et al., SOSP 2023) are exactly this pair.
+
+The trade is in what each half costs and where each breaks. The policy is
+cheap but useless without the kernel, and the kernel is the part that lives
+in vendor code — a team that only builds the scheduler has not built
+batching. CUDA graphs buy the most exactly where they matter least: at 88M
+parameters the fixed per-step cost dominates, so 4.7x, while a serving-sized
+model's larger GEMMs hide the launches and the same flag buys far less —
+the multiplier is a property of the workload, not of graphs. And batching
+fixes throughput, not admission: a scheduler that admits everything
+eventually evicts a request mid-generation, so capacity policy (queue
+delay, KV budget, deadline) is its own check made before the request joins
+the batch, and prefill/decode disaggregation is only worth its transfer and
+routing cost after phase-specific measurements show a real imbalance.
+
+## Who owns the loop
+
+- **The serving-infrastructure team** owns the pair: the scheduling policy
+  in the engine and the fused-kernel path in the production serving layer,
+  plus the admission check that decides what may join the batch at all.
+- **The capacity team** owns the numbers the admission check reads: queue
+  delay, KV utilization, deadline and priority policy — the decisions that
+  turn "admit everything" into a bounded system.
+- **The observability team** owns the distribution, not the average:
+  time-to-first-token, inter-token latency, and the p95 slice are the
+  contract a throughput chart cannot see, and the trace that joins
+  admission to finish reason is what gives a latency spike an owner.
+
 ## What this chapter does not establish
 
 - **That the hand-written engine is badly written.** It implements the

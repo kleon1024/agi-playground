@@ -91,7 +91,34 @@ stage is the final ranker, and its detours measure what happens when the
 cheap stage optimizes the wrong objective and ejects what the expensive
 stage would have kept.
 
-## Who owns it
+## The fix and its trade
+
+The fix is the calibration band, measured before the gate is set: the
+threshold has to be chosen against a measured confidence-to-accuracy curve
+per slice, not against the confidence number itself. `tau=0.3` accepted 60
+of 100 steps and matched the target on 18% of positions because nobody had
+measured the band; a calibration check turns that failure from a mystery
+into a threshold choice. The second half of the fix is that the threshold
+and the budget are tuned as a pair on the tail slice, not on the mean
+request: the budget that exhausts on the hard tail (verdict three) and the
+threshold that escalates everything (verdict two) are both serving-time
+decisions that only a p95 read can expose, which is the same discipline
+[when the tail waits](../observability/when-the-tail-waits/) applies to
+latency itself.
+
+The trade, named: every threshold buys one direction and pays in the other.
+Loosening admits the confident-wrong band (60% accepted, 18% match);
+tightening escalates 92-99% of steps and the cascade runs *slower* than the
+expensive model alone (0.98x/0.91x, and 0.89x with the poor cheap model);
+the winning band exists (`tau=0.5`: 1.45x at 58% match, target CE 1.219)
+and is a product decision — the product owner prices the quality loss
+against the latency gain, and nobody else can. And the budget converts a
+quality-preserving gate into a garbage fallback at the tail (13% match
+under the 5-call budget), so the budget is a tail constraint, not a
+capacity number. The fix is not "no cascade"; it is a cascade whose two
+dials are set from a measured band and a measured tail.
+
+## Who owns the loop
 
 - **The model team** owns the cheap model's calibration, not just its loss:
   the confidence-to-accuracy band per slice, measured, is what a threshold

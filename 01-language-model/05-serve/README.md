@@ -180,6 +180,47 @@ Techniques this stage names and has not measured — latency under sustained
 load, prefill/decode disaggregation — stay named until a run record exists for
 them.
 
+## The fix and its trade
+
+The fix is the sequence this chapter builds, and each step is a named trade.
+The KV cache turns a generation's work from quadratic to linear — and at this
+scale the benefit is invisible below roughly 512 generated tokens at batch 1,
+where the cached engine actually *loses* (0.92x) because the bottleneck is
+decode-step issue rate, not arithmetic: the naive path extracts more
+arithmetic per launch as sequences grow, which is why its throughput *rises*
+with length (104.7 to 132.8 tok/s). The page table stops reserving `max_len`
+per request, which is what lets a card hold 64 sequences at all — 768 MiB of
+cache beside the weights with GQA's 4 KV heads, against 2.25 GiB if the
+pretraining had kept 12. And the three levers each get their own measured
+verdict because each is a claim only a run can settle: graph execution buys
+~3x by attacking launch count, quantization buys nothing at batch 1 because
+decode here is not bandwidth-bound, speculative decoding crosses from a win
+to a loss somewhere between 15.9% and 37.9% acceptance.
+
+The trade is that every lever is aimed at one bottleneck and fails against
+another. A technique that shrinks bytes (quantization) cannot fix a step
+whose limit is how many kernels the host can launch; a technique that buys
+more arithmetic per launch (CUDA graphs) pays 2.12x the device work to
+remove the launch cost; and the memory fixes buy capacity at the price of
+indirection (a block table per step) that the next chapter measures. The
+deepest trade is architectural and decided in pretraining, not serving:
+`n_kv_head=4` divides the cache by three because the model was trained that
+way, and serving collects the bill on every request for the life of the
+deployment — a decision made once, paid forever.
+
+## Who owns the loop
+
+- **The serving-infrastructure team** owns the engine and the levers: the
+  cache, the page table, graph capture, batching — and the benchmark that
+  refuses to report a speedup until the fast path reproduces the slow path's
+  tokens exactly.
+- **The model team** owns the decisions that fix cache cost at training time:
+  `n_kv_head` and the block size are baked into the weights, so the 12-versus-
+  36 KiB per token choice belongs to pretraining, not to serving.
+- **The capacity and product team** owns the latency and cost budget the
+  stage serves — time-to-first-token, tail latency, and the quality-versus-
+  latency price of every lever, none of which a throughput number can decide.
+
 ## What this chapter does not establish
 
 - **That the KV cache is not worth it.** It establishes that its benefit is

@@ -149,6 +149,60 @@ prefix tokens. Both let a rollout generator pay full price once for a
 trajectory's shared prefix and a discount on every later step that reuses it,
 instead of repricing the whole prefix every turn.
 
+## The fix and its trade
+
+The fixes on this page are the mechanisms a production loop adds, each
+keyed to the failure it exists for, and each is a named trade:
+
+- **The clipped objective** is the fix for destructive single-step updates.
+  The asymmetry is the whole design: at epsilon 0.2 a good action whose
+  probability rose to 1.5x pays only 1.2 (the last 0.3 of the improvement
+  earns no gradient), while an action that undershot to 0.9x is left free.
+  The trade is a ceiling on per-step learning in exchange for the guarantee
+  that no single update destroys the policy — the guarantee every method in
+  the line, from PPO (Schulman et al., 2017) to GSPO (Qwen team, July 2025)
+  and GMPO (Zhao et al., July 2025; ICLR 2026), still answers to.
+- **The verifier-as-published-artifact** is the fix for reward
+  misdirection: the verifier does not measure the task, it defines it, so
+  the accepted grammar, verifier version, adversarial examples, per-slice
+  reward distribution, and manual audits of high-reward failures are all
+  part of the fix. The trade is that a stricter verifier costs design and
+  review time, and a looser one silently redefines the task — the failure
+  this mission's own reward-gaming chapter measures.
+- **The sampler as part of the training loop** is the fix for
+  uninterpretable curves: temperature, top-p, max length, stop rules, group
+  size, and rollout concurrency all decide which trajectories reach the
+  update, so the rollout policy is logged separately from the optimizer
+  config. The trade is a logging and versioning burden; the cost of not
+  paying it is a reward curve that is not comparable to itself.
+- **Prompt caching** is the fix for the rollout cost that grows with
+  trajectory length: every rollout step re-encodes the whole shared prefix,
+  and the group size multiplies it, so both providers priced the shared
+  prefix explicitly — Anthropic's public beta on 14 August 2024, OpenAI's
+  Prompt Caching on 1 October 2024. The trade is a cache-invalidation
+  contract: a trajectory step that changes the prefix must invalidate what
+  depended on it, or the discount is bought with stale context.
+
+## Who owns the loop
+
+- **The RL training team** owns the objective and its guards: the clip
+  epsilon, the KL leash and beta, the group-size and sampling decisions —
+  and the run log that records the rollout policy separately from the
+  optimizer config, without which the reward curve cannot be read.
+- **The reward and verifier team** owns the verifier as a published,
+  versioned artifact: grammar, tests, adversarial examples, per-slice
+  reward distribution, and the audit of high-reward failures — the fix for
+  the task-definition failure, owned by the same team that builds the
+  reward.
+- **The evaluation team** owns the divergence read: held-out verifier
+  success beside training reward, the KL trajectory, and the per-group
+  advantage distribution — the numbers that tell a team which of the four
+  fixes above is actually binding.
+- **The serving and infrastructure team** owns the rollout cost layer:
+  the paged-KV-cache for in-session memory, and prompt caching for the
+  cross-call shared-prefix redundancy, with the cache-invalidation
+  contract that keeps the discount honest.
+
 ## What this chapter does not establish
 
 No run. Mission 01's GRPO attempt never reached a gradient step, so nothing here
