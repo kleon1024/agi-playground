@@ -43,6 +43,35 @@ later stage can verify a clip was generated from its declared seed, which
 is the same discipline mission 05's leakage guardrail established for
 images, applied to time.
 
+## The fix and its trade
+
+The failure is that natural language is underspecified: "a red circle
+moving left" does not say where the circle starts, how big it is, or how
+fast it moves, so the prompt alone cannot be the answer key a completion
+is checked against. The fix is the seed-plus-motion-dict contract — the
+manifest stores seed, prompt, and the motion parameters (x0, y0, half,
+speed) that pin the remaining degrees of freedom, with rendering
+deterministic so the same seed always renders the same frames. The trade
+is expressiveness for checkability: the dataset gives up natural-language
+flexibility to buy a mechanically comparable ground truth, and if rendering
+were not deterministic the answer key would not exist — a completion would
+be compared against whatever rendering happened to run that time, and the
+mission's central question would become unanswerable.
+
+## Who owns this loop
+
+- **The dataset owner** owns the manifest contract: the committed fixture
+  fields (seed, prompt, motion, clip hash) are the audit trail any later
+  stage verifies against, and a schema change is a contract change for the
+  whole mission.
+- **The evaluation owner** owns the mechanical check: "did the model
+  produce the right frames" is a computed comparison against the seed's
+  rendering, which is what lets a verdict rest on numbers instead of
+  human judgment.
+- **The model team** owns the consumption: the checkable target is the
+  answer key the generation stages score against, and the determinism is
+  the property their completion metric depends on.
+
 ## Evidence boundary
 
 The committed six-clip fixture manifest (2026-07-31); it reads that artifact

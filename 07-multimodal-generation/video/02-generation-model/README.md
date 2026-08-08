@@ -104,6 +104,44 @@ sequence-to-sequence literature since Bengio et al.'s scheduled-sampling
 paper (2015), which this mission's greedy decoder does not use -- a
 documented scope limit, not an oversight.
 
+## The fix and its trade
+
+The failure is that an autoregressive completion's headline metric can lie
+about the work it did. Training uses teacher forcing — a wrong prediction
+at step *t* never affects what the model sees at *t + 1* — while greedy
+generation at inference feeds each new token back in, so a wrong token
+compounds into every later step: the standard exposure-bias gap. The
+measured symptom is the divergence between the two metrics on the same
+run: the LM beats the frame-repeat baseline by 37.2% in pixel MSE yet its
+exact token-sequence match is only 6.7% (and 19-22% on the other two
+seeds), because stage 01's codec is a low-fidelity blur in which wrong
+tokens often decode close enough to the true frames that pixel MSE cannot
+tell them apart from the correct continuation.
+
+The fix is to measure both claims and report them apart: `lm_completion`
+MSE (greedy tokens decoded), `oracle_tokens` MSE (true future tokens
+decoded, a pure measure of the codec's reconstruction floor), and
+`predicted_token_sequence_exact_match_rate` (token identity, where a
+compounded wrong choice is not forgiven by a blurry decoder). The trade is
+that the two metrics disagree on purpose — "beats frame-repeat in pixel
+MSE" and "predicts the exact right future" are different claims, and only
+the weaker one is established here — and the scheduled-sampling fix
+(Bengio et al., 2015) that would narrow the exposure gap is a documented
+scope limit, not applied, so the gap stays visible.
+
+## Who owns this loop
+
+- **The model team** owns the sequence model and its exposure gap: the
+  teacher-forced training loop, the greedy decoder, and the honest
+  reporting of the exact-match caveat beside the pixel result.
+- **The codec owner** owns the reconstruction ceiling: the oracle MSE
+  (0.0779-0.0882, not zero) is the codec's blur, and most of the gap from
+  frame-repeat to perfect reconstruction belongs to the tokenizer, not the
+  sequence model — which is what the margin-vs-ceiling detour proves.
+- **The evaluation owner** owns the acceptance read: margin over baseline
+  versus run-to-run spread across three seeds (0.0430 vs 0.0078, 5.5x) is
+  what turns three rows into a verdict that is not seed luck.
+
 ## Run it
 
 ```bash

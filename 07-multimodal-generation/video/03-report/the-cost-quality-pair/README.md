@@ -39,6 +39,30 @@ scale" — yes, with an order of magnitude to spare. And the report pairs
 the two halves rather than reporting either alone, per mission.yaml's
 cost/quality-together rule.
 
+## The fix and its trade
+
+The failure is that reporting quality without cost answers the wrong
+question for a cost-first mission: a quality win with an exceeded ceiling
+would be a failure, and a cheap run that does not clear the baseline would
+be a different failure. The fix is the pairing rule — both halves must
+hold, and the verdict is a table of the two (quality: margin 0.0430 >
+spread 0.0078, 5.5x; cost: 8.4-8.6% of 1800s; verdict `MET`) — so the
+verdict reads like the mission's actual question. The trade is that the
+headroom is the finding rather than a footnote: it is what lets the
+follow-on axes double frames and add objects without a compute wall, and
+the finding stays scoped to this dataset and scale.
+
+## Who owns this loop
+
+- **The report owner** owns the pairing rule: quality and cost are never
+  reported alone, per `mission.yaml`'s cost/quality-together contract.
+- **The mission owner** owns the declared ceiling: the 1800s bar was set
+  before stage 00 existed, and the headroom read is only meaningful
+  against that declared number.
+- **Each stage owner** owns the measured half it produced: the generation
+  JSONs for quality and the recorded run for cost are the artifacts the
+  pairing reads.
+
 ## Evidence boundary
 
 The recorded outcome report (generation JSONs for quality, recorded report

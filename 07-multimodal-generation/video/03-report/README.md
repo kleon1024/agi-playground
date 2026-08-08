@@ -148,6 +148,41 @@ which code the decoder received -- the real bug, confirmed by feeding two
 different codes into the decoder and measuring a 0.001 max output difference.
 Stage 02 itself reported zero training failures across all three seeds.
 
+## The fix and its trade
+
+The failure is that a report can soften its comparison after seeing the
+numbers, and a quality number standing alone can be read as approval.
+The fix is a mechanical verdict read from the artifacts: `core/report.py`
+checks the acceptance line — beats frame-repeat by more than run-to-run
+spread — and prints the comparison it made (margin 0.0430 against spread
+0.0078, roughly 5.5x, `MET`), refuses to print a verdict if any upstream
+artifact is missing (a `CANNOT DETERMINE` that names the absent file), and
+pairs cost with quality rather than reporting either alone (8.4-8.6% of the
+declared 1800s ceiling). The trade is momentum for honesty: this is only
+the second `MET` among the five missions built this session, the exact-match
+caveat (7-22%, a codec-fidelity limit rather than a model failure) is
+reported beside the verdict instead of hidden, and the second baseline the
+contract names — a published toy-video number (Srivastava et al., ICML
+2015, cross entropy 341.2) — is named and dated but never compared
+numerically, because the metrics and datasets differ in everything but
+genre.
+
+## Who owns this loop
+
+- **The report and release owner** owns the verdict contract: the
+  mechanical read of the acceptance line, the refusal on missing
+  artifacts, and the cost/quality pairing — the report does not get to
+  soften the comparison after seeing the numbers.
+- **Each stage owner** owns its recorded artifact: the dataset run record,
+  the codec result, and the three seed JSONs are the only inputs the
+  report reads, so a missing or stale artifact surfaces as `CANNOT
+  DETERMINE` with its filename, not as a plausible verdict.
+- **The reader** owns the scope read: `mission.yaml`'s `does_not_prove`
+  (no real-world video, no GPU-lane cost or latency, no claim beyond this
+  dataset and scale) is stated beside the numbers, and the named
+  production systems (Seedance 2.0/2.5) appear only as situational
+  context, never as a comparison point.
+
 ## Run it
 
 ```bash

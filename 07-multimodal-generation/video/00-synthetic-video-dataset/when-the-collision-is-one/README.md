@@ -42,6 +42,31 @@ collisions became rare. That is the same lesson as mission 05's fix
 (widening the space) applied by construction rather than by repair — and
 it is why the run records the collision count rather than assuming it.
 
+## The fix and its trade
+
+The failure is that the same generator style collides constantly at small
+state-space size — mission 05's 48-state static image space produced 116
+first-attempt collisions — and a collision is a silent leak, not a crash:
+two clips with identical hashes let eval answers appear in training. The
+fix is widening the space (direction and continuous start position added,
+with the match requirement extended to all 8 frames), and the trade is
+measured in the rejection count: at the old space it was 116, here it is
+1 of 150. The headroom is a property of the space, which is exactly why the
+run records the collision count instead of asserting "no leakage."
+
+## Who owns this loop
+
+- **The dataset owner** owns the space and its size: the effective-space
+  estimate (near 35,600) and the recorded rejection count are the evidence
+  the split's cleanliness rests on.
+- **The evaluation owner** owns the split audit: the train/eval boundary
+  is only as clean as the collision count proves, and the one-rejection
+  figure is the standing check that a dataset change has not shrunk the
+  space back.
+- **The model team** inherits the headroom as a boundary: the low collision
+  rate is why the downstream tokenizer and LM can be trained on this split
+  without a leakage correction layer.
+
 ## Evidence boundary
 
 The recorded dataset run (800/150 split, one generator, one seed set). It

@@ -40,6 +40,33 @@ blur dominates. That is why stage 04's longer sequences and stage 05's
 multi-object both conclude "the tokenizer, not compute, is the binding
 constraint."
 
+## The fix and its trade
+
+The failure is that a single margin number could be seed luck — one
+favorable draw presented as a result. The fix is the margin-versus-spread
+read plus the oracle ceiling as the attribution step: the margin (0.0430
+mean) is 5.5x the seed spread (0.0078), so the generation beats frame-repeat
+beyond what seed noise could produce, and the oracle (0.0779-0.0882) bounds
+what the codec alone can reconstruct. The trade is that the win is a result
+and a boundary at once: the LM has essentially nothing left to improve —
+it sits within 3.2% of the best the codec could do with the true future
+tokens — so the remaining gap to perfect reconstruction is not the
+sequence model's fault, and spending the next increment on the LM would
+be wasted effort.
+
+## Who owns this loop
+
+- **The model team** owns the generation claim: the margin-vs-spread
+  comparison is what turns three seed rows into a verdict instead of a
+  seed-lucky number.
+- **The codec owner** owns the ceiling the oracle exposes: a nonzero
+  oracle MSE is the tokenizer's reconstruction blur, and it is the owner
+  named by the attribution when the gap is mostly not the model's.
+- **The evaluation owner** owns the acceptance rule: the same
+  margin-vs-spread test the whole repository uses for a continuous metric
+  is applied here, and the oracle read is kept as the evidence boundary
+  for "who is at fault."
+
 ## Evidence boundary
 
 The recorded generation JSONs (three seeds, 150 eval clips, one recipe).

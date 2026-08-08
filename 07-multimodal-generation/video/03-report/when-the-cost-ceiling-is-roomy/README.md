@@ -48,6 +48,33 @@ question binds. And the report pairs cost with quality rather than
 reporting either alone (mission.yaml's cost/quality-together rule), which
 is the discipline the whole cost-first mission exists to enforce.
 
+## The fix and its trade
+
+The failure is that a feasibility verdict can rest on quality alone,
+hiding whether cost binds — the exact question a cost-first mission exists
+to answer first. The fix is the two-half read: the quality half is
+recomputed from the committed JSONs (margin 0.0430 vs spread 0.0078, 5.5x)
+and the cost half is read from the recorded report (152.5/150.6/153.9s per
+seed, 8.4-8.6% of the 1800s ceiling), held together as one verdict. The
+trade is that the headroom reframes the follow-on work: the 8.5% figure
+answers the prior question with an order of magnitude to spare, so the
+frontier chapters' verdicts are interpretable because they were never
+cost-constrained — the next question is a quality question, not a compute
+question.
+
+## Who owns this loop
+
+- **The report owner** owns the recomputation contract: the quality half
+  is re-derived from the committed JSONs, not trusted from memory, and the
+  two halves are read together.
+- **The evaluation owner** owns the acceptance metric: the pixel MSE
+  against frame-repeat is the verdict's metric, with the exact-match
+  caveat (7-22%) recorded as the codec's ceiling rather than a stage-02
+  failure.
+- **The mission owner** owns the ceiling declaration and the scoped
+  finding: the headroom claim does not extend beyond the tested dataset
+  and scale.
+
 ## Evidence boundary
 
 The committed generation JSONs (quality, recomputed) and the recorded

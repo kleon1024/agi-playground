@@ -90,6 +90,44 @@ cannot be found by memorizing web content -- Moving MNIST (Srivastava,
 Mansimov & Salakhutdinov, 2015) established the pattern this mission's own
 `mission.yaml` cites as its external baseline.
 
+## The fix and its trade
+
+The failure this stage exists to prevent is leakage between train and eval
+that looks perfectly well-formed: mission 05's same-style static generator
+collided 116 times on its first attempt because a 48-combination image space
+is small enough that ~700 draws revisit the same image. This generator's
+per-clip space multiplies shape, color, half-size, direction, *and* a
+continuous start position, and requires two clips to hash-identically match
+across all 8 frames — the recorded run puts the effective space near 35,600
+(the birthday-approximation solve from 800 train clips and 9 duplicate-hash
+pairs), two orders of magnitude larger, so rejection sampling discarded
+exactly one eval candidate out of 150 instead of hundreds.
+
+The fix is space widening by construction plus rejection sampling, and its
+trade is scope for checkability: the collision headroom is bought with a
+deliberately impoverished dataset — one flat-color shape translating in a
+straight line at constant speed on a plain background, 8 frames at 32x32 —
+so the seed, prompt, and motion dict together pin the exact correct frames.
+That determinism is what makes a later completion mechanically checkable
+instead of judged by eye, and the collision count is recorded rather than
+assumed so a future dataset change cannot quietly shrink the space back.
+
+## Who owns this loop
+
+- **The dataset owner** owns the generator and its space: the collision
+  count is an evidence record of the space's size, not an assertion of
+  "no leakage," and a widened or re-seeded dataset is a correctness event
+  for every downstream stage, not a tuning event.
+- **The evaluation owner** owns the split and its audit: the 800/150
+  train/eval split, the rejection count that proves the split is clean, and
+  the seed manifest that lets any later stage verify a clip was generated
+  from its declared seed — the same leakage guardrail mission 05
+  established for images, applied to time.
+- **The model team** inherits the scope limits: the fixed clip length,
+  resolution, and single-object design are the contract the tokenizer and
+  generation model prove feasibility against, and nothing in this stage
+  licenses a claim about real video.
+
 ## Run it
 
 ```bash

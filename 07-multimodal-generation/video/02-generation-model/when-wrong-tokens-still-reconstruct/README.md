@@ -47,6 +47,36 @@ renders are different claims. Before trusting an exact-match number on a
 codec-LM, check what the wrong tokens reconstruct to — a near-equivalent
 codebook can make the metric lie in the pessimistic direction.
 
+## The fix and its trade
+
+The failure is a metric that looks damning but is not: exact-match ranges
+0.067-0.220 across the three recorded seeds — a threefold seed spread the
+mission's own rule says to report as variance, not as a number — yet every
+seed beats the frame-repeat baseline. The fix is to measure what the wrong
+tokens reconstruct to: the LM's completions decode at +0.0008 MSE from the
+oracle's on average, an order of magnitude below the 0.1281 baseline,
+because the codebook carries near-equivalent tokens for the same frame
+content. The trade is that the two metrics disagree on purpose: exact-match
+measures token identity while reconstruction measures what the viewer
+sees, and the metric's validity depends on the codebook's equivalence
+structure and the consumer of the tokens — exact-match is the right metric
+when token identity itself carries meaning, as with downstream conditioning
+or a codebook with no near-equivalent duplicates.
+
+## Who owns this loop
+
+- **The model team** owns the reporting contract: exact-match and
+  reconstruction MSE are reported side by side, with the spread stated as
+  variance rather than smoothed into a single number.
+- **The codec owner** owns the equivalence structure: whether a wrong
+  token still renders the right pixels is a property of the codebook, and
+  a codebook change is a metric-validity event for every downstream
+  consumer.
+- **The evaluation owner** owns which metric the verdict rests on: the
+  feasibility question depends on reconstruction against the frame-repeat
+  baseline per `mission.yaml`, and exact-match is recorded as the caveat it
+  is, not promoted to the acceptance line.
+
 ## Evidence boundary
 
 Three seeds, the stage's recorded run, one synthetic clip set. It shows the
