@@ -1113,6 +1113,34 @@ bio-pharma modeling and autonomous driving — were subsequently audited in
 full as their own sections (fifteenth and sixteenth audit increments,
 2026-08-08).**
 
+**Remaining, after the vision-path audit (twentieth increment):** the
+following sections are still `pending` and are worked next, in order:
+
+- Foundations 00-01, 03-05 (attention, first training loop, backpropagation,
+  distributed training, is-the-difference-real), including their detours —
+  `00-attention/` (rope, what-it-costs), `01-first-training-loop/`
+  (the-curve-that-takes-34-seconds), `03-backpropagation/`
+  (the-backward-pass-three-ways), `04-distributed-training/`
+  (gpu-cluster-concepts and when-the-topology-costs, networking and
+  when-the-ring-beats-the-star, orchestration and when-the-scheduler-chooses,
+  storage and when-a-node-joins, when-the-ranks-agree), `05-is-the-difference-real/`
+  (the-two-confounds).
+- Language-model system sub-groups: `00-corpus/`, `02-pretrain/`
+  (attention-variants, the-gate-that-beats-relu, upcycling and
+  does-it-pay-off, latent-reasoning, architecture-ablations and
+  the-rung-that-flipped, when-the-curve-goes-wrong, throughput,
+  verifying-the-run), `03-sft/` (what-it-costs, what-model-size-changes,
+  beyond-demonstrations), `05-serve/` (graph-execution, quantization,
+  speculative-decoding, observability and when-the-tail-waits,
+  paging-the-cache), `06-agent/` (what-stops-it, what-fits-in-context,
+  would-a-second-agent-help, when-the-tool-errors — which carries only the
+  who-owns half and needs the fix-and-trade), `07-eval/` (metric-gaming,
+  red-teaming, who-decides-to-ship, whose-harness, why-believe-the-number).
+- Remaining topics, checked after the above for any gap against the
+  contract (personalized discovery, quantitative research, agentic
+  platform, game AI, multimodal voice/video, bio-pharma, autonomous
+  driving are done as of the increments above).
+
 The foundations now carry the failure-mode lens the queue named first:
 
 - 02 optimization: plateau audit over a flat-minimum surface under a
