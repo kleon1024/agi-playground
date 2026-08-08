@@ -130,6 +130,58 @@ python prod/hf_tokenizer.py export tokenizer.json tokenizer_hf.json \
 
 Exact commands, hardware, and wall-clock are in [`runs/`](runs/).
 
+## The fix and its trade
+
+The failure the two obvious answers share is a vocabulary that cannot
+represent the corpus at a price the model can afford. One id per
+character spells `catastrophe` as twelve positions — sequence length,
+attention cost, and training compute all scale with tokens, so the cost
+multiplies across the whole mission — and one id per word needs an
+`<UNK>` token, and every distinct word not anticipated collapses into
+it: a model cannot learn a distinction its tokenizer has already erased,
+on a corpus with 252,259 unique words in 9,025,172 total. The fix is
+byte-level BPE: start at the 256 byte values, so no `<UNK>` is even
+possible and the worst case is expensive rather than impossible, then
+merge the most frequent adjacent pair 16,128 times into 16,384 tokens.
+The trade is measured in the same units as the failure. It buys
+compression — 4.497 characters per token on 10,000 FineWeb-Edu
+documents, a 4.5x discount on context, attention, and training compute —
+and it charges on the parameter side: every token needs an embedding row
+and a tied output column, so the vocabulary fixes 14.4 percent of the
+88M model's parameters before any architecture decision, and doubling it
+past the merge stepper's knee buys almost no compression while doubling
+both matrices and halving the examples per rare token. Two further
+trades sit inside the fix itself. The naive trainer recounts every pair
+on every merge (2.4 seconds per merge, roughly ten hours for one
+tokenizer), so the indexed trainer and the Rust encoder are substitutions
+that must not change a single token id — the parity audit
+([is it the same tokenizer?](is-it-the-same-tokenizer/)) compares the
+merge lists 71x apart and the 60,978-token export — and the freeze that
+locks the vocabulary into the model's contract means changing it after
+stage 02 invalidates every checkpoint trained against it.
+
+## Who owns the loop
+
+The vocabulary decision only survives if each failure has one owner:
+
+- **The tokenizer and model owner** owns the freeze: the vocabulary
+  size, the reserved document-separator id, and the committed
+  `tokenizer.json` that stage 02 loads rather than retraining. It owns
+  the contract-invalidating failure — changing an id after stage 02
+  changes what every checkpoint means.
+- **The data pipeline team** owns the corpus statistics the merge order
+  is built from, and the per-class token ledger: English at 0.24 tokens
+  per character against CJK at 2.96 and emoji at 4.00 — the aggregate
+  4.497 chars/token cannot see a class the product prices differently.
+- **The serving and product team** owns what the token count means as a
+  price: the "4,096-token window" is a 1,382-CJK-character window, and
+  the per-language budget is a product decision, not a model property.
+- **The evaluation team** owns the corruption that only surfaces later:
+  a diverging tokenizer export does not fail here — it shows up in stage
+  02 as a model that will not converge for reasons nobody attributes to
+  the tokenizer, which is why the parity audit runs before the freeze,
+  not after.
+
 ## Check your mental model
 
 Answer each before opening it.

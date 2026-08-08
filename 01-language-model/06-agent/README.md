@@ -331,6 +331,57 @@ would fix it, and it does not isolate training-data format from model scale
 as the cause — both remain open, same as stated in
 [the run log](runs/2026-07-30-real-agent-run.md).
 
+## The fix and its trade
+
+The failures this chapter names are each fixed by a harness discipline,
+and each fix is priced by the real run. The grounding failure — a model
+continuing past `Action Input:` to write its own plausible
+`Observation:` — is closed by two layers: the `stop=["Observation:"]`
+sequence passed to every backend call, and the unconditional truncation
+that discards anything at or after the stop token whether or not the
+backend honored it. The trade is measured in the demo: a backend with
+`honor_stop=False` fabricates both an observation and a final answer in
+one shot, and the truncation layer is what discards the fabrication —
+the cheap layer saves tokens, the load-bearing layer cannot ever be
+trusted to have fired. The format failure is the run's own result: 0/6
+rollouts, every one exhausting `max_steps` without a parseable
+`Action:`/`Final Answer:`, because the 88M checkpoint was SFT'd on
+chat-formatted instruction pairs and never saw a ReAct trajectory —
+fluent, on-topic prose with no `Thought:`/`Action:` shape (seed 1001's
+response is quoted verbatim in the run). The fix is training-data
+composition — mixing agentic-formatted trajectories into the SFT corpus
+— not a prompt edit; the system prompt already states the protocol, and
+the model still did not produce it. The trade is that format is the
+first lesson, not the last: once the shape exists, the next failure is
+what the model does when a tool returns an error, and the seven failure
+classes of [when the tool errors](when-the-tool-errors/) resolve by
+inspect, re-scope, or make-it-safe-to-redo — none by re-issuing the same
+call.
+
+## Who owns the loop
+
+Each failure above has one owner, tied to the part of the loop it lives
+in:
+
+- **The harness and platform team** owns the loop contract: the
+  grounding rule, the tool schemas, the permission ladder, and the trace
+  format. It owns the grounding failure — enforcement is a harness
+  discipline, not a model capability, and it has to hold regardless of
+  how good the model gets.
+- **The data team** owns the agentic training-data composition: the
+  format gap the real run exposed — a checkpoint with no imitation
+  target for a scaffold it never saw — is a corpus decision, and the
+  trajectory mix that closes it is this team's to build.
+- **The security and infrastructure team** owns the containment half:
+  the allowlist checked on the parsed first token, the no-`shell=True`
+  rule, the timeout, output truncation, and the cwd jail — plus the gap
+  between the toy jail and the container-level isolation production
+  harnesses use, which is stated, not hidden.
+- **The evaluation team** owns the harness-disclosed comparison: the
+  transcript with stable event types is the evidence a score belongs to
+  a given harness, and a comparison that changes the tool set at the
+  same time as the model cannot say which change moved the number.
+
 ## Reproducing
 
 Every command below runs with the deterministic `FakeBackend` — no GPU, no

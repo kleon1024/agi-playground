@@ -218,6 +218,58 @@ artifact or a measurement the next stage consumes.
 | `06-warmup-stability` | The seed-2 outlier, closed by a training-dynamics fix | [the-collapse-that-warmup-closed](06-warmup-stability/the-collapse-that-warmup-closed/) |
 | `06-warmup-stability` | What the warmup changed, and what it did not | [when-warmup-closed-the-collapse](06-warmup-stability/when-warmup-closed-the-collapse/) |
 
+## The fix and its trade
+
+The failures this mission measures are two false wins, and the fix is
+the two-baseline design that makes each one detectable. The leakage
+failure — a synthetic image+question set where the question gives away
+the answer — is caught by the text-only baseline: a decoder with no
+image input scoring 0.3270 against the vision pathway's 0.4375 on the
+same eval set proves the dataset did not leak the answer through
+language, and the per-category read shows where the signal is real:
+`shape_color`, the one question type mathematically unanswerable from
+text alone, is where vision separates furthest (50.1 percent versus 27.2
+percent, an 84 percent relative lift). The build-vs-buy failure —
+training a pathway a hosted API beats for less — is caught by the
+economic baseline: the hosted API (0.8329 at \$0.00128 per question)
+dominates both self-trained points on both axes at once, which is why
+the verdict is a clean NOT MET on the synthetic set (\$1.00 total for
+784 questions) and again on real photographs (0.4596 against the
+pathway's 0.2374, \$0.2534 total). The third failure is seed
+instability, and its fix is a training-dynamics change, not a dataset
+change: stage 01's third seed collapsed below the text-only floor (two
+of three seeds beat every text-only seed by 17-18 points, but the spread
+of 0.231 exceeded the gap of 0.111), and the warmup stage closed it —
+spread tightened from 0.2309 to 0.0536. The trade is the measurement
+itself: every baseline is a real run (train and eval images come from
+disjoint seeds, checked programmatically, and the real-photo task swaps
+the pixel-hash guardrail for COCO image-id disjointness), and the honest
+verdict costs the comfortable story — "buy, not build, at this scale"
+is what a NOT MET is for.
+
+## Who owns the loop
+
+Each failure has one owner, tied to the baseline that detects it:
+
+- **The vision and research team** owns the pathway and the fusion: the
+  patch-embedding module, the attention-conditioning change, and the
+  leakage controls around it. It owns the seed-instability failure the
+  warmup stage closed (spread 0.2309 to 0.0536) and the honest
+  partial-result report when the mean gap is smaller than seed spread.
+- **The data team** owns the task construction: the disjoint-seed ranges
+  that still produced 116 pixel-identical train/eval collisions, the
+  rejection-sampling fix that silently emptied eval's single-shape
+  bucket, and the id-based guardrail real photos require. It owns the
+  leak-the-answer failure the text-only baseline exists to catch.
+- **The product and evaluation owner** owns the build-vs-buy verdict:
+  NOT MET on both the synthetic and real-photo sets is a buying
+  decision, not a failure of the measurement, and the per-question
+  economics ([the economics per question](02-report/the-economics-per-question/))
+  is where the decision actually lives.
+- **The platform team** owns the compute lane the run depends on: stages
+  04-05 trained on CPU when the GPU lane was unreachable, which is part
+  of why the "minutes on a consumer GPU" claim carries its own boundary.
+
 ## What this will not prove
 
 Nothing about frontier-scale vision-language capability — the model here

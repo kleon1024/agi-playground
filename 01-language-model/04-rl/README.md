@@ -182,6 +182,54 @@ pretraining to stumble into tag-like structure occasionally; a randomly
 initialized toy model with no such prior never does, at this reward shape
 and step budget.
 
+## The fix and its trade
+
+The failure the run makes legible is the degenerate group: when every
+completion in a group scores identically, the group-relative advantage
+is 0/0, and `rollout_and_score` skips the group. It is not a corner case
+— the real run hit it in literally every group across the entire
+200-step budget, because a randomly initialized policy emitting the
+literal `<think>`/`<answer>` substrings over a 78-symbol vocabulary has
+probability around 3e-12 per completion (an expected count of 2e-8
+across the 6,400 sampled). The fix is the warm start the exercises name:
+a few supervised steps on well-formed examples first — the same prior
+DeepSeek-R1-Zero's base model had already learned from pretraining. The
+trade is measured on the same axis. RL reweights behavior sampling
+already reaches and cannot install behavior with zero probability under
+the current policy: the game-ai stage's GRPO run reaches 14.4-21.0
+percent success under sampled decode while greedy decode ignores the
+board on every seed, and an entropy bonus widens the distribution
+(1.3-1.7 nats) without changing which token wins. The second trade is
+the leash: the KL penalty against the frozen reference keeps the policy
+from farming the format reward's blind spots, and its knob (beta) trades
+how far the policy may drift against how fast the reward moves. The
+third is the group size itself: GRPO's no-critic move (Shao et al.,
+DeepSeekMath, 2024) spends G times the generation per update to buy the
+critic's memory footprint back as rollouts.
+
+## Who owns the loop
+
+Each failure in this chapter has one owner:
+
+- **The RL and alignment team** owns the objective: the group-relative
+  advantage, the clipped surrogate, and the KL beta. It owns the
+  degenerate-group failure — the 200/200 skip run — and the warm-start
+  decision that fixes it.
+- **The reward and environment owner** owns the verifier:
+  `compute_reward` is the one thing no trainer hides, and a Python
+  function that evaluates `13 * 17` cannot drift, while a learned reward
+  model can. It owns the reward-hacking failure the leash exists for.
+- **The training-infra and serving team** owns the rollout cost: G times
+  the generation per update is why the KV cache and batched decoding of
+  stage 05 matter for RL, not just serving, and why
+  [rollout-concurrency](rollout-concurrency/) measures the scheduling
+  policy that decides how much of that cost is waiting.
+- **The evaluation team** owns the reward-versus-quality read: a rising
+  reward curve is not evidence the model got better
+  ([reward went up](reward-went-up/)), and the group-relative trick's
+  detour measures the zero-sum property that makes a single group's
+  absolute reward meaningless.
+
 ## Reproducing
 
 The commands are exact and copy-pasteable on CPU for anyone who wants to

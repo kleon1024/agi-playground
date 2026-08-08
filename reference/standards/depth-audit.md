@@ -912,6 +912,56 @@ and sample-construction detail the user asks for lives here.
 
 ### Language-model — LLM-track increments (tokenizer, mix, SFT, distillation)
 
+**Structural re-check 2026-08-08 (thirty-first audit increment):** a
+fresh scan found six real chapters in this topic still missing both the
+fix-and-trade and who-owns sections, despite the end-to-end claims above:
+the tokenizer parent, the RL parent, the heavy-tail-waits rollout detour,
+the agent parent, the eval parent, and the vision parent. Closed now, each
+reusing the chapter's own measured numbers. 01-tokenizer: the fix is
+byte-level BPE over the two lossy/too-long naive answers (252,259 unique
+words in 9,025,172 total; no `<UNK>` possible), priced at 4.497
+chars/token against the 14.4 percent of the 88M model's parameters the
+vocabulary fixes, with the naive trainer's 2.4 s/merge replaced by the
+indexed trainer and the 60,978-token export parity audit; ownership
+split across tokenizer/model (the freeze), data pipeline (per-class
+token ledger: English 0.24 vs CJK 2.96 vs emoji 4.00), serving/product
+(the 4,096-token window is a 1,382-CJK-character window), and eval (the
+divergence that only surfaces at stage 02 as non-convergence).
+04-rl parent: the fix for the 200/200 degenerate-group run (probability
+3e-12 per completion, expected count 2e-8 across 6,400 sampled) is the
+warm start, traded against RL's inability to install zero-probability
+behavior (game-ai: 14.4-21.0 percent under sampled decode, greedy
+ignores the board), the KL leash's beta knob, and G-times generation
+for the critic's memory; ownership split across RL/alignment, reward
+and environment, training-infra/serving, and evaluation. The
+heavy-tail-waits detour names the fix as the scheduling policy, not
+more workers — async 1.73x at 2 workers to 1.30x at 8 on the same
+40-trajectory list — with ownership split across training-infra (the
+policy), sampler (the 80/20 tail), and evaluation (speedup without
+worker count is not comparable). 06-agent parent: grounding closed by
+the stop-sequence plus unconditional truncation pair, and the 0/6 real
+run (an 88M checkpoint SFT'd on chat pairs never emitted one parseable
+`Action:`) fixed by agentic trajectory composition, not prompting;
+ownership split across harness/platform, data, security/infra, and
+evaluation (the harness-disclosed trace). 07-eval parent: the fix is
+the refusing report format — tokenizer sha256 and context length beside
+the number, mandatory seeds, required baseline, harness block with
+`harness_configs_seen == 1` — priced by its own reports (loglik 0.625
+with CI [0.250, 0.875] at n=8; generate 0.050 plus or minus 0.100;
+agent 0.000 [0.000, 0.000]; perplexity 21.677 at context 1024 against
+the 9.712-nat uniform baseline); ownership split across evaluation,
+harness, data, and product/release. Vision parent: the fix is the
+two-baseline design — text-only (0.3270 vs vision 0.4375; shape_color
+50.1 vs 27.2 percent) and hosted API (0.8329 at \$0.00128/question) —
+plus the warmup that closed seed-2 collapse (spread 0.2309 to 0.0536);
+ownership split across vision/research, data (116 pixel-identical
+collisions, id-based real-photo guardrail), product/evaluation (NOT MET
+is a buying decision), and platform (the CPU lane stages 04-05 ran on).
+The two `prod/` pages under 06-agent are production-mapping tables with
+no runs and no benchmark claims; they fall outside the failure-mode
+contract, same as LANDSCAPE pages. The topic now scans clean apart from
+the root README.
+
 **Status: done for the tokenizer edge-case, data-mix, format-conflict, and
 distillation, serving/cascade-latency, eval-gate, and remaining 04-rl
 rows (nineteenth audit increment, 2026-08-08). The LLM track is now

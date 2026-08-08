@@ -33,7 +33,7 @@
   },
   "01-language-model/01-tokenizer": {
     "level": "foundation",
-    "minutes": 7
+    "minutes": 10
   },
   "01-language-model/01-tokenizer/is-it-the-same-tokenizer": {
     "level": "foundation",
@@ -145,7 +145,7 @@
   },
   "01-language-model/04-rl": {
     "level": "applied",
-    "minutes": 10
+    "minutes": 13
   },
   "01-language-model/04-rl/reward-went-up": {
     "level": "applied",
@@ -165,7 +165,7 @@
   },
   "01-language-model/04-rl/rollout-concurrency/when-the-heavy-tail-waits": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "01-language-model/04-rl/the-group-relative-trick": {
     "level": "applied",
@@ -217,7 +217,7 @@
   },
   "01-language-model/06-agent": {
     "level": "applied",
-    "minutes": 15
+    "minutes": 17
   },
   "01-language-model/06-agent/prod": {
     "level": "",
@@ -245,7 +245,7 @@
   },
   "01-language-model/07-eval": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 11
   },
   "01-language-model/07-eval/eval-gates": {
     "level": "applied",
@@ -273,7 +273,7 @@
   },
   "01-language-model/vision": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 11
   },
   "01-language-model/vision/00-image-caption-task": {
     "level": "applied",

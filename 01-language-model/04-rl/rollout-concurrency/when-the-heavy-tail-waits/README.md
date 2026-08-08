@@ -45,6 +45,40 @@ catches up. The measured pattern is the honest version of the mechanism —
 async is not "more workers are better," it is "waiting on the tail is
 worse," and the gap between the policies is exactly the tail's size.
 
+## The fix and its trade
+
+The failure is lockstep waiting on the slowest rollout of each batch:
+the trajectory lengths are heavy-tailed (80 percent short, 20 percent
+very long), so every worker idles until the batch's tail finishes. The
+fix is the scheduling policy, not more workers — async lets a finished
+worker grab the next trajectory immediately, and the recorded speedup is
+the tail being hidden: 1.73x at 2 workers, 1.48x at 4, 1.30x at 8. The
+trade is measured in the same table. Async buys makespan at the cost of
+rollout order — trajectories complete out of their original order, which
+matters only if downstream bookkeeping assumes a batch order — and the
+speedup narrows as workers increase (1.73x to 1.30x), because a larger
+pool dilutes the tail's relative cost. The honest read is "waiting on
+the tail is worse," not "async is better," and the same policy question
+is the production one: the sampler half of the RL loop, not the trainer
+half, is what the run is usually paying for.
+
+## Who owns the loop
+
+The scheduling result is only useful if someone owns each failure the
+table exposes:
+
+- **The training-infra team** owns the scheduling policy: lockstep
+  versus async is a deployment decision, and the worker count is the
+  knob that changes the speedup (1.73x at 2 workers to 1.30x at 8).
+- **The rollout-sampler owner** owns the trajectory distribution: the
+  80/20 heavy tail is a property of the task and the sampling
+  configuration, not of the scheduler, and a policy tuned on a fixed
+  length distribution will not transfer to a different one.
+- **The evaluation team** owns the makespan-versus-throughput read: a
+  speedup reported without the worker count and the tail shape is not
+  comparable to another run's, and the crossover between policies is
+  exactly where the honest number sits.
+
 ## Evidence boundary
 
 The recorded scheduling run (40 trajectories, 80/20 heavy-tailed lengths,

@@ -193,6 +193,56 @@ parseable `Action:` line to even fail at executing.
 
 Full report: [`runs/2026-07-30-agent-report.json`](runs/2026-07-30-agent-report.json).
 
+## The fix and its trade
+
+The failure is a number-shaped object: "68% on benchmark X" is missing
+the tokenizer and context length, the harness, the seed count, and the
+baseline, and each omission independently makes the number impossible to
+compare. The fix is a report format that refuses to emit the claim when
+the disclosure is missing — `perplexity` writes the tokenizer's sha256
+and exact context length beside every number; `tasks` raises on
+`--seeds 1`; every subcommand calls `require_baseline()`; and
+`agent-report` raises when a transcript's `harness` block lacks any
+field or a task has fewer than three rollouts. The trade is measured by
+the reports the script does emit. The refusal costs nothing to compute
+but costs the convenient sentence: the loglik report's 0.625 (5/8)
+carries a bootstrap CI of [0.250, 0.875] at n=8 — barely more than
+"probably better than random" against the 0.333 baseline — and the
+generate report's mean 0.050 plus or minus 0.100 across five seeds
+([0.0, 0.0, 0.0, 0.25, 0.0]) is the honest version of "it worked." The
+agent report's 0.000 with CI [0.000, 0.000] across six transcripts and
+one harness config is the same discipline applied to a negative result:
+zero success is itself the finding, and the report says why
+(format-following failure, not reasoning). Perplexity at context 1024
+(21.677, mean NLL 3.0762 plus or minus 0.3214, against the uniform
+baseline of 9.712 nats) is only comparable to itself — the same number
+at a different context length or tokenizer is a different claim.
+
+## Who owns the loop
+
+The honest-number discipline only survives if each owner holds one
+piece:
+
+- **The evaluation and measurement team** owns the report format and the
+  refusal: the mandatory seed count, the named baseline, and the
+  `does not prove` section. It owns the underpowered-N failure — the n=8
+  CI that spans half the range is this team's job to report, not to
+  smooth over.
+- **The harness owner** owns the `harness` disclosure block: the agent
+  score is a function of tools, loop, retries, and sampling parameters,
+  and `harness_configs_seen == 1` is the check that six rollouts are
+  actually comparable. It owns the undisclosed-harness failure this
+  stage's track is named after.
+- **The data team** owns the contamination and leakage that pass every
+  check on this page ([why believe the number](why-believe-the-number/)):
+  a leaked benchmark, a judge with reproducible preferences, and a
+  difference smaller than run-to-run noise all survive a fully disclosed
+  report.
+- **The product and release owner** owns the ship/reject decision on top
+  of the number ([who decides to ship](who-decides-to-ship/)): the
+  report proves the pipeline is real and honestly reported, never that
+  the system is good.
+
 ## Reproducing
 
 ```bash
