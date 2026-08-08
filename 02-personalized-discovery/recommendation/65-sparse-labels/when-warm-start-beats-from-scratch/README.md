@@ -42,6 +42,36 @@ the task names. This is the warm-start prior literature in miniature
 (Yi et al., RecSys 2019, on sampling bias in YouTube recommendation
 labels): what transfers is the signal distribution, not the task label.
 
+## The fix and its trade
+
+The failure is assuming transfer from the task names: the click-task
+trunk is activity-dominated, so fine-tuning it on the cold rows loses to
+scratch (0.659 versus 0.740), while the aligned source — the same buy
+objective on the dense head slice — wins (0.786). The fix is the
+transfer test: train the candidate source tasks on their dense slices,
+fine-tune each on the cold rows, and compare cold-slice AUC against a
+from-scratch baseline — source-task alignment measured per slice, never
+inferred (the warm-start prior in miniature: Yi et al., RecSys 2019, on
+sampling bias in YouTube recommendation labels). The trade is the
+commitment the test costs: each candidate source is a real training run,
+and a misaligned transfer path is worse than no transfer at all, because
+the fine-tune starts from a representation biased away from the target's
+signal.
+
+## Who owns the loop
+
+- **The model team** owns the transfer path: the candidate sources, the
+  fine-tune, and the from-scratch baseline it must beat.
+- **The evaluation team** owns the per-slice comparison: cold-slice AUC
+  with intervals, not the task names, is the verdict.
+- **The data team** owns the source-task density the test depends on:
+  an aligned source exists only where the dense slice actually shares
+  the target's signal distribution.
+
+When ownership is implicit, the team pre-trains on whatever dense task
+is available, and the 0.659 result ships as "transfer tried" instead of
+"transfer misaligned."
+
 ## Evidence boundary
 
 The executed synthetic read over one cohort with declared click and buy

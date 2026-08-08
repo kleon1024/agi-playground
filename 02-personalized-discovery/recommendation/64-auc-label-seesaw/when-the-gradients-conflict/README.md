@@ -44,6 +44,39 @@ PCGrad (Yu et al., NeurIPS 2020, arXiv:2001.06782) or CAGrad (Liu et al.,
 NeurIPS 2021, arXiv:2106.16142) — the paper mechanism and the working
 mechanism are different claims.
 
+## The fix and its trade
+
+The failure is adopting the optimizer on the textbook signal. The run
+measures why conflict frequency alone does not justify surgery: the
+gradients conflict in 43 of 60 epochs, and PCGrad still does not win —
+naive sum click 0.710 / buy 0.720, PCGrad 0.712 / 0.712, both within
+noise. The fix is to test the mechanism the optimizer actually repairs —
+one task's update actively reversing the other's validation progress —
+on your own cohort before paying the optimizer's cost (Yu et al.,
+NeurIPS 2020, arXiv:2001.06782; CAGrad: Liu et al., NeurIPS 2021,
+arXiv:2106.16142). The trade is measured by the same comparison: surgery
+adds per-step projection cost and hyperparameters, and it cannot move a
+task whose bottleneck is gradient amplitude, not direction — which is
+why the stage-64 weighting fix, the amplitude fix, is the one that moved
+the number.
+
+## Who owns the loop
+
+- **The model team** owns the adoption test: the validation-loss
+  interference read during joint training decides whether the optimizer
+  class is even on the table, and it comes before the optimizer choice,
+  not after.
+- **The evaluation team** owns the interference measurement itself: the
+  per-task validation progress under joint training, not conflict
+  frequency, is the number that decides.
+- **The research and algorithm team** owns the surgery family choice
+  (PCGrad versus CAGrad and successors) once interference is proven, and
+  the regression risk a projection rule carries on the primary metric.
+
+When ownership is implicit, the team adopts PCGrad because the gradients
+"look conflicting" and pays the optimizer's cost for a balance the naive
+sum already had.
+
 ## Evidence boundary
 
 The executed synthetic comparison over one cohort (illustrative,

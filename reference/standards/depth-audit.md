@@ -647,6 +647,42 @@ side: the stratified metric contract, the calibration axis, and the
 label-supply guardrail each name who owns the loop and which guardrail
 proves the fix worked.
 
+**Structural re-check 2026-08-08 (thirty-second audit increment):** a
+fresh scan found both stage parents still missing the fix-and-trade
+section and all six detours missing both sections, so the "done" claim
+above was incomplete. Closed now, each reusing the chapter's own measured
+numbers. 64 parent's fix is the pre-declared contract (primary metric
+plus guardrails) that turns the seesaw's undecidable-after-the-run
+numbers into pass/fail — the same table ships buy-weighted under one
+contract (buy 0.716 to 0.781, click clearing 0.720) and nothing under
+the other (expert-gated breaching at 0.653) — and the trade is the
+structural price of one shared representation, moved by the weight dial
+(cheap first steps, saturation around tail AUC 0.71), structure, or
+gradient surgery, in that order. Its detours now name the failure and
+fix each: gradient surgery is not justified by conflict frequency (43 of
+60 conflicting epochs, PCGrad still within noise at 0.712/0.712 — the
+test is validation-loss interference, Yu et al. NeurIPS 2020, CAGrad Liu
+et al. NeurIPS 2021); calibration is a second model with a freshness cost
+(temperature 0.85 moves slope 1.098 to 0.983, but the frozen T reads
+intercept -0.106 after a shift against the fresh -0.009 — Guo et al. ICML
+2017, plus the monitoring job and re-fit cadence); and the weight dial's
+aggregate AUC is head-weighted (0.735 to 0.704 monotone while the tail
+gains 0.654 to 0.708, first step buying +0.028 tail for -0.035 head).
+65 parent's fix is the density report plus three priced layers — label
+supply (window, surrogate, exposure; the 50-percent-after-24-hours
+display fact, Chapelle et al. KDD 2014), structure (shared trunk 0.780
+vs from-scratch 0.678), delay-aware training (Ktena et al. RecSys 2019,
+Yasui et al. CIKM 2020) — with the cold-item gate held on the interval
+([0.500, 0.957]) until labels can decide. Its detours now name the
+failure and fix each: the interval only narrows with label supply (width
+1.000 at k=2 to 0.517 at k=30 — a data decision, not a model one); the
+surrogate buys ranking and sells probability meaning (0.0395 predicted
+vs 0.0036 true, ~11x, true-label AUC 0.706 vs 0.756 — corrected by
+re-weighting and calibration, not the label alone); and warm start is
+source alignment, measured per slice (click trunk 0.659 loses to scratch
+0.740, aligned head-slice buy 0.786 wins; Yi et al. RecSys 2019). All
+eight chapters in the two stages now carry both sections.
+
 ### Language-model system — 00-07
 
 **Status: done (fourth audit increment, 2026-08-07/08).**

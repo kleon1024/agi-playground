@@ -46,6 +46,38 @@ pCTR consumer. The value tree multiplies the number, so an uncalibrated
 or stale head leaks into every downstream decision — the same ownership
 shape as the model-staleness loop, one layer down.
 
+## The fix and its trade
+
+The failure is a probability that is not a probability: the raw click
+head's slope of 1.098 means the ranking score cannot feed money
+decisions. The fix is temperature scaling (Guo et al., ICML 2017,
+arXiv:1706.04599) — the run fits T = 0.85 and moves the pair from slope
+1.098 / intercept -0.067 to 0.983 / -0.009 on the split it was fitted
+on. The trade is operational, not architectural: the calibrated head is
+a second model with its own freshness cost, measured by the same read —
+after the declared shift the raw scores' intercept moves (-0.067 to
+-0.165) and the frozen temperature is wrong for the new distribution
+(intercept -0.106 instead of the fresh -0.009). The fix therefore
+includes a monitoring job on the slope/intercept pair and a re-fit
+cadence tied to the measured shift rate, and the value tree multiplies
+the number, so a stale head leaks into every downstream decision.
+
+## Who owns the loop
+
+- **The model team** owns the calibration fit: the temperature and the
+  slope/intercept read on the current distribution.
+- **The platform and serving team** owns the freshness loop: the
+  monitoring job on the pair and the re-fit cadence set from the
+  measured shift rate.
+- **Every downstream probability consumer** owns the handoff: the value
+  tree multiplies the number, so an uncalibrated or stale head is a
+  shared failure — the same ownership shape as the model-staleness loop,
+  one layer down.
+
+When ownership is implicit, the temperature is fitted once and never
+refit, and the shift that breaks it is discovered by the first money
+decision it leaks into.
+
 ## Evidence boundary
 
 The executed synthetic read over one fitted temperature and one declared

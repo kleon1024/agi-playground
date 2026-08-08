@@ -45,6 +45,36 @@ and a calibration repair, not the label alone — Ktena et al. (RecSys
 2019) and Yasui et al. (arXiv:2002.02068, CIKM 2020) both correct the
 label's rate before the model's probability is trusted.
 
+## The fix and its trade
+
+The failure is the surrogate's hidden price: it fills the empty slice
+and over-predicts purchase by about 11x — 0.0395 predicted against 0.0036
+true on cold items — and on the labels that matter its true-label AUC
+(0.706) is worse than the true-label model's (0.756). The fix is not the
+label alone; it is the published correction pair — re-weight and
+re-calibrate the surrogate's rate before the probability is trusted
+(Ktena et al., RecSys 2019; Yasui et al., CIKM 2020). The trade is
+measured by the same run: the surrogate buys usable ranking on an
+otherwise empty slice (0.706 is far above chance) and sells probability
+meaning — the inflated number propagates into the value tree, which
+multiplies it into every downstream decision, so the calibration repair
+is part of the fix, not an option.
+
+## Who owns the loop
+
+- **The sample and label team** owns the surrogate hierarchy and its
+  rate: the gap between engaged and purchase is this team's number, and
+  the density report carries it.
+- **The model team** owns the correction: re-weighting and calibration
+  before the surrogate's probability ships.
+- **The product and downstream owner** owns the multiplied decision: the
+  value tree feeds every probability into money decisions, so a
+  surrogate that ships uncorrected leaks the inflation everywhere.
+
+When ownership is implicit, the surrogate ships because its ranking
+"looks usable," and the 11x inflation surfaces in the first downstream
+money decision.
+
 ## Evidence boundary
 
 The executed synthetic read over one cohort with a declared engaged rate

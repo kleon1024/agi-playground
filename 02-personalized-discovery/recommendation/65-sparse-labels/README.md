@@ -81,6 +81,30 @@ fake-negative labels of a continuous-training system, and Yasui et al.
 Delayed Feedback", WWW 2020, arXiv:2002.02068) correct the feedback shift
 with an importance weight, which is the surrogate's cleaner cousin.
 
+## The fix and its trade
+
+The failure is a number with no evidence behind it: the aggregate buy AUC
+of 0.769 is a head-and-cold-user number, and the cold-item slice's 5-95%
+interval spans chance ([0.500, 0.957]) on 2 positives in 260 rows —
+five train positives cannot shape a ranker, and no modeling choice
+changes that, only the label supply. The fix is the density report plus
+three fix layers, each priced by the run. Sample and label construction
+buys signal directly — a longer window, a surrogate hierarchy, or
+exposure data; the delay axis is structural, not a logging bug (about 50
+percent of conversions arrive after 24 hours in display advertising;
+Chapelle, Manavoglu and Rosales, KDD 2014). Model structure buys signal
+second — the shared trunk (click+buy) lifts cold-slice buy AUC from
+0.678 (from scratch) to 0.780, and warm start only wins when the source
+is aligned ([the warm-start detour](when-warm-start-beats-from-scratch/)).
+Delay-aware training is the third layer — a window with fake-negative
+correction (Ktena et al., RecSys 2019; Yasui et al., WWW 2020). Every
+layer has a measured price: the surrogate fills the empty slice but
+inflates every predicted probability ([the surrogate-bleed
+detour](when-the-surrogate-label-bleeds/)), warm start from a
+misaligned source loses to scratch, and no layer makes the cold-item
+slice's own numbers decisive — the gate stays on the interval until the
+labels can decide something.
+
 ## Who owns the loop
 
 Sparsity is a label-supply problem that spans three teams:

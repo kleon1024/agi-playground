@@ -96,6 +96,32 @@ is a real trade.
   whose bottleneck is gradient amplitude, not direction ([the
   gradient-surgery detour](when-the-gradients-conflict/)).
 
+## The fix and its trade
+
+The failure is not the trade — it is that the trade is undecidable after
+the run. The same numbers can be argued in both directions, which is the
+meeting that never ends, so the fix is a two-line contract written before
+training: a primary metric and guardrail thresholds. The demo's three
+variants make the rule concrete — shared trunk click 0.726 / buy 0.716,
+buy-weighted 0.723 / 0.781, expert-gated 0.725 / 0.653 — and two
+contracts ship different models from the same table: buy primary with a
+click guardrail of at least 0.720 ships buy-weighted, click primary with
+a buy guardrail of at least 0.700 ships nothing (expert-gated breaches
+at 0.653). The trade is the structural price of one shared
+representation: each gradient step is a compromise, click carries an
+order of magnitude more positives than buy so most of every step fits
+click, and whatever the buy task gains is taken from somewhere else. The
+dials move along the trade without deleting it, and each has a measured
+cost: the weight dial buys the sparse tail cheaply at first and then
+saturates ([the slice-trades detour](when-the-slice-trades/)); structure
+pays only when the dial cannot, and a learned gate that collapses onto
+one expert is a shared trunk with extra parameters; gradient surgery is
+the last resort, because PCGrad fixes gradient direction, not the sparse
+task's amplitude bottleneck ([the gradients-conflict
+detour](when-the-gradients-conflict/)). The decision rule itself follows
+the guardrail-metric practice of Kohavi & Tang (2017): judge by
+per-objective deltas with intervals, not by the primary's movement alone.
+
 ## Who owns the loop
 
 - **Product owns the frontier position.** Which objective is primary, and
