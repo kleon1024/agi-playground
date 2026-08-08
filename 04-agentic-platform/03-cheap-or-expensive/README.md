@@ -140,6 +140,41 @@ declaring it in advance, and also the reason the declaration is not the last
 word. A primary metric bounds what you may claim; it does not bound what you
 are allowed to look at.
 
+## The fix and its trade
+
+The fix is the metric pair plus the patch probe: resolve rate reported
+beside dollars per resolved task, and, once resolve saturates, a
+generality probe over the produced patches. The probe is what breaks the
+18/18 tie: haiku resolves 6/6 and fails the 4-token-query probe 0/3
+(errors 1.2e-03, 4.2e-02, 1.2e-03) while sonnet and opus pass 3/3 — the
+cheap tier's patch is correct only on the exact shape the test exercises
+(`is_causal=False` when `start_pos != 0`), and wrong on a multi-token
+query against a live cache.
+
+The trade is that the pair is expensive to keep honest, and the probe is
+written after reading the diffs — the right order for finding a failure
+mode, the wrong one for estimating its rate. The probe answers "does the
+fix generalize beyond the failing test" and nothing else: a resolve rate
+with no probe overstates quality (a maintainer reading green tests would
+merge haiku's latent defect), and a probe without a resolve rate
+overstates precision (two tasks, one bug class). Cost and latency also
+rank the tiers differently — haiku is cheapest and slowest (64s median
+vs sonnet's 41s) — so a cost-optimal policy and a latency-optimal policy
+are different policies, and the metric pair is what keeps either from
+masquerading as the other.
+
+## Who owns the loop
+
+- **The routing/product owner** owns the tier policy: cost per resolved
+  beside resolve rate, with the run-to-run spread as the noise floor.
+- **The evaluation team** owns the generality probe: the patch-level
+  check that the resolve metric cannot see, and the "latent, not live"
+  boundary on what it found.
+- **The model team** owns the generalization claim — haiku's patch is a
+  latent defect for chunked prefill or speculative decoding, not a live
+  bug today — and the model aliases are dated (2026-07-29 CLI names, not
+  pinned weights).
+
 ## What this does not prove
 
 **Haiku's patch is not wrong for this repository today.** `generate` only ever

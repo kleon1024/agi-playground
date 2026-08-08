@@ -182,6 +182,44 @@ Report it beside the private set, never pooled with it -- the whole reason a
 public set exists is that its history may be inside a model's training data,
 which the private set is built specifically not to be.
 
+## The fix and its trade
+
+The fix is the admission rule: a candidate becomes a task only if the
+target test fails at base and passes with the gold patch -- the
+fail-then-pass check mutation testing has formalized since DeMillo,
+Lipton, and Sayward (1978) -- plus the three-outcome pytest handling that
+stops "nothing ran" from reading as "failed" (exit 5 disqualifies instead
+of scoring, and a dependency group is resolved per task so the test can
+collect at all).
+
+The trade is yield for integrity. The rule is deliberately strict -- 2 of
+4 private and 2 of 6 public candidates survive -- and the strictness is
+the point: a set built by mining alone, without verification, would be
+contaminated with non-tasks whose gold patch does not fix a failing test,
+and every resolve number on it would measure the wrong thing. The cost is
+that narrow selection sees only bugs whose author wrote a test in the
+same commit (4 of 15 fix commits here), and hands the agent the
+reproducing test for free -- usually the hard part of a real bug report.
+The rule also excludes rather than repairs the tests that lie about
+running (the early-returning guard), which is the discipline the mission
+exists to keep: raising yield by relaxing the rule is the failure this
+chapter refuses.
+
+## Who owns the loop
+
+The task set is a benchmark contract, not a pile of files:
+
+- **The benchmark owner** owns the admission rule, the per-task test
+  environment (dependency groups), and the verify runs that convert
+  candidates into tasks. The rule is the product; the mining is
+  commodity.
+- **The model/routing owner** inherits the task distribution: a resolve
+  rate is only meaningful on the set's stated boundaries, so the owner
+  reports it beside the admission rule that produced it.
+- **The report/release owner** consumes the set and owns the
+  never-pooled public/private separation -- the contamination control is
+  only a control if the two sets stay distinguishable.
+
 ## Run it
 
 ```bash

@@ -61,6 +61,31 @@ stage 04 and not re-counted here. It is the reason the scoreboard stays
 honest when the harness does work; a zero failure count would mean nothing
 if the failures had been deleted instead of fixed.
 
+## The fix and its trade
+
+The fix is the applied/resolved split plus the cost-per-resolved reading:
+5 of 18 blind patches applied at all, and the loop is priced at \$0.507
+per resolved versus \$1.286 for the blind call. The trade is that the
+harness spends more in total (\$9.12 vs \$5.14) to buy 14 more
+resolutions — a per-attempt comparison would flatter the blind call, which
+is why the mission reports cost per resolved task. The split's real
+payoff is attribution: the dominant no-harness failure is a non-fix (11
+of 12 non-resolving attempts never applied), so no amount of test
+feedback at the end of the call could have helped — the fix has to live
+in the loop, which is exactly what the harness provides and what the
+measured price difference pays for.
+
+## Who owns the loop
+
+- **The harness owner** owns the tool loop and the failure attribution
+  that justifies its cost — the loop is cheaper per resolution because
+  it stops the failures from failing.
+- **The routing owner** owns the metric that makes the comparison honest:
+  cost per resolved task, never cost per attempt.
+- **The eval owner** owns the cluster read: the 12 failures concentrate
+  on identity checks (two decode-correctness, two sync-docs), which is
+  the distribution a blind patch is guaranteed to miss.
+
 ## Evidence boundary
 
 This chapter re-measures the mission's own recorded logs (18 + 18 model

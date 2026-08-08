@@ -145,6 +145,39 @@ closes the gap.
 
 </details>
 
+## The fix and its trade
+
+The fix is a report that computes: `report.py` reads only committed
+runs/ records and renders a verdict per acceptance bullet, with the
+three-way discipline (MET, NOT MET, CANNOT DETERMINE) and PARTIAL where
+a bullet decomposes into mixed evidence. The mechanical read is the
+point — a report that can soften a number after seeing it is a report
+that will.
+
+The trade is that a PARTIAL verdict is a decision cost. Bullet 1 reads
+PARTIAL because the public set has no no-harness control: two tiers
+decisive (haiku +1.000, sonnet +0.833), opus a no-result inside spread,
+and the public half CANNOT DETERMINE — a comparison missing, not failed,
+which is narrower than NOT MET and still not a go/no-go. The report also
+carries a scope substitution forward rather than erasing it (three
+hosted-subscription tiers stood in for the local-vs-hosted arm
+mission.yaml named), which keeps MET honest at the price of not
+answering the original question. A verdict that names its own gap is the
+usable kind; the trade is that it leaves the maintainer's routing
+decision to another system — this report establishes the numbers a
+router would need, not the router itself.
+
+## Who owns the loop
+
+- **The report/release owner** owns the verdict contract and the
+  mechanical script that enforces it — no hand-copied numbers.
+- **Each stage owner** owns its runs/ records: the report is only as
+  honest as what the stages committed, which is why every dollar and
+  wall-clock figure traces to a JSONL line.
+- **The maintainer** owns the routing decision the report feeds but does
+  not make — the PARTIAL names the gap (a public-set no-harness control),
+  and closing it is an execution decision, not a reporting one.
+
 ## What this does not prove
 
 **A PARTIAL is not evidence against the mission.** It is evidence that one

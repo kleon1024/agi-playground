@@ -46,6 +46,30 @@ a new test file that asserts nothing is refused exactly like a tamper. The
 stage's docstring names this hole ("a new test file that asserts nothing
 would slip past"), and the demo shows the worktree-based check closes it.
 
+## The fix and its trade
+
+The fix is a structural guardrail: any test path in the changed set
+refuses the patch, with no attempt to read intent, and the untracked-file
+check closes the escape hatch of creating a new test file that asserts
+nothing. The trade is that the boundary is deliberately blunt — a
+legitimate test edit is refused too, because the scorer cannot
+distinguish intent and does not try: once the model can change the test
+that scores it, the score stops meaning what it claims. The structural
+check replaces the system-prompt line, and its price is that some real
+work is refused so that no tampered work is believed.
+
+## Who owns the loop
+
+- **The harness owner** owns the guardrail's path logic and the demo that
+  proves it fires — the worktree-based `changed_paths` read is the
+  mechanism, and the docstring's named hole is the checklist.
+- **The task owner** owns the placement that makes the guardrail work:
+  tests are the score's measure, so test files are the protected class,
+  and source-only changes must pass.
+- **The model team** inherits the refusal: a patch touching tests is
+  scored as failure regardless of the model's intent, and that is the
+  contract, not a judgment about any particular attempt.
+
 ## Evidence boundary
 
 Five synthetic worktrees, the stage's own `changed_paths` and `is_test_path`

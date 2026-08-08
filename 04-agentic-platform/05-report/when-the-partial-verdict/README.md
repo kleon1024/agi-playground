@@ -43,6 +43,29 @@ has no control at all. The report says exactly that — the gap is a missing
 comparison, not a failed one, which is why PARTIAL is the honest label
 between MET and NOT MET.
 
+## The fix and its trade
+
+The fix is the three-way verdict that names its own gap: PARTIAL with the
+decomposition that makes it usable — two tiers decisive, one a no-result
+inside spread, one CANNOT DETERMINE for lack of a control. The trade is
+that PARTIAL is a decision cost: it is narrower than NOT MET and still
+not a go/no-go, and the report pays that cost on purpose rather than
+rounding the bullet to MET on the strength of the decisive tiers. The
+verdict's value is that the missing piece is named (a public-set
+no-harness control run), which is exactly the piece a reader can go
+execute; its limit is that nothing on this page can execute it.
+
+## Who owns the loop
+
+- **The report owner** owns the verdict contract and the discipline that
+  a bullet is MET only when every named comparison is decided.
+- **The stage owner** owns the missing control: the public set's
+  no-harness arm is the gap the PARTIAL names, and only a real run can
+  close it.
+- **The reader** owns the interpretation: CANNOT DETERMINE refuses to
+  conclude rather than assume the private result carries over — the
+  report's job is to make that refusal legible, not to resolve it.
+
 ## Evidence boundary
 
 The recorded outcome report (2026-08-01); it reads that artifact and does

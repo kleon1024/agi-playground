@@ -44,6 +44,31 @@ the same tasks, without tools, fail in a catalogued pattern. The contrast
 is the stage's argument: failures are a property of the loop, not the
 task, and the taxonomy is what makes that legible.
 
+## The fix and its trade
+
+The fix is per-category failure accounting: every attempt lands in one
+named row, so an all-zero failure row is a claim ("no failures at this
+task scale under this loop") rather than an absence. The trade is that
+the zero rows only mean what the taxonomy's assignment guarantees — if
+the categories were incomplete, they would be missing from the no-harness
+arm too, and they are not. The rows are also bounded: the harness's empty
+failure surface is a property of two tasks at this scale, and the
+taxonomy's value is precisely that it makes the no-harness contrast
+legible (12/18 target_still_failing) instead of letting "harness is
+better" stand as an undifferentiated headline.
+
+## Who owns the loop
+
+- **The harness owner** owns the category contract — `scoring.score`'s
+  rows — and the guarantee that every attempt is assigned, never left
+  unclassified.
+- **The task-set owner** owns the scale claim: the empty rows
+  characterize this task set, and the boundary is stated rather than
+  overclaimed.
+- **The eval owner** owns the contrast read: the taxonomy's point is the
+  per-category comparison between arms, which is what makes the failure
+  mode attributable to the loop instead of the task.
+
 ## Evidence boundary
 
 The recorded taxonomy (36 real attempts: 18 harness, 18 no-harness, the

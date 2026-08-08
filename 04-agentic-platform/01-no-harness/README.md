@@ -83,6 +83,42 @@ cheap-but-wrong attempts help cost-per-attempt. This is the exact distinction
 whichever arm fails fastest, and here the no-harness arm fails often without
 failing particularly cheaply.
 
+## The fix and its trade
+
+The fix is the no-harness control itself: one blind call with the issue
+text, the failing test, and oracle file location — the SWE-bench
+convention of telling the model exactly which file the fix belongs in
+(Jimenez et al., 2023) — applied with plain git apply, no retry, every
+tool denied by name. It is the baseline that decides whether the loop is
+worth building at all, and it is deliberately harsh.
+
+The trade is that the control measures less than it seems and gives up
+real capability to do it. Handing over the file means this stage does not
+measure whether an agent can find the bug — only whether it can fix it
+once told where. The no-retry design makes a rejected diff terminal,
+which is the point of a floor, and the trade is visible in the numbers:
+the blind arm resolves 4/18 and pays more per success than the harness
+(sonnet \$1.3744 vs \$0.5369), because cheap-but-wrong attempts still cost
+money and divide across fewer successes. The control's price is a
+distorted view of failure — 11 of 12 unresolved attempts never applied at
+all — which is exactly the information the later stages exist to price.
+
+## Who owns the loop
+
+- **The benchmark owner** owns the oracle concession: which files the
+  prompt reveals and which tools stay denied. The stage's meaning is set
+  by these choices, so they are recorded, not incidental.
+- **The harness owner** owns the comparison: the loop's value over the
+  control is the number the mission's decision turns on, and the
+  run-to-run spread discipline (three repeats per task) belongs here.
+- **The routing owner** owns the cost-per-resolved reading — the number
+  that flatters neither arm — and uses the control as the floor a routing
+  policy must beat.
+
+When the control is missing or softened, the harness's 18/18 has nothing
+to be measured against, and "coding agents write code" becomes a
+conclusion instead of a comparison.
+
 ## Check your mental model
 
 1. Every no-harness attempt was handed the exact file the fix belongs in. What

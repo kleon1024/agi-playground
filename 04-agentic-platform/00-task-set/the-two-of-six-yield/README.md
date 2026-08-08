@@ -39,6 +39,30 @@ commit that merely touched tests. A task set built by mining alone, without
 verification, would be contaminated with non-tasks — which is why the
 admission rule, not the search, is the stage's core.
 
+## The fix and its trade
+
+The fix is the verification gate between candidates and tasks:
+fail-at-base/pass-at-gold, run for real at both commits. The trade is
+measured in the yield table: 2 of 4 and 2 of 6 survive, because most
+fix-looking commits are refactors, test-only changes, or fixes that do not
+reproduce. Verification costs wall-clock (4:45 for six public candidates)
+and rejects most of history on purpose — the strictness is what keeps the
+resolve metric meaningful. The alternative, mining without verification,
+produces tasks whose gold patch does not fix a failing test, and every
+number measured on them inherits the lie.
+
+## Who owns the loop
+
+- **The benchmark owner** owns the admission rule and the verify runs —
+  the same rule, applied to both histories, is what makes the two sets
+  comparable.
+- **The routing owner** inherits the yield: a 2-of-6 survival means the
+  final task set is small and selected, and resolve rates must be read
+  against that, not as general capability.
+- **The report owner** owns the interpretation that a low yield is the
+  finding, not a shortcoming — the funnel's shape is the benchmark's
+  quality claim.
+
 ## Evidence boundary
 
 The recorded mining runs (one 100-commit history, one 2,423-commit history,

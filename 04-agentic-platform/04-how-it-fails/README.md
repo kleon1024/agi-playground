@@ -133,6 +133,40 @@ this mission measures.
 
 </details>
 
+## The fix and its trade
+
+The fix is the failure taxonomy: every real attempt is sorted into a
+named category (resolved, target_still_failing, regressed, tampered,
+no_tests_ran, timeout) so failures are attributed rather than counted.
+The read is the case-finding step: the harness arm is 0/18 in every
+failure category, the no-harness arm is where failures live (12/18
+target_still_failing, 2/18 timeout), and 11 of those 12 never produced a
+patch git apply would accept — the dominant blind failure is a non-fix,
+not a wrong fix.
+
+The trade is that the taxonomy is only as good as the scorer that assigns
+it, and the zero-failure row is a property of this task set, not a
+general claim about frontier agents. An empty failure row answers "did
+this harness fail here" and cannot answer "can this harness fail" — two
+tasks, three tiers, three runs is a small surface, and the chapter says
+so instead of letting the zeroes read as proof. The honesty cost is
+asymmetric in the other direction too: the tampering guardrail has fired
+zero times on real attempts, and the mission reports "never fired"
+rather than engineering a prompt to make a model cheat — which would
+answer "can a model be made to cheat if told to," a different question.
+
+## Who owns the loop
+
+- **The harness owner** owns the category assignment and the scorer's
+  integrity — the taxonomy's rows are only as trustworthy as the checks
+  stage 02 built.
+- **The task-set owner** owns the difficulty distribution the empty
+  failure row depends on: a harder or more adversarial set could surface
+  failures this one did not.
+- **The report owner** owns the "never fired" status and the boundary
+  that keeps an empty row from overclaiming — the same explicit-or-fired
+  branch mission.yaml declares.
+
 ## What this does not prove
 
 **Stage 03's zero-failure record is a property of this task set, not a

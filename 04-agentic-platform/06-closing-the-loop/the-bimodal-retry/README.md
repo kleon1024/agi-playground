@@ -41,6 +41,31 @@ patch, not in the apply. Haiku's 0/6 says the cheapest tier's failure was
 the apply problem, which no amount of feedback fixes. The bimodality is
 what makes that diagnosis legible.
 
+## The fix and its trade
+
+The fix is the applied/resolved coincidence used as a diagnosis: applied
+and resolved coincide in every row, so the retry's bottleneck is the
+apply gate, not patch quality — a corrected diff either passes git apply
+(and the fix was already correct, since the feedback told the model what
+the test expected) or is rejected (and nothing was fixed). The trade is
+that the diagnosis is only visible because the loop's value is stated
+narrowly: two of twelve retries resolved, the loop is not useless, it is
+narrowly useful — it fixes tasks whose failure was in the patch, and
+haiku's 0/6 is the negative control attributing the cheapest tier's
+failure to the gate, which no amount of feedback fixes.
+
+## Who owns the loop
+
+- **The harness owner** owns the apply gate and the diff-construction
+  path: haiku's 0/6 points at a tooling fix (better diff construction),
+  not a model-feedback fix, and that attribution is the owner's to make.
+- **The model team** owns the tier-by-tier reading: the retry's value is
+  attributable per tier, and the bimodality keeps "feedback helps" from
+  overclaiming across tiers.
+- **The eval owner** owns the negative control: haiku's row is what makes
+  the sonnet/opus flips interpretable as patch-level fixes rather than
+  apply-level ones.
+
 ## Evidence boundary
 
 The recorded closing-the-loop JSONL (12 retry attempts, real claude -p

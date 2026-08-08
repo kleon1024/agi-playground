@@ -59,6 +59,32 @@ suite instead of the task. The harness end-to-end run establishes the loop
 correct on attempts whose right answer is known before it is pointed at
 real attempts — the same discipline as the repo's runs-first rule.
 
+## The fix and its trade
+
+The fix is the loop's structure itself: materialize, capture baseline,
+agent loop, read diff, re-run tests, score — with the guardrail between
+steps 4 and 5, so a diff touching a test file is scored as failure before
+any test result is believed. The trade is that the loop has to be proven
+correct before it is trusted, and the proof is scripted: `FakeBackend`
+attempts with known right answers (`idle` gives up, `tamper` cheats),
+deterministic, \$0, no model. That verification is the cost of trusting
+the verdict later — a harness bug (baseline not captured, test not
+re-run, diff not read) would be invisible behind a model's plausible
+output, and the recorded tamper branch is the proof: every numeric signal
+reads resolved while the diff says otherwise.
+
+## Who owns the loop
+
+- **The harness owner** owns the six-stage loop and the guardrail's
+  placement — the order of steps is the design, not an implementation
+  detail.
+- **The eval owner** owns the scored verdict and the scripted
+  verification that establishes the loop correct on known answers before
+  real attempts.
+- **The model team** owns what comes after: real model outcomes are
+  stage 03's recorded runs, and the loop's correctness is the
+  prerequisite that makes those numbers interpretable.
+
 ## Evidence boundary
 
 The recorded harness run (two scripted attempts, `FakeBackend`, no model,

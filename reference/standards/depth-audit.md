@@ -950,9 +950,9 @@ Audit the remaining missions with the same lens: multimodal generation
 (codebook collapse and streaming decode are already covered by the voice
 stages' collapse/reset/health chapters and the modality-imbalance row
 above; the video path's codebook-collapse row is the remaining multimodal
-gap), agentic platform (tool-result recovery), game AI (policy collapse,
-closed-loop divergence), bio-pharma modeling, and autonomous driving
-(perception failure, distribution shift, closed-loop evaluation).
+gap), game AI (policy collapse, closed-loop divergence), bio-pharma
+modeling, and autonomous driving (perception failure, distribution shift,
+closed-loop evaluation).
 
 ### Quantitative research — 00-05
 
@@ -1022,6 +1022,68 @@ its own measured numbers (no new runs), and cites dated sources:
   deflated-Sharpe input among the 18 carries Bailey & López de Prado,
   "The Deflated Sharpe Ratio," 2014, and Harvey & Liu, "Backtesting,"
   2015.
+
+### Agentic platform — 00-06
+
+**Status: done (twelfth audit increment, 2026-08-08).**
+
+Every stage 00-06 and every detour now carries the fix-and-trade and
+who-owns-the-loop sections the audit contract requires, reusing the
+mission's measured numbers (no new runs, no new model calls):
+
+- 00 task set: the admission rule (fail-at-base/pass-at-gold) plus the
+  three-outcome pytest handling that stops "nothing ran" from reading as
+  "failed"; trade is yield for integrity — 2 of 4 private and 2 of 6
+  public candidates survive (0.08% of history), and a task set is
+  defined by its exclusions; ownership split across the benchmark owner
+  (the rule and the verify runs), the routing owner (inherits the
+  distribution), and the report owner (never-pooled public/private
+  separation); mutation testing (DeMillo, Lipton, Sayward 1978) and
+  SWE-bench (Jimenez et al., 2023).
+- 01 no harness: the blind-call control with oracle file location; the
+  trade is that it measures "can fix once told where," not "can find the
+  bug," and its failure view is distorted by design (11 of 12
+  non-resolving attempts never applied; sonnet's no-harness arm costs
+  more per success than the harness, \$1.3744 vs \$0.5369); ownership
+  split across benchmark (the oracle concession), harness (the
+  comparison), and routing (cost-per-resolved floor).
+- 02 agent loop: the three-check scorer with the diff guardrail first —
+  process supervision in the Uesato et al. (2022) sense — plus
+  base-state freeze, JUnit XML, and the no_tests_ran verdict; the trade
+  is that the guardrail refuses legitimate test edits to stay honest;
+  ownership split across harness (scorer and verdict contract), task-set
+  (baseline capture), and model team (inherits the verdict; "never
+  fired" is a reported outcome, not a gap).
+- 03 cheap or expensive: the metric pair (resolve rate beside dollars
+  per resolved) plus the patch-generality probe; the trade is that the
+  probe carries the quality axis resolve cannot see — haiku 6/6 resolve
+  with 0/3 generality (1.2e-03/4.2e-02/1.2e-03 errors) versus 3/3 for
+  sonnet and opus — and cost-optimal and latency-optimal are different
+  policies; ownership split across routing (tier policy), eval (the
+  probe), and model team (dated aliases, "latent, not live" boundary).
+- 04 how it fails: the per-category failure taxonomy; the trade is that
+  the zero-failure harness row is a property of this task set, and the
+  tamper guardrail's zero real firings are reported as "never fired"
+  rather than engineered; ownership split across harness (category
+  contract), task-set (difficulty distribution), and report
+  (explicit-or-fired boundary).
+- 05 report: a report that computes — report.py reads committed runs/
+  records and renders MET/PARTIAL/NOT MET per acceptance bullet; the
+  trade is that PARTIAL is a decision cost, and bullet 1 names its own
+  gap (the public set has no no-harness control; the opus margin sits
+  inside spread), with the scope substitution carried forward, not
+  erased; ownership split across report/release (verdict contract),
+  stage owners (runs/ records), and the maintainer (the routing decision
+  the report feeds but does not make).
+- 06 closing the loop: the outcome-feedback retry (Reflexion, Shinn et
+  al. 2023; Self-Refine, Madaan et al. 2023; RLEF, Gehring et al. 2024);
+  the trade is priced per turn — \$0.254 per attempt, 2/12 resolved,
+  bimodal (applied and resolved coincide; 10 of 12 corrected diffs still
+  rejected, haiku 0/6); ownership split across harness (retry semantics
+  and base-state reset), eval (per-tier attribution), and training/data
+  (the interpretation boundary: a prompt-level demonstration, not
+  accumulated agentic training data — which the LLM mission's mix and
+  recovery chapters measure separately).
 
 ## How an audit is marked done
 

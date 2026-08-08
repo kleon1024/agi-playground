@@ -41,6 +41,27 @@ resolved (\$1.09 vs sonnet's \$1.37), because it resolves 3x more often.
 The per-attempt price is a poor predictor of the per-success price, and the
 mission's whole cost argument depends on which of the two you read.
 
+## The fix and its trade
+
+The fix is the per-resolved metric: dollars divided by resolved tasks, not
+by attempts, because a baseline that resolves nothing is not cheaper than
+the loop — it is a floor the loop has already beaten (haiku's \$0.49 buys
+0/6). The trade is that the metric makes the control look bad on purpose:
+cost per attempt flatters whichever arm fails fastest, and the mission's
+decision — what a correct patch costs — is the only number a maintainer
+actually pays.
+
+## Who owns the loop
+
+- **The routing owner** owns the metric choice: per-resolved beside
+  resolve rate, and the rejection of per-attempt as the flattering
+  alternative.
+- **The benchmark owner** owns the control's terms — the oracle
+  concession and the 240s cap — which set what "one blind call" means.
+- **The eval owner** owns the reading that a zero-resolve arm has no
+  price, only a cost, and that opus's cheaper-per-success is a resolve
+  story, not a bargain per attempt.
+
 ## Evidence boundary
 
 The recorded no-harness JSONL (18 attempts, 2 private tasks x 3 tiers x 3

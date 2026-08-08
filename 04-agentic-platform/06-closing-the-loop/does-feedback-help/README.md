@@ -43,6 +43,32 @@ budget decision: it buys the chance to convert a non-applying failure into
 an applicable one, at roughly one more model call per task — which is
 precisely the cost-per-resolved framing the mission reports elsewhere.
 
+## The fix and its trade
+
+The fix is the outcome-feedback retry read as a failure-class converter:
+feedback alone does not raise the resolve rate (2/12 versus the blind
+call's 4/18), but it changes what the failure looks like — both resolved
+retries started from a prior non-applicable patch and produced an
+applicable one this time, and the dominant blind failure (11 of 12
+non-applicable) is exactly where the effect lands. The trade is that a
+retry is a priced turn: \$0.254 per attempt, roughly one more model call
+per task, so the decision is whether converting "cannot apply" into "can
+try" is worth the extra dollar on the cost-per-resolved ledger — a
+comparison the recorded numbers start and do not finish.
+
+## Who owns the loop
+
+- **The eval owner** owns the failure-class read: resolve rate alone
+  hides the conversion from non-applicable to tryable, and the
+  comparison's value is in that class change, not in the flat rate.
+- **The harness owner** owns the retry mechanics — real-error capture,
+  base-state reset, tools still denied — that make the feedback what it
+  claims to be.
+- **The budget owner** owns the cost-per-resolved decision: the extra
+  \$0.254 must be weighed against additional resolutions, and against
+  the alternative uses of the same dollar (more tool turns, more blind
+  attempts).
+
 ## Evidence boundary
 
 Twelve recorded attempts (haiku 6, sonnet 3, opus 3), one retry each, no

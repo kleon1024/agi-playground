@@ -43,6 +43,32 @@ that it tests the contamination hypothesis separately. The report's
 side-by-side rows are the rule: never pool, because pooling erases the
 distinction the public set exists to draw.
 
+## The fix and its trade
+
+The fix is the never-pool rule: private and public resolve numbers
+reported side by side, each with its contamination status, never averaged
+into one figure. The trade is that the report gives up a single headline
+number — and the side-by-side rows are harder to quote — to keep the two
+claims separable. The public set is contamination-prone by design
+(more-itertools history is plausibly inside the model's training data),
+so its 6/6 is expected and not informative; the private 18/18 is
+contamination-controlled. Pooling would treat them as the same kind of
+evidence, which is exactly the confusion the public set exists to
+prevent.
+
+## Who owns the loop
+
+- **The benchmark owner** owns the provenance labels: contamination-prone
+  versus contamination-controlled is a property of the set's source, and
+  the owner chose more-itertools for the first and this repository's
+  history for the second.
+- **The eval owner** owns the reporting rule: side-by-side, never pooled,
+  with the haiku-only caveat on the public set stated rather than
+  hidden.
+- **The model owner** owns the non-claim: 6/6 on a set the model may have
+  seen is not capability evidence, and the report's rows keep it from
+  being read as one.
+
 ## Evidence boundary
 
 The recorded outcome report (private 18/18, public 6/6, no pooled figure).

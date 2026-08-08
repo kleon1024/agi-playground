@@ -42,6 +42,30 @@ the private set — the same admission rule on a repository the model may
 have seen — so the private set's numbers have something honest to be
 compared against.
 
+## The fix and its trade
+
+The fix is the admission rule as the quality bar: 2,423 commits shrink to
+2 tasks — 0.08% of history — because only a test that fails at base and
+passes at gold is a real regression. The trade is that a task set is
+defined by its exclusions: the rule removes 99.9% of candidates before a
+model ever sees one, and the survivors are a tiny, selected sample, not a
+distribution. The rule's strictness is what makes the resolved/failed
+verdict meaningful, and the price is that the set can never claim to
+represent "bug-fixing in general" — it represents the bugs that came with
+tests and reproduced.
+
+## Who owns the loop
+
+- **The benchmark owner** owns the rule and the provenance: the public
+  set is contamination-prone by design, and that label is a property of
+  the owner's choice of repository, not of the model.
+- **The evaluation owner** owns the interpretation discipline: 6/6 on a
+  set the model may have seen is expected, not informative, and is
+  reported as the counterpart to the private set's numbers.
+- **The model owner** owns the non-claim: nothing here is a capability
+  result, and a report that reads the public 6/6 as one has misread the
+  control.
+
 ## Evidence boundary
 
 Two recorded task sets, one 6-row model log; the mining counts are the

@@ -41,6 +41,31 @@ generality — whether the fix transfers beyond the failing test. That is
 the quality axis resolve could not show, and it is what turns three
 identical resolve tables into a real comparison.
 
+## The fix and its trade
+
+The fix is to report cost and latency beside resolve rate, and to probe
+the patches when resolve saturates: every tier resolved 18/18, so the
+comparison is not "which tier wins" but "which tier is worth its price."
+The trade is that the probe, not the resolve table, carries the quality
+axis — three tiers at 6/6 look identical, and without the probe a tier
+that overfits the test suite would still "resolve" everything. The knee
+measured here (sonnet cheaper and faster than opus: \$0.54 vs \$0.82 and
+63.6s vs 83.8s) is only visible because the stage kept the cost and
+latency columns; dropping them would leave the most expensive tier
+looking justified by nothing.
+
+## Who owns the loop
+
+- **The routing owner** owns the tier decision: cost per attempt is not
+  the strategy when resolve is saturated — cost per resolved and the
+  quality probe are.
+- **The eval team** owns the probe and its boundary: it checks
+  generality, and it was written after reading diffs, so it finds
+  failure modes without estimating rates.
+- **The cost owner** owns the numbers' provenance: the figures are
+  list-price equivalents on a subscription, and the tier ratios, not the
+  absolute dollars, are the durable part.
+
 ## Evidence boundary
 
 The recorded tier run (18 attempts, 2 tasks x 3 tiers x 3 seeds, list-price

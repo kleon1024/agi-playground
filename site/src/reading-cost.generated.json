@@ -1501,87 +1501,87 @@
   },
   "04-agentic-platform/00-task-set": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 10
   },
   "04-agentic-platform/00-task-set/the-two-of-six-yield": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "04-agentic-platform/00-task-set/what-the-task-set-contains": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "04-agentic-platform/01-no-harness": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "04-agentic-platform/01-no-harness/when-the-blind-call-fails": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "04-agentic-platform/01-no-harness/when-the-patch-does-not-apply": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "04-agentic-platform/02-agent-loop": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 9
   },
   "04-agentic-platform/02-agent-loop/the-loop-that-scores-a-patch": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "04-agentic-platform/02-agent-loop/when-the-guardrail-refuses": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "04-agentic-platform/03-cheap-or-expensive": {
     "level": "frontier",
-    "minutes": 9
+    "minutes": 10
   },
   "04-agentic-platform/03-cheap-or-expensive/the-cost-quality-knee": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "04-agentic-platform/03-cheap-or-expensive/the-tier-that-won": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "04-agentic-platform/04-how-it-fails": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "04-agentic-platform/04-how-it-fails/the-zero-failure-taxonomy": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "04-agentic-platform/04-how-it-fails/when-the-patch-cannot-apply": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "04-agentic-platform/05-report": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "04-agentic-platform/05-report/the-public-set-control": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "04-agentic-platform/05-report/when-the-partial-verdict": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "04-agentic-platform/06-closing-the-loop": {
     "level": "applied",
-    "minutes": 9
+    "minutes": 10
   },
   "04-agentic-platform/06-closing-the-loop/does-feedback-help": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "04-agentic-platform/06-closing-the-loop/the-bimodal-retry": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "05-game-ai": {
     "level": "applied",

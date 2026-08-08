@@ -47,6 +47,31 @@ product cares about latency rather than token spend, the ranking changes —
 which is why the stage reports cost per resolved task beside resolve rate
 and the mission reports both, rather than one number.
 
+## The fix and its trade
+
+The fix is the economic reading of a saturated resolve table: when every
+tier resolves everything, cost per resolved task is the decision, and it
+is decisive — haiku resolves the same 18/18 at 10.6% of total spend. The
+trade is what the cheap tier's win is made of: haiku won by working
+harder, not smarter — 7,513 output tokens and 10.5 turns per task versus
+4,368-4,680 and 9.8-11.2 for the others — so the savings come from the
+per-token rate, not from efficiency. And the ranking is latency-sensitive:
+sonnet is middle-priced and fastest, so a product that cares about
+wall-clock would not pick haiku. The metric pair (cost beside resolve)
+is what keeps any single-axis answer from looking like the whole answer.
+
+## Who owns the loop
+
+- **The routing owner** owns the tier policy and its evidence: the
+  cost-per-resolved metric is the number a maintainer pays, and the
+  resolve saturation that makes it decisive is stated, not assumed.
+- **The product owner** owns the latency axis: cost-optimal and
+  latency-optimal are different policies, and the mission reports both
+  so the choice is visible.
+- **The model/cost owner** owns the rate caveat: haiku's advantage is
+  the per-token price, which is a commercial fact about the day the
+  tiers ran, not a property of the model.
+
 ## Evidence boundary
 
 Eighteen tasks, one snapshot, three tiers resolved by the CLI on the

@@ -176,6 +176,45 @@ uv run python close_the_loop.py \
 model, task, and prior run index) are skipped on a re-run, so an interrupted
 batch can continue rather than re-spending on attempts already scored.
 
+## The fix and its trade
+
+The fix is the outcome-feedback retry: one corrected attempt per failed
+no-harness diff, shown the real `git apply` error or the real
+still-failing pytest output — not a paraphrase — with the tree reset to
+base between attempts and tools still denied. It is the narrowest slice
+of "show the model the consequence of its own output" (Reflexion, Shinn
+et al. 2023; Self-Refine, Madaan et al. 2023; RLEF, Gehring et al. 2024),
+holding tool access at zero so the variable is feedback alone.
+
+The trade is priced per turn. The retry costs about \$0.254 per attempt
+and resolves 2/12 pooled (sonnet 1/3, opus 1/3, haiku 0/6): feedback
+converts the dominant blind failure — non-applicable patches — into
+tryable ones, and the retry is bimodal — a corrected diff either applies
+and is correct, or does not apply at all (10 of 12 still rejected). The
+value is real and narrow: it fixes tasks whose failure was in the patch,
+not in the apply gate, and haiku's 0/6 is the negative control showing
+the cheapest tier's failure is the gate itself. The cost is that a retry
+is a budget decision against other uses of the same dollar (more tool
+turns, more blind attempts), and the result says nothing about training:
+no weights updated, nothing accumulated past one turn, so the
+post-training interpretation is cited as context, not claimed as a
+result.
+
+## Who owns the loop
+
+- **The harness owner** owns the retry semantics: base-state reset (the
+  model is asked for one corrected diff against the original file, not a
+  second patch stacked on the first), the verbatim-error capture, and
+  the resume-safe run bookkeeping.
+- **The eval owner** owns the comparison against the blind baseline and
+  the per-tier attribution — the bimodality is what keeps "feedback
+  helps" honest (2/12) from becoming "feedback fixes apply" (it does
+  not).
+- **The training/data owner** owns the interpretation boundary: this
+  stage demonstrates the feedback signal in a prompt; turning it into
+  accumulated agentic training data is the post-training question the
+  LLM mission's mix and recovery chapters measure separately.
+
 ## What this does not establish
 
 A single retry turn with outcome-feedback and no tools is not the "learning
