@@ -45,6 +45,35 @@ pointwise order — at a measured cost of one extra inference call per
 invalid response. That cost is why the parse check belongs before the
 LLM call's result is trusted, not after the damage ships.
 
+## The fix and its trade
+
+The fix is structural validation before the ranking is served: check
+uniqueness, membership in the candidate set, and completeness, and
+repair an invalid answer by keeping the valid prefix and appending the
+missing documents in pointwise order. The executed cohort prices the
+failure — the naive parse ships a damaged list for 5 of 12 responses
+(five documents dropped and one phantom ID nobody can reach), while the
+validate-and-resample path repairs all five at a measured cost of one
+extra inference call per invalid response.
+
+The trade is latency against correctness: each resample adds an
+inference call to the exact budget stage 31 names, and when the invalid
+rate is high, the cheaper fix is to distrust the format entirely and
+fall back to the pointwise order. The repair is structural rather than
+linguistic because the failure shapes are mechanical — a duplicate ID
+drops a document while keeping the list length, so no position-count
+check notices, and only a check against the candidate set catches it.
+
+## Who owns the loop
+
+- **The serving and inference team** owns the parse, the validation
+  check, and the fallback to the pointwise order when the invalid rate
+  is high.
+- **The ranking and model team** owns the prompt's output format and
+  the resample rule that repairs an invalid answer.
+- **The evaluation team** owns the invalid-rate measurement from logged
+  responses, the number that decides resample versus fallback.
+
 ## Evidence boundary
 
 The executed cohort over twelve hand-built raw answers (illustrative,

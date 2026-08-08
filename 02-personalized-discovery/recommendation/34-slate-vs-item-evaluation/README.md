@@ -59,6 +59,26 @@ on slate value once diversity counts. **Decision:** report the winner
 per metric and declare which metric the product optimizes before
 tuning the ranker (Ie et al. 2019; Craswell et al. 2008).
 
+## The fix and its trade
+
+The fix is to report the winner per metric and declare which metric the
+product optimizes before tuning the ranker — the item-level metric and
+the slate-level metric are answers to different questions, and the
+product has to say which question it is asking. The executed audit
+prices the failure: head comparisons agree 10 of 10, and tail
+comparisons flip every winner — the higher item-score sum loses on
+slate value once diversity counts, exactly as slate_a wins 2.55 to
+2.10 on item scores and loses 3.06 to 3.36 on slate value.
+
+The trade is that slate-level optimization is harder to train than
+item-level scoring: the objective must encode position, diversity, and
+the interaction between items, and the declared metric constrains the
+ranker to that question before tuning begins. The repair costs the
+actual slate value function and measured user outcomes — an item report
+that averages scores cannot see the page, and a product that declares
+no metric lets each team claim the near-tied slate as its own winner
+(Ie et al. 2019; Craswell et al. 2008).
+
 ## Who owns the loop
 
 Three teams keep slate evaluation honest, and each owns a piece of

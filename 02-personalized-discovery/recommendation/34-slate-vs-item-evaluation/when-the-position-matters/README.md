@@ -39,6 +39,43 @@ position-weighted metrics) before they become labels or a verdict —
 otherwise the model is trained and judged on the placement policy's
 biases, not on relevance.
 
+## The fix and its trade
+
+The fix is to de-bias clicks before they become labels or a verdict:
+the click is examination times relevance, so the served placement has
+to be divided out — examination models fit on click logs, or
+inverse-propensity weighting where the placement was randomized. The
+executed read prices the failure: the best item by relevance (x,
+0.95) is the least clicked (0.285), and the promoted item (y, 0.90)
+is the most clicked (0.900), so clicks rank y > z > x while relevance
+says x > y > z — a raw-click report would declare the promoted
+placement correct.
+
+The trade is that de-biasing trades label bias for estimator
+variance: inverse-propensity weights in low-examination slots carry
+high variance, so the corrected signal is noisier exactly where
+examination is lowest, and examination models assume the slot does
+not change relevance, which fails when position itself signals
+quality. Randomizing placement for clean inverse-propensity weighting
+also costs product experience, which is why production systems mix
+logged examination models with small controlled randomization
+(Craswell et al. 2008).
+
+## Who owns the loop
+
+Three teams keep clicks honest, and each owns a piece of what
+breaks:
+
+- **The serving and product team** owns the placement policy — the
+  examination each slot earns, and therefore the bias in every click
+  the log records.
+- **The modeling team** owns the label: position de-biasing has to
+  sit between the log and the training label, or the ranker learns
+  the placement policy instead of relevance.
+- **The evaluation team** owns the verdict: the reported metric has
+  to be position-adjusted too, or the report validates the policy
+  the serving team shipped.
+
 ## Evidence boundary
 
 The executed multiplication over one declared served order

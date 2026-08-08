@@ -34,6 +34,34 @@ type. The practical consequence is that the recall design cannot assume
 "cold items are retrievable"; it has to know per item which content
 exists, because the answer changes by query type.
 
+## The fix and its trade
+
+The fix is to carry the modality set per item and route by query type:
+the reachability matrix is per item and per query type, so the recall
+design knows that item_c answers image queries and not text ones, and
+never claims "cold items are retrievable" as one property. The executed
+check prices the failure — the image vector makes the interaction-free
+item reachable by image query (True) and invisible to text query
+(False), because a text query has nothing of its own modality to match.
+
+The trade is that per-modality routing costs index and query
+complexity, and closing the missing modality means synthesizing it —
+generating a text description costs a VLM call and risks the
+low-quality-vector failure this stage's sibling detour measures. The
+alternative, assuming retrieval, silently drops the items one query
+surface cannot see; the design has to know per item which content
+exists, because the answer changes by query type.
+
+## Who owns the loop
+
+- **The content and embedding team** owns what content exists per item,
+  the modality set the reachability matrix is built from.
+- **The serving and indexing team** owns the per-modality routing and
+  the ANN index shape that either surface queries.
+- **The evaluation team** owns recall@k per query type over the cold
+  catalogue, the number that reports the blind surface instead of the
+  blended one.
+
 ## Evidence boundary
 
 The executed check over one declared item (illustrative, deterministic,

@@ -64,6 +64,27 @@ modality, and for a single-modality item fall back to the modality it
 has or synthesize the missing one (Radford et al. 2021; Liang et al.
 2022).
 
+## The fix and its trade
+
+The fix is per-modality coverage reporting plus a routing rule for
+single-modality items: fall back to the modality the item has, or
+synthesize the missing one so both query surfaces can reach it. The
+executed audit prices the failure — the aggregate reachable figure of
+100 percent hides that tail items carry image and text coverage of 50
+percent each with zero items holding both, so image-only tail items are
+invisible to text queries and text-only items to image queries, and
+half the query surfaces miss every tail item.
+
+The trade is that synthesis costs generation and risks the
+reachable-but-not-retrievable failure: a synthesized vector puts the
+item in the index without making the match good, and routing by the
+available modality leaves one surface blind until the missing content
+exists. The repair is therefore measured per surface — image and text
+coverage reported separately, not one blended recall number — because
+the aggregate figure is precisely what let the single-modality defect
+live between the embedding, serving, and evaluation teams (Radford et
+al. 2021; Liang et al. 2022).
+
 ## Who owns the loop
 
 Three teams keep the cold-start loop working, and each owns a piece of

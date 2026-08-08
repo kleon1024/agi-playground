@@ -38,6 +38,36 @@ and the expensive model is decorative. The position of the disagreement
 is the diagnostic: head disagreement is the LLM doing its job, tail
 disagreement is the LLM being wasted.
 
+## The fix and its trade
+
+The fix is to use the position of the disagreement as the gate: measure
+the head/tail split of the reorder, and where the disagreement sits in
+the tail, shrink the list the LLM sees or remove it from the cascade.
+The executed comparison prices the good case — 2 of 3 head positions
+change while 0 of 3 tail positions do, so the reorder spends its
+latency on the positions where the user decides. The failure mode is
+the mirror image: tail-only disagreement means the expensive model
+changes document IDs nobody reaches.
+
+The trade is that the gate costs a head/tail measurement and can remove
+a ranker that would have helped a different list: head agreement with
+tail disagreement is not the absence of signal, and shrinking the list
+to the head shrinks the reorder's reach with it. The diagnostic is
+position-specific because that is where the user-visible value lives —
+the reorder that changes the top of the page changes the experience,
+and the reorder that only moves the tail is decorative at the price of
+a full inference call.
+
+## Who owns the loop
+
+- **The ranking team** owns the head/tail disagreement gate and the
+  list-size decision when the reorder spends itself on the tail.
+- **The serving and inference team** owns the latency and token spend,
+  the cost the gate decides whether the reorder is worth.
+- **The evaluation team** owns the head/tail measurement from logged
+  positions, the diagnostic that separates the working reorder from the
+  decorative one.
+
 ## Evidence boundary
 
 The executed comparison over one hand-built pair of orders

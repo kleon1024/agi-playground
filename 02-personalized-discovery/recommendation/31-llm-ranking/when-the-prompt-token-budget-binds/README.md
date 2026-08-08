@@ -40,6 +40,33 @@ the same cutoff question stage 22 asked, with tokens instead of
 milliseconds — the budget is a design decision, and it silently
 excludes the documents beyond it.
 
+## The fix and its trade
+
+The fix is to treat the token budget as a design decision, not a
+default: measure the recall boundary beyond the cutoff, size the budget
+against what the latency allows, and watch the best-truncated score as
+the standing signal. The executed truncation prices the failure — d5
+scores 0.99, higher than anything the LLM sees, yet sits outside the
+four-item budget, so the pointwise order decides its fate and the
+ranker's influence stops at the prompt's edge.
+
+The trade is the same funnel arithmetic stage 22 prices, in a different
+currency: a larger budget buys the LLM more candidates to reorder and
+costs latency and tokens, and a tighter one keeps the expensive call
+cheap while silently excluding documents beyond the cutoff. The budget
+is owned, not assumed — the set the ranker can influence is the set the
+prompt can carry, and the best-truncated score is the number that says
+whether the cutoff is cutting the wrong end of the list.
+
+## Who owns the loop
+
+- **The serving and inference team** owns the token and latency budget
+  that fixes how many candidates the prompt can carry.
+- **The ranking team** owns the cutoff decision and the best-truncated
+  score as the standing check that the boundary is not cutting a winner.
+- **The evaluation team** owns the measured recall beyond the cutoff,
+  the number that turns the budget from a cost into a recall decision.
+
 ## Evidence boundary
 
 The executed truncation over one declared list (illustrative,

@@ -38,6 +38,35 @@ on the flipped pair moves the model toward the wrong preference. Real
 RLHF labels are noisy, so the pipeline has to filter or reweight — the
 frontier cost is label quality, not model capacity.
 
+## The fix and its trade
+
+The fix is to filter or reweight the labels instead of trusting them:
+filtering removes suspicious labels before training, and reweighting
+down-weights them during it, both driven by agreement checks on the
+labeling side. The executed flip prices the failure — the flipped pair
+sets a 0.80 loss against 0.09 combined for the clean pairs, a 0.89
+total floor, because every update on the flipped pair moves the model
+toward the wrong preference and no amount of clean data cancels a
+wrong gradient that keeps repeating.
+
+The trade is that both repairs cost signal: filtering risks removing a
+true preference that merely looked odd, and reweighting down-weights
+correct labels along with the wrong ones. The floor is structural —
+the frontier cost of RLHF is label quality, not model capacity — so the
+pipeline has to price the filter's false-removal risk against the
+wrong-gradient floor it removes, with the labeling process and a
+measured noise model as the inputs to that decision.
+
+## Who owns the loop
+
+- **The labeling and annotation team** owns the pairs, the agreement
+  checks that catch flipped labels, and the re-ask policy for
+  low-margin preferences.
+- **The ranking and model team** owns the filter-or-reweight policy
+  that keeps a flipped pair from setting the loss floor.
+- **The evaluation team** owns the noise model and the measured
+  robustness that prices the filter's false-removal risk.
+
 ## Evidence boundary
 
 The executed loss over one declared flip (illustrative, deterministic,

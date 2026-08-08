@@ -67,6 +67,27 @@ the LLM's verdict. The decision that follows: gate the reorder on
 forward-versus-reverse tail agreement, and where it swings keep the
 pointwise order or sample the LLM more than once and aggregate.
 
+## The fix and its trade
+
+The fix is the forward-versus-reverse gate: run each candidate set
+under a forward and a reversed prompt, and where the tail swings, keep
+the pointwise order or sample the LLM more than once and aggregate. The
+executed audit prices the failure — head rankings are stable (0 of 10
+queries swing, mean displacement 0.000) while every tail query changes
+with the written order at 1.040 positions per document, so the
+aggregate 0.520 is a head artifact that approves a reorder whose every
+swing is a tail judgment call.
+
+The trade is that the gate costs what the listwise view is worth: the
+reorder changes 4 of 5 positions because the LLM sees the candidates
+together, and gating means either forgoing that reorder where it swings
+or paying extra inference to sample and aggregate. The prompt also
+grows with the list, so the budget is measured in tokens and the
+fallback to the pointwise order must be owned, not assumed — which is
+exactly why the tail agreement check, not the mean displacement, is the
+approval gate (Sun et al., arXiv:2304.09542, 2023; Qin et al.,
+arXiv:2306.17563, 2023).
+
 ## Who owns the loop
 
 The LLM ranker sits on top of a cascade, and every handoff around it is

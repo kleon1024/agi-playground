@@ -35,6 +35,34 @@ diversity that makes slate b worth more. The metric is not merely
 imprecise; it is blind to the property the product cares about, and a
 report built on it cannot distinguish the two pages.
 
+## The fix and its trade
+
+The fix is to change the unit of measurement from item to slate: the
+item-score average answers "how good are the items", and the
+slate-value function answers "how good is the page" — the report has
+to price the composition, not the parts. The executed read prices
+the failure: both slates tie at 2.40 on item-score sum while slate
+value separates them, 2.88 against 3.84, so the item-level report
+declares two pages equal that the user experiences differently.
+
+The trade is that slate-level evaluation is harder to build and
+maintain: the slate-value function needs position, diversity, and
+interaction terms, it has to be re-derived as the page changes, and
+it needs logged full-slate data instead of per-item labels — which is
+why item-level averages survive: they are cheap, comparable across
+surfaces, and computable from any log. The product pays that
+simplicity in blind spots exactly where diversity decides the page.
+
+## Who owns the loop
+
+- **The evaluation and metrics team** owns the report: the unit of
+  measurement, and the slate-value function behind it.
+- **The ranking team** owns what the metric directs them to optimize:
+  an item-average report pushes them toward same-category top items.
+- **The serving team** owns the logged slate the metric is computed
+  on — the metric can only see the page the placement actually
+  showed.
+
 ## Evidence boundary
 
 The executed comparison over two declared slates (illustrative,

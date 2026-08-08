@@ -68,6 +68,26 @@ Models", ICML 2025, arXiv:2410.02197) is the limitation reference.
 The decision that follows: sample pairs by margin, re-ask low-margin
 preferences, and evaluate on high-margin held-out pairs.
 
+## The fix and its trade
+
+The fix is margin-aware preference handling: sample pairs by margin,
+re-ask low-margin preferences instead of trusting the first answer, and
+evaluate on high-margin held-out pairs. The executed audit prices the
+failure — head pairs (mean margin 1.140) flip 0 of 10 under label
+noise while tail pairs (mean margin 0.039) flip 4 of 10, so the
+aggregate flip rate of 0.20 hides that every flip is a near tie and
+every flip forces a wrong gradient the clean pairs cannot remove.
+
+The trade is that the repair taxes annotation throughput: re-asking
+low-margin pairs costs label budget and slows the pipeline, and
+evaluating on high-margin held-out pairs is optimistic relative to
+production, where near-ties dominate real preference streams. The
+alternative — trusting the pooled loss — lets the weakest pair dominate
+the gradient, exactly as the 1.17 of 2.19 total loss shows in the main
+read. The margin stratification (Rafailov et al., NeurIPS 2023,
+arXiv:2305.18290; Zhang et al., ICML 2025, arXiv:2410.02197) is what
+makes the trade visible instead of buried in an aggregate.
+
 ## Who owns the loop
 
 The ranker learns from preferences, and every handoff around that

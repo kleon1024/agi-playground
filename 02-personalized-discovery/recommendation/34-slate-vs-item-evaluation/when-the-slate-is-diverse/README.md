@@ -36,6 +36,36 @@ versions of the same thing. The evaluation metric has to say which
 objective the product wants before the ranker is tuned, because the
 two slates are answers to different questions.
 
+## The fix and its trade
+
+The fix is to declare the objective before tuning: item-score sum and
+diversity-aware slate value are answers to different questions, and
+the metric encodes the decision the ranker will follow. The executed
+read prices the failure — item-score top-3 selects i1, i2, i3 from
+one category, and the diversity-aware selection drops the third-best
+item for i4, a second category, so the two "best" slates are
+different objects and tuning before the objective is declared trains
+the model for the wrong page.
+
+The trade is that diversity costs item quality on the page: the
+diverse slate deliberately shows one lower-scoring item, and enforcing
+coverage adds a constraint the ranker has to optimize jointly — MMR
+and determinantal point processes trade the item score against a
+similarity term, and the coverage weight becomes another knob to
+tune. Diversity can also be wrong when the catalogue is genuinely
+narrow: forcing coverage where only one category fits degrades the
+page to satisfy the metric.
+
+## Who owns the loop
+
+- **The product team** owns the objective declaration — what a good
+  page is, before anyone tunes a ranker.
+- **The ranking team** owns the objective inside the model: the
+  diversity weight that trades item score for coverage.
+- **The evaluation team** owns the report that checks whether the
+  served slate is actually diverse, measured against the declared
+  objective.
+
 ## Evidence boundary
 
 The executed selection over one declared item set (illustrative,

@@ -35,6 +35,36 @@ favor items that have text. Modality mismatch is a recall bias toward
 text-rich items: the index can find the image-only item, but it ranks
 it below a text item of equal relevance.
 
+## The fix and its trade
+
+The fix is to report image and text coverage separately and to de-bias
+the ranking for the cross-modal gap, or to give the visual-only item
+the missing modality so it competes on equal terms. The executed read
+prices the failure — the image-only item's best text-query score is
+0.60, below the text item's same-modality 0.82, so the ranking pushes
+the relevant image-only answer below a text item of equal relevance.
+Same-modality matching is stronger than cross-modal matching, and the
+bridge costs discriminative power.
+
+The trade is that de-biasing risks ranking text items below their true
+relevance, and giving the item the missing modality costs generation
+and risks the low-quality-vector failure. The bias is structural for
+visual-only content — the exact population stage 33 was meant to
+rescue — so the metrics have to report image and text separately, not
+one blended recall number, because the blended number is what hides the
+systematic rank disadvantage of image-only items.
+
+## Who owns the loop
+
+- **The content-embedding team** owns the alignment quality of the
+  cross-modal bridge and the synthesized-modality path.
+- **The ranking and serving team** owns the de-bias rule that keeps the
+  cross-modal gap from ranking relevant image-only items below text
+  ones.
+- **The evaluation team** owns the per-modality coverage and recall
+  numbers, reported separately so the bias is visible instead of
+  blended.
+
 ## Evidence boundary
 
 The executed comparison over one declared query and two items

@@ -43,6 +43,34 @@ coverage, auto-tag confidence) and re-embedding when the source
 improves; the modality gap (Liang et al. 2022) is why you cannot cheaply
 repair the displaced vector in embedding space.
 
+## The fix and its trade
+
+The fix is a content-quality gate before embedding — blur, resolution,
+caption coverage, auto-tag confidence — and a re-embed when the source
+improves. The executed read prices the failure: recall@3 holds 8/8 for
+clean content and falls to 2/4 for low-quality content, with the
+displaced items losing to other categories' items (D2 enters category
+C's top-3, B3 enters category D's top-3). The low-quality item is in
+the index, so coverage reports it reachable; the noisy vector just
+never wins the retrieval race.
+
+The trade is that the gate rejects or downranks content at the margin
+and can lose items whose quality looks low but is genuine, and the
+re-embed costs compute every time the source improves. The repair is
+upstream of the embedding because the defect is in the input — the
+modality gap makes post-hoc vector repair an expensive synthesis
+problem (Liang et al. 2022) — and the gate's threshold is a measured
+decision, set against the recall@k the threshold costs or buys.
+
+## Who owns the loop
+
+- **The content-embedding team** owns the quality gate before embedding
+  and the re-embed when the source improves.
+- **The serving and indexing team** owns the reject-or-downrank rule
+  that keeps a noisy vector from displacing clean items.
+- **The evaluation team** owns the recall@k per quality stratum and the
+  measured gate threshold that prices the reject decision.
+
 ## Evidence boundary
 
 The executed synthetic read over 12 items with declared noise levels

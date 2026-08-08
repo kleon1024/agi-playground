@@ -49,6 +49,36 @@ single score. A cycle is not a label-quality failure; it is evidence
 that the preference itself depends on the set, which a global rank
 cannot express.
 
+## The fix and its trade
+
+The fix is detection first: count cyclic triples among the sampled
+pairs before trusting the fitted scores, and where cycles exist, either
+drop the weakest edge — the one with the lowest measured agreement —
+or model the preference as context-dependent instead of a single score.
+The executed fit prices the failure: on A > B, B > C, C > A the fitted
+ratings never settle (last-update swing 0.659 after 1,000 iterations)
+and 2 of 3 observed edges are predicted wrong, because no scalar rank
+can hold a cycle.
+
+The trade is that a cycle is not a label-quality failure, so neither
+cleaning nor re-asking fixes it: dropping the weakest edge discards
+real signal — the preference depends on the set — and a
+context-dependent model costs more data and more complexity than the
+scalar reward it replaces. The cyclic-triple count over sampled pairs
+is the number that decides whether non-transitivity is frequent enough
+to justify that cost (Zhang et al., ICML 2025, arXiv:2410.02197;
+Bertrand, Czarnecki and Gidel, UAI 2023, for the Elo limitation).
+
+## Who owns the loop
+
+- **The ranking and model team** owns the scalar-versus-contextual
+  choice and the edge-dropping rule when a cycle is detected.
+- **The labeling and annotation team** owns the per-edge agreement
+  measurement that says which edge is weakest.
+- **The evaluation team** owns the cyclic-triple count over sampled
+  pairs, the number that decides whether the cycle is frequent enough
+  to model.
+
 ## Evidence boundary
 
 The executed fit over one hand-built three-item cycle (illustrative,
