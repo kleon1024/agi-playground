@@ -65,6 +65,45 @@ independent or correlated. A search log that records candidate families and
 their similarity gives stage 03 the information to make that distinction;
 one that records only "32 tried" does not.
 
+## The fix and its trade
+
+The fix is the best-of-N null curve: run the same null at the breadth a
+real pipeline searches — 32, 256, 1,024, 4,096 candidates — and read the
+winner against the curve instead of against one grid's line count. The
+measured curve does the correction: a 0.0947 best-of-grid is beaten by
+pure noise in all 200 replicates at 1,024 candidates, so the winner's
+meaning is a function of the search, not of the signal.
+
+The trade is that the correction's denominator — "effectively independent
+trials" — is not observable. The measured calibration gap says it
+directly: real variants are structurally correlated, so a grid of related
+lookbacks is a smaller search than its raw count, while a library of
+independent ideas is a larger one. Counting every grid point as
+independent over-corrects; counting a family as one under-corrects.
+Bailey & López de Prado ("The Deflated Sharpe Ratio," 2014) make the
+adjustment explicit, and Harvey & Liu ("Backtesting," 2015) document the
+multiple-testing problem in asset pricing — but both corrections require
+the search to have logged candidate families and their similarity, which
+is information only search time can produce. The fix is therefore not a
+formula; it is a logging contract plus the curve, and it costs exactly the
+discipline of recording the denominator while it still exists.
+
+## Who owns the loop
+
+- **Research** owns the candidate generation and the similarity log: the
+  family labels and the grid structure that make the effective-trial
+  count estimable.
+- **Statistics/evaluation** owns the deflation: applying the curve (or
+  the deflated Sharpe at stage 03) with the logged denominator, and
+  stating which counting convention it used.
+- **Stage 03's walk-forward** owns the consumption: its deflated statistic
+  adjusts for the search that produced the candidate, and its adjustment
+  is only as honest as the denominator it was given.
+
+When the search log records only "32 tried," the selection pressure of a
+thousand-idea library is invisible — and the 0.0947 winner is reported as
+if the breadth never happened.
+
 ## Evidence boundary
 
 This run measures a synthetic-noise null on a ten-name, continuously listed,

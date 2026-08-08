@@ -1429,11 +1429,11 @@
   },
   "03-quantitative-research/00-market-data/asof-vs-naive": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "03-quantitative-research/00-market-data/the-restatement-gap": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "03-quantitative-research/01-signal-research": {
     "level": "applied",
@@ -1441,11 +1441,11 @@
   },
   "03-quantitative-research/01-signal-research/the-search-log-read": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "03-quantitative-research/01-signal-research/when-breadth-inflates-the-winner": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 6
   },
   "03-quantitative-research/02-cross-sectional-rank": {
     "level": "applied",
@@ -1453,11 +1453,11 @@
   },
   "03-quantitative-research/02-cross-sectional-rank/the-rank-that-becomes-a-position": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "03-quantitative-research/02-cross-sectional-rank/when-the-cap-bites": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "03-quantitative-research/03-walk-forward-validation": {
     "level": "applied",
@@ -1465,11 +1465,11 @@
   },
   "03-quantitative-research/03-walk-forward-validation/when-purge-matters": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 6
   },
   "03-quantitative-research/03-walk-forward-validation/when-the-shuffle-does-not-move": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "03-quantitative-research/04-cost-and-capacity": {
     "level": "applied",
@@ -1477,11 +1477,11 @@
   },
   "03-quantitative-research/04-cost-and-capacity/the-capacity-ceiling": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "03-quantitative-research/04-cost-and-capacity/when-the-book-stops-making-money": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 4
   },
   "03-quantitative-research/05-report": {
     "level": "applied",
@@ -1489,11 +1489,11 @@
   },
   "03-quantitative-research/05-report/the-three-way-verdict": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "03-quantitative-research/05-report/when-the-refusal-names-everything": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 4
   },
   "04-agentic-platform": {
     "level": "applied",

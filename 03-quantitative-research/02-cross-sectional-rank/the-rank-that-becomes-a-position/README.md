@@ -56,6 +56,41 @@ the recorded reason a joint constrained optimizer is necessary — the
 pipeline's last stage is not a clean-up step, it is part of the strategy,
 and doing it wrong undoes the sizing rule the anatomy was built around.
 
+## The fix and its trade
+
+The fix is a joint constrained optimizer: cap and sector de-mean enforced
+in one pass, instead of cap-then-de-mean applied sequentially. The recorded
+violations are the measured cost of the sequential order — 7 to 47
+re-breaches, because de-meaning pushes names back above the cap the first
+step already applied.
+
+The trade is transparency and speed for correctness. A joint optimizer
+hides constraint interaction inside a solver: the pipeline is harder to
+audit by hand, and it can return feasible weights that surprise the
+researcher who built the two-step version (a cap that never binds, a
+sector mean that overrides a deliberate tilt). It also costs a solver
+dependency and a slower pipeline than two sequential vector operations.
+But the alternative is a strategy whose realized positions do not match its
+declared constraints — every rule here measured 7 to 47 violations, which
+means the paper Sharpe was computed on a book the policy did not actually
+allow. A real portfolio-construction team makes the same trade: constraints
+are part of the strategy, and they are enforced jointly or not at all.
+
+## Who owns the loop
+
+- **Research** owns the sizing rule at stage 3 — the anatomy's decision
+  point where the strategy is actually chosen.
+- **Portfolio construction** owns the constraint pipeline: the cap policy,
+  the sector de-mean, and the joint optimizer that enforces both. Its
+  contract is that realized positions match declared constraints.
+- **Risk** owns the cap values and the violation check that audits the
+  optimizer's output — the same count the recorded run reports (7 to 47),
+  run as a standing check rather than a one-off.
+
+When the pipeline is sequential, the cap is a policy that its own next step
+silently undoes, and the backtest is measured on positions the strategy was
+never allowed to hold.
+
 ## Evidence boundary
 
 The recorded stage-02 run (30 names, 24 monthly rebalances, cost-free

@@ -51,6 +51,52 @@ the discipline is easy to skip and why "it has not bitten recently" is not
 evidence it cannot bite: the 2017 quarter is a 3.8% equity error that a
 recent-window check would not have caught.
 
+## The fix and its trade
+
+The fix is the as-of join the stage already uses: every fact is stamped
+with its filing date, and the backtest joins at that date (here, a 45-day
+buffer after fiscal end) instead of keying on the fiscal period. The
+recorded scan measures what the naive join costs: 3 of 69 periods carry
+the wrong, later value, and the 2017 error is 3.8% of equity — a
+look-ahead violation that looks like a measurement error until the filing
+dates are on the join key.
+
+The trade is a freshness decision, not a free correctness upgrade. An
+as-of join returns the value knowable on the evaluation date, which means
+it returns the *old* value during the window before a restatement lands —
+a strategy that wanted the corrected number would have to wait for a
+filing it cannot see. The buffer is a heuristic: 45 days after fiscal end
+is a stand-in for "the 10-K has been filed," and a slow filer can make it
+wrong in either direction. And the whole discipline depends on trusting
+the filing-date field itself: if the vendor's as-of metadata is wrong,
+the join is wrong in a way that is much harder to spot than the naive
+join's 4% mismatch. The point-in-time database is a commercial category
+(Compustat's, most notably) precisely because this class of error was
+common enough in backtests to be worth paying to eliminate, and the bias
+itself is documented at least as far back as Elton, Gruber & Blake,
+"Survivorship Bias and Mutual Fund Performance" (Review of Financial
+Studies, 1996).
+
+## Who owns the loop
+
+The point-in-time discipline is a data-contract handoff with three owners:
+
+- **The data owner** (in-house or vendor) owns the availability timestamp
+  on every fact. The as-of join is only as correct as this metadata, so
+  the owner's contract is the filing date, not the fiscal period.
+- **The research platform** owns the join: every backtest query is
+  required to join at the decision date, and the naive join is not
+  available as an option — the same as-of machinery as stage 00's
+  recorded check.
+- **The strategy** inherits whatever the panel serves. A backtest that
+  joins by fiscal period is silently borrowing future information, and
+  the borrowing is invisible in the result until a restatement shows up
+  in the mismatch scan.
+
+When the ownership is implicit, the naive join is the default and the
+look-ahead is a silent tax on 4% of the periods the backtest pretends to
+evaluate.
+
 ## Evidence boundary
 
 One ticker, one concept (AAPL Assets), the live EDGAR fact set (142 facts,

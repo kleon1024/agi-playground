@@ -51,6 +51,43 @@ pipeline artifact — and the count scales with tightness: 102 re-breaches at
 interacts with the next constraint in the pipeline, and the interaction is
 measurable.
 
+## The fix and its trade
+
+The fix is to treat the cap as a policy with a measurable binding point,
+not a setting. The sweep measures where it binds (below 0.25 on this
+30-name universe), what it trades (exposure and concentration for
+diversification: HHI 0.109 to 0.032, gross 1.45 to 0.79, paper Sharpe
+-0.66 to -0.76), and the tightness tax its interaction with the next
+constraint costs (102 re-breaches at 0.05, 49 at 0.10, zero at 0.25+).
+
+The trade is the one the sweep makes visible: a cap is a risk-control, not
+a return-improver. Justifying it as "it will improve performance" is the
+wrong promise — on this window it did the opposite. The honest use is a
+constraint on what the book can become: it limits single-name exposure and
+gross, and it does so at a measurable cost in turnover and in
+constraint-pipeline interaction (the tighter the cap, the more the next
+constraint re-breaks it). There is no free setting — the identical rows at
+0.25 and above are the measurement that a looser cap is not a better cap,
+just an inert one, and the re-breach count is the price of tightness
+expressed in violations instead of return.
+
+## Who owns the loop
+
+- **Risk** owns the cap policy: the binding point the sweep measures and
+  the exposure budget the cap exists to enforce.
+- **Portfolio construction** owns the constraint pipeline the cap interacts
+  with (here, sector de-mean re-breaking the cap) — the violation count is
+  its contract, and the joint-constraint fix in the anatomy chapter is its
+  remedy.
+- **Research** owns the sizing rule the cap constrains and the paper return
+  it pays for: the same rule at five caps is the measurement of what the
+  policy actually costs.
+
+When the cap is set without measuring its binding point, it is either an
+inert policy (nothing changes above 0.25) or a hidden tax (the violations
+and turnover at 0.05) — and nobody can say which, because the dial was
+never swept.
+
 ## Evidence boundary
 
 One fetch window (live endpoint, drifts between runs), one momentum signal,

@@ -950,10 +950,78 @@ Audit the remaining missions with the same lens: multimodal generation
 (codebook collapse and streaming decode are already covered by the voice
 stages' collapse/reset/health chapters and the modality-imbalance row
 above; the video path's codebook-collapse row is the remaining multimodal
-gap), quantitative research (as-of joins, restatements, purge), agentic
-platform (tool-result recovery), game AI (policy collapse, closed-loop
-divergence), bio-pharma modeling, and autonomous driving (perception
-failure, distribution shift, closed-loop evaluation).
+gap), agentic platform (tool-result recovery), game AI (policy collapse,
+closed-loop divergence), bio-pharma modeling, and autonomous driving
+(perception failure, distribution shift, closed-loop evaluation).
+
+### Quantitative research — 00-05
+
+**Status: done (eleventh audit increment, 2026-08-08).**
+
+Every detour in stages 00-05 now satisfies the contract's fix-and-trade
+and who-owns-the-loop halves: each carries a `## The fix and its trade`
+and a `## Who owns the loop` section before its evidence boundary, reuses
+its own measured numbers (no new runs), and cites dated sources:
+
+- 00 market data: the as-of join and the restatement gap — the naive join
+  is wrong on 4% of 69 AAPL fiscal periods (mean error 1.65%, the 2017
+  error 3.8% of equity), a look-ahead that looks like a measurement error
+  until the filing dates are on the join key; fix is the filing-date join
+  plus the corporate-action reconstruction as a sanity check, trading
+  freshness (an as-of panel deliberately lags the newest restatement) for
+  correctness; ownership split across the data owner (the availability
+  timestamp), the research platform (the join), and the strategy that
+  inherits the panel; Elton, Gruber & Blake, RFS 1996, and the
+  point-in-time database as a commercial category (Compustat).
+- 01 signal research: the search that inflates its own winner — 32
+  candidates, best in-sample IC 0.0947, 95 of 300 permutations match it,
+  and at 1,024 candidates pure noise beats it in all 200 replicates; fix
+  is the disclosed search log plus the best-of-N null curve, trading
+  power for false-positive control, with the effective-trial denominator
+  unobservable (correlated variants over-correct, families under-correct);
+  ownership split across research (the log), statistics/evaluation (the
+  null and the deflation), and stage 03 (the consumption); Bailey & López
+  de Prado, "The Deflated Sharpe Ratio," 2014; Harvey & Liu,
+  "Backtesting," 2015.
+- 02 cross-sectional rank: the sizing rule that is the strategy (four
+  rules: HHI 0.6667 to 0.1776, paper Sharpe -0.68 to -1.20) and the cap
+  that re-breaks itself (7 to 47 violations under sequential
+  cap-then-de-mean; the cap binds below 0.25, trades exposure for
+  diversification, and taxes tightness); fix is the joint constrained
+  optimizer, trading transparency and speed for constraint correctness;
+  ownership split across research (the rule), portfolio construction (the
+  constraint pipeline), and risk (the cap policy and its violation check).
+- 03 walk-forward validation: fold-specific fit that is not strategy fit
+  (in-fold 0.47-1.40 vs out-of-fold -1.06-3.74; boundary rows a different
+  regime in both label widths) and the negative result that is still the
+  lesson (three paths: 0.7393 / 0.9722 / 0.9722); fix is purge and
+  embargo with the boundary partition as the case-finding step, trading
+  usable rows for leak-freedom (López de Prado, *Advances in Financial
+  Machine Learning*, Wiley, 2018); ownership split across the backtest
+  platform (the eligibility boundary), research (the label definition and
+  information lag), and statistics/evaluation (the deflated out-of-fold
+  read).
+- 04 cost and capacity: the two ceilings that are different — liquidity
+  (USD 25bn discrete-sweep peak) vs cost (USD 125bn breakeven) — and the
+  cliff where participation crosses 100% (net-dollar peak USD 31.6B /
+  USD 1.46B/yr, negative at USD 100B); fix is the pre-trade capacity
+  screen and the capacity curve, trading measured ADV and volatility
+  against declared spread, commission, and impact assumptions whose
+  coefficient must be fitted from the firm's own fills; ownership split
+  across capacity/risk (the screen and its assumptions), execution (the
+  fills that re-fit impact), and research (the paper return); Almgren,
+  Thum, Hauptmann & Li, "Direct Estimation of Equity Market Impact,"
+  2005; Tóth et al., "Anomalous Price Impact," 2011.
+- 05 report: the three-way verdict and the refusal that names everything
+  (CANNOT DETERMINE with 18 named missing inputs — the acceptance
+  contract enumerated); fix is the grouped refusal plus the integrated
+  outcome artifact that turns it into MET or NOT MET, trading momentum
+  (no verdict, no decision) for honesty; ownership split across the
+  report/release owner (the verdict contract and the integrated
+  artifact), each stage owner (its named inputs), and the reader; the
+  deflated-Sharpe input among the 18 carries Bailey & López de Prado,
+  "The Deflated Sharpe Ratio," 2014, and Harvey & Liu, "Backtesting,"
+  2015.
 
 ## How an audit is marked done
 

@@ -46,6 +46,49 @@ their outputs were never combined into the artifact `mission.yaml`
 requires. Manufacturing a conclusion from partial artifacts would be worse
 than saying nothing, and the stage says so in its own refusal text.
 
+## The fix and its trade
+
+The fix is the grouped refusal: the 18 named inputs arranged by what each
+would establish — baselines (the passive floor and the bar that has to be
+beaten), candidate evidence (net/gross Sharpe, deflated Sharpe and trial
+count, drawdown, capacity, point-in-time and survivorship integrity), cost
+(real dollars, modeled transaction cost, modeled impact), latency,
+regimes. The grouping is what turns a wall of missing fields into a
+checklist: each group is a different way the mission could fail, and the
+refusal names them one by one so the gap is visible rather than guessed
+at.
+
+The trade is that the checklist is only as good as the contract it
+enumerates. A refusal is a claim about what would resolve it, and the
+claim is testable only when the integrated outcome artifact exists — the
+signal, ranking, validation, and cost stages here all have runs, but their
+outputs were never combined into the artifact `mission.yaml` requires,
+which is precisely why the verdict stays CANNOT DETERMINE. The refusal's
+value is that it makes the missing integration legible; its cost is that
+it cannot substitute for the integration. The verdict discipline itself is
+the same three-way contract mission 02's report uses, and the
+multiple-testing inputs among the 18 (deflated Sharpe and its trial count)
+are the financial addition the report must have before any MET is
+trustworthy (Bailey & López de Prado, "The Deflated Sharpe Ratio," 2014;
+Harvey & Liu, "Backtesting," 2015).
+
+## Who owns the loop
+
+- **The mission/report owner** owns the integrated outcome artifact — the
+  one contract that combines per-fold results, guardrails, cost, latency,
+  and regimes — and owns the verdict that depends on it.
+- **Each stage owner** owns its named inputs and their evidence boundary:
+  the refusal's 18 names are the acceptance conditions the stages must
+  meet before the report can decide.
+- **The reader** owns the interpretation: a CANNOT DETERMINE with 18 named
+  inputs is actionable in a way a single summary line is not, because each
+  name is a different way the mission could fail and each has an owner to
+  go back to.
+
+When the refusal is not grouped, the 18 inputs read as noise and the
+report's real claim — the integration artifact is missing — is the one
+thing nobody acts on.
+
 ## Evidence boundary
 
 The stage's own report re-run against the real current state; the refusal

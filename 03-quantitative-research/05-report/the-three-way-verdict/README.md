@@ -41,6 +41,48 @@ partial artifacts would hide the uncertainty the mission exists to expose.
 three-way discipline mission 02's report uses, here with financial
 multiple-testing on top.
 
+## The fix and its trade
+
+The fix is the three-way verdict contract: MET, NOT MET, or CANNOT
+DETERMINE, where the third verdict is first-class and must name exactly
+what would turn it into the other two. The chapter's run re-reads the
+refusal against the real current state — the same 18 named missing inputs —
+and the point is that the refusal is not a wall of excuses but the
+acceptance contract enumerated: per-fold baselines, deflated Sharpe and its
+trial count, drawdown, capacity, point-in-time integrity, cost, latency,
+regimes.
+
+The trade is momentum for honesty. CANNOT DETERMINE produces no verdict,
+which means no decision, which means the mission's reader cannot claim
+progress — and the only way out is the integrated outcome artifact, the
+work the report exists to force. The refusal's cost is precisely that it
+does not soften: manufacturing a conclusion from partial artifacts is
+cheaper and looks better, which is why the chapter insists the third
+verdict is the correct output for this state. The same three-way
+discipline carries mission 02's report, with financial multiple-testing on
+top — the deflated-Sharpe input is among the named missing inputs because
+a verdict without a trial count is a multiple-testing failure waiting to
+be reported as a result (Bailey & López de Prado, "The Deflated Sharpe
+Ratio," 2014; Harvey & Liu, "Backtesting," 2015).
+
+## Who owns the loop
+
+- **The report/release owner** owns the verdict contract and the integrated
+  outcome artifact: the single place per-fold candidate and baseline
+  Sharpes, deflated Sharpe with trial count, guardrails, cost, latency, and
+  regimes must all land before a verdict may be rendered.
+- **Each stage owner** owns its named inputs: stage 01 the search log and
+  trial count, stage 02 the position construction, stage 03 the purged
+  folds and deflated statistic, stage 04 the cost and capacity guardrails —
+  the refusal's 18 names are the cross-team handoff list.
+- **The mission reader** owns the consequence: a verdict drawn from missing
+  inputs is wrong, not cautious, and the refusal exists to keep an
+  incomplete mission from looking complete.
+
+When the verdict contract is implicit, the report renders MET on partial
+artifacts and the reader cannot tell which guardrail stopped — the exact
+uncertainty the third verdict exists to expose.
+
 ## Evidence boundary
 
 The stage's own report re-run against the real current state; the refusal

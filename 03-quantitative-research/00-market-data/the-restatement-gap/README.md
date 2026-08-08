@@ -41,6 +41,47 @@ own adjclose exactly over 501 bars (median and max relative error both
 discipline — reconstruct what was knowable — applied to prices and to
 fundamentals.
 
+## The fix and its trade
+
+The fix is the point-in-time join the stage records — key on the filing
+date, not the fiscal period — with the corporate-action reconstruction run
+beside it as a sanity check. The restatement read shows why both halves
+belong together: the naive join silently picks the 2016 restatement for a
+decision made in 2015 (a 1.0% equity error on MSFT's FY2015 Assets), while
+the reconstruction proves the price side can be rebuilt to match the
+vendor's adjusted series exactly (zero residual over 501 bars). The two
+checks are the same discipline — what was knowable when — applied to two
+axes.
+
+The trade is what the point-in-time discipline actually costs. The
+restatement value is not "wrong" in the latest-filing sense; it is wrong
+only relative to the decision date, so an as-of panel deliberately lags
+the newest restatement until it is filed. The reconstruction, in turn, is
+only a sanity check for the corporate-action part of the adjustment: it
+cannot catch vendor errors that come from a different source
+(survivorship filtering, bad ticker mapping), and it requires clean raw
+bars to run. Survivorship bias in backtests is documented at least as far
+back as Elton, Gruber & Blake, "Survivorship Bias and Mutual Fund
+Performance" (Review of Financial Studies, 1996), and the point-in-time
+database is a commercial category (Compustat's) because this class of
+error was common enough to pay to eliminate — the fix here is the in-house
+version of that product.
+
+## Who owns the loop
+
+Two owners, one contract:
+
+- **The data owner** owns the availability timestamp on every fact and the
+  corporate-action reconstruction that certifies the price series. The
+  point-in-time panel is only as trustworthy as this metadata.
+- **The research platform** owns the join: a backtest may only read the
+  panel as of a decision date, and the naive join keyed on fiscal period
+  is the failure mode the platform exists to prevent.
+
+The strategy inherits the panel: if the timestamp is wrong, the backtest is
+wrong in a way that looks exactly like a measurement error — which is why
+the restatement gap has to be checked per-company, not assumed away.
+
 ## Evidence boundary
 
 The recorded point-in-time check (MSFT, 2y window, CIK 789019 Assets tag,

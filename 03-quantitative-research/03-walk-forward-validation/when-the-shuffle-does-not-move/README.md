@@ -43,6 +43,45 @@ three on the same data is what makes the difference legible — and the
 recorded 0.9722-vs-0.9722 is the honest version of a comparison that could
 easily have been a 0.9722-vs-1.20 leakage headline.
 
+## The fix and its trade
+
+The fix is the three-path comparison itself: shuffled-invalid (0.7393) as
+the floor, chronological-unpurged (0.9722) as the naive-but-honest path,
+and purged-gapped (0.9722) as the defended path, all on the same data.
+Running all three is what makes a negative result legible: this rule's
+prediction never used its training indices, so there was no leak for purge
+to remove, and the two defended paths agree exactly because of it.
+
+The trade is the cost of keeping three evaluation paths honest. Two extra
+paths to build and maintain, each with its own invariant (shuffle must
+destroy temporal structure; the purged path must use the platform's
+eligibility boundary — the same purge/embargo machinery the platform owns,
+canonical in López de Prado, *Advances in Financial Machine Learning*,
+Wiley, 2018), for a comparison whose value is mostly negative: it proves a
+null result and a sensitive harness, not an edge. The payoff is that the
+negative result is evidence *about this run* — the chapter says explicitly
+it is not proof leakage is harmless. A different rule that did use its
+training indices would show the gap this one cannot, and only the
+three-path harness would make that gap visible as a difference rather than
+a headline.
+
+## Who owns the loop
+
+- **The evaluation platform** owns the three-path harness: the shuffled
+  baseline, the chronological path, and the purged path share one
+  implementation so the comparison is controlled.
+- **Research** owns the rule that decides whether purge matters: the
+  three-path read is the evidence that a purge decision was made — the bet
+  "this rule has no overlap sensitivity" was actually tested rather than
+  assumed.
+- **Statistics/evaluation** owns the reading: the shuffled path is the
+  floor, purge is the defense, and the gap between them is the quantity of
+  interest, not either number alone.
+
+When the three paths are not run, a leak that exists is invisible in the
+single chronological number — and "purge changed nothing" is reported
+without the control that makes it meaningful.
+
 ## Evidence boundary
 
 The recorded walk-forward run (1,255 AAPL bars, 1,230 five-day labels, one

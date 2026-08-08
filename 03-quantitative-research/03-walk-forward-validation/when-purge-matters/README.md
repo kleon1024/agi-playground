@@ -68,6 +68,52 @@ is how you check whether it does. A researcher who skips purge is betting
 their rule has no overlap sensitivity; a researcher who measures the
 boundary knows whether the bet held.
 
+## The fix and its trade
+
+The fix is purged, embargoed walk-forward folds with the boundary rows
+measured as a regime of their own. The chapter's numbers are the case for
+both halves: in-fold fit never predicts out-of-fold fit (0.47-1.40 in-fold
+vs -1.06-3.74 out-of-fold), the boundary rows are systematically different
+from the interior in both label widths (5-day: 3.17 vs 0.85; 20-day: 0.65
+vs 2.41), and yet purge changes the aggregate little on this rule (0.93 vs
+1.13 at five-day labels; 2.12 vs 2.15 at twenty-day). Purge and embargo
+are the canonical defense for label-overlap leakage in financial machine
+learning (López de Prado, *Advances in Financial Machine Learning*, Wiley,
+2018).
+
+The trade is data and horizon. Purge removes every training row whose
+label window overlaps the test block; embargo removes the first label days
+of the test block beyond that — both cost usable rows, and on a short
+series that is a real capacity loss. That is why the stage's fold generator
+versions the purge and embargo configuration with the experiment: change
+the forward horizon and the needed purge changes with it; change a
+feature's information lag and the embargo may change too. The measured
+boundary partition is the honest way to know whether the cost is being
+paid for a leak that matters: "the leak exists" (boundary rows differ) is
+not "this strategy leaks" (aggregate unchanged), and the researcher who
+skips purge without measuring the boundary is betting the rule has no
+overlap sensitivity on data that will not tell them if the bet failed.
+
+## Who owns the loop
+
+- **The backtest platform** owns the fold generator's eligibility
+  boundary: purge and embargo are implemented as operations on the label
+  definition, not hoped for from a generic splitter — sklearn's
+  `TimeSeriesSplit` supplies chronology but not purge or embargo, which is
+  why the stage's prod implementation adds both.
+- **Research** owns the label definition and the information lag that set
+  how wide the purge and embargo must be, and versions that configuration
+  with the experiment so a reviewer can reconstruct why every training row
+  was eligible.
+- **Statistics/evaluation** owns the boundary partition and the deflated
+  reading of the out-of-fold result (Bailey & López de Prado, "The
+  Deflated Sharpe Ratio," 2014) — the fold-fit number is selection, and
+  only the out-of-fold number is strategy.
+
+When the purge is implicit, the platform's folds leak at the boundary, the
+boundary rows are silently counted as strategy evidence, and the in-fold
+selection (0.47-1.40) is reported as if it were the strategy's quality.
+
 ## Evidence boundary
 
 One ticker, one rule family, two label widths, one fetch window (live

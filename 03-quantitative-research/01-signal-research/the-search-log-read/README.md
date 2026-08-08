@@ -42,6 +42,42 @@ would have no way to price the search, which is why the log (32 JSONL
 lines) and the correction are the same discipline: multiple testing is
 only correctable if the search is disclosed.
 
+## The fix and its trade
+
+The fix is the disclosed search log plus the permutation null the stage
+records: log all 32 candidates, then ask how often a no-edge search would
+produce the winner (95 of 300 replicates, p = 0.317). That is the
+deflated-Sharpe discipline's input — the trial count the correction
+divides the winner's significance by (Bailey & López de Prado, "The
+Deflated Sharpe Ratio," 2014; the multiple-testing problem in asset
+pricing is documented in Harvey & Liu, "Backtesting," 2015).
+
+The trade is a false-positive-versus-power decision. The null prices the
+search this run actually performed: it answers "is this winner convincing
+given 32 tries," not "is there an edge" — a genuinely weak but real signal
+can fail the permutation null at low breadth, and the correction will not
+tell the difference. The log costs a discipline (the researcher has to
+keep every variant, including the embarrassing ones) and the permutation
+pass costs compute, but the alternative is unpriced: a report that keeps
+only the winner has no way to pay for the search, and its significance is
+overstated by construction.
+
+## Who owns the loop
+
+- **Research** owns the search log: every candidate, not just the winner,
+  written at search time. This is the input the deflation correction
+  needs, and it cannot be reconstructed later from a report that kept one
+  number.
+- **Statistics/evaluation** owns the null: the permutation harness that
+  prices the winner against the breadth that produced it, and the
+  corrected significance that stage 03 consumes.
+- **Stage 03's walk-forward** owns the handoff: it consumes the log and
+  the trial count, and its deflated statistic is only as honest as the
+  log's completeness.
+
+When the log is implicit, the winner's 0.0947 IC is reported as a result
+instead of what the null shows it to be — chance, a third of the time.
+
 ## Evidence boundary
 
 The recorded signal search (32 candidates, 300 permutations, ten-name
