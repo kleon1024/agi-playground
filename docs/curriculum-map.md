@@ -33,7 +33,7 @@ sub-chapters (for example mission 01's `is-it-the-same-tokenizer` and
 | Topic | Stages | when-* detours | Lineage survey | Anatomy chapters | Deep-dive gap |
 |---|---|---|---|---|---|
 | 01 language-model system | 8 (00-corpus..07-eval) | 18 | `01-language-model/lineage.md` + `vision/lineage.md` | attention-variants (KV anatomy), the-kl-leash, the-gate-that-beats-relu | stage 07-eval carries no when-* detour (its depth lives in `why-believe-the-number`); stages 01 and 06 have one each |
-| 02 personalized discovery | 67 (00..65 across recommendation/search/ads, plus shared/) | 186 | `02-personalized-discovery/lineage.md` | value-tree (strategy anatomy) | — |
+| 02 personalized discovery | 67 (00..65 across recommendation/search/ads, plus shared/) | 187 | `02-personalized-discovery/lineage.md` | value-tree (strategy anatomy) | — |
 | 03 quantitative research | 6 (00..05) | 6 | `03-quantitative-research/lineage.md` | the-rank-that-becomes-a-position (sizing anatomy) | stage 00-market-data carries no when-* detour |
 | 04 agentic platform | 7 (00..06) | 5 | `04-agentic-platform/lineage.md` | agent loop (harness anatomy) | stages 00, 05, 06 carry no when-* detour |
 | 05 game AI | 7 (00..06) | 9 | `05-game-ai/lineage.md` | the-policy-anatomy (GRPO anatomy) | stages 02, 03, 05 carry no when-* detour |
@@ -65,7 +65,7 @@ run and not be a defect.
 
 Mission 01 is the pattern: a stage states a decision, and one or more detours
 under it answer the decisions the main path asserts without showing, each
-backed by a run recorded in `runs/`. 260 `when-*` detour chapters across the
+backed by a run recorded in `runs/`. 261 `when-*` detour chapters across the
 eight topics, plus 9 foundations detours, as of 2026-08-08. The per-topic
 anatomy series is complete: mission 09, the newest topic, now carries eight
 detours covering all seven of its stages.

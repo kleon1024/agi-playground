@@ -221,3 +221,9 @@ A third detour: [the traffic is two-sided](when-the-traffic-is-two-sided/)
 — the executed read: per-minute analysis rejects 53% of null switchbacks,
 block-level analysis restores validity, and the block unit prices a 1%
 effect at 36 years.
+
+A fourth detour: [the budget runs out](when-the-budget-runs-out/) — the
+executed read: the 39,244-users-per-arm figure derived from the sample-size
+formula, and the four levers (MDE, metric variance, CUPED, allocation and
+ramp) priced in calendar days, which is how the experiment that cannot
+finish this quarter gets its design verdict.

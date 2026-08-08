@@ -1389,7 +1389,11 @@
   },
   "02-personalized-discovery/shared/54-online-experiments": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 9
+  },
+  "02-personalized-discovery/shared/54-online-experiments/when-the-budget-runs-out": {
+    "level": "applied",
+    "minutes": 7
   },
   "02-personalized-discovery/shared/54-online-experiments/when-the-split-lies": {
     "level": "applied",

@@ -63,6 +63,7 @@ the practice run that answers it.
 | 01 | 07-eval | `why-believe-the-number` (deepen, draft) | What is one number from a harness worth? | variance re-runs across seeds | shipped |
 | 02 | 06-mixing | mixing-weight chapter | What does a mixing weight actually trade off? | a two-weight ablation on the recall stage | shipped: `shared/06-mixing/when-the-trade-weight-moves` |
 | 02 | 01-content-understanding | cold-start / sparse-interaction chapter | What can you recommend before a user has history? | popularity baseline vs the fine-rank stage | shipped as sibling surfaces: `shared/51-new-user-experience/when-the-user-is-new`, `search/23-personalized-search/when-the-new-user-is-the-majority` |
+| 02 | 54-online-experiments | `when-the-budget-runs-out` | How many users does an A/B need, and which lever moves the date? | power/MDE/duration/CUPED/ramp calculator run (derives the 39,244/arm figure the split-lies detour asserts) | shipped |
 | 03 | 01-signal-research | false-discovery chapter | Why does a search over 1,000 signals find losers? | permutation-null run at higher trial counts | shipped: `when-breadth-inflates-the-winner` |
 | 03 | 03-walk-forward | fold-fit chapter (deepen) | Why is fold-specific fit not strategy fit? | the existing runs' per-fold curves | shipped: `03-walk-forward-validation/when-purge-matters` |
 | 04 | 04-how-it-fails | failure taxonomy (deepen) | Which failure modes are structural vs fixable? | re-run the agent at three temperatures | shipped: `the-zero-failure-taxonomy` |

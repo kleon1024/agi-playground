@@ -2285,6 +2285,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "02-personalized-discovery/shared/54-online-experiments/when-the-budget-runs-out/index",
+                "label": "When the budget runs out"
+              },
+              {
+                "type": "doc",
                 "id": "02-personalized-discovery/shared/54-online-experiments/when-the-split-lies/index",
                 "label": "When the split lies"
               },
