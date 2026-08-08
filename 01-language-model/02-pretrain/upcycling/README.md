@@ -152,6 +152,60 @@ python continue_training.py --arm moe --checkpoint moe.pt --data ~/tokens --toke
 real `safetensors` checkpoint, which shows that none of this needs a custom
 model class — only a correct reading of what each tensor means.
 
+## The fix and its trade
+
+The failure this chapter fixes is the all-or-nothing assumption — that once
+five hours of training produced a checkpoint, changing the feed-forward
+design means starting over. The fix is the surgery plus its verify check,
+and the check is what makes the surgery trustworthy: copying one feed-forward
+into four identical experts makes the top-k routing mathematically irrelevant
+at step 0 (renormalized weights sum to one, so the block computes F(x) for
+any routing), which converts a hope into a test — the upcycled model must
+start at its parent's validation loss, not at the untrained floor. Measured
+on the 4090: logit difference 1.261e-04, parent 3.0498, upcycled 3.0499,
+against ln(16,512) = 9.7118 — a transposed attention matrix, an expert wired
+to the wrong layer, or a shared expert double-counting the feed-forward
+would all land between 3.05 and 9.71, so recovering the parent's loss to
+four decimals is a far stronger statement than "it loaded without an
+exception."
+
+The trade is in the same run, in the two units that disagree. The upcycled
+model is 258,104,064 total parameters with 144,838,656 active per token:
+2.93x the storage, 1.64x the compute — and measured wall-clock is worse
+than either, 55,069 tokens per second against the dense 106,369 (1.93x
+slower for 1.64x the arithmetic), because `core/` dispatches experts with a
+Python loop rather than a grouped kernel. That gap is the kernel, not the
+architecture, and naming it is what lets the throughput chapter turn it
+into an attributable number. Two deliberate details complete the trade:
+the router is random, not zero, because zero would keep every expert
+equally likely forever (the divergence of the four copies is the entire
+point, and without it you have paid 2.93x the storage for nothing), and
+the router's gradient is exactly zero at step 0 because identical experts
+make the output independent of routing — it becomes non-zero one step
+later, as soon as the copies differ.
+
+## Who owns the loop
+
+- **The training engineer** owns the surgery and the verify protocol: the
+  tensor-meaning precondition (shared tokenizer, shared d_model) is their
+  correctness rule, and the "must start at parent loss, not the floor"
+  check is their acceptance test — a load that lands at 4.2 is a failed
+  conversion, not a partial one.
+- **The architecture team** owns the shape choices the chapter does not
+  tune: the router initialization, the expert count (4), and the top-2
+  routing were chosen to make the identity check exact, not because they
+  were optimized, and the question of whether 4 experts at top-2 is a good
+  shape is still open.
+- **The platform team** owns the dispatch gap: the 1.93x measured slowdown
+  against a 1.64x compute ratio is implementation overhead — a grouped
+  kernel instead of the Python loop — and turning that gap into a kernel
+  number is their job, the same scheduling-policy-versus-fused-kernel
+  distinction the serving chapter draws.
+- **The evaluation team** owns what conversion alone cannot claim: the
+  surgery preserves the function exactly, but whether the capacity earns
+  its cost is a separate run with its own boundary, in
+  [does it pay off?](does-it-pay-off/).
+
 ## What this chapter establishes and what it does not
 
 Established, and recorded in [`runs/`](runs/2026-07-28-upcycle-88m.md): the

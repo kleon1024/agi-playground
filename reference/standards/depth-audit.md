@@ -1248,13 +1248,118 @@ sources:
   2023; ownership split across research (the ladder), eval (contamination
   boundary), and data (teacher choice).
 
-**Still pending:** the language-model system sub-groups:
-- Language-model system sub-groups: `00-corpus/`, `02-pretrain/`
-  (attention-variants, the-gate-that-beats-relu, upcycling and
-  does-it-pay-off, latent-reasoning, architecture-ablations and
-  the-rung-that-flipped, when-the-curve-goes-wrong, throughput,
-  verifying-the-run), `03-sft/` (what-it-costs, what-model-size-changes,
-  beyond-demonstrations), `05-serve/` (graph-execution, quantization,
+**Done for the corpus stage and the pretraining sub-group (twenty-third
+audit increment, 2026-08-08).** The `00-corpus/` parent and every
+`02-pretrain/` chapter now carry the fix-and-trade and who-owns-the-loop
+sections the audit contract requires, each reusing the chapter's own
+measured numbers and citing dated sources:
+
+- 00-corpus: the funnel as case-finding (20,000 in, 4,592 out, 23% —
+  language ID is the single biggest filter, removing 10,862 of 20,000) and
+  the cross-implementation audit that catches the naive pipeline being 40%
+  too permissive (9,184 kept at 23.0% vs datatrove's 5,513 at 13.8%, the
+  gap named as repetition the funnel is blind to); the trade is speed
+  against structural awareness (regex ~2 ms/doc vs trafilatura 25 ms/doc,
+  85% of datatrove's runtime); ownership split across data (funnel
+  contract, per-gate drop reasons), platform (production recipe and the
+  distributed dedup), training engineer (the length shape, median 322 vs
+  mean 705), and eval (contamination boundary); Rae et al. 2021, Raffel et
+  al. 2019, Penedo et al. 2024, Lee et al. 2022 (dedup), Sainz et al. 2023
+  (contamination).
+- 02-pretrain parent: the wrong-objective read (a falling loss is
+  next-token agreement, not truth — 3.0689 nats converts to 4.65% on the
+  right token, one in 21.5), the budget arithmetic (C about 6ND, 34 tokens
+  per parameter vs Chinchilla's ~20, deliberately over-trained because
+  serving cost tracks parameters), and the step-0 floor that catches silent
+  wiring bugs (ln(16,512) = 9.712; measured 9.8697; far below means the
+  model sees the answer); Hoffmann et al. 2022; ownership split across
+  training engineer, data, serving (the KV-cache tax), and eval.
+- 02-pretrain attention-variants: the linear-in-context cache tax priced
+  per variant (MHA 36,864 bytes/token, GQA 12,288, MQA 3,072, MLA 0.67x of
+  this repo's MHA against the paper's 93% because ratios are
+  baseline-relative), and the K3 four-condition test that bundles quality,
+  training/prefill cost, cache, and decode compute; Vaswani et al. 2017,
+  Ainslie et al. 2023, Shazeer 2019, DeepSeek-V2 2024; ownership split
+  across architecture (head count baked at training), serving (the
+  per-request collection), and eval (the unmeasured quality drop).
+- 02-pretrain the-gate-that-beats-relu: the dead-neuron tax (ReLU 50.1%
+  near-zero units on 200k draws — a dead unit's gradient is zero, so half
+  the block is inert) fixed by the multiplicative SwiGLU form (zero-mean
+  -0.001, no dead zone, a conditioning property for the following RMSNorm),
+  traded at more than twice the parameters at the same width; Shazeer 2020;
+  ownership split across architecture (block form), training (norm
+  conditioning), and eval (the random-input boundary).
+- 02-pretrain upcycling and does-it-pay-off: the all-or-nothing assumption
+  fixed by the surgery plus its verify check (four identical experts make
+  top-k routing irrelevant at step 0, so the converted model must start at
+  the parent's 3.0498, not the 9.7118 floor — a load at 4.2 is a failed
+  conversion), priced at 2.93x storage and 1.64x compute with 1.93x
+  measured wall-clock (the Python-loop dispatch gap, a kernel cost); the
+  continuation pair (both arms rise to 3.1445 at 53M, crossover at 32.8M,
+  -0.0088 at 200M monotone) and the equal-wall-clock blank (dense would
+  have seen 391M tokens in the MoE arm's 1,645.9s — unrun, so a blank, not
+  a tie); ownership split across training engineer, research (budget
+  declaration), platform (kernel dispatch), and eval (one seed per arm
+  bounds nothing — the shape carries the result).
+- 02-pretrain latent-reasoning: the tokenization tax on reasoning (a
+  768-number state collapsed to one of 16,512 choices) fixed by the
+  continuous-thought loop and the curriculum that supervises thoughts
+  through staged replacement; measured collapse is the failure mode — cot
+  0.9993 vs direct 0.502, latent 0.502 with per-stage accuracy hitting 1.0
+  at n_latent=3 and collapsing at n_latent=4; the trade is n+1 forward
+  passes and KV-cache invalidation on slot overwrite; Hao et al. 2024;
+  ownership split across research, training engineer (curriculum), and
+  serving (token-vs-pass economics).
+- 02-pretrain architecture-ablations and the-rung-that-flipped: the
+  underdetermined comparison — equal-parameter, equal-FLOP, and
+  equal-wall-clock definitions routinely disagree, so `core/ablate.py`
+  refuses to write a result file without a budget definition; the noise
+  floor (six identical runs spanning 0.0018 from GPU nondeterminism) makes
+  claims under ~0.002 noise, and the nine feed-forward runs support two
+  opposite headlines (MoE wins 0.0901 under equal-active, ties 0.0001
+  sign-flipping under equal-total, and equal-wall-clock is a blank because
+  the dense-at-391M arm was never run); Zhang & Sennrich 2019, Su et al.
+  2021, Shazeer 2020, Ainslie et al. 2023, Fedus et al. 2022, Hoffmann et
+  al. 2022; ownership split across research (budget), training (seeds and
+  batches), eval (two-size stability), and platform (hardware
+  attribution).
+- 02-pretrain when-the-curve-goes-wrong: the unattributed curve (best
+  3.0689 at step 21,000, rising to 3.0984 at 22,500; three candidate
+  owners, one run cannot separate them) fixed by the pair-reading table and
+  the injected-failure telemetry (gradient norm departs two steps before
+  the loss; bf16-master flatlines at 2.418 vs fp32-master 2.358 with the
+  gradient norm alive at 0.050; overflow goes non-finite at step 3), the
+  mixed-precision contract (bf16 activations, fp32 master weights and
+  accumulation, explicit non-finite checks), and the continued-pretraining
+  four rules; Micikevicius et al. 2018, Gururangan et al. 2020, Peng et al.
+  2023; ownership split across data, training, eval, and ML-infra.
+- 02-pretrain throughput: the unreadable tokens-per-second fixed by MFU
+  (4.5% to 65.9% across a 14.69x spread of the identical model) with five
+  flags measured one at a time (flash attention 2.94x, compile 1.72x, fused
+  AdamW 1.03x, activation checkpointing -17% for 2.5x memory) and the
+  profiler attribution proving the matmuls did not move (aten::mm 275.8 to
+  277.5ms while 341ms of elementwise work disappeared); the silent-OOM trap
+  (fp32 rung needed 27.7 GB on a 24.5 GB card and WSL2 paged instead of
+  failing — bf16 is 1.28x, not 2.82x, so peak-memory must be read before
+  throughput); Dao et al. 2022; ownership split across training engineer,
+  platform, benchmark owner, and eval.
+- 02-pretrain verifying-the-run: the five-hour-job-that-merely-runs fixed
+  by the first-minute checks — the step-0 floor (9.8697 vs ln(16,512) =
+  9.712; far below is label leakage), the gradient-accumulation division
+  (omit it and gradient x8 is LR x8, silent, no log line), and MFU at
+  minute one (85.5k tokens/s at 33.3% projected 9.8 hours; compile moved it
+  to 165.6k and 64.5%, a 1.76x speedup and a 4.98-hour run) — plus the
+  reported rising tail (3.0689 to 3.0984, saved final checkpoint, not best)
+  and the fluency-versus-grounding boundary (4.65% probability on the right
+  token is real learning and nowhere near knowing the sentence); Hoffmann
+  et al. 2022; ownership split across training engineer, eval, data, and
+  platform.
+
+**Still pending:** the remaining language-model system sub-groups:
+- Language-model system sub-groups: `03-sft/` (what-it-costs,
+  what-model-size-changes, beyond-demonstrations, and the two chapters
+  that carry only the who-owns half — when-the-teacher-is-wrong and
+  the-template-is-a-contract), `05-serve/` (graph-execution, quantization,
   speculative-decoding, observability and when-the-tail-waits,
   paging-the-cache), `06-agent/` (what-stops-it, what-fits-in-context,
   would-a-second-agent-help, when-the-tool-errors — which carries only the

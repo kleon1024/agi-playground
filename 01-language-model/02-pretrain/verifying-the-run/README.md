@@ -118,6 +118,68 @@ through [the objective](../#what-wrong-means), a loss of 3.0689 is 4.65%
 probability on the right token — real learning, and nowhere near knowing what
 the sentence means.
 
+## The fix and its trade
+
+The failure this chapter guards against is a five-hour job that is merely
+running, and the fix is the small set of checks that separate "training"
+from "not training" at the earliest possible minute. The step-0 check is
+the cheapest and the most complete: a model that has learned nothing must
+score ln(16,512) = 9.712 nats, and this run's 9.8697 — the small excess
+expected from random weights — rules out most of the ways a pretraining run
+can be silently broken, because far below the line means the model is
+seeing the answer (a label-shifting bug, a mask that lets attention read the
+token it is predicting, a validation file that overlaps training). That one
+number costs one forward pass and nothing else in this chapter is available
+so early or so cheaply.
+
+The second check is the gradient-accumulation contract, and its failure is
+the chapter's sharpest trade: dividing each micro-batch loss by the
+accumulation count is part of the algorithm, not bookkeeping — omit it and
+the gradient is scaled by eight, which is identical to multiplying the
+learning rate by eight, a silent change to the optimization problem that no
+log line reports (the printed loss looks the same either way, which is what
+makes the bug dangerous rather than cosmetic). The third check is MFU at
+minute one: the first measurement on this configuration was 85.5k
+tokens/second at 33.3% MFU, projecting to roughly 9.8 hours, and enabling
+`torch.compile` moved it to 165.6k tokens/second and 64.5% MFU — a 1.76x
+speedup and a finished run in 4.98 hours — so a wall-clock estimate
+inherited from a differently-configured run is a guess wearing a number.
+
+The trade is how the curve is read and what it licenses. The run's best
+validation loss was 3.0689 at step 21,000, rising to 3.0984 by step 22,500
+— the final 6.5% of the budget went the wrong way while the learning rate
+still decayed, and the chapter reports both numbers rather than the better
+one, saving the final checkpoint rather than the best-scoring one. Three
+explanations fit (approaching one full epoch at 0.95, a cosine floor too
+high to settle, evaluation sampling noise), and one run cannot distinguish
+them — the paired multi-seed comparison is the next step, not a retrain of
+this one. And the curve's meaning is bounded by the fluency-versus-grounding
+sample: the model writes "The capital of France is the city of Monaco" with
+perfect grammar, because a loss of 3.0689 is 4.65% probability on the right
+token — real learning, and nowhere near knowing what the sentence means
+(the deliberate over-training past the compute-optimal ratio follows
+Hoffmann et al., "Training Compute-Optimal Large Language Models," 2022,
+since serving cost tracks parameters, not training tokens).
+
+## Who owns the loop
+
+- **The training engineer** owns the first-minute checks: the step-0 loss,
+  the MFU read, and the accumulation division are the contract that decides
+  whether the next five hours are wasted, and a run without them cannot
+  report which step first went wrong.
+- **The evaluation team** owns the curve and its boundary: reporting the
+  rising tail instead of the best number, saving the final checkpoint
+  instead of the best, and stating that one run cannot separate the three
+  explanations are their honesty contract.
+- **The data team** owns the epoch effect: the val rise as the run
+  approaches one full epoch is a data-ownership signal, and the
+  validation-before-training file layout that makes overlap structurally
+  impossible is their fix.
+- **The platform team** owns the telemetry: the MFU conversion, the
+  `torch.compile` speedup, and the two monitoring mistakes recorded in the
+  run file are theirs, and a wall-clock estimate inherited from a different
+  configuration is not evidence.
+
 ## What this run does not establish
 
 That any of the architecture choices are good ones. There is one arm, one seed,

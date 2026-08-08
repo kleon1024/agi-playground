@@ -157,6 +157,58 @@ reason in natural language. The task is synthetic, the vocabulary is 51 tokens,
 and both are chosen so the baseline works — which is exactly what makes the
 comparison meaningful and exactly what stops it generalising.
 
+## The fix and its trade
+
+The failure this chapter isolates is the tokenization tax on reasoning:
+writing a chain-of-thought step forces the model to collapse a 768-number
+hidden state into one choice out of 16,512, destroying everything it was
+considering and did not pick. The fix is the continuous-thought loop —
+`hidden -> embedding` instead of `hidden -> logits -> token -> embedding`,
+with the same weights, same attention, same objective — plus the
+curriculum that makes it trainable: at initialization a thought has no
+token to be scored against and its only gradient arrives through the answer
+several positions later, so the model cannot learn what a thought must carry
+from scratch. The curriculum replaces written steps with thoughts one at a
+time (stage 0 is exactly the `cot` arm, the last stage writes nothing), so
+the model learns what a thought must carry while it can still see the token
+that thought is replacing. The task design is the measurement fix: shuffled
+edges, decoy chains of equal length, and a written chain identical for both
+answers make the arm comparison test reasoning rather than input
+structure — the same shape as the ProsQA benchmark the continuous-thought
+paper used (Hao et al., "Training Large Language Models to Reason in a
+Continuous Latent Space," 2024).
+
+The trade is measured and it is the opposite of what the name suggests. The
+run lands cleanly on one half of the hypothesis — `cot` 0.9993 vs `direct`
+0.502 (chance) — and `latent` collapses to 0.502, indistinguishable from
+`direct`, with the curriculum log showing why: per-stage accuracy hits 1.0
+at n_latent=3 and collapses back to 0.5 at n_latent=4, the task's actual
+reasoning depth. That is a specific, reportable failure mode, not "latent
+reasoning doesn't work": a longer curriculum, a smaller step per stage, or
+a wider latent channel are the next things to vary. The structural trade is
+stated as the cost section: each thought depends on the one before it, so a
+step with n thoughts is n+1 forward passes, and overwriting a sequence slot
+invalidates every cached key and value after it — latent thoughts are cheap
+in tokens and expensive in passes, which pays off only where output length,
+not forward-pass count, is the binding cost. This chapter hands nothing back
+to a mission stage yet, and that is the honest statement of its position.
+
+## Who owns the loop
+
+- **The research team** owns the open question: the hypothesis was written
+  before any run so it could not be adjusted to match the outcome, and the
+  verdict — cot solves the task, latent collapses at full depth — is
+  reported rather than tuned away, with the curriculum log as the
+  case-finding evidence.
+- **The training engineer** owns the curriculum: the stage schedule, the
+  per-stage step budget, and the n+1-forward-pass cost are theirs, and the
+  collapse at n_latent=4 is their next-variable signal (longer curriculum,
+  smaller step, wider channel), not a dead end.
+- **The serving team** owns the trade's other side: the token-vs-pass
+  economics decide whether the method is ever the better serving choice,
+  and the KV-cache invalidation on slot overwrite is a serving constraint
+  the training cost section cannot see.
+
 ## Reproduce it
 
 ```bash

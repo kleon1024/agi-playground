@@ -232,6 +232,65 @@ What you should not do is skip the pipeline: if you have never watched 77% of a
 crawl evaporate through filters you wrote, you do not really know what is in
 your training data.
 
+## The fix and its trade
+
+The chapter's measured funnel is a set of fixes for dirty-data failure
+modes, and the production comparison prices the trade each one makes. The
+first fix is the funnel itself as a case-finding tool: per-gate survival
+(20,000 in, 4,592 out, 23%) with each gate accountable for its own drop
+lets you say which failure mode ate the data — and the numbers contradict
+the usual intuition, which is the point: language ID is the single biggest
+filter (removing 10,862 of 20,000, more than every quality heuristic
+combined), so "cleaning web data" is mostly "choosing a language," while
+the quality heuristics are individually small but jointly decisive. The
+second fix is the cross-implementation audit: running a published
+production recipe (datatrove, the FineWeb recipe) on identical input shows
+our from-scratch pipeline is 40% too permissive (9,184 documents kept,
+23.0%, versus datatrove's 5,513, 13.8%) — and the gap is a named failure
+mode, `GopherRepetitionFilter` removing 2,803 documents that repeat their
+own lines and n-grams, which our funnel is structurally blind to and which
+are exactly the documents that teach a model to loop (Rae et al., Gopher,
+2021; Raffel et al., T5/C4, 2019; Penedo et al., FineWeb, 2024; the
+memorization consequence of skipping dedup: Lee et al., "Deduplicating
+Training Data Makes Language Models Better," ACL, 2022).
+
+The trade is speed against structural awareness, and the chapter measures
+it in both directions. The naive extractor is twelve times faster per
+document (~2 ms regex vs 25 ms trafilatura, which is 85% of datatrove's
+total runtime) but keeps more characters per document — not a win, the
+boilerplate it failed to strip; the production recipe buys navigation,
+cookie-banner, and comment-thread removal at that extraction cost. The
+language heuristic (stop-word ratio, 36.7% survival) lands within three
+points of the trained classifier (fastText, 33.7%) on aggregate while
+disagreeing on which documents — short pages, code, lists — which is why
+the heuristic is fine to teach with and wrong to ship. And dedup's 5% at
+this scale is deliberately misleading: repetition lives between shards,
+not within them, which is why production dedup is a distributed multi-stage
+job, and the contamination check is a separate pass because the funnel
+cannot see it (Sainz et al., "NLP Evaluation in Trouble," Findings of
+EMNLP, 2023, for the benchmark-in-train-set failure the detour measures).
+
+## Who owns the loop
+
+- **The data team** owns the funnel contract: the per-gate drop-reason
+  table is the acceptance bar for any new filter, and a gate whose drops
+  are not attributable by class is a gate that can silently eat a signal
+  population (the filter-eats-the-signal detour is the regression test for
+  that).
+- **The platform team** owns the production recipe: which filter families
+  run, in what order, at what extraction cost, and how the distributed
+  dedup job spans shards — the 23%-vs-13.8% gap is their quality target,
+  the trafilatura 85%-of-runtime line is their cost target.
+- **The training engineer** owns what the corpus feeds: the length shape
+  (median 322 words, mean 705, a third of survivors under 200 words) is
+  what packing and truncation answer to, and the token-budget arithmetic
+  that decides "run the pipeline to understand it, download FineWeb-Edu to
+  train on" is theirs.
+- **The evaluation team** owns the contamination boundary: the 13-gram
+  overlap pass catches verbatim and near copies while paraphrased
+  benchmark items evade every detector, and the held-out set's provenance
+  is their contract, not the data team's.
+
 ## Exercises
 
 1. **Break the language filter.** Feed it a page of English source code, then a

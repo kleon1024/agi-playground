@@ -68,6 +68,53 @@ This is the same trap
 found on its own feed-forward rung: an equal-token result and an equal-wall-clock
 result are different claims, and only one of them was bought.
 
+## The fix and its trade
+
+The failure this chapter fixes is the continuation comparison that reports
+the wrong answer with a straight face. Both arms get worse before either
+gets better — at lr=1e-4 both rose from 3.0576 to a peak near 3.1445 at
+53M tokens, because the parent finished a cosine schedule at nearly zero
+learning rate and the bump kicks it back out of its minimum — so a run that
+compared the upcycled arm against a remembered 3.0576 would read as a
+catastrophe, and an experiment stopped at 30M tokens would report the
+opposite conclusion to the 200M one. The fix is the paired design: the
+comparison runs dense-continue against upcycled-MoE as a pair, against the
+same data and the same disruption, so the shared learning-rate bump cancels
+and the shape of the difference is what carries the result — the upcycled
+arm behind at 32.8M (-0.0002), crossing over, and ending 0.0088 nats ahead
+at 200M with the gap monotone across 25 consecutive evaluations.
+
+The trade is the budget definition, and the chapter names the unrun arm
+instead of hiding it. Under an equal-token budget the upcycled arm is
+ahead; under an equal-wall-clock budget the ranking reopens, because the
+MoE arm took 1.93x as long and the dense arm would have gotten 1.93x the
+data — roughly 391M tokens — and it was still improving when the run ended.
+That arm was not run, so the equal-wall-clock comparison is a blank, not a
+tie, exactly the same trap the architecture ladder's feed-forward rung
+found. The second trade is the evidence boundary: one seed per arm cannot
+bound run-to-run variance, so the endpoint 0.0088 is not the claim — the
+monotone widening shape is. What carries the result is the shape; what is
+still untested is whether 4 experts at top-2 is a good shape, since it was
+chosen to make the identity check exact rather than tuned.
+
+## Who owns the loop
+
+- **The training engineer** owns the paired design: the dense continuation
+  control, the equal-token budget, and the rule that a continued-training
+  comparison must run long enough to see whether a crossover happens — an
+  experiment stopped at 30M tokens would have published the opposite
+  result.
+- **The research team** owns the budget claim: which definition the result
+  is stated under (equal-token here, equal-wall-clock a blank), and the
+  discipline of reporting that a budget you did not buy a comparison run
+  for is a blank rather than a tie.
+- **The platform team** owns the wall-clock lever: the 1.93x slowdown is
+  the kernel-dispatch gap, and closing it with a grouped kernel is what
+  would turn the equal-wall-clock blank into a comparison that can be run.
+- **The evaluation team** owns the variance boundary: one seed per arm
+  cannot bound run-to-run spread, and the load-bearing claim is the shape
+  of the gap, not the 0.0088 endpoint.
+
 ## What this establishes and what it does not
 
 **Established**, at an equal token budget: the upcycled model ends 0.0088 nats

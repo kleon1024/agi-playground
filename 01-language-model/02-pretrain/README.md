@@ -196,6 +196,69 @@ starts.
   exact dense checkpoint and asks whether converting it to a mixture-of-experts
   architecture buys back more capacity than it costs.
 
+## The fix and its trade
+
+The chapter's measured numbers are fixes for three failure modes, and each
+fix states its trade. The first failure is the wrong-objective read: a
+falling loss measures next-token agreement with held-out web text, not
+truth — the model that writes "The capital of France is the city of Monaco"
+with fluent confidence is the expected outcome at 88M parameters, and
+converting the final 3.0689 nats to 4.65% probability on the right token
+(one in 21.5) is the conversion that keeps the claim honest. The fix is to
+say the purpose out loud before training and to report loss as probability,
+not as progress toward a working model.
+
+The second failure is the budget arithmetic that is usually skipped: the
+corpus size and model shape are decided together because a dense decoder's
+cost is set by their product (C about 6ND; worked here: 6 x 88.2M x 3.0B =
+1.59e18 FLOPs, 34 tokens per parameter against the roughly 20 Chinchilla's
+compute-optimal ratio suggests). Being past that ratio is deliberate, and
+the trade is the chapter's sharpest: the optimal ratio minimizes loss for a
+*training* budget, while a model you intend to serve is better spent past it
+because inference cost tracks parameters and not how long they were trained
+(Hoffmann et al., "Training Compute-Optimal Large Language Models," 2022).
+Run the same arithmetic backwards and it becomes the utilization check —
+the card advertises 165 TFLOP/s, the ideal run would finish in 2.7 hours,
+and the real 4.98 hours is what the throughput chapter turns into MFU.
+
+The third failure is the family of silent wiring bugs that a falling curve
+cannot show: a validation set that overlaps training, a label shift, a mask
+that lets attention read the token being predicted. The fix is the
+step-0 floor — a model that knows nothing can do no better than
+ln(16,512) = 9.712 nats, and this run's 9.8697 (0.158 above the uniform
+line, the expected excess from random weights) is a complete test of labels,
+mask, and data splits at the cost of one forward pass: far below the line
+means the model is seeing the answer. Around that floor sit the three
+load-bearing data decisions — validation written as a separate memory-mapped
+file so a training window cannot reach it by construction, a reserved
+separator so the model does not learn that one page's last sentence predicts
+the next page's first, and `uint16` so the 16,512-token vocabulary halves
+storage and memory traffic at no cost. Each is a fix for a failure the
+chapter names, and each trades a small engineering decision for a class of
+silent bugs that would otherwise be discovered hours into a five-hour run.
+
+## Who owns the loop
+
+- **The training engineer** owns the step-0 check and the budget: the
+  first printed number is their complete test of the wiring, and the
+  C about 6ND arithmetic — what fits training compute, what uses the data,
+  what is affordable to serve forever after — is a decision made before the
+  run, not after it.
+- **The data team** owns the three load-bearing decisions: the
+  validation-before-training file layout, the document separator, and the
+  dtype choice are theirs, and the chapter's whole "what survived the
+  crawl" story hands them the contract that the 23% survival rate is a
+  deliberate filter, not an accident.
+- **The serving team** owns the architecture tax: the KV-cache trade
+  (12 KV heads down to 4 costs 9,437,184 attention parameters once at
+  training and is collected on every request for the life of the model) is
+  decided at training time and paid at serving time, which is why serving
+  cares more about it than training does.
+- **The evaluation team** owns what the loss does not prove: the
+  fluency-versus-grounding boundary, the "this architecture is not ranked
+  by one run" boundary, and the transfer question the ablation harness and
+  the two-size ladder exist to answer.
+
 ## Five more things you could change, and what each returns
 
 Each of these takes one decision this chapter states without testing, and runs

@@ -5,7 +5,7 @@
   },
   "01-language-model/00-corpus": {
     "level": "foundation",
-    "minutes": 8
+    "minutes": 11
   },
   "01-language-model/00-corpus/dedup-at-scale": {
     "level": "reference",
@@ -53,23 +53,23 @@
   },
   "01-language-model/02-pretrain": {
     "level": "foundation",
-    "minutes": 14
+    "minutes": 17
   },
   "01-language-model/02-pretrain/architecture-ablations": {
     "level": "applied",
-    "minutes": 11
+    "minutes": 14
   },
   "01-language-model/02-pretrain/architecture-ablations/the-rung-that-flipped": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 8
   },
   "01-language-model/02-pretrain/attention-variants": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 8
   },
   "01-language-model/02-pretrain/latent-reasoning": {
     "level": "frontier",
-    "minutes": 10
+    "minutes": 13
   },
   "01-language-model/02-pretrain/mid-training": {
     "level": "applied",
@@ -81,27 +81,27 @@
   },
   "01-language-model/02-pretrain/the-gate-that-beats-relu": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 5
   },
   "01-language-model/02-pretrain/throughput": {
     "level": "applied",
-    "minutes": 10
+    "minutes": 13
   },
   "01-language-model/02-pretrain/upcycling": {
     "level": "frontier",
-    "minutes": 10
+    "minutes": 13
   },
   "01-language-model/02-pretrain/upcycling/does-it-pay-off": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
   "01-language-model/02-pretrain/verifying-the-run": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 12
   },
   "01-language-model/02-pretrain/when-the-curve-goes-wrong": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 11
   },
   "01-language-model/03-sft": {
     "level": "foundation",

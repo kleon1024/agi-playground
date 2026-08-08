@@ -92,6 +92,60 @@ is exactly why long-context serving, not toy decoding, is where the variant
 choice shows up. A learner who changes the context length in the widget above
 is watching the tax arrive.
 
+## The fix and its trade
+
+The failure this chapter exists to price is the cache that grows linearly
+with context: decoding needs the key and value of every earlier token at
+every layer, and the bill is paid on every request for the life of the
+model. The fix is the head-count knob — GQA (this repo's choice, 4 KV heads
+under 12 query heads) cuts the cache to a third of MHA's (12,288 vs 36,864
+bytes per token; 96 MB vs 288 MB at 8k context), MQA to an eighth, and MLA
+changes the trade's shape rather than its degree — and each variant's trade
+is a named quality or compute cost, not a free lunch. Sharing KV heads
+removes a degree of freedom the model might have used, so the compression
+is only free if quality does not measurably drop; that drop is exactly what
+this chapter does not measure (the quality check is a training comparison
+this repo does not run here, which is why the head choice is an
+architecture decision made before training, when the weights get learned
+around it). The lineage reads as one line of bets: MHA pays the full cache
+for full expressiveness (Vaswani et al., 2017); GQA and MQA sell
+expressiveness for cache (Ainslie et al., 2023; Shazeer, 2019); MLA buys
+back expressiveness with a low-rank latent and pays for it in decode
+compute instead (DeepSeek-V2, 2024).
+
+The second fix is the baseline-relative read, and its trade is the
+headline. MLA's compression ratio is not a number, it is a ratio against a
+chosen baseline: at latent 512 this chapter's arithmetic gives 0.67x of
+this repo's MHA, nowhere near the 93% the paper reports, because the paper
+compared against a much larger MHA with per-head RoPE copies. And bytes are
+only half the story — MLA's decode behaves as MQA with a very wide d_head,
+so its per-token compute is high. The K3 four-condition test (quality at
+least MLA's, training and prefill cost at most MLA's, a smaller KV cache,
+and decode compute low enough not to collide with multi-token prediction)
+is the check that bundles all four costs, and the chapter's honest position
+is that nothing published yet clears all four — which is why K3 keeps MLA
+inside a hybrid rather than replacing it. The serving-stage bench cited
+here (KV cache buying 1.21x at 32 tokens and losing by 512) is the
+third fix: at toy context the engine's fixed costs dwarf the tax, so the
+variant choice only shows up in long-context serving, and a learner who
+changes context length in the widget is watching the tax arrive.
+
+## Who owns the loop
+
+- **The architecture team** owns the head-count choice: it is baked into
+  the weights at training time and cannot be retuned at serving without
+  retraining, so the decision and its quality cost are theirs to defend
+  before the run.
+- **The serving team** owns the collection side: the cache bytes (36,864
+  vs 12,288 vs 3,072 per token) are paid per request for the life of the
+  model, and the paging, batching, and concurrency decisions that decide
+  whether the tax binds live in the serving stage.
+- **The evaluation team** owns the unmeasured half: the quality drop from
+  sharing KV heads, MLA's decode throughput, and the four-condition claim
+  are attributed as external results or explicitly not measured here, and
+  a reader who quotes the 93% headline without the baseline is repeating
+  the exact failure the chapter's baseline-relative fix exists to prevent.
+
 ## Evidence boundary
 
 This chapter computes cache bytes and attention parameters from the measured

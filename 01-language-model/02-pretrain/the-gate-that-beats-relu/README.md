@@ -51,6 +51,51 @@ up-projection's channels, which is why the block holds more than twice the
 parameters of a plain MLP at the same width (the repo's d_ff is ~2/3 x 4 x
 d_model, per the config comment).
 
+## The fix and its trade
+
+The failure this chapter prices is the dead-neuron tax: on 200k standard
+normal inputs, 50.1% of ReLU's hidden units sit at exact zero — a dead
+unit's gradient is zero for that input, so it contributes nothing to the
+loss and receives nothing back, and the effective width of the block is
+half its nominal width. The fix is the SwiGLU form itself: the gate (SiLU)
+passes negatives through a damped, sign-kept transform and the block
+*multiplies* gate times up-projection, which centers the output (mean
+-0.001 vs ReLU's 0.397, no dead zone at 0.9% vs 50.1%) — and the zero-mean
+output is a conditioning property, not a cosmetic one, because the next
+layer's RMSNorm expects a well-centered input and ReLU's positive-shifted
+distribution (mean 0.40) biases the norm's statistics.
+
+The trade is stated in the same table that shows the fix working. The run
+isolates the mechanism, not learned values — the gate and up-projection are
+random draws, so the zero-mean, non-dead output is a property of the
+multiplicative *form*, not of trained weights, which means the chapter can
+claim the form's distributional properties and nothing about the learned
+gate's selectivity on real data. And the form is not free: the block holds
+more than twice the parameters of a plain MLP at the same width (this
+repo's d_ff is about 2/3 x 4 x d_model), so the fix trades parameter count
+for a centered, non-dead activation — the same budget-definition question
+the architecture ladder makes explicit, where equal-parameter comparisons
+flatter whatever spends more compute per stored parameter. The benchmark
+edge over plain MLPs is attributed to Shazeer's GLU-variants paper (2020),
+not re-derived here.
+
+## Who owns the loop
+
+- **The architecture team** owns the block form: choosing SwiGLU over a
+  ReLU MLP is a parameter-budget decision (2x the parameters at the same
+  width) made in exchange for a zero-mean, non-dead activation, and the
+  form's property is what this chapter's measured table licenses them to
+  claim.
+- **The training team** owns the conditioning consequence: the zero-mean,
+  fixed-scale hidden distribution is what keeps the following RMSNorm's
+  statistics stable across examples and training, and a norm-shifted
+  activation (ReLU's 0.397 mean) is a training-stability failure they
+  inherit from the block above.
+- **The evaluation team** owns the boundary: the learned gate's selectivity
+  on real data and the benchmark gains are not measured here, and a claim
+  that SwiGLU "beats" ReLU on this chapter's evidence alone would overreach
+  its random-input boundary.
+
 ## Evidence boundary
 
 Random inputs, the repo's activation formulas, no training. It shows the

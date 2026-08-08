@@ -143,6 +143,68 @@ the FP32 master-weight contract; Gururangan et al., *Don't Stop Pretraining*
 (2020) for continued-pretraining evaluation; Peng et al., *YaRN* (2023) for
 context extension.
 
+## The fix and its trade
+
+The failure this chapter treats is the unattributed curve: validation loss
+reached its best 3.0689 at step 21,000, then rose to 3.0984 by step 22,500,
+and three subsystems can each explain it — data approaching one full epoch,
+a cosine floor too high to settle into, or evaluation noise from sampling
+the held-out set. One run at one seed cannot distinguish them, and that is
+the structural reason this chapter's own anomaly stays unattributed: the
+fix is not a guess about which one it is, it is a rule for deciding which
+subsystem owns the evidence. The pair-reading table is that rule — both
+flat points at the loop (label shift, masking, optimizer, learning rate),
+train-falls-held-out-flat at overfitting or a split mismatch, both-fall-
+then-spike at instability or a bad batch, periodic jumps at shards or
+schedule boundaries, smooth-loss-poor-samples at tokenizer or evaluation
+mismatch — and the injected-failure run executes it: a too-high learning
+rate spikes both curves with its gradient-norm trace departing two steps
+before the loss does, a corrupted batch moves both curves together and back,
+a bf16 master weight flattens both while the gradient norm stays alive
+(0.050, ruling out a dead loop), and a softmax that overflows goes
+non-finite at a specific step. Each row names a different owner, and the
+fix for a label-shift bug and the fix for an overfit model have nothing in
+common.
+
+The second fix is the precision contract, and its trade is memory for
+numerical safety. BF16 keeps FP32's exponent range, so it needs none of
+FP16's loss-scaling machinery — that is why this run trains in it — but it
+gives up mantissa bits, and the loss lands in a specific place: an optimizer
+update is usually a small correction added to a much larger accumulated
+value, and below some ratio the correction rounds away entirely against the
+accumulator. The update does not error; it simply does not happen. The
+contract is therefore mixed — bf16 for activations and matrix multiplies,
+fp32 for accumulation, optimizer state, and the authoritative weight
+update, plus explicit non-finite checks (Micikevicius et al., 2018) — and
+the trade is measured both ways: the planted bf16-master learner flatlines
+at 2.418 while the fp32-master control descends to 2.358, and the overflow
+run goes non-finite at step 3, where a check stops the run with step
+attribution and its absence completes with a wall of inf then NaN and
+neither. The third fix is the continued-pretraining discipline (begin near
+the base run's final learning rate, mix general replay data, evaluate
+domain gain and general regression in the same report, version the new
+mixture separately — Gururangan et al., 2020), whose trade is that a
+continued run gaining the target domain while silently losing the baseline
+has not improved the model; it has traded one capability for another
+without saying so.
+
+## Who owns the loop
+
+- **The data team** owns the epoch effect: a validation rise as the model
+  approaches one full epoch (0.95 at the end here) is a data-ownership
+  signal, and the as-of split contract is theirs.
+- **The training team** owns the schedule and the precision contract: the
+  cosine floor, the learning-rate bump, and the mixed bf16/fp32 rule with
+  its non-finite checks decide whether an update lands at all.
+- **The evaluation team** owns the measurement row: each validation point
+  samples the held-out set rather than consuming it, and ruling out the
+  sampling explanation takes paired runs across seeds — the ablation
+  harness's job.
+- **The ML-infra team** owns the telemetry: the gradient-norm trace that
+  departs two steps before the loss does, and the non-finite check that
+  attributes the first bad step, are the instrumentation that turns a
+  symptom into an owned subsystem.
+
 ## Check your mental model
 
 1. Both training and held-out loss are flat after 2,000 steps. Why does that

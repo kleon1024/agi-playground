@@ -150,6 +150,57 @@ stated is the one likely being used to flatter the result.
 
 </details>
 
+## The fix and its trade
+
+The failure this chapter makes visible is the budget definition deciding
+the winner: the same nine runs support two opposite headlines — holding
+active parameters equal, MoE wins on every seed by 0.0901 nats; holding
+total parameters equal, the difference is 0.0001 with its sign flipping
+between seeds. The fix is to run one arm matched on each of the two
+parameter counts and declare which definition each result belongs to — the
+general shape being that any architecture decoupling stored capacity from
+per-token compute (conditional computation, weight sharing, early exit,
+upcycling) forces the same two-parameter-count problem, and the definition
+stops being bookkeeping and becomes the claim.
+
+The trade is the honest reading of the table, and it cuts both ways. The
+second row is not "MoE ties dense": a tie in loss at 33.2% fewer parameters
+per token is not a tie — `moe-equal-total` reached the same 3.8607 through
+two thirds of the per-token cost, a real efficiency win without a loss
+improvement. The third definition, equal wall-clock, has no winner at all:
+both MoE arms ran at roughly half of dense throughput, and
+`moe-equal-total`, performing *less* arithmetic per token, still took 1.85x
+as long — routing overhead measured rather than argued (gathers, a router,
+extra sequential dependencies current kernels are not fast at). That makes
+the equal-wall-clock comparison a blank, not a tie: in the 1,645.9 seconds
+`moe-equal-active` needed, dense would have seen 391M tokens instead of
+200M, and that dense-at-391M arm was never run, so the 0.0901 is not
+evidence about it — a budget you did not buy a comparison run for is a
+blank, and writing "MoE wins" without qualifying the budget would be
+picking the definition that flattered the result. Fedus et al. (2022)
+report scale-dependent mixture-of-experts behavior, which is a reason to
+expect this rung's answer to move at larger sizes, not a reason to assume
+which way.
+
+## Who owns the loop
+
+- **The research team** owns the definition declaration: which budget each
+  result belongs to is the claim itself, and the run record declaring it is
+  the acceptance contract — an unqualified "MoE wins" is the exact failure
+  this rung exists to prevent.
+- **The training engineer** owns the arm that decides the question: the
+  unrun dense-at-391M-tokens comparison is the missing evidence for the
+  equal-wall-clock budget, and running it is what would turn the blank into
+  a verdict.
+- **The platform team** owns the routing overhead: the 1.85x wall-clock
+  cost at *less* arithmetic per token is kernel immaturity, not
+  architecture, and closing it with better kernels changes which budget
+  definitions are affordable to compare at all.
+- **The evaluation team** owns the scale caution: nine runs at 33M on 200M
+  tokens scored by in-distribution validation loss establish nothing about
+  larger sizes or downstream tasks, and the equal-active result is a
+  smaller claim than "MoE works."
+
 ## Evidence boundary and next step
 
 Nine runs at 33M parameters on 200M tokens of FineWeb-Edu, scored by validation

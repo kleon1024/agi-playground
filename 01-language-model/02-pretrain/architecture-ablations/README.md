@@ -140,6 +140,65 @@ large a difference are you willing to act on? Set it and see which arms survive.
 Against that floor a single seed is not a weak result but no result, which is
 why `core/ablate.py` runs `--seeds` seeds and writes every one out.
 
+## The fix and its trade
+
+The failure this chapter fixes is the underdetermined comparison: "RMSNorm
+beat LayerNorm" only means something once you say what stayed fixed, and
+the three defensible definitions routinely disagree — equal parameters
+flatters anything that spends more compute per stored parameter, equal
+FLOPs flatters the reverse, and equal wall-clock flatters whatever the
+kernels are already fast at. Most published architecture comparisons do not
+state which one they used. The fix is the budget contract enforced in code:
+`core/ablate.py` refuses to write a result file without a budget
+definition, `core/model.py` prints every rung's match and every rung's
+miss (SwiGLU against GELU lands within 0.03%, depth against width is still
+5.8% high at the closest available width — misses are reported rather than
+rounded away), and two rungs decline to match at all for named reasons:
+attention lets the parameter count fall because that fall is GQA's entire
+pretraining-time cost, and the feed-forward rung returns one arm matched on
+each of its two parameter counts.
+
+The second fix is the noise floor, and it is the chapter's sharpest
+measured trade. The control configuration appears in all six rungs, and six
+replications that should be identical span 0.0018 (3.8597 to 3.8608) with
+nothing changed — GPU nondeterminism: non-deterministic backward
+reductions, autotuned kernel choice, bf16 accumulation order. That residue
+is an assumption-free floor: any claim resting on less than about 0.002 is
+resting on the allocator, not the architecture, which is why a single seed
+is not a weak result but no result. The trade is what the overnight run
+bought and did not buy: 17 arms, three seeds each, 51 runs, 12.97 GPU-hours
+— position encoding and expert routing are unmissable (every seed agrees by
+margins more than ten times the hardware could manufacture), attention and
+depth are directionally consistent but too small to size honestly, and
+RMSNorm and SwiGLU, the two choices the literature argues about hardest,
+cannot be ranked here at all — each loses to its alternative on one seed of
+three, and the activation rung's three-seed mean (GELU ahead by 0.0048,
+opposite the usual published ordering) is a not-measurable-at-this-scale
+result, not a GELU win. The transfer caution completes the trade: a rung's
+winner at 33M is not established at 7B, and an unstable ranking across two
+sizes at the same budget definition is not a failed experiment, it is the
+finding (Hoffmann et al., "Training Compute-Optimal Large Language Models,"
+2022, for the scale-dependence of such rankings).
+
+## Who owns the loop
+
+- **The research team** owns the budget definition: which of the three
+  definitions a comparison is run under is the claim itself, and the
+  discipline that "not measurable at this scale" is a result, not a failed
+  experiment, is theirs to enforce.
+- **The training engineer** owns the seed and batch discipline: per-seed
+  differences against the control, identical batches in identical order,
+  and the three-seed method that established the 0.002 floor — a single
+  seed cannot be trusted even when it clears the floor.
+- **The evaluation team** owns the evidence boundary: one metric (validation
+  cross-entropy on the same distribution), one distribution, one size, and
+  the rule that a ranking counts only where it is stable across at least
+  two sizes at the same budget definition.
+- **The platform team** owns the hardware attribution: the 0.0018
+  nondeterminism floor is their environment's residue, and a difference
+  smaller than the floor is reported as unmeasurable, not as an
+  architecture win.
+
 ## 6. Evidence boundary: one metric, one distribution, one size
 
 Every number above is validation cross-entropy on a held-out slice of **the

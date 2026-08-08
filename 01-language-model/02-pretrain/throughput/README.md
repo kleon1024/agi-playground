@@ -122,6 +122,70 @@ that does not fit will not always tell you so.** Any throughput comparison
 whose arms have different memory footprints needs its peak-memory column read
 before its throughput column.
 
+## The fix and its trade
+
+The failure this chapter fixes is the unreadable throughput number, and the
+fix has three measured parts. First, tokens per second is not comparable to
+anything — halve the model and it doubles, which measures the model
+shrinking, not the run getting more efficient — so the fix is Model FLOPs
+Utilization, the fraction of the card's advertised throughput converted
+into gradient: on the 88M model, 642,433,536 FLOPs per token (attention
+17.6%), the slowest configuration runs at 11,521 tokens/second = 4.5% MFU,
+and the fastest at 169,230 tokens/second = 65.9% MFU — a 14.69x spread
+between the slowest and fastest configuration of the *identical* model.
+Second, the five flags are measured one at a time so each change is
+attributable: flash attention 2.94x (the same attention computed without
+ever writing the sequence-by-sequence score matrix to memory — it attacks
+memory traffic, not arithmetic), `torch.compile` another 1.72x (fusing
+chains of small elementwise ops), fused AdamW 1.03x (nearly noise at this
+size, because the optimizer touches 88M parameters once per step against
+16.8M tokens of forward-and-backward work — a ratio that shifts toward the
+optimizer as batch size falls), and activation checkpointing -17% for 2.5x
+the memory (8,686 MB down to 3,410 MB), the one row that is a trade, not an
+improvement. Third, the diagnosis is proven rather than asserted: the
+profiler shows `aten::mm` unchanged across the compile boundary (275.8ms
+to 277.5ms) while 341ms of elementwise and copy work disappeared — the
+matmuls did not move, which rules out a compute-bound story directly
+(flash attention: Dao et al., "FlashAttention," 2022).
+
+The trade is in the boundaries the chapter states, and two are
+operationally load-bearing. The multipliers do not transfer to a larger
+model — at 88M the fixed per-step costs are large relative to the
+arithmetic, which is exactly why fusion is worth 1.72x; a 7B model spends
+proportionally more time in GEMMs and the same flag buys less, so the
+ranking is likely stable while the magnitudes are not. And the fp32 rung
+is the silent-failure lesson: it needed 27.7 GB on a 24.5 GB card and did
+not crash — WSL2's driver pages GPU allocations into host memory instead
+of raising out-of-memory, so the run completed with a plausible number
+that was substantially a measurement of PCIe traffic. Rerun both dtypes at
+a fitting micro-batch and bf16 is worth 1.28x, not the 2.82x the ladder
+credits it with; both are true statements about different things, and only
+one is an attribution. The rule that survives is that a configuration
+which does not fit will not always tell you so, which is why the
+peak-memory column must be read before the throughput column.
+
+## Who owns the loop
+
+- **The training engineer** owns the ladder and the MFU: every configuration
+  computes the same gradient on the same data and produces the same model,
+  and the run-in-its-own-process discipline (compiled artifacts and SDPA
+  backend selection are process-global) is what keeps rung N+1 from
+  measuring rung N's leftovers.
+- **The platform team** owns the kernel flags: flash attention,
+  `torch.compile`, and fused AdamW are infrastructure choices, and the
+  profiler attribution (GEMM-dominated means compute-bound and fusion has
+  nothing left; elementwise-dominated means fusion is the lever; a host
+  bottleneck like `Command Buffer Full` means fewer, larger launches) is
+  their diagnostic.
+- **The benchmarking owner** owns the fit check: the peak-memory column
+  read before throughput, and the rule that an arm whose footprint exceeds
+  the card is not a measurement even when the platform silently pages
+  instead of failing.
+- **The evaluation team** owns what the numbers do not claim: no rung was
+  trained to convergence and no rung's loss was compared — bf16 autocast
+  changes the numerics, and whether it changes the answer is the ablation
+  ladder's question, with a stated budget and seeds.
+
 ## What this chapter does not establish
 
 - **That these multipliers transfer to a larger model.** At 88M the fixed
