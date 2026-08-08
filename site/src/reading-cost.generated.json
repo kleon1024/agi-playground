@@ -1693,15 +1693,15 @@
   },
   "07-multimodal-generation/video/01-video-tokenizer": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 9
   },
   "07-multimodal-generation/video/01-video-tokenizer/what-a-video-token-is": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 5
   },
   "07-multimodal-generation/video/01-video-tokenizer/when-the-dead-codes-revive": {
     "level": "applied",
-    "minutes": 2
+    "minutes": 3
   },
   "07-multimodal-generation/video/02-generation-model": {
     "level": "applied",

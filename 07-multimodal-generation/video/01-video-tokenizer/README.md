@@ -152,6 +152,61 @@ blurred signal, not a sharp shape -- expected at a one-token-per-frame bit
 rate, and reported as what it is rather than rounded toward either "it
 works" or "it doesn't."
 
+## The fix and its trade
+
+The three failures are each fixed at a different layer, and each fix costs
+something:
+
+- **Seed the codebook from real encoder outputs** (`init_codebook_from_data`)
+  fixes the initialization-scale mismatch that makes the nearest-neighbor
+  argmin lock onto one index. It trades away nothing about the loss; it
+  needs one forward pass over real data before training starts, and it
+  assumes the encoder's output scale is stable across the run -- a
+  distribution that shifts later (a new dataset, a new encoder head) can
+  re-break the initialization it bought.
+- **Revive dead codes every 20 steps** (`revive_dead_codes`) fixes the
+  entrenchment where an early arbitrary winner freezes every other row
+  because `nn.Embedding` only backprops into selected rows. The trade is a
+  maintenance loop with its own failure surface: revival resets entries to
+  perturbed samples of the current batch, so it can push the codebook into
+  whichever region the *current* batch occupies and destabilize an already
+  healthy codebook if the schedule is too aggressive. The seed-dependence
+  it leaves behind (63/64 on seed 0, 49/64 on seed 2) is measured in
+  [the token-contract detour](what-a-video-token-is/), not assumed away.
+- **Remove the final `Tanh`** fixes the real bug this stage exposed: the
+  bounded activation saturates on a 94%-background corpus and its
+  near-zero gradient then blocks every code from reaching the decoder.
+  The trade is a loss-range decision: an unbounded output head keeps the
+  gradient alive but moves the clamping responsibility to image export,
+  and a different dataset or loss would need its own saturation check
+  rather than inheriting this fix.
+
+The common trade across all three is diagnostic cost. Each failure was
+invisible to the aggregate loss (all three plateaued at the same flat
+baseline), so finding them required per-mechanism probes -- the
+single-clip overfit control for capacity, direct decoder inspection for
+saturation. A pipeline that skips those probes cannot tell collapse,
+entrenchment, and saturation apart, and the three fixes do not
+interchange: raising `lr` fixes mission 07's silence minimum but not this
+collapse, exactly because the mechanisms differ.
+
+## Who owns this loop
+
+- **The codec/tokenizer owner** owns the three mechanisms as a frozen
+  contract: codebook init from data, the dead-code revival schedule, and
+  the unbounded output head. The acceptance test is codebook health at
+  the end of training (codes used, entropy ratio), not just reconstruction
+  loss -- the health number is the guardrail that proves the fixes held.
+- **The data pipeline owner** owns the corpus the codec sees. The
+  background/foreground imbalance (94% background here) is what makes
+  saturation the fastest early win, so a dataset change is a codec
+  correctness event, not a tuning event.
+- **The model team** inherits whatever the codec serves. A codebook that
+  collapses to 15/64 (mission 07's no-revival seed) silently reduces the
+  vocabulary the generation model conditions on, and the token-contract
+  detour measures that as a quality ceiling -- the downstream model cannot
+  detect the loss from its own loss curve.
+
 ## Run it
 
 ```bash

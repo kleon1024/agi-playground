@@ -110,6 +110,36 @@ the revival mechanisms exist and why seed dependence still needs watching.
 
 </details>
 
+## The fix and its trade
+
+The fix this detour measures is the revival mechanism from stage 01, held
+against a second seed: revival is what keeps the codebook alive (49/64 on
+seed 2, 63/64 on seed 0, versus mission 07's 15/64 with no revival at all).
+The trade is that health remains seed-dependent — revival makes collapse
+recoverable, not impossible — and reconstruction quality tracks usage
+(0.0788 at 63/64 versus 0.0885 at 49/64). A team that reads only the
+aggregate result sees a codec that "beats the baseline" and misses that
+the margin is thin and the vocabulary shrinks seed to seed; the usage
+count and entropy ratio are the numbers that show it. The seed-dependence
+itself is the residual failure the mechanism does not remove, and it is
+reported rather than swept away: a production codec at this scale would
+need a larger codebook and a revival schedule tuned on the deployment
+corpus, not inherited.
+
+## Who owns this loop
+
+- **The codec owner** owns codebook health as the contract: codes used and
+  entropy ratio at end of training, checked per seed, not just on the
+  recorded one. Seed dependence is a codec defect signal, not a random
+  variation.
+- **The evaluation owner** owns the two-baseline comparison (background
+  and mean-frame) that keeps a thin margin from reading as a win, and the
+  per-seed health read that shows the ceiling.
+- **The model team** inherits the token vocabulary the codec serves; a
+  codebook that shrinks seed to seed silently reduces what the generation
+  model can condition on, and that loss is invisible from the downstream
+  loss curve alone.
+
 ## Next
 
 [Stage 02's generation model](../../02-generation-model/): the decoder over

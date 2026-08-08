@@ -946,13 +946,44 @@ the per-split coverage guard, and the training team inherits whatever the
 builder serves. Corpus: LibriSpeech (Panayotov et al., ICASSP 2015,
 DOI 10.1109/ICASSP.2015.7178964).
 
-Audit the remaining missions with the same lens: multimodal generation
-(codebook collapse and streaming decode are already covered by the voice
-stages' collapse/reset/health chapters and the modality-imbalance row
-above; the video path's codebook-collapse row is the remaining multimodal
-gap), game AI (policy collapse, closed-loop divergence), bio-pharma
-modeling, and autonomous driving (perception failure, distribution shift,
-closed-loop evaluation).
+Audit the remaining missions with the same lens: game AI (policy collapse,
+closed-loop divergence), bio-pharma modeling, and autonomous driving
+(perception failure, distribution shift, closed-loop evaluation).
+
+### Multimodal generation — video path (codebook-collapse row)
+
+**Status: done (thirteenth audit increment, 2026-08-08).**
+
+The video path's codebook-collapse row now satisfies the contract: stage
+01's tokenizer chapter and both of its detours carry the fix-and-trade and
+who-owns-the-loop sections, reusing the mission's measured numbers (no new
+runs):
+
+- 01 video tokenizer: the three failure modes the queue named — codebook
+  collapse, dead-code entrenchment, and decoder saturation — each open
+  with the operational symptom (all three plateaued at the same flat
+  baseline, invisible to the aggregate loss), each fix names its trade
+  (data-seeded init assumes output-scale stability, the 20-step revive
+  steers the codebook by the current batch and leaves seed dependence
+  behind, removing the final `Tanh` moves clamping to export time), and
+  the diagnostic-cost trade is explicit: the three fixes do not
+  interchange, and finding them required per-mechanism probes
+  (single-clip overfit control, direct decoder inspection). Ownership
+  split: codec owner holds the three mechanisms and end-of-training
+  codebook health as the contract, data pipeline owner owns the corpus
+  imbalance that makes saturation the fastest early win, model team
+  inherits the vocabulary the codec serves (15/64 no-revival collapse
+  silently shrinks it and is invisible from the downstream loss).
+- when-the-dead-codes-revive: the revive loop's trade is stability for
+  utilization (158 revived codes prove the loop worked; an aggressive
+  schedule disrupts a healthy codebook, a stale one revives nothing);
+  the codec owner owns the schedule as a frozen contract and the
+  token-contract detour owns the residual seed dependence.
+- what-a-video-token-is: seed-dependence measured (63/64 vs 49/64, quality
+  tracking usage 0.0788 vs 0.0885), the aggregate-beats-baseline read
+  called out as the trap, and ownership split across codec (health
+  contract per seed), evaluation (two-baseline comparison), and model
+  team (inherits the vocabulary).
 
 ### Quantitative research — 00-05
 

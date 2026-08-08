@@ -42,6 +42,29 @@ and decoder stabilize. Without the revive, the codebook would have
 collapsed again; with it, the tokenizer reaches near-full entropy (0.912)
 and beats both baselines.
 
+## The fix and its trade
+
+The revive mechanism is a maintenance loop with a real cost: every 20
+steps it resets unused rows to a perturbed sample of the *current* batch's
+encoder outputs, so it can steer the codebook toward whatever region the
+current batch occupies. That is the trade — revival keeps utilization high
+but trades away codebook stability. An aggressive schedule can disrupt an
+already healthy codebook, and a stale schedule (a window too long, a batch
+that stopped resembling the corpus) stops reviving the codes that actually
+need it. The 158 revived codes here are the evidence the loop did real
+work: without it, those rows stayed frozen at their initial values and the
+codebook would have operated at reduced capacity for the rest of the run.
+
+## Who owns this loop
+
+The codec owner. The revival schedule (interval, perturbation scale) is a
+frozen contract on the codec, not a tuning knob for the training run, and
+its acceptance test is end-of-training codebook health (63/64, entropy
+0.912) rather than any single loss value. The token-contract detour owns
+the seed-dependence question this loop leaves behind: revival makes the
+failure recoverable, not impossible, and a new seed is a codec test, not a
+surprise.
+
 ## Evidence boundary
 
 The recorded video-codec run (one seed, 800 steps, one revive schedule).
