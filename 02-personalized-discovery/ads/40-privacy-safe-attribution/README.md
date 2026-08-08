@@ -88,6 +88,27 @@ is not free — every additional report dilutes the signal of all the
 others, and the team's appetite for reports and the accuracy of each
 report are one decision made at the budget level.
 
+## The fix and its trade
+
+The fix is to set epsilon against the decision-relevant gap, not the
+smallest count: the noise range is 100 divided by epsilon, so the dial
+must clear the gap between the channels the budget actually
+distinguishes. The audit prices the threshold — at the stage's own
+epsilon 2.0 the close pair flips on 12.9 percent of reports, and twelve
+weekly reports have an 81 percent chance of at least one flipped
+allocation, while at epsilon 5.0 the noise range is smaller than the
+50-count gap and the order never flips. Report shape is the second
+lever: a six-channel report flips on 87.6 percent of draws against 12.3
+percent for three, so the report is coarsened to the noise floor.
+
+The trade is that every dial that protects the order spends the same
+privacy budget: raising epsilon weakens the guarantee, and publishing
+more reports dilutes all of them — one report gets epsilon 2.0 and
+noise scale 0.5, 100 reports get epsilon 0.02 each and noise scale 50.
+The privacy guarantee is unchanged in every row of the audit; the
+decision accuracy is not, which is why the two dials are one knob and
+the product team owns how many reports the guarantee will cover.
+
 ## Who owns the loop
 
 The privacy dial, the report shape, and the budget split are owned by

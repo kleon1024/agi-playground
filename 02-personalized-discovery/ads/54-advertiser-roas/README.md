@@ -79,6 +79,26 @@ return says a rival channel wins, the budget moves and platform revenue
 falls by half, and the auction cannot bid the advertiser back once the
 measurement says leave.
 
+## The fix and its trade
+
+The fix is to decide the budget at the margin: scale and cut against
+marginal ROAS, not the campaign average, because the average mixes
+dollars that behave differently. The audit prices the repair — average
+ROAS stays above the 5.0 target from \$1,000 to \$3,000 while marginal
+ROAS clears the target only on the first increment (5.21) and falls to
+1.96 on the last, so a budget cut from the top loses \$980 per \$500
+where the same cut from the first increment loses \$2,604.
+
+The trade is that the marginal number is the expensive one to produce.
+It requires the incrementality experiments stage 30 owns — which Lewis
+& Rao (2015) warn are hard, and Blake, Nosko & Tadelis (2015) show can
+find near-zero effects — so the average report is what finance ships
+and the media buyer decides against, a number that is confidently wrong.
+The consequence is the budget-moves detour: when the measured return
+says a rival channel wins, the budget moves and platform revenue falls
+by half, and the auction cannot bid the advertiser back once the
+measurement says leave.
+
 ## Who owns the loop
 
 The budget, its measurement, and the number the budget is decided

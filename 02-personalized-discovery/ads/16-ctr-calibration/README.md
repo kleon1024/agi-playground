@@ -74,6 +74,26 @@ shifts every prediction up by 0.2 and shows the ranking unchanged while
 every value is wrong — ordering and calibration are independent, and the
 ads stack gates both.
 
+## The fix and its trade
+
+The fix is stratified monitoring plus a per-slice correction, because
+the aggregate bar cannot see the slice that breaks: the audit's 20,000
+impressions pass at aggregate ECE 0.0238 while the mobile slice runs at
+0.2303 against a desktop 0.0042, and a constant correction fit on the
+observed-to-predicted ratio (0.5505) drops the measured ECE from 0.2450
+to 0.0000. The per-slice ECE is the case-finding instrument; the
+correction is the bridge from measurement to deployment.
+
+The trade is that the correction is a monitoring loop, not a one-time
+fit. One multiplicative factor cannot fix a bias that varies by slice,
+and a factor that is not refit expires: the same 0.5505 correction
+evaluated on a new window where the click rate rose to 0.50 over-corrects
+ECE to 0.3000, worse than the 0.0550 the raw estimate carried. And
+calibration buys values, not order — shifting every prediction up by 0.2
+leaves the ranking unchanged while every value is wrong — so the ads
+stack gates both properties, and the measurement team owns the gap
+between the correction's promise and fresh observations.
+
 ## Who owns the loop
 
 The estimate only earns what someone is accountable for at each side of
@@ -190,51 +210,3 @@ no longer match what the impressions earn. Calibration is therefore the
 precondition of the entire ads stack: ranking (eCPM), pricing (auction),
 and budget (pacing) all consume the same probability, and all three break
 if it lies.
-
-## Evidence boundary
-
-The executed ECE over one hand-built miscalibrated estimate
-(illustrative, deterministic). It demonstrates the measure; real pCTR
-calibration needs a large logged impression set and a correction fit
-(e.g., Platt or isotonic).
-
-## Check your mental model
-
-Answer each before opening it.
-
-**1. Why does ranking accuracy not fix calibration?**
-
-<details>
-<summary>Answer</summary>
-
-Because ranking only needs the ordering of pCTR; calibration needs the
-value. Two ads ranked correctly can still have systematically wrong
-probabilities — one predicted 0.6 when it is 0.3, the other 0.4 when it
-is 0.2. The ranking is unchanged, but the eCPM and the auction price are
-both wrong. Calibration is a different property than discrimination, and
-the ads stack consumes the number, not just the order.
-
-</details>
-
-**2. What does a consistent 0.55-vs-0.30 gap tell you about the model?**
-
-<details>
-<summary>Answer</summary>
-
-That it is systematically optimistic, not randomly wrong. A model with
-ECE 0.2450 in one direction predicts too many clicks everywhere, which
-means every ad's revenue is inflated in the same direction. A constant
-shift like this is exactly what a calibration correction (Platt scaling
-or isotonic regression) is designed to remove — the measured gap is the
-input to the fix.
-
-</details>
-
-## Next
-
-Forward to [stage 17 — budget pacing](../17-budget-pacing/) where the
-platform must deliver an advertiser's budget across the day.
-
-A detour from here: [the fix that makes the estimate honest](when-the-correction-is-needed/) — the executed correction read: ECE 0.245 -> 0.000 from one scaling factor, the bridge from measurement to deployment.
-
-Another detour: [perfect order, wrong values](when-calibration-and-ranking-conflict/) — the executed shift read: the model ranks clicks perfectly while every value is wrong by 0.2, so ordering and calibration are independent and the ads stack needs both.

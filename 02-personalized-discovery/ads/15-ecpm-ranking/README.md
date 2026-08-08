@@ -76,6 +76,25 @@ eligible, and at 160 the slot shows nothing. The floor filters before the
 ranking orders — what the platform refuses to show and the order it shows
 are one decision.
 
+## The fix and its trade
+
+The fix is a calibrated pCTR, because the ranking is only as good as the
+estimate it multiplies: the audit's perturbation grid flipped the winner
+on 7 of 18 cells (38.9 percent) and realized revenue fell to 136.11
+against an optimal 150.00 per impression — a 13.89 loss per impression,
+with every flip costing 30-50 while half-measure errors cost nothing.
+Stage 16 is the precondition: estimates kept inside the flip-point budget
+stop the ranking from handing slots to ads that underperform.
+
+The trade is that calibration is not free and does not settle every
+decision. It costs logged impressions and a per-slice correction that
+expires — a stale factor that fixed ECE 0.2450 to 0.0000 over-corrects
+new traffic to 0.3000, the drift the next stage measures — and a
+calibrated model still leaves the tie-break rule and the reserve as
+policy choices: two ads at estimated eCPM 100.00 realize 100.00 or
+120.00/80.00 depending on the rule, so the realized column has to be
+re-audited whenever the model or the floor changes.
+
 ## Who owns the loop
 
 The ranking only earns what someone is accountable for at each side of
@@ -182,49 +201,3 @@ A detour from here: [the knife-edge the click estimate sits on](when-pctr-moves-
 Another detour: [the tie-break rule decides who wins when the estimate cannot](when-the-bids-tie/) — the executed tie read: two ads at estimated eCPM 100.00 realize 100.00 or 120.00/80.00 depending on the rule, so the choice is about incentives, not arithmetic.
 
 A third detour: [the reserve and the ranking are one decision](when-the-reserve-interacts/) — the executed combination read: at reserve 125 only Ad B (150) clears the floor, so what the platform refuses to show and the order it shows are one decision.
-
-## Evidence boundary
-
-The executed ranking over three hand-built (bid, pCTR) pairs
-(illustrative, deterministic). It demonstrates the objective; real eCPM
-ranking needs a calibrated pCTR model and a reserve price from the
-auction stage.
-
-## Check your mental model
-
-Answer each before opening it.
-
-**1. Why is Ad B with the lowest bid the most valuable?**
-
-<details>
-<summary>Answer</summary>
-
-Because value is bid times click probability, not bid alone. Ad B's 0.30
-pCTR means roughly three in ten impressions earn the platform its bid;
-Ad A's 0.05 means one in twenty. Per thousand impressions, B earns 150
-against A's 100. The bid reveals intent; the pCTR reveals audience
-fit — and eCPM is where the two meet.
-
-</details>
-
-**2. What breaks if pCTR is wrong?**
-
-<details>
-<summary>Answer</summary>
-
-The ranking optimizes against a wrong revenue estimate. An overestimated
-pCTR inflates eCPM and wins slots for ads that underperform — the
-platform earns less than the ranking predicted, and the auction pays the
-wrong price. That is why calibration (stage 16) is not a polish step: it
-is the precondition that makes eCPM ranking correct.
-
-</details>
-
-## Next
-
-Forward to [stage 16 — pCTR calibration](../16-ctr-calibration/) which
-keeps the estimate honest.
-
-A detour from here: [the knife-edge the click estimate sits on](when-pctr-moves-the-rank/) — the executed sweep read: a 2-point pCTR change swaps the winner, which is why calibration is the precondition.
-
-Another detour: [the reserve and the ranking are one decision](when-the-reserve-interacts/) — the executed combination read: at reserve 125 only Ad B (150) clears the floor, so what the platform refuses to show and the order it shows are one decision.

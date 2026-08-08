@@ -76,6 +76,25 @@ user value against the displaced organic item: an irrelevant ad loses
 0.5, a relevant ad gains 0.7. The externality is a comparison, and only
 combined pricing (stage 05's value tree) can make it.
 
+## The fix and its trade
+
+The fix is a net-value rule that prices displacement per user slice and
+per slot position: admit an ad only when its net value clears the organic
+bar, using measured externality instead of an average. The audit's slice
+table prices the rule — the aggregate +0.0688 passes while the engaged
+slice loses -0.3249 per user against casual +0.2000 — and the whale
+detour shows the mean 0.2307 hides a P90/P99 displacement of 0.9500 where
+the user's most valuable result dies.
+
+The trade is that the fix costs measurement and cannot be settled by the
+model alone. Real organic-value loss requires experiments that estimate
+substitution per position and per user slice; until then the value tree
+prices one average displacement that is wrong for the slice that pays.
+Slot count is a decision variable, not a constant — the same ad displaces
+0.60 in a 4-slot slate and 0.20 in an 8-slot one — and the ad-load
+decision is where the platform chooses which point on that curve it sits,
+trading ad revenue against the retention the engaged slice represents.
+
 ## Who owns the loop
 
 The displacement only earns what someone is accountable for at each side
@@ -193,51 +212,3 @@ combination; the externality quantifies what the ad actually costs. A
 platform that ranks ads by revenue alone over-inserts them; one that
 prices displacement runs the auction the mission's decision actually
 requires.
-
-## Evidence boundary
-
-The executed displacement model over one hand-built slate (illustrative,
-deterministic, assumed ad utility). It demonstrates the trade; real ad
-placement also needs measured organic-value loss per position, which an
-online experiment would estimate.
-
-## Check your mental model
-
-Answer each before opening it.
-
-**1. Why is the ad's value not just its revenue?**
-
-<details>
-<summary>Answer</summary>
-
-Because the ad consumes a slot an organic result would have used. The
-organic item's value (relevance, engagement, long-term user value) is
-lost when the ad takes its place — that loss is the externality. A
-platform that counts only ad revenue is double-counting: it records the
-gain and ignores the displaced organic value it caused.
-
-</details>
-
-**2. Where does the platform decide how much organic it may displace?**
-
-<details>
-<summary>Answer</summary>
-
-In the value tree (stage 05). The ad enters the slate only when its net
-value — revenue minus displacement — clears the organic bar, exactly as
-stage 05's auction lets an ad enter only when its utility exceeds the
-displaced organic item's. The externality is the measured cost that makes
-that decision, and it is the same trade across recommendation, search,
-and ads.
-
-</details>
-
-## Next
-
-This closes the ads track. The mission's three surfaces are now complete:
-recommendation (stages 00-09), search (10-13), ads (14-18). Return to
-[the mission README](../../) for the full path.
-
-A detour from here: [scarcity amplifies the externality](when-the-slot-is-scarce/) — the executed sweep read: the same ad displaces 0.60 in a 4-slot slate but 0.20 in an 8-slot one, so slot count is part of the ad decision.
-
-Another detour: [the externality flips sign when the ad is relevant](when-the-ad-is-relevant/) — the executed sign flip read: an irrelevant ad displacing a 0.7 organic item loses 0.5 while a relevant ad gains 0.7, which is why the value tree prices the combination.

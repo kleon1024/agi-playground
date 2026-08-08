@@ -92,6 +92,27 @@ bidders learn: \$0.95 per auction under naive bidding falls to \$0.42
 once bidders shade, so a launch-day forecast that assumes naive
 bidding overstates the steady state by more than half.
 
+## The fix and its trade
+
+The fix is to treat shading as a prediction: probe the competitor
+landscape, fit the distribution the second-price log used to reveal for
+free, and hedge the estimate's uncertainty in the bid policy. The audit
+prices the belief-error cost — a belief error of 0.3 costs 0.022 per
+auction against the 0.250 optimum, and mis-specifying weaker competition
+(U[0, 0.4]) loses 0.100 — and the probe-budget row shows where the fix
+lives: 100 trials per probe wanders the fitted optimum to 0.60 and
+loses 0.011 per auction, against 0.001 at 1,000 trials.
+
+The trade is that probing is rationed and the market moves. Every probe
+is an impression the bidder risks overpaying for, so the landscape
+estimate is always built on less data than the second-price log gave,
+and the platform's revenue forecast carries the same error: \$0.95 per
+auction under naive bidding settles at \$0.42 once bidders shade, so a
+launch-day forecast that assumes naive bidding overstates the steady
+state by more than half. The forecasting team must assume learned
+shading, not the rule change, and the reserve is the cushion that buys
+time while the demand side relearns.
+
 ## Who owns the loop
 
 The estimate, the rule, and the forecast are owned by three different

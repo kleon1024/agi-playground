@@ -83,6 +83,25 @@ the demand curve with its own optimum at \$0.8 (revenue 0.37). Both
 are point-in-time reads of a curve that moves with the bidder
 population — the audit's learning dynamics are the reason.
 
+## The fix and its trade
+
+The fix is to measure the settled market, not the day-one read: the
+first-price advantage is a transient that erodes as bidders learn, so
+the revenue decision is made on the equilibrium, and the audit prices
+the wait — naive round 1 pays 0.7485 per auction, rounds 10-12 settle
+at 0.4980, a 33 percent erosion to the second-price expected revenue
+(0.5000), and a day-one read overstates the settled number by 57
+percent.
+
+The trade is that the settled number takes time, and the platform's
+levers move the game they are trying to measure. Certifying revenue
+only after the market learns means weeks of transition-period revenue
+that the naive read inflates, and the reserve — the remaining lever —
+sits on the demand curve with its own optimum at \$0.8 (revenue 0.37).
+The comparison is only valid for the bidding behavior it assumes, which
+is why the market-design decision needs the settled state and the
+adaptation signal the demand team owns.
+
 ## Who owns the loop
 
 The revenue only earns what someone is accountable for at each side of

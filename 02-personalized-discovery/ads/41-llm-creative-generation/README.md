@@ -82,6 +82,26 @@ reads the message-level collapse: three generated variants normalize to
 two distinct messages, so selection is choosing between a copy and a
 punctuation edit, and the scoring step is decorative.
 
+## The fix and its trade
+
+The fix is to calibrate the score on measured CTR — the same rule stage
+16 established for pCTR — because the surface score and the delivery
+loop pick different winners. The audit prices the gap: with a 0.40
+surface-appeal component the score misses the CTR-best creative on 55.1
+percent of 5,000 batches and gives up 7.3 percent of delivered CTR on
+average (chosen 0.0848 against best 0.0914), so the score earns its
+authority only by being trained on delivered impressions.
+
+The trade is that the calibration data is the expensive step generation
+was meant to avoid, and the fix does not cover the upstream failure:
+showing a variant to measure its CTR costs reach and revenue, and a
+mode-seeking generator re-emits the historical winners the cohort has
+already seen — at collapse 0.6 the delivered CTR falls from 0.0911 to
+0.0515 with 59.8 percent re-runs and a 0.0406 within-flight decay, so
+the creative wears out at generation time, before the scorer sees it.
+Generation diversity and score calibration are owned by different
+teams, and each tunes against the delivery team's measured numbers.
+
 ## Who owns the loop
 
 Generation, selection, and delivery are owned by three different

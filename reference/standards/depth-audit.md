@@ -564,6 +564,93 @@ the 3.6 percent interleaving session cost, the 28,547-user power
 calculation, the 1.96x marginal dollar). With this, every stage in the
 ads range satisfies the audit contract at the parent and detour level.
 
+**Structural re-check 2026-08-08 (thirty-third audit increment):** a
+fresh scan found the prior "done" claim passed the detours but missed
+the parents — all 18 ads parents carried who-owns without the
+fix-and-trade section. Closed now, each reusing the chapter's own
+measured numbers, and the stale duplicated tails in stages 15-18 (a
+second evidence-boundary / check-your-mental-model / next block left
+behind by the earlier insert) were removed. 14 ad auction's fix is
+bidder depth, not the rule (four bidders 0.6118 per auction against one
+0.2514, reserve-binding share 100.0 to 3.1 percent), traded against the
+reserve stopgap that humps at 0.2492 near reserve 0.50 and kills sales
+when set too high (0.85 eliminates the second bidder). 15 eCPM
+ranking's fix is calibrated pCTR, the stage-16 precondition, priced by
+the 7-of-18 flip grid (realized 136.11 against 150.00, flips costing
+30-50), traded against calibration's cost and expiry (stale factor
+over-correcting to 0.3000) and the tie-break/reserve policy choices
+that remain. 16 calibration's fix is per-slice monitoring plus a
+per-slice correction (aggregate ECE 0.0238 passes while mobile 0.2303;
+the 0.5505 factor drops ECE 0.2450 to 0.0000), traded against expiry —
+the same factor over-corrects new traffic to 0.3000 — and the
+ordering-versus-values split the ranking-conflict detour measures. 17
+pacing's fix is feedback control re-pacing against live delivery,
+priced by the sweep (multiplier 1.50 spends 100.0 but late-window
+collapses to 0.0 with three dark hours), traded against oscillation
+(gain 3.0 darkens six of twelve hours) and the tight cap that leaves
+50.0 of 100 unspent. 18 externality's fix is the per-slice net-value
+rule (aggregate +0.0688 passes while engaged -0.3249 against casual
++0.2000; mean 0.2307 hides P90/P99 0.9500), traded against the
+experiments substitution requires and slot count as the decision
+variable (0.60 displaced in 4 slots, 0.20 in 8). 25 frequency capping's
+fix is per-segment caps on a stable counter (casual 7 / standard 3 /
+power 2 cut 6,152 impressions losing zero casual clicks, where global
+cap 3 sacrifices 28.5 casual clicks to save 7.3 power clicks), traded
+against reach (10,000 users at cap 1 vs 1,000 at cap 10) and the
+counter that 30 percent of users lose (6,167 extra impressions at
+0.0139 vs 0.0400). 26 creative selection's fix is the recency-aware
+estimator, not exploration (EWMA 828 and Thompson-decaying 807 clicks
+against greedy 635 and epsilon-greedy 645), traded against recency's
+stability cost and cold start's traffic price (epsilon 0.20 serves the
+new creative 1,994 placements for 653 clicks). 27 bid strategy's fix is
+the selection correction (IPW restores 0.0187 and the \$0.09 bid from a
+winner's log that reads 0.0316 and overpays 1.68x; delay fit recovers
+0.0197 from a 0.0096 under-read), traded against the data the
+corrections need and the cap that trades reach for price (\$0.10 to
+\$0.06 drops wins from 3/5 to 1/5). 28 auction revenue's fix is the
+settled state, not the day-one read (0.4980 settled against 0.7485
+naive, 33 percent erosion, day-one overstating by 57 percent), traded
+against the transition weeks and the reserve's own optimum at \$0.8
+(revenue 0.37). 29 RTB's fix is the tail budget and the cascade (p99
+108.2ms blows the 100ms deadline with 933 of 20,000 timing out; cascade
+cuts an 18.0 percent model timeout rate to 6.9), traded against cheap
+fallback bids on 33.1 percent of the worst-tail requests and the 5
+percent rate that leaves 50,000 of a million slots unfilled. 30 ads
+measurement's fix is sizing for the effect before reading (the
+0.4-point increment is invisible at 8,000 users per arm, CI first
+excludes zero at 20,000, 80 percent power needs 28,547), traded against
+the revenue and traffic a larger holdout defers and the attribution
+shortcut that overcounts by 0.6. 38 interleaving's fix is the randomized
+blend plus tie rule and pooled test (naive credits A 59.2 percent for
+equal teams; random start restores 49.7/50.3), traded at a measured 3.6
+percent more sessions against a bias 78 standard errors from 50/50 at
+200,000 sessions. 39 first-price transition's fix is shading as a
+probed, hedged prediction (belief error 0.3 costs 0.022 per auction;
+100-trial probes wander the optimum to 0.60 for 0.011 against 0.001 at
+1,000), traded against rationed probing and the forecast error that
+reads \$0.95 settling at \$0.42. 40 privacy-safe attribution's fix is
+epsilon set against the decision gap and the report coarsened to the
+noise floor (12.9 percent flip rate at epsilon 2.0, 81 percent over
+twelve reports, 0.0 percent at epsilon 5.0; six channels flip 87.6
+percent vs 12.3 for three), traded against the shared privacy budget
+that 100 reports dilute to epsilon 0.02 each. 41 LLM creative's fix is
+the score calibrated on delivered CTR (surface score misses the
+CTR-best on 55.1 percent of batches for 7.3 percent relative loss,
+chosen 0.0848 vs best 0.0914), traded against the impressions the
+calibration costs and the generator collapse that re-runs 59.8 percent
+of delivery at 0.0406 within-flight decay. 42 marketplace economics'
+fix is the measured volume response before pricing (fixed 35 percent
+within 2.6 percent of the fitted peak but 16.0 percent below the
+elastic peak; \$203 vs \$105 across the outer curves), traded against
+the two-sided response that moves the peak from 31.0 to 21.0 percent
+and the shared elasticity shape across reserve, ad load, and take rate.
+54 ROAS's fix is deciding the budget at the margin (average 5.21x
+against a marginal 1.96x; a top cut loses \$980 per \$500 where the
+first increment loses \$2,604), traded against the incrementality
+experiments the marginal number requires, which is why the average
+report ships and the budget-moves detour prices the consequence. All 18
+parents now satisfy the contract at both levels.
+
 ### Personalized discovery — recommendation 31-34 (frontier)
 
 **Status: done (fifth audit increment, 2026-08-07).**

@@ -85,6 +85,25 @@ availability footnote. The [slow-bidder detour](when-the-bidder-is-slow/)
 shows the bidder side: a 130ms bidder is timed out whatever its price,
 so latency is a bidder's cost of entry.
 
+## The fix and its trade
+
+The fix is a tail budget: size the margin for the p99, not the p95, and
+give the model stage a fallback for the requests it cannot serve in
+time. The audit prices both: the p95 fits the deadline at 99.5ms while
+the p99 blows it at 108.2ms and 933 of 20,000 requests (4.7 percent)
+time out — invisible in the 82.4ms mean — and the cascade cuts a heavy
+model's 18.0 percent timeout rate to 6.9 percent.
+
+The trade is that the margin and the fallback each buy survival with
+quality. A cascade serves cheap fallback bids on the worst-tail traffic
+— 33.1 percent of requests at the detour's threshold, the requests whose
+context is least certain — and every stage is a latency source, so the
+budget is re-split whenever a stage grows. Timeout rate is a revenue
+metric before it is an availability footnote: a 5 percent rate leaves
+50,000 of a million requests unfilled, and a 130ms bidder is timed out
+whatever its price, which is why the deadline is a tail constraint and
+the margin is a tail budget.
+
 ## Who owns the loop
 
 The deadline only holds if someone is accountable at each side of the

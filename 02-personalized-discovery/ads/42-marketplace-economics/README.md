@@ -78,6 +78,27 @@ executed sweep past the peak: volume hits zero at 70%, revenue
 collapses with it, and the platform's greed is measured in lost
 transactions, not gained cuts.
 
+## The fix and its trade
+
+The fix is to estimate the actual volume response before pricing — the
+elasticity audit's peak spread is the measurement problem — and to set
+the take rate against the measured curve, not a fitted one. The sweep
+prices the repair: the stage's fixed 35 percent is within 2.6 percent
+of the peak on the curve it was fitted to, but 16.0 percent below the
+peak on the elastic market, and across the two outer curves the same 35
+percent rate earns \$203 versus \$105 — 48 percent apart with no change
+in the rate.
+
+The trade is that the curve moves, and the levers share one elasticity
+shape. Estimating elasticity is slow and the answer is only as fresh as
+the last experiment; the two-sided response the one-sided curve skips
+moves the peak from 31.0 percent to 21.0 percent, and pricing at the
+one-sided optimum earns 15.0 percent below the two-sided peak. The
+reserve prices demand, the ad load prices displacement, and the take
+rate prices the whole market — moving any one lever in isolation
+ignores that they sit on the same demand curve, which is the
+marketplace team's interaction failure.
+
 ## Who owns the loop
 
 The take rate, its demand curve, and the revenue it feeds are owned by

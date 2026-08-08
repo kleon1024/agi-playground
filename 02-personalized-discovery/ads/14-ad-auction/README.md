@@ -71,6 +71,24 @@ eliminated and the winner pays the reserve; a floor above the top bid
 leaves the slot unsold. A floor tuned for a deep market, applied to a
 thin one, converts auctions into empty slots.
 
+## The fix and its trade
+
+The fix is bidder depth, not the auction rule: the revenue loop earns
+when demand-side work — more partners, an open exchange — puts more
+bidders in the market, and the competition audit is its instrument. The
+measured read is the gap the fix closes: four bidders deliver 0.6118 per
+auction where one delivers 0.2514, and the reserve-binding share falls
+from 100.0 percent to 3.1 percent as competition returns.
+
+The trade is that depth is slow, and the reserve is the stopgap that pays
+while it builds. A floor tuned for a thin market humps at 0.2492 near
+reserve 0.50 — far below the 0.6118 four bidders deliver at the same
+floor — and a floor set too high converts auctions into empty slots: at
+reserve 0.85 the second bidder is eliminated, and a floor above the top
+bid leaves the slot unsold. The reserve is part of the auction design,
+not an add-on, but the thin-market sweep measures that even a perfectly
+tuned reserve cannot replace lost competition.
+
 ## Who owns the loop
 
 The auction only earns what someone is accountable for at each side of

@@ -89,6 +89,27 @@ creative_c's 0.03 is a cold-start estimate). Both are features the
 selection model needs — placement and recency — not labels on top of a
 global average.
 
+## The fix and its trade
+
+The fix is a recency-aware estimator, not more exploration: the audit
+served 20,000 placements to a mature creative whose true rate had
+decayed to 0.025, and greedy lifetime CTR earned 635 clicks where a
+recency-weighted EWMA earned 828 and a Thompson posterior with decaying
+counts earned 807. Exploration alone barely helped — epsilon-greedy
+corrected the new creative's estimate but the greedy arm still read the
+sticky average (645 clicks) — so the estimator that sees the wear is
+what recovers about 30 percent of the clicks.
+
+The trade is that recency costs stability, and cold start costs traffic.
+A recency-weighted estimate trades the confident lifetime average for a
+noisier recent window, and a creative with no history cannot be priced
+without serving it: raising epsilon from 0.00 to 0.20 serves the new
+creative 475 to 1,994 placements but moves clicks only 625 to 653,
+because the corrected estimate still loses to the incumbent's sticky
+average. Cold start needs both traffic and a recency-aware estimator —
+exploration that corrects an estimate the estimator refuses to use is a
+budget with no selection change.
+
 ## Who owns the loop
 
 The creative only earns what someone is accountable for at each side of

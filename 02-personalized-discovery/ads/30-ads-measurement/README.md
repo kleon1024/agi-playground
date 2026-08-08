@@ -87,6 +87,26 @@ and routing next quarter's budget to the wrong channel even when every
 ad works. Attribution without a control group is the click-rate
 version of the same overcount the stage's increment corrects.
 
+## The fix and its trade
+
+The fix is to size the experiment for the effect before reading the
+outcome: the CI, not the point estimate, is the deliverable, and the
+power calculation is the gate. The audit prices the failure — the
+stage's own 0.4-point increment is invisible at 8,000 users per arm
+(observed +0.0000, the CI covering zero), first excludes zero at 20,000
+(p = 0.040), and 80 percent power needs 28,547 users per arm — so the
+honest result at campaign scale is "we cannot tell," and the decision
+to spend on the lift is made only where the CI clears zero.
+
+The trade is that seeing the increment costs traffic and revenue: a
+larger holdout observes smaller lifts at the price of revenue deferred
+and users exposed to a worse product, which is why the attribution
+shortcut tempts — last-click gives email all 1.0 under three
+touchpoints that share 0.4/0.2/0.4, overcounting by 0.6 and routing
+next quarter's budget to the wrong channel. The measurement that can
+see the increment is expensive enough that production teams ship the
+average instead, which is the same misallocation the audit measures.
+
 ## Who owns the loop
 
 The increment only means something if someone is accountable at each

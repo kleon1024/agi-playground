@@ -91,6 +91,27 @@ detour](when-fatigue-hits/) prices what the cap saves: over one
 million impressions the capped campaign earns 40,000 expected clicks
 against 22,429 uncapped.
 
+## The fix and its trade
+
+The fix is per-segment caps keyed to a stable identity counter, because
+fatigue is per segment and delivery is per identity. The audit prices
+both halves: aggregate CTR 0.0328 passes while the power slice runs at
+0.0133 with 40.6 percent of its impressions dead, and per-segment caps
+(casual 7, standard 3, power 2) cut 6,152 impressions while losing zero
+casual clicks — where a global cap 3 cuts 6,269 impressions and
+sacrifices 28.5 casual expected clicks to save 7.3 power clicks.
+
+The trade is that the cap is a budget allocation, and both dials cost
+something. A higher cap preserves per-user value but shrinks the
+audience: a 10,000-impression budget reaches 10,000 users at cap 1 and
+1,000 at cap 10. The counter is load-bearing — when 30 percent of users
+lose their counter at least once, the campaign serves 6,167 extra
+impressions at about a third of the first-three click value (0.0139
+versus 0.0400) and the dead share rises to 3.1 percent. Per-segment caps
+add serving complexity for exactly the audience that stopped clicking,
+which is why the identity and measurement teams own the counter and the
+dead share the cap reads.
+
 ## Who owns the loop
 
 The cap only works if someone is accountable at each side of the

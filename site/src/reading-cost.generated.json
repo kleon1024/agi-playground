@@ -369,7 +369,7 @@
   },
   "02-personalized-discovery/ads/14-ad-auction": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "02-personalized-discovery/ads/14-ad-auction/when-the-market-is-thin": {
     "level": "applied",
@@ -385,7 +385,7 @@
   },
   "02-personalized-discovery/ads/15-ecpm-ranking": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 7
   },
   "02-personalized-discovery/ads/15-ecpm-ranking/when-pctr-moves-the-rank": {
     "level": "applied",
@@ -449,7 +449,7 @@
   },
   "02-personalized-discovery/ads/25-frequency-capping": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "02-personalized-discovery/ads/25-frequency-capping/when-fatigue-hits": {
     "level": "applied",
@@ -465,7 +465,7 @@
   },
   "02-personalized-discovery/ads/26-creative-selection": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "02-personalized-discovery/ads/26-creative-selection/when-the-creative-context-changes": {
     "level": "applied",
@@ -481,7 +481,7 @@
   },
   "02-personalized-discovery/ads/27-bid-strategy": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "02-personalized-discovery/ads/27-bid-strategy/when-the-bid-is-capped": {
     "level": "applied",
@@ -497,7 +497,7 @@
   },
   "02-personalized-discovery/ads/28-auction-revenue": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "02-personalized-discovery/ads/28-auction-revenue/when-first-price-pays-more": {
     "level": "applied",
@@ -513,7 +513,7 @@
   },
   "02-personalized-discovery/ads/29-rtb-pipeline": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
   "02-personalized-discovery/ads/29-rtb-pipeline/when-the-bidder-is-slow": {
     "level": "applied",
@@ -529,7 +529,7 @@
   },
   "02-personalized-discovery/ads/30-ads-measurement": {
     "level": "applied",
-    "minutes": 8
+    "minutes": 9
   },
   "02-personalized-discovery/ads/30-ads-measurement/when-attribution-overcounts": {
     "level": "applied",
@@ -545,7 +545,7 @@
   },
   "02-personalized-discovery/ads/38-interleaving-experiments": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "02-personalized-discovery/ads/38-interleaving-experiments/when-the-blend-biases-the-credit": {
     "level": "applied",
@@ -561,7 +561,7 @@
   },
   "02-personalized-discovery/ads/39-first-price-transition": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "02-personalized-discovery/ads/39-first-price-transition/when-the-competition-is-unobservable": {
     "level": "applied",
@@ -577,7 +577,7 @@
   },
   "02-personalized-discovery/ads/40-privacy-safe-attribution": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 9
   },
   "02-personalized-discovery/ads/40-privacy-safe-attribution/when-the-budget-splits": {
     "level": "applied",
@@ -593,7 +593,7 @@
   },
   "02-personalized-discovery/ads/41-llm-creative-generation": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "02-personalized-discovery/ads/41-llm-creative-generation/when-the-generated-creative-is-identical": {
     "level": "applied",
@@ -609,7 +609,7 @@
   },
   "02-personalized-discovery/ads/42-marketplace-economics": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "02-personalized-discovery/ads/42-marketplace-economics/when-the-ad-load-moves": {
     "level": "applied",
@@ -625,7 +625,7 @@
   },
   "02-personalized-discovery/ads/54-advertiser-roas": {
     "level": "applied",
-    "minutes": 7
+    "minutes": 8
   },
   "02-personalized-discovery/ads/54-advertiser-roas/when-roas-collapses": {
     "level": "applied",

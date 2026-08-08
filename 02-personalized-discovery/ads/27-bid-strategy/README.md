@@ -86,6 +86,27 @@ a win at that price is a loss. The [bid-capped detour](when-the-bid-is-capped/)
 shows the cap's other edge: lowering the cap from \$0.10 to \$0.06
 drops wins from 3/5 to 1/5, trading reach for lower average price.
 
+## The fix and its trade
+
+The fix is a selection correction — inverse-propensity weighting on won
+auctions, or a CVR model fit on the full impression space — because the
+winner's log is the auction's winning half, not its population. The
+audit prices the repair: naive CVR from the log reads 0.0316 against a
+true 0.0188 and the target-CPA bid overpays 1.68x, while the IPW
+correction recovers 0.0187 and the \$0.09 bid. The delay side of the
+same family is fixed by the joint conversion-and-delay fit: naive labels
+in-flight clicks as negatives and reads 0.0096 against a true 0.02 — a
+52 percent under-read — where the delay-corrected label recovers 0.0197.
+
+The trade is that the corrections cost data, and the cap is a risk dial
+on top. IPW needs a win-probability model or losing auctions in the log;
+delay modeling needs the delay distribution per channel, and both drift
+as the funnel changes, so the estimator is a standing artifact with a
+re-check. A cap that trades reach for price remains a campaign decision:
+lowering the cap from \$0.10 to \$0.06 drops wins from 3 of 5 to 1 of 5,
+which is a choice about how many auctions to win, not a correction for
+the bias.
+
 ## Who owns the loop
 
 The bid only earns what someone is accountable for at each side of the

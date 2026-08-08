@@ -80,6 +80,26 @@ arXiv:2508.00751), and the Spotify confidence glossary states directly
 that interleaving is "dramatically more sensitive than traditional A/B
 testing for ranking problems."
 
+## The fix and its trade
+
+The fix is a randomized blend with a decided tie rule and a pooled
+statistical test over credits, because the naive blend hands team A
+positions 1, 3, 5 — click mass 0.51 against B's 0.35 — and credits A
+with 59.2 percent of clicked sessions despite equal teams, while a
+random start per session restores 49.7/50.3. The trade is measured, not
+asserted: the random start costs 3.6 percent more sessions for the same
+interval width, and the naive interval at 200,000 sessions sits 78
+standard errors from the true 50/50 — a bias more traffic never shrinks.
+
+The cost is worth paying because interleaving's sensitivity is the point
+of the design: it needs 400 users where a between-user A/B needs 10,000,
+the property Radlinski & Craswell (2010) and Schuth, Hofmann & Radlinski
+(2015) measure and production teams rely on. The remaining decision is
+the tie rule — a click on a document both teams proposed credits both
+unless a rule decides it — so the answer is a property of the blend, the
+tie rule, and the start randomization, the three choices the ranking
+team, the measurement team, and the traffic owner each own.
+
 ## Who owns the loop
 
 Interleaving only produces an honest answer if someone owns each side
