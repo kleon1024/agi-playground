@@ -35,6 +35,8 @@ shading. The one-bidder case shows the boundary: with no competition the
 winner pays zero, which is why real auctions add a reserve — and why the
 market's bidder depth, not the rule, is what the audit below measures.
 
+<!-- interactive: AdAuction -->
+
 ## The failure mode, named and audited
 
 **The market thins, and revenue per auction falls with it.** The audit

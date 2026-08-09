@@ -34,6 +34,8 @@ fraction actually clicked? The expected calibration error (ECE) bins the
 predictions and averages the gap between predicted and observed rate per
 bin. A calibrated model has ECE near zero — it says 0.55 and means 0.55.
 
+<!-- interactive: CtrCalibration -->
+
 ## The failure mode, named and audited
 
 **The aggregate passes, the slice fails.** The audit

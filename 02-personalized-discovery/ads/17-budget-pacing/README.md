@@ -44,6 +44,8 @@ campaign delivers continuously instead of exhausting early. Two designs:
 2. **Paced (cap per slice)** — limit hourly spend to budget/hours, then
    adjust as actual delivery deviates from the plan.
 
+<!-- interactive: BudgetPacing -->
+
 ## The failure mode, named and audited
 
 **A loose cap spends the budget, then misses the evening.** The audit

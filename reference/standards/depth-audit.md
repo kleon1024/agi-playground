@@ -136,7 +136,14 @@ links to the ads track's `38-interleaving-experiments`.
 
 ### Personalized discovery — shared 43-55 (operations)
 
-**Status: done (third audit increment, 2026-08-07).**
+**Status: done (third audit increment, 2026-08-07; interactive wiring
+2026-08-09 for stage 54-online-experiments).**
+
+On 2026-08-09 stage 54 received a ProcessDiagram wired to its recorded
+fixtures: the validity gate (broken SRM chi2=21.52 p=3.51e-06 vs fixed
+chi2=0.04 p=0.832, unit-mismatch SE gap 3.19x, SRM firing at ~2,000 users
+against 78,000 for outcome power, 24% unit-mismatch false positives and
+53% switchback per-minute false positives).
 
 Stages 43-47 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
@@ -541,7 +548,17 @@ three detours:
 eighth audit increments, 2026-08-07/08; frontier chapter
 43-ads-inside-the-loop audited 2026-08-08 and relocated from the shared
 10-frontier directory to the surface that owns it; 54-advertiser-roas
-renumbered to 56 so it no longer collides with shared 54-online-experiments).**
+renumbered to 56 so it no longer collides with shared 54-online-experiments;
+interactive wiring 2026-08-09 for stages 14, 16, 17, 30).**
+
+On 2026-08-09 stages 14, 16, 17, and 30 each received a ProcessDiagram
+wired to the recorded runs: ad auction (0.6118 with four bidders vs
+0.2514 with one, reserve-binding 100% at one bidder), CTR calibration
+(aggregate ECE 0.0238 passing vs mobile slice 0.2303 at 0.268 observed
+against 0.498 predicted), budget pacing (naive exhausts at hour 3; cap
+1.50 fully spent with 3 dark hours vs paced 88.4 of 100 and none), and
+ads measurement (increment 0.4 points; p=1.000 at n=8,000; CI first
+excludes zero at n=20,000; 80% power needs 28,547 per arm).
 
 Stages 14-18 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:

@@ -43,6 +43,8 @@ finds it before the outcome test is read. The fixed fixture is the same
 log with the constant corrected — which is why the gate exists: the fix is
 cheap, the silence is not.
 
+<!-- interactive: OnlineExperiments -->
+
 ## The three failure modes, named
 
 **The split lies (sample ratio mismatch, SRM).** The bucketing hash that

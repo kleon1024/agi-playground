@@ -37,6 +37,8 @@ points, not the 0.032 the raw click rate shows. That difference is the
 entire reason the [overcount detour](when-attribution-overcounts/) and
 the [zero-lift detour](when-the-incrementality-is-zero/) exist.
 
+<!-- interactive: AdsMeasurement -->
+
 ## The failure mode, named and audited
 
 **The increment is buried in binomial noise.** The audit
