@@ -154,6 +154,21 @@ feedback loops (head 99% vs tail 0% impression share, sustained exposure
 0.020, ALERT at hour 10), and LTV/CAC (organic 6.08, referral 1.80, paid
 0.94; 1m-to-24m window curves deciding the channel verdict).
 
+On 2026-08-09 (second shared wiring pass) stages 46, 48, 49, 50, 51, 52,
+and 53 each received a ProcessDiagram wired to the recorded runs:
+retraining/staleness (snapshot ages 0 to 5 to 6 wrong pairs by hour 12;
+volatile cohort due first), realtime user state (session boost lifts audio
+0.032 to 0.041; depth-1 sessions own 70% of traffic at 58% of the blended
+lift share; p95 38ms to 118ms), throughput/capacity (p99 933ms and 68.8%
+over deadline at 55 req/s; p95 150ms already exceeds the 100ms deadline;
+hedge cuts 18.5% to 3.4%), cost per query (4.0 units per query vs 200,000
+exhaustive; recall owns 25% of budget at 10M and 68% at 1B), new-user
+experience (NDCG 0.122 popularity to 0.878 after 20 interactions; wrong
+prior 0.000 at 0.18 retention below no-ask 0.20), trust/explainability
+(largest term 47% unverifiable; similar-users surface 70% uncheckable
+headline vs 62% aggregate), and fairness/allocation (10% floor lands at
+9.2% served; first ten points cost 0.0021 aggregate CTR).
+
 Stages 43-47 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
 

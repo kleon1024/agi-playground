@@ -31,6 +31,8 @@ against the current truth:
 | hour 0 | hour 12 | 6 |
 | hour 6 | hour 12 | 1 |
 
+<!-- interactive: RetrainingStaleness -->
+
 ## The mechanism, named
 
 Rank error grows from 0 at hour 0 to several wrong pairs at hour 12: the

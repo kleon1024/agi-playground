@@ -34,6 +34,8 @@ Total per query: 4.0 units. Exhaustive fine-rank of 10M items: 200,000
 units. Per 1M queries, the cascade costs 4,000,000 units; exhaustive
 scoring costs 200,000,000,000.
 
+<!-- interactive: CostPerQuery -->
+
 ## The mechanism, named
 
 The cascade costs a fraction of exhaustive scoring, and every stage

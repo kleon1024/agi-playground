@@ -29,6 +29,8 @@ one item's score into contributions:
 | similar users bought | 0.9 | +0.022 | +0.0198 | 47%, unverifiable |
 | you viewed this category | 0.4 | +0.035 | +0.0140 | 33%, verifiable |
 
+<!-- interactive: TrustExplainability -->
+
 ## The mechanism, named
 
 The largest contribution is "similar users bought", which the user cannot

@@ -30,6 +30,8 @@ NDCG@10 against the user's true taste as interactions accumulate:
 | personalized after 5 interactions | 0.694 |
 | personalized after 20 interactions | 0.878 |
 
+<!-- interactive: NewUserExperience -->
+
 ## The mechanism, named
 
 At zero interactions personalization has no signal, so popularity is the

@@ -33,6 +33,8 @@ ago:
 | 5 | P1005 cases 0.020 | P1005 cases 0.020 |
 | 6 | P1006 cases 0.018 | P1006 cases 0.018 |
 
+<!-- interactive: RealtimeUserState -->
+
 ## The mechanism, named
 
 The session pulled audio up and cases down. The batch model would need a

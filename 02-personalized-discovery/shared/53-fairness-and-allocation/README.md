@@ -32,6 +32,8 @@ exposure by category, unconstrained and under a 10% floor:
 
 Aggregate CTR: 0.0355 unconstrained, 0.0334 with the floor.
 
+<!-- interactive: FairnessAllocation -->
+
 ## The mechanism, named
 
 The floor moves accessories from near-invisible to a real share and costs

@@ -30,6 +30,8 @@ a queue with 10ms mean service and 5% of queries at 150ms:
 | 40 req/s | 10ms | 250ms | 370ms | 28.4% |
 | 55 req/s | 192ms | 745ms | 933ms | 68.8% |
 
+<!-- interactive: ThroughputCapacity -->
+
 ## The mechanism, named
 
 Service averages 17ms, so the naive capacity is roughly 59 req/s. The
