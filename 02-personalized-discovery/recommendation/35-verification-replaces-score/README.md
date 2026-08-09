@@ -26,10 +26,10 @@ positions changed: 4/5
 By the end you will be able to say which part of the ranking loop survives
 inside a generator, and which failure a score-based loop never sees.
 
-**Before this:** [stage 31](../../../recommendation/31-llm-ranking/) and
-[the calibration break](../../../shared/05-value-tree/the-calibration-break/),
+**Before this:** [stage 31](../../recommendation/31-llm-ranking/) and
+[the calibration break](../../shared/05-value-tree/the-calibration-break/),
 whose runs this chapter re-reads, and
-[stage 34](../../../recommendation/34-slate-vs-item-evaluation/), which
+[stage 34](../../recommendation/34-slate-vs-item-evaluation/), which
 establishes that the slate, not the item, is what the user experiences.
 
 ## The failure mode: the reorder that nothing checks
@@ -169,9 +169,11 @@ the mechanism, not its real prevalence or cost.
 **The papers are cited as evidence the failure family is real, not as
 validated production systems.** OneRec-Think, the verifiable-reasoning line,
 and RAG-LLM-RS are 2026 published results with their own evaluation
-boundaries; the [paradigm survey](../../../../reference/research/agentic-paradigm-restructuring.md)
+boundaries; the [paradigm survey](../../../reference/research/agentic-paradigm-restructuring.md)
 states which claims it could check and which it could not.
 
-**Next:** [what survives of the auction?](../ads-inside-the-loop/) — the same
-generated surface, read from the ads side: what the auction keeps, and what
-the thread changes.
+<!-- interactive: VerificationGap -->
+
+**Next:** [what survives of the auction?](../../ads/43-ads-inside-the-loop/)
+— the same generated surface, read from the ads side: what the auction keeps,
+and what the thread changes.

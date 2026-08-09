@@ -28,10 +28,10 @@ By the end you will be able to say which parts of the ads loop a thread
 surface keeps, which event it redefines as the conversion, and what the
 displacement trade looks like inside an answer.
 
-**Before this:** [stage 18](../../../ads/18-ad-externality/),
-[stage 17](../../../ads/17-budget-pacing/), and
-[stage 05](../../../shared/05-value-tree/), whose runs this chapter re-reads,
-and the [paradigm survey](../../../../reference/research/agentic-paradigm-restructuring.md)
+**Before this:** [stage 18](../../ads/18-ad-externality/),
+[stage 17](../../ads/17-budget-pacing/), and
+[stage 05](../../shared/05-value-tree/), whose runs this chapter re-reads,
+and the [paradigm survey](../../../reference/research/agentic-paradigm-restructuring.md)
 that documents the surface shift.
 
 ## The failure mode: the ad that stopped being an item
@@ -49,7 +49,7 @@ The failure mode is therefore not that the auction breaks. It is that the
 event the auction optimizes changes identity. In a ranked list, the conversion
 is a click on the ad; in a thread, the conversion may be an agent-authorized
 action — the booking, the purchase, the form fill the answer itself enables.
-The [survey's ads section](../../../../reference/research/agentic-paradigm-restructuring.md)
+The [survey's ads section](../../../reference/research/agentic-paradigm-restructuring.md)
 documents the real pricing trajectory of this shift: OpenAI launched sponsored
 messages at a CPM of \$60 with a \$250,000 minimum spend, and within ten weeks
 the CPM eroded to as low as \$25 and the model moved to cost-per-click bids of
@@ -164,9 +164,11 @@ The gate's existence is the stable claim; the exact rate is not.
 **The pricing trajectory is one company's 2026 snapshot.** The CPM and CPC
 figures are TNW's reporting of OpenAI's sponsored messages, dated 2026-04-21;
 they are evidence the market repriced the thread event, not a durable
-equilibrium, and the [paradigm survey](../../../../reference/research/agentic-paradigm-restructuring.md)
+equilibrium, and the [paradigm survey](../../../reference/research/agentic-paradigm-restructuring.md)
 says as much about every number it cites.
 
-**Next:** back to [the stage overview](../) — or across to
-[mission 04's frontier](../../../../04-agentic-platform/07-frontier/), where
+<!-- interactive: AdInThreadGate -->
+
+**Next:** back to [the stage overview](../../) — or across to
+[mission 04's frontier](../../../04-agentic-platform/07-frontier/), where
 the same intent-to-delivery loop is read from the harness side.

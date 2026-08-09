@@ -623,6 +623,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "02-personalized-discovery/ads/43-ads-inside-the-loop": {
+    "level": "frontier",
+    "minutes": 7
+  },
   "02-personalized-discovery/ads/54-advertiser-roas": {
     "level": "applied",
     "minutes": 8
@@ -706,6 +710,10 @@
   "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-slate-is-diverse": {
     "level": "applied",
     "minutes": 3
+  },
+  "02-personalized-discovery/recommendation/35-verification-replaces-score": {
+    "level": "frontier",
+    "minutes": 7
   },
   "02-personalized-discovery/recommendation/56-entire-space-funnel": {
     "level": "applied",
@@ -1051,6 +1059,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "02-personalized-discovery/search/38-conversational-surface": {
+    "level": "frontier",
+    "minutes": 6
+  },
   "02-personalized-discovery/shared": {
     "level": "applied",
     "minutes": 1
@@ -1218,22 +1230,6 @@
   "02-personalized-discovery/shared/09-report/when-the-guardrail-vetoes": {
     "level": "applied",
     "minutes": 4
-  },
-  "02-personalized-discovery/shared/10-frontier": {
-    "level": "frontier",
-    "minutes": 2
-  },
-  "02-personalized-discovery/shared/10-frontier/ads-inside-the-loop": {
-    "level": "frontier",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/10-frontier/the-conversational-surface": {
-    "level": "frontier",
-    "minutes": 6
-  },
-  "02-personalized-discovery/shared/10-frontier/verification-replaces-score": {
-    "level": "frontier",
-    "minutes": 7
   },
   "02-personalized-discovery/shared/43-feature-store": {
     "level": "applied",

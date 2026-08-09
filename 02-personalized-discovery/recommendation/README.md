@@ -32,6 +32,7 @@ before it reports the verdict, and each stage names who owns the loop.
 | [`32-recommendation-rlhf`](32-recommendation-rlhf/) | Preference optimization over click labels | [mechanism + audit run](32-recommendation-rlhf/runs/) |
 | [`33-multimodal-recall`](33-multimodal-recall/) | VLM content vectors as the cold-start bridge | [mechanism + audit run](33-multimodal-recall/runs/) |
 | [`34-slate-vs-item-evaluation`](34-slate-vs-item-evaluation/) | The metric that sees the page, not the item | [mechanism + audit run](34-slate-vs-item-evaluation/runs/) |
+| [`35-verification-replaces-score`](35-verification-replaces-score/) | Verification as the load-bearing mechanism when generation replaces the score | [frontier reading](35-verification-replaces-score/runs/) |
 
 ## The label and objective track (stages 56-65)
 

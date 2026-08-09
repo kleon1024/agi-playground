@@ -208,6 +208,7 @@ evaluation.
 | [`32-recommendation-rlhf`](recommendation/32-recommendation-rlhf/) | Pairwise preference optimization; the Bradley-Terry objective | new to this mission | verified mechanism run |
 | [`33-multimodal-recall`](recommendation/33-multimodal-recall/) | VLM content vectors as the cold-start bridge; per-modality reachability | new to this mission | verified mechanism run |
 | [`34-slate-vs-item-evaluation`](recommendation/34-slate-vs-item-evaluation/) | Slate value versus item-score sum; the metric that sees the page | new to this mission | verified mechanism run |
+| [`35-verification-replaces-score`](recommendation/35-verification-replaces-score/) | Verification as the load-bearing mechanism when generation replaces the score | new to this mission | verified |
 
 ### The frontier search track (stages 35-37)
 
@@ -221,6 +222,7 @@ the raw string into the key space.
 | [`35-generative-retrieval`](search/35-generative-retrieval/) | Doc-ID beam decode; retrieval as a decode with a recall curve | new to this mission | verified mechanism run |
 | [`36-conversational-search`](search/36-conversational-search/) | Session context as the resolution signal for follow-up turns | new to this mission | verified mechanism run |
 | [`37-llm-query-understanding`](search/37-llm-query-understanding/) | LLM intent-slot parsing with a confidence floor per slot | new to this mission | verified mechanism run |
+| [`38-conversational-surface`](search/38-conversational-surface/) | The session, not the query, as the unit a conversational surface optimizes | new to this mission | verified |
 
 ### The frontier ads track (stages 38-42)
 
@@ -236,6 +238,7 @@ generated creative, and the marketplace lever behind all of them.
 | [`40-privacy-safe-attribution`](ads/40-privacy-safe-attribution/) | DP-noised channel counts; epsilon as the decision-accuracy dial | new to this mission | verified mechanism run |
 | [`41-llm-creative-generation`](ads/41-llm-creative-generation/) | Generate-then-select creative; diversity and calibration guards | new to this mission | verified mechanism run |
 | [`42-marketplace-economics`](ads/42-marketplace-economics/) | Take rate and ad load as marketplace decisions with a peak | new to this mission | verified mechanism run |
+| [`43-ads-inside-the-loop`](ads/43-ads-inside-the-loop/) | The auction machinery that survives when the ad becomes a step in the answer | new to this mission | verified |
 
 
 ### The operations track (stages 43-55)
@@ -265,20 +268,6 @@ whole system pays.
 | [`54-online-experiments`](shared/54-online-experiments/) | Whether a shipped change helped, read through a validity gate | new to this mission | verified mechanism + audit run |
 | [`54-advertiser-roas`](ads/54-advertiser-roas/) | The advertiser's return as the platform's revenue | new to this mission | verified mechanism run |
 | [`55-ltv-and-cac`](shared/55-ltv-and-cac/) | The user lifecycle that decides which growth is real growth | new to this mission | verified mechanism + audit run |
-
-
-### The frontier stage (10)
-
-The operations track ran the deployed system. The frontier stage asks the
-question the loop's existence implies: recommendation, search, and advertising
-are converging on intent-to-delivery as their decision surface — Google folded
-search into a conversational loop, OpenAI moved ads inside the answer thread —
-and the convergence changes which mechanisms are load-bearing. The three
-chapters read this mission's own recorded runs against that claim.
-
-| Stage | Deliverable | Layer | Status |
-|---|---|---|---|
-| [`10-frontier`](shared/10-frontier/) | The loop as a surface: session search, generation replacing score, ads inside the answer | new to this mission | verified |
 
 
 ## Where each stage leaves the path
@@ -426,9 +415,9 @@ artifact or a measurement the next stage consumes.
 | `55-ltv-and-cac` | The user who costs more than they return is a liability at any volume | [when-cac-exceeds-ltv](shared/55-ltv-and-cac/when-cac-exceeds-ltv/) |
 | `55-ltv-and-cac` | The user who stops leaving is worth more than the user who stops coming | [when-retention-flattens](shared/55-ltv-and-cac/when-retention-flattens/) |
 | `55-ltv-and-cac` | The observed window decides the channel verdict | [when-the-retention-window-truncates](shared/55-ltv-and-cac/when-the-retention-window-truncates/) |
-| `10-frontier` | When does the result page become a conversation? | [the-conversational-surface](shared/10-frontier/the-conversational-surface/) |
-| `10-frontier` | What replaces the score? | [verification-replaces-score](shared/10-frontier/verification-replaces-score/) |
-| `10-frontier` | What survives of the auction? | [ads-inside-the-loop](shared/10-frontier/ads-inside-the-loop/) |
+| `38-conversational-surface` | When does the result page become a conversation? | [the-conversational-surface](search/38-conversational-surface/) |
+| `35-verification-replaces-score` | What replaces the score? | [verification-replaces-score](recommendation/35-verification-replaces-score/) |
+| `43-ads-inside-the-loop` | What survives of the auction? | [ads-inside-the-loop](ads/43-ads-inside-the-loop/) |
 
 ## What makes this hard to prove
 

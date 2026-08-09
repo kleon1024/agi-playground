@@ -67,3 +67,4 @@ the loop.
 | [`35-generative-retrieval`](35-generative-retrieval/) | Retrieval as a decode with a recall curve | [mechanism + audit run](35-generative-retrieval/runs/) |
 | [`36-conversational-search`](36-conversational-search/) | Session context as the resolution signal | [mechanism + audit run](36-conversational-search/runs/) |
 | [`37-llm-query-understanding`](37-llm-query-understanding/) | Intent-slot parsing with a confidence floor | [mechanism + audit run](37-llm-query-understanding/runs/) |
+| [`38-conversational-surface`](38-conversational-surface/) | The session, not the query, as the unit a conversational surface optimizes | [frontier reading](38-conversational-surface/runs/) |

@@ -173,6 +173,6 @@ guardrail's cost here is measured in this task set's dollars and wall-clock
 only.
 
 **Next:** back to [the stage overview](../) — or across to
-[mission 02's frontier](../../../02-personalized-discovery/shared/10-frontier/),
+[mission 02's conversational surface](../../../02-personalized-discovery/search/38-conversational-surface/),
 where the same intent-to-delivery loop is read from the discovery side: what
 the session changes, what survives of the score, and what the auction keeps.

@@ -70,6 +70,7 @@ the auction's decision loop actually meets in production.
 | [`41-llm-creative-generation`](41-llm-creative-generation/) | The creative as generated text | [verified](41-llm-creative-generation/runs/) |
 | [`42-marketplace-economics`](42-marketplace-economics/) | The marginal ad that stops paying for its displacement | [verified](42-marketplace-economics/runs/) |
 | [`54-advertiser-roas`](54-advertiser-roas/) | The advertiser's return as the platform's revenue | [verified](54-advertiser-roas/runs/) |
+| [`43-ads-inside-the-loop`](43-ads-inside-the-loop/) | The auction machinery that survives when the ad becomes a step in the answer | [frontier reading](43-ads-inside-the-loop/runs/) |
 
 The frontier track reads the same loops under harder conditions. Every
 stage carries an executed case-finding audit with measured runs:

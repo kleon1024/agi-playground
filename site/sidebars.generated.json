@@ -1056,6 +1056,11 @@
             ]
           },
           {
+            "type": "doc",
+            "id": "02-personalized-discovery/ads/43-ads-inside-the-loop/index",
+            "label": "Ads inside the loop"
+          },
+          {
             "type": "category",
             "label": "Advertiser ROAS",
             "link": {
@@ -1194,6 +1199,11 @@
                 "label": "When the slate is diverse"
               }
             ]
+          },
+          {
+            "type": "doc",
+            "id": "02-personalized-discovery/recommendation/35-verification-replaces-score/index",
+            "label": "Verification replaces score"
           },
           {
             "type": "category",
@@ -1744,6 +1754,11 @@
                 "label": "When the slot is empty"
               }
             ]
+          },
+          {
+            "type": "doc",
+            "id": "02-personalized-discovery/search/38-conversational-surface/index",
+            "label": "The conversational surface"
           }
         ]
       },
@@ -2007,31 +2022,6 @@
                 "type": "doc",
                 "id": "02-personalized-discovery/shared/09-report/when-the-guardrail-vetoes/index",
                 "label": "When the guardrail vetoes"
-              }
-            ]
-          },
-          {
-            "type": "category",
-            "label": "The frontier",
-            "link": {
-              "type": "doc",
-              "id": "02-personalized-discovery/shared/10-frontier/index"
-            },
-            "items": [
-              {
-                "type": "doc",
-                "id": "02-personalized-discovery/shared/10-frontier/ads-inside-the-loop/index",
-                "label": "Ads inside the loop"
-              },
-              {
-                "type": "doc",
-                "id": "02-personalized-discovery/shared/10-frontier/the-conversational-surface/index",
-                "label": "The conversational surface"
-              },
-              {
-                "type": "doc",
-                "id": "02-personalized-discovery/shared/10-frontier/verification-replaces-score/index",
-                "label": "Verification replaces score"
               }
             ]
           },

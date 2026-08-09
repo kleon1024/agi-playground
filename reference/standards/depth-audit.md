@@ -397,10 +397,12 @@ at 3 months against 11.78 at 24) traded against the cost of modeling
 the ramp and tail. Every detour in 43-55 now satisfies the audit
 contract at the parent and detour level.
 
-### Personalized discovery — search 10-24, 35-37
+### Personalized discovery — search 10-24, 35-38
 
 **Status: done (search mainline 10-13, advanced 19-24, and frontier
-35-37, 2026-08-07).**
+35-38, 2026-08-07/08; frontier chapter 38-conversational-surface audited
+2026-08-08 and relocated from the shared 10-frontier directory to the
+surface that owns it).**
 
 Stages 10-13 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
@@ -527,10 +529,12 @@ three detours:
   samples, so a thin majority broadens or clarifies instead of
   committing).
 
-### Personalized discovery — ads 14-18, 25-30, 38-42, 54
+### Personalized discovery — ads 14-18, 25-30, 38-43, 54
 
-**Status: done for 14-18, 25-30, and 38-42/54 (fourth, seventh, and
-eighth audit increments, 2026-08-07/08).**
+**Status: done for 14-18, 25-30, and 38-43/54 (fourth, seventh, and
+eighth audit increments, 2026-08-07/08; frontier chapter
+43-ads-inside-the-loop audited 2026-08-08 and relocated from the shared
+10-frontier directory to the surface that owns it).**
 
 Stages 14-18 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
@@ -825,11 +829,13 @@ experiments the marginal number requires, which is why the average
 report ships and the budget-moves detour prices the consequence. All 18
 parents now satisfy the contract at both levels.
 
-### Personalized discovery — recommendation 31-34 (frontier)
+### Personalized discovery — recommendation 31-35 (frontier)
 
-**Status: done (fifth audit increment, 2026-08-07).**
+**Status: done (fifth audit increment, 2026-08-07; frontier chapter
+35-verification-replaces-score audited 2026-08-08 and relocated from the
+shared 10-frontier directory to the surface that owns it).**
 
-Stages 31-34 now satisfy the contract, each with an executed case-finding
+Stages 31-35 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
 
 - 31 LLM ranking: prompt-order audit over a 20-query log (head/tail

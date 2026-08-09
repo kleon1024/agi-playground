@@ -26,9 +26,9 @@ the session read reclassifies 19.9% of those as recovered sessions
 By the end you will be able to say which part of the loop the conversational
 surface actually repairs, and where its addressable gap sits.
 
-**Before this:** [when-the-click-is-a-query](../../../search/24-search-measurement/when-the-click-is-a-query/),
+**Before this:** [when-the-click-is-a-query](../../search/24-search-measurement/when-the-click-is-a-query/),
 whose session-recovery read this chapter re-reads, and
-[stage 36](../../../search/36-conversational-search/), whose resolution audit
+[stage 36](../../search/36-conversational-search/), whose resolution audit
 stratifies the same question by session length.
 
 ## The failure mode: the per-query report measures the wrong unit
@@ -98,7 +98,9 @@ typing. Second, the fix changes what "good" means, which changes every
 downstream decision: when the unit is the session, CTR is still measured but
 is no longer the thing the loop optimizes, and the latency and cost budgets of
 the loop grow because each turn may now call a model
-([the survey's search section](../../../../reference/research/agentic-paradigm-restructuring.md)).
+([the survey's search section](../../../reference/research/agentic-paradigm-restructuring.md)).
+
+<!-- interactive: SessionRecoveryLoop -->
 
 ## Who owns the loop
 
@@ -167,6 +169,6 @@ measurement; it shows the failure mechanism exists, not its real prevalence.
 The AI Mode user counts are a dated 2026 snapshot from Google's own
 announcement.
 
-**Next:** [what replaces the score?](../verification-replaces-score/) — the
-same loop, read from the ranking side: when generation replaces the ranked
-list, which mechanisms survive and which failure moves.
+**Next:** [what replaces the score?](../../recommendation/35-verification-replaces-score/)
+— the same loop, read from the ranking side: when generation replaces the
+ranked list, which mechanisms survive and which failure moves.
