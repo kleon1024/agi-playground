@@ -29,6 +29,8 @@ three queries:
 | 2 bedroom apartment rent | housing_search | bedrooms 2, type apartment, action rent |
 | how do i return an item | support | topic returns |
 
+<!-- interactive: LlmQueryUnderstanding -->
+
 ## The mechanism, named
 
 The LLM reads the raw string and emits a structured key space: an

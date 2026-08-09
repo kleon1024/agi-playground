@@ -31,6 +31,8 @@ follow-up "what about the cheaper ones" with and without context:
 
 Resolved: cheaper marathon shoes.
 
+<!-- interactive: ConversationalSearch -->
+
 ## The mechanism, named
 
 The first turn establishes the topic — marathon running shoes. The

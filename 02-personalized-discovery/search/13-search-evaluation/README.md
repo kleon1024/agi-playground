@@ -28,6 +28,8 @@ on four rankings:
 | C: good at top | 1.0000 | 1.0000 |
 | D: reversed | 0.2750 | 0.2500 |
 
+<!-- interactive: SearchEvaluation -->
+
 ## The mechanisms, named
 
 1. **NDCG** — graded relevance, discounted by position, normalized against

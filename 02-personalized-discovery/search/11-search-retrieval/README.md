@@ -29,6 +29,8 @@ from-scratch BM25 over a five-document corpus:
 | iphone camera | doc4 (iphone pro max camera battery life) | 2.5931 |
 | headphones 2026 | doc5 (headphones price comparison review 2026) | 1.9592 |
 
+<!-- interactive: SearchRetrieval -->
+
 ## The mechanism, named
 
 BM25 scores a document for a query by summing, per term, an IDF weight

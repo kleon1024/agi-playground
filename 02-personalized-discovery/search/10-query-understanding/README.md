@@ -30,6 +30,8 @@ stage's core over six realistic queries:
 | cheap flights SIN to NRT | cheap flights sin nrt | transactional |
 | redmi note 13 vs poco x6 | redmi note 13 vs poco x6 | informational |
 
+<!-- interactive: QueryUnderstanding -->
+
 ## The three steps, named
 
 1. **Tokenize** — split the string into terms (`[a-z0-9]+`), lowercased.

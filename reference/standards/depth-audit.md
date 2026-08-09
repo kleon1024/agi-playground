@@ -439,7 +439,31 @@ contract at the parent and detour level.
 **Status: done (search mainline 10-13, advanced 19-24, and frontier
 35-38, 2026-08-07/08; frontier chapter 38-conversational-surface audited
 2026-08-08 and relocated from the shared 10-frontier directory to the
-surface that owns it).**
+surface that owns it; interactive wiring 2026-08-09 for stages 10-13,
+19-24, and 35-37).**
+
+On 2026-08-09 each search parent received a ProcessDiagram wired to the
+recorded runs: 10 query understanding (32-query log, all three keyword
+collisions in the tail at 15% vs 0% of head), 11 search retrieval (BM25
+top scores; aggregate recall@3 0.90 with the zero-overlap doc cut before
+ranking), 12 search ranking (pointwise NDCG 0.6209 vs pairwise 0.5804;
+re-graded batches swing NDCG@A 0.5727-0.6209, flipping the four
+smallest-margin pairs), 13 search evaluation (MRR ties five rankings
+that NDCG separates across five ranks; first-hit gamer MRR-perfect,
+NDCG-fifth), 19 query expansion (heaphones one edit from headphones;
+head lift +0.000 with 1.00 noise each vs tail +0.467), 20 dense
+retrieval (aggregate stale gap -0.330: head -0.060 vs tail -0.600), 21
+hybrid fusion (d1/d4 score roughly double survivors; tail swings 0.343
+with the weight against a 0.020 head swing), 22 reranking (4 of 5
+positions reorder; tail +0.080 at @10 and -0.080 at @3), 23
+personalized search (aggregate +0.070 all from heavy history: heavy-tail
++0.250 vs new-tail -0.020), 24 search measurement (zero-rate 75% across
+three causes; mobile-tail 0.20% conversion with 25% zero against a 1.67%
+aggregate), 35 generative retrieval (aggregate recall@5 0.770: head
+1.000 vs tail 0.540 with 0.740 precision), 36 conversational search
+(short sessions resolve 0.980 vs long 0.380, aggregate 0.680 a
+short-session artifact), and 37 LLM query understanding (head agreement
+1.000/quality 0.976 vs tail 0.520/0.554 with 2.4 low-confidence slots).
 
 Stages 10-13 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:

@@ -33,6 +33,8 @@ The three tie in this hand-built space — which is the point: the
 ranking is whatever the training data placed near the query, not what
 token overlap says.
 
+<!-- interactive: DenseRetrieval -->
+
 ## The mechanism, named
 
 Two towers map queries and documents into the same vector space; a

@@ -30,6 +30,8 @@ with different affinity vectors:
 Relevance is identical; only the affinity vector differs, and the top
 slot flips.
 
+<!-- interactive: PersonalizedSearch -->
+
 ## The mechanism, named
 
 Personalized search scores each document as relevance plus affinity:

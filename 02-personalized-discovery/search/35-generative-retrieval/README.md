@@ -32,6 +32,8 @@ four document IDs:
 
 Beam top-2: doc_17, doc_03.
 
+<!-- interactive: GenerativeRetrieval -->
+
 ## The mechanism, named
 
 A generative retriever is a sequence model over document IDs: it sees

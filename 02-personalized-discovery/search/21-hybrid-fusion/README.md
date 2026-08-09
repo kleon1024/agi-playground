@@ -32,6 +32,8 @@ list `[d1, d2, d3, d4]` and a dense list `[d4, d5, d1, d6]`:
 | d3 | 0.0159 | lexical#3 |
 | d6 | 0.0156 | dense#4 |
 
+<!-- interactive: HybridFusion -->
+
 ## The mechanism, named
 
 Reciprocal rank fusion gives each matcher's rank a score of

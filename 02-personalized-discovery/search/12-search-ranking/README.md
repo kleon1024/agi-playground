@@ -26,6 +26,8 @@ rankers on the same eight-item labeled set:
 | pointwise | 0.6209 | [0, 7, 1, 2, 3, 4, 6, 5] |
 | pairwise | 0.5804 | [0, 7, 1, 4, 3, 2, 6, 5] |
 
+<!-- interactive: SearchRanking -->
+
 ## The mechanism, named
 
 1. **Pointwise** — predict an absolute relevance score per item, rank by

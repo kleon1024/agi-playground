@@ -30,6 +30,8 @@ document list with a reranker that uses richer features:
 
 d4 jumps from 4th to 1st; d5 from 5th to 3rd.
 
+<!-- interactive: Reranking -->
+
 ## The mechanism, named
 
 The first stage ranks every candidate with features cheap enough to

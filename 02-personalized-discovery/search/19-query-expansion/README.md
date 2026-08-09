@@ -33,6 +33,8 @@ distance from the raw query `heaphones` to candidate catalog terms:
 Corrected query: `headphones`. BM25 on the raw query matches nothing in
 the index; the corrected query matches the catalog.
 
+<!-- interactive: QueryExpansion -->
+
 ## The mechanism, named
 
 Correction is a retrieval-stage repair, not a query-side nicety. The

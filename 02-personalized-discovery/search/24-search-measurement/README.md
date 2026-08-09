@@ -32,6 +32,8 @@ queries against a small index:
 
 Zero-result rate: 75.0% (3/4).
 
+<!-- interactive: SearchMeasurement -->
+
 ## The mechanism, named
 
 Every zero is a query the index cannot answer, and the breakdown decides
