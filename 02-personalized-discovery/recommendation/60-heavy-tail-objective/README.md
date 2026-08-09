@@ -30,6 +30,8 @@ amount:
 | log(1+GMV) | 1.045 | 5.2% |
 | decomposed | 1.290 | not applicable |
 
+<!-- interactive: HeavyTailObjective -->
+
 ## The mechanism, named
 
 MSE over GMV is dominated by the largest orders: their residuals own a

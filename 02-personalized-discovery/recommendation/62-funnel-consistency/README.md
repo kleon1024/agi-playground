@@ -29,6 +29,8 @@ head trained on clicked impressions as a marginal (broken) and chained
 | broken (conditional as marginal) | 0.672 | 649 / 1,000 |
 | chained | 0.501 | 0 by construction |
 
+<!-- interactive: FunnelConsistency -->
+
 ## The mechanism, named
 
 A head trained on clicked impressions estimates p(order|click). Using it

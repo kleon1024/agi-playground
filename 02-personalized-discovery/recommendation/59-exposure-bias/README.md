@@ -30,6 +30,8 @@ inverse-propensity (IPS) model, and a model on random-exposure traffic:
 | propensity (IPS) | 0.962 |
 | random exposure | 0.995 |
 
+<!-- interactive: ExposureBias -->
+
 ## The mechanism, named
 
 Recommendation systems train on what they showed, and what they showed

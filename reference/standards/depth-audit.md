@@ -79,7 +79,7 @@ the audit contract above.
 ### Personalized discovery — recommendation 56-63
 
 **Status: done (first audit increment, 2026-08-07; structural re-check
-2026-08-08).**
+2026-08-08; interactive wiring 2026-08-09).**
 
 Re-checked 2026-08-08: all 24 chapters now carry `## The fix and its trade`
 and `## Who owns the loop` before their evidence boundary, the trade named
@@ -94,6 +94,12 @@ propensity), heavy-tail objectives (AOV skew, whale dominance), multi-task
 conflict (gradient balancing, gating, dominant-task drift), funnel consistency
 (impossible probabilities, constraint cost, order vs click), cascade
 consistency (pre-rank vs final ranker, distillation blur, top-k preservation).
+On 2026-08-09 each stage without an interactive received one ProcessDiagram
+wired to its recorded run: entire-space funnel (0.735 vs 0.740, censored
+0.448 vs 0.618), negative sampling (AUC flat 0.659, ECE 0.473 to 0.017),
+exposure bias (0.874 to 0.962 to 0.995, noisy 0.376), heavy-tail objectives
+(1.409/21.2% to 1.045/5.2% to 1.290), funnel consistency (0.672/649
+violations to 0.501/0), cascade consistency (0.35 to 1.00 top-20 recall).
 
 ### Personalized discovery — shared 00-09 (retrieval to report)
 

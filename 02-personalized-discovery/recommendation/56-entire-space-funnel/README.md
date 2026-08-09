@@ -31,6 +31,8 @@ full space:
 | clicked subset | 705 | 0.735 |
 | entire space (ctcvr) | 936 | 0.740 |
 
+<!-- interactive: EntireSpaceFunnel -->
+
 ## The mechanism, named
 
 Payment is a funnel event: it is only observed after a click, so a pay

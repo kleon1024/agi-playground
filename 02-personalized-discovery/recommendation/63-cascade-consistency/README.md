@@ -29,6 +29,8 @@ final top-20:
 | CTR-only | 0.35 | 0.967 |
 | distilled from final score | 1.00 | 1.000 |
 
+<!-- interactive: CascadeConsistency -->
+
 ## The mechanism, named
 
 Clicking is not the same as valuing. A pre-rank that optimizes clicks keeps

@@ -30,6 +30,8 @@ then applies the inverse-sampling correction:
 | downsampled | 0.659 | 0.473 |
 | downsampled + corrected | 0.659 | 0.017 |
 
+<!-- interactive: NegativeSampling -->
+
 ## The mechanism, named
 
 At a 1:1000 positive rate, the gradient is mostly easy negatives, so
