@@ -1057,7 +1057,32 @@ eight chapters in the two stages now carry both sections.
 ### Language-model system — 00-07
 
 **Status: done (fourth audit increment, 2026-08-07/08; interactive wiring
-2026-08-09 for stage 07-eval).**
+2026-08-09 for stages 00-06 and the 06 tool-error detour).**
+
+On 2026-08-09 each under-wired parent stage received a runs-backed
+interactive beside the mechanism it makes legible. Stage 00's
+ExtractionComparison toggles the ship decision between the from-scratch
+pipeline and datatrove's FineWeb recipe on the same 40,000-document input
+(9,184 kept at 23.0% versus 5,513 at 13.8%, the gap named as
+GopherRepetitionFilter's 2,803 and FineWebQualityFilter's 932 removals;
+extraction 2ms versus 25ms/doc, 85% of datatrove's runtime). Stage 01's
+TokenTaxLedger turns the per-class token tax into a window slider: 0.24
+tokens/char English against 2.96 CJK and 4.00 emoji, so the 4,096-token
+window is 17,246 English characters but 1,382 CJK, and the mixed-document
+ledger (CJK 4.3% of characters but 23.5% of tokens; digit+CJK+emoji 17% of
+characters, 47% of tokens). Stage 03's SftSizeLadder runs the size axis:
+5M (val 9.5188 to 8.6496 pretrained, 9.7475 to 8.8015 random, word
+fragments), 88M (3.1829 to 2.7828, fluent-but-wrong), and the dated 65B
+LIMA point (Zhou et al. 2023). Stage 04's FormatStrikeChance prices the
+cold-start null: 3e-12 per completion over the 78-symbol vocabulary, 2e-8
+expected across the recorded 6,400 completions, 200/200 degenerate groups.
+Stage 05's DecodeBenchmark plots the measured naive-versus-cache sweep (1.21x
+down to 0.92x at 512 tokens, naive rising 104.7 to 132.8 tok/s) from
+runs/2026-07-29-engine-bench-corrected.md. Stage 06's tool-error detour got
+ToolErrorRecovery: the seven failure classes with their actual observations,
+blind retry resolving 0/7, the recovery planner 7/7, and the three families
+(inspect, re-scope, make it safe to redo) with the timeout's already-executed
+trap named.
 
 On 2026-08-09 stage 07-eval received a ProcessDiagram wired to its measured
 report: perplexity 21.677 at context 1024 vs the 9.712-nat uniform

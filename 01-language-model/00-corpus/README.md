@@ -209,6 +209,8 @@ failed to strip.
 throughput. That is what a naive implementation always looks like right up
 until you read its output.
 
+<!-- interactive: ExtractionComparison -->
+
 ## The corpus we actually pretrain on
 
 Here the lesson and the engineering diverge, and it is worth stating why rather

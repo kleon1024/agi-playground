@@ -138,6 +138,8 @@ until it overtakes the cache. Stage 02 saw the same effect from the training
 side, where `torch.compile` bought 1.76x by fusing memory-bound work and
 removing launch overhead.
 
+<!-- interactive: DecodeBenchmark -->
+
 Memory does behave as predicted: past 256 new tokens the naive path's peak
 exceeds the cached one, because it re-materialises activations for the whole
 sequence every step while the cache holds only keys and values. Full sweep in

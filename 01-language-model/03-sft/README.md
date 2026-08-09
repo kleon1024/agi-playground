@@ -164,6 +164,8 @@ and reads the resulting axis against dated results at 65B-plus. Both arms
 produce word fragments, which is the low end of the story the main run's
 fluent-but-wrong output belongs to.
 
+<!-- interactive: SftSizeLadder -->
+
 ## Reproducing
 
 ```bash

@@ -89,6 +89,8 @@ happened*, and the correct recovery is idempotency or state inspection, not a
 retry. This is the class blind retry is actively dangerous on, and it gets
 its own measurement below.
 
+<!-- interactive: ToolErrorRecovery -->
+
 ## The already-executed trap
 
 The audit runs `python3 slow_write.py` — a command that writes `marker.txt`

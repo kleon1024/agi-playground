@@ -107,6 +107,8 @@ character window and turns the product's token pricing into a per-language
 budget. Read it beside the tie-break audit, because both are decisions the
 aggregate chars/token number cannot see.
 
+<!-- interactive: TokenTaxLedger -->
+
 ## Freeze it before you go on
 
 The tokenizer is now part of the model's contract. Changing it after stage 02

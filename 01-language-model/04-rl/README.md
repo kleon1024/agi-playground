@@ -182,6 +182,8 @@ pretraining to stumble into tag-like structure occasionally; a randomly
 initialized toy model with no such prior never does, at this reward shape
 and step budget.
 
+<!-- interactive: FormatStrikeChance -->
+
 ## The fix and its trade
 
 The failure the run makes legible is the degenerate group: when every
