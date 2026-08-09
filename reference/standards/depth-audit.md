@@ -840,7 +840,16 @@ parents now satisfy the contract at both levels.
 
 **Status: done (fifth audit increment, 2026-08-07; frontier chapter
 35-verification-replaces-score audited 2026-08-08 and relocated from the
-shared 10-frontier directory to the surface that owns it).**
+shared 10-frontier directory to the surface that owns it; interactive
+wiring 2026-08-09 for stages 31-34).**
+
+On 2026-08-09 stages 31-34 each received a ProcessDiagram wired to the
+recorded audit: LLM ranking (pointwise d1..d5 vs listwise 4/5 positions
+changed; tail swing 10/10 at displacement 1.040), recommendation RLHF
+(Bradley-Terry total 2.19, weakest pair 1.17; tail flips 4/10 at margin
+0.04), multimodal recall (cold retrievable 2/3; tail single-modality
+100%), slate vs item evaluation (a wins 2.55 vs 2.10 on item sum, loses
+3.06 vs 3.36 on slate value; tail flips 10/10).
 
 Stages 31-35 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:

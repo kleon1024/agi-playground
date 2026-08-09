@@ -68,6 +68,8 @@ Models", ICML 2025, arXiv:2410.02197) is the limitation reference.
 The decision that follows: sample pairs by margin, re-ask low-margin
 preferences, and evaluate on high-margin held-out pairs.
 
+<!-- interactive: RecommendationRlhf -->
+
 ## The fix and its trade
 
 The fix is margin-aware preference handling: sample pairs by margin,

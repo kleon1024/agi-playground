@@ -67,6 +67,8 @@ the LLM's verdict. The decision that follows: gate the reorder on
 forward-versus-reverse tail agreement, and where it swings keep the
 pointwise order or sample the LLM more than once and aggregate.
 
+<!-- interactive: LlmRanking -->
+
 ## The fix and its trade
 
 The fix is the forward-versus-reverse gate: run each candidate set

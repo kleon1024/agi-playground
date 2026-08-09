@@ -59,6 +59,8 @@ on slate value once diversity counts. **Decision:** report the winner
 per metric and declare which metric the product optimizes before
 tuning the ranker (Ie et al. 2019; Craswell et al. 2008).
 
+<!-- interactive: SlateVsItemEvaluation -->
+
 ## The fix and its trade
 
 The fix is to report the winner per metric and declare which metric the

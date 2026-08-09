@@ -64,6 +64,8 @@ modality, and for a single-modality item fall back to the modality it
 has or synthesize the missing one (Radford et al. 2021; Liang et al.
 2022).
 
+<!-- interactive: MultimodalRecall -->
+
 ## The fix and its trade
 
 The fix is per-modality coverage reporting plus a routing rule for
