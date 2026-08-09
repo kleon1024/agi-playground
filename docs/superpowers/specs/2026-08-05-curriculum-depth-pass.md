@@ -150,6 +150,43 @@ Not in this queue: chapters already deep (missions 01's corpus/tokenizer/
 pretrain, 07-eval's metric-gaming, mid-training), which only get deepened if
 a real gap shows up during the pass.
 
+## Structure re-audit (mission 04, shipped 2026-08-09)
+
+The user's structural ask: the agentic topic's frontier chapters were piled
+under one `07-frontier/` directory, the old `missions/` level had already
+been removed, and each remaining stage had at most one sub-chapter. The
+agentic topic now has no `07-frontier/`: the six frontier chapters were
+moved into the stage whose decision each chapter changes, so the loop and
+its frontier reading are read in one place.
+
+| Former `07-frontier/` chapter | Now lives under | Decision it changes |
+|---|---|---|
+| harness-anatomy | `02-agent-loop/` | what the software around the model owns |
+| what-a-reasonable-agentic-product-is | `03-cheap-or-expensive/` | automate versus gate |
+| control-plane-governance | `04-how-it-fails/` | what a governed agent does |
+| the-agent-is-the-action | `04-how-it-fails/` | when the agent is the action |
+| the-adversary-that-adapts | `04-how-it-fails/` | what an adapting adversary changes |
+| intent-to-delivery | `05-report/` | where delivery stops |
+
+Every relative link, core-script path, and runs record was updated and
+verified (all six core scripts run; 0 broken links in the six moved
+READMEs). The AgentFrontier interactive marker moved to the topic README
+beside the stage table that names the new distribution. Gates pass
+(ruff, 52 pytest, sync/typecheck/build clean). Committed as `34037dd`,
+pushed to `origin/main` the same turn.
+
+## Next queues (in order, one fork at a time)
+
+- Mission 02 structure: recommendation has no numbered 00-30 main-path
+  skeleton and `shared/` mixes mechanisms with surfaces; re-audit numbering
+  and placement the same way mission 04 was handled.
+- Shallow chapters: the topic-02 `queued` rows above, then the mission
+  stages that sit at 600-800 core words (03/04/05/08/09) — each deepened
+  with a measured run, not prose.
+- Interactive parity: mission 09 has zero interactives and mission 08 has
+  three; add a ProcessDiagram wired to the recorded runs for each stage,
+  one widget per chapter.
+
 ## Per-mission model lineage, in the repo's own style
 
 The lineage content follows the existing tutorial conventions (English,
