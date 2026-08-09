@@ -60,6 +60,8 @@ after the run, it is almost always because nobody wrote the contract down.
 The failure is upstream of the model, in the objective definition — not in
 the AUCs.
 
+<!-- interactive: SeesawTradeoff -->
+
 ## Why one of them has to lose
 
 Three mechanisms, in plain terms:

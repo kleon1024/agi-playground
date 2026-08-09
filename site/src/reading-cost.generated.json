@@ -627,19 +627,19 @@
     "level": "frontier",
     "minutes": 7
   },
-  "02-personalized-discovery/ads/54-advertiser-roas": {
+  "02-personalized-discovery/ads/56-advertiser-roas": {
     "level": "applied",
     "minutes": 8
   },
-  "02-personalized-discovery/ads/54-advertiser-roas/when-roas-collapses": {
+  "02-personalized-discovery/ads/56-advertiser-roas/when-roas-collapses": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/ads/54-advertiser-roas/when-the-average-hides-the-margin": {
+  "02-personalized-discovery/ads/56-advertiser-roas/when-the-average-hides-the-margin": {
     "level": "applied",
     "minutes": 6
   },
-  "02-personalized-discovery/ads/54-advertiser-roas/when-the-budget-moves": {
+  "02-personalized-discovery/ads/56-advertiser-roas/when-the-budget-moves": {
     "level": "applied",
     "minutes": 4
   },

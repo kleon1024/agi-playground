@@ -188,7 +188,7 @@ exposure — not the configured number.
 
 The allocation is a measured trade; stage 54 proves the allocation's
 effect on users, and the ads track's
-[advertiser ROAS](../../ads/54-advertiser-roas/) follows the advertiser
+[advertiser ROAS](../../ads/56-advertiser-roas/) follows the advertiser
 side of the same budget. A detour from here: [the floor has a price and the
 price is a curve](when-the-constraint-bites/) — the executed read: the
 first ten points of floor move the tail from 1% to 9% for 0.0021 CTR; the

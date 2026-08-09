@@ -34,6 +34,8 @@ of about three days — so the snapshot is young on purpose:
 
 The true conversion-by-7 rate on fresh traffic is 0.132.
 
+<!-- interactive: DelayedFeedbackWindow -->
+
 ## The mechanism, named
 
 Conversion is observed only after its delay elapses, so at any snapshot

@@ -224,7 +224,7 @@ the raw string into the key space.
 | [`37-llm-query-understanding`](search/37-llm-query-understanding/) | LLM intent-slot parsing with a confidence floor per slot | new to this mission | verified mechanism run |
 | [`38-conversational-surface`](search/38-conversational-surface/) | The session, not the query, as the unit a conversational surface optimizes | new to this mission | verified |
 
-### The frontier ads track (stages 38-42)
+### The frontier ads track (stages 38-43, 56)
 
 The ads stages (14-18, 25-30) ran the auction and the measurement. The
 five stages below take the ads decision to the frontier: within-user
@@ -266,7 +266,7 @@ whole system pays.
 | [`52-trust-and-explainability`](shared/52-trust-and-explainability/) | The explanation the user can actually check | new to this mission | verified mechanism + audit run |
 | [`53-fairness-and-allocation`](shared/53-fairness-and-allocation/) | Exposure as a budget the ranker allocates, at a measured price | new to this mission | verified mechanism + audit run |
 | [`54-online-experiments`](shared/54-online-experiments/) | Whether a shipped change helped, read through a validity gate | new to this mission | verified mechanism + audit run |
-| [`54-advertiser-roas`](ads/54-advertiser-roas/) | The advertiser's return as the platform's revenue | new to this mission | verified mechanism run |
+| [`56-advertiser-roas`](ads/56-advertiser-roas/) | The advertiser's return as the platform's revenue | new to this mission | verified mechanism run |
 | [`55-ltv-and-cac`](shared/55-ltv-and-cac/) | The user lifecycle that decides which growth is real growth | new to this mission | verified mechanism + audit run |
 
 
@@ -410,8 +410,8 @@ artifact or a measurement the next stage consumes.
 | `54-online-experiments` | The split check fires before the outcome test has power | [when-the-split-lies](shared/54-online-experiments/when-the-split-lies/) |
 | `54-online-experiments` | The user who sits in both arms biases the estimate | [when-the-user-crosses-groups](shared/54-online-experiments/when-the-user-crosses-groups/) |
 | `54-online-experiments` | The market leaks across the groups; the block unit prices it | [when-the-traffic-is-two-sided](shared/54-online-experiments/when-the-traffic-is-two-sided/) |
-| `54-advertiser-roas` | The marginal dollar buys less every time | [when-roas-collapses](ads/54-advertiser-roas/when-roas-collapses/) |
-| `54-advertiser-roas` | The advertiser's exit is the platform's loss | [when-the-budget-moves](ads/54-advertiser-roas/when-the-budget-moves/) |
+| `56-advertiser-roas` | The marginal dollar buys less every time | [when-roas-collapses](ads/56-advertiser-roas/when-roas-collapses/) |
+| `56-advertiser-roas` | The advertiser's exit is the platform's loss | [when-the-budget-moves](ads/56-advertiser-roas/when-the-budget-moves/) |
 | `55-ltv-and-cac` | The user who costs more than they return is a liability at any volume | [when-cac-exceeds-ltv](shared/55-ltv-and-cac/when-cac-exceeds-ltv/) |
 | `55-ltv-and-cac` | The user who stops leaving is worth more than the user who stops coming | [when-retention-flattens](shared/55-ltv-and-cac/when-retention-flattens/) |
 | `55-ltv-and-cac` | The observed window decides the channel verdict | [when-the-retention-window-truncates](shared/55-ltv-and-cac/when-the-retention-window-truncates/) |

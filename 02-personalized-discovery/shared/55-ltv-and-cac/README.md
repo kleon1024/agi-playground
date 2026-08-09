@@ -16,7 +16,7 @@ the platform can afford to buy users from at all.
 
 **Before this:** [stage 30 — ads measurement](../../ads/30-ads-measurement/) for
 the attribution these numbers depend on, and [stage 54 — advertiser
-ROAS](../../ads/54-advertiser-roas/) for the advertiser-side economics this
+ROAS](../../ads/56-advertiser-roas/) for the advertiser-side economics this
 completes.
 
 ## The unit economics, executed

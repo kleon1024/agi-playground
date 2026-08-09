@@ -31,6 +31,8 @@ shared bottom, a gradient-balanced variant, and a gated (MMoE-lite) trunk:
 Purchase positives in train: 31 of 2,000. Final gradient norms: CTR 0.484
 vs buy 0.076.
 
+<!-- interactive: MultiTaskTrunk -->
+
 ## The mechanism, named
 
 With a 10% click rate and a 1% purchase rate, the shared trunk's gradient

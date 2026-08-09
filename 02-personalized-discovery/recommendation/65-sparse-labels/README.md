@@ -81,6 +81,8 @@ fake-negative labels of a continuous-training system, and Yasui et al.
 Delayed Feedback", WWW 2020, arXiv:2002.02068) correct the feedback shift
 with an importance weight, which is the surrogate's cleaner cousin.
 
+<!-- interactive: SparseLabelAudit -->
+
 ## The fix and its trade
 
 The failure is a number with no evidence behind it: the aggregate buy AUC

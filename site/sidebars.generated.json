@@ -1065,22 +1065,22 @@
             "label": "Advertiser ROAS",
             "link": {
               "type": "doc",
-              "id": "02-personalized-discovery/ads/54-advertiser-roas/index"
+              "id": "02-personalized-discovery/ads/56-advertiser-roas/index"
             },
             "items": [
               {
                 "type": "doc",
-                "id": "02-personalized-discovery/ads/54-advertiser-roas/when-roas-collapses/index",
+                "id": "02-personalized-discovery/ads/56-advertiser-roas/when-roas-collapses/index",
                 "label": "When ROAS collapses"
               },
               {
                 "type": "doc",
-                "id": "02-personalized-discovery/ads/54-advertiser-roas/when-the-average-hides-the-margin/index",
+                "id": "02-personalized-discovery/ads/56-advertiser-roas/when-the-average-hides-the-margin/index",
                 "label": "When the average hides the margin"
               },
               {
                 "type": "doc",
-                "id": "02-personalized-discovery/ads/54-advertiser-roas/when-the-budget-moves/index",
+                "id": "02-personalized-discovery/ads/56-advertiser-roas/when-the-budget-moves/index",
                 "label": "When the budget moves"
               }
             ]

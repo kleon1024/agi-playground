@@ -529,12 +529,13 @@ three detours:
   samples, so a thin majority broadens or clarifies instead of
   committing).
 
-### Personalized discovery — ads 14-18, 25-30, 38-43, 54
+### Personalized discovery — ads 14-18, 25-30, 38-43, 56
 
-**Status: done for 14-18, 25-30, and 38-43/54 (fourth, seventh, and
+**Status: done for 14-18, 25-30, and 38-43/56 (fourth, seventh, and
 eighth audit increments, 2026-08-07/08; frontier chapter
 43-ads-inside-the-loop audited 2026-08-08 and relocated from the shared
-10-frontier directory to the surface that owns it).**
+10-frontier directory to the surface that owns it; 54-advertiser-roas
+renumbered to 56 so it no longer collides with shared 54-online-experiments).**
 
 Stages 14-18 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
@@ -659,7 +660,7 @@ Stages 25-30 now satisfy the same contract (seventh audit increment,
   10,000 users per arm against a 0.4-point increment; 80% power needs
   28,547 users per arm — the experiment is sized for the effect).
 
-Stages 38-42 and 54 now satisfy the same contract (eighth audit
+Stages 38-43 and 56 now satisfy the same contract (eighth audit
 increment, 2026-08-08):
 
 - 38 interleaving: position-credit asymmetry audit over 10,000 sessions

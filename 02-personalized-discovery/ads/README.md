@@ -60,7 +60,7 @@ the auction's decision loop actually meets in production.
 | [`29-rtb-pipeline`](29-rtb-pipeline/) | The 100ms real-time bid as a selection mechanism | [verified](29-rtb-pipeline/runs/) |
 | [`30-ads-measurement`](30-ads-measurement/) | Incrementality against a control | [verified](30-ads-measurement/runs/) |
 
-## The frontier track (stages 38-42, 54)
+## The frontier track (stages 38-43, 56)
 
 | Stage | What it decides | Evidence |
 |---|---|---|
@@ -69,8 +69,8 @@ the auction's decision loop actually meets in production.
 | [`40-privacy-safe-attribution`](40-privacy-safe-attribution/) | Attributing the conversion without the user trail | [verified](40-privacy-safe-attribution/runs/) |
 | [`41-llm-creative-generation`](41-llm-creative-generation/) | The creative as generated text | [verified](41-llm-creative-generation/runs/) |
 | [`42-marketplace-economics`](42-marketplace-economics/) | The marginal ad that stops paying for its displacement | [verified](42-marketplace-economics/runs/) |
-| [`54-advertiser-roas`](54-advertiser-roas/) | The advertiser's return as the platform's revenue | [verified](54-advertiser-roas/runs/) |
 | [`43-ads-inside-the-loop`](43-ads-inside-the-loop/) | The auction machinery that survives when the ad becomes a step in the answer | [frontier reading](43-ads-inside-the-loop/runs/) |
+| [`56-advertiser-roas`](56-advertiser-roas/) | The advertiser's return as the platform's revenue | [verified](56-advertiser-roas/runs/) |
 
 The frontier track reads the same loops under harder conditions. Every
 stage carries an executed case-finding audit with measured runs:
@@ -93,4 +93,4 @@ set](41-llm-creative-generation/when-the-generator-collapses-to-the-train-set/),
 [the demand curve is
 elastic](42-marketplace-economics/when-the-demand-curve-is-elastic/),
 and [the average hides the
-margin](54-advertiser-roas/when-the-average-hides-the-margin/).
+margin](56-advertiser-roas/when-the-average-hides-the-margin/).
