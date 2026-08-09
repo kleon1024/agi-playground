@@ -45,6 +45,8 @@ risks are that generation collapses to identical variants — leaving the
 scorer nothing to pick — and that the score rewards surface appeal
 instead of measured CTR, which the audits below price.
 
+<!-- interactive: LlmCreativeGeneration -->
+
 ## The failure mode, named and audited
 
 **The surface score picks the creative that does not convert.** The

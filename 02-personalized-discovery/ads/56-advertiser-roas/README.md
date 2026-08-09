@@ -41,6 +41,8 @@ the walk-away line — which is where the platform's revenue stops, too.
 The platform that watches only its own revenue is watching the
 advertiser walk away.
 
+<!-- interactive: AdvertiserRoas -->
+
 ## The failure mode, named and audited
 
 **The campaign looks on target while the next dollar already loses.**

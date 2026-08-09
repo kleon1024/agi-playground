@@ -38,6 +38,8 @@ raises the click rate per placement, which is why the creative is part
 of the ad's expected value — it feeds the pCTR that [stage
 15](../15-ecpm-ranking/) multiplies by the bid.
 
+<!-- interactive: CreativeSelection -->
+
 ## The failure mode, named and audited
 
 **Selection that averages logged CTR crowns the stale winner.** The

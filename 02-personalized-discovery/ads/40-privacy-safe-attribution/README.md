@@ -46,6 +46,8 @@ divided by epsilon, so every halving of epsilon doubles the noise
 (Dwork 2006, ICALP, introduced the framework the industry now builds
 measurement on).
 
+<!-- interactive: PrivacySafeAttribution -->
+
 ## The failure mode, named and audited
 
 **Noise flips the order that spends the budget.** The audit

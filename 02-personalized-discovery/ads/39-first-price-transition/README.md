@@ -52,6 +52,8 @@ bidding had to relearn an estimation problem whose signal was
 previously free (Vickrey 1961, J. Finance; Edelman, Ostrovsky &
 Schwarz 2007, AER; Varian 2007, IJIO).
 
+<!-- interactive: FirstPriceTransition -->
+
 ## The failure mode, named and audited
 
 **Belief error is its own price.** The audit

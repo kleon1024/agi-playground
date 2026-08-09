@@ -42,6 +42,8 @@ rule of thumb — and the [cap-bites detour](when-the-cap-bites/) shows
 its other side: the same budget reaches fewer users as the cap rises,
 so the cap is a budget allocation between reach and frequency.
 
+<!-- interactive: FrequencyCapping -->
+
 ## The failure mode, named and audited
 
 **The aggregate curve hides the segment that stopped clicking.** The

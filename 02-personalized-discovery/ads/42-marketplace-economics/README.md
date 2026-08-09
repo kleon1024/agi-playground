@@ -42,6 +42,8 @@ earns \$154, and past it revenue falls even though the per-transaction
 cut keeps rising. The platform's cut is not a margin calculation; it is
 a marketplace decision about where on the demand curve to sit.
 
+<!-- interactive: MarketplaceEconomics -->
+
 ## The failure mode, named and audited
 
 **A fixed take rate is a bet on one demand curve.** The stage's 35%

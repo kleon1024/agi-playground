@@ -37,6 +37,8 @@ high bid with a low one — Ad B wins despite the lowest bid, because its
 bids; it earns clicks, and eCPM is the estimate of what a slot is
 actually worth.
 
+<!-- interactive: EcpmRanking -->
+
 ## The failure mode, named and audited
 
 **An unchecked estimate hands revenue to the wrong ad.** The audit

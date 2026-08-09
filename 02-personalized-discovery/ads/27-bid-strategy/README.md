@@ -42,6 +42,8 @@ worth \$0.10 — and that is the bid. Two properties fall out:
    [target-CPA detour](when-the-target-cpa-binds/) executes that
    refusal.
 
+<!-- interactive: BidStrategy -->
+
 ## The failure mode, named and audited
 
 **The winner's log is a biased sample.** The audit

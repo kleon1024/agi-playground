@@ -43,6 +43,8 @@ inside the same user session, the comparison cancels user-level noise,
 which is why interleaving needs far fewer users than a between-user
 A/B.
 
+<!-- interactive: InterleavingExperiments -->
+
 ## The failure mode, named and audited
 
 **The blend, not the ranking, decides who gets the win.** The audit

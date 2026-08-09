@@ -37,6 +37,8 @@ replace. The ad's net value to the platform is revenue minus displacement
 — and the trade is real: two ads earn 1.2 in ad value but destroy 0.8 in
 organic value.
 
+<!-- interactive: AdExternality -->
+
 ## The failure mode, named and audited
 
 **The aggregate hides who pays.** The audit

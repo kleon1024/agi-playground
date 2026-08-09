@@ -569,6 +569,29 @@ against 0.498 predicted), budget pacing (naive exhausts at hour 3; cap
 ads measurement (increment 0.4 points; p=1.000 at n=8,000; CI first
 excludes zero at n=20,000; 80% power needs 28,547 per arm).
 
+On 2026-08-09 (second ads wiring pass) the remaining 13 ads parents each
+received a ProcessDiagram wired to their recorded runs: 15 eCPM ranking
+(Ad B wins at 150.00; 7 of 18 perturbation cells flip the winner, 38.9%,
+mean realized 136.11 vs optimal 150.00; 2-point pCTR change swaps the
+winner), 18 ad externality (aggregate net +0.0688 vs engaged -0.3249 on
+20,000 users), 25 frequency capping (CTR decays 0.050 to 0.002; aggregate
+0.0328 hides power 0.0133 with 40.6% dead share), 26 creative selection
+(greedy lifetime 635 clicks vs EWMA 828, Thompson 807 on 20,000
+placements), 27 bid strategy (winner log CVR 0.0316 vs true 0.0188, bid
+overpays 1.68x, IPW restores \$0.09), 28 auction revenue (first-price
+round-1 0.7485 settles at 0.4980, 33% erosion), 29 RTB pipeline (p95
+99.5ms fits, p99 108.2ms blows the 100ms deadline, 933 of 20,000 time
+out), 38 interleaving (naive blend credits A 59.2% vs B 40.8%; random
+start restores 49.7/50.3 at a 3.6% session cost), 39 first-price
+transition (shading optimum \$0.50 nets \$0.25; belief error 0.3 costs
+0.022, weaker-market mis-specification 0.100), 40 privacy-safe
+attribution (epsilon 2.0 flips the close pair 12.9%, 81% over twelve
+reports), 41 LLM creative generation (surface score misses CTR-best
+55.1% at 7.3% mean loss; collapse cuts CTR 0.0911 to 0.0515), 42
+marketplace economics (peak 35% / \$154; fixed 35% earns \$203 vs \$105
+across the outer curves), and 56 advertiser ROAS (average clears 5.0 to
+\$3,000 while marginal falls to 1.96).
+
 Stages 14-18 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:
 

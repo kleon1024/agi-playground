@@ -38,6 +38,8 @@ only half the question; bidder behavior under the rule is the other
 half, and the [shading detour](when-first-price-pays-more/) executes
 both.
 
+<!-- interactive: AuctionRevenue -->
+
 ## The failure mode, named and audited
 
 **First-price revenue learns its way down.** The audit

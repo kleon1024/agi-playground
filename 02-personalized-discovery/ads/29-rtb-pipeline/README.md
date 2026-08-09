@@ -42,6 +42,8 @@ and when a stage blows it, the [slow-bidder detour](when-the-bidder-is-slow/)
 shows what happens: the bid arrives late and is invisible, however good
 its price.
 
+<!-- interactive: RtbPipeline -->
+
 ## The failure mode, named and audited
 
 **The p99 loses the auction.** The audit
