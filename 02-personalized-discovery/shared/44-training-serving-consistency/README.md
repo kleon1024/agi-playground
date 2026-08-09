@@ -31,6 +31,8 @@ and by the CTR at the price actually served:
 
 Offline order: P1001, P1002, P1003. Live truth: P1003, P1001, P1002.
 
+<!-- interactive: TrainingServingSkew -->
+
 ## The mechanism, named
 
 The training set is built from logged features — what the world looked

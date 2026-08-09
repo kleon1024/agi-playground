@@ -30,6 +30,8 @@ lifetime value per user for two channels:
 | paid installs | \$8.00 | \$7.50 | 0.94 |
 | referral | \$4.00 | \$7.20 | 1.80 |
 
+<!-- interactive: LtvCac -->
+
 ## The mechanism, named
 
 Organic search pays back about six times its acquisition cost; paid

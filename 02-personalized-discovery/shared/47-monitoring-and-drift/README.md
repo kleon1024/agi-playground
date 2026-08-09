@@ -31,6 +31,8 @@ hours of predicted CTR (0.040) against observed CTR:
 | 10 | 0.040 | 0.022 | 0.018 | 0.015 ALERT |
 | 11 | 0.040 | 0.020 | 0.020 | 0.016 ALERT |
 
+<!-- interactive: MonitoringDrift -->
+
 ## The mechanism, named
 
 The model kept predicting 0.040 while users clicked less every hour. The

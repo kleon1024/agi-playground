@@ -137,13 +137,22 @@ links to the ads track's `38-interleaving-experiments`.
 ### Personalized discovery — shared 43-55 (operations)
 
 **Status: done (third audit increment, 2026-08-07; interactive wiring
-2026-08-09 for stage 54-online-experiments).**
+2026-08-09 for stages 43, 44, 45, 47, 54, 55).**
 
 On 2026-08-09 stage 54 received a ProcessDiagram wired to its recorded
 fixtures: the validity gate (broken SRM chi2=21.52 p=3.51e-06 vs fixed
 chi2=0.04 p=0.832, unit-mismatch SE gap 3.19x, SRM firing at ~2,000 users
 against 78,000 for outcome power, 24% unit-mismatch false positives and
 53% switchback per-minute false positives).
+
+On 2026-08-09 stages 43, 44, 45, 47, and 55 each received a ProcessDiagram
+wired to the recorded runs: feature store (store scores 17.5/-2.5/11.5 at
+0h vs naive 12.5/-5.5/7.5 at 3-5h, reordering P1002/P1001), training-
+serving skew (offline P1001,P1002,P1003 vs live P1003,P1001,P1002),
+feedback loops (head 99% vs tail 0% impression share, sustained exposure
+5/20), monitoring and drift (predicted 0.040 flat vs observed falling to
+0.020, ALERT at hour 10), and LTV/CAC (organic 6.08, referral 1.80, paid
+0.94; 1m-to-24m window curves deciding the channel verdict).
 
 Stages 43-47 now satisfy the contract, each with an executed case-finding
 audit, a who-owns-the-loop section, dated citations, and three detours:

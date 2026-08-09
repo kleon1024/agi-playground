@@ -30,6 +30,8 @@ show-top-5-and-update-on-clicks over 20 items:
 Catalogue coverage: 20 of 20 items ever shown. Sustained exposure (at
 least 100 impressions): 5 of 20.
 
+<!-- interactive: FeedbackLoop -->
+
 ## The mechanism, named
 
 Items 0-4 gather clicks and their estimates rise; items 5-19 never gather

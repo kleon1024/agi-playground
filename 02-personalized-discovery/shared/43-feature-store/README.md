@@ -35,6 +35,8 @@ naive path serves the current age (3-5 hours). The score function rewards
 freshness, so the naive path reorders P1002 and P1001 on a feature the
 model never trained on.
 
+<!-- interactive: FeatureStore -->
+
 ## The mechanism, named
 
 A feature is a fact about the world, and the world moves. The store
