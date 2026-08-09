@@ -10,7 +10,7 @@ which is the evidence the chapter's argument stands on.
 Input (recorded, unchanged):
   04-how-it-fails/runs/2026-08-01-failure-taxonomy.md
   04-how-it-fails/the-zero-failure-taxonomy/runs/2026-08-06-taxonomy-read.md
-  07-frontier/control-plane-governance/runs/2026-08-08-governance-gates.md
+  04-how-it-fails/control-plane-governance/runs/2026-08-08-governance-gates.md
 
 Run:
     uv run python core/risk_agent.py
@@ -34,7 +34,7 @@ ZERO_TAXONOMY = (
 )
 GATES = (
     ROOT
-    / "04-agentic-platform/07-frontier/control-plane-governance/"
+    / "04-agentic-platform/04-how-it-fails/control-plane-governance/"
     "runs/2026-08-08-governance-gates.md"
 )
 

@@ -32,7 +32,7 @@ By the end you will be able to draw an automate-versus-gate line for an
 agentic product, price both sides, and name the metric that tells you the
 line is right.
 
-**Before this:** [the governance chapter](../control-plane-governance/),
+**Before this:** [the governance chapter](../../04-how-it-fails/control-plane-governance/),
 which priced the gates; this chapter decides where they sit.
 
 ## The failure mode: automating the wrong cell

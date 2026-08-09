@@ -30,7 +30,7 @@ Codex, Antigravity, this repo's own) as the same two planes — a control plane
 that decides and records, and a compute plane that executes — and say which
 columns a score must disclose before it means anything.
 
-**Before this:** [the intent-to-delivery chapter](../intent-to-delivery/),
+**Before this:** [the intent-to-delivery chapter](../../05-report/intent-to-delivery/),
 whose gap the harness closes, and the harness this mission actually runs,
 built in [topic 01 stage 06](../../../01-language-model/06-agent/).
 
@@ -173,6 +173,6 @@ context by design; the mission explicitly says nothing about repositories
 too large for the model's window, where context management stops being a
 policy choice and becomes the binding constraint.
 
-**Next:** [what a governed agent actually does](../control-plane-governance/)
+**Next:** [what a governed agent actually does](../../04-how-it-fails/control-plane-governance/)
 — the same loop, read as a control plane that must reconcile, gate, and
 survive an assumed adversary.

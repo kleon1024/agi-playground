@@ -2726,6 +2726,20 @@ wired to the recorded runs: no-harness (18/18 vs 4/18 blind; sonnet
 (0/12 to 2/12 after one retry, fully bimodal), and the frontier index
 (4/18 produced, 14/18 rejected at the gate, 18/18 delivered).
 
+**Structural re-check 2026-08-09 (thirty-first audit increment):** the
+frontier index is gone as a directory. The six chapters that lived under
+`07-frontier/` were moved into the stages whose recorded runs they read —
+harness-anatomy into stage 02-agent-loop, what-a-reasonable-agentic-product-is
+into stage 03-cheap-or-expensive, control-plane-governance,
+the-adversary-that-adapts, and the-agent-is-the-action into stage
+04-how-it-fails, and intent-to-delivery into stage 05-report — with relative
+links, core scripts, and runs records updated to the new paths. The
+AgentFrontier interactive marker moved to the topic README, beside the stage
+table that names where each former frontier chapter now lives. The stage
+range this section audits is unchanged at 00-06 plus its detours, now
+including the six former frontier chapters at the stages that supply their
+evidence.
+
 Every stage 00-06 and every detour now carries the fix-and-trade and
 who-owns-the-loop sections the audit contract requires, reusing the
 mission's measured numbers (no new runs, no new model calls):

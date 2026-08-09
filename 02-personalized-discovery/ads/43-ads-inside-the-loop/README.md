@@ -170,5 +170,5 @@ says as much about every number it cites.
 <!-- interactive: AdInThreadGate -->
 
 **Next:** back to [the stage overview](../../) — or across to
-[mission 04's frontier](../../../04-agentic-platform/07-frontier/), where
-the same intent-to-delivery loop is read from the harness side.
+[mission 04's intent-to-delivery chapter](../../../04-agentic-platform/05-report/intent-to-delivery/),
+where the same loop is read from the harness side.

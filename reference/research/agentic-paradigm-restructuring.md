@@ -180,20 +180,30 @@ incumbent loops work. Three things survive every restructure above:
 ## (g) What this means for the repo's chapters
 
 This survey feeds four decision-oriented frontier chapters in
-[`04-agentic-platform/`](../../04-agentic-platform/):
+[`04-agentic-platform/`](../../04-agentic-platform/). Each one lives inside
+the stage that supplies its evidence — the old `07-frontier/` directory was
+dissolved into the stages whose runs the chapter reads, so the loop and its
+frontier reading are read in one place:
 
-- **intent-to-delivery**: the loop that translates a stakeholder intent into
-  a delivered outcome, grounded in the repo's own measured no-harness versus
-  agent-loop runs, with the Gartner orchestration framing.
-- **harness-anatomy**: the control plane (loop, routing, approvals, tracing,
-  recovery) versus the compute plane (sandbox), comparing the harnesses this
-  repo itself runs against.
-- **control-plane-governance**: the protocol and governance layer — MCP/A2A,
-  approval gates, reversal rates, the complexity cliff, observability — using
-  the risk-control pattern in (a) as the "what a governed agent does" case.
-- **what-a-reasonable-agentic-product-is**: what to automate versus gate,
-  with the payments rails in (d) as the enabling layer and reversal rates as
-  the evidence.
+- **intent-to-delivery**
+  ([`05-report/`](../../04-agentic-platform/05-report/intent-to-delivery/)):
+  the loop that translates a stakeholder intent into a delivered outcome,
+  grounded in the repo's own measured no-harness versus agent-loop runs, with
+  the Gartner orchestration framing.
+- **harness-anatomy**
+  ([`02-agent-loop/`](../../04-agentic-platform/02-agent-loop/harness-anatomy/)):
+  the control plane (loop, routing, approvals, tracing, recovery) versus the
+  compute plane (sandbox), comparing the harnesses this repo itself runs
+  against.
+- **control-plane-governance**
+  ([`04-how-it-fails/`](../../04-agentic-platform/04-how-it-fails/control-plane-governance/)):
+  the protocol and governance layer — MCP/A2A, approval gates, reversal
+  rates, the complexity cliff, observability — using the risk-control
+  pattern in (a) as the "what a governed agent does" case.
+- **what-a-reasonable-agentic-product-is**
+  ([`03-cheap-or-expensive/`](../../04-agentic-platform/03-cheap-or-expensive/what-a-reasonable-agentic-product-is/)):
+  what to automate versus gate, with the payments rails in (d) as the
+  enabling layer and reversal rates as the evidence.
 
 It also sharpens the mission-02 thesis. The topic claims recommendation,
 search, and ads are one decision loop; the agentic turn strengthens that claim

@@ -51,7 +51,7 @@ turns an agent that acts into one a risk owner can sign off on.
   contrast (resolved 4/18 blind vs 18/18 harness, every other category 0/18)
   from `04-how-it-fails/the-zero-failure-taxonomy/runs/2026-08-06-taxonomy-read.md`;
   and the gate read (14/18 rejected, \$2.917 and 1305s, zero tampering across
-  54 calls) from `07-frontier/control-plane-governance/runs/2026-08-08-governance-gates.md`.
+  54 calls) from `04-how-it-fails/control-plane-governance/runs/2026-08-08-governance-gates.md`.
 - The chapter reads the blind call as the risk-control analogue of an agent
   that acts without reconciliation: the verdict is produced, and nothing
   checks it before it would land. The gate the harness already runs is the

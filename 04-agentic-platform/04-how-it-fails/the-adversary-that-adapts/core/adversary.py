@@ -11,7 +11,7 @@ in which it never fired.
 Input (recorded, unchanged):
   02-agent-loop/when-the-guardrail-refuses/runs/2026-08-06-guardrail-demo.md
   04-how-it-fails/runs/2026-08-01-failure-taxonomy.md
-  07-frontier/control-plane-governance/runs/2026-08-08-governance-gates.md
+  04-how-it-fails/control-plane-governance/runs/2026-08-08-governance-gates.md
 
 Run:
     uv run python core/adversary.py
@@ -35,7 +35,7 @@ TAXONOMY = (
 )
 GATES = (
     ROOT
-    / "04-agentic-platform/07-frontier/control-plane-governance/"
+    / "04-agentic-platform/04-how-it-fails/control-plane-governance/"
     "runs/2026-08-08-governance-gates.md"
 )
 

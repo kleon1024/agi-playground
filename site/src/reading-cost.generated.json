@@ -1555,6 +1555,10 @@
     "level": "applied",
     "minutes": 9
   },
+  "04-agentic-platform/02-agent-loop/harness-anatomy": {
+    "level": "frontier",
+    "minutes": 6
+  },
   "04-agentic-platform/02-agent-loop/the-loop-that-scores-a-patch": {
     "level": "applied",
     "minutes": 4
@@ -1575,9 +1579,25 @@
     "level": "applied",
     "minutes": 4
   },
+  "04-agentic-platform/03-cheap-or-expensive/what-a-reasonable-agentic-product-is": {
+    "level": "frontier",
+    "minutes": 6
+  },
   "04-agentic-platform/04-how-it-fails": {
     "level": "applied",
     "minutes": 8
+  },
+  "04-agentic-platform/04-how-it-fails/control-plane-governance": {
+    "level": "frontier",
+    "minutes": 8
+  },
+  "04-agentic-platform/04-how-it-fails/the-adversary-that-adapts": {
+    "level": "frontier",
+    "minutes": 7
+  },
+  "04-agentic-platform/04-how-it-fails/the-agent-is-the-action": {
+    "level": "frontier",
+    "minutes": 6
   },
   "04-agentic-platform/04-how-it-fails/the-zero-failure-taxonomy": {
     "level": "applied",
@@ -1590,6 +1610,10 @@
   "04-agentic-platform/05-report": {
     "level": "applied",
     "minutes": 8
+  },
+  "04-agentic-platform/05-report/intent-to-delivery": {
+    "level": "frontier",
+    "minutes": 6
   },
   "04-agentic-platform/05-report/the-public-set-control": {
     "level": "applied",
@@ -1610,34 +1634,6 @@
   "04-agentic-platform/06-closing-the-loop/the-bimodal-retry": {
     "level": "applied",
     "minutes": 3
-  },
-  "04-agentic-platform/07-frontier": {
-    "level": "frontier",
-    "minutes": 2
-  },
-  "04-agentic-platform/07-frontier/control-plane-governance": {
-    "level": "frontier",
-    "minutes": 8
-  },
-  "04-agentic-platform/07-frontier/harness-anatomy": {
-    "level": "frontier",
-    "minutes": 6
-  },
-  "04-agentic-platform/07-frontier/intent-to-delivery": {
-    "level": "frontier",
-    "minutes": 6
-  },
-  "04-agentic-platform/07-frontier/the-adversary-that-adapts": {
-    "level": "frontier",
-    "minutes": 7
-  },
-  "04-agentic-platform/07-frontier/the-agent-is-the-action": {
-    "level": "frontier",
-    "minutes": 6
-  },
-  "04-agentic-platform/07-frontier/what-a-reasonable-agentic-product-is": {
-    "level": "frontier",
-    "minutes": 6
   },
   "05-game-ai": {
     "level": "applied",

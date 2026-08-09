@@ -161,6 +161,6 @@ the ARC-AGI-3 harness settings, and the Epoch AI scaffold audit are 2026
 records; the [paradigm survey](../../../reference/research/agentic-paradigm-restructuring.md)
 states which claims it could not verify.
 
-**Next:** [what the software around the model owns](../harness-anatomy/) —
+**Next:** [what the software around the model owns](../../02-agent-loop/harness-anatomy/) —
 the same recorded arms, read as a control-plane audit: loop, routing,
 approvals, tracing, recovery, and the sandbox underneath.

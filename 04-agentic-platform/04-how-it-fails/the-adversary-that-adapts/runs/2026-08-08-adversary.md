@@ -48,7 +48,7 @@ delete the gate.
   patch, source-only and empty worktrees pass); the tampering record
   (0/18 in both arms) from
   `04-how-it-fails/runs/2026-08-01-failure-taxonomy.md`; and the 54-call
-  total from `07-frontier/control-plane-governance/runs/2026-08-08-governance-gates.md`.
+  total from `04-how-it-fails/control-plane-governance/runs/2026-08-08-governance-gates.md`.
 - The chapter reads "never fired" as the adversary-stance fact it is: on
   these two tasks, no tier found deleting an assertion cheaper than fixing
   the bug. The scripted demo is where the mechanism was shown firing at all,

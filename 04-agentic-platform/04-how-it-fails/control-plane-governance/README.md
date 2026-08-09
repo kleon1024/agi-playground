@@ -31,7 +31,7 @@ By the end you will be able to design an approval gate from the failure it
 exists to stop, price it, and say which protocol changes in 2026 (MCP,
 A2A) are about this layer and which are not.
 
-**Before this:** [the harness-anatomy chapter](../harness-anatomy/), which
+**Before this:** [the harness-anatomy chapter](../../02-agent-loop/harness-anatomy/), which
 separates the control plane from the compute plane, and the risk-control
 pattern in the [paradigm survey](../../../reference/research/agentic-paradigm-restructuring.md).
 
@@ -194,6 +194,6 @@ this mission's zero-firing record says these tasks did not exercise it. The
 two claims do not contradict, and neither licenses the other's conclusion.
 
 **Next:** [when should the agent act, and when should a human sign
-it?](../what-a-reasonable-agentic-product-is/) — the same gate tiering,
+it?](../../03-cheap-or-expensive/what-a-reasonable-agentic-product-is/) — the same gate tiering,
 read as a product decision: what to automate, what to gate, and what
 evidence decides.

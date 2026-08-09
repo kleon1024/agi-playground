@@ -92,7 +92,6 @@ traces both.
 | [04 — How it fails](04-how-it-fails/) | how does it fail, and does it cheat? | verified |
 | [05 — The report](05-report/) | what did we actually establish? | verified |
 | [06 — Closing the loop](06-closing-the-loop/) | does seeing your own attempt's real outcome help, with still no tools? | verified |
-| [07 — The frontier](07-frontier/) | what happens when the loop has to deliver? | verified |
 
 [Stage 00](00-task-set/) has run. It mined this repository's 100 commits down to
 4 candidates and admitted **2**, because a task is admitted only if its test
@@ -179,23 +178,25 @@ applying-and-correct; no attempt in this batch moved from "applies but wrong"
 to resolved, and ten of the twelve retries still produced a diff `git apply`
 rejected. A real, modest, mixed result, not a clean win.
 
-[Stage 07](07-frontier/) then reads everything stages 00–06 recorded as the
-frontier question: the same loop — retry, grounding, verification, permission
-ladders, gates — is what every agentic surface that transacts now runs on,
-and the six frontier chapters each return a decision on top of the recorded
-runs. The intent chapter reads the produced-vs-delivered gap (4/18 blind vs
-18/18 harness); the anatomy chapter audits the loop's control and compute
-planes and reads Claude Code, Codex, and Antigravity as the same five
-decisions; the governance chapter prices a reconciliation gate (14/18 blind
-calls rejected before delivery, zero tampering across 54 real model calls);
-and the product chapter draws the automate-versus-gate line as a routing
-table priced per delivered outcome; the agent-is-the-action chapter reads the
-blind call as the un-reconciled agent (12/18 still failing, 11 non-applying)
-against the reconciled harness (18/18); and the adversary chapter reads the
-guardrail's decision boundary against its zero-firing real record, with the
-adaptation result that makes the assumed-adversary stance load-bearing. No
-model was called and no new run was executed to produce them — every number
-traces to this mission's `runs/` entries or to a dated external source.
+The frontier reading is not a stage of its own; it is distributed into the
+stage whose decision each chapter changes. The same loop — retry, grounding,
+verification, permission ladders, gates — is what every agentic surface that
+transacts now runs on, and each frontier chapter returns a decision on top of
+the recorded runs, sitting beside the stage that supplies its evidence. The
+intent chapter (under [stage 05](05-report/)) reads the produced-vs-delivered
+gap (4/18 blind vs 18/18 harness); the anatomy chapter (under
+[stage 02](02-agent-loop/)) audits the loop's control and compute planes and
+reads Claude Code, Codex, and Antigravity as the same five decisions; the
+governance and adversary chapters (under [stage 04](04-how-it-fails/)) price
+a reconciliation gate (14/18 blind calls rejected before delivery, zero
+tampering across 54 real model calls) and read the guardrail's decision
+boundary against its zero-firing real record; and the product chapter (under
+[stage 03](03-cheap-or-expensive/)) draws the automate-versus-gate line as a
+routing table priced per delivered outcome. No model was called and no new
+run was executed to produce them — every number traces to this mission's
+`runs/` entries or to a dated external source.
+
+<!-- interactive: AgentFrontier -->
 
 
 
@@ -213,20 +214,20 @@ artifact or a measurement the next stage consumes.
 | `01-no-harness` | The first gate a blind call must pass | [when-the-patch-does-not-apply](01-no-harness/when-the-patch-does-not-apply/) |
 | `02-agent-loop` | The harness, drawn as its steps and checks | [the-loop-that-scores-a-patch](02-agent-loop/the-loop-that-scores-a-patch/) |
 | `02-agent-loop` | When does the test-file guardrail refuse a patch? | [when-the-guardrail-refuses](02-agent-loop/when-the-guardrail-refuses/) |
+| `02-agent-loop` | What does the software around the model own? | [harness-anatomy](02-agent-loop/harness-anatomy/) |
 | `03-cheap-or-expensive` | The expensive tier is not the fastest | [the-cost-quality-knee](03-cheap-or-expensive/the-cost-quality-knee/) |
 | `03-cheap-or-expensive` | When every tier resolves everything, which tier won? | [the-tier-that-won](03-cheap-or-expensive/the-tier-that-won/) |
+| `03-cheap-or-expensive` | When should the agent act, and when should a human sign it? | [what-a-reasonable-agentic-product-is](03-cheap-or-expensive/what-a-reasonable-agentic-product-is/) |
 | `04-how-it-fails` | Zero failures is a real result, not a gap | [the-zero-failure-taxonomy](04-how-it-fails/the-zero-failure-taxonomy/) |
 | `04-how-it-fails` | When the patch cannot even be applied, what is the loop buying? | [when-the-patch-cannot-apply](04-how-it-fails/when-the-patch-cannot-apply/) |
+| `04-how-it-fails` | What does a governed agent actually do? | [control-plane-governance](04-how-it-fails/control-plane-governance/) |
+| `04-how-it-fails` | When is the agent the action? | [the-agent-is-the-action](04-how-it-fails/the-agent-is-the-action/) |
+| `04-how-it-fails` | What does the adversary that adapts change? | [the-adversary-that-adapts](04-how-it-fails/the-adversary-that-adapts/) |
 | `05-report` | The 6/6 that says nothing about the 18/18 | [the-public-set-control](05-report/the-public-set-control/) |
 | `05-report` | The PARTIAL, read bullet by bullet | [when-the-partial-verdict](05-report/when-the-partial-verdict/) |
+| `05-report` | Where does intent stop being delivered? | [intent-to-delivery](05-report/intent-to-delivery/) |
 | `06-closing-the-loop` | Does seeing the real outcome help — with still no tools? | [does-feedback-help](06-closing-the-loop/does-feedback-help/) |
 | `06-closing-the-loop` | Feedback fixed the fix, not the apply | [the-bimodal-retry](06-closing-the-loop/the-bimodal-retry/) |
-| `07-frontier` | Where does intent stop being delivered? | [intent-to-delivery](07-frontier/intent-to-delivery/) |
-| `07-frontier` | What does the software around the model own? | [harness-anatomy](07-frontier/harness-anatomy/) |
-| `07-frontier` | What does a governed agent actually do? | [control-plane-governance](07-frontier/control-plane-governance/) |
-| `07-frontier` | When should the agent act, and when should a human sign it? | [what-a-reasonable-agentic-product-is](07-frontier/what-a-reasonable-agentic-product-is/) |
-| `07-frontier` | When is the agent the action? | [the-agent-is-the-action](07-frontier/the-agent-is-the-action/) |
-| `07-frontier` | What does the adversary that adapts change? | [the-adversary-that-adapts](07-frontier/the-adversary-that-adapts/) |
 
 ## Landscape surveys
 

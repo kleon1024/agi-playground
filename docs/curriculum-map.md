@@ -24,7 +24,7 @@ detour returns an artifact the stage consumes.
 
 ## Topic map
 
-Counts verified 2026-08-08. "Stages" are the numbered main-path chapters;
+Counts verified 2026-08-09. "Stages" are the numbered main-path chapters;
 "when-* detours" are the deep-dive sub-chapters that answer a decision the
 main path asserts without showing. Some stages also carry non-`when-`
 sub-chapters (for example mission 01's `is-it-the-same-tokenizer` and

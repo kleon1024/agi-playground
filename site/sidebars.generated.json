@@ -2557,6 +2557,11 @@
         "items": [
           {
             "type": "doc",
+            "id": "04-agentic-platform/02-agent-loop/harness-anatomy/index",
+            "label": "Harness anatomy"
+          },
+          {
+            "type": "doc",
             "id": "04-agentic-platform/02-agent-loop/the-loop-that-scores-a-patch/index",
             "label": "The loop that scores a patch"
           },
@@ -2575,6 +2580,11 @@
           "id": "04-agentic-platform/03-cheap-or-expensive/index"
         },
         "items": [
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/03-cheap-or-expensive/what-a-reasonable-agentic-product-is/index",
+            "label": "A reasonable agentic product"
+          },
           {
             "type": "doc",
             "id": "04-agentic-platform/03-cheap-or-expensive/the-cost-quality-knee/index",
@@ -2597,6 +2607,21 @@
         "items": [
           {
             "type": "doc",
+            "id": "04-agentic-platform/04-how-it-fails/control-plane-governance/index",
+            "label": "Control-plane governance"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/04-how-it-fails/the-adversary-that-adapts/index",
+            "label": "The adversary that adapts"
+          },
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/04-how-it-fails/the-agent-is-the-action/index",
+            "label": "The agent is the action"
+          },
+          {
+            "type": "doc",
             "id": "04-agentic-platform/04-how-it-fails/the-zero-failure-taxonomy/index",
             "label": "The zero-failure taxonomy"
           },
@@ -2615,6 +2640,11 @@
           "id": "04-agentic-platform/05-report/index"
         },
         "items": [
+          {
+            "type": "doc",
+            "id": "04-agentic-platform/05-report/intent-to-delivery/index",
+            "label": "Intent to delivery"
+          },
           {
             "type": "doc",
             "id": "04-agentic-platform/05-report/the-public-set-control/index",
@@ -2644,46 +2674,6 @@
             "type": "doc",
             "id": "04-agentic-platform/06-closing-the-loop/the-bimodal-retry/index",
             "label": "The bimodal retry"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "The frontier",
-        "link": {
-          "type": "doc",
-          "id": "04-agentic-platform/07-frontier/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "04-agentic-platform/07-frontier/what-a-reasonable-agentic-product-is/index",
-            "label": "A reasonable agentic product"
-          },
-          {
-            "type": "doc",
-            "id": "04-agentic-platform/07-frontier/control-plane-governance/index",
-            "label": "Control-plane governance"
-          },
-          {
-            "type": "doc",
-            "id": "04-agentic-platform/07-frontier/harness-anatomy/index",
-            "label": "Harness anatomy"
-          },
-          {
-            "type": "doc",
-            "id": "04-agentic-platform/07-frontier/intent-to-delivery/index",
-            "label": "Intent to delivery"
-          },
-          {
-            "type": "doc",
-            "id": "04-agentic-platform/07-frontier/the-adversary-that-adapts/index",
-            "label": "The adversary that adapts"
-          },
-          {
-            "type": "doc",
-            "id": "04-agentic-platform/07-frontier/the-agent-is-the-action/index",
-            "label": "The agent is the action"
           }
         ]
       },
