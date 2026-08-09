@@ -154,6 +154,8 @@ now documented in three different environments. Full per-seed numbers,
 the failure/success catalogue, and compute in
 [`runs/2026-08-03-grpo-training.md`](runs/2026-08-03-grpo-training.md).
 
+<!-- interactive: ToolUseDecision -->
+
 ## The fix and its trade
 
 The fix that unblocked this stage was a design change, not a training

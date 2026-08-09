@@ -968,7 +968,14 @@ eight chapters in the two stages now carry both sections.
 
 ### Language-model system — 00-07
 
-**Status: done (fourth audit increment, 2026-08-07/08).**
+**Status: done (fourth audit increment, 2026-08-07/08; interactive wiring
+2026-08-09 for stage 07-eval).**
+
+On 2026-08-09 stage 07-eval received a ProcessDiagram wired to its measured
+report: perplexity 21.677 at context 1024 vs the 9.712-nat uniform
+baseline, loglik 0.625 with CI [0.250, 0.875] at n=8, generate 0.050
+plus or minus 0.100, agent 0.000 [0.000, 0.000], with the refusing report
+format as the spine.
 
 Stage 00 now carries the dirty-data failure the queue named first: a
 benchmark-contamination chapter with an executed run over 200 items, 60
@@ -2245,7 +2252,16 @@ sampler; Google ASR fairness, arXiv:2207.11345, 2022.
 
 ### Game AI — 00-06
 
-**Status: done (fourteenth audit increment, 2026-08-08).**
+**Status: done (fourteenth audit increment, 2026-08-08; interactive wiring
+2026-08-09 for stages 03, 04, 06).**
+
+On 2026-08-09 stages 03, 04, and 06 each received a ProcessDiagram wired
+to the recorded runs: fixing-collapse (baseline greedy 0.062-0.078 vs
+small-group 0.024-0.050 and entropy-bonus 0.078, entropy rising
+1.3-1.7 nats), MiniGrid cold start (500/500 heuristic vs 2/500 random,
+80/80 degenerate steps on all 3 seeds), and tool-use decision
+(seed 0 matches the oracle at all 5 levels, seeds 1-2 always-answer,
+3-seed mean 0.7953).
 
 Every stage 00-06 and every detour now carries the fix-and-trade and
 who-owns-the-loop sections the audit contract requires, reusing the
@@ -2591,7 +2607,7 @@ at the parent and detour level.
 
 On 2026-08-09 stages 01, 04, 05, 06, and 07 each received a ProcessDiagram
 wired to the recorded runs: no-harness (18/18 vs 4/18 blind; sonnet
-$1.3744 vs $0.5369 per resolved), how-it-fails (12/18 target_still_failing,
+\$1.3744 vs \$0.5369 per resolved), how-it-fails (12/18 target_still_failing,
 11 never applying; 0/18 tampered in both arms), the report (1 PARTIAL /
 6 MET, opus margin inside its own spread at N=2), closing-the-loop
 (0/12 to 2/12 after one retry, fully bimodal), and the frontier index

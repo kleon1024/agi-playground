@@ -193,6 +193,8 @@ parseable `Action:` line to even fail at executing.
 
 Full report: [`runs/2026-07-30-agent-report.json`](runs/2026-07-30-agent-report.json).
 
+<!-- interactive: EvalReport -->
+
 ## The fix and its trade
 
 The failure is a number-shaped object: "68% on benchmark X" is missing

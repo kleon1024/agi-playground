@@ -84,6 +84,8 @@ that took at least one gradient step, and this run took none.
 Full commands, per-seed numbers, and the mechanistic explanation:
 [`runs/2026-08-01-minigrid-cold-start.md`](runs/2026-08-01-minigrid-cold-start.md).
 
+<!-- interactive: MinigridColdStart -->
+
 ## Why this is a real, explained finding, not an environment bug
 
 The random baseline gives the mechanism directly: at a 0.4% per-episode

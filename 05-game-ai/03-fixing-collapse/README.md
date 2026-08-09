@@ -67,6 +67,8 @@ three interventions moved it.
 Full numbers, per-seed detail, and the collapsed examples themselves:
 [`runs/2026-08-01-collapse-fix-sweep.md`](runs/2026-08-01-collapse-fix-sweep.md).
 
+<!-- interactive: CollapseFix -->
+
 ## Why this is still a useful result
 
 Both are real negative findings, not a failure to find a fix worth hiding.
