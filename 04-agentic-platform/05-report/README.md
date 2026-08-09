@@ -82,6 +82,8 @@ attempts in the total), [stage 04](../04-how-it-fails/) catalogues every real
 failure by category, and this script is the mechanism that makes bullet 7
 true of itself.
 
+<!-- interactive: AgentReport -->
+
 ## Check your mental model
 
 1. Why does bullet 1 read `PARTIAL` rather than a clean `MET` or `NOT MET`,

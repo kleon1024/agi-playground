@@ -70,6 +70,8 @@ repeats) — with only 2 tasks, that specific tier's comparison is a real no
 result, not a smaller win. Full numbers, including the wall-clock cap two
 `sonnet` attempts hit, in [`runs/`](runs/2026-08-01-no-harness-baseline.md).
 
+<!-- interactive: NoHarness -->
+
 ## The number that flatters neither arm
 
 A lower resolve rate does not mean a cheaper one. `sonnet`'s no-harness arm

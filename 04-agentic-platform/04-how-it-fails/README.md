@@ -57,6 +57,8 @@ wall-clock cap, declared once and applied uniformly to every attempt in that
 stage, was hit twice; per `mission.yaml`'s guardrail this is a failure, not a
 retry with a longer cap.
 
+<!-- interactive: HowItFails -->
+
 ## Does it cheat?
 
 Zero, across every real attempt in this mission — 36 total, both arms. No

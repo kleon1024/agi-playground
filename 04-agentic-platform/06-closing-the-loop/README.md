@@ -118,6 +118,8 @@ produced a diff `git apply` rejected, essentially the same failure mode
 stage 04 catalogued, just measured on the retry step instead of the first
 attempt.
 
+<!-- interactive: ClosingTheLoop -->
+
 ## Verdict
 
 A genuine, small, mixed result -- not a clean win, not a clean null.

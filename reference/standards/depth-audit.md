@@ -2586,7 +2586,16 @@ at the parent and detour level.
 
 ### Agentic platform — 00-06
 
-**Status: done (twelfth audit increment, 2026-08-08).**
+**Status: done (twelfth audit increment, 2026-08-08; interactive wiring
+2026-08-09 for stages 01, 04, 05, 06, 07).**
+
+On 2026-08-09 stages 01, 04, 05, 06, and 07 each received a ProcessDiagram
+wired to the recorded runs: no-harness (18/18 vs 4/18 blind; sonnet
+$1.3744 vs $0.5369 per resolved), how-it-fails (12/18 target_still_failing,
+11 never applying; 0/18 tampered in both arms), the report (1 PARTIAL /
+6 MET, opus margin inside its own spread at N=2), closing-the-loop
+(0/12 to 2/12 after one retry, fully bimodal), and the frontier index
+(4/18 produced, 14/18 rejected at the gate, 18/18 delivered).
 
 Every stage 00-06 and every detour now carries the fix-and-trade and
 who-owns-the-loop sections the audit contract requires, reusing the

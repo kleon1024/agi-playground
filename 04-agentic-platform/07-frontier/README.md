@@ -42,6 +42,8 @@ six chapters traces to a `runs/` entry in this mission or to a dated
 external source; no model was called and no new run was executed to produce
 them.
 
+<!-- interactive: AgentFrontier -->
+
 ## What this stage does not prove
 
 The frontier reading is an analysis of recorded and published evidence, not
