@@ -13,7 +13,7 @@ own the context.
 | Topic | Lineage |
 |---|---|
 | 01 — language-model system | [lineage.md](../../../01-language-model/lineage.md) |
-| 01 — vision-language path | [vision/lineage.md](../../../01-language-model/vision/lineage.md) |
+| 01 — vision-language path | [the language-model lineage](../../../01-language-model/lineage.md) |
 | 02 — personalized discovery | [lineage.md](../../../02-personalized-discovery/lineage.md) |
 | 03 — quantitative research | [lineage.md](../../../03-quantitative-research/lineage.md) |
 | 04 — agentic platform | [lineage.md](../../../04-agentic-platform/lineage.md) |

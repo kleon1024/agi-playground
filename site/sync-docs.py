@@ -149,6 +149,7 @@ def load_content_graph() -> dict:
 CONTENT_GRAPH = load_content_graph()
 GRAPH_BY_PATH = {c["path"]: c for c in CONTENT_GRAPH.get("chapters", [])}
 RENAMES = CONTENT_GRAPH.get("renames", {})
+GRAPH_GROUPS = CONTENT_GRAPH.get("groups", {})
 
 # The graph is the single source for order now; the curriculum file is its
 # human-readable projection and the two are kept consistent by a test.
@@ -161,6 +162,22 @@ def apply_renames(path: str) -> str:
     for old in sorted(RENAMES, key=len, reverse=True):
         if path == old or path.startswith(old + "/"):
             return RENAMES[old] + path[len(old):]
+    return path
+
+
+def old_location(path: str) -> str:
+    """Where a path lived before the graph's renames, longest new-prefix first.
+
+    A relative link in a chapter was written against the chapter's original
+    directory depth. Flattening 02 and 07 changed that depth, so a link like
+    `../../reference/...` can no longer be resolved from the new location. The
+    graph's rename table is invertible for exactly this case: resolve the link
+    against the old location, then map the target forward through the renames.
+    """
+    reverse = {new: old for old, new in RENAMES.items()}
+    for new in sorted(reverse, key=len, reverse=True):
+        if path == new or path.startswith(new + "/"):
+            return reverse[new] + path[len(new):]
     return path
 
 
@@ -236,16 +253,19 @@ def rewrite_links(text: str, src_rel: Path) -> str:
         if bang:  # image — resolved by the copy step below
             return m.group(0)
         if target.endswith(CODE_SUFFIXES + ASSET_SUFFIXES):
-            resolved = (ROOT / src_rel.parent / target).resolve().relative_to(ROOT)
+            old_dir = str(Path(old_location(src_rel.as_posix())).parent)
+            resolved = (ROOT / old_dir / target).resolve().relative_to(ROOT)
             resolved = Path(apply_renames(resolved.as_posix()))
             return f"[{label}]({REPO}/{resolved.as_posix()}{anchor})"
         # A bare `runs/` directory has no page — only the files inside it do.
         # Point those at GitHub, where the directory listing exists.
         if target.rstrip("/").endswith("runs"):
-            resolved = (ROOT / src_rel.parent / target).resolve().relative_to(ROOT)
+            old_dir = str(Path(old_location(src_rel.as_posix())).parent)
+            resolved = (ROOT / old_dir / target).resolve().relative_to(ROOT)
             resolved = Path(apply_renames(resolved.as_posix()))
             return f"[{label}]({REPO.replace('/blob/', '/tree/')}/{resolved.as_posix()}{anchor})"
-        resolved = (ROOT / src_rel.parent / target).resolve().relative_to(ROOT)
+        old_dir = str(Path(old_location(src_rel.as_posix())).parent)
+        resolved = (ROOT / old_dir / target).resolve().relative_to(ROOT)
         resolved = Path(apply_renames(resolved.as_posix()))
         if resolved.name == "README.md":
             resolved = resolved.parent
@@ -578,6 +598,67 @@ def build_sidebar() -> list:
             "_position": position,
         }
 
+    def grouped_node(directory: Path, section: str) -> dict:
+        """A section whose sidebar is grouped by the content graph.
+
+        02 and 07 flattened their surface directories, so their stages are
+        siblings under the section instead of nested categories. The graph's
+        `groups` restores the navigation the directories used to provide: one
+        category per surface, linked to the surface overview page, with the
+        stages (and any lineage pages the surface owns) inside it.
+        """
+        groups = GRAPH_GROUPS.get(section, [])
+        overview_dirs = {g.get("overview") for g in groups if g.get("overview")}
+        used_stages = set()
+        children = []
+
+        def has_index(d: Path) -> bool:
+            return (d / "index.md").exists() or (d / "index.mdx").exists()
+
+        for group_pos, group in enumerate(groups):
+            items = []
+            for stage in group.get("stages", []):
+                stage_dir = OUT / stage
+                if stage_dir.is_dir() and has_index(stage_dir):
+                    items.append(node(stage_dir))
+                    used_stages.add(stage)
+            overview = group.get("overview")
+            if overview:
+                overview_dir = OUT / overview
+                if overview_dir.is_dir():
+                    rel = overview_dir.relative_to(OUT)
+                    for child in sorted(overview_dir.iterdir()):
+                        if child.suffix == ".md" and child.stem not in {"index", *UNLISTED_DIRS}:
+                            items.append(leaf(child, rel))
+            category: dict = {
+                "type": "category",
+                "label": group["label"],
+                "items": [{k: v for k, v in it.items() if k != "_position"} for it in items],
+                "_position": group_pos,
+            }
+            if overview and has_index(OUT / overview):
+                category["link"] = {"type": "doc", "id": f"{overview}/index"}
+            children.append(category)
+        # Anything the groups did not consume keeps its normal node.
+        for child in sorted(directory.iterdir()):
+            rel = child.relative_to(OUT).as_posix()
+            if child.is_dir():
+                if child.name in UNLISTED_DIRS or rel in overview_dirs or rel in used_stages:
+                    continue
+                if has_index(child):
+                    children.append(node(child))
+                continue
+            if child.suffix == ".md" and child.stem not in {"index", *UNLISTED_DIRS}:
+                children.append(leaf(child, directory.relative_to(OUT)))
+        children.sort(key=lambda entry: (entry.get("_position", DEFAULT_POSITION), entry.get("label", "")))
+        return {
+            "type": "category",
+            "label": TITLE_OVERRIDES[section],
+            "link": {"type": "doc", "id": f"{directory.relative_to(OUT).as_posix()}/index"},
+            "items": [{k: v for k, v in c.items() if k != "_position"} for c in children],
+            "_position": SIDEBAR_POSITIONS.get(directory.relative_to(OUT).as_posix(), DEFAULT_POSITION),
+        }
+
     # The landing page is a doc like any other, and without it here Docusaurus
     # renders `/` with no sidebar at all — a reader who arrives at the front
     # door gets four inline links and no way to see the curriculum.
@@ -589,7 +670,7 @@ def build_sidebar() -> list:
         directory = OUT / section
         if not directory.is_dir():
             continue
-        entry = node(directory)
+        entry = grouped_node(directory, section) if section in GRAPH_GROUPS else node(directory)
         entry["label"] = TITLE_OVERRIDES[section]
         entry["_position"] = base_pos
         top.append(entry)

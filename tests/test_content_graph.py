@@ -11,6 +11,7 @@ the graph's `renames` table at sync time; these tests make that contract hold:
 """
 
 import importlib.util
+import json
 import re
 from pathlib import Path
 
@@ -68,31 +69,30 @@ def test_graph_lists_every_published_chapter():
     )
 
 
-def test_graph_agrees_with_the_curriculum_projection():
-    """`curriculum-order.txt` is the human-readable projection of the graph.
+def test_curriculum_projection_is_generated_from_the_graph():
+    """`curriculum-order.txt` is the graph's projection, never edited by hand.
 
-    Both carry an order for the same paths; where they overlap they must agree,
-    so a hand edit to either file is caught instead of silently winning.
+    A hand edit to the projection would silently disagree with the graph that
+    actually orders the site. The file must byte-for-byte match what the
+    generator writes, which catches both a stray edit and a graph change whose
+    projection was not regenerated.
     """
     if not SYNC_DOCS.ORDER_FILE.exists():
         return
-    file_order = {}
-    for line in SYNC_DOCS.ORDER_FILE.read_text().splitlines():
-        line = line.split("#", 1)[0].strip()
-        if line:
-            file_order[line] = len(file_order) + 1
-    disagreements = []
-    for path, pos in file_order.items():
-        entry = SYNC_DOCS.GRAPH_BY_PATH.get(path)
-        if (
-            entry is not None
-            and entry.get("kind") != "section"
-            and entry["order"] != pos
-        ):
-            disagreements.append(f"{path}: file={pos} graph={entry['order']}")
-    assert not disagreements, (
-        "curriculum-order.txt and content-graph.json disagree on order:\n  "
-        + "\n  ".join(disagreements)
+    spec = importlib.util.spec_from_file_location(
+        "gen_content_graph", ROOT / "site" / "gen-content-graph.py"
+    )
+    assert spec is not None and spec.loader is not None
+    generator = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(generator)
+    graph = generator.GRAPH_FILE.read_text()
+    graph_data = json.loads(graph)
+
+    expected = generator.curriculum_projection_text(graph_data)
+    actual = SYNC_DOCS.ORDER_FILE.read_text()
+    assert actual == expected, (
+        "curriculum-order.txt drifted from the content graph; regenerate it "
+        "with the generator"
     )
 
 
@@ -126,7 +126,8 @@ def test_every_internal_link_resolves_through_the_graph():
             target = target.rstrip("/")
             if not target:
                 continue
-            resolved = (ROOT / src_rel.parent / target).resolve()
+            old_dir = str(Path(SYNC_DOCS.old_location(src_rel.as_posix())).parent)
+            resolved = (ROOT / old_dir / target).resolve()
             try:
                 resolved = resolved.relative_to(ROOT)
             except ValueError:

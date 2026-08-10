@@ -237,6 +237,6 @@ group-relative advantage is known to degrade without episode boundaries,
 and MiniGrid's goal/lava termination keeps this mission inside that
 known-viable regime deliberately. A result here does not generalize to game
 engines or continuous-control games, and does not require [mission
-05](../01-language-model/vision/)'s vision work, since MiniGrid's
+05](../01-language-model/)'s vision work, since MiniGrid's
 observation is a compact symbolic grid, not pixels. Full boundary in
 [`mission.yaml`](mission.yaml) under `does_not_prove`.

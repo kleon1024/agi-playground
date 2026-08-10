@@ -18,16 +18,24 @@ behaves the way the topic assumed.
 Nine topics, then two support libraries, and each boundary fits in one
 sentence. There is no `missions/` level: the topics were pulled up one level
 so the directory is the reader-facing domain, and the old `infra/` tree was
-absorbed into the topic that uses the mechanism.
+absorbed into the topic that uses the mechanism. Directories carry no
+numbers: a chapter's reading order lives in the content graph
+(`reference/standards/content-graph.json`), which also resolves every internal
+link through its `renames` table, so renaming a chapter is a one-entry data
+change instead of an edit across hundreds of files. Run
+`uv run python site/gen-content-graph.py --redirects-only` after changing the
+rename table to keep the site's redirect list in step.
 
 ```
-01-language-model/          raw text → tokenizer → pretrain → adapt → serve → act; vision lives under it
-02-personalized-discovery/  recommendation, search, and ads as one decision loop (shared/ + per-surface)
+01-language-model/          raw text → tokenizer → pretrain → (post-training: sft, rl) → serve → agent-harness → eval;
+                            the vision pathway lives in corpus/pretrain/eval, not as its own chapter
+02-personalized-discovery/  recommendation, search, and ads as one decision loop; stages are flat under the
+                            topic, grouped into Shared / Search / Recommendation / Ads / Operations in the graph
 03-quantitative-research/   point-in-time data → signal → portfolio → validation → capacity
 04-agentic-platform/        the agent harness, its failure modes, and what a correct patch costs
 05-game-ai/ 07-multimodal-generation/ 08-bio-pharma-modeling/ 09-autonomous-driving/
                             the remaining decision loops, each with its own artifact chain;
-                            07 is voice and video under one topic (codec and video-token
+                            07 is voice and video under one topic, stages flat (codec and video-token
                             mechanisms plus the codebook failures both surfaces share)
 foundations/                mechanism that holds regardless of which topic you run
 reference/                  contracts, governance, compute-lane guides, and dated survey material
@@ -39,8 +47,9 @@ platform chapters served exactly one topic, nine interactives appeared on both
 a topic stage and a platform twin, and roughly 2,100 lines of branch prose
 owned no `core/`, `prod/`, or `runs/`. The `missions/` level repeated that
 lesson at one remove, so it was deleted too. Cross-cutting views are an
-**index**, not a directory: `site/topics.mdx` lists every chapter under the
-decision it serves.
+**index**, not a directory: `site/topics.mdx` is generated from the content
+graph (`uv run python site/gen-topics.py`) and lists every chapter grouped by
+the system it serves.
 
 ## Curriculum ownership
 

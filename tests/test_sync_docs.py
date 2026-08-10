@@ -57,7 +57,7 @@ def test_relative_lesson_links_become_absolute_public_routes():
 
     rewritten = SYNC_DOCS.rewrite_links(markdown, source)
 
-    assert "[loop](/playground/foundations/01-first-training-loop)" in rewritten
+    assert "[loop](/playground/foundations/first-training-loop)" in rewritten
     assert "[reference](/playground/reference#next)" in rewritten
 
 
@@ -133,14 +133,14 @@ def test_supporting_directories_are_named_and_sorted_below_lessons():
 
 
 def test_relative_source_links_stay_on_github():
-    source = Path("01-language-model/01-tokenizer/README.md")
+    source = Path("01-language-model/tokenizer/README.md")
     markdown = "[implementation](core/bpe.py)"
 
     rewritten = SYNC_DOCS.rewrite_links(markdown, source)
 
     assert rewritten == (
         "[implementation](https://github.com/kleon1024/agi-playground/blob/main/"
-        "01-language-model/01-tokenizer/core/bpe.py)"
+        "01-language-model/tokenizer/core/bpe.py)"
     )
 
 
@@ -149,13 +149,13 @@ def test_runs_entries_can_cite_their_own_raw_evidence():
     patches. Those are files to look at on GitHub, not routes on this site, and
     a suffix missing from the rewriter does not produce a wrong link, it breaks
     the build."""
-    source = Path("04-agentic-platform/03-cheap-or-expensive/runs/entry.md")
+    source = Path("04-agentic-platform/cheap-or-expensive/runs/entry.md")
     markdown = "[rows](results.jsonl) and [patches](patches.diff)"
 
     rewritten = SYNC_DOCS.rewrite_links(markdown, source)
 
     base = "https://github.com/kleon1024/agi-playground/blob/main"
-    stage = "04-agentic-platform/03-cheap-or-expensive/runs"
+    stage = "04-agentic-platform/cheap-or-expensive/runs"
     assert rewritten == (
         f"[rows]({base}/{stage}/results.jsonl) and [patches]({base}/{stage}/patches.diff)"
     )
@@ -286,8 +286,9 @@ def test_no_published_page_is_an_orphan_in_prose():
         if not source.is_file():
             continue
         for target in re.findall(r"\]\((?!http|#)([^)#]+)", source.read_text()):
+            old_dir = str(Path(SYNC_DOCS.old_location(source.relative_to(ROOT).as_posix())).parent)
             try:
-                resolved = (source.parent / target).resolve().relative_to(ROOT.resolve())
+                resolved = (ROOT / old_dir / target).resolve().relative_to(ROOT.resolve())
             except ValueError:
                 continue  # points outside the repository
             text = resolved.as_posix().rstrip("/")
@@ -296,6 +297,10 @@ def test_no_published_page_is_an_orphan_in_prose():
                 if text.endswith("/README.md")
                 else text.removesuffix(".md")
             )
+            for old, new in SYNC_DOCS.RENAMES.items():
+                if text == old or text.startswith(old + "/"):
+                    text = new + text[len(old):]
+                    break
             if text != page_id(source):
                 linked.add(text)
 
@@ -420,7 +425,7 @@ def test_only_a_lesson_carries_a_build_status_badge():
     has no `runs/` because it never promised a measurement, and "Foundations ·
     draft" reads as though the whole section were unfinished.
     """
-    assert SYNC_DOCS.is_lesson(Path("01-language-model/07-eval/eval-gates"))
+    assert SYNC_DOCS.is_lesson(Path("01-language-model/eval/eval-gates"))
     assert not SYNC_DOCS.is_lesson(Path("foundations"))
     assert not SYNC_DOCS.is_lesson(Path("01-language-model"))
 

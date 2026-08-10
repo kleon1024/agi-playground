@@ -3,7 +3,7 @@
 That is the whole contract of a KV cache: it is an optimisation, so feeding
 token `t` with `t-1` tokens already cached has to land on exactly the row
 `model.forward(seq)` puts at position `t`. Both engines in
-[`05-serve`](../01-language-model/05-serve/core/engine.py) are
+[`serve`](../01-language-model/serve/core/engine.py) are
 checked against that, prefill and decode alike.
 
 The comparison is on **logits**, not on generated token ids, and the reason is
@@ -31,8 +31,8 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-SERVE = ROOT / "01-language-model/05-serve/core"
-PRETRAIN = ROOT / "01-language-model/02-pretrain/core"
+SERVE = ROOT / "01-language-model/serve/core"
+PRETRAIN = ROOT / "01-language-model/pretrain/core"
 
 torch = pytest.importorskip("torch", reason="needs torch; run `uv run --group torch pytest`")
 for _p in (str(SERVE), str(PRETRAIN)):

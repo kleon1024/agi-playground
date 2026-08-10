@@ -4,7 +4,7 @@ Stage 03's masker decides the loss span from `turn["role"]` alone; it
 never reads the text, so the only defense against a wrong role is a check
 that runs on the raw row before rendering. This test pins the guardrail
 from the injected-noise audit
-(`01-language-model/03-sft/the-template-is-a-contract/when-the-role-is-wrong/`)
+(`01-language-model/sft/the-template-is-a-contract/when-the-role-is-wrong/`)
 to the defect classes it exists to catch: a role-swapped conversation, a
 case-variant role, an empty assistant turn, marker strings that leaked
 into content (double-render), and a pipeline that stamped every turn as
@@ -21,7 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT = (
     ROOT
-    / "01-language-model/03-sft/the-template-is-a-contract"
+    / "01-language-model/sft/the-template-is-a-contract"
     / "when-the-role-is-wrong/core/noise_audit.py"
 )
 

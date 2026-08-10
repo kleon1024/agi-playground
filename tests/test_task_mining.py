@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MINER_PATH = ROOT / "04-agentic-platform/00-task-set/core/mine_history.py"
+MINER_PATH = ROOT / "04-agentic-platform/task-set/core/mine_history.py"
 MANIFEST_PATH = ROOT / "04-agentic-platform/tasks/private.jsonl"
 CANDIDATES_PATH = ROOT / "04-agentic-platform/tasks/candidates.jsonl"
 
@@ -35,7 +35,7 @@ def test_files_are_sorted_into_the_three_roles():
     assert MINER.classify("tests/test_decode_correctness.py") == "test"
     assert MINER.classify("pyproject.toml") == "env"
     assert MINER.classify("uv.lock") == "env"
-    assert MINER.classify("01-language-model/05-serve/core/engine.py") == "source"
+    assert MINER.classify("01-language-model/serve/core/engine.py") == "source"
     # A lockfile nested inside a package is that package's business, not the
     # environment the task runs in.
     assert MINER.classify("site/package-lock.json") == "source"

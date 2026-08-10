@@ -3,359 +3,355 @@
     "level": "foundation",
     "minutes": 5
   },
-  "01-language-model/00-corpus": {
+  "01-language-model/agent-harness": {
+    "level": "applied",
+    "minutes": 17
+  },
+  "01-language-model/agent-harness/prod": {
+    "level": "",
+    "minutes": 1
+  },
+  "01-language-model/agent-harness/what-fits-in-context": {
+    "level": "applied",
+    "minutes": 9
+  },
+  "01-language-model/agent-harness/what-stops-it": {
+    "level": "applied",
+    "minutes": 17
+  },
+  "01-language-model/agent-harness/when-the-tool-errors": {
+    "level": "applied",
+    "minutes": 11
+  },
+  "01-language-model/agent-harness/would-a-second-agent-help": {
+    "level": "applied",
+    "minutes": 14
+  },
+  "01-language-model/agent-harness/would-a-second-agent-help/prod": {
+    "level": "",
+    "minutes": 1
+  },
+  "01-language-model/corpus": {
     "level": "foundation",
     "minutes": 11
   },
-  "01-language-model/00-corpus/dedup-at-scale": {
+  "01-language-model/corpus/dedup-at-scale": {
     "level": "reference",
     "minutes": 10
   },
-  "01-language-model/00-corpus/dedup-at-scale/when-verification-goes-quadratic": {
+  "01-language-model/corpus/dedup-at-scale/when-verification-goes-quadratic": {
     "level": "applied",
     "minutes": 5
   },
-  "01-language-model/00-corpus/the-funnel-shape": {
+  "01-language-model/corpus/image-caption-task": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 8
   },
-  "01-language-model/00-corpus/what-a-release-needs": {
-    "level": "applied",
-    "minutes": 11
-  },
-  "01-language-model/00-corpus/when-the-benchmark-is-in-the-train-set": {
+  "01-language-model/corpus/real-photo-task": {
     "level": "applied",
     "minutes": 5
   },
-  "01-language-model/00-corpus/when-the-filter-eats-the-signal": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "01-language-model/01-tokenizer": {
-    "level": "foundation",
-    "minutes": 10
-  },
-  "01-language-model/01-tokenizer/is-it-the-same-tokenizer": {
-    "level": "foundation",
-    "minutes": 7
-  },
-  "01-language-model/01-tokenizer/is-it-the-same-tokenizer/when-the-tie-break-matters": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "01-language-model/01-tokenizer/the-characters-that-cost-the-most": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "01-language-model/01-tokenizer/the-merges-that-build-the-vocab": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "01-language-model/02-pretrain": {
-    "level": "foundation",
-    "minutes": 17
-  },
-  "01-language-model/02-pretrain/architecture-ablations": {
-    "level": "applied",
-    "minutes": 14
-  },
-  "01-language-model/02-pretrain/architecture-ablations/the-rung-that-flipped": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "01-language-model/02-pretrain/attention-variants": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "01-language-model/02-pretrain/latent-reasoning": {
-    "level": "frontier",
-    "minutes": 13
-  },
-  "01-language-model/02-pretrain/mid-training": {
-    "level": "applied",
-    "minutes": 21
-  },
-  "01-language-model/02-pretrain/mid-training/when-the-annealed-slice-moves-the-evals": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "01-language-model/02-pretrain/the-gate-that-beats-relu": {
+  "01-language-model/corpus/seed-vs-pixels": {
     "level": "applied",
     "minutes": 5
   },
-  "01-language-model/02-pretrain/throughput": {
-    "level": "applied",
-    "minutes": 13
-  },
-  "01-language-model/02-pretrain/upcycling": {
-    "level": "frontier",
-    "minutes": 13
-  },
-  "01-language-model/02-pretrain/upcycling/does-it-pay-off": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "01-language-model/02-pretrain/verifying-the-run": {
-    "level": "applied",
-    "minutes": 12
-  },
-  "01-language-model/02-pretrain/when-the-curve-goes-wrong": {
-    "level": "applied",
-    "minutes": 11
-  },
-  "01-language-model/03-sft": {
-    "level": "foundation",
-    "minutes": 14
-  },
-  "01-language-model/03-sft/beyond-demonstrations": {
-    "level": "applied",
-    "minutes": 12
-  },
-  "01-language-model/03-sft/distillation": {
-    "level": "frontier",
-    "minutes": 13
-  },
-  "01-language-model/03-sft/distillation/what-path-two-requires": {
-    "level": "frontier",
-    "minutes": 7
-  },
-  "01-language-model/03-sft/distillation/when-the-teacher-is-wrong": {
-    "level": "frontier",
-    "minutes": 9
-  },
-  "01-language-model/03-sft/distillation/which-teacher-changes-what": {
-    "level": "frontier",
-    "minutes": 8
-  },
-  "01-language-model/03-sft/the-template-is-a-contract": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "01-language-model/03-sft/the-template-is-a-contract/when-the-role-is-wrong": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "01-language-model/03-sft/what-it-costs": {
-    "level": "applied",
-    "minutes": 14
-  },
-  "01-language-model/03-sft/what-model-size-changes": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "01-language-model/04-rl": {
-    "level": "applied",
-    "minutes": 13
-  },
-  "01-language-model/04-rl/reward-went-up": {
-    "level": "applied",
-    "minutes": 12
-  },
-  "01-language-model/04-rl/reward-went-up/when-the-proxy-gets-gamed": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "01-language-model/04-rl/reward-went-up/when-the-reward-is-wrong": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "01-language-model/04-rl/rollout-concurrency": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "01-language-model/04-rl/rollout-concurrency/when-the-heavy-tail-waits": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "01-language-model/04-rl/the-group-relative-trick": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "01-language-model/04-rl/the-kl-leash": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "01-language-model/04-rl/what-a-real-loop-adds": {
-    "level": "applied",
-    "minutes": 12
-  },
-  "01-language-model/05-serve": {
-    "level": "foundation",
-    "minutes": 14
-  },
-  "01-language-model/05-serve/graph-execution": {
-    "level": "applied",
-    "minutes": 13
-  },
-  "01-language-model/05-serve/observability": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "01-language-model/05-serve/observability/when-the-tail-waits": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "01-language-model/05-serve/paging-the-cache": {
-    "level": "foundation",
-    "minutes": 9
-  },
-  "01-language-model/05-serve/quantization": {
-    "level": "applied",
-    "minutes": 11
-  },
-  "01-language-model/05-serve/speculative-decoding": {
-    "level": "applied",
-    "minutes": 11
-  },
-  "01-language-model/05-serve/when-the-cascade-loses": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "01-language-model/05-serve/why-concurrency-pays": {
-    "level": "applied",
-    "minutes": 13
-  },
-  "01-language-model/06-agent": {
-    "level": "applied",
-    "minutes": 17
-  },
-  "01-language-model/06-agent/prod": {
-    "level": "",
-    "minutes": 1
-  },
-  "01-language-model/06-agent/what-fits-in-context": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "01-language-model/06-agent/what-stops-it": {
-    "level": "applied",
-    "minutes": 17
-  },
-  "01-language-model/06-agent/when-the-tool-errors": {
-    "level": "applied",
-    "minutes": 11
-  },
-  "01-language-model/06-agent/would-a-second-agent-help": {
-    "level": "applied",
-    "minutes": 14
-  },
-  "01-language-model/06-agent/would-a-second-agent-help/prod": {
-    "level": "",
-    "minutes": 1
-  },
-  "01-language-model/07-eval": {
-    "level": "applied",
-    "minutes": 11
-  },
-  "01-language-model/07-eval/eval-gates": {
-    "level": "applied",
-    "minutes": 10
-  },
-  "01-language-model/07-eval/metric-gaming": {
-    "level": "applied",
-    "minutes": 11
-  },
-  "01-language-model/07-eval/red-teaming": {
-    "level": "applied",
-    "minutes": 11
-  },
-  "01-language-model/07-eval/who-decides-to-ship": {
-    "level": "applied",
-    "minutes": 10
-  },
-  "01-language-model/07-eval/whose-harness": {
-    "level": "applied",
-    "minutes": 12
-  },
-  "01-language-model/07-eval/why-believe-the-number": {
-    "level": "applied",
-    "minutes": 11
-  },
-  "01-language-model/vision": {
-    "level": "applied",
-    "minutes": 11
-  },
-  "01-language-model/vision/00-image-caption-task": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "01-language-model/vision/00-image-caption-task/seed-vs-pixels": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "01-language-model/vision/00-image-caption-task/the-collision-that-closed-the-gap": {
+  "01-language-model/corpus/the-collision-that-closed-the-gap": {
     "level": "applied",
     "minutes": 3
   },
-  "01-language-model/vision/01-vision-fusion": {
+  "01-language-model/corpus/the-funnel-shape": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "01-language-model/corpus/the-id-based-guardrail": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "01-language-model/corpus/the-real-photo-guardrail": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "01-language-model/corpus/what-a-release-needs": {
     "level": "applied",
     "minutes": 11
   },
-  "01-language-model/vision/01-vision-fusion/the-fused-attention-anatomy": {
+  "01-language-model/corpus/when-the-benchmark-is-in-the-train-set": {
     "level": "applied",
     "minutes": 5
   },
-  "01-language-model/vision/01-vision-fusion/where-the-decoder-looks": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "01-language-model/vision/02-report": {
+  "01-language-model/corpus/when-the-filter-eats-the-signal": {
     "level": "applied",
     "minutes": 7
   },
-  "01-language-model/vision/02-report/the-economics-per-question": {
+  "01-language-model/eval": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 11
   },
-  "01-language-model/vision/02-report/when-the-category-breaks-down": {
+  "01-language-model/eval/eval-gates": {
     "level": "applied",
-    "minutes": 4
+    "minutes": 10
   },
-  "01-language-model/vision/03-real-photo-task": {
+  "01-language-model/eval/metric-gaming": {
     "level": "applied",
-    "minutes": 5
+    "minutes": 11
   },
-  "01-language-model/vision/03-real-photo-task/the-id-based-guardrail": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "01-language-model/vision/03-real-photo-task/the-real-photo-guardrail": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "01-language-model/vision/04-real-photo-vision-fusion": {
+  "01-language-model/eval/real-photo-report": {
     "level": "applied",
     "minutes": 5
   },
-  "01-language-model/vision/04-real-photo-vision-fusion/the-flipped-variance": {
+  "01-language-model/eval/red-teaming": {
+    "level": "applied",
+    "minutes": 11
+  },
+  "01-language-model/eval/the-answer-type-shaped-edge": {
     "level": "applied",
     "minutes": 4
   },
-  "01-language-model/vision/04-real-photo-vision-fusion/when-the-margin-is-narrow": {
+  "01-language-model/eval/the-economics-per-question": {
     "level": "applied",
     "minutes": 4
   },
-  "01-language-model/vision/05-real-photo-report": {
+  "01-language-model/eval/vision-report": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "01-language-model/eval/when-the-api-still-wins": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "01-language-model/eval/when-the-category-breaks-down": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "01-language-model/eval/who-decides-to-ship": {
+    "level": "applied",
+    "minutes": 10
+  },
+  "01-language-model/eval/whose-harness": {
+    "level": "applied",
+    "minutes": 12
+  },
+  "01-language-model/eval/why-believe-the-number": {
+    "level": "applied",
+    "minutes": 11
+  },
+  "01-language-model/pretrain": {
+    "level": "foundation",
+    "minutes": 17
+  },
+  "01-language-model/pretrain/architecture-ablations": {
+    "level": "applied",
+    "minutes": 14
+  },
+  "01-language-model/pretrain/architecture-ablations/the-rung-that-flipped": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "01-language-model/pretrain/attention-variants": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "01-language-model/pretrain/latent-reasoning": {
+    "level": "frontier",
+    "minutes": 13
+  },
+  "01-language-model/pretrain/mid-training": {
+    "level": "applied",
+    "minutes": 21
+  },
+  "01-language-model/pretrain/mid-training/when-the-annealed-slice-moves-the-evals": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "01-language-model/pretrain/real-photo-vision-fusion": {
     "level": "applied",
     "minutes": 5
   },
-  "01-language-model/vision/05-real-photo-report/the-answer-type-shaped-edge": {
+  "01-language-model/pretrain/the-collapse-that-warmup-closed": {
     "level": "applied",
     "minutes": 4
   },
-  "01-language-model/vision/05-real-photo-report/when-the-api-still-wins": {
+  "01-language-model/pretrain/the-flipped-variance": {
     "level": "applied",
     "minutes": 4
   },
-  "01-language-model/vision/06-warmup-stability": {
+  "01-language-model/pretrain/the-fused-attention-anatomy": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "01-language-model/pretrain/the-gate-that-beats-relu": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "01-language-model/pretrain/throughput": {
+    "level": "applied",
+    "minutes": 13
+  },
+  "01-language-model/pretrain/upcycling": {
+    "level": "frontier",
+    "minutes": 13
+  },
+  "01-language-model/pretrain/upcycling/does-it-pay-off": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "01-language-model/pretrain/verifying-the-run": {
+    "level": "applied",
+    "minutes": 12
+  },
+  "01-language-model/pretrain/vision-fusion": {
+    "level": "applied",
+    "minutes": 11
+  },
+  "01-language-model/pretrain/warmup-stability": {
     "level": "applied",
     "minutes": 6
   },
-  "01-language-model/vision/06-warmup-stability/the-collapse-that-warmup-closed": {
+  "01-language-model/pretrain/when-the-curve-goes-wrong": {
+    "level": "applied",
+    "minutes": 11
+  },
+  "01-language-model/pretrain/when-the-margin-is-narrow": {
     "level": "applied",
     "minutes": 4
   },
-  "01-language-model/vision/06-warmup-stability/when-warmup-closed-the-collapse": {
+  "01-language-model/pretrain/when-warmup-closed-the-collapse": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "01-language-model/pretrain/where-the-decoder-looks": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "01-language-model/rl": {
+    "level": "applied",
+    "minutes": 13
+  },
+  "01-language-model/rl/reward-went-up": {
+    "level": "applied",
+    "minutes": 12
+  },
+  "01-language-model/rl/reward-went-up/when-the-proxy-gets-gamed": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "01-language-model/rl/reward-went-up/when-the-reward-is-wrong": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "01-language-model/rl/rollout-concurrency": {
+    "level": "applied",
+    "minutes": 9
+  },
+  "01-language-model/rl/rollout-concurrency/when-the-heavy-tail-waits": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "01-language-model/rl/the-group-relative-trick": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "01-language-model/rl/the-kl-leash": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "01-language-model/rl/what-a-real-loop-adds": {
+    "level": "applied",
+    "minutes": 12
+  },
+  "01-language-model/serve": {
+    "level": "foundation",
+    "minutes": 14
+  },
+  "01-language-model/serve/graph-execution": {
+    "level": "applied",
+    "minutes": 13
+  },
+  "01-language-model/serve/observability": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "01-language-model/serve/observability/when-the-tail-waits": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "01-language-model/serve/paging-the-cache": {
+    "level": "foundation",
+    "minutes": 9
+  },
+  "01-language-model/serve/quantization": {
+    "level": "applied",
+    "minutes": 11
+  },
+  "01-language-model/serve/speculative-decoding": {
+    "level": "applied",
+    "minutes": 11
+  },
+  "01-language-model/serve/when-the-cascade-loses": {
+    "level": "applied",
+    "minutes": 9
+  },
+  "01-language-model/serve/why-concurrency-pays": {
+    "level": "applied",
+    "minutes": 13
+  },
+  "01-language-model/sft": {
+    "level": "foundation",
+    "minutes": 14
+  },
+  "01-language-model/sft/beyond-demonstrations": {
+    "level": "applied",
+    "minutes": 12
+  },
+  "01-language-model/sft/distillation": {
+    "level": "frontier",
+    "minutes": 13
+  },
+  "01-language-model/sft/distillation/what-path-two-requires": {
+    "level": "frontier",
+    "minutes": 7
+  },
+  "01-language-model/sft/distillation/when-the-teacher-is-wrong": {
+    "level": "frontier",
+    "minutes": 9
+  },
+  "01-language-model/sft/distillation/which-teacher-changes-what": {
+    "level": "frontier",
+    "minutes": 8
+  },
+  "01-language-model/sft/the-template-is-a-contract": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "01-language-model/sft/the-template-is-a-contract/when-the-role-is-wrong": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "01-language-model/sft/what-it-costs": {
+    "level": "applied",
+    "minutes": 14
+  },
+  "01-language-model/sft/what-model-size-changes": {
+    "level": "applied",
+    "minutes": 9
+  },
+  "01-language-model/tokenizer": {
+    "level": "foundation",
+    "minutes": 10
+  },
+  "01-language-model/tokenizer/is-it-the-same-tokenizer": {
+    "level": "foundation",
+    "minutes": 7
+  },
+  "01-language-model/tokenizer/is-it-the-same-tokenizer/when-the-tie-break-matters": {
+    "level": "applied",
+    "minutes": 9
+  },
+  "01-language-model/tokenizer/the-characters-that-cost-the-most": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "01-language-model/tokenizer/the-merges-that-build-the-vocab": {
     "level": "applied",
     "minutes": 4
   },
@@ -363,283 +359,795 @@
     "level": "applied",
     "minutes": 9
   },
+  "02-personalized-discovery/ad-auction": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/ad-auction/when-the-market-is-thin": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/ad-auction/when-the-reserve-price-bites": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/ad-auction/when-truthful-bidding-is-optimal": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/ad-externality": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "02-personalized-discovery/ad-externality/when-the-ad-is-relevant": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/ad-externality/when-the-slot-hides-the-whale": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/ad-externality/when-the-slot-is-scarce": {
+    "level": "applied",
+    "minutes": 3
+  },
   "02-personalized-discovery/ads": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/ads/14-ad-auction": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/ads/14-ad-auction/when-the-market-is-thin": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/ads/14-ad-auction/when-the-reserve-price-bites": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/14-ad-auction/when-truthful-bidding-is-optimal": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/15-ecpm-ranking": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/ads/15-ecpm-ranking/when-pctr-moves-the-rank": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/15-ecpm-ranking/when-the-bids-tie": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/ads/15-ecpm-ranking/when-the-reserve-interacts": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/16-ctr-calibration": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "02-personalized-discovery/ads/16-ctr-calibration/when-calibration-and-ranking-conflict": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/16-ctr-calibration/when-calibration-drifts": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/ads/16-ctr-calibration/when-the-correction-is-needed": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/17-budget-pacing": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "02-personalized-discovery/ads/17-budget-pacing/when-delivery-varies": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/17-budget-pacing/when-the-budget-is-tiny": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/17-budget-pacing/when-the-pacer-overcorrects": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/ads/18-ad-externality": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "02-personalized-discovery/ads/18-ad-externality/when-the-ad-is-relevant": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/18-ad-externality/when-the-slot-hides-the-whale": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/ads/18-ad-externality/when-the-slot-is-scarce": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/25-frequency-capping": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "02-personalized-discovery/ads/25-frequency-capping/when-fatigue-hits": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/25-frequency-capping/when-the-cap-bites": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/25-frequency-capping/when-the-counter-drifts": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/ads/26-creative-selection": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "02-personalized-discovery/ads/26-creative-selection/when-the-creative-context-changes": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/26-creative-selection/when-the-creative-has-no-history": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/ads/26-creative-selection/when-the-creative-is-stale": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/27-bid-strategy": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "02-personalized-discovery/ads/27-bid-strategy/when-the-bid-is-capped": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/27-bid-strategy/when-the-conversion-lags": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/ads/27-bid-strategy/when-the-target-cpa-binds": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/28-auction-revenue": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/ads/28-auction-revenue/when-first-price-pays-more": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/28-auction-revenue/when-the-bidders-learn": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/ads/28-auction-revenue/when-the-reserve-moves-revenue": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/29-rtb-pipeline": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/ads/29-rtb-pipeline/when-the-bidder-is-slow": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/29-rtb-pipeline/when-the-exchange-times-out": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/29-rtb-pipeline/when-the-model-outruns-the-budget": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/ads/30-ads-measurement": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "02-personalized-discovery/ads/30-ads-measurement/when-attribution-overcounts": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/30-ads-measurement/when-the-incrementality-is-zero": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/30-ads-measurement/when-the-lift-is-too-small-to-see": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/ads/38-interleaving-experiments": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "02-personalized-discovery/ads/38-interleaving-experiments/when-the-blend-biases-the-credit": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/ads/38-interleaving-experiments/when-the-credit-is-unbalanced": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/38-interleaving-experiments/when-the-traffic-is-tiny": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/39-first-price-transition": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "02-personalized-discovery/ads/39-first-price-transition/when-the-competition-is-unobservable": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/ads/39-first-price-transition/when-the-market-adjusts": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/39-first-price-transition/when-the-shading-is-wrong": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/40-privacy-safe-attribution": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "02-personalized-discovery/ads/40-privacy-safe-attribution/when-the-budget-splits": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/40-privacy-safe-attribution/when-the-noise-flips-the-order": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/ads/40-privacy-safe-attribution/when-the-noise-is-too-high": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/ads/41-llm-creative-generation": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "02-personalized-discovery/ads/41-llm-creative-generation/when-the-generated-creative-is-identical": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/41-llm-creative-generation/when-the-generator-collapses-to-the-train-set": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/ads/41-llm-creative-generation/when-the-score-is-on-surface": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/42-marketplace-economics": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "02-personalized-discovery/ads/42-marketplace-economics/when-the-ad-load-moves": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/42-marketplace-economics/when-the-demand-curve-is-elastic": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/ads/42-marketplace-economics/when-the-take-rate-is-too-high": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/ads/43-ads-inside-the-loop": {
+  "02-personalized-discovery/ads-inside-the-loop": {
     "level": "frontier",
     "minutes": 7
   },
-  "02-personalized-discovery/ads/56-advertiser-roas": {
+  "02-personalized-discovery/ads-measurement": {
     "level": "applied",
     "minutes": 8
   },
-  "02-personalized-discovery/ads/56-advertiser-roas/when-roas-collapses": {
+  "02-personalized-discovery/ads-measurement/when-attribution-overcounts": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/ads/56-advertiser-roas/when-the-average-hides-the-margin": {
+  "02-personalized-discovery/ads-measurement/when-the-incrementality-is-zero": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/ads-measurement/when-the-lift-is-too-small-to-see": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/advertiser-roas": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "02-personalized-discovery/advertiser-roas/when-roas-collapses": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/advertiser-roas/when-the-average-hides-the-margin": {
     "level": "applied",
     "minutes": 6
   },
-  "02-personalized-discovery/ads/56-advertiser-roas/when-the-budget-moves": {
+  "02-personalized-discovery/advertiser-roas/when-the-budget-moves": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/auc-label-seesaw": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/auc-label-seesaw/when-the-gradients-conflict": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/auc-label-seesaw/when-the-second-model-costs": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/auc-label-seesaw/when-the-slice-trades": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/auction-revenue": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/auction-revenue/when-first-price-pays-more": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/auction-revenue/when-the-bidders-learn": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/auction-revenue/when-the-reserve-moves-revenue": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/bid-strategy": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "02-personalized-discovery/bid-strategy/when-the-bid-is-capped": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/bid-strategy/when-the-conversion-lags": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/bid-strategy/when-the-target-cpa-binds": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/budget-pacing": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "02-personalized-discovery/budget-pacing/when-delivery-varies": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/budget-pacing/when-the-budget-is-tiny": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/budget-pacing/when-the-pacer-overcorrects": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/cascade-consistency": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/cascade-consistency/when-the-distillation-blurs": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/cascade-consistency/when-the-teacher-never-sees-the-cut": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/cascade-consistency/when-top-k-is-not-preserved": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/content-understanding": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/content-understanding/the-63-percent-that-never-moves": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/content-understanding/when-the-label-is-noisy": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/content-understanding/when-the-threshold-rescues-the-tail": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/conversational-search": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/conversational-search/when-the-anaphora-is-ambiguous": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/conversational-search/when-the-context-is-long": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/conversational-search/when-the-topic-shifts": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/conversational-surface": {
+    "level": "frontier",
+    "minutes": 6
+  },
+  "02-personalized-discovery/cost-per-query": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/cost-per-query/when-the-cache-pays": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/cost-per-query/when-the-model-is-too-big": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/cost-per-query/when-the-tail-misses": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/creative-selection": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "02-personalized-discovery/creative-selection/when-the-creative-context-changes": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/creative-selection/when-the-creative-has-no-history": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/creative-selection/when-the-creative-is-stale": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/ctr-calibration": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/ctr-calibration/when-calibration-and-ranking-conflict": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/ctr-calibration/when-calibration-drifts": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/ctr-calibration/when-the-correction-is-needed": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/delayed-feedback": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/delayed-feedback/when-freshness-fights-correctness": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/delayed-feedback/when-the-window-is-too-short": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/dense-retrieval": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/dense-retrieval/when-everything-is-equidistant": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/dense-retrieval/when-the-embedding-is-stale": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/dense-retrieval/when-the-index-is-ann": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/ecpm-ranking": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/ecpm-ranking/when-pctr-moves-the-rank": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/ecpm-ranking/when-the-bids-tie": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/ecpm-ranking/when-the-reserve-interacts": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/entire-space-funnel": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/entire-space-funnel/when-the-ctcvr-disagrees": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/entire-space-funnel/when-the-cvr-is-censored": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/exposure-bias": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/exposure-bias/when-exploration-traffic-is-thin": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/exposure-bias/when-the-propensity-is-noisy": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/fairness-and-allocation": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/fairness-and-allocation/when-the-constraint-bites": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/fairness-and-allocation/when-the-groups-cross": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/fairness-and-allocation/when-the-policy-is-biased": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/feature-store": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/feature-store/when-the-feature-diverges": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/feature-store/when-the-feature-is-missing": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/feature-store/when-the-online-value-moves": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/feedback-loops": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/feedback-loops/when-popularity-collapses": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/feedback-loops/when-the-filter-bubble-closes": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/feedback-loops/when-the-policy-borrows-luck": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/fine-rank": {
+    "level": "applied",
+    "minutes": 9
+  },
+  "02-personalized-discovery/fine-rank/the-calibration-that-decides": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/fine-rank/when-sharing-hurts": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/fine-rank/when-the-model-is-stale": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/first-price-transition": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "02-personalized-discovery/first-price-transition/when-the-competition-is-unobservable": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/first-price-transition/when-the-market-adjusts": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/first-price-transition/when-the-shading-is-wrong": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/frequency-capping": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "02-personalized-discovery/frequency-capping/when-fatigue-hits": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/frequency-capping/when-the-cap-bites": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/frequency-capping/when-the-counter-drifts": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/funnel-consistency": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/funnel-consistency/when-the-constraint-hurts": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/funnel-consistency/when-the-order-exceeds-the-click": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/generative-retrieval": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/generative-retrieval/when-the-generator-hallucinates": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/generative-retrieval/when-the-id-is-a-phrase": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/generative-retrieval/when-the-id-space-grows": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/heavy-tail-objective": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/heavy-tail-objective/when-the-aov-skews": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/heavy-tail-objective/when-the-whale-dominates": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/hybrid-fusion": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/hybrid-fusion/when-one-set-is-empty": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/hybrid-fusion/when-the-fusion-weight-moves": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/hybrid-fusion/when-the-sets-disagree-entirely": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/interactions": {
+    "level": "foundation",
+    "minutes": 10
+  },
+  "02-personalized-discovery/interactions/the-eligibility-cascade": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/interactions/when-the-absence-is-a-signal": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/interactions/when-the-split-leaks": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/interleaving-experiments": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "02-personalized-discovery/interleaving-experiments/when-the-blend-biases-the-credit": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/interleaving-experiments/when-the-credit-is-unbalanced": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/interleaving-experiments/when-the-traffic-is-tiny": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/llm-creative-generation": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "02-personalized-discovery/llm-creative-generation/when-the-generated-creative-is-identical": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/llm-creative-generation/when-the-generator-collapses-to-the-train-set": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/llm-creative-generation/when-the-score-is-on-surface": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/llm-query-understanding": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/llm-query-understanding/when-the-llm-over-parses": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/llm-query-understanding/when-the-parse-swings": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/llm-query-understanding/when-the-slot-is-empty": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/llm-ranking": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/llm-ranking/when-the-llm-disagrees": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/llm-ranking/when-the-output-cannot-be-parsed": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/llm-ranking/when-the-prompt-token-budget-binds": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/ltv-and-cac": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/ltv-and-cac/when-cac-exceeds-ltv": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/ltv-and-cac/when-retention-flattens": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/ltv-and-cac/when-the-retention-window-truncates": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/marketplace-economics": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "02-personalized-discovery/marketplace-economics/when-the-ad-load-moves": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/marketplace-economics/when-the-demand-curve-is-elastic": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/marketplace-economics/when-the-take-rate-is-too-high": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/mixing": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/mixing/when-diversity-hurts": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/mixing/when-the-beam-is-wide-enough": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/mixing/when-the-trade-weight-moves": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/monitoring-and-drift": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/monitoring-and-drift/when-the-alert-is-noisy": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/monitoring-and-drift/when-the-drift-is-silent": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/monitoring-and-drift/when-the-slice-hides": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/multi-task-conflict": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/multi-task-conflict/when-gating-does-not-help": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/multi-task-conflict/when-the-dominant-task-wins": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/multimodal-recall": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/multimodal-recall/when-the-content-vector-is-low-quality": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/multimodal-recall/when-the-image-is-cold": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/multimodal-recall/when-the-modality-mismatch": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/negative-sampling": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/negative-sampling/when-the-correction-overcorrects": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/negative-sampling/when-the-negative-rate-is-extreme": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/new-user-experience": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/new-user-experience/when-personalization-scares": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/new-user-experience/when-the-bandit-explores": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/new-user-experience/when-the-user-is-new": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/online-experiments": {
+    "level": "applied",
+    "minutes": 9
+  },
+  "02-personalized-discovery/online-experiments/when-the-budget-runs-out": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/online-experiments/when-the-experiments-overlap": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/online-experiments/when-the-split-lies": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/online-experiments/when-the-traffic-is-two-sided": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/online-experiments/when-the-user-crosses-groups": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/personalized-search": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/personalized-search/when-personalization-hurts": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/personalized-search/when-the-new-user-is-the-majority": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/personalized-search/when-the-user-history-helps": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/pre-rank": {
+    "level": "applied",
+    "minutes": 9
+  },
+  "02-personalized-discovery/pre-rank/when-the-cheap-cut-fails": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/pre-rank/when-the-cheap-score-lies": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/pre-rank/when-the-long-tail-is-invisible": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/privacy-safe-attribution": {
+    "level": "applied",
+    "minutes": 9
+  },
+  "02-personalized-discovery/privacy-safe-attribution/when-the-budget-splits": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/privacy-safe-attribution/when-the-noise-flips-the-order": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/privacy-safe-attribution/when-the-noise-is-too-high": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/query-expansion": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/query-expansion/when-expansion-hurts": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/query-expansion/when-the-correction-helps": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "02-personalized-discovery/query-expansion/when-the-typo-is-a-real-word": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/query-understanding": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "02-personalized-discovery/query-understanding/when-the-intent-misroutes": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/query-understanding/when-the-query-is-misspelled": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/query-understanding/when-the-query-is-short": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/realtime-user-state": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/realtime-user-state/when-realtime-is-too-expensive": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/realtime-user-state/when-the-session-leaks": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/realtime-user-state/when-the-session-state-moves": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/recall": {
+    "level": "foundation",
+    "minutes": 10
+  },
+  "02-personalized-discovery/recall/the-price-of-approximate": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/recall/when-the-tail-goes-cold": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/recall/when-you-lose-a-queue": {
     "level": "applied",
     "minutes": 4
   },
@@ -647,879 +1155,367 @@
     "level": "applied",
     "minutes": 2
   },
-  "02-personalized-discovery/recommendation/31-llm-ranking": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/recommendation/31-llm-ranking/when-the-llm-disagrees": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/31-llm-ranking/when-the-output-cannot-be-parsed": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/recommendation/31-llm-ranking/when-the-prompt-token-budget-binds": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/32-recommendation-rlhf": {
+  "02-personalized-discovery/recommendation-rlhf": {
     "level": "applied",
     "minutes": 6
   },
-  "02-personalized-discovery/recommendation/32-recommendation-rlhf/when-the-preference-cycles": {
+  "02-personalized-discovery/recommendation-rlhf/when-the-preference-cycles": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/recommendation/32-recommendation-rlhf/when-the-preference-is-noisy": {
+  "02-personalized-discovery/recommendation-rlhf/when-the-preference-is-noisy": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/recommendation/32-recommendation-rlhf/when-the-reward-is-gamed": {
+  "02-personalized-discovery/recommendation-rlhf/when-the-reward-is-gamed": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/recommendation/33-multimodal-recall": {
+  "02-personalized-discovery/report": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "02-personalized-discovery/report/the-variance-that-decides": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/report/when-the-baseline-moves": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/report/when-the-case-is-hiding": {
     "level": "applied",
     "minutes": 6
   },
-  "02-personalized-discovery/recommendation/33-multimodal-recall/when-the-content-vector-is-low-quality": {
+  "02-personalized-discovery/report/when-the-guardrail-vetoes": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/recommendation/33-multimodal-recall/when-the-image-is-cold": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/33-multimodal-recall/when-the-modality-mismatch": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation": {
+  "02-personalized-discovery/reranking": {
     "level": "applied",
     "minutes": 6
   },
-  "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-metric-misses-diversity": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-position-matters": {
+  "02-personalized-discovery/reranking/when-the-gain-is-below-the-fold": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-slate-is-diverse": {
+  "02-personalized-discovery/reranking/when-the-rerank-budget-is-tight": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/recommendation/35-verification-replaces-score": {
-    "level": "frontier",
-    "minutes": 7
-  },
-  "02-personalized-discovery/recommendation/56-entire-space-funnel": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/recommendation/56-entire-space-funnel/when-the-ctcvr-disagrees": {
+  "02-personalized-discovery/reranking/when-the-reranker-disagrees": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/recommendation/56-entire-space-funnel/when-the-cvr-is-censored": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/57-delayed-feedback": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/recommendation/57-delayed-feedback/when-freshness-fights-correctness": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/57-delayed-feedback/when-the-window-is-too-short": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/58-negative-sampling": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/recommendation/58-negative-sampling/when-the-correction-overcorrects": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/58-negative-sampling/when-the-negative-rate-is-extreme": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/59-exposure-bias": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/recommendation/59-exposure-bias/when-exploration-traffic-is-thin": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/59-exposure-bias/when-the-propensity-is-noisy": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/60-heavy-tail-objective": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/recommendation/60-heavy-tail-objective/when-the-aov-skews": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/60-heavy-tail-objective/when-the-whale-dominates": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/61-multi-task-conflict": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/recommendation/61-multi-task-conflict/when-gating-does-not-help": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/61-multi-task-conflict/when-the-dominant-task-wins": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/62-funnel-consistency": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/recommendation/62-funnel-consistency/when-the-constraint-hurts": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/62-funnel-consistency/when-the-order-exceeds-the-click": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/63-cascade-consistency": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/recommendation/63-cascade-consistency/when-the-distillation-blurs": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/63-cascade-consistency/when-the-teacher-never-sees-the-cut": {
+  "02-personalized-discovery/retraining-and-staleness": {
     "level": "applied",
     "minutes": 7
   },
-  "02-personalized-discovery/recommendation/63-cascade-consistency/when-top-k-is-not-preserved": {
+  "02-personalized-discovery/retraining-and-staleness/when-retraining-flips-the-metric": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/recommendation/64-auc-label-seesaw": {
+  "02-personalized-discovery/retraining-and-staleness/when-the-embedding-expires": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/retraining-and-staleness/when-the-peak-hits": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/rtb-pipeline": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "02-personalized-discovery/rtb-pipeline/when-the-bidder-is-slow": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/rtb-pipeline/when-the-exchange-times-out": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/rtb-pipeline/when-the-model-outruns-the-budget": {
     "level": "applied",
     "minutes": 6
   },
-  "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-gradients-conflict": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-second-model-costs": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-slice-trades": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/recommendation/65-sparse-labels": {
+  "02-personalized-discovery/rule-engine": {
     "level": "applied",
     "minutes": 7
   },
-  "02-personalized-discovery/recommendation/65-sparse-labels/when-the-aggregate-auc-lies": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/recommendation/65-sparse-labels/when-the-surrogate-label-bleeds": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/recommendation/65-sparse-labels/when-warm-start-beats-from-scratch": {
+  "02-personalized-discovery/rule-engine/the-empty-set-was-two-rules": {
     "level": "applied",
     "minutes": 3
+  },
+  "02-personalized-discovery/rule-engine/when-the-rule-is-a-typo": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/rule-engine/when-the-rules-collide": {
+    "level": "applied",
+    "minutes": 4
   },
   "02-personalized-discovery/search": {
     "level": "applied",
     "minutes": 2
   },
-  "02-personalized-discovery/search/10-query-understanding": {
+  "02-personalized-discovery/search-evaluation": {
     "level": "applied",
     "minutes": 6
   },
-  "02-personalized-discovery/search/10-query-understanding/when-the-intent-misroutes": {
+  "02-personalized-discovery/search-evaluation/when-mrr-and-ndcg-disagree": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/search-evaluation/when-the-k-is-small": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/search-evaluation/when-the-metric-is-gamed": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/search/10-query-understanding/when-the-query-is-misspelled": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/10-query-understanding/when-the-query-is-short": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/11-search-retrieval": {
+  "02-personalized-discovery/search-measurement": {
     "level": "applied",
     "minutes": 6
   },
-  "02-personalized-discovery/search/11-search-retrieval/when-the-dense-path-exists": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/11-search-retrieval/when-the-synonym-is-invisible": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/11-search-retrieval/when-the-vocabulary-mismatches": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/search/12-search-ranking": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/search/12-search-ranking/when-the-label-is-a-click": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/12-search-ranking/when-the-label-is-relative": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/search/12-search-ranking/when-the-list-is-longer": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/13-search-evaluation": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/search/13-search-evaluation/when-mrr-and-ndcg-disagree": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/13-search-evaluation/when-the-k-is-small": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/13-search-evaluation/when-the-metric-is-gamed": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/search/19-query-expansion": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/search/19-query-expansion/when-expansion-hurts": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/search/19-query-expansion/when-the-correction-helps": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/search/19-query-expansion/when-the-typo-is-a-real-word": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/search/20-dense-retrieval": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/search/20-dense-retrieval/when-everything-is-equidistant": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/search/20-dense-retrieval/when-the-embedding-is-stale": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/20-dense-retrieval/when-the-index-is-ann": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/21-hybrid-fusion": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/search/21-hybrid-fusion/when-one-set-is-empty": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/21-hybrid-fusion/when-the-fusion-weight-moves": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/21-hybrid-fusion/when-the-sets-disagree-entirely": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/search/22-reranking": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/search/22-reranking/when-the-gain-is-below-the-fold": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/search/22-reranking/when-the-rerank-budget-is-tight": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/22-reranking/when-the-reranker-disagrees": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/23-personalized-search": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/search/23-personalized-search/when-personalization-hurts": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/23-personalized-search/when-the-new-user-is-the-majority": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/23-personalized-search/when-the-user-history-helps": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/24-search-measurement": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/search/24-search-measurement/when-the-click-is-a-query": {
+  "02-personalized-discovery/search-measurement/when-the-click-is-a-query": {
     "level": "applied",
     "minutes": 7
   },
-  "02-personalized-discovery/search/24-search-measurement/when-the-session-definition-moves": {
+  "02-personalized-discovery/search-measurement/when-the-session-definition-moves": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/search/24-search-measurement/when-the-zero-result-rate-matters": {
+  "02-personalized-discovery/search-measurement/when-the-zero-result-rate-matters": {
     "level": "applied",
     "minutes": 5
   },
-  "02-personalized-discovery/search/35-generative-retrieval": {
+  "02-personalized-discovery/search-ranking": {
     "level": "applied",
     "minutes": 6
   },
-  "02-personalized-discovery/search/35-generative-retrieval/when-the-generator-hallucinates": {
+  "02-personalized-discovery/search-ranking/when-the-label-is-a-click": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/search/35-generative-retrieval/when-the-id-is-a-phrase": {
+  "02-personalized-discovery/search-ranking/when-the-label-is-relative": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/search/35-generative-retrieval/when-the-id-space-grows": {
+  "02-personalized-discovery/search-ranking/when-the-list-is-longer": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/search/36-conversational-search": {
+  "02-personalized-discovery/search-retrieval": {
     "level": "applied",
     "minutes": 6
   },
-  "02-personalized-discovery/search/36-conversational-search/when-the-anaphora-is-ambiguous": {
+  "02-personalized-discovery/search-retrieval/when-the-dense-path-exists": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/search/36-conversational-search/when-the-context-is-long": {
+  "02-personalized-discovery/search-retrieval/when-the-synonym-is-invisible": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/search-retrieval/when-the-vocabulary-mismatches": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/search/36-conversational-search/when-the-topic-shifts": {
+  "02-personalized-discovery/serving": {
     "level": "applied",
-    "minutes": 3
+    "minutes": 7
   },
-  "02-personalized-discovery/search/37-llm-query-understanding": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/search/37-llm-query-understanding/when-the-llm-over-parses": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/search/37-llm-query-understanding/when-the-parse-swings": {
+  "02-personalized-discovery/serving/when-p95s-do-not-add": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/search/37-llm-query-understanding/when-the-slot-is-empty": {
+  "02-personalized-discovery/serving/when-the-cache-goes-cold": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/search/38-conversational-surface": {
-    "level": "frontier",
-    "minutes": 6
+  "02-personalized-discovery/serving/when-the-cut-bites": {
+    "level": "applied",
+    "minutes": 4
   },
   "02-personalized-discovery/shared": {
     "level": "applied",
     "minutes": 1
   },
-  "02-personalized-discovery/shared/00-interactions": {
-    "level": "foundation",
-    "minutes": 10
-  },
-  "02-personalized-discovery/shared/00-interactions/the-eligibility-cascade": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/00-interactions/when-the-absence-is-a-signal": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/00-interactions/when-the-split-leaks": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/01-content-understanding": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/01-content-understanding/the-63-percent-that-never-moves": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/01-content-understanding/when-the-label-is-noisy": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/01-content-understanding/when-the-threshold-rescues-the-tail": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/02-recall": {
-    "level": "foundation",
-    "minutes": 10
-  },
-  "02-personalized-discovery/shared/02-recall/the-price-of-approximate": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/02-recall/when-the-tail-goes-cold": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/02-recall/when-you-lose-a-queue": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/03-pre-rank": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "02-personalized-discovery/shared/03-pre-rank/when-the-cheap-cut-fails": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/03-pre-rank/when-the-cheap-score-lies": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/03-pre-rank/when-the-long-tail-is-invisible": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/04-fine-rank": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "02-personalized-discovery/shared/04-fine-rank/the-calibration-that-decides": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/04-fine-rank/when-sharing-hurts": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/04-fine-rank/when-the-model-is-stale": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/05-value-tree": {
-    "level": "applied",
-    "minutes": 10
-  },
-  "02-personalized-discovery/shared/05-value-tree/the-calibration-break": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/05-value-tree/when-the-user-rejects": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/05-value-tree/when-the-weight-moves": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/06-mixing": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/06-mixing/when-diversity-hurts": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/06-mixing/when-the-beam-is-wide-enough": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/06-mixing/when-the-trade-weight-moves": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/shared/07-rule-engine": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/07-rule-engine/the-empty-set-was-two-rules": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/07-rule-engine/when-the-rule-is-a-typo": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/07-rule-engine/when-the-rules-collide": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/08-serving": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/08-serving/when-p95s-do-not-add": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/08-serving/when-the-cache-goes-cold": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/08-serving/when-the-cut-bites": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/09-report": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "02-personalized-discovery/shared/09-report/the-variance-that-decides": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/09-report/when-the-baseline-moves": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/09-report/when-the-case-is-hiding": {
+  "02-personalized-discovery/slate-vs-item-evaluation": {
     "level": "applied",
     "minutes": 6
   },
-  "02-personalized-discovery/shared/09-report/when-the-guardrail-vetoes": {
+  "02-personalized-discovery/slate-vs-item-evaluation/when-the-metric-misses-diversity": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/slate-vs-item-evaluation/when-the-position-matters": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/shared/43-feature-store": {
+  "02-personalized-discovery/slate-vs-item-evaluation/when-the-slate-is-diverse": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/sparse-labels": {
     "level": "applied",
     "minutes": 7
   },
-  "02-personalized-discovery/shared/43-feature-store/when-the-feature-diverges": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/43-feature-store/when-the-feature-is-missing": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/43-feature-store/when-the-online-value-moves": {
+  "02-personalized-discovery/sparse-labels/when-the-aggregate-auc-lies": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/shared/44-training-serving-consistency": {
+  "02-personalized-discovery/sparse-labels/when-the-surrogate-label-bleeds": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/sparse-labels/when-warm-start-beats-from-scratch": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/throughput-and-capacity": {
     "level": "applied",
     "minutes": 7
   },
-  "02-personalized-discovery/shared/44-training-serving-consistency/when-the-join-looks-ahead": {
+  "02-personalized-discovery/throughput-and-capacity/when-the-fanout-tails": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/shared/44-training-serving-consistency/when-the-label-arrives-late": {
+  "02-personalized-discovery/throughput-and-capacity/when-the-peak-arrives": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/shared/44-training-serving-consistency/when-the-online-feature-lags": {
+  "02-personalized-discovery/throughput-and-capacity/when-the-tail-costs": {
     "level": "applied",
     "minutes": 3
   },
-  "02-personalized-discovery/shared/45-feedback-loops": {
+  "02-personalized-discovery/training-serving-consistency": {
     "level": "applied",
     "minutes": 7
   },
-  "02-personalized-discovery/shared/45-feedback-loops/when-popularity-collapses": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/45-feedback-loops/when-the-filter-bubble-closes": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/45-feedback-loops/when-the-policy-borrows-luck": {
+  "02-personalized-discovery/training-serving-consistency/when-the-join-looks-ahead": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/shared/46-retraining-and-staleness": {
+  "02-personalized-discovery/training-serving-consistency/when-the-label-arrives-late": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/training-serving-consistency/when-the-online-feature-lags": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/trust-and-explainability": {
     "level": "applied",
     "minutes": 7
   },
-  "02-personalized-discovery/shared/46-retraining-and-staleness/when-retraining-flips-the-metric": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/46-retraining-and-staleness/when-the-embedding-expires": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/46-retraining-and-staleness/when-the-peak-hits": {
+  "02-personalized-discovery/trust-and-explainability/when-the-attribution-shifts": {
     "level": "applied",
     "minutes": 4
   },
-  "02-personalized-discovery/shared/47-monitoring-and-drift": {
+  "02-personalized-discovery/trust-and-explainability/when-the-explanation-is-wrong": {
     "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/trust-and-explainability/when-trust-erodes": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "02-personalized-discovery/value-tree": {
+    "level": "applied",
+    "minutes": 10
+  },
+  "02-personalized-discovery/value-tree/the-calibration-break": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/value-tree/when-the-user-rejects": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/value-tree/when-the-weight-moves": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "02-personalized-discovery/verification-replaces-score": {
+    "level": "frontier",
     "minutes": 7
-  },
-  "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-alert-is-noisy": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-drift-is-silent": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-slice-hides": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/48-realtime-user-state": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/48-realtime-user-state/when-realtime-is-too-expensive": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/48-realtime-user-state/when-the-session-leaks": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/48-realtime-user-state/when-the-session-state-moves": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/49-throughput-and-capacity": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/49-throughput-and-capacity/when-the-fanout-tails": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/49-throughput-and-capacity/when-the-peak-arrives": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/49-throughput-and-capacity/when-the-tail-costs": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/50-cost-per-query": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/50-cost-per-query/when-the-cache-pays": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/50-cost-per-query/when-the-model-is-too-big": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/50-cost-per-query/when-the-tail-misses": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/51-new-user-experience": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/51-new-user-experience/when-personalization-scares": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/51-new-user-experience/when-the-bandit-explores": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/51-new-user-experience/when-the-user-is-new": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/52-trust-and-explainability": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/52-trust-and-explainability/when-the-attribution-shifts": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/52-trust-and-explainability/when-the-explanation-is-wrong": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/52-trust-and-explainability/when-trust-erodes": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/53-fairness-and-allocation": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-constraint-bites": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-groups-cross": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-policy-is-biased": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/54-online-experiments": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "02-personalized-discovery/shared/54-online-experiments/when-the-budget-runs-out": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/54-online-experiments/when-the-experiments-overlap": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "02-personalized-discovery/shared/54-online-experiments/when-the-split-lies": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "02-personalized-discovery/shared/54-online-experiments/when-the-traffic-is-two-sided": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/shared/54-online-experiments/when-the-user-crosses-groups": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "02-personalized-discovery/shared/55-ltv-and-cac": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "02-personalized-discovery/shared/55-ltv-and-cac/when-cac-exceeds-ltv": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/55-ltv-and-cac/when-retention-flattens": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "02-personalized-discovery/shared/55-ltv-and-cac/when-the-retention-window-truncates": {
-    "level": "applied",
-    "minutes": 4
   },
   "03-quantitative-research": {
     "level": "applied",
     "minutes": 7
   },
-  "03-quantitative-research/00-market-data": {
+  "03-quantitative-research/cost-and-capacity": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "03-quantitative-research/cost-and-capacity/the-capacity-ceiling": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "03-quantitative-research/cost-and-capacity/when-the-book-stops-making-money": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "03-quantitative-research/cross-sectional-rank": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "03-quantitative-research/cross-sectional-rank/the-rank-that-becomes-a-position": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "03-quantitative-research/cross-sectional-rank/when-the-cap-bites": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "03-quantitative-research/market-data": {
     "level": "foundation",
     "minutes": 10
   },
-  "03-quantitative-research/00-market-data/asof-vs-naive": {
+  "03-quantitative-research/market-data/asof-vs-naive": {
     "level": "applied",
     "minutes": 5
   },
-  "03-quantitative-research/00-market-data/the-restatement-gap": {
+  "03-quantitative-research/market-data/the-restatement-gap": {
     "level": "applied",
     "minutes": 4
   },
-  "03-quantitative-research/01-signal-research": {
+  "03-quantitative-research/report": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "03-quantitative-research/report/the-three-way-verdict": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "03-quantitative-research/report/when-the-refusal-names-everything": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "03-quantitative-research/signal-research": {
     "level": "applied",
     "minutes": 8
   },
-  "03-quantitative-research/01-signal-research/the-search-log-read": {
+  "03-quantitative-research/signal-research/the-search-log-read": {
     "level": "applied",
     "minutes": 4
   },
-  "03-quantitative-research/01-signal-research/when-breadth-inflates-the-winner": {
+  "03-quantitative-research/signal-research/when-breadth-inflates-the-winner": {
     "level": "applied",
     "minutes": 6
   },
-  "03-quantitative-research/02-cross-sectional-rank": {
+  "03-quantitative-research/walk-forward-validation": {
     "level": "applied",
     "minutes": 7
   },
-  "03-quantitative-research/02-cross-sectional-rank/the-rank-that-becomes-a-position": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "03-quantitative-research/02-cross-sectional-rank/when-the-cap-bites": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "03-quantitative-research/03-walk-forward-validation": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "03-quantitative-research/03-walk-forward-validation/when-purge-matters": {
+  "03-quantitative-research/walk-forward-validation/when-purge-matters": {
     "level": "applied",
     "minutes": 6
   },
-  "03-quantitative-research/03-walk-forward-validation/when-the-shuffle-does-not-move": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "03-quantitative-research/04-cost-and-capacity": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "03-quantitative-research/04-cost-and-capacity/the-capacity-ceiling": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "03-quantitative-research/04-cost-and-capacity/when-the-book-stops-making-money": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "03-quantitative-research/05-report": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "03-quantitative-research/05-report/the-three-way-verdict": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "03-quantitative-research/05-report/when-the-refusal-names-everything": {
+  "03-quantitative-research/walk-forward-validation/when-the-shuffle-does-not-move": {
     "level": "applied",
     "minutes": 4
   },
@@ -1527,199 +1523,199 @@
     "level": "applied",
     "minutes": 10
   },
-  "04-agentic-platform/00-task-set": {
-    "level": "applied",
-    "minutes": 10
-  },
-  "04-agentic-platform/00-task-set/the-two-of-six-yield": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "04-agentic-platform/00-task-set/what-the-task-set-contains": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "04-agentic-platform/01-no-harness": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "04-agentic-platform/01-no-harness/when-the-blind-call-fails": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "04-agentic-platform/01-no-harness/when-the-patch-does-not-apply": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "04-agentic-platform/02-agent-loop": {
+  "04-agentic-platform/agent-loop": {
     "level": "applied",
     "minutes": 9
   },
-  "04-agentic-platform/02-agent-loop/harness-anatomy": {
+  "04-agentic-platform/agent-loop/harness-anatomy": {
     "level": "frontier",
     "minutes": 6
   },
-  "04-agentic-platform/02-agent-loop/the-loop-that-scores-a-patch": {
+  "04-agentic-platform/agent-loop/the-loop-that-scores-a-patch": {
     "level": "applied",
     "minutes": 4
   },
-  "04-agentic-platform/02-agent-loop/when-the-guardrail-refuses": {
+  "04-agentic-platform/agent-loop/when-the-guardrail-refuses": {
     "level": "applied",
     "minutes": 4
   },
-  "04-agentic-platform/03-cheap-or-expensive": {
+  "04-agentic-platform/cheap-or-expensive": {
     "level": "frontier",
     "minutes": 10
   },
-  "04-agentic-platform/03-cheap-or-expensive/the-cost-quality-knee": {
+  "04-agentic-platform/cheap-or-expensive/the-cost-quality-knee": {
     "level": "applied",
     "minutes": 3
   },
-  "04-agentic-platform/03-cheap-or-expensive/the-tier-that-won": {
+  "04-agentic-platform/cheap-or-expensive/the-tier-that-won": {
     "level": "applied",
     "minutes": 4
   },
-  "04-agentic-platform/03-cheap-or-expensive/what-a-reasonable-agentic-product-is": {
+  "04-agentic-platform/cheap-or-expensive/what-a-reasonable-agentic-product-is": {
     "level": "frontier",
     "minutes": 6
   },
-  "04-agentic-platform/04-how-it-fails": {
+  "04-agentic-platform/closing-the-loop": {
+    "level": "applied",
+    "minutes": 10
+  },
+  "04-agentic-platform/closing-the-loop/does-feedback-help": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "04-agentic-platform/closing-the-loop/the-bimodal-retry": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "04-agentic-platform/how-it-fails": {
     "level": "applied",
     "minutes": 8
   },
-  "04-agentic-platform/04-how-it-fails/control-plane-governance": {
+  "04-agentic-platform/how-it-fails/control-plane-governance": {
     "level": "frontier",
     "minutes": 8
   },
-  "04-agentic-platform/04-how-it-fails/the-adversary-that-adapts": {
+  "04-agentic-platform/how-it-fails/the-adversary-that-adapts": {
     "level": "frontier",
     "minutes": 7
   },
-  "04-agentic-platform/04-how-it-fails/the-agent-is-the-action": {
+  "04-agentic-platform/how-it-fails/the-agent-is-the-action": {
     "level": "frontier",
     "minutes": 6
   },
-  "04-agentic-platform/04-how-it-fails/the-zero-failure-taxonomy": {
+  "04-agentic-platform/how-it-fails/the-zero-failure-taxonomy": {
     "level": "applied",
     "minutes": 3
   },
-  "04-agentic-platform/04-how-it-fails/when-the-patch-cannot-apply": {
+  "04-agentic-platform/how-it-fails/when-the-patch-cannot-apply": {
     "level": "applied",
     "minutes": 4
   },
-  "04-agentic-platform/05-report": {
+  "04-agentic-platform/no-harness": {
     "level": "applied",
     "minutes": 8
   },
-  "04-agentic-platform/05-report/intent-to-delivery": {
+  "04-agentic-platform/no-harness/when-the-blind-call-fails": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "04-agentic-platform/no-harness/when-the-patch-does-not-apply": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "04-agentic-platform/report": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "04-agentic-platform/report/intent-to-delivery": {
     "level": "frontier",
     "minutes": 6
   },
-  "04-agentic-platform/05-report/the-public-set-control": {
+  "04-agentic-platform/report/the-public-set-control": {
     "level": "applied",
     "minutes": 3
   },
-  "04-agentic-platform/05-report/when-the-partial-verdict": {
+  "04-agentic-platform/report/when-the-partial-verdict": {
     "level": "applied",
     "minutes": 3
   },
-  "04-agentic-platform/06-closing-the-loop": {
+  "04-agentic-platform/task-set": {
     "level": "applied",
     "minutes": 10
   },
-  "04-agentic-platform/06-closing-the-loop/does-feedback-help": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "04-agentic-platform/06-closing-the-loop/the-bimodal-retry": {
+  "04-agentic-platform/task-set/the-two-of-six-yield": {
     "level": "applied",
     "minutes": 3
+  },
+  "04-agentic-platform/task-set/what-the-task-set-contains": {
+    "level": "applied",
+    "minutes": 4
   },
   "05-game-ai": {
     "level": "applied",
     "minutes": 9
   },
-  "05-game-ai/00-gridworld-baselines": {
+  "05-game-ai/baselines": {
     "level": "applied",
     "minutes": 6
   },
-  "05-game-ai/00-gridworld-baselines/when-greedy-is-not-perfect": {
+  "05-game-ai/baselines/when-greedy-is-not-perfect": {
     "level": "applied",
     "minutes": 3
   },
-  "05-game-ai/00-gridworld-baselines/when-random-gets-22-percent": {
+  "05-game-ai/baselines/when-random-gets-22-percent": {
     "level": "applied",
     "minutes": 3
   },
-  "05-game-ai/01-grpo": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "05-game-ai/01-grpo/the-policy-anatomy": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "05-game-ai/01-grpo/when-the-policy-collapses": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "05-game-ai/02-report": {
+  "05-game-ai/fixing-collapse": {
     "level": "applied",
     "minutes": 6
   },
-  "05-game-ai/02-report/when-the-margin-is-the-spread": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "05-game-ai/02-report/when-the-verdict-is-not-met": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "05-game-ai/03-fixing-collapse": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "05-game-ai/03-fixing-collapse/the-diversity-direction": {
+  "05-game-ai/fixing-collapse/the-diversity-direction": {
     "level": "applied",
     "minutes": 5
   },
-  "05-game-ai/03-fixing-collapse/when-the-fix-makes-it-worse": {
+  "05-game-ai/fixing-collapse/when-the-fix-makes-it-worse": {
     "level": "applied",
     "minutes": 3
   },
-  "05-game-ai/04-minigrid": {
+  "05-game-ai/grpo": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "05-game-ai/grpo/the-policy-anatomy": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "05-game-ai/grpo/when-the-policy-collapses": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "05-game-ai/minigrid": {
     "level": "applied",
     "minutes": 6
   },
-  "05-game-ai/04-minigrid/the-solvability-check": {
+  "05-game-ai/minigrid/the-solvability-check": {
     "level": "applied",
     "minutes": 3
   },
-  "05-game-ai/04-minigrid/when-the-cold-start-is-total": {
+  "05-game-ai/minigrid/when-the-cold-start-is-total": {
     "level": "applied",
     "minutes": 4
   },
-  "05-game-ai/05-report": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "05-game-ai/05-report/the-two-environment-null": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "05-game-ai/05-report/when-the-null-is-elevated": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "05-game-ai/06-tool-use-rl": {
+  "05-game-ai/tool-use-rl": {
     "level": "applied",
     "minutes": 10
   },
-  "05-game-ai/06-tool-use-rl/the-format-credit-trap": {
+  "05-game-ai/tool-use-rl/the-format-credit-trap": {
     "level": "applied",
     "minutes": 4
   },
-  "05-game-ai/06-tool-use-rl/when-two-seeds-stopped-paying": {
+  "05-game-ai/tool-use-rl/when-two-seeds-stopped-paying": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "05-game-ai/verdict-baselines": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "05-game-ai/verdict-baselines/when-the-margin-is-the-spread": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "05-game-ai/verdict-baselines/when-the-verdict-is-not-met": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "05-game-ai/verdict-cold-start": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "05-game-ai/verdict-cold-start/the-two-environment-null": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "05-game-ai/verdict-cold-start/when-the-null-is-elevated": {
     "level": "applied",
     "minutes": 4
   },
@@ -1727,183 +1723,183 @@
     "level": "frontier",
     "minutes": 5
   },
+  "07-multimodal-generation/audio-codec": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "07-multimodal-generation/audio-codec/when-silence-is-a-local-minimum": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "07-multimodal-generation/audio-codec/why-codebooks-collapse": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "07-multimodal-generation/codebook-reset": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "07-multimodal-generation/codebook-reset/when-reset-reaches-64-64": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "07-multimodal-generation/codebook-reset/when-the-reset-never-stops": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "07-multimodal-generation/generation-model": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "07-multimodal-generation/generation-model/the-margin-vs-the-ceiling": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "07-multimodal-generation/generation-model/when-wrong-tokens-still-reconstruct": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "07-multimodal-generation/longer-and-multi-object": {
+    "level": "applied",
+    "minutes": 10
+  },
+  "07-multimodal-generation/longer-and-multi-object/when-the-axes-compound": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "07-multimodal-generation/longer-and-multi-object/when-the-metric-hits-zero": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "07-multimodal-generation/longer-sequences": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "07-multimodal-generation/longer-sequences/when-the-cost-grows-faster": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "07-multimodal-generation/longer-sequences/when-the-frames-double": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "07-multimodal-generation/multi-object": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "07-multimodal-generation/multi-object/the-margin-that-holds": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "07-multimodal-generation/multi-object/when-two-shapes-share-a-token": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "07-multimodal-generation/multi-speaker": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "07-multimodal-generation/multi-speaker/when-codebook-health-is-seed-dependent": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "07-multimodal-generation/multi-speaker/when-the-fix-did-not-generalize": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "07-multimodal-generation/multi-speaker/when-the-mix-is-not-what-you-asked": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "07-multimodal-generation/real-speech-and-network": {
+    "level": "applied",
+    "minutes": 9
+  },
+  "07-multimodal-generation/real-speech-and-network/when-the-network-is-the-tail": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "07-multimodal-generation/real-speech-and-network/when-the-recipe-broke-then-fixed": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "07-multimodal-generation/streaming-decode": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "07-multimodal-generation/streaming-decode/when-the-cache-pays": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "07-multimodal-generation/streaming-decode/when-the-logits-match": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "07-multimodal-generation/synthetic-video-dataset": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "07-multimodal-generation/synthetic-video-dataset/when-the-collision-is-one": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "07-multimodal-generation/synthetic-video-dataset/when-the-seed-is-the-answer": {
+    "level": "applied",
+    "minutes": 4
+  },
   "07-multimodal-generation/video": {
     "level": "frontier",
     "minutes": 13
   },
-  "07-multimodal-generation/video/00-synthetic-video-dataset": {
+  "07-multimodal-generation/video-report": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 8
   },
-  "07-multimodal-generation/video/00-synthetic-video-dataset/when-the-collision-is-one": {
+  "07-multimodal-generation/video-report/the-cost-quality-pair": {
     "level": "applied",
     "minutes": 3
   },
-  "07-multimodal-generation/video/00-synthetic-video-dataset/when-the-seed-is-the-answer": {
+  "07-multimodal-generation/video-report/when-the-cost-ceiling-is-roomy": {
     "level": "applied",
     "minutes": 4
   },
-  "07-multimodal-generation/video/01-video-tokenizer": {
+  "07-multimodal-generation/video-tokenizer": {
     "level": "applied",
     "minutes": 9
   },
-  "07-multimodal-generation/video/01-video-tokenizer/what-a-video-token-is": {
+  "07-multimodal-generation/video-tokenizer/what-a-video-token-is": {
     "level": "applied",
     "minutes": 5
   },
-  "07-multimodal-generation/video/01-video-tokenizer/when-the-dead-codes-revive": {
+  "07-multimodal-generation/video-tokenizer/when-the-dead-codes-revive": {
     "level": "applied",
     "minutes": 3
-  },
-  "07-multimodal-generation/video/02-generation-model": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "07-multimodal-generation/video/02-generation-model/the-margin-vs-the-ceiling": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "07-multimodal-generation/video/02-generation-model/when-wrong-tokens-still-reconstruct": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "07-multimodal-generation/video/03-report": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "07-multimodal-generation/video/03-report/the-cost-quality-pair": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "07-multimodal-generation/video/03-report/when-the-cost-ceiling-is-roomy": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "07-multimodal-generation/video/04-longer-sequences": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "07-multimodal-generation/video/04-longer-sequences/when-the-cost-grows-faster": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "07-multimodal-generation/video/04-longer-sequences/when-the-frames-double": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "07-multimodal-generation/video/05-multi-object": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "07-multimodal-generation/video/05-multi-object/the-margin-that-holds": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "07-multimodal-generation/video/05-multi-object/when-two-shapes-share-a-token": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "07-multimodal-generation/video/06-longer-and-multi-object": {
-    "level": "applied",
-    "minutes": 10
-  },
-  "07-multimodal-generation/video/06-longer-and-multi-object/when-the-axes-compound": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "07-multimodal-generation/video/06-longer-and-multi-object/when-the-metric-hits-zero": {
-    "level": "applied",
-    "minutes": 4
   },
   "07-multimodal-generation/voice": {
     "level": "applied",
     "minutes": 10
   },
-  "07-multimodal-generation/voice/00-audio-codec": {
+  "07-multimodal-generation/voice-report": {
     "level": "applied",
     "minutes": 5
   },
-  "07-multimodal-generation/voice/00-audio-codec/when-silence-is-a-local-minimum": {
+  "07-multimodal-generation/voice-report/the-five-acceptance-lines": {
     "level": "applied",
     "minutes": 3
   },
-  "07-multimodal-generation/voice/00-audio-codec/why-codebooks-collapse": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "07-multimodal-generation/voice/01-streaming-decode": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "07-multimodal-generation/voice/01-streaming-decode/when-the-cache-pays": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "07-multimodal-generation/voice/01-streaming-decode/when-the-logits-match": {
+  "07-multimodal-generation/voice-report/when-the-transfer-is-clean": {
     "level": "applied",
     "minutes": 3
   },
-  "07-multimodal-generation/voice/02-report": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "07-multimodal-generation/voice/02-report/the-five-acceptance-lines": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "07-multimodal-generation/voice/02-report/when-the-transfer-is-clean": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "07-multimodal-generation/voice/03-real-speech-and-network": {
-    "level": "applied",
-    "minutes": 9
-  },
-  "07-multimodal-generation/voice/03-real-speech-and-network/when-the-network-is-the-tail": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "07-multimodal-generation/voice/03-real-speech-and-network/when-the-recipe-broke-then-fixed": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "07-multimodal-generation/voice/04-multi-speaker": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "07-multimodal-generation/voice/04-multi-speaker/when-codebook-health-is-seed-dependent": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "07-multimodal-generation/voice/04-multi-speaker/when-the-fix-did-not-generalize": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "07-multimodal-generation/voice/04-multi-speaker/when-the-mix-is-not-what-you-asked": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "07-multimodal-generation/voice/05-codebook-reset": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "07-multimodal-generation/voice/05-codebook-reset/when-reset-reaches-64-64": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "07-multimodal-generation/voice/05-codebook-reset/when-the-reset-never-stops": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "07-multimodal-generation/voice/06-which-mechanism-did-it": {
+  "07-multimodal-generation/which-mechanism-did-it": {
     "level": "applied",
     "minutes": 11
   },
-  "07-multimodal-generation/voice/06-which-mechanism-did-it/the-half-that-did-the-work": {
+  "07-multimodal-generation/which-mechanism-did-it/the-half-that-did-the-work": {
     "level": "applied",
     "minutes": 4
   },
-  "07-multimodal-generation/voice/06-which-mechanism-did-it/when-the-corners-reproduce": {
+  "07-multimodal-generation/which-mechanism-did-it/when-the-corners-reproduce": {
     "level": "applied",
     "minutes": 3
   },
@@ -1911,265 +1907,265 @@
     "level": "applied",
     "minutes": 4
   },
-  "08-bio-pharma-modeling/00-dataset-and-property": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "08-bio-pharma-modeling/00-dataset-and-property/the-12-endpoint-balance": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "08-bio-pharma-modeling/00-dataset-and-property/the-split-that-decides": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "08-bio-pharma-modeling/01-descriptor-baseline-and-model": {
-    "level": "applied",
-    "minutes": 7
-  },
-  "08-bio-pharma-modeling/01-descriptor-baseline-and-model/two-ways-to-read-a-molecule": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "08-bio-pharma-modeling/01-descriptor-baseline-and-model/when-the-baseline-holds": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "08-bio-pharma-modeling/02-report": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "08-bio-pharma-modeling/02-report/the-three-met-items": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "08-bio-pharma-modeling/02-report/when-the-baseline-refuses-to-lose": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "08-bio-pharma-modeling/03-second-endpoint": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "08-bio-pharma-modeling/03-second-endpoint/the-split-shift-at-the-scarcest": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "08-bio-pharma-modeling/03-second-endpoint/when-the-verdict-is-inconclusive": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "08-bio-pharma-modeling/04-third-endpoint": {
+  "08-bio-pharma-modeling/cross-endpoint-analysis": {
     "level": "applied",
     "minutes": 6
   },
-  "08-bio-pharma-modeling/04-third-endpoint/the-model-first-win": {
+  "08-bio-pharma-modeling/cross-endpoint-analysis/the-n3-directional-read": {
     "level": "applied",
     "minutes": 3
   },
-  "08-bio-pharma-modeling/04-third-endpoint/when-the-mid-range-point-lands": {
+  "08-bio-pharma-modeling/cross-endpoint-analysis/when-scarcity-decides": {
     "level": "applied",
     "minutes": 3
   },
-  "08-bio-pharma-modeling/05-cross-endpoint-analysis": {
+  "08-bio-pharma-modeling/dataset-and-property": {
     "level": "applied",
-    "minutes": 6
+    "minutes": 7
   },
-  "08-bio-pharma-modeling/05-cross-endpoint-analysis/the-n3-directional-read": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "08-bio-pharma-modeling/05-cross-endpoint-analysis/when-scarcity-decides": {
+  "08-bio-pharma-modeling/dataset-and-property/the-12-endpoint-balance": {
     "level": "applied",
     "minutes": 3
   },
-  "08-bio-pharma-modeling/06-model-or-representation": {
+  "08-bio-pharma-modeling/dataset-and-property/the-split-that-decides": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "08-bio-pharma-modeling/descriptor-baseline-and-model": {
+    "level": "applied",
+    "minutes": 7
+  },
+  "08-bio-pharma-modeling/descriptor-baseline-and-model/two-ways-to-read-a-molecule": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "08-bio-pharma-modeling/descriptor-baseline-and-model/when-the-baseline-holds": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "08-bio-pharma-modeling/model-or-representation": {
     "level": "applied",
     "minutes": 8
   },
-  "08-bio-pharma-modeling/06-model-or-representation/the-rdkit-agreement": {
+  "08-bio-pharma-modeling/model-or-representation/the-rdkit-agreement": {
     "level": "applied",
     "minutes": 3
   },
-  "08-bio-pharma-modeling/06-model-or-representation/when-width-memorizes": {
+  "08-bio-pharma-modeling/model-or-representation/when-width-memorizes": {
     "level": "applied",
     "minutes": 4
+  },
+  "08-bio-pharma-modeling/report": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "08-bio-pharma-modeling/report/the-three-met-items": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "08-bio-pharma-modeling/report/when-the-baseline-refuses-to-lose": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "08-bio-pharma-modeling/second-endpoint": {
+    "level": "applied",
+    "minutes": 5
+  },
+  "08-bio-pharma-modeling/second-endpoint/the-split-shift-at-the-scarcest": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "08-bio-pharma-modeling/second-endpoint/when-the-verdict-is-inconclusive": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "08-bio-pharma-modeling/third-endpoint": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "08-bio-pharma-modeling/third-endpoint/the-model-first-win": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "08-bio-pharma-modeling/third-endpoint/when-the-mid-range-point-lands": {
+    "level": "applied",
+    "minutes": 3
   },
   "09-autonomous-driving": {
     "level": "applied",
     "minutes": 3
   },
-  "09-autonomous-driving/00-scenario-simulator": {
+  "09-autonomous-driving/behavior-cloning": {
     "level": "applied",
     "minutes": 3
   },
-  "09-autonomous-driving/00-scenario-simulator/when-the-margin-decides": {
-    "level": "applied",
-    "minutes": 5
-  },
-  "09-autonomous-driving/01-perception-baseline": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "09-autonomous-driving/01-perception-baseline/when-the-blob-lies": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "09-autonomous-driving/02-expert-policy": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "09-autonomous-driving/02-expert-policy/when-the-handoff-crosses-the-band": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "09-autonomous-driving/03-behavior-cloning": {
-    "level": "applied",
-    "minutes": 3
-  },
-  "09-autonomous-driving/03-behavior-cloning/when-the-rebalance-fixes-the-metric": {
+  "09-autonomous-driving/behavior-cloning/when-the-rebalance-fixes-the-metric": {
     "level": "applied",
     "minutes": 6
   },
-  "09-autonomous-driving/04-closed-loop-eval": {
+  "09-autonomous-driving/closed-loop-eval": {
     "level": "applied",
     "minutes": 3
   },
-  "09-autonomous-driving/04-closed-loop-eval/when-the-open-loop-lies": {
+  "09-autonomous-driving/closed-loop-eval/when-the-open-loop-lies": {
     "level": "applied",
     "minutes": 5
   },
-  "09-autonomous-driving/05-harder-scenarios": {
+  "09-autonomous-driving/expert-policy": {
     "level": "applied",
     "minutes": 3
   },
-  "09-autonomous-driving/05-harder-scenarios/when-the-aggregate-hides-the-corner": {
+  "09-autonomous-driving/expert-policy/when-the-handoff-crosses-the-band": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "09-autonomous-driving/harder-scenarios": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "09-autonomous-driving/harder-scenarios/when-the-aggregate-hides-the-corner": {
     "level": "applied",
     "minutes": 5
   },
-  "09-autonomous-driving/05-harder-scenarios/when-the-policy-stalls": {
+  "09-autonomous-driving/harder-scenarios/when-the-policy-stalls": {
     "level": "applied",
     "minutes": 4
   },
-  "09-autonomous-driving/06-report": {
+  "09-autonomous-driving/perception-baseline": {
     "level": "applied",
     "minutes": 3
   },
-  "09-autonomous-driving/06-report/when-the-verdict-survives-resampling": {
+  "09-autonomous-driving/perception-baseline/when-the-blob-lies": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "09-autonomous-driving/report": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "09-autonomous-driving/report/when-the-verdict-survives-resampling": {
     "level": "applied",
     "minutes": 6
+  },
+  "09-autonomous-driving/scenario-simulator": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "09-autonomous-driving/scenario-simulator/when-the-margin-decides": {
+    "level": "applied",
+    "minutes": 5
   },
   "foundations": {
     "level": "foundation",
     "minutes": 2
   },
-  "foundations/00-attention": {
+  "foundations/attention": {
     "level": "foundation",
     "minutes": 12
   },
-  "foundations/00-attention/rope": {
+  "foundations/attention/rope": {
     "level": "foundation",
     "minutes": 6
   },
-  "foundations/00-attention/what-it-costs": {
+  "foundations/attention/what-it-costs": {
     "level": "foundation",
     "minutes": 8
   },
-  "foundations/01-first-training-loop": {
+  "foundations/backpropagation": {
     "level": "foundation",
-    "minutes": 8
+    "minutes": 11
   },
-  "foundations/01-first-training-loop/the-curve-that-takes-34-seconds": {
+  "foundations/backpropagation/the-backward-pass-three-ways": {
     "level": "foundation",
     "minutes": 4
   },
-  "foundations/02-optimization": {
+  "foundations/distributed-training": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "foundations/distributed-training/gpu-cluster-concepts": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "foundations/distributed-training/networking": {
+    "level": "reference",
+    "minutes": 7
+  },
+  "foundations/distributed-training/orchestration": {
+    "level": "applied",
+    "minutes": 6
+  },
+  "foundations/distributed-training/storage": {
+    "level": "reference",
+    "minutes": 6
+  },
+  "foundations/distributed-training/when-a-node-joins": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "foundations/distributed-training/when-the-ranks-agree": {
+    "level": "foundation",
+    "minutes": 4
+  },
+  "foundations/distributed-training/when-the-ring-beats-the-star": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "foundations/distributed-training/when-the-scheduler-chooses": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "foundations/distributed-training/when-the-topology-costs": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "foundations/first-training-loop": {
+    "level": "foundation",
+    "minutes": 8
+  },
+  "foundations/first-training-loop/the-curve-that-takes-34-seconds": {
+    "level": "foundation",
+    "minutes": 4
+  },
+  "foundations/is-the-difference-real": {
+    "level": "applied",
+    "minutes": 12
+  },
+  "foundations/is-the-difference-real/the-two-confounds": {
+    "level": "applied",
+    "minutes": 8
+  },
+  "foundations/moe": {
+    "level": "foundation",
+    "minutes": 7
+  },
+  "foundations/moe/when-the-expert-goes-dead": {
+    "level": "foundation",
+    "minutes": 5
+  },
+  "foundations/optimization": {
     "level": "foundation",
     "minutes": 15
   },
-  "foundations/02-optimization/the-flips-that-separate-optimizers": {
+  "foundations/optimization/the-flips-that-separate-optimizers": {
     "level": "foundation",
     "minutes": 4
   },
-  "foundations/02-optimization/when-the-training-plateaus": {
+  "foundations/optimization/when-the-training-plateaus": {
     "level": "applied",
     "minutes": 6
   },
-  "foundations/03-backpropagation": {
-    "level": "foundation",
-    "minutes": 11
-  },
-  "foundations/03-backpropagation/the-backward-pass-three-ways": {
-    "level": "foundation",
-    "minutes": 4
-  },
-  "foundations/04-distributed-training": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "foundations/04-distributed-training/gpu-cluster-concepts": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "foundations/04-distributed-training/gpu-cluster-concepts/when-the-topology-costs": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "foundations/04-distributed-training/networking": {
-    "level": "reference",
-    "minutes": 7
-  },
-  "foundations/04-distributed-training/networking/when-the-ring-beats-the-star": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "foundations/04-distributed-training/orchestration": {
-    "level": "applied",
-    "minutes": 6
-  },
-  "foundations/04-distributed-training/orchestration/when-the-scheduler-chooses": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "foundations/04-distributed-training/storage": {
-    "level": "reference",
-    "minutes": 6
-  },
-  "foundations/04-distributed-training/storage/when-a-node-joins": {
-    "level": "applied",
-    "minutes": 4
-  },
-  "foundations/04-distributed-training/when-the-ranks-agree": {
-    "level": "foundation",
-    "minutes": 4
-  },
-  "foundations/05-is-the-difference-real": {
-    "level": "applied",
-    "minutes": 12
-  },
-  "foundations/05-is-the-difference-real/the-two-confounds": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "foundations/06-significance": {
+  "foundations/significance": {
     "level": "applied",
     "minutes": 11
   },
-  "foundations/06-significance/when-the-comparisons-multiply": {
+  "foundations/significance/when-the-comparisons-multiply": {
     "level": "applied",
     "minutes": 6
   },
-  "foundations/06-significance/when-the-interval-decides": {
+  "foundations/significance/when-the-interval-decides": {
     "level": "applied",
     "minutes": 4
-  },
-  "foundations/07-moe": {
-    "level": "foundation",
-    "minutes": 7
-  },
-  "foundations/07-moe/when-the-expert-goes-dead": {
-    "level": "foundation",
-    "minutes": 5
   },
   "reference": {
     "level": "reference",

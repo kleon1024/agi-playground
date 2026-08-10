@@ -2,133 +2,133 @@
   "generated": "2026-08-10",
   "chapters": [
     {
-      "path": "01-language-model/00-corpus",
+      "path": "01-language-model/corpus",
       "kind": "stage",
       "order": 0,
       "title": "What has to be true of text before you train on it?"
     },
     {
-      "path": "01-language-model/vision/00-image-caption-task",
+      "path": "01-language-model/corpus/image-caption-task",
       "kind": "stage",
       "order": 0,
       "title": "What makes a synthetic image+question pair actually require looking at the image?"
     },
     {
-      "path": "02-personalized-discovery/shared/00-interactions",
+      "path": "02-personalized-discovery/interactions",
       "kind": "stage",
       "order": 0,
       "title": "What does a click actually tell you?"
     },
     {
-      "path": "03-quantitative-research/00-market-data",
+      "path": "03-quantitative-research/market-data",
       "kind": "stage",
       "order": 0,
       "title": "What did you actually know on the decision date?"
     },
     {
-      "path": "04-agentic-platform/00-task-set",
+      "path": "04-agentic-platform/task-set",
       "kind": "stage",
       "order": 0,
       "title": "What makes a bug report into a task an agent can be scored on?"
     },
     {
-      "path": "05-game-ai/00-gridworld-baselines",
+      "path": "05-game-ai/baselines",
       "kind": "stage",
       "order": 0,
       "title": "What does a policy have to beat before RL is worth trying?"
     },
     {
-      "path": "07-multimodal-generation/video/00-synthetic-video-dataset",
+      "path": "07-multimodal-generation/synthetic-video-dataset",
       "kind": "stage",
       "order": 0,
       "title": "What makes a short clip scoreable without a single frame of real footage?"
     },
     {
-      "path": "07-multimodal-generation/voice/00-audio-codec",
+      "path": "07-multimodal-generation/audio-codec",
       "kind": "stage",
       "order": 0,
       "title": "How does a waveform become a discrete token sequence at all?"
     },
     {
-      "path": "08-bio-pharma-modeling/00-dataset-and-property",
+      "path": "08-bio-pharma-modeling/dataset-and-property",
       "kind": "stage",
       "order": 0,
       "title": "Which endpoint, and does a scaffold split actually hold one out?"
     },
     {
-      "path": "09-autonomous-driving/00-scenario-simulator",
+      "path": "09-autonomous-driving/scenario-simulator",
       "kind": "stage",
       "order": 0,
       "title": "What makes a drive scoreable, and why generate it instead of scrap it?"
     },
     {
-      "path": "foundations/00-attention",
+      "path": "foundations/attention",
       "kind": "stage",
       "order": 0,
       "title": "How does one token find the context it needs?"
     },
     {
-      "path": "01-language-model/01-tokenizer",
+      "path": "01-language-model/tokenizer",
       "kind": "stage",
       "order": 1,
       "title": "How does text become the numbers a model sees?"
     },
     {
-      "path": "01-language-model/vision/01-vision-fusion",
+      "path": "01-language-model/pretrain/vision-fusion",
       "kind": "stage",
       "order": 1,
       "title": "Does a decoder that can see the image actually use it?"
     },
     {
-      "path": "02-personalized-discovery/shared/01-content-understanding",
+      "path": "02-personalized-discovery/content-understanding",
       "kind": "stage",
       "order": 1,
       "title": "What retrieves an item nobody has touched?"
     },
     {
-      "path": "03-quantitative-research/01-signal-research",
+      "path": "03-quantitative-research/signal-research",
       "kind": "stage",
       "order": 1,
       "title": "How many ideas may you try before the winner means nothing?"
     },
     {
-      "path": "04-agentic-platform/01-no-harness",
+      "path": "04-agentic-platform/no-harness",
       "kind": "stage",
       "order": 1,
       "title": "Is the loop worth anything over one blind call?"
     },
     {
-      "path": "05-game-ai/01-grpo",
+      "path": "05-game-ai/grpo",
       "kind": "stage",
       "order": 1,
       "title": "Does GRPO produce a policy that beats the baselines it must clear?"
     },
     {
-      "path": "07-multimodal-generation/video/01-video-tokenizer",
+      "path": "07-multimodal-generation/video-tokenizer",
       "kind": "stage",
       "order": 1,
       "title": "How do frames become a token sequence a decoder can attend over?"
     },
     {
-      "path": "07-multimodal-generation/voice/01-streaming-decode",
+      "path": "07-multimodal-generation/streaming-decode",
       "kind": "stage",
       "order": 1,
       "title": "Does the KV cache built for text work unchanged for audio tokens?"
     },
     {
-      "path": "08-bio-pharma-modeling/01-descriptor-baseline-and-model",
+      "path": "08-bio-pharma-modeling/descriptor-baseline-and-model",
       "kind": "stage",
       "order": 1,
       "title": "Does a small trained model beat the descriptor baseline on SR-MMP?"
     },
     {
-      "path": "09-autonomous-driving/01-perception-baseline",
+      "path": "09-autonomous-driving/perception-baseline",
       "kind": "stage",
       "order": 1,
       "title": "Can the render be read at all, by hand and by learning?"
     },
     {
-      "path": "foundations/01-first-training-loop",
+      "path": "foundations/first-training-loop",
       "kind": "stage",
       "order": 1,
       "title": "Your first training loop"
@@ -140,397 +140,397 @@
       "title": ""
     },
     {
-      "path": "01-language-model/02-pretrain",
+      "path": "01-language-model/pretrain",
       "kind": "stage",
       "order": 2,
       "title": "What are you actually training?"
     },
     {
-      "path": "01-language-model/vision/02-report",
+      "path": "01-language-model/eval/vision-report",
       "kind": "stage",
       "order": 2,
       "title": "Did building the vision pathway pay for itself?"
     },
     {
-      "path": "02-personalized-discovery/shared/02-recall",
+      "path": "02-personalized-discovery/recall",
       "kind": "stage",
       "order": 2,
       "title": "How do you find candidates without scoring everything?"
     },
     {
-      "path": "03-quantitative-research/02-cross-sectional-rank",
+      "path": "03-quantitative-research/cross-sectional-rank",
       "kind": "stage",
       "order": 2,
       "title": "What turns a score into a portfolio?"
     },
     {
-      "path": "04-agentic-platform/02-agent-loop",
+      "path": "04-agentic-platform/agent-loop",
       "kind": "stage",
       "order": 2,
       "title": "The agent says it fixed the bug. What would change your mind?"
     },
     {
-      "path": "05-game-ai/02-report",
+      "path": "05-game-ai/verdict-baselines",
       "kind": "stage",
       "order": 2,
       "title": "Did GRPO produce a policy worth deploying over either baseline?"
     },
     {
-      "path": "07-multimodal-generation/video/02-generation-model",
+      "path": "07-multimodal-generation/generation-model",
       "kind": "stage",
       "order": 2,
       "title": "Is a video tokenizer plus a small sequence model even buildable here?"
     },
     {
-      "path": "07-multimodal-generation/voice/02-report",
+      "path": "07-multimodal-generation/voice-report",
       "kind": "stage",
       "order": 2,
       "title": "Does the serving mechanism built for text transfer to audio, cleanly?"
     },
     {
-      "path": "08-bio-pharma-modeling/02-report",
+      "path": "08-bio-pharma-modeling/report",
       "kind": "stage",
       "order": 2,
       "title": "Does a small trained model beat the descriptor baseline — verdict"
     },
     {
-      "path": "09-autonomous-driving/02-expert-policy",
+      "path": "09-autonomous-driving/expert-policy",
       "kind": "stage",
       "order": 2,
       "title": "What does a rule-based expert actually achieve in the loop?"
     },
     {
-      "path": "foundations/02-optimization",
+      "path": "foundations/optimization",
       "kind": "stage",
       "order": 2,
       "title": "Why do SGD, momentum, and Adam disagree on the same loss surface?"
     },
     {
-      "path": "01-language-model/03-sft",
+      "path": "01-language-model/sft",
       "kind": "stage",
       "order": 3,
       "title": "How does a text predictor learn to answer?"
     },
     {
-      "path": "01-language-model/vision/03-real-photo-task",
+      "path": "01-language-model/corpus/real-photo-task",
       "kind": "stage",
       "order": 3,
       "title": "Does the leakage discipline that worked on synthetic shapes survive real photographs?"
     },
     {
-      "path": "02-personalized-discovery/shared/03-pre-rank",
+      "path": "02-personalized-discovery/pre-rank",
       "kind": "stage",
       "order": 3,
       "title": "What can you afford to score, and what must you drop?"
     },
     {
-      "path": "03-quantitative-research/03-walk-forward-validation",
+      "path": "03-quantitative-research/walk-forward-validation",
       "kind": "stage",
       "order": 3,
       "title": "What Sharpe would survive an honest split?"
     },
     {
-      "path": "04-agentic-platform/03-cheap-or-expensive",
+      "path": "04-agentic-platform/cheap-or-expensive",
       "kind": "stage",
       "order": 3,
       "title": "The cheap model resolved everything. Should you use it?"
     },
     {
-      "path": "05-game-ai/03-fixing-collapse",
+      "path": "05-game-ai/fixing-collapse",
       "kind": "stage",
       "order": 3,
       "title": "Is stage 01's greedy-decode collapse fixable by tuning the training signal alone?"
     },
     {
-      "path": "07-multimodal-generation/video/03-report",
+      "path": "07-multimodal-generation/video-report",
       "kind": "stage",
       "order": 3,
       "title": "Does a video tokenizer plus a small sequence model clear this repository's own bar?"
     },
     {
-      "path": "07-multimodal-generation/voice/03-real-speech-and-network",
+      "path": "07-multimodal-generation/real-speech-and-network",
       "kind": "stage",
       "order": 3,
       "title": "Does the same codec, and the same KV cache, hold on real speech over a real network?"
     },
     {
-      "path": "08-bio-pharma-modeling/03-second-endpoint",
+      "path": "08-bio-pharma-modeling/second-endpoint",
       "kind": "stage",
       "order": 3,
       "title": "Does the SR-MMP finding generalize to a different endpoint?"
     },
     {
-      "path": "09-autonomous-driving/03-behavior-cloning",
+      "path": "09-autonomous-driving/behavior-cloning",
       "kind": "stage",
       "order": 3,
       "title": "Does a policy trained on expert demos imitate well outside the training set?"
     },
     {
-      "path": "foundations/03-backpropagation",
+      "path": "foundations/backpropagation",
       "kind": "stage",
       "order": 3,
       "title": "What does .backward() actually do?"
     },
     {
-      "path": "foundations/05-is-the-difference-real/the-two-confounds",
+      "path": "foundations/is-the-difference-real/the-two-confounds",
       "kind": "sub",
       "order": 3,
       "title": "What can be true of your proxy run and false of the real one?"
     },
     {
-      "path": "01-language-model/04-rl",
+      "path": "01-language-model/rl",
       "kind": "stage",
       "order": 4,
       "title": "How do you improve a model with no correct answer to copy?"
     },
     {
-      "path": "01-language-model/vision/04-real-photo-vision-fusion",
+      "path": "01-language-model/pretrain/real-photo-vision-fusion",
       "kind": "stage",
       "order": 4,
       "title": "Does the same vision pathway, unchanged, still separate from a text-only guess on real photographs?"
     },
     {
-      "path": "02-personalized-discovery/shared/04-fine-rank",
+      "path": "02-personalized-discovery/fine-rank",
       "kind": "stage",
       "order": 4,
       "title": "Which objective are you actually ranking by?"
     },
     {
-      "path": "03-quantitative-research/04-cost-and-capacity",
+      "path": "03-quantitative-research/cost-and-capacity",
       "kind": "stage",
       "order": 4,
       "title": "How much can the paper return actually carry?"
     },
     {
-      "path": "04-agentic-platform/04-how-it-fails",
+      "path": "04-agentic-platform/how-it-fails",
       "kind": "stage",
       "order": 4,
       "title": "How does it fail, and does it cheat?"
     },
     {
-      "path": "05-game-ai/04-minigrid",
+      "path": "05-game-ai/minigrid",
       "kind": "stage",
       "order": 4,
       "title": "What happens when GRPO's cold start meets partial observability?"
     },
     {
-      "path": "07-multimodal-generation/video/04-longer-sequences",
+      "path": "07-multimodal-generation/longer-sequences",
       "kind": "stage",
       "order": 4,
       "title": "Does the feasibility finding survive doubling the clip length?"
     },
     {
-      "path": "07-multimodal-generation/voice/04-multi-speaker",
+      "path": "07-multimodal-generation/multi-speaker",
       "kind": "stage",
       "order": 4,
       "title": "Does the same fix that escaped collapse on stage 03's data still work for 10?"
     },
     {
-      "path": "08-bio-pharma-modeling/04-third-endpoint",
+      "path": "08-bio-pharma-modeling/third-endpoint",
       "kind": "stage",
       "order": 4,
       "title": "Does the scarcity-drives-variance hypothesis hold at a third endpoint?"
     },
     {
-      "path": "09-autonomous-driving/04-closed-loop-eval",
+      "path": "09-autonomous-driving/closed-loop-eval",
       "kind": "stage",
       "order": 4,
       "title": "Does the cloned policy drive, and where does it fall short?"
     },
     {
-      "path": "foundations/04-distributed-training",
+      "path": "foundations/distributed-training",
       "kind": "stage",
       "order": 4,
       "title": "Distributed training, without a cluster"
     },
     {
-      "path": "foundations/04-distributed-training/networking",
+      "path": "foundations/distributed-training/networking",
       "kind": "sub",
       "order": 4,
       "title": "Why does allreduce topology matter, if the sum comes out the same either way?"
     },
     {
-      "path": "01-language-model/05-serve",
+      "path": "01-language-model/serve",
       "kind": "stage",
       "order": 5,
       "title": "What is the model actually doing between tokens?"
     },
     {
-      "path": "01-language-model/vision/05-real-photo-report",
+      "path": "01-language-model/eval/real-photo-report",
       "kind": "stage",
       "order": 5,
       "title": "Does the real-photo vision pathway hold up against a hosted VLM, not just a text-only guess?"
     },
     {
-      "path": "02-personalized-discovery/shared/05-value-tree",
+      "path": "02-personalized-discovery/value-tree",
       "kind": "stage",
       "order": 5,
       "title": "How do you trade user value against revenue on purpose?"
     },
     {
-      "path": "03-quantitative-research/05-report",
+      "path": "03-quantitative-research/report",
       "kind": "stage",
       "order": 5,
       "title": "Can this mission claim anything at all?"
     },
     {
-      "path": "04-agentic-platform/05-report",
+      "path": "04-agentic-platform/report",
       "kind": "stage",
       "order": 5,
       "title": "What did this mission actually establish?"
     },
     {
-      "path": "05-game-ai/05-report",
+      "path": "05-game-ai/verdict-cold-start",
       "kind": "stage",
       "order": 5,
       "title": "Does mission 06's full chain, stages 00-04, meet its own acceptance bar?"
     },
     {
-      "path": "07-multimodal-generation/video/05-multi-object",
+      "path": "07-multimodal-generation/multi-object",
       "kind": "stage",
       "order": 5,
       "title": "Does the feasibility finding survive two occluding objects instead of one?"
     },
     {
-      "path": "07-multimodal-generation/voice/05-codebook-reset",
+      "path": "07-multimodal-generation/codebook-reset",
       "kind": "stage",
       "order": 5,
       "title": "Does a standard dead-code reset fix the seed-dependent codebook health stage 04 found?"
     },
     {
-      "path": "08-bio-pharma-modeling/05-cross-endpoint-analysis",
+      "path": "08-bio-pharma-modeling/cross-endpoint-analysis",
       "kind": "stage",
       "order": 5,
       "title": "What does the three-endpoint pattern actually say, and what does it not say?"
     },
     {
-      "path": "09-autonomous-driving/05-harder-scenarios",
+      "path": "09-autonomous-driving/harder-scenarios",
       "kind": "stage",
       "order": 5,
       "title": "Sharper curves, denser traffic — does the boundary hold or break?"
     },
     {
-      "path": "foundations/04-distributed-training/networking/when-the-ring-beats-the-star",
+      "path": "foundations/distributed-training/when-the-ring-beats-the-star",
       "kind": "page",
       "order": 5,
       "title": "Why the ring wins every cell of the sweep"
     },
     {
-      "path": "foundations/05-is-the-difference-real",
+      "path": "foundations/is-the-difference-real",
       "kind": "stage",
       "order": 5,
       "title": "Does this data help?"
     },
     {
-      "path": "01-language-model/06-agent",
+      "path": "01-language-model/agent-harness",
       "kind": "stage",
       "order": 6,
       "title": "What turns a model into something that acts?"
     },
     {
-      "path": "01-language-model/vision/06-warmup-stability",
+      "path": "01-language-model/pretrain/warmup-stability",
       "kind": "stage",
       "order": 6,
       "title": "Does a learning-rate warmup close the seed-2 collapse?"
     },
     {
-      "path": "02-personalized-discovery/shared/06-mixing",
+      "path": "02-personalized-discovery/mixing",
       "kind": "stage",
       "order": 6,
       "title": "Why is the best slate not the top ten items?"
     },
     {
-      "path": "04-agentic-platform/06-closing-the-loop",
+      "path": "04-agentic-platform/closing-the-loop",
       "kind": "stage",
       "order": 6,
       "title": "Does showing a model the real outcome of its own failed attempt help it fix the bug?"
     },
     {
-      "path": "05-game-ai/06-tool-use-rl",
+      "path": "05-game-ai/tool-use-rl",
       "kind": "stage",
       "order": 6,
       "title": "Does GRPO learn *when* to pay for a tool, not just what to say?"
     },
     {
-      "path": "07-multimodal-generation/video/06-longer-and-multi-object",
+      "path": "07-multimodal-generation/longer-and-multi-object",
       "kind": "stage",
       "order": 6,
       "title": "Two hard things at once: do they add up, or does one of them dominate?"
     },
     {
-      "path": "07-multimodal-generation/voice/06-which-mechanism-did-it",
+      "path": "07-multimodal-generation/which-mechanism-did-it",
       "kind": "stage",
       "order": 6,
       "title": "Stage 05 refused to run two mechanisms at once. What does running all four combinations show?"
     },
     {
-      "path": "08-bio-pharma-modeling/06-model-or-representation",
+      "path": "08-bio-pharma-modeling/model-or-representation",
       "kind": "stage",
       "order": 6,
       "title": "The descriptor baseline keeps winning. Is it the features or the learner?"
     },
     {
-      "path": "09-autonomous-driving/06-report",
+      "path": "09-autonomous-driving/report",
       "kind": "stage",
       "order": 6,
       "title": "What did this prove, and what does it deliberately not prove?"
     },
     {
-      "path": "foundations/04-distributed-training/storage",
+      "path": "foundations/distributed-training/storage",
       "kind": "sub",
       "order": 6,
       "title": "When a storage node is added, how much data actually has to move?"
     },
     {
-      "path": "foundations/06-significance",
+      "path": "foundations/significance",
       "kind": "stage",
       "order": 6,
       "title": "Model A scored 74%. Model B scored 71%. Is that a real difference?"
     },
     {
-      "path": "01-language-model/07-eval",
+      "path": "01-language-model/eval",
       "kind": "stage",
       "order": 7,
       "title": "How would you know if any of this worked?"
     },
     {
-      "path": "02-personalized-discovery/shared/07-rule-engine",
+      "path": "02-personalized-discovery/rule-engine",
       "kind": "stage",
       "order": 7,
       "title": "Who can answer why this item was shown?"
     },
     {
-      "path": "foundations/04-distributed-training/storage/when-a-node-joins",
+      "path": "foundations/distributed-training/when-a-node-joins",
       "kind": "page",
       "order": 7,
       "title": "The remap that adding one node costs"
     },
     {
-      "path": "foundations/07-moe",
+      "path": "foundations/moe",
       "kind": "stage",
       "order": 7,
       "title": "Why route at all? The mixture-of-experts mechanism"
     },
     {
-      "path": "02-personalized-discovery/shared/08-serving",
+      "path": "02-personalized-discovery/serving",
       "kind": "stage",
       "order": 8,
       "title": "Which stage do you cut to fit the request budget?"
     },
     {
-      "path": "foundations/04-distributed-training/orchestration",
+      "path": "foundations/distributed-training/orchestration",
       "kind": "sub",
       "order": 8,
       "title": "A scheduler doesn't do more work. It decides whose work happens first."
     },
     {
-      "path": "02-personalized-discovery/shared/09-report",
+      "path": "02-personalized-discovery/report",
       "kind": "stage",
       "order": 9,
       "title": "Did the mission earn the right to claim anything?"
     },
     {
-      "path": "foundations/04-distributed-training/orchestration/when-the-scheduler-chooses",
+      "path": "foundations/distributed-training/when-the-scheduler-chooses",
       "kind": "page",
       "order": 9,
       "title": "A scheduler doesn't do more work — it decides whose work waits"
@@ -542,127 +542,127 @@
       "title": "Raw text to a tool-using model"
     },
     {
-      "path": "02-personalized-discovery/search/10-query-understanding",
+      "path": "02-personalized-discovery/query-understanding",
       "kind": "stage",
       "order": 10,
       "title": "The query is a string with noise"
     },
     {
-      "path": "foundations/04-distributed-training/gpu-cluster-concepts",
+      "path": "foundations/distributed-training/gpu-cluster-concepts",
       "kind": "sub",
       "order": 10,
       "title": "Why the cluster's wiring decides the parallelism strategy"
     },
     {
-      "path": "02-personalized-discovery/search/11-search-retrieval",
+      "path": "02-personalized-discovery/search-retrieval",
       "kind": "stage",
       "order": 11,
       "title": "BM25: the lexical first stage that dense retrieval has to beat"
     },
     {
-      "path": "foundations/04-distributed-training/gpu-cluster-concepts/when-the-topology-costs",
+      "path": "foundations/distributed-training/when-the-topology-costs",
       "kind": "page",
       "order": 11,
       "title": "The coordination tax that grows with the graph"
     },
     {
-      "path": "01-language-model/00-corpus/what-a-release-needs",
+      "path": "01-language-model/corpus/what-a-release-needs",
       "kind": "sub",
       "order": 12,
       "title": "You have the text. What decides whether anyone can trust it?"
     },
     {
-      "path": "02-personalized-discovery/search/12-search-ranking",
+      "path": "02-personalized-discovery/search-ranking",
       "kind": "stage",
       "order": 12,
       "title": "Re-ordering the candidates: pointwise versus pairwise"
     },
     {
-      "path": "01-language-model/02-pretrain/verifying-the-run",
+      "path": "01-language-model/pretrain/verifying-the-run",
       "kind": "sub",
       "order": 13,
       "title": "How do you know a five-hour run is working?"
     },
     {
-      "path": "02-personalized-discovery/search/13-search-evaluation",
+      "path": "02-personalized-discovery/search-evaluation",
       "kind": "stage",
       "order": 13,
       "title": "What search success means, and what each metric hides"
     },
     {
-      "path": "01-language-model/02-pretrain/architecture-ablations",
+      "path": "01-language-model/pretrain/architecture-ablations",
       "kind": "sub",
       "order": 14,
       "title": "Architecture ablations: the budget you hold equal"
     },
     {
-      "path": "02-personalized-discovery/ads/14-ad-auction",
+      "path": "02-personalized-discovery/ad-auction",
       "kind": "stage",
       "order": 14,
       "title": "Why is revenue per auction collapsing while fill stays flat?"
     },
     {
-      "path": "01-language-model/02-pretrain/architecture-ablations/the-rung-that-flipped",
+      "path": "01-language-model/pretrain/architecture-ablations/the-rung-that-flipped",
       "kind": "page",
       "order": 15,
       "title": "What happens when the budget definition decides the winner?"
     },
     {
-      "path": "02-personalized-discovery/ads/15-ecpm-ranking",
+      "path": "02-personalized-discovery/ecpm-ranking",
       "kind": "stage",
       "order": 15,
       "title": "The ranking shows the low-bid ad first. Is the revenue real?"
     },
     {
-      "path": "01-language-model/02-pretrain/throughput",
+      "path": "01-language-model/pretrain/throughput",
       "kind": "sub",
       "order": 16,
       "title": "Your run will take ten hours. Should it?"
     },
     {
-      "path": "02-personalized-discovery/ads/16-ctr-calibration",
+      "path": "02-personalized-discovery/ctr-calibration",
       "kind": "stage",
       "order": 16,
       "title": "The global calibration bar passes, but one slice overpays every auction"
     },
     {
-      "path": "01-language-model/02-pretrain/upcycling",
+      "path": "01-language-model/pretrain/upcycling",
       "kind": "sub",
       "order": 17,
       "title": "Can you keep the weights and change the architecture?"
     },
     {
-      "path": "02-personalized-discovery/ads/17-budget-pacing",
+      "path": "02-personalized-discovery/budget-pacing",
       "kind": "stage",
       "order": 17,
       "title": "The budget is spent, so why is the advertiser's evening dark?"
     },
     {
-      "path": "01-language-model/02-pretrain/upcycling/does-it-pay-off",
+      "path": "01-language-model/pretrain/upcycling/does-it-pay-off",
       "kind": "page",
       "order": 18,
       "title": "Does the extra capacity earn back what it cost?"
     },
     {
-      "path": "02-personalized-discovery/ads/18-ad-externality",
+      "path": "02-personalized-discovery/ad-externality",
       "kind": "stage",
       "order": 18,
       "title": "The aggregate says keep the ad. The engaged slice pays for it."
     },
     {
-      "path": "01-language-model/02-pretrain/when-the-curve-goes-wrong",
+      "path": "01-language-model/pretrain/when-the-curve-goes-wrong",
       "kind": "sub",
       "order": 19,
       "title": "The loss curve looks wrong. Which subsystem owns it?"
     },
     {
-      "path": "02-personalized-discovery/search/19-query-expansion",
+      "path": "02-personalized-discovery/query-expansion",
       "kind": "stage",
       "order": 19,
       "title": "The correction that decides which query you meant"
     },
     {
-      "path": "01-language-model/02-pretrain/latent-reasoning",
+      "path": "01-language-model/pretrain/latent-reasoning",
       "kind": "sub",
       "order": 20,
       "title": "What if the model could think without choosing words?"
@@ -674,127 +674,127 @@
       "title": "Personalized discovery"
     },
     {
-      "path": "02-personalized-discovery/search/20-dense-retrieval",
+      "path": "02-personalized-discovery/dense-retrieval",
       "kind": "stage",
       "order": 20,
       "title": "The embedding that sees meaning"
     },
     {
-      "path": "01-language-model/03-sft/what-it-costs",
+      "path": "01-language-model/sft/what-it-costs",
       "kind": "sub",
       "order": 21,
       "title": "It answers questions now. What did that cost?"
     },
     {
-      "path": "02-personalized-discovery/search/21-hybrid-fusion",
+      "path": "02-personalized-discovery/hybrid-fusion",
       "kind": "stage",
       "order": 21,
       "title": "Two retrieval sets, one answer list"
     },
     {
-      "path": "01-language-model/03-sft/beyond-demonstrations",
+      "path": "01-language-model/sft/beyond-demonstrations",
       "kind": "sub",
       "order": 22,
       "title": "You have comparisons, not demonstrations. What changes?"
     },
     {
-      "path": "02-personalized-discovery/search/22-reranking",
+      "path": "02-personalized-discovery/reranking",
       "kind": "stage",
       "order": 22,
       "title": "The second ranker that fixes the first"
     },
     {
-      "path": "01-language-model/03-sft/distillation",
+      "path": "01-language-model/sft/distillation",
       "kind": "sub",
       "order": 23,
       "title": "What can you actually copy from a better model?"
     },
     {
-      "path": "02-personalized-discovery/search/23-personalized-search",
+      "path": "02-personalized-discovery/personalized-search",
       "kind": "stage",
       "order": 23,
       "title": "Same query, two users, two orders"
     },
     {
-      "path": "01-language-model/03-sft/distillation/which-teacher-changes-what",
+      "path": "01-language-model/sft/distillation/which-teacher-changes-what",
       "kind": "page",
       "order": 24,
       "title": "If you swap the teacher, what actually changes in the corpus?"
     },
     {
-      "path": "02-personalized-discovery/search/24-search-measurement",
+      "path": "02-personalized-discovery/search-measurement",
       "kind": "stage",
       "order": 24,
       "title": "Every zero-result query is a decision"
     },
     {
-      "path": "01-language-model/03-sft/distillation/what-path-two-requires",
+      "path": "01-language-model/sft/distillation/what-path-two-requires",
       "kind": "page",
       "order": 25,
       "title": "What does it take to actually run distribution distillation?"
     },
     {
-      "path": "02-personalized-discovery/ads/25-frequency-capping",
+      "path": "02-personalized-discovery/frequency-capping",
       "kind": "stage",
       "order": 25,
       "title": "The cap that reads the aggregate curve keeps serving the segment that stopped clicking"
     },
     {
-      "path": "01-language-model/04-rl/reward-went-up",
+      "path": "01-language-model/rl/reward-went-up",
       "kind": "sub",
       "order": 26,
       "title": "The reward went up. Did the model get better?"
     },
     {
-      "path": "02-personalized-discovery/ads/26-creative-selection",
+      "path": "02-personalized-discovery/creative-selection",
       "kind": "stage",
       "order": 26,
       "title": "The creative that won on history keeps winning after it stopped earning its slot"
     },
     {
-      "path": "01-language-model/04-rl/what-a-real-loop-adds",
+      "path": "01-language-model/rl/what-a-real-loop-adds",
       "kind": "sub",
       "order": 27,
       "title": "Your toy loop runs. What does a real one have that it does not?"
     },
     {
-      "path": "02-personalized-discovery/ads/27-bid-strategy",
+      "path": "02-personalized-discovery/bid-strategy",
       "kind": "stage",
       "order": 27,
       "title": "The bidder that trusts its own winner's log overpays for every auction it wins"
     },
     {
-      "path": "01-language-model/05-serve/paging-the-cache",
+      "path": "01-language-model/serve/paging-the-cache",
       "kind": "sub",
       "order": 28,
       "title": "Why does reserving the KV cache waste most of it?"
     },
     {
-      "path": "02-personalized-discovery/ads/28-auction-revenue",
+      "path": "02-personalized-discovery/auction-revenue",
       "kind": "stage",
       "order": 28,
       "title": "The first-price revenue advantage erodes as bidders learn to shade"
     },
     {
-      "path": "01-language-model/05-serve/why-concurrency-pays",
+      "path": "01-language-model/serve/why-concurrency-pays",
       "kind": "sub",
       "order": 29,
       "title": "Why should sixteen requests cost less than sixteen times one?"
     },
     {
-      "path": "02-personalized-discovery/ads/29-rtb-pipeline",
+      "path": "02-personalized-discovery/rtb-pipeline",
       "kind": "stage",
       "order": 29,
       "title": "The p95 fits the deadline; the p99 loses the auction"
     },
     {
-      "path": "01-language-model/05-serve/graph-execution",
+      "path": "01-language-model/serve/graph-execution",
       "kind": "sub",
       "order": 30,
       "title": "Is the card working, or waiting?"
     },
     {
-      "path": "02-personalized-discovery/ads/30-ads-measurement",
+      "path": "02-personalized-discovery/ads-measurement",
       "kind": "stage",
       "order": 30,
       "title": "The lift that paid for the campaign is invisible to the experiment that measured it"
@@ -806,133 +806,133 @@
       "title": "Quantitative research"
     },
     {
-      "path": "01-language-model/05-serve/quantization",
+      "path": "01-language-model/serve/quantization",
       "kind": "sub",
       "order": 31,
       "title": "Does a smaller model decode faster?"
     },
     {
-      "path": "02-personalized-discovery/recommendation/31-llm-ranking",
+      "path": "02-personalized-discovery/llm-ranking",
       "kind": "stage",
       "order": 31,
       "title": "The LLM reorders the list it can afford to see"
     },
     {
-      "path": "01-language-model/05-serve/speculative-decoding",
+      "path": "01-language-model/serve/speculative-decoding",
       "kind": "sub",
       "order": 32,
       "title": "Is a cheap draft's guess ever worth the expensive model's check?"
     },
     {
-      "path": "02-personalized-discovery/recommendation/32-recommendation-rlhf",
+      "path": "02-personalized-discovery/recommendation-rlhf",
       "kind": "stage",
       "order": 32,
       "title": "The ranker learns which item the user preferred"
     },
     {
-      "path": "01-language-model/07-eval/whose-harness",
+      "path": "01-language-model/eval/whose-harness",
       "kind": "sub",
       "order": 33,
       "title": "Which part of a score belongs to the model?"
     },
     {
-      "path": "02-personalized-discovery/recommendation/33-multimodal-recall",
+      "path": "02-personalized-discovery/multimodal-recall",
       "kind": "stage",
       "order": 33,
       "title": "Content vectors make the cold item reachable"
     },
     {
-      "path": "01-language-model/07-eval/why-believe-the-number",
+      "path": "01-language-model/eval/why-believe-the-number",
       "kind": "sub",
       "order": 34,
       "title": "The report is correct. Why should anyone believe it?"
     },
     {
-      "path": "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation",
+      "path": "02-personalized-discovery/slate-vs-item-evaluation",
       "kind": "stage",
       "order": 34,
       "title": "The user experiences the slate, not the item"
     },
     {
-      "path": "01-language-model/07-eval/metric-gaming",
+      "path": "01-language-model/eval/metric-gaming",
       "kind": "sub",
       "order": 35,
       "title": "The score went up. Did the thing you actually wanted?"
     },
     {
-      "path": "02-personalized-discovery/recommendation/35-verification-replaces-score",
+      "path": "02-personalized-discovery/verification-replaces-score",
       "kind": "stage",
       "order": 35,
       "title": "What replaces the score?"
     },
     {
-      "path": "02-personalized-discovery/search/35-generative-retrieval",
+      "path": "02-personalized-discovery/generative-retrieval",
       "kind": "stage",
       "order": 35,
       "title": "The model emits the document ID directly"
     },
     {
-      "path": "01-language-model/07-eval/who-decides-to-ship",
+      "path": "01-language-model/eval/who-decides-to-ship",
       "kind": "sub",
       "order": 36,
       "title": "The report is in. What has to be true before it ships?"
     },
     {
-      "path": "02-personalized-discovery/search/36-conversational-search",
+      "path": "02-personalized-discovery/conversational-search",
       "kind": "stage",
       "order": 36,
       "title": "The session is the other half of the query"
     },
     {
-      "path": "01-language-model/07-eval/eval-gates",
+      "path": "01-language-model/eval/eval-gates",
       "kind": "sub",
       "order": 37,
       "title": "How does a release get blocked before a person has to eyeball it?"
     },
     {
-      "path": "02-personalized-discovery/search/37-llm-query-understanding",
+      "path": "02-personalized-discovery/llm-query-understanding",
       "kind": "stage",
       "order": 37,
       "title": "The raw string becomes the keys retrieval serves"
     },
     {
-      "path": "01-language-model/07-eval/red-teaming",
+      "path": "01-language-model/eval/red-teaming",
       "kind": "sub",
       "order": 38,
       "title": "Where do the test cases that make a gate meaningful actually come from?"
     },
     {
-      "path": "02-personalized-discovery/ads/38-interleaving-experiments",
+      "path": "02-personalized-discovery/interleaving-experiments",
       "kind": "stage",
       "order": 38,
       "title": "The blended list can hand the win to whichever team got the better positions"
     },
     {
-      "path": "02-personalized-discovery/search/38-conversational-surface",
+      "path": "02-personalized-discovery/conversational-surface",
       "kind": "stage",
       "order": 38,
       "title": "When does the result page become a conversation?"
     },
     {
-      "path": "01-language-model/06-agent/what-fits-in-context",
+      "path": "01-language-model/agent-harness/what-fits-in-context",
       "kind": "sub",
       "order": 39,
       "title": "What do you throw away when the transcript stops fitting?"
     },
     {
-      "path": "02-personalized-discovery/ads/39-first-price-transition",
+      "path": "02-personalized-discovery/first-price-transition",
       "kind": "stage",
       "order": 39,
       "title": "The bidder pays its own bid, so the estimate decides the net"
     },
     {
-      "path": "01-language-model/06-agent/what-stops-it",
+      "path": "01-language-model/agent-harness/what-stops-it",
       "kind": "sub",
       "order": 40,
       "title": "The agent can act. What stops it?"
     },
     {
-      "path": "02-personalized-discovery/ads/40-privacy-safe-attribution",
+      "path": "02-personalized-discovery/privacy-safe-attribution",
       "kind": "stage",
       "order": 40,
       "title": "The noise flips the order that spends the budget"
@@ -944,271 +944,271 @@
       "title": "When an agent says it fixed the bug, what makes that true?"
     },
     {
-      "path": "01-language-model/06-agent/would-a-second-agent-help",
+      "path": "01-language-model/agent-harness/would-a-second-agent-help",
       "kind": "sub",
       "order": 41,
       "title": "One agent is stuck. Would a second one help?"
     },
     {
-      "path": "02-personalized-discovery/ads/41-llm-creative-generation",
+      "path": "02-personalized-discovery/llm-creative-generation",
       "kind": "stage",
       "order": 41,
       "title": "The surface score picks the creative that does not convert"
     },
     {
-      "path": "02-personalized-discovery/ads/42-marketplace-economics",
+      "path": "02-personalized-discovery/marketplace-economics",
       "kind": "stage",
       "order": 42,
       "title": "The demand curve sets the peak"
     },
     {
-      "path": "02-personalized-discovery/ads/43-ads-inside-the-loop",
+      "path": "02-personalized-discovery/ads-inside-the-loop",
       "kind": "stage",
       "order": 43,
       "title": "What survives of the auction?"
     },
     {
-      "path": "02-personalized-discovery/shared/43-feature-store",
+      "path": "02-personalized-discovery/feature-store",
       "kind": "stage",
       "order": 43,
       "title": "The feature store makes training and serving read the same number"
     },
     {
-      "path": "02-personalized-discovery/shared/44-training-serving-consistency",
+      "path": "02-personalized-discovery/training-serving-consistency",
       "kind": "stage",
       "order": 44,
       "title": "Training-serving skew is a pipeline property, not a model one"
     },
     {
-      "path": "02-personalized-discovery/shared/45-feedback-loops",
+      "path": "02-personalized-discovery/feedback-loops",
       "kind": "stage",
       "order": 45,
       "title": "The feedback loop entrenches what it shows"
     },
     {
-      "path": "02-personalized-discovery/shared/46-retraining-and-staleness",
+      "path": "02-personalized-discovery/retraining-and-staleness",
       "kind": "stage",
       "order": 46,
       "title": "Retraining is a question of noticing the snapshot stopped paying"
     },
     {
-      "path": "02-personalized-discovery/shared/47-monitoring-and-drift",
+      "path": "02-personalized-discovery/monitoring-and-drift",
       "kind": "stage",
       "order": 47,
       "title": "Monitoring lives online because the offline eval reuses the broken world"
     },
     {
-      "path": "02-personalized-discovery/shared/48-realtime-user-state",
+      "path": "02-personalized-discovery/realtime-user-state",
       "kind": "stage",
       "order": 48,
       "title": "The session is a feature the batch model cannot see"
     },
     {
-      "path": "02-personalized-discovery/shared/49-throughput-and-capacity",
+      "path": "02-personalized-discovery/throughput-and-capacity",
       "kind": "stage",
       "order": 49,
       "title": "Capacity is throughput times deadline, not throughput times average latency"
     },
     {
-      "path": "01-language-model/00-corpus/LANDSCAPE",
+      "path": "01-language-model/corpus/LANDSCAPE",
       "kind": "page",
       "order": 50,
       "title": ""
     },
     {
-      "path": "01-language-model/00-corpus/dedup-at-scale",
+      "path": "01-language-model/corpus/dedup-at-scale",
       "kind": "sub",
       "order": 50,
       "title": "Why does dedup reach for a GPU once the corpus gets big enough?"
     },
     {
-      "path": "01-language-model/00-corpus/dedup-at-scale/when-verification-goes-quadratic",
+      "path": "01-language-model/corpus/dedup-at-scale/when-verification-goes-quadratic",
       "kind": "page",
       "order": 50,
       "title": "Hashing scales linearly; verification scales quadratically"
     },
     {
-      "path": "01-language-model/00-corpus/the-funnel-shape",
+      "path": "01-language-model/corpus/the-funnel-shape",
       "kind": "sub",
       "order": 50,
       "title": "18.3% of the raw web survives — and that is the point"
     },
     {
-      "path": "01-language-model/00-corpus/when-the-benchmark-is-in-the-train-set",
+      "path": "01-language-model/corpus/when-the-benchmark-is-in-the-train-set",
       "kind": "sub",
       "order": 50,
       "title": "The benchmark item is already in the training set"
     },
     {
-      "path": "01-language-model/00-corpus/when-the-filter-eats-the-signal",
+      "path": "01-language-model/corpus/when-the-filter-eats-the-signal",
       "kind": "sub",
       "order": 50,
       "title": "When the wash eats the signal"
     },
     {
-      "path": "01-language-model/01-tokenizer/is-it-the-same-tokenizer",
+      "path": "01-language-model/tokenizer/is-it-the-same-tokenizer",
       "kind": "sub",
       "order": 50,
       "title": "How do you know the fast version learned the same vocabulary?"
     },
     {
-      "path": "01-language-model/01-tokenizer/is-it-the-same-tokenizer/when-the-tie-break-matters",
+      "path": "01-language-model/tokenizer/is-it-the-same-tokenizer/when-the-tie-break-matters",
       "kind": "page",
       "order": 50,
       "title": "The same corpus, the same rule — why two vocabularies?"
     },
     {
-      "path": "01-language-model/01-tokenizer/the-characters-that-cost-the-most",
+      "path": "01-language-model/tokenizer/the-characters-that-cost-the-most",
       "kind": "sub",
       "order": 50,
       "title": "Some text costs an order of magnitude more"
     },
     {
-      "path": "01-language-model/01-tokenizer/the-merges-that-build-the-vocab",
+      "path": "01-language-model/tokenizer/the-merges-that-build-the-vocab",
       "kind": "sub",
       "order": 50,
       "title": "The merge sequence IS the tokenizer's logic"
     },
     {
-      "path": "01-language-model/02-pretrain/LANDSCAPE",
+      "path": "01-language-model/pretrain/LANDSCAPE",
       "kind": "page",
       "order": 50,
       "title": ""
     },
     {
-      "path": "01-language-model/02-pretrain/attention-variants",
+      "path": "01-language-model/pretrain/attention-variants",
       "kind": "sub",
       "order": 50,
       "title": "Why is the KV cache the architecture's tax?"
     },
     {
-      "path": "01-language-model/02-pretrain/mid-training",
+      "path": "01-language-model/pretrain/mid-training",
       "kind": "sub",
       "order": 50,
       "title": "Where does a base model learn to call a tool?"
     },
     {
-      "path": "01-language-model/02-pretrain/mid-training/when-the-annealed-slice-moves-the-evals",
+      "path": "01-language-model/pretrain/mid-training/when-the-annealed-slice-moves-the-evals",
       "kind": "page",
       "order": 50,
       "title": "When the annealed slice moves the evals"
     },
     {
-      "path": "01-language-model/02-pretrain/the-gate-that-beats-relu",
+      "path": "01-language-model/pretrain/the-gate-that-beats-relu",
       "kind": "sub",
       "order": 50,
       "title": "The gate that beats ReLU"
     },
     {
-      "path": "01-language-model/03-sft/LANDSCAPE",
+      "path": "01-language-model/sft/LANDSCAPE",
       "kind": "page",
       "order": 50,
       "title": ""
     },
     {
-      "path": "01-language-model/03-sft/distillation/when-the-teacher-is-wrong",
+      "path": "01-language-model/sft/distillation/when-the-teacher-is-wrong",
       "kind": "page",
       "order": 50,
       "title": "When the teacher is wrong, what does distillation copy?"
     },
     {
-      "path": "01-language-model/03-sft/the-template-is-a-contract",
+      "path": "01-language-model/sft/the-template-is-a-contract",
       "kind": "sub",
       "order": 50,
       "title": "The chat template is a contract"
     },
     {
-      "path": "01-language-model/03-sft/the-template-is-a-contract/when-the-role-is-wrong",
+      "path": "01-language-model/sft/the-template-is-a-contract/when-the-role-is-wrong",
       "kind": "page",
       "order": 50,
       "title": "The mask trusts the role. What happens when the role is wrong?"
     },
     {
-      "path": "01-language-model/03-sft/what-model-size-changes",
+      "path": "01-language-model/sft/what-model-size-changes",
       "kind": "sub",
       "order": 50,
       "title": "What does model size change about SFT?"
     },
     {
-      "path": "01-language-model/04-rl/LANDSCAPE",
+      "path": "01-language-model/rl/LANDSCAPE",
       "kind": "page",
       "order": 50,
       "title": ""
     },
     {
-      "path": "01-language-model/04-rl/reward-went-up/when-the-proxy-gets-gamed",
+      "path": "01-language-model/rl/reward-went-up/when-the-proxy-gets-gamed",
       "kind": "page",
       "order": 50,
       "title": "When the proxy gets gamed"
     },
     {
-      "path": "01-language-model/04-rl/reward-went-up/when-the-reward-is-wrong",
+      "path": "01-language-model/rl/reward-went-up/when-the-reward-is-wrong",
       "kind": "page",
       "order": 50,
       "title": "The reward curve lies again — this time the labels are wrong or late"
     },
     {
-      "path": "01-language-model/04-rl/rollout-concurrency",
+      "path": "01-language-model/rl/rollout-concurrency",
       "kind": "sub",
       "order": 50,
       "title": "Why does an RL update step wait on its slowest rollout?"
     },
     {
-      "path": "01-language-model/04-rl/rollout-concurrency/when-the-heavy-tail-waits",
+      "path": "01-language-model/rl/rollout-concurrency/when-the-heavy-tail-waits",
       "kind": "page",
       "order": 50,
       "title": "Async wins because a finished worker does not wait"
     },
     {
-      "path": "01-language-model/04-rl/the-group-relative-trick",
+      "path": "01-language-model/rl/the-group-relative-trick",
       "kind": "sub",
       "order": 50,
       "title": "What does the group-relative trick actually change?"
     },
     {
-      "path": "01-language-model/04-rl/the-kl-leash",
+      "path": "01-language-model/rl/the-kl-leash",
       "kind": "sub",
       "order": 50,
       "title": "The leash that keeps the policy close"
     },
     {
-      "path": "01-language-model/05-serve/LANDSCAPE",
+      "path": "01-language-model/serve/LANDSCAPE",
       "kind": "page",
       "order": 50,
       "title": ""
     },
     {
-      "path": "01-language-model/05-serve/observability",
+      "path": "01-language-model/serve/observability",
       "kind": "sub",
       "order": 50,
       "title": "A mean step time hides the step that just took three times as long"
     },
     {
-      "path": "01-language-model/05-serve/observability/when-the-tail-waits",
+      "path": "01-language-model/serve/observability/when-the-tail-waits",
       "kind": "page",
       "order": 50,
       "title": "The step that the mean hides"
     },
     {
-      "path": "01-language-model/05-serve/when-the-cascade-loses",
+      "path": "01-language-model/serve/when-the-cascade-loses",
       "kind": "sub",
       "order": 50,
       "title": "When does the cheap gate stop paying?"
     },
     {
-      "path": "01-language-model/06-agent/LANDSCAPE",
+      "path": "01-language-model/agent-harness/LANDSCAPE",
       "kind": "page",
       "order": 50,
       "title": ""
     },
     {
-      "path": "01-language-model/06-agent/when-the-tool-errors",
+      "path": "01-language-model/agent-harness/when-the-tool-errors",
       "kind": "sub",
       "order": 50,
       "title": "When the tool errors, who teaches the recovery turn?"
     },
     {
-      "path": "01-language-model/07-eval/LANDSCAPE",
+      "path": "01-language-model/eval/LANDSCAPE",
       "kind": "page",
       "order": 50,
       "title": ""
@@ -1220,112 +1220,100 @@
       "title": ""
     },
     {
-      "path": "01-language-model/post-training-rl-landscape",
+      "path": "01-language-model/rl/post-training-rl-landscape",
       "kind": "page",
       "order": 50,
       "title": ""
     },
     {
-      "path": "01-language-model/pretraining-data-landscape",
+      "path": "01-language-model/corpus/pretraining-data-landscape",
       "kind": "page",
       "order": 50,
       "title": ""
     },
     {
-      "path": "01-language-model/vision",
-      "kind": "page",
-      "order": 50,
-      "title": "Does the picture add anything a hosted API or a blind guess couldn't?"
-    },
-    {
-      "path": "01-language-model/vision/00-image-caption-task/seed-vs-pixels",
+      "path": "01-language-model/corpus/seed-vs-pixels",
       "kind": "sub",
       "order": 50,
       "title": "Why does a leakage guardrail need to check pixels, not seeds?"
     },
     {
-      "path": "01-language-model/vision/00-image-caption-task/the-collision-that-closed-the-gap",
+      "path": "01-language-model/corpus/the-collision-that-closed-the-gap",
       "kind": "sub",
       "order": 50,
       "title": "Disjoint seeds are not disjoint images"
     },
     {
-      "path": "01-language-model/vision/01-vision-fusion/the-fused-attention-anatomy",
+      "path": "01-language-model/pretrain/the-fused-attention-anatomy",
       "kind": "sub",
       "order": 50,
       "title": "There is no cross-attention module"
     },
     {
-      "path": "01-language-model/vision/01-vision-fusion/where-the-decoder-looks",
+      "path": "01-language-model/pretrain/where-the-decoder-looks",
       "kind": "sub",
       "order": 50,
       "title": "Where does the decoder look when the image matters?"
     },
     {
-      "path": "01-language-model/vision/02-report/the-economics-per-question",
+      "path": "01-language-model/eval/the-economics-per-question",
       "kind": "sub",
       "order": 50,
       "title": "The \\$0.00128/question that decides build-vs-buy"
     },
     {
-      "path": "01-language-model/vision/02-report/when-the-category-breaks-down",
+      "path": "01-language-model/eval/when-the-category-breaks-down",
       "kind": "sub",
       "order": 50,
       "title": "Where the NOT MET verdict hides the pathway's real signal"
     },
     {
-      "path": "01-language-model/vision/03-real-photo-task/the-id-based-guardrail",
+      "path": "01-language-model/corpus/the-id-based-guardrail",
       "kind": "sub",
       "order": 50,
       "title": "Why real photos are checked by ID, not by pixel"
     },
     {
-      "path": "01-language-model/vision/03-real-photo-task/the-real-photo-guardrail",
+      "path": "01-language-model/corpus/the-real-photo-guardrail",
       "kind": "sub",
       "order": 50,
       "title": "The real-photo guardrail: why image ID, not pixel hash"
     },
     {
-      "path": "01-language-model/vision/04-real-photo-vision-fusion/the-flipped-variance",
+      "path": "01-language-model/pretrain/the-flipped-variance",
       "kind": "sub",
       "order": 50,
       "title": "The noise changed sides"
     },
     {
-      "path": "01-language-model/vision/04-real-photo-vision-fusion/when-the-margin-is-narrow",
+      "path": "01-language-model/pretrain/when-the-margin-is-narrow",
       "kind": "sub",
       "order": 50,
       "title": "The margin is narrow, real, and noisy on the control side"
     },
     {
-      "path": "01-language-model/vision/05-real-photo-report/the-answer-type-shaped-edge",
+      "path": "01-language-model/eval/the-answer-type-shaped-edge",
       "kind": "sub",
       "order": 50,
       "title": "The API's edge is shaped like the answer type"
     },
     {
-      "path": "01-language-model/vision/05-real-photo-report/when-the-api-still-wins",
+      "path": "01-language-model/eval/when-the-api-still-wins",
       "kind": "sub",
       "order": 50,
       "title": "The build-vs-buy verdict, on real photos"
     },
     {
-      "path": "01-language-model/vision/06-warmup-stability/the-collapse-that-warmup-closed",
+      "path": "01-language-model/pretrain/the-collapse-that-warmup-closed",
       "kind": "sub",
       "order": 50,
       "title": "The seed-2 outlier, closed by a training-dynamics fix"
     },
     {
-      "path": "01-language-model/vision/06-warmup-stability/when-warmup-closed-the-collapse",
+      "path": "01-language-model/pretrain/when-warmup-closed-the-collapse",
       "kind": "sub",
       "order": 50,
       "title": "What the warmup changed, and what it did not"
-    },
-    {
-      "path": "01-language-model/vision/lineage",
-      "kind": "page",
-      "order": 50,
-      "title": ""
     },
     {
       "path": "02-personalized-discovery/ads",
@@ -1334,307 +1322,307 @@
       "title": "The ads track"
     },
     {
-      "path": "02-personalized-discovery/ads/14-ad-auction/when-the-market-is-thin",
+      "path": "02-personalized-discovery/ad-auction/when-the-market-is-thin",
       "kind": "sub",
       "order": 50,
       "title": "One bidder makes the reserve the whole auction"
     },
     {
-      "path": "02-personalized-discovery/ads/14-ad-auction/when-the-reserve-price-bites",
+      "path": "02-personalized-discovery/ad-auction/when-the-reserve-price-bites",
       "kind": "sub",
       "order": 50,
       "title": "The floor that can also kill the sale"
     },
     {
-      "path": "02-personalized-discovery/ads/14-ad-auction/when-truthful-bidding-is-optimal",
+      "path": "02-personalized-discovery/ad-auction/when-truthful-bidding-is-optimal",
       "kind": "sub",
       "order": 50,
       "title": "The dominant strategy is the honest one"
     },
     {
-      "path": "02-personalized-discovery/ads/15-ecpm-ranking/when-pctr-moves-the-rank",
+      "path": "02-personalized-discovery/ecpm-ranking/when-pctr-moves-the-rank",
       "kind": "sub",
       "order": 50,
       "title": "The knife-edge the click estimate sits on"
     },
     {
-      "path": "02-personalized-discovery/ads/15-ecpm-ranking/when-the-bids-tie",
+      "path": "02-personalized-discovery/ecpm-ranking/when-the-bids-tie",
       "kind": "sub",
       "order": 50,
       "title": "The tie-break rule decides who wins when the estimate cannot"
     },
     {
-      "path": "02-personalized-discovery/ads/15-ecpm-ranking/when-the-reserve-interacts",
+      "path": "02-personalized-discovery/ecpm-ranking/when-the-reserve-interacts",
       "kind": "sub",
       "order": 50,
       "title": "The reserve and the ranking are one decision"
     },
     {
-      "path": "02-personalized-discovery/ads/16-ctr-calibration/when-calibration-and-ranking-conflict",
+      "path": "02-personalized-discovery/ctr-calibration/when-calibration-and-ranking-conflict",
       "kind": "sub",
       "order": 50,
       "title": "Perfect order, wrong values"
     },
     {
-      "path": "02-personalized-discovery/ads/16-ctr-calibration/when-calibration-drifts",
+      "path": "02-personalized-discovery/ctr-calibration/when-calibration-drifts",
       "kind": "sub",
       "order": 50,
       "title": "The fix that made the estimate honest has an expiration date"
     },
     {
-      "path": "02-personalized-discovery/ads/16-ctr-calibration/when-the-correction-is-needed",
+      "path": "02-personalized-discovery/ctr-calibration/when-the-correction-is-needed",
       "kind": "sub",
       "order": 50,
       "title": "The fix that makes the estimate honest"
     },
     {
-      "path": "02-personalized-discovery/ads/17-budget-pacing/when-delivery-varies",
+      "path": "02-personalized-discovery/budget-pacing/when-delivery-varies",
       "kind": "sub",
       "order": 50,
       "title": "The cap that binds when demand spikes"
     },
     {
-      "path": "02-personalized-discovery/ads/17-budget-pacing/when-the-budget-is-tiny",
+      "path": "02-personalized-discovery/budget-pacing/when-the-budget-is-tiny",
       "kind": "sub",
       "order": 50,
       "title": "Pacing cannot create a budget"
     },
     {
-      "path": "02-personalized-discovery/ads/17-budget-pacing/when-the-pacer-overcorrects",
+      "path": "02-personalized-discovery/budget-pacing/when-the-pacer-overcorrects",
       "kind": "sub",
       "order": 50,
       "title": "The pacer that fixes delivery by oscillating"
     },
     {
-      "path": "02-personalized-discovery/ads/18-ad-externality/when-the-ad-is-relevant",
+      "path": "02-personalized-discovery/ad-externality/when-the-ad-is-relevant",
       "kind": "sub",
       "order": 50,
       "title": "The externality flips sign when the ad is relevant"
     },
     {
-      "path": "02-personalized-discovery/ads/18-ad-externality/when-the-slot-hides-the-whale",
+      "path": "02-personalized-discovery/ad-externality/when-the-slot-hides-the-whale",
       "kind": "sub",
       "order": 50,
       "title": "The average displacement hides the one result that mattered"
     },
     {
-      "path": "02-personalized-discovery/ads/18-ad-externality/when-the-slot-is-scarce",
+      "path": "02-personalized-discovery/ad-externality/when-the-slot-is-scarce",
       "kind": "sub",
       "order": 50,
       "title": "Scarcity amplifies the externality"
     },
     {
-      "path": "02-personalized-discovery/ads/25-frequency-capping/when-fatigue-hits",
+      "path": "02-personalized-discovery/frequency-capping/when-fatigue-hits",
       "kind": "sub",
       "order": 50,
       "title": "More impressions buy fewer clicks once fatigue sets in"
     },
     {
-      "path": "02-personalized-discovery/ads/25-frequency-capping/when-the-cap-bites",
+      "path": "02-personalized-discovery/frequency-capping/when-the-cap-bites",
       "kind": "sub",
       "order": 50,
       "title": "The cap is a budget allocation, not a setting"
     },
     {
-      "path": "02-personalized-discovery/ads/25-frequency-capping/when-the-counter-drifts",
+      "path": "02-personalized-discovery/frequency-capping/when-the-counter-drifts",
       "kind": "sub",
       "order": 50,
       "title": "The cap reads a counter that can reset underneath it"
     },
     {
-      "path": "02-personalized-discovery/ads/26-creative-selection/when-the-creative-context-changes",
+      "path": "02-personalized-discovery/creative-selection/when-the-creative-context-changes",
       "kind": "sub",
       "order": 50,
       "title": "Context is a feature of creative selection"
     },
     {
-      "path": "02-personalized-discovery/ads/26-creative-selection/when-the-creative-has-no-history",
+      "path": "02-personalized-discovery/creative-selection/when-the-creative-has-no-history",
       "kind": "sub",
       "order": 50,
       "title": "A creative with no history cannot be priced, and exploration alone does not fix that"
     },
     {
-      "path": "02-personalized-discovery/ads/26-creative-selection/when-the-creative-is-stale",
+      "path": "02-personalized-discovery/creative-selection/when-the-creative-is-stale",
       "kind": "sub",
       "order": 50,
       "title": "Logged CTR mixes quality with wear"
     },
     {
-      "path": "02-personalized-discovery/ads/27-bid-strategy/when-the-bid-is-capped",
+      "path": "02-personalized-discovery/bid-strategy/when-the-bid-is-capped",
       "kind": "sub",
       "order": 50,
       "title": "The cap is a risk dial, not a price"
     },
     {
-      "path": "02-personalized-discovery/ads/27-bid-strategy/when-the-conversion-lags",
+      "path": "02-personalized-discovery/bid-strategy/when-the-conversion-lags",
       "kind": "sub",
       "order": 50,
       "title": "A conversion that arrives tomorrow is labeled a negative today"
     },
     {
-      "path": "02-personalized-discovery/ads/27-bid-strategy/when-the-target-cpa-binds",
+      "path": "02-personalized-discovery/bid-strategy/when-the-target-cpa-binds",
       "kind": "sub",
       "order": 50,
       "title": "The target CPA is a walk-away line"
     },
     {
-      "path": "02-personalized-discovery/ads/28-auction-revenue/when-first-price-pays-more",
+      "path": "02-personalized-discovery/auction-revenue/when-first-price-pays-more",
       "kind": "sub",
       "order": 50,
       "title": "First price pays more only when bidders stay honest"
     },
     {
-      "path": "02-personalized-discovery/ads/28-auction-revenue/when-the-bidders-learn",
+      "path": "02-personalized-discovery/auction-revenue/when-the-bidders-learn",
       "kind": "sub",
       "order": 50,
       "title": "Revenue measured during the transition is not the revenue that settles"
     },
     {
-      "path": "02-personalized-discovery/ads/28-auction-revenue/when-the-reserve-moves-revenue",
+      "path": "02-personalized-discovery/auction-revenue/when-the-reserve-moves-revenue",
       "kind": "sub",
       "order": 50,
       "title": "The reserve sits on the demand curve"
     },
     {
-      "path": "02-personalized-discovery/ads/29-rtb-pipeline/when-the-bidder-is-slow",
+      "path": "02-personalized-discovery/rtb-pipeline/when-the-bidder-is-slow",
       "kind": "sub",
       "order": 50,
       "title": "Latency is a bidder's cost of entry"
     },
     {
-      "path": "02-personalized-discovery/ads/29-rtb-pipeline/when-the-exchange-times-out",
+      "path": "02-personalized-discovery/rtb-pipeline/when-the-exchange-times-out",
       "kind": "sub",
       "order": 50,
       "title": "Every timeout is a slot that sells nothing"
     },
     {
-      "path": "02-personalized-discovery/ads/29-rtb-pipeline/when-the-model-outruns-the-budget",
+      "path": "02-personalized-discovery/rtb-pipeline/when-the-model-outruns-the-budget",
       "kind": "sub",
       "order": 50,
       "title": "The 25ms inference slot has a tail of its own"
     },
     {
-      "path": "02-personalized-discovery/ads/30-ads-measurement/when-attribution-overcounts",
+      "path": "02-personalized-discovery/ads-measurement/when-attribution-overcounts",
       "kind": "sub",
       "order": 50,
       "title": "The measurement model decides which channel gets the budget"
     },
     {
-      "path": "02-personalized-discovery/ads/30-ads-measurement/when-the-incrementality-is-zero",
+      "path": "02-personalized-discovery/ads-measurement/when-the-incrementality-is-zero",
       "kind": "sub",
       "order": 50,
       "title": "Zero lift is the null result measurement exists to find"
     },
     {
-      "path": "02-personalized-discovery/ads/30-ads-measurement/when-the-lift-is-too-small-to-see",
+      "path": "02-personalized-discovery/ads-measurement/when-the-lift-is-too-small-to-see",
       "kind": "sub",
       "order": 50,
       "title": "The campaign's own lift is wider than the interval that measures it"
     },
     {
-      "path": "02-personalized-discovery/ads/38-interleaving-experiments/when-the-blend-biases-the-credit",
+      "path": "02-personalized-discovery/interleaving-experiments/when-the-blend-biases-the-credit",
       "kind": "sub",
       "order": 50,
       "title": "The blend, not the ranking, can hand the win to one team"
     },
     {
-      "path": "02-personalized-discovery/ads/38-interleaving-experiments/when-the-credit-is-unbalanced",
+      "path": "02-personalized-discovery/interleaving-experiments/when-the-credit-is-unbalanced",
       "kind": "sub",
       "order": 50,
       "title": "The credit is unbalanced when both teams proposed the click"
     },
     {
-      "path": "02-personalized-discovery/ads/38-interleaving-experiments/when-the-traffic-is-tiny",
+      "path": "02-personalized-discovery/interleaving-experiments/when-the-traffic-is-tiny",
       "kind": "sub",
       "order": 50,
       "title": "The traffic is too tiny for a between-user A/B"
     },
     {
-      "path": "02-personalized-discovery/ads/39-first-price-transition/when-the-competition-is-unobservable",
+      "path": "02-personalized-discovery/first-price-transition/when-the-competition-is-unobservable",
       "kind": "sub",
       "order": 50,
       "title": "The competition the bidder never probes never reaches the estimate"
     },
     {
-      "path": "02-personalized-discovery/ads/39-first-price-transition/when-the-market-adjusts",
+      "path": "02-personalized-discovery/first-price-transition/when-the-market-adjusts",
       "kind": "sub",
       "order": 50,
       "title": "The market adjusts as bidders learn to shade"
     },
     {
-      "path": "02-personalized-discovery/ads/39-first-price-transition/when-the-shading-is-wrong",
+      "path": "02-personalized-discovery/first-price-transition/when-the-shading-is-wrong",
       "kind": "sub",
       "order": 50,
       "title": "The shading is wrong and the error is a direct cost"
     },
     {
-      "path": "02-personalized-discovery/ads/40-privacy-safe-attribution/when-the-budget-splits",
+      "path": "02-personalized-discovery/privacy-safe-attribution/when-the-budget-splits",
       "kind": "sub",
       "order": 50,
       "title": "The privacy budget splits and dilutes every report"
     },
     {
-      "path": "02-personalized-discovery/ads/40-privacy-safe-attribution/when-the-noise-flips-the-order",
+      "path": "02-personalized-discovery/privacy-safe-attribution/when-the-noise-flips-the-order",
       "kind": "sub",
       "order": 50,
       "title": "More channels is more chances for the noise to move the budget"
     },
     {
-      "path": "02-personalized-discovery/ads/40-privacy-safe-attribution/when-the-noise-is-too-high",
+      "path": "02-personalized-discovery/privacy-safe-attribution/when-the-noise-is-too-high",
       "kind": "sub",
       "order": 50,
       "title": "The noise is too high and the order collapses"
     },
     {
-      "path": "02-personalized-discovery/ads/41-llm-creative-generation/when-the-generated-creative-is-identical",
+      "path": "02-personalized-discovery/llm-creative-generation/when-the-generated-creative-is-identical",
       "kind": "sub",
       "order": 50,
       "title": "The generated creative collapses to near-identical variants"
     },
     {
-      "path": "02-personalized-discovery/ads/41-llm-creative-generation/when-the-generator-collapses-to-the-train-set",
+      "path": "02-personalized-discovery/llm-creative-generation/when-the-generator-collapses-to-the-train-set",
       "kind": "sub",
       "order": 50,
       "title": "The generator re-emits the winners, and the cohort has seen them"
     },
     {
-      "path": "02-personalized-discovery/ads/41-llm-creative-generation/when-the-score-is-on-surface",
+      "path": "02-personalized-discovery/llm-creative-generation/when-the-score-is-on-surface",
       "kind": "sub",
       "order": 50,
       "title": "The score stays on the surface and misses real CTR"
     },
     {
-      "path": "02-personalized-discovery/ads/42-marketplace-economics/when-the-ad-load-moves",
+      "path": "02-personalized-discovery/marketplace-economics/when-the-ad-load-moves",
       "kind": "sub",
       "order": 50,
       "title": "The ad load moves and displaces organic value"
     },
     {
-      "path": "02-personalized-discovery/ads/42-marketplace-economics/when-the-demand-curve-is-elastic",
+      "path": "02-personalized-discovery/marketplace-economics/when-the-demand-curve-is-elastic",
       "kind": "sub",
       "order": 50,
       "title": "The cut chases both sides away, and the peak falls"
     },
     {
-      "path": "02-personalized-discovery/ads/42-marketplace-economics/when-the-take-rate-is-too-high",
+      "path": "02-personalized-discovery/marketplace-economics/when-the-take-rate-is-too-high",
       "kind": "sub",
       "order": 50,
       "title": "The take rate is too high and the marketplace collapses"
     },
     {
-      "path": "02-personalized-discovery/ads/56-advertiser-roas/when-roas-collapses",
+      "path": "02-personalized-discovery/advertiser-roas/when-roas-collapses",
       "kind": "sub",
       "order": 50,
       "title": "The marginal dollar buys less every time"
     },
     {
-      "path": "02-personalized-discovery/ads/56-advertiser-roas/when-the-average-hides-the-margin",
+      "path": "02-personalized-discovery/advertiser-roas/when-the-average-hides-the-margin",
       "kind": "sub",
       "order": 50,
       "title": "The average hides the margin, and the budget cuts the wrong dollar"
     },
     {
-      "path": "02-personalized-discovery/ads/56-advertiser-roas/when-the-budget-moves",
+      "path": "02-personalized-discovery/advertiser-roas/when-the-budget-moves",
       "kind": "sub",
       "order": 50,
       "title": "The advertiser's exit is the platform's loss"
@@ -1652,211 +1640,211 @@
       "title": "The recommendation track"
     },
     {
-      "path": "02-personalized-discovery/recommendation/31-llm-ranking/when-the-llm-disagrees",
+      "path": "02-personalized-discovery/llm-ranking/when-the-llm-disagrees",
       "kind": "sub",
       "order": 50,
       "title": "The LLM disagrees with the pointwise order where the user looks"
     },
     {
-      "path": "02-personalized-discovery/recommendation/31-llm-ranking/when-the-output-cannot-be-parsed",
+      "path": "02-personalized-discovery/llm-ranking/when-the-output-cannot-be-parsed",
       "kind": "sub",
       "order": 50,
       "title": "The text answer is not a list"
     },
     {
-      "path": "02-personalized-discovery/recommendation/31-llm-ranking/when-the-prompt-token-budget-binds",
+      "path": "02-personalized-discovery/llm-ranking/when-the-prompt-token-budget-binds",
       "kind": "sub",
       "order": 50,
       "title": "The prompt token budget binds and becomes the recall boundary"
     },
     {
-      "path": "02-personalized-discovery/recommendation/32-recommendation-rlhf/when-the-preference-cycles",
+      "path": "02-personalized-discovery/recommendation-rlhf/when-the-preference-cycles",
       "kind": "sub",
       "order": 50,
       "title": "The preference the scalar model cannot hold"
     },
     {
-      "path": "02-personalized-discovery/recommendation/32-recommendation-rlhf/when-the-preference-is-noisy",
+      "path": "02-personalized-discovery/recommendation-rlhf/when-the-preference-is-noisy",
       "kind": "sub",
       "order": 50,
       "title": "The preference label is noisy and sets a loss floor"
     },
     {
-      "path": "02-personalized-discovery/recommendation/32-recommendation-rlhf/when-the-reward-is-gamed",
+      "path": "02-personalized-discovery/recommendation-rlhf/when-the-reward-is-gamed",
       "kind": "sub",
       "order": 50,
       "title": "The reward is gamed by the policy that maximizes it"
     },
     {
-      "path": "02-personalized-discovery/recommendation/33-multimodal-recall/when-the-content-vector-is-low-quality",
+      "path": "02-personalized-discovery/multimodal-recall/when-the-content-vector-is-low-quality",
       "kind": "sub",
       "order": 50,
       "title": "The low-quality content vector is reachable but not retrievable"
     },
     {
-      "path": "02-personalized-discovery/recommendation/33-multimodal-recall/when-the-image-is-cold",
+      "path": "02-personalized-discovery/multimodal-recall/when-the-image-is-cold",
       "kind": "sub",
       "order": 50,
       "title": "The cold image is reachable through one modality only"
     },
     {
-      "path": "02-personalized-discovery/recommendation/33-multimodal-recall/when-the-modality-mismatch",
+      "path": "02-personalized-discovery/multimodal-recall/when-the-modality-mismatch",
       "kind": "sub",
       "order": 50,
       "title": "The modality mismatch biases recall toward text-rich items"
     },
     {
-      "path": "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-metric-misses-diversity",
+      "path": "02-personalized-discovery/slate-vs-item-evaluation/when-the-metric-misses-diversity",
       "kind": "sub",
       "order": 50,
       "title": "The item-level metric misses diversity and ties the slates"
     },
     {
-      "path": "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-position-matters",
+      "path": "02-personalized-discovery/slate-vs-item-evaluation/when-the-position-matters",
       "kind": "sub",
       "order": 50,
       "title": "Position bias makes clicks measure the slot, not the item"
     },
     {
-      "path": "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation/when-the-slate-is-diverse",
+      "path": "02-personalized-discovery/slate-vs-item-evaluation/when-the-slate-is-diverse",
       "kind": "sub",
       "order": 50,
       "title": "The diverse slate trades a top item for coverage"
     },
     {
-      "path": "02-personalized-discovery/recommendation/56-entire-space-funnel/when-the-ctcvr-disagrees",
+      "path": "02-personalized-discovery/entire-space-funnel/when-the-ctcvr-disagrees",
       "kind": "sub",
       "order": 50,
       "title": "The ratio that explodes where CTR is tiny"
     },
     {
-      "path": "02-personalized-discovery/recommendation/56-entire-space-funnel/when-the-cvr-is-censored",
+      "path": "02-personalized-discovery/entire-space-funnel/when-the-cvr-is-censored",
       "kind": "sub",
       "order": 50,
       "title": "The head that never sees a non-click"
     },
     {
-      "path": "02-personalized-discovery/recommendation/57-delayed-feedback/when-freshness-fights-correctness",
+      "path": "02-personalized-discovery/delayed-feedback/when-freshness-fights-correctness",
       "kind": "sub",
       "order": 50,
       "title": "The freshest snapshot is the most censored"
     },
     {
-      "path": "02-personalized-discovery/recommendation/57-delayed-feedback/when-the-window-is-too-short",
+      "path": "02-personalized-discovery/delayed-feedback/when-the-window-is-too-short",
       "kind": "sub",
       "order": 50,
       "title": "The window that trades labels for rows"
     },
     {
-      "path": "02-personalized-discovery/recommendation/58-negative-sampling/when-the-correction-overcorrects",
+      "path": "02-personalized-discovery/negative-sampling/when-the-correction-overcorrects",
       "kind": "sub",
       "order": 50,
       "title": "The formula is only as good as the ratio it is fed"
     },
     {
-      "path": "02-personalized-discovery/recommendation/58-negative-sampling/when-the-negative-rate-is-extreme",
+      "path": "02-personalized-discovery/negative-sampling/when-the-negative-rate-is-extreme",
       "kind": "sub",
       "order": 50,
       "title": "The 99% gradient that belongs to easy negatives"
     },
     {
-      "path": "02-personalized-discovery/recommendation/59-exposure-bias/when-exploration-traffic-is-thin",
+      "path": "02-personalized-discovery/exposure-bias/when-exploration-traffic-is-thin",
       "kind": "sub",
       "order": 50,
       "title": "The long tail that every correction still cannot see"
     },
     {
-      "path": "02-personalized-discovery/recommendation/59-exposure-bias/when-the-propensity-is-noisy",
+      "path": "02-personalized-discovery/exposure-bias/when-the-propensity-is-noisy",
       "kind": "sub",
       "order": 50,
       "title": "The weight that turns a few rows into the whole fit"
     },
     {
-      "path": "02-personalized-discovery/recommendation/60-heavy-tail-objective/when-the-aov-skews",
+      "path": "02-personalized-discovery/heavy-tail-objective/when-the-aov-skews",
       "kind": "sub",
       "order": 50,
       "title": "The rate and the amount move independently"
     },
     {
-      "path": "02-personalized-discovery/recommendation/60-heavy-tail-objective/when-the-whale-dominates",
+      "path": "02-personalized-discovery/heavy-tail-objective/when-the-whale-dominates",
       "kind": "sub",
       "order": 50,
       "title": "The top 1% that owns a quarter of the gradient"
     },
     {
-      "path": "02-personalized-discovery/recommendation/61-multi-task-conflict/when-gating-does-not-help",
+      "path": "02-personalized-discovery/multi-task-conflict/when-gating-does-not-help",
       "kind": "sub",
       "order": 50,
       "title": "One expert, two copies of the same trunk"
     },
     {
-      "path": "02-personalized-discovery/recommendation/61-multi-task-conflict/when-the-dominant-task-wins",
+      "path": "02-personalized-discovery/multi-task-conflict/when-the-dominant-task-wins",
       "kind": "sub",
       "order": 50,
       "title": "The trunk built for clicks"
     },
     {
-      "path": "02-personalized-discovery/recommendation/62-funnel-consistency/when-the-constraint-hurts",
+      "path": "02-personalized-discovery/funnel-consistency/when-the-constraint-hurts",
       "kind": "sub",
       "order": 50,
       "title": "The chain inherits the click error"
     },
     {
-      "path": "02-personalized-discovery/recommendation/62-funnel-consistency/when-the-order-exceeds-the-click",
+      "path": "02-personalized-discovery/funnel-consistency/when-the-order-exceeds-the-click",
       "kind": "sub",
       "order": 50,
       "title": "The impossible probability, on the page"
     },
     {
-      "path": "02-personalized-discovery/recommendation/63-cascade-consistency/when-the-distillation-blurs",
+      "path": "02-personalized-discovery/cascade-consistency/when-the-distillation-blurs",
       "kind": "sub",
       "order": 50,
       "title": "The teacher's mistakes, copied"
     },
     {
-      "path": "02-personalized-discovery/recommendation/63-cascade-consistency/when-the-teacher-never-sees-the-cut",
+      "path": "02-personalized-discovery/cascade-consistency/when-the-teacher-never-sees-the-cut",
       "kind": "sub",
       "order": 50,
       "title": "The teacher only ever scores survivors"
     },
     {
-      "path": "02-personalized-discovery/recommendation/63-cascade-consistency/when-top-k-is-not-preserved",
+      "path": "02-personalized-discovery/cascade-consistency/when-top-k-is-not-preserved",
       "kind": "sub",
       "order": 50,
       "title": "The cut that eats the answer"
     },
     {
-      "path": "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-gradients-conflict",
+      "path": "02-personalized-discovery/auc-label-seesaw/when-the-gradients-conflict",
       "kind": "sub",
       "order": 50,
       "title": "Conflict frequency alone does not justify gradient surgery"
     },
     {
-      "path": "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-second-model-costs",
+      "path": "02-personalized-discovery/auc-label-seesaw/when-the-second-model-costs",
       "kind": "sub",
       "order": 50,
       "title": "The calibration layer is a second model with its own freshness cost"
     },
     {
-      "path": "02-personalized-discovery/recommendation/64-auc-label-seesaw/when-the-slice-trades",
+      "path": "02-personalized-discovery/auc-label-seesaw/when-the-slice-trades",
       "kind": "sub",
       "order": 50,
       "title": "The first weight steps buy the tail cheaply, then the frontier saturates"
     },
     {
-      "path": "02-personalized-discovery/recommendation/65-sparse-labels/when-the-aggregate-auc-lies",
+      "path": "02-personalized-discovery/sparse-labels/when-the-aggregate-auc-lies",
       "kind": "sub",
       "order": 50,
       "title": "With two positives the interval spans chance, and only label supply narrows it"
     },
     {
-      "path": "02-personalized-discovery/recommendation/65-sparse-labels/when-the-surrogate-label-bleeds",
+      "path": "02-personalized-discovery/sparse-labels/when-the-surrogate-label-bleeds",
       "kind": "sub",
       "order": 50,
       "title": "The surrogate fills the empty slice and inflates every probability"
     },
     {
-      "path": "02-personalized-discovery/recommendation/65-sparse-labels/when-warm-start-beats-from-scratch",
+      "path": "02-personalized-discovery/sparse-labels/when-warm-start-beats-from-scratch",
       "kind": "sub",
       "order": 50,
       "title": "Warm start is not automatic: the source task has to share the signal"
@@ -1868,235 +1856,235 @@
       "title": "The search track"
     },
     {
-      "path": "02-personalized-discovery/search/10-query-understanding/when-the-intent-misroutes",
+      "path": "02-personalized-discovery/query-understanding/when-the-intent-misroutes",
       "kind": "sub",
       "order": 50,
       "title": "The path decision costs relevance before ranking runs"
     },
     {
-      "path": "02-personalized-discovery/search/10-query-understanding/when-the-query-is-misspelled",
+      "path": "02-personalized-discovery/query-understanding/when-the-query-is-misspelled",
       "kind": "sub",
       "order": 50,
       "title": "Where normalization stops and correction must begin"
     },
     {
-      "path": "02-personalized-discovery/search/10-query-understanding/when-the-query-is-short",
+      "path": "02-personalized-discovery/query-understanding/when-the-query-is-short",
       "kind": "sub",
       "order": 50,
       "title": "One word, many intents"
     },
     {
-      "path": "02-personalized-discovery/search/11-search-retrieval/when-the-dense-path-exists",
+      "path": "02-personalized-discovery/search-retrieval/when-the-dense-path-exists",
       "kind": "sub",
       "order": 50,
       "title": "The embedding that sees the synonym"
     },
     {
-      "path": "02-personalized-discovery/search/11-search-retrieval/when-the-synonym-is-invisible",
+      "path": "02-personalized-discovery/search-retrieval/when-the-synonym-is-invisible",
       "kind": "sub",
       "order": 50,
       "title": "The document that means the same but scores less"
     },
     {
-      "path": "02-personalized-discovery/search/11-search-retrieval/when-the-vocabulary-mismatches",
+      "path": "02-personalized-discovery/search-retrieval/when-the-vocabulary-mismatches",
       "kind": "sub",
       "order": 50,
       "title": "The relevant document that scores zero is not ranked — it is gone"
     },
     {
-      "path": "02-personalized-discovery/search/12-search-ranking/when-the-label-is-a-click",
+      "path": "02-personalized-discovery/search-ranking/when-the-label-is-a-click",
       "kind": "sub",
       "order": 50,
       "title": "The label that carries the position's bias"
     },
     {
-      "path": "02-personalized-discovery/search/12-search-ranking/when-the-label-is-relative",
+      "path": "02-personalized-discovery/search-ranking/when-the-label-is-relative",
       "kind": "sub",
       "order": 50,
       "title": "The grader's boundary judgment moves the ranker, not the model"
     },
     {
-      "path": "02-personalized-discovery/search/12-search-ranking/when-the-list-is-longer",
+      "path": "02-personalized-discovery/search-ranking/when-the-list-is-longer",
       "kind": "sub",
       "order": 50,
       "title": "Where the formulation choice actually matters"
     },
     {
-      "path": "02-personalized-discovery/search/13-search-evaluation/when-mrr-and-ndcg-disagree",
+      "path": "02-personalized-discovery/search-evaluation/when-mrr-and-ndcg-disagree",
       "kind": "sub",
       "order": 50,
       "title": "The metric chooses the winner"
     },
     {
-      "path": "02-personalized-discovery/search/13-search-evaluation/when-the-k-is-small",
+      "path": "02-personalized-discovery/search-evaluation/when-the-k-is-small",
       "kind": "sub",
       "order": 50,
       "title": "NDCG@1 is a different claim than NDCG@5"
     },
     {
-      "path": "02-personalized-discovery/search/13-search-evaluation/when-the-metric-is-gamed",
+      "path": "02-personalized-discovery/search-evaluation/when-the-metric-is-gamed",
       "kind": "sub",
       "order": 50,
       "title": "The ranking that concentrates relevance where the metric cannot see"
     },
     {
-      "path": "02-personalized-discovery/search/19-query-expansion/when-expansion-hurts",
+      "path": "02-personalized-discovery/query-expansion/when-expansion-hurts",
       "kind": "sub",
       "order": 50,
       "title": "Expansion trades precision for recall"
     },
     {
-      "path": "02-personalized-discovery/search/19-query-expansion/when-the-correction-helps",
+      "path": "02-personalized-discovery/query-expansion/when-the-correction-helps",
       "kind": "sub",
       "order": 50,
       "title": "Correction recovers what the raw query could not"
     },
     {
-      "path": "02-personalized-discovery/search/19-query-expansion/when-the-typo-is-a-real-word",
+      "path": "02-personalized-discovery/query-expansion/when-the-typo-is-a-real-word",
       "kind": "sub",
       "order": 50,
       "title": "The misspelling that string correction cannot see"
     },
     {
-      "path": "02-personalized-discovery/search/20-dense-retrieval/when-everything-is-equidistant",
+      "path": "02-personalized-discovery/dense-retrieval/when-everything-is-equidistant",
       "kind": "sub",
       "order": 50,
       "title": "The embedding space that stopped separating"
     },
     {
-      "path": "02-personalized-discovery/search/20-dense-retrieval/when-the-embedding-is-stale",
+      "path": "02-personalized-discovery/dense-retrieval/when-the-embedding-is-stale",
       "kind": "sub",
       "order": 50,
       "title": "The item without a vector is unreachable"
     },
     {
-      "path": "02-personalized-discovery/search/20-dense-retrieval/when-the-index-is-ann",
+      "path": "02-personalized-discovery/dense-retrieval/when-the-index-is-ann",
       "kind": "sub",
       "order": 50,
       "title": "Approximate is the only feasible index at scale"
     },
     {
-      "path": "02-personalized-discovery/search/21-hybrid-fusion/when-one-set-is-empty",
+      "path": "02-personalized-discovery/hybrid-fusion/when-one-set-is-empty",
       "kind": "sub",
       "order": 50,
       "title": "The hybrid degrades into whoever is alive"
     },
     {
-      "path": "02-personalized-discovery/search/21-hybrid-fusion/when-the-fusion-weight-moves",
+      "path": "02-personalized-discovery/hybrid-fusion/when-the-fusion-weight-moves",
       "kind": "sub",
       "order": 50,
       "title": "The fusion weight is a trust decision"
     },
     {
-      "path": "02-personalized-discovery/search/21-hybrid-fusion/when-the-sets-disagree-entirely",
+      "path": "02-personalized-discovery/hybrid-fusion/when-the-sets-disagree-entirely",
       "kind": "sub",
       "order": 50,
       "title": "Fusion with no agreement to reward"
     },
     {
-      "path": "02-personalized-discovery/search/22-reranking/when-the-gain-is-below-the-fold",
+      "path": "02-personalized-discovery/reranking/when-the-gain-is-below-the-fold",
       "kind": "sub",
       "order": 50,
       "title": "The improvement the page never shows"
     },
     {
-      "path": "02-personalized-discovery/search/22-reranking/when-the-rerank-budget-is-tight",
+      "path": "02-personalized-discovery/reranking/when-the-rerank-budget-is-tight",
       "kind": "sub",
       "order": 50,
       "title": "The cutoff decides what the reranker can fix"
     },
     {
-      "path": "02-personalized-discovery/search/22-reranking/when-the-reranker-disagrees",
+      "path": "02-personalized-discovery/reranking/when-the-reranker-disagrees",
       "kind": "sub",
       "order": 50,
       "title": "Disagreement is the reranker's job and its risk"
     },
     {
-      "path": "02-personalized-discovery/search/23-personalized-search/when-personalization-hurts",
+      "path": "02-personalized-discovery/personalized-search/when-personalization-hurts",
       "kind": "sub",
       "order": 50,
       "title": "History can hide what the query asked for"
     },
     {
-      "path": "02-personalized-discovery/search/23-personalized-search/when-the-new-user-is-the-majority",
+      "path": "02-personalized-discovery/personalized-search/when-the-new-user-is-the-majority",
       "kind": "sub",
       "order": 50,
       "title": "The traffic that cannot be personalized"
     },
     {
-      "path": "02-personalized-discovery/search/23-personalized-search/when-the-user-history-helps",
+      "path": "02-personalized-discovery/personalized-search/when-the-user-history-helps",
       "kind": "sub",
       "order": 50,
       "title": "History is a prior over the query"
     },
     {
-      "path": "02-personalized-discovery/search/24-search-measurement/when-the-click-is-a-query",
+      "path": "02-personalized-discovery/search-measurement/when-the-click-is-a-query",
       "kind": "sub",
       "order": 50,
       "title": "A failed query can be a recovered session"
     },
     {
-      "path": "02-personalized-discovery/search/24-search-measurement/when-the-session-definition-moves",
+      "path": "02-personalized-discovery/search-measurement/when-the-session-definition-moves",
       "kind": "sub",
       "order": 50,
       "title": "One log, two funnels, two conclusions"
     },
     {
-      "path": "02-personalized-discovery/search/24-search-measurement/when-the-zero-result-rate-matters",
+      "path": "02-personalized-discovery/search-measurement/when-the-zero-result-rate-matters",
       "kind": "sub",
       "order": 50,
       "title": "Zero results is a coverage metric with a revenue shape"
     },
     {
-      "path": "02-personalized-discovery/search/35-generative-retrieval/when-the-generator-hallucinates",
+      "path": "02-personalized-discovery/generative-retrieval/when-the-generator-hallucinates",
       "kind": "sub",
       "order": 50,
       "title": "The generator hallucinates an ID that does not exist"
     },
     {
-      "path": "02-personalized-discovery/search/35-generative-retrieval/when-the-id-is-a-phrase",
+      "path": "02-personalized-discovery/generative-retrieval/when-the-id-is-a-phrase",
       "kind": "sub",
       "order": 50,
       "title": "The ID is a phrase, and the phrase names too much"
     },
     {
-      "path": "02-personalized-discovery/search/35-generative-retrieval/when-the-id-space-grows",
+      "path": "02-personalized-discovery/generative-retrieval/when-the-id-space-grows",
       "kind": "sub",
       "order": 50,
       "title": "The ID space grows and decode accuracy falls"
     },
     {
-      "path": "02-personalized-discovery/search/36-conversational-search/when-the-anaphora-is-ambiguous",
+      "path": "02-personalized-discovery/conversational-search/when-the-anaphora-is-ambiguous",
       "kind": "sub",
       "order": 50,
       "title": "The anaphora is ambiguous between two referents"
     },
     {
-      "path": "02-personalized-discovery/search/36-conversational-search/when-the-context-is-long",
+      "path": "02-personalized-discovery/conversational-search/when-the-context-is-long",
       "kind": "sub",
       "order": 50,
       "title": "The context is long, and the first turn falls out of the window"
     },
     {
-      "path": "02-personalized-discovery/search/36-conversational-search/when-the-topic-shifts",
+      "path": "02-personalized-discovery/conversational-search/when-the-topic-shifts",
       "kind": "sub",
       "order": 50,
       "title": "The topic shifts and the old context goes stale"
     },
     {
-      "path": "02-personalized-discovery/search/37-llm-query-understanding/when-the-llm-over-parses",
+      "path": "02-personalized-discovery/llm-query-understanding/when-the-llm-over-parses",
       "kind": "sub",
       "order": 50,
       "title": "The LLM over-parses and invents a constraint"
     },
     {
-      "path": "02-personalized-discovery/search/37-llm-query-understanding/when-the-parse-swings",
+      "path": "02-personalized-discovery/llm-query-understanding/when-the-parse-swings",
       "kind": "sub",
       "order": 50,
       "title": "The parse swings, and the swing flips the retrieval path"
     },
     {
-      "path": "02-personalized-discovery/search/37-llm-query-understanding/when-the-slot-is-empty",
+      "path": "02-personalized-discovery/llm-query-understanding/when-the-slot-is-empty",
       "kind": "sub",
       "order": 50,
       "title": "The empty slot makes retrieval decide"
@@ -2108,511 +2096,511 @@
       "title": "Shared discovery machinery"
     },
     {
-      "path": "02-personalized-discovery/shared/00-interactions/the-eligibility-cascade",
+      "path": "02-personalized-discovery/interactions/the-eligibility-cascade",
       "kind": "sub",
       "order": 50,
       "title": "The filter that catches users it did not aim at"
     },
     {
-      "path": "02-personalized-discovery/shared/00-interactions/when-the-absence-is-a-signal",
+      "path": "02-personalized-discovery/interactions/when-the-absence-is-a-signal",
       "kind": "sub",
       "order": 50,
       "title": "The absence is a signal"
     },
     {
-      "path": "02-personalized-discovery/shared/00-interactions/when-the-split-leaks",
+      "path": "02-personalized-discovery/interactions/when-the-split-leaks",
       "kind": "sub",
       "order": 50,
       "title": "The 99.1% leak: what the wrong split actually buys"
     },
     {
-      "path": "02-personalized-discovery/shared/01-content-understanding/the-63-percent-that-never-moves",
+      "path": "02-personalized-discovery/content-understanding/the-63-percent-that-never-moves",
       "kind": "sub",
       "order": 50,
       "title": "The behavioural floor the threshold cannot touch"
     },
     {
-      "path": "02-personalized-discovery/shared/01-content-understanding/when-the-label-is-noisy",
+      "path": "02-personalized-discovery/content-understanding/when-the-label-is-noisy",
       "kind": "sub",
       "order": 50,
       "title": "The label the threshold cannot trust"
     },
     {
-      "path": "02-personalized-discovery/shared/01-content-understanding/when-the-threshold-rescues-the-tail",
+      "path": "02-personalized-discovery/content-understanding/when-the-threshold-rescues-the-tail",
       "kind": "sub",
       "order": 50,
       "title": "The confidence threshold: precision for the head, or reach for the tail?"
     },
     {
-      "path": "02-personalized-discovery/shared/02-recall/the-price-of-approximate",
+      "path": "02-personalized-discovery/recall/the-price-of-approximate",
       "kind": "sub",
       "order": 50,
       "title": "Recall bought back at a measured latency cost"
     },
     {
-      "path": "02-personalized-discovery/shared/02-recall/when-the-tail-goes-cold",
+      "path": "02-personalized-discovery/recall/when-the-tail-goes-cold",
       "kind": "sub",
       "order": 50,
       "title": "The tail that the index forgets"
     },
     {
-      "path": "02-personalized-discovery/shared/02-recall/when-you-lose-a-queue",
+      "path": "02-personalized-discovery/recall/when-you-lose-a-queue",
       "kind": "sub",
       "order": 50,
       "title": "The queue you disable is the target you lose"
     },
     {
-      "path": "02-personalized-discovery/shared/03-pre-rank/when-the-cheap-cut-fails",
+      "path": "02-personalized-discovery/pre-rank/when-the-cheap-cut-fails",
       "kind": "sub",
       "order": 50,
       "title": "When does the cheap cut fail?"
     },
     {
-      "path": "02-personalized-discovery/shared/03-pre-rank/when-the-cheap-score-lies",
+      "path": "02-personalized-discovery/pre-rank/when-the-cheap-score-lies",
       "kind": "sub",
       "order": 50,
       "title": "The cheap score that flips the cut"
     },
     {
-      "path": "02-personalized-discovery/shared/03-pre-rank/when-the-long-tail-is-invisible",
+      "path": "02-personalized-discovery/pre-rank/when-the-long-tail-is-invisible",
       "kind": "sub",
       "order": 50,
       "title": "The zero that is structural, not a tuning miss"
     },
     {
-      "path": "02-personalized-discovery/shared/04-fine-rank/the-calibration-that-decides",
+      "path": "02-personalized-discovery/fine-rank/the-calibration-that-decides",
       "kind": "sub",
       "order": 50,
       "title": "Why ECE is a gate, not a polish step"
     },
     {
-      "path": "02-personalized-discovery/shared/04-fine-rank/when-sharing-hurts",
+      "path": "02-personalized-discovery/fine-rank/when-sharing-hurts",
       "kind": "sub",
       "order": 50,
       "title": "When does the shared model hurt an objective?"
     },
     {
-      "path": "02-personalized-discovery/shared/04-fine-rank/when-the-model-is-stale",
+      "path": "02-personalized-discovery/fine-rank/when-the-model-is-stale",
       "kind": "sub",
       "order": 50,
       "title": "The model that learned yesterday"
     },
     {
-      "path": "02-personalized-discovery/shared/05-value-tree/the-calibration-break",
+      "path": "02-personalized-discovery/value-tree/the-calibration-break",
       "kind": "sub",
       "order": 50,
       "title": "The same strategy, different calibration, different slate"
     },
     {
-      "path": "02-personalized-discovery/shared/05-value-tree/when-the-user-rejects",
+      "path": "02-personalized-discovery/value-tree/when-the-user-rejects",
       "kind": "sub",
       "order": 50,
       "title": "The dislike that flips the weight"
     },
     {
-      "path": "02-personalized-discovery/shared/05-value-tree/when-the-weight-moves",
+      "path": "02-personalized-discovery/value-tree/when-the-weight-moves",
       "kind": "sub",
       "order": 50,
       "title": "The weight IS the strategy"
     },
     {
-      "path": "02-personalized-discovery/shared/06-mixing/when-diversity-hurts",
+      "path": "02-personalized-discovery/mixing/when-diversity-hurts",
       "kind": "sub",
       "order": 50,
       "title": "The diverse slate that underperforms"
     },
     {
-      "path": "02-personalized-discovery/shared/06-mixing/when-the-beam-is-wide-enough",
+      "path": "02-personalized-discovery/mixing/when-the-beam-is-wide-enough",
       "kind": "sub",
       "order": 50,
       "title": "A narrow beam finding the optimum is not proof a beam is enough"
     },
     {
-      "path": "02-personalized-discovery/shared/06-mixing/when-the-trade-weight-moves",
+      "path": "02-personalized-discovery/mixing/when-the-trade-weight-moves",
       "kind": "sub",
       "order": 50,
       "title": "What does a mixing weight actually trade off?"
     },
     {
-      "path": "02-personalized-discovery/shared/07-rule-engine/the-empty-set-was-two-rules",
+      "path": "02-personalized-discovery/rule-engine/the-empty-set-was-two-rules",
       "kind": "sub",
       "order": 50,
       "title": "A rule engine's failure mode is interaction, not any single rule"
     },
     {
-      "path": "02-personalized-discovery/shared/07-rule-engine/when-the-rule-is-a-typo",
+      "path": "02-personalized-discovery/rule-engine/when-the-rule-is-a-typo",
       "kind": "sub",
       "order": 50,
       "title": "The rule nobody tested"
     },
     {
-      "path": "02-personalized-discovery/shared/07-rule-engine/when-the-rules-collide",
+      "path": "02-personalized-discovery/rule-engine/when-the-rules-collide",
       "kind": "sub",
       "order": 50,
       "title": "When does the rule engine return an empty set?"
     },
     {
-      "path": "02-personalized-discovery/shared/08-serving/when-p95s-do-not-add",
+      "path": "02-personalized-discovery/serving/when-p95s-do-not-add",
       "kind": "sub",
       "order": 50,
       "title": "Means add for the serial path; tail percentiles do not"
     },
     {
-      "path": "02-personalized-discovery/shared/08-serving/when-the-cache-goes-cold",
+      "path": "02-personalized-discovery/serving/when-the-cache-goes-cold",
       "kind": "sub",
       "order": 50,
       "title": "The cache that misses together"
     },
     {
-      "path": "02-personalized-discovery/shared/08-serving/when-the-cut-bites",
+      "path": "02-personalized-discovery/serving/when-the-cut-bites",
       "kind": "sub",
       "order": 50,
       "title": "What does the pre-rank cut buy, and when does it stop paying?"
     },
     {
-      "path": "02-personalized-discovery/shared/09-report/the-variance-that-decides",
+      "path": "02-personalized-discovery/report/the-variance-that-decides",
       "kind": "sub",
       "order": 50,
       "title": "A headline win that still loses, seed by seed"
     },
     {
-      "path": "02-personalized-discovery/shared/09-report/when-the-baseline-moves",
+      "path": "02-personalized-discovery/report/when-the-baseline-moves",
       "kind": "sub",
       "order": 50,
       "title": "The baseline that moved"
     },
     {
-      "path": "02-personalized-discovery/shared/09-report/when-the-case-is-hiding",
+      "path": "02-personalized-discovery/report/when-the-case-is-hiding",
       "kind": "sub",
       "order": 50,
       "title": "How do you find the failure cases the report demands?"
     },
     {
-      "path": "02-personalized-discovery/shared/09-report/when-the-guardrail-vetoes",
+      "path": "02-personalized-discovery/report/when-the-guardrail-vetoes",
       "kind": "sub",
       "order": 50,
       "title": "A headline win that is still NOT MET"
     },
     {
-      "path": "02-personalized-discovery/shared/43-feature-store/when-the-feature-diverges",
+      "path": "02-personalized-discovery/feature-store/when-the-feature-diverges",
       "kind": "sub",
       "order": 50,
       "title": "The feature diverges and the ranker reorders on a value the model never saw"
     },
     {
-      "path": "02-personalized-discovery/shared/43-feature-store/when-the-feature-is-missing",
+      "path": "02-personalized-discovery/feature-store/when-the-feature-is-missing",
       "kind": "sub",
       "order": 50,
       "title": "A missing feature default is a silent ranking decision"
     },
     {
-      "path": "02-personalized-discovery/shared/43-feature-store/when-the-online-value-moves",
+      "path": "02-personalized-discovery/feature-store/when-the-online-value-moves",
       "kind": "sub",
       "order": 50,
       "title": "The store freezes a value; the refresh decides how stale it gets"
     },
     {
-      "path": "02-personalized-discovery/shared/44-training-serving-consistency/when-the-join-looks-ahead",
+      "path": "02-personalized-discovery/training-serving-consistency/when-the-join-looks-ahead",
       "kind": "sub",
       "order": 50,
       "title": "The join that looks ahead trains the model on its own outcome"
     },
     {
-      "path": "02-personalized-discovery/shared/44-training-serving-consistency/when-the-label-arrives-late",
+      "path": "02-personalized-discovery/training-serving-consistency/when-the-label-arrives-late",
       "kind": "sub",
       "order": 50,
       "title": "The label that arrives late biases the training set"
     },
     {
-      "path": "02-personalized-discovery/shared/44-training-serving-consistency/when-the-online-feature-lags",
+      "path": "02-personalized-discovery/training-serving-consistency/when-the-online-feature-lags",
       "kind": "sub",
       "order": 50,
       "title": "The online feature that lags serves a world that ended"
     },
     {
-      "path": "02-personalized-discovery/shared/45-feedback-loops/when-popularity-collapses",
+      "path": "02-personalized-discovery/feedback-loops/when-popularity-collapses",
       "kind": "sub",
       "order": 50,
       "title": "The loop is the last to notice the world changed"
     },
     {
-      "path": "02-personalized-discovery/shared/45-feedback-loops/when-the-filter-bubble-closes",
+      "path": "02-personalized-discovery/feedback-loops/when-the-filter-bubble-closes",
       "kind": "sub",
       "order": 50,
       "title": "The filter bubble closes from the inside"
     },
     {
-      "path": "02-personalized-discovery/shared/45-feedback-loops/when-the-policy-borrows-luck",
+      "path": "02-personalized-discovery/feedback-loops/when-the-policy-borrows-luck",
       "kind": "sub",
       "order": 50,
       "title": "The log measures quality under the policy, not quality"
     },
     {
-      "path": "02-personalized-discovery/shared/46-retraining-and-staleness/when-retraining-flips-the-metric",
+      "path": "02-personalized-discovery/retraining-and-staleness/when-retraining-flips-the-metric",
       "kind": "sub",
       "order": 50,
       "title": "The retrain that flips the metric offline can lose online"
     },
     {
-      "path": "02-personalized-discovery/shared/46-retraining-and-staleness/when-the-embedding-expires",
+      "path": "02-personalized-discovery/retraining-and-staleness/when-the-embedding-expires",
       "kind": "sub",
       "order": 50,
       "title": "The embedding expires and recall dies with it"
     },
     {
-      "path": "02-personalized-discovery/shared/46-retraining-and-staleness/when-the-peak-hits",
+      "path": "02-personalized-discovery/retraining-and-staleness/when-the-peak-hits",
       "kind": "sub",
       "order": 50,
       "title": "A calendar retrain misses the spike; an error trigger does not"
     },
     {
-      "path": "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-alert-is-noisy",
+      "path": "02-personalized-discovery/monitoring-and-drift/when-the-alert-is-noisy",
       "kind": "sub",
       "order": 50,
       "title": "A threshold tight enough to catch a break is tight enough to fire on noise"
     },
     {
-      "path": "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-drift-is-silent",
+      "path": "02-personalized-discovery/monitoring-and-drift/when-the-drift-is-silent",
       "kind": "sub",
       "order": 50,
       "title": "The drift is silent in the eval and loud in the gap"
     },
     {
-      "path": "02-personalized-discovery/shared/47-monitoring-and-drift/when-the-slice-hides",
+      "path": "02-personalized-discovery/monitoring-and-drift/when-the-slice-hides",
       "kind": "sub",
       "order": 50,
       "title": "The aggregate hides the slice; the slice's own noise hides the fix"
     },
     {
-      "path": "02-personalized-discovery/shared/48-realtime-user-state/when-realtime-is-too-expensive",
+      "path": "02-personalized-discovery/realtime-user-state/when-realtime-is-too-expensive",
       "kind": "sub",
       "order": 50,
       "title": "Realtime is too expensive once every feature is on the critical path"
     },
     {
-      "path": "02-personalized-discovery/shared/48-realtime-user-state/when-the-session-leaks",
+      "path": "02-personalized-discovery/realtime-user-state/when-the-session-leaks",
       "kind": "sub",
       "order": 50,
       "title": "The feature window that includes the label window validates a model that cannot exist"
     },
     {
-      "path": "02-personalized-discovery/shared/48-realtime-user-state/when-the-session-state-moves",
+      "path": "02-personalized-discovery/realtime-user-state/when-the-session-state-moves",
       "kind": "sub",
       "order": 50,
       "title": "The session boost decays and the batch order wins back"
     },
     {
-      "path": "02-personalized-discovery/shared/49-throughput-and-capacity/when-the-fanout-tails",
+      "path": "02-personalized-discovery/throughput-and-capacity/when-the-fanout-tails",
       "kind": "sub",
       "order": 50,
       "title": "The query is as slow as its slowest shard"
     },
     {
-      "path": "02-personalized-discovery/shared/49-throughput-and-capacity/when-the-peak-arrives",
+      "path": "02-personalized-discovery/throughput-and-capacity/when-the-peak-arrives",
       "kind": "sub",
       "order": 50,
       "title": "The peak is a capacity decision, not a load average"
     },
     {
-      "path": "02-personalized-discovery/shared/49-throughput-and-capacity/when-the-tail-costs",
+      "path": "02-personalized-discovery/throughput-and-capacity/when-the-tail-costs",
       "kind": "sub",
       "order": 50,
       "title": "Sizing to the mean is sizing to a fiction"
     },
     {
-      "path": "02-personalized-discovery/shared/50-cost-per-query",
+      "path": "02-personalized-discovery/cost-per-query",
       "kind": "stage",
       "order": 50,
       "title": "Cost per query is the budget capacity planning spends"
     },
     {
-      "path": "02-personalized-discovery/shared/50-cost-per-query/when-the-cache-pays",
+      "path": "02-personalized-discovery/cost-per-query/when-the-cache-pays",
       "kind": "sub",
       "order": 50,
       "title": "The cache pays when the hit rate is a cost decision"
     },
     {
-      "path": "02-personalized-discovery/shared/50-cost-per-query/when-the-model-is-too-big",
+      "path": "02-personalized-discovery/cost-per-query/when-the-model-is-too-big",
       "kind": "sub",
       "order": 50,
       "title": "The model is too big when the last point of quality doubles the bill"
     },
     {
-      "path": "02-personalized-discovery/shared/50-cost-per-query/when-the-tail-misses",
+      "path": "02-personalized-discovery/cost-per-query/when-the-tail-misses",
       "kind": "sub",
       "order": 50,
       "title": "The cache discounts the head and leaves the tail paying the full cascade"
     },
     {
-      "path": "02-personalized-discovery/shared/51-new-user-experience/when-personalization-scares",
+      "path": "02-personalized-discovery/new-user-experience/when-personalization-scares",
       "kind": "sub",
       "order": 50,
       "title": "A confident prior reads as a misread"
     },
     {
-      "path": "02-personalized-discovery/shared/51-new-user-experience/when-the-bandit-explores",
+      "path": "02-personalized-discovery/new-user-experience/when-the-bandit-explores",
       "kind": "sub",
       "order": 50,
       "title": "Exploration is a price paid during the runway"
     },
     {
-      "path": "02-personalized-discovery/shared/51-new-user-experience/when-the-user-is-new",
+      "path": "02-personalized-discovery/new-user-experience/when-the-user-is-new",
       "kind": "sub",
       "order": 50,
       "title": "The onboarding prior is a bet on an answer the user may not mean"
     },
     {
-      "path": "02-personalized-discovery/shared/52-trust-and-explainability/when-the-attribution-shifts",
+      "path": "02-personalized-discovery/trust-and-explainability/when-the-attribution-shifts",
       "kind": "sub",
       "order": 50,
       "title": "The headline changes with the baseline"
     },
     {
-      "path": "02-personalized-discovery/shared/52-trust-and-explainability/when-the-explanation-is-wrong",
+      "path": "02-personalized-discovery/trust-and-explainability/when-the-explanation-is-wrong",
       "kind": "sub",
       "order": 50,
       "title": "The attribution that explains the score tells a story the score did not"
     },
     {
-      "path": "02-personalized-discovery/shared/52-trust-and-explainability/when-trust-erodes",
+      "path": "02-personalized-discovery/trust-and-explainability/when-trust-erodes",
       "kind": "sub",
       "order": 50,
       "title": "A false explanation burns trust faster than a missing one"
     },
     {
-      "path": "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-constraint-bites",
+      "path": "02-personalized-discovery/fairness-and-allocation/when-the-constraint-bites",
       "kind": "sub",
       "order": 50,
       "title": "The floor has a price and the price is a curve"
     },
     {
-      "path": "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-groups-cross",
+      "path": "02-personalized-discovery/fairness-and-allocation/when-the-groups-cross",
       "kind": "sub",
       "order": 50,
       "title": "The fairness verdict flips with the definition"
     },
     {
-      "path": "02-personalized-discovery/shared/53-fairness-and-allocation/when-the-policy-is-biased",
+      "path": "02-personalized-discovery/fairness-and-allocation/when-the-policy-is-biased",
       "kind": "sub",
       "order": 50,
       "title": "The label carries the position it was collected in"
     },
     {
-      "path": "02-personalized-discovery/shared/54-online-experiments/when-the-budget-runs-out",
+      "path": "02-personalized-discovery/online-experiments/when-the-budget-runs-out",
       "kind": "sub",
       "order": 50,
       "title": "How many users does the A/B need, and which lever moves the date?"
     },
     {
-      "path": "02-personalized-discovery/shared/54-online-experiments/when-the-experiments-overlap",
+      "path": "02-personalized-discovery/online-experiments/when-the-experiments-overlap",
       "kind": "sub",
       "order": 50,
       "title": "Whose number is it when two experiments share the traffic?"
     },
     {
-      "path": "02-personalized-discovery/shared/54-online-experiments/when-the-split-lies",
+      "path": "02-personalized-discovery/online-experiments/when-the-split-lies",
       "kind": "sub",
       "order": 50,
       "title": "The split check fires before the outcome test has power"
     },
     {
-      "path": "02-personalized-discovery/shared/54-online-experiments/when-the-traffic-is-two-sided",
+      "path": "02-personalized-discovery/online-experiments/when-the-traffic-is-two-sided",
       "kind": "sub",
       "order": 50,
       "title": "Switchback: the block unit and the 36-year effect"
     },
     {
-      "path": "02-personalized-discovery/shared/54-online-experiments/when-the-user-crosses-groups",
+      "path": "02-personalized-discovery/online-experiments/when-the-user-crosses-groups",
       "kind": "sub",
       "order": 50,
       "title": "The analysis unit and the user who sits in both arms"
     },
     {
-      "path": "02-personalized-discovery/shared/55-ltv-and-cac/when-cac-exceeds-ltv",
+      "path": "02-personalized-discovery/ltv-and-cac/when-cac-exceeds-ltv",
       "kind": "sub",
       "order": 50,
       "title": "The user who costs more than they return is a liability at any volume"
     },
     {
-      "path": "02-personalized-discovery/shared/55-ltv-and-cac/when-retention-flattens",
+      "path": "02-personalized-discovery/ltv-and-cac/when-retention-flattens",
       "kind": "sub",
       "order": 50,
       "title": "The user who stops leaving is worth more than the user who stops coming"
     },
     {
-      "path": "02-personalized-discovery/shared/55-ltv-and-cac/when-the-retention-window-truncates",
+      "path": "02-personalized-discovery/ltv-and-cac/when-the-retention-window-truncates",
       "kind": "sub",
       "order": 50,
       "title": "The observed window decides the channel verdict"
     },
     {
-      "path": "03-quantitative-research/00-market-data/asof-vs-naive",
+      "path": "03-quantitative-research/market-data/asof-vs-naive",
       "kind": "sub",
       "order": 50,
       "title": "The as-of join, and the restatement it catches"
     },
     {
-      "path": "03-quantitative-research/00-market-data/the-restatement-gap",
+      "path": "03-quantitative-research/market-data/the-restatement-gap",
       "kind": "sub",
       "order": 50,
       "title": "The same period, two values, filed a year apart"
     },
     {
-      "path": "03-quantitative-research/01-signal-research/the-search-log-read",
+      "path": "03-quantitative-research/signal-research/the-search-log-read",
       "kind": "sub",
       "order": 50,
       "title": "The winner that did not survive the search"
     },
     {
-      "path": "03-quantitative-research/01-signal-research/when-breadth-inflates-the-winner",
+      "path": "03-quantitative-research/signal-research/when-breadth-inflates-the-winner",
       "kind": "sub",
       "order": 50,
       "title": "When does a search over 1,000 signals find a loser that looks like a winner?"
     },
     {
-      "path": "03-quantitative-research/02-cross-sectional-rank/the-rank-that-becomes-a-position",
+      "path": "03-quantitative-research/cross-sectional-rank/the-rank-that-becomes-a-position",
       "kind": "sub",
       "order": 50,
       "title": "The sizing rule IS the strategy"
     },
     {
-      "path": "03-quantitative-research/02-cross-sectional-rank/when-the-cap-bites",
+      "path": "03-quantitative-research/cross-sectional-rank/when-the-cap-bites",
       "kind": "sub",
       "order": 50,
       "title": "What does the position cap actually cost?"
     },
     {
-      "path": "03-quantitative-research/03-walk-forward-validation/when-purge-matters",
+      "path": "03-quantitative-research/walk-forward-validation/when-purge-matters",
       "kind": "sub",
       "order": 50,
       "title": "Why is fold-specific fit not strategy fit — and when does purge matter?"
     },
     {
-      "path": "03-quantitative-research/03-walk-forward-validation/when-the-shuffle-does-not-move",
+      "path": "03-quantitative-research/walk-forward-validation/when-the-shuffle-does-not-move",
       "kind": "sub",
       "order": 50,
       "title": "The negative result that is still the lesson"
     },
     {
-      "path": "03-quantitative-research/04-cost-and-capacity/the-capacity-ceiling",
+      "path": "03-quantitative-research/cost-and-capacity/the-capacity-ceiling",
       "kind": "sub",
       "order": 50,
       "title": "Where the book stops: liquidity, then cost"
     },
     {
-      "path": "03-quantitative-research/04-cost-and-capacity/when-the-book-stops-making-money",
+      "path": "03-quantitative-research/cost-and-capacity/when-the-book-stops-making-money",
       "kind": "sub",
       "order": 50,
       "title": "Where does the book stop making money?"
     },
     {
-      "path": "03-quantitative-research/05-report/the-three-way-verdict",
+      "path": "03-quantitative-research/report/the-three-way-verdict",
       "kind": "sub",
       "order": 50,
       "title": "CANNOT DETERMINE is a first-class result"
     },
     {
-      "path": "03-quantitative-research/05-report/when-the-refusal-names-everything",
+      "path": "03-quantitative-research/report/when-the-refusal-names-everything",
       "kind": "sub",
       "order": 50,
       "title": "The refusal that names everything"
@@ -2624,139 +2612,139 @@
       "title": ""
     },
     {
-      "path": "04-agentic-platform/00-task-set/the-two-of-six-yield",
+      "path": "04-agentic-platform/task-set/the-two-of-six-yield",
       "kind": "sub",
       "order": 50,
       "title": "The yield is the finding"
     },
     {
-      "path": "04-agentic-platform/00-task-set/what-the-task-set-contains",
+      "path": "04-agentic-platform/task-set/what-the-task-set-contains",
       "kind": "sub",
       "order": 50,
       "title": "What does the mined task set actually contain?"
     },
     {
-      "path": "04-agentic-platform/01-no-harness/when-the-blind-call-fails",
+      "path": "04-agentic-platform/no-harness/when-the-blind-call-fails",
       "kind": "sub",
       "order": 50,
       "title": "The blind call, read: what one attempt without a loop costs"
     },
     {
-      "path": "04-agentic-platform/01-no-harness/when-the-patch-does-not-apply",
+      "path": "04-agentic-platform/no-harness/when-the-patch-does-not-apply",
       "kind": "sub",
       "order": 50,
       "title": "The first gate a blind call must pass"
     },
     {
-      "path": "04-agentic-platform/02-agent-loop/harness-anatomy",
+      "path": "04-agentic-platform/agent-loop/harness-anatomy",
       "kind": "sub",
       "order": 50,
       "title": "What does the software around the model own?"
     },
     {
-      "path": "04-agentic-platform/02-agent-loop/the-loop-that-scores-a-patch",
+      "path": "04-agentic-platform/agent-loop/the-loop-that-scores-a-patch",
       "kind": "sub",
       "order": 50,
       "title": "The harness, drawn as its steps and checks"
     },
     {
-      "path": "04-agentic-platform/02-agent-loop/when-the-guardrail-refuses",
+      "path": "04-agentic-platform/agent-loop/when-the-guardrail-refuses",
       "kind": "sub",
       "order": 50,
       "title": "When does the test-file guardrail refuse a patch?"
     },
     {
-      "path": "04-agentic-platform/03-cheap-or-expensive/the-cost-quality-knee",
+      "path": "04-agentic-platform/cheap-or-expensive/the-cost-quality-knee",
       "kind": "sub",
       "order": 50,
       "title": "The expensive tier is not the fastest"
     },
     {
-      "path": "04-agentic-platform/03-cheap-or-expensive/the-tier-that-won",
+      "path": "04-agentic-platform/cheap-or-expensive/the-tier-that-won",
       "kind": "sub",
       "order": 50,
       "title": "When every tier resolves everything, which tier won?"
     },
     {
-      "path": "04-agentic-platform/03-cheap-or-expensive/what-a-reasonable-agentic-product-is",
+      "path": "04-agentic-platform/cheap-or-expensive/what-a-reasonable-agentic-product-is",
       "kind": "sub",
       "order": 50,
       "title": "When should the agent act, and when should a human sign it?"
     },
     {
-      "path": "04-agentic-platform/04-how-it-fails/control-plane-governance",
+      "path": "04-agentic-platform/how-it-fails/control-plane-governance",
       "kind": "sub",
       "order": 50,
       "title": "What does a governed agent actually do?"
     },
     {
-      "path": "04-agentic-platform/04-how-it-fails/the-adversary-that-adapts",
+      "path": "04-agentic-platform/how-it-fails/the-adversary-that-adapts",
       "kind": "sub",
       "order": 50,
       "title": "What does the adversary that adapts change?"
     },
     {
-      "path": "04-agentic-platform/04-how-it-fails/the-agent-is-the-action",
+      "path": "04-agentic-platform/how-it-fails/the-agent-is-the-action",
       "kind": "sub",
       "order": 50,
       "title": "When is the agent the action?"
     },
     {
-      "path": "04-agentic-platform/04-how-it-fails/the-zero-failure-taxonomy",
+      "path": "04-agentic-platform/how-it-fails/the-zero-failure-taxonomy",
       "kind": "sub",
       "order": 50,
       "title": "Zero failures is a real result, not a gap"
     },
     {
-      "path": "04-agentic-platform/04-how-it-fails/when-the-patch-cannot-apply",
+      "path": "04-agentic-platform/how-it-fails/when-the-patch-cannot-apply",
       "kind": "sub",
       "order": 50,
       "title": "When the patch cannot even be applied, what is the loop buying?"
     },
     {
-      "path": "04-agentic-platform/05-report/intent-to-delivery",
+      "path": "04-agentic-platform/report/intent-to-delivery",
       "kind": "sub",
       "order": 50,
       "title": "Where does intent stop being delivered?"
     },
     {
-      "path": "04-agentic-platform/05-report/the-public-set-control",
+      "path": "04-agentic-platform/report/the-public-set-control",
       "kind": "sub",
       "order": 50,
       "title": "The 6/6 that says nothing about the 18/18"
     },
     {
-      "path": "04-agentic-platform/05-report/when-the-partial-verdict",
+      "path": "04-agentic-platform/report/when-the-partial-verdict",
       "kind": "sub",
       "order": 50,
       "title": "The PARTIAL, read bullet by bullet"
     },
     {
-      "path": "04-agentic-platform/06-closing-the-loop/does-feedback-help",
+      "path": "04-agentic-platform/closing-the-loop/does-feedback-help",
       "kind": "sub",
       "order": 50,
       "title": "Does seeing the real outcome help — with still no tools?"
     },
     {
-      "path": "04-agentic-platform/06-closing-the-loop/the-bimodal-retry",
+      "path": "04-agentic-platform/closing-the-loop/the-bimodal-retry",
       "kind": "sub",
       "order": 50,
       "title": "Feedback fixed the fix, not the apply"
     },
     {
-      "path": "04-agentic-platform/agent-memory-landscape",
+      "path": "04-agentic-platform/closing-the-loop/agent-memory-landscape",
       "kind": "page",
       "order": 50,
       "title": ""
     },
     {
-      "path": "04-agentic-platform/harness-effects-landscape",
+      "path": "04-agentic-platform/agent-loop/harness-effects-landscape",
       "kind": "page",
       "order": 50,
       "title": ""
     },
     {
-      "path": "04-agentic-platform/infra-agent-harness-landscape",
+      "path": "04-agentic-platform/agent-loop/infra-agent-harness-landscape",
       "kind": "page",
       "order": 50,
       "title": ""
@@ -2774,85 +2762,85 @@
       "title": "Does RL sharpen a policy that already wins sometimes, or does nothing happen?"
     },
     {
-      "path": "05-game-ai/00-gridworld-baselines/when-greedy-is-not-perfect",
+      "path": "05-game-ai/baselines/when-greedy-is-not-perfect",
       "kind": "sub",
       "order": 50,
       "title": "The 82.4% ceiling of one-step lookahead"
     },
     {
-      "path": "05-game-ai/00-gridworld-baselines/when-random-gets-22-percent",
+      "path": "05-game-ai/baselines/when-random-gets-22-percent",
       "kind": "sub",
       "order": 50,
       "title": "Why the no-learning floor is not near zero"
     },
     {
-      "path": "05-game-ai/01-grpo/the-policy-anatomy",
+      "path": "05-game-ai/grpo/the-policy-anatomy",
       "kind": "sub",
       "order": 50,
       "title": "The same decoder, a reward that rewards the wrong thing"
     },
     {
-      "path": "05-game-ai/01-grpo/when-the-policy-collapses",
+      "path": "05-game-ai/grpo/when-the-policy-collapses",
       "kind": "sub",
       "order": 50,
       "title": "The policy that learned one direction"
     },
     {
-      "path": "05-game-ai/02-report/when-the-margin-is-the-spread",
+      "path": "05-game-ai/verdict-baselines/when-the-margin-is-the-spread",
       "kind": "sub",
       "order": 50,
       "title": "The verdict is honest because the margin is checked against the spread"
     },
     {
-      "path": "05-game-ai/02-report/when-the-verdict-is-not-met",
+      "path": "05-game-ai/verdict-baselines/when-the-verdict-is-not-met",
       "kind": "sub",
       "order": 50,
       "title": "The honest NOT MET: how the verdict is built"
     },
     {
-      "path": "05-game-ai/03-fixing-collapse/the-diversity-direction",
+      "path": "05-game-ai/fixing-collapse/the-diversity-direction",
       "kind": "sub",
       "order": 50,
       "title": "The one direction the collapse sweep never tried"
     },
     {
-      "path": "05-game-ai/03-fixing-collapse/when-the-fix-makes-it-worse",
+      "path": "05-game-ai/fixing-collapse/when-the-fix-makes-it-worse",
       "kind": "sub",
       "order": 50,
       "title": "Both fixes failed, and one made the collapse strictly worse"
     },
     {
-      "path": "05-game-ai/04-minigrid/the-solvability-check",
+      "path": "05-game-ai/minigrid/the-solvability-check",
       "kind": "sub",
       "order": 50,
       "title": "The task is solvable — so the cold start is the training"
     },
     {
-      "path": "05-game-ai/04-minigrid/when-the-cold-start-is-total",
+      "path": "05-game-ai/minigrid/when-the-cold-start-is-total",
       "kind": "sub",
       "order": 50,
       "title": "Why is the cold start total on MiniGrid?"
     },
     {
-      "path": "05-game-ai/05-report/the-two-environment-null",
+      "path": "05-game-ai/verdict-cold-start/the-two-environment-null",
       "kind": "sub",
       "order": 50,
       "title": "The null that repeated is the finding"
     },
     {
-      "path": "05-game-ai/05-report/when-the-null-is-elevated",
+      "path": "05-game-ai/verdict-cold-start/when-the-null-is-elevated",
       "kind": "sub",
       "order": 50,
       "title": "The honest null, elevated to a verdict"
     },
     {
-      "path": "05-game-ai/06-tool-use-rl/the-format-credit-trap",
+      "path": "05-game-ai/tool-use-rl/the-format-credit-trap",
       "kind": "sub",
       "order": 50,
       "title": "The reward half that can be earned without the outcome"
     },
     {
-      "path": "05-game-ai/06-tool-use-rl/when-two-seeds-stopped-paying",
+      "path": "05-game-ai/tool-use-rl/when-two-seeds-stopped-paying",
       "kind": "sub",
       "order": 50,
       "title": "Why did two seeds stop paying for the tool?"
@@ -2876,85 +2864,85 @@
       "title": "Before the video is good, is it even affordable to make?"
     },
     {
-      "path": "07-multimodal-generation/video/00-synthetic-video-dataset/when-the-collision-is-one",
+      "path": "07-multimodal-generation/synthetic-video-dataset/when-the-collision-is-one",
       "kind": "sub",
       "order": 50,
       "title": "The state space that multiplied the collisions away"
     },
     {
-      "path": "07-multimodal-generation/video/00-synthetic-video-dataset/when-the-seed-is-the-answer",
+      "path": "07-multimodal-generation/synthetic-video-dataset/when-the-seed-is-the-answer",
       "kind": "sub",
       "order": 50,
       "title": "The seed is the answer key"
     },
     {
-      "path": "07-multimodal-generation/video/01-video-tokenizer/what-a-video-token-is",
+      "path": "07-multimodal-generation/video-tokenizer/what-a-video-token-is",
       "kind": "sub",
       "order": 50,
       "title": "What is the discrete thing a video model conditions on?"
     },
     {
-      "path": "07-multimodal-generation/video/01-video-tokenizer/when-the-dead-codes-revive",
+      "path": "07-multimodal-generation/video-tokenizer/when-the-dead-codes-revive",
       "kind": "sub",
       "order": 50,
       "title": "Three collapses, one revive mechanism, 63/64 codes"
     },
     {
-      "path": "07-multimodal-generation/video/02-generation-model/the-margin-vs-the-ceiling",
+      "path": "07-multimodal-generation/generation-model/the-margin-vs-the-ceiling",
       "kind": "sub",
       "order": 50,
       "title": "The remaining gap belongs to the codec, not the sequence model"
     },
     {
-      "path": "07-multimodal-generation/video/02-generation-model/when-wrong-tokens-still-reconstruct",
+      "path": "07-multimodal-generation/generation-model/when-wrong-tokens-still-reconstruct",
       "kind": "sub",
       "order": 50,
       "title": "When the tokens are wrong but the frames still reconstruct"
     },
     {
-      "path": "07-multimodal-generation/video/03-report/the-cost-quality-pair",
+      "path": "07-multimodal-generation/video-report/the-cost-quality-pair",
       "kind": "sub",
       "order": 50,
       "title": "The verdict that pairs cost with quality"
     },
     {
-      "path": "07-multimodal-generation/video/03-report/when-the-cost-ceiling-is-roomy",
+      "path": "07-multimodal-generation/video-report/when-the-cost-ceiling-is-roomy",
       "kind": "sub",
       "order": 50,
       "title": "The feasibility verdict, read: quality margin and cost headroom"
     },
     {
-      "path": "07-multimodal-generation/video/04-longer-sequences/when-the-cost-grows-faster",
+      "path": "07-multimodal-generation/longer-sequences/when-the-cost-grows-faster",
       "kind": "sub",
       "order": 50,
       "title": "4.3x cost for 2x frames"
     },
     {
-      "path": "07-multimodal-generation/video/04-longer-sequences/when-the-frames-double",
+      "path": "07-multimodal-generation/longer-sequences/when-the-frames-double",
       "kind": "sub",
       "order": 50,
       "title": "Doubling the frames: what the same recipe says at 16"
     },
     {
-      "path": "07-multimodal-generation/video/05-multi-object/the-margin-that-holds",
+      "path": "07-multimodal-generation/multi-object/the-margin-that-holds",
       "kind": "sub",
       "order": 50,
       "title": "Two objects, one token per frame, and the margin still clears"
     },
     {
-      "path": "07-multimodal-generation/video/05-multi-object/when-two-shapes-share-a-token",
+      "path": "07-multimodal-generation/multi-object/when-two-shapes-share-a-token",
       "kind": "sub",
       "order": 50,
       "title": "One token per frame, two objects: where the capacity limit shows"
     },
     {
-      "path": "07-multimodal-generation/video/06-longer-and-multi-object/when-the-axes-compound",
+      "path": "07-multimodal-generation/longer-and-multi-object/when-the-axes-compound",
       "kind": "sub",
       "order": 50,
       "title": "The fourth corner: 16 frames and 2 objects together"
     },
     {
-      "path": "07-multimodal-generation/video/06-longer-and-multi-object/when-the-metric-hits-zero",
+      "path": "07-multimodal-generation/longer-and-multi-object/when-the-metric-hits-zero",
       "kind": "sub",
       "order": 50,
       "title": "Which axis costs the generation — and when does the metric hit zero?"
@@ -2972,91 +2960,91 @@
       "title": "Does the KV cache care whether the tokens are words or sound?"
     },
     {
-      "path": "07-multimodal-generation/voice/00-audio-codec/when-silence-is-a-local-minimum",
+      "path": "07-multimodal-generation/audio-codec/when-silence-is-a-local-minimum",
       "kind": "sub",
       "order": 50,
       "title": "The collapse that looked like success"
     },
     {
-      "path": "07-multimodal-generation/voice/00-audio-codec/why-codebooks-collapse",
+      "path": "07-multimodal-generation/audio-codec/why-codebooks-collapse",
       "kind": "sub",
       "order": 50,
       "title": "Why does a VQ codebook collapse — and can you watch it happen?"
     },
     {
-      "path": "07-multimodal-generation/voice/01-streaming-decode/when-the-cache-pays",
+      "path": "07-multimodal-generation/streaming-decode/when-the-cache-pays",
       "kind": "sub",
       "order": 50,
       "title": "The KV cache on audio tokens: same answer, flat latency"
     },
     {
-      "path": "07-multimodal-generation/voice/01-streaming-decode/when-the-logits-match",
+      "path": "07-multimodal-generation/streaming-decode/when-the-logits-match",
       "kind": "sub",
       "order": 50,
       "title": "The zero gap is checked at logit level, not token level"
     },
     {
-      "path": "07-multimodal-generation/voice/02-report/the-five-acceptance-lines",
+      "path": "07-multimodal-generation/voice-report/the-five-acceptance-lines",
       "kind": "sub",
       "order": 50,
       "title": "MET rests on five lines, each independently"
     },
     {
-      "path": "07-multimodal-generation/voice/02-report/when-the-transfer-is-clean",
+      "path": "07-multimodal-generation/voice-report/when-the-transfer-is-clean",
       "kind": "sub",
       "order": 50,
       "title": "The transfer that needed no new serving code"
     },
     {
-      "path": "07-multimodal-generation/voice/03-real-speech-and-network/when-the-network-is-the-tail",
+      "path": "07-multimodal-generation/real-speech-and-network/when-the-network-is-the-tail",
       "kind": "sub",
       "order": 50,
       "title": "The realtime margin is the network's tail"
     },
     {
-      "path": "07-multimodal-generation/voice/03-real-speech-and-network/when-the-recipe-broke-then-fixed",
+      "path": "07-multimodal-generation/real-speech-and-network/when-the-recipe-broke-then-fixed",
       "kind": "sub",
       "order": 50,
       "title": "The escape window is input-dependent"
     },
     {
-      "path": "07-multimodal-generation/voice/04-multi-speaker/when-codebook-health-is-seed-dependent",
+      "path": "07-multimodal-generation/multi-speaker/when-codebook-health-is-seed-dependent",
       "kind": "sub",
       "order": 50,
       "title": "No collapse — and a seed-dependent codebook"
     },
     {
-      "path": "07-multimodal-generation/voice/04-multi-speaker/when-the-fix-did-not-generalize",
+      "path": "07-multimodal-generation/multi-speaker/when-the-fix-did-not-generalize",
       "kind": "sub",
       "order": 50,
       "title": "The fix that did not generalize"
     },
     {
-      "path": "07-multimodal-generation/voice/04-multi-speaker/when-the-mix-is-not-what-you-asked",
+      "path": "07-multimodal-generation/multi-speaker/when-the-mix-is-not-what-you-asked",
       "kind": "sub",
       "order": 50,
       "title": "The mix is not what you asked for"
     },
     {
-      "path": "07-multimodal-generation/voice/05-codebook-reset/when-reset-reaches-64-64",
+      "path": "07-multimodal-generation/codebook-reset/when-reset-reaches-64-64",
       "kind": "sub",
       "order": 50,
       "title": "The mechanism that fixed utilization in every seed"
     },
     {
-      "path": "07-multimodal-generation/voice/05-codebook-reset/when-the-reset-never-stops",
+      "path": "07-multimodal-generation/codebook-reset/when-the-reset-never-stops",
       "kind": "sub",
       "order": 50,
       "title": "Is a dead-code reset a cure, or a maintenance loop?"
     },
     {
-      "path": "07-multimodal-generation/voice/06-which-mechanism-did-it/the-half-that-did-the-work",
+      "path": "07-multimodal-generation/which-mechanism-did-it/the-half-that-did-the-work",
       "kind": "sub",
       "order": 50,
       "title": "Which half of the fix did the work?"
     },
     {
-      "path": "07-multimodal-generation/voice/06-which-mechanism-did-it/when-the-corners-reproduce",
+      "path": "07-multimodal-generation/which-mechanism-did-it/when-the-corners-reproduce",
       "kind": "sub",
       "order": 50,
       "title": "The 2x2 is trustworthy because its corners are already published"
@@ -3068,85 +3056,85 @@
       "title": ""
     },
     {
-      "path": "08-bio-pharma-modeling/00-dataset-and-property/the-12-endpoint-balance",
+      "path": "08-bio-pharma-modeling/dataset-and-property/the-12-endpoint-balance",
       "kind": "sub",
       "order": 50,
       "title": "Why the endpoint was chosen from balance, not convenience"
     },
     {
-      "path": "08-bio-pharma-modeling/00-dataset-and-property/the-split-that-decides",
+      "path": "08-bio-pharma-modeling/dataset-and-property/the-split-that-decides",
       "kind": "sub",
       "order": 50,
       "title": "Does the split decide who wins?"
     },
     {
-      "path": "08-bio-pharma-modeling/01-descriptor-baseline-and-model/two-ways-to-read-a-molecule",
+      "path": "08-bio-pharma-modeling/descriptor-baseline-and-model/two-ways-to-read-a-molecule",
       "kind": "sub",
       "order": 50,
       "title": "Ten numbers, or 696,065 parameters"
     },
     {
-      "path": "08-bio-pharma-modeling/01-descriptor-baseline-and-model/when-the-baseline-holds",
+      "path": "08-bio-pharma-modeling/descriptor-baseline-and-model/when-the-baseline-holds",
       "kind": "sub",
       "order": 50,
       "title": "When does a ten-number baseline beat a trained model?"
     },
     {
-      "path": "08-bio-pharma-modeling/02-report/the-three-met-items",
+      "path": "08-bio-pharma-modeling/report/the-three-met-items",
       "kind": "sub",
       "order": 50,
       "title": "A failing verdict can still be a disciplined one"
     },
     {
-      "path": "08-bio-pharma-modeling/02-report/when-the-baseline-refuses-to-lose",
+      "path": "08-bio-pharma-modeling/report/when-the-baseline-refuses-to-lose",
       "kind": "sub",
       "order": 50,
       "title": "The baseline that refused to lose: a decisive gap, read honestly"
     },
     {
-      "path": "08-bio-pharma-modeling/03-second-endpoint/the-split-shift-at-the-scarcest",
+      "path": "08-bio-pharma-modeling/second-endpoint/the-split-shift-at-the-scarcest",
       "kind": "sub",
       "order": 50,
       "title": "The scarcest endpoint carries the largest split shift"
     },
     {
-      "path": "08-bio-pharma-modeling/03-second-endpoint/when-the-verdict-is-inconclusive",
+      "path": "08-bio-pharma-modeling/second-endpoint/when-the-verdict-is-inconclusive",
       "kind": "sub",
       "order": 50,
       "title": "The no-result that is a real result"
     },
     {
-      "path": "08-bio-pharma-modeling/04-third-endpoint/the-model-first-win",
+      "path": "08-bio-pharma-modeling/third-endpoint/the-model-first-win",
       "kind": "sub",
       "order": 50,
       "title": "The mid-range endpoint gives the model its first clean win"
     },
     {
-      "path": "08-bio-pharma-modeling/04-third-endpoint/when-the-mid-range-point-lands",
+      "path": "08-bio-pharma-modeling/third-endpoint/when-the-mid-range-point-lands",
       "kind": "sub",
       "order": 50,
       "title": "The third point that fills the range"
     },
     {
-      "path": "08-bio-pharma-modeling/05-cross-endpoint-analysis/the-n3-directional-read",
+      "path": "08-bio-pharma-modeling/cross-endpoint-analysis/the-n3-directional-read",
       "kind": "sub",
       "order": 50,
       "title": "Three endpoints, two directions, and the ceiling stated"
     },
     {
-      "path": "08-bio-pharma-modeling/05-cross-endpoint-analysis/when-scarcity-decides",
+      "path": "08-bio-pharma-modeling/cross-endpoint-analysis/when-scarcity-decides",
       "kind": "sub",
       "order": 50,
       "title": "What does scarcity decide, and what does it not?"
     },
     {
-      "path": "08-bio-pharma-modeling/06-model-or-representation/the-rdkit-agreement",
+      "path": "08-bio-pharma-modeling/model-or-representation/the-rdkit-agreement",
       "kind": "sub",
       "order": 50,
       "title": "The reimplementation that ranks like RDKit"
     },
     {
-      "path": "08-bio-pharma-modeling/06-model-or-representation/when-width-memorizes",
+      "path": "08-bio-pharma-modeling/model-or-representation/when-width-memorizes",
       "kind": "sub",
       "order": 50,
       "title": "When does representation width start memorizing?"
@@ -3158,49 +3146,49 @@
       "title": ""
     },
     {
-      "path": "09-autonomous-driving/00-scenario-simulator/when-the-margin-decides",
+      "path": "09-autonomous-driving/scenario-simulator/when-the-margin-decides",
       "kind": "sub",
       "order": 50,
       "title": "The completion rate is a property of the contract, not the policy"
     },
     {
-      "path": "09-autonomous-driving/01-perception-baseline/when-the-blob-lies",
+      "path": "09-autonomous-driving/perception-baseline/when-the-blob-lies",
       "kind": "sub",
       "order": 50,
       "title": "The blob could not see the pass"
     },
     {
-      "path": "09-autonomous-driving/02-expert-policy/when-the-handoff-crosses-the-band",
+      "path": "09-autonomous-driving/expert-policy/when-the-handoff-crosses-the-band",
       "kind": "sub",
       "order": 50,
       "title": "The expert's four failures are not sandwiches"
     },
     {
-      "path": "09-autonomous-driving/03-behavior-cloning/when-the-rebalance-fixes-the-metric",
+      "path": "09-autonomous-driving/behavior-cloning/when-the-rebalance-fixes-the-metric",
       "kind": "sub",
       "order": 50,
       "title": "Rebalancing fixed the metric, not the policy"
     },
     {
-      "path": "09-autonomous-driving/04-closed-loop-eval/when-the-open-loop-lies",
+      "path": "09-autonomous-driving/closed-loop-eval/when-the-open-loop-lies",
       "kind": "sub",
       "order": 50,
       "title": "The open-loop score counts frames the expert drove"
     },
     {
-      "path": "09-autonomous-driving/05-harder-scenarios/when-the-aggregate-hides-the-corner",
+      "path": "09-autonomous-driving/harder-scenarios/when-the-aggregate-hides-the-corner",
       "kind": "sub",
       "order": 50,
       "title": "The aggregate boundary hides a cliff the ODD cells do not share"
     },
     {
-      "path": "09-autonomous-driving/05-harder-scenarios/when-the-policy-stalls",
+      "path": "09-autonomous-driving/harder-scenarios/when-the-policy-stalls",
       "kind": "sub",
       "order": 50,
       "title": "A timeout is the policy never deciding"
     },
     {
-      "path": "09-autonomous-driving/06-report/when-the-verdict-survives-resampling",
+      "path": "09-autonomous-driving/report/when-the-verdict-survives-resampling",
       "kind": "sub",
       "order": 50,
       "title": "The 0.28-vs-0.28 verdict is the same 14 scenarios twice"
@@ -3212,61 +3200,61 @@
       "title": ""
     },
     {
-      "path": "foundations/00-attention/rope",
+      "path": "foundations/attention/rope",
       "kind": "sub",
       "order": 50,
       "title": "How does a position encoding that never adds a vector work?"
     },
     {
-      "path": "foundations/00-attention/what-it-costs",
+      "path": "foundations/attention/what-it-costs",
       "kind": "sub",
       "order": 50,
       "title": "Where does a transformer actually spend its parameters and its memory?"
     },
     {
-      "path": "foundations/01-first-training-loop/the-curve-that-takes-34-seconds",
+      "path": "foundations/first-training-loop/the-curve-that-takes-34-seconds",
       "kind": "sub",
       "order": 50,
       "title": "The descent and the overfitting are the same curve"
     },
     {
-      "path": "foundations/02-optimization/the-flips-that-separate-optimizers",
+      "path": "foundations/optimization/the-flips-that-separate-optimizers",
       "kind": "sub",
       "order": 50,
       "title": "Fewer flips is what makes fewer steps possible"
     },
     {
-      "path": "foundations/02-optimization/when-the-training-plateaus",
+      "path": "foundations/optimization/when-the-training-plateaus",
       "kind": "sub",
       "order": 50,
       "title": "The crawl is the plateau: three ways a run can stall"
     },
     {
-      "path": "foundations/03-backpropagation/the-backward-pass-three-ways",
+      "path": "foundations/backpropagation/the-backward-pass-three-ways",
       "kind": "sub",
       "order": 50,
       "title": "What each of the three gradient checks establishes"
     },
     {
-      "path": "foundations/04-distributed-training/when-the-ranks-agree",
+      "path": "foundations/distributed-training/when-the-ranks-agree",
       "kind": "sub",
       "order": 50,
       "title": "The all-reduce that makes ranks agree"
     },
     {
-      "path": "foundations/06-significance/when-the-comparisons-multiply",
+      "path": "foundations/significance/when-the-comparisons-multiply",
       "kind": "sub",
       "order": 50,
       "title": "More comparisons, more chance hits: the multiple-testing failure"
     },
     {
-      "path": "foundations/06-significance/when-the-interval-decides",
+      "path": "foundations/significance/when-the-interval-decides",
       "kind": "sub",
       "order": 50,
       "title": "The bigger gap is not the more certain one"
     },
     {
-      "path": "foundations/07-moe/when-the-expert-goes-dead",
+      "path": "foundations/moe/when-the-expert-goes-dead",
       "kind": "sub",
       "order": 50,
       "title": "The dead expert: what load balancing exists to fight"
@@ -3344,67 +3332,67 @@
       "title": ""
     },
     {
-      "path": "02-personalized-discovery/shared/51-new-user-experience",
+      "path": "02-personalized-discovery/new-user-experience",
       "kind": "stage",
       "order": 51,
       "title": "The first page is decided before personalization can see the user"
     },
     {
-      "path": "02-personalized-discovery/shared/52-trust-and-explainability",
+      "path": "02-personalized-discovery/trust-and-explainability",
       "kind": "stage",
       "order": 52,
       "title": "An explanation is only as good as the claim the user can check"
     },
     {
-      "path": "02-personalized-discovery/shared/53-fairness-and-allocation",
+      "path": "02-personalized-discovery/fairness-and-allocation",
       "kind": "stage",
       "order": 53,
       "title": "Exposure is a budget the ranker allocates"
     },
     {
-      "path": "02-personalized-discovery/shared/54-online-experiments",
+      "path": "02-personalized-discovery/online-experiments",
       "kind": "stage",
       "order": 54,
       "title": "How do you know the change you shipped actually helped?"
     },
     {
-      "path": "02-personalized-discovery/shared/55-ltv-and-cac",
+      "path": "02-personalized-discovery/ltv-and-cac",
       "kind": "stage",
       "order": 55,
       "title": "A user is worth what they keep returning and spending"
     },
     {
-      "path": "02-personalized-discovery/ads/56-advertiser-roas",
+      "path": "02-personalized-discovery/advertiser-roas",
       "kind": "stage",
       "order": 56,
       "title": "The average hides the margin"
     },
     {
-      "path": "02-personalized-discovery/recommendation/56-entire-space-funnel",
+      "path": "02-personalized-discovery/entire-space-funnel",
       "kind": "stage",
       "order": 56,
       "title": "The sparse target is learned on the wrong population"
     },
     {
-      "path": "02-personalized-discovery/recommendation/57-delayed-feedback",
+      "path": "02-personalized-discovery/delayed-feedback",
       "kind": "stage",
       "order": 57,
       "title": "A conversion that happens tomorrow is labeled a negative today"
     },
     {
-      "path": "02-personalized-discovery/recommendation/58-negative-sampling",
+      "path": "02-personalized-discovery/negative-sampling",
       "kind": "stage",
       "order": 58,
       "title": "Downsampling negatives breaks calibration, not ranking"
     },
     {
-      "path": "02-personalized-discovery/recommendation/59-exposure-bias",
+      "path": "02-personalized-discovery/exposure-bias",
       "kind": "stage",
       "order": 59,
       "title": "The model only ever sees what the old model showed"
     },
     {
-      "path": "02-personalized-discovery/recommendation/60-heavy-tail-objective",
+      "path": "02-personalized-discovery/heavy-tail-objective",
       "kind": "stage",
       "order": 60,
       "title": "The whale owns a fifth of the gradient"
@@ -3416,31 +3404,31 @@
       "title": "Does one token-stream machine survive every modality a model can produce?"
     },
     {
-      "path": "02-personalized-discovery/recommendation/61-multi-task-conflict",
+      "path": "02-personalized-discovery/multi-task-conflict",
       "kind": "stage",
       "order": 61,
       "title": "The abundant task shapes the shared trunk"
     },
     {
-      "path": "02-personalized-discovery/recommendation/62-funnel-consistency",
+      "path": "02-personalized-discovery/funnel-consistency",
       "kind": "stage",
       "order": 62,
       "title": "A probability that cannot exist, served to the next stage"
     },
     {
-      "path": "02-personalized-discovery/recommendation/63-cascade-consistency",
+      "path": "02-personalized-discovery/cascade-consistency",
       "kind": "stage",
       "order": 63,
       "title": "The cut that ejects what the final ranker would have chosen"
     },
     {
-      "path": "02-personalized-discovery/recommendation/64-auc-label-seesaw",
+      "path": "02-personalized-discovery/auc-label-seesaw",
       "kind": "stage",
       "order": 64,
       "title": "Two objectives moved in opposite directions. What do you ship?"
     },
     {
-      "path": "02-personalized-discovery/recommendation/65-sparse-labels",
+      "path": "02-personalized-discovery/sparse-labels",
       "kind": "stage",
       "order": 65,
       "title": "The aggregate AUC is a dense-slice number"
@@ -3470,5 +3458,306 @@
       "title": "Reference"
     }
   ],
-  "renames": {}
+  "renames": {
+    "01-language-model/vision/00-image-caption-task/the-collision-that-closed-the-gap": "01-language-model/corpus/the-collision-that-closed-the-gap",
+    "foundations/04-distributed-training/gpu-cluster-concepts/when-the-topology-costs": "foundations/distributed-training/when-the-topology-costs",
+    "01-language-model/vision/04-real-photo-vision-fusion/when-the-margin-is-narrow": "01-language-model/pretrain/when-the-margin-is-narrow",
+    "01-language-model/vision/06-warmup-stability/when-warmup-closed-the-collapse": "01-language-model/pretrain/when-warmup-closed-the-collapse",
+    "01-language-model/vision/06-warmup-stability/the-collapse-that-warmup-closed": "01-language-model/pretrain/the-collapse-that-warmup-closed",
+    "foundations/04-distributed-training/orchestration/when-the-scheduler-chooses": "foundations/distributed-training/when-the-scheduler-chooses",
+    "foundations/04-distributed-training/networking/when-the-ring-beats-the-star": "foundations/distributed-training/when-the-ring-beats-the-star",
+    "01-language-model/vision/04-real-photo-vision-fusion/the-flipped-variance": "01-language-model/pretrain/the-flipped-variance",
+    "01-language-model/vision/05-real-photo-report/the-answer-type-shaped-edge": "01-language-model/eval/the-answer-type-shaped-edge",
+    "02-personalized-discovery/recommendation/35-verification-replaces-score": "02-personalized-discovery/verification-replaces-score",
+    "01-language-model/vision/01-vision-fusion/the-fused-attention-anatomy": "01-language-model/pretrain/the-fused-attention-anatomy",
+    "01-language-model/vision/05-real-photo-report/when-the-api-still-wins": "01-language-model/eval/when-the-api-still-wins",
+    "01-language-model/vision/03-real-photo-task/the-real-photo-guardrail": "01-language-model/corpus/the-real-photo-guardrail",
+    "02-personalized-discovery/recommendation/34-slate-vs-item-evaluation": "02-personalized-discovery/slate-vs-item-evaluation",
+    "01-language-model/vision/03-real-photo-task/the-id-based-guardrail": "01-language-model/corpus/the-id-based-guardrail",
+    "01-language-model/vision/01-vision-fusion/where-the-decoder-looks": "01-language-model/pretrain/where-the-decoder-looks",
+    "01-language-model/vision/02-report/when-the-category-breaks-down": "01-language-model/eval/when-the-category-breaks-down",
+    "02-personalized-discovery/shared/44-training-serving-consistency": "02-personalized-discovery/training-serving-consistency",
+    "02-personalized-discovery/recommendation/60-heavy-tail-objective": "02-personalized-discovery/heavy-tail-objective",
+    "02-personalized-discovery/recommendation/32-recommendation-rlhf": "02-personalized-discovery/recommendation-rlhf",
+    "02-personalized-discovery/recommendation/56-entire-space-funnel": "02-personalized-discovery/entire-space-funnel",
+    "02-personalized-discovery/recommendation/61-multi-task-conflict": "02-personalized-discovery/multi-task-conflict",
+    "02-personalized-discovery/recommendation/63-cascade-consistency": "02-personalized-discovery/cascade-consistency",
+    "02-personalized-discovery/recommendation/62-funnel-consistency": "02-personalized-discovery/funnel-consistency",
+    "01-language-model/vision/00-image-caption-task/seed-vs-pixels": "01-language-model/corpus/seed-vs-pixels",
+    "01-language-model/vision/02-report/the-economics-per-question": "01-language-model/eval/the-economics-per-question",
+    "02-personalized-discovery/recommendation/33-multimodal-recall": "02-personalized-discovery/multimodal-recall",
+    "02-personalized-discovery/recommendation/58-negative-sampling": "02-personalized-discovery/negative-sampling",
+    "foundations/04-distributed-training/storage/when-a-node-joins": "foundations/distributed-training/when-a-node-joins",
+    "02-personalized-discovery/shared/46-retraining-and-staleness": "02-personalized-discovery/retraining-and-staleness",
+    "02-personalized-discovery/shared/52-trust-and-explainability": "02-personalized-discovery/trust-and-explainability",
+    "02-personalized-discovery/recommendation/57-delayed-feedback": "02-personalized-discovery/delayed-feedback",
+    "02-personalized-discovery/recommendation/64-auc-label-seesaw": "02-personalized-discovery/auc-label-seesaw",
+    "02-personalized-discovery/shared/49-throughput-and-capacity": "02-personalized-discovery/throughput-and-capacity",
+    "02-personalized-discovery/shared/53-fairness-and-allocation": "02-personalized-discovery/fairness-and-allocation",
+    "02-personalized-discovery/search/37-llm-query-understanding": "02-personalized-discovery/llm-query-understanding",
+    "02-personalized-discovery/search/38-conversational-surface": "02-personalized-discovery/conversational-surface",
+    "02-personalized-discovery/shared/01-content-understanding": "02-personalized-discovery/content-understanding",
+    "02-personalized-discovery/search/36-conversational-search": "02-personalized-discovery/conversational-search",
+    "02-personalized-discovery/recommendation/59-exposure-bias": "02-personalized-discovery/exposure-bias",
+    "02-personalized-discovery/recommendation/65-sparse-labels": "02-personalized-discovery/sparse-labels",
+    "02-personalized-discovery/ads/38-interleaving-experiments": "02-personalized-discovery/interleaving-experiments",
+    "02-personalized-discovery/ads/40-privacy-safe-attribution": "02-personalized-discovery/privacy-safe-attribution",
+    "07-multimodal-generation/voice/03-real-speech-and-network": "07-multimodal-generation/real-speech-and-network",
+    "07-multimodal-generation/video/00-synthetic-video-dataset": "07-multimodal-generation/synthetic-video-dataset",
+    "07-multimodal-generation/video/06-longer-and-multi-object": "07-multimodal-generation/longer-and-multi-object",
+    "02-personalized-discovery/shared/47-monitoring-and-drift": "02-personalized-discovery/monitoring-and-drift",
+    "02-personalized-discovery/search/35-generative-retrieval": "02-personalized-discovery/generative-retrieval",
+    "02-personalized-discovery/ads/41-llm-creative-generation": "02-personalized-discovery/llm-creative-generation",
+    "07-multimodal-generation/voice/06-which-mechanism-did-it": "07-multimodal-generation/which-mechanism-did-it",
+    "02-personalized-discovery/shared/48-realtime-user-state": "02-personalized-discovery/realtime-user-state",
+    "02-personalized-discovery/shared/51-new-user-experience": "02-personalized-discovery/new-user-experience",
+    "02-personalized-discovery/search/10-query-understanding": "02-personalized-discovery/query-understanding",
+    "02-personalized-discovery/search/23-personalized-search": "02-personalized-discovery/personalized-search",
+    "02-personalized-discovery/recommendation/31-llm-ranking": "02-personalized-discovery/llm-ranking",
+    "02-personalized-discovery/ads/39-first-price-transition": "02-personalized-discovery/first-price-transition",
+    "08-bio-pharma-modeling/01-descriptor-baseline-and-model": "08-bio-pharma-modeling/descriptor-baseline-and-model",
+    "02-personalized-discovery/shared/54-online-experiments": "02-personalized-discovery/online-experiments",
+    "02-personalized-discovery/search/24-search-measurement": "02-personalized-discovery/search-measurement",
+    "02-personalized-discovery/ads/42-marketplace-economics": "02-personalized-discovery/marketplace-economics",
+    "02-personalized-discovery/search/13-search-evaluation": "02-personalized-discovery/search-evaluation",
+    "01-language-model/vision/04-real-photo-vision-fusion": "01-language-model/pretrain/real-photo-vision-fusion",
+    "02-personalized-discovery/search/11-search-retrieval": "02-personalized-discovery/search-retrieval",
+    "02-personalized-discovery/ads/43-ads-inside-the-loop": "02-personalized-discovery/ads-inside-the-loop",
+    "04-agentic-platform/infra-agent-harness-landscape.md": "04-agentic-platform/agent-loop/infra-agent-harness-landscape.md",
+    "02-personalized-discovery/search/19-query-expansion": "02-personalized-discovery/query-expansion",
+    "02-personalized-discovery/search/20-dense-retrieval": "02-personalized-discovery/dense-retrieval",
+    "02-personalized-discovery/ads/26-creative-selection": "02-personalized-discovery/creative-selection",
+    "03-quantitative-research/03-walk-forward-validation": "03-quantitative-research/walk-forward-validation",
+    "02-personalized-discovery/shared/45-feedback-loops": "02-personalized-discovery/feedback-loops",
+    "02-personalized-discovery/shared/50-cost-per-query": "02-personalized-discovery/cost-per-query",
+    "02-personalized-discovery/search/12-search-ranking": "02-personalized-discovery/search-ranking",
+    "02-personalized-discovery/ads/25-frequency-capping": "02-personalized-discovery/frequency-capping",
+    "07-multimodal-generation/voice/01-streaming-decode": "07-multimodal-generation/streaming-decode",
+    "07-multimodal-generation/video/02-generation-model": "07-multimodal-generation/generation-model",
+    "07-multimodal-generation/video/04-longer-sequences": "07-multimodal-generation/longer-sequences",
+    "02-personalized-discovery/shared/43-feature-store": "02-personalized-discovery/feature-store",
+    "02-personalized-discovery/search/21-hybrid-fusion": "02-personalized-discovery/hybrid-fusion",
+    "07-multimodal-generation/video/01-video-tokenizer": "07-multimodal-generation/video-tokenizer",
+    "08-bio-pharma-modeling/05-cross-endpoint-analysis": "08-bio-pharma-modeling/cross-endpoint-analysis",
+    "08-bio-pharma-modeling/06-model-or-representation": "08-bio-pharma-modeling/model-or-representation",
+    "02-personalized-discovery/shared/00-interactions": "02-personalized-discovery/interactions",
+    "02-personalized-discovery/ads/16-ctr-calibration": "02-personalized-discovery/ctr-calibration",
+    "02-personalized-discovery/ads/28-auction-revenue": "02-personalized-discovery/auction-revenue",
+    "02-personalized-discovery/ads/30-ads-measurement": "02-personalized-discovery/ads-measurement",
+    "02-personalized-discovery/ads/56-advertiser-roas": "02-personalized-discovery/advertiser-roas",
+    "03-quantitative-research/02-cross-sectional-rank": "03-quantitative-research/cross-sectional-rank",
+    "04-agentic-platform/harness-effects-landscape.md": "04-agentic-platform/agent-loop/harness-effects-landscape.md",
+    "07-multimodal-generation/voice/05-codebook-reset": "07-multimodal-generation/codebook-reset",
+    "02-personalized-discovery/shared/07-rule-engine": "02-personalized-discovery/rule-engine",
+    "02-personalized-discovery/shared/55-ltv-and-cac": "02-personalized-discovery/ltv-and-cac",
+    "02-personalized-discovery/ads/18-ad-externality": "02-personalized-discovery/ad-externality",
+    "07-multimodal-generation/voice/04-multi-speaker": "07-multimodal-generation/multi-speaker",
+    "01-language-model/pretraining-data-landscape.md": "01-language-model/corpus/pretraining-data-landscape.md",
+    "01-language-model/post-training-rl-landscape.md": "01-language-model/rl/post-training-rl-landscape.md",
+    "01-language-model/vision/00-image-caption-task": "01-language-model/corpus/image-caption-task",
+    "02-personalized-discovery/shared/05-value-tree": "02-personalized-discovery/value-tree",
+    "02-personalized-discovery/ads/17-budget-pacing": "02-personalized-discovery/budget-pacing",
+    "07-multimodal-generation/video/05-multi-object": "07-multimodal-generation/multi-object",
+    "08-bio-pharma-modeling/00-dataset-and-property": "08-bio-pharma-modeling/dataset-and-property",
+    "01-language-model/vision/05-real-photo-report": "01-language-model/eval/real-photo-report",
+    "02-personalized-discovery/shared/04-fine-rank": "02-personalized-discovery/fine-rank",
+    "02-personalized-discovery/search/22-reranking": "02-personalized-discovery/reranking",
+    "02-personalized-discovery/ads/15-ecpm-ranking": "02-personalized-discovery/ecpm-ranking",
+    "02-personalized-discovery/ads/27-bid-strategy": "02-personalized-discovery/bid-strategy",
+    "02-personalized-discovery/ads/29-rtb-pipeline": "02-personalized-discovery/rtb-pipeline",
+    "03-quantitative-research/04-cost-and-capacity": "03-quantitative-research/cost-and-capacity",
+    "04-agentic-platform/agent-memory-landscape.md": "04-agentic-platform/closing-the-loop/agent-memory-landscape.md",
+    "07-multimodal-generation/voice/00-audio-codec": "07-multimodal-generation/audio-codec",
+    "01-language-model/vision/06-warmup-stability": "01-language-model/pretrain/warmup-stability",
+    "02-personalized-discovery/shared/03-pre-rank": "02-personalized-discovery/pre-rank",
+    "09-autonomous-driving/01-perception-baseline": "09-autonomous-driving/perception-baseline",
+    "01-language-model/vision/03-real-photo-task": "01-language-model/corpus/real-photo-task",
+    "02-personalized-discovery/shared/08-serving": "02-personalized-discovery/serving",
+    "02-personalized-discovery/ads/14-ad-auction": "02-personalized-discovery/ad-auction",
+    "03-quantitative-research/01-signal-research": "03-quantitative-research/signal-research",
+    "09-autonomous-driving/00-scenario-simulator": "09-autonomous-driving/scenario-simulator",
+    "02-personalized-discovery/shared/02-recall": "02-personalized-discovery/recall",
+    "02-personalized-discovery/shared/06-mixing": "02-personalized-discovery/mixing",
+    "02-personalized-discovery/shared/09-report": "02-personalized-discovery/report",
+    "01-language-model/vision/01-vision-fusion": "01-language-model/pretrain/vision-fusion",
+    "04-agentic-platform/03-cheap-or-expensive": "04-agentic-platform/cheap-or-expensive",
+    "08-bio-pharma-modeling/03-second-endpoint": "08-bio-pharma-modeling/second-endpoint",
+    "09-autonomous-driving/03-behavior-cloning": "09-autonomous-driving/behavior-cloning",
+    "09-autonomous-driving/04-closed-loop-eval": "09-autonomous-driving/closed-loop-eval",
+    "09-autonomous-driving/05-harder-scenarios": "09-autonomous-driving/harder-scenarios",
+    "07-multimodal-generation/voice/02-report": "07-multimodal-generation/voice-report",
+    "07-multimodal-generation/video/03-report": "07-multimodal-generation/video-report",
+    "08-bio-pharma-modeling/04-third-endpoint": "08-bio-pharma-modeling/third-endpoint",
+    "03-quantitative-research/00-market-data": "03-quantitative-research/market-data",
+    "04-agentic-platform/06-closing-the-loop": "04-agentic-platform/closing-the-loop",
+    "09-autonomous-driving/02-expert-policy": "09-autonomous-driving/expert-policy",
+    "foundations/05-is-the-difference-real": "foundations/is-the-difference-real",
+    "04-agentic-platform/04-how-it-fails": "04-agentic-platform/how-it-fails",
+    "foundations/04-distributed-training": "foundations/distributed-training",
+    "01-language-model/vision/02-report": "01-language-model/eval/vision-report",
+    "03-quantitative-research/05-report": "03-quantitative-research/report",
+    "foundations/01-first-training-loop": "foundations/first-training-loop",
+    "04-agentic-platform/01-no-harness": "04-agentic-platform/no-harness",
+    "04-agentic-platform/02-agent-loop": "04-agentic-platform/agent-loop",
+    "05-game-ai/00-gridworld-baselines": "05-game-ai/baselines",
+    "08-bio-pharma-modeling/02-report": "08-bio-pharma-modeling/report",
+    "04-agentic-platform/00-task-set": "04-agentic-platform/task-set",
+    "09-autonomous-driving/06-report": "09-autonomous-driving/report",
+    "01-language-model/01-tokenizer": "01-language-model/tokenizer",
+    "foundations/03-backpropagation": "foundations/backpropagation",
+    "01-language-model/02-pretrain": "01-language-model/pretrain",
+    "04-agentic-platform/05-report": "04-agentic-platform/report",
+    "05-game-ai/03-fixing-collapse": "05-game-ai/fixing-collapse",
+    "01-language-model/00-corpus": "01-language-model/corpus",
+    "foundations/02-optimization": "foundations/optimization",
+    "foundations/06-significance": "foundations/significance",
+    "01-language-model/05-serve": "01-language-model/serve",
+    "01-language-model/06-agent": "01-language-model/agent-harness",
+    "01-language-model/07-eval": "01-language-model/eval",
+    "05-game-ai/06-tool-use-rl": "05-game-ai/tool-use-rl",
+    "01-language-model/03-sft": "01-language-model/sft",
+    "foundations/00-attention": "foundations/attention",
+    "01-language-model/04-rl": "01-language-model/rl",
+    "05-game-ai/04-minigrid": "05-game-ai/minigrid",
+    "05-game-ai/02-report": "05-game-ai/verdict-baselines",
+    "05-game-ai/05-report": "05-game-ai/verdict-cold-start",
+    "05-game-ai/01-grpo": "05-game-ai/grpo",
+    "foundations/07-moe": "foundations/moe",
+    "01-language-model/pretraining-data-landscape": "01-language-model/corpus/pretraining-data-landscape",
+    "01-language-model/post-training-rl-landscape": "01-language-model/rl/post-training-rl-landscape",
+    "04-agentic-platform/harness-effects-landscape": "04-agentic-platform/agent-loop/harness-effects-landscape",
+    "04-agentic-platform/infra-agent-harness-landscape": "04-agentic-platform/agent-loop/infra-agent-harness-landscape",
+    "04-agentic-platform/agent-memory-landscape": "04-agentic-platform/closing-the-loop/agent-memory-landscape"
+  },
+  "groups": {
+    "02-personalized-discovery": [
+      {
+        "label": "Shared",
+        "stages": [
+          "02-personalized-discovery/interactions",
+          "02-personalized-discovery/content-understanding",
+          "02-personalized-discovery/recall",
+          "02-personalized-discovery/pre-rank",
+          "02-personalized-discovery/fine-rank",
+          "02-personalized-discovery/value-tree",
+          "02-personalized-discovery/mixing",
+          "02-personalized-discovery/rule-engine",
+          "02-personalized-discovery/serving",
+          "02-personalized-discovery/report"
+        ],
+        "overview": "02-personalized-discovery/shared"
+      },
+      {
+        "label": "Search",
+        "stages": [
+          "02-personalized-discovery/query-understanding",
+          "02-personalized-discovery/search-retrieval",
+          "02-personalized-discovery/search-ranking",
+          "02-personalized-discovery/search-evaluation",
+          "02-personalized-discovery/query-expansion",
+          "02-personalized-discovery/dense-retrieval",
+          "02-personalized-discovery/hybrid-fusion",
+          "02-personalized-discovery/reranking",
+          "02-personalized-discovery/personalized-search",
+          "02-personalized-discovery/search-measurement",
+          "02-personalized-discovery/generative-retrieval",
+          "02-personalized-discovery/conversational-search",
+          "02-personalized-discovery/llm-query-understanding",
+          "02-personalized-discovery/conversational-surface"
+        ],
+        "overview": "02-personalized-discovery/search"
+      },
+      {
+        "label": "Recommendation",
+        "stages": [
+          "02-personalized-discovery/llm-ranking",
+          "02-personalized-discovery/recommendation-rlhf",
+          "02-personalized-discovery/multimodal-recall",
+          "02-personalized-discovery/slate-vs-item-evaluation",
+          "02-personalized-discovery/verification-replaces-score",
+          "02-personalized-discovery/entire-space-funnel",
+          "02-personalized-discovery/delayed-feedback",
+          "02-personalized-discovery/negative-sampling",
+          "02-personalized-discovery/exposure-bias",
+          "02-personalized-discovery/heavy-tail-objective",
+          "02-personalized-discovery/multi-task-conflict",
+          "02-personalized-discovery/funnel-consistency",
+          "02-personalized-discovery/cascade-consistency",
+          "02-personalized-discovery/auc-label-seesaw",
+          "02-personalized-discovery/sparse-labels"
+        ],
+        "overview": "02-personalized-discovery/recommendation"
+      },
+      {
+        "label": "Ads",
+        "stages": [
+          "02-personalized-discovery/ad-auction",
+          "02-personalized-discovery/ecpm-ranking",
+          "02-personalized-discovery/ctr-calibration",
+          "02-personalized-discovery/budget-pacing",
+          "02-personalized-discovery/ad-externality",
+          "02-personalized-discovery/frequency-capping",
+          "02-personalized-discovery/creative-selection",
+          "02-personalized-discovery/bid-strategy",
+          "02-personalized-discovery/auction-revenue",
+          "02-personalized-discovery/rtb-pipeline",
+          "02-personalized-discovery/ads-measurement",
+          "02-personalized-discovery/interleaving-experiments",
+          "02-personalized-discovery/first-price-transition",
+          "02-personalized-discovery/privacy-safe-attribution",
+          "02-personalized-discovery/llm-creative-generation",
+          "02-personalized-discovery/marketplace-economics",
+          "02-personalized-discovery/ads-inside-the-loop",
+          "02-personalized-discovery/advertiser-roas"
+        ],
+        "overview": "02-personalized-discovery/ads"
+      },
+      {
+        "label": "Operations",
+        "stages": [
+          "02-personalized-discovery/feature-store",
+          "02-personalized-discovery/training-serving-consistency",
+          "02-personalized-discovery/feedback-loops",
+          "02-personalized-discovery/retraining-and-staleness",
+          "02-personalized-discovery/monitoring-and-drift",
+          "02-personalized-discovery/realtime-user-state",
+          "02-personalized-discovery/throughput-and-capacity",
+          "02-personalized-discovery/cost-per-query",
+          "02-personalized-discovery/new-user-experience",
+          "02-personalized-discovery/trust-and-explainability",
+          "02-personalized-discovery/fairness-and-allocation",
+          "02-personalized-discovery/online-experiments",
+          "02-personalized-discovery/ltv-and-cac"
+        ]
+      }
+    ],
+    "07-multimodal-generation": [
+      {
+        "label": "Voice",
+        "stages": [
+          "07-multimodal-generation/audio-codec",
+          "07-multimodal-generation/streaming-decode",
+          "07-multimodal-generation/voice-report",
+          "07-multimodal-generation/real-speech-and-network",
+          "07-multimodal-generation/multi-speaker",
+          "07-multimodal-generation/codebook-reset",
+          "07-multimodal-generation/which-mechanism-did-it"
+        ],
+        "overview": "07-multimodal-generation/voice"
+      },
+      {
+        "label": "Video",
+        "stages": [
+          "07-multimodal-generation/synthetic-video-dataset",
+          "07-multimodal-generation/video-tokenizer",
+          "07-multimodal-generation/generation-model",
+          "07-multimodal-generation/video-report",
+          "07-multimodal-generation/longer-sequences",
+          "07-multimodal-generation/multi-object",
+          "07-multimodal-generation/longer-and-multi-object"
+        ],
+        "overview": "07-multimodal-generation/video"
+      }
+    ]
+  }
 }

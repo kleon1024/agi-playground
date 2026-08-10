@@ -28,7 +28,7 @@ to trust that the tokens carried the signal, and at what price.
 [Topic 01](../01-language-model/) built a decoder — RoPE, RMSNorm, SwiGLU, a
 training loop, a serving engine — entirely around a 1-D sequence of discrete
 token ids. Its vision path
-([`../01-language-model/vision/`](../01-language-model/vision/)) showed that a
+([`../01-language-model/`](../01-language-model/)) showed that a
 new modality is not a flag to flip: a patch-embedding module and a
 vision-token prefix are real new code, and a decoder with no image input is
 the baseline that catches a dataset leaking the answer through language.
@@ -135,4 +135,3 @@ video path. If the question is "does the text-token serving mechanism
 transfer to another discrete-token stream", read the voice path — and then
 return to the same question at the end of the video path, because the two
 sub-paths' reports reach the same verdict from different directions.
-

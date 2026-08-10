@@ -39,7 +39,7 @@ IGNORED_SOURCE_PATHS = {
 # The topics. "Business goal" and "outcome telemetry" are not directories —
 # they live inside each topic's contract, which is why the topic test below
 # checks for a contract rather than for more folders.
-FOUNDATIONS = ["01-first-training-loop"]
+FOUNDATIONS = ["first-training-loop"]
 
 TOPICS = [
     "01-language-model",
@@ -117,12 +117,23 @@ def test_no_foundation_chapter_is_an_orphan():
     some stage actually sends the reader on -- from a *stage* README, not a
     topic overview, because an overview can list anything.
     """
-    stage_text = "\n".join(
-        readme.read_text()
-        for topic in TOPICS
-        for readme in sorted((ROOT / topic).rglob("README.md"))
-        if len(readme.relative_to(ROOT / topic).parts) > 1
-        and not {"core", "prod", "runs", "cache"} & set(readme.parts)
+    renames = json.loads(
+        (ROOT / "reference" / "standards" / "content-graph.json").read_text()
+    )["renames"]
+
+    def renamed(text: str) -> str:
+        for old, new in renames.items():
+            text = text.replace(old, new)
+        return text
+
+    stage_text = renamed(
+        "\n".join(
+            readme.read_text()
+            for topic in TOPICS
+            for readme in sorted((ROOT / topic).rglob("README.md"))
+            if len(readme.relative_to(ROOT / topic).parts) > 1
+            and not {"core", "prod", "runs", "cache"} & set(readme.parts)
+        )
     )
     orphans = []
     for readme in sorted((ROOT / "foundations").glob("*/README.md")):
@@ -174,12 +185,12 @@ def test_a_shared_chapter_stays_in_the_topic_that_built_it():
         "reuse means a second mission links to the chapter where it was "
         "measured, not that the chapter moves into a directory of its own"
     )
-    harness = ROOT / "01-language-model" / "06-agent"
+    harness = ROOT / "01-language-model" / "agent-harness"
     for consumer in (
-        ROOT / "02-personalized-discovery" / "shared" / "07-rule-engine" / "README.md",
+        ROOT / "02-personalized-discovery" / "rule-engine" / "README.md",
         ROOT / "04-agentic-platform" / "README.md",
     ):
-        assert "01-language-model/06-agent" in consumer.read_text(), (
+        assert "01-language-model/agent-harness" in consumer.read_text(), (
             f"{consumer.relative_to(ROOT)} reuses the agent harness but does "
             "not link to it"
         )

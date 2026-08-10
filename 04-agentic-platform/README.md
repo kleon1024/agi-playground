@@ -67,7 +67,7 @@ them would hide the only comparison that says which is which.
 ## What this reuses
 
 The loop, tool schemas, permission ladder, and stop conditions come from
-[topic 01's agent harness](../01-language-model/06-agent/) unchanged
+[topic 01's agent harness](../01-language-model/agent-harness/) unchanged
 except for the tools this task set requires — same inputs, same objective, a
 different decision. That reuse is what makes this topic the second consumer
 the [admission gate](../reference/standards/mission-contract.md) asks for,

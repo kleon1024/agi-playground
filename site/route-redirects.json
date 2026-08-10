@@ -17,22 +17,746 @@
     "the language-model entry it is nested under."
   ],
   "legacyPrefixes": [
-    { "from": "/missions/01-language-model-agent", "to": "/01-language-model/" },
-    { "from": "/missions/02-personalized-discovery", "to": "/02-personalized-discovery/" },
-    { "from": "/missions/03-quantitative-research", "to": "/03-quantitative-research/" },
-    { "from": "/missions/04-code-agent", "to": "/04-agentic-platform/" },
-    { "from": "/missions/05-vision-language-model", "to": "/01-language-model/vision/" },
-    { "from": "/missions/06-game-ai", "to": "/05-game-ai/" },
-    { "from": "/missions/07-realtime-voice", "to": "/07-multimodal-generation/voice/" },
-    { "from": "/missions/08-video-generation", "to": "/07-multimodal-generation/video/" },
-    { "from": "/missions/09-bio-pharma-modeling", "to": "/08-bio-pharma-modeling/" },
-    { "from": "/infra/01-networking", "to": "/foundations/04-distributed-training/networking/" },
-    { "from": "/infra/02-storage", "to": "/foundations/04-distributed-training/storage/" },
-    { "from": "/infra/03-orchestration", "to": "/foundations/04-distributed-training/orchestration/" },
-    { "from": "/infra/04-observability", "to": "/01-language-model/05-serve/observability/" },
-    { "from": "/infra/05-gpu-cluster-concepts", "to": "/foundations/04-distributed-training/gpu-cluster-concepts/" },
-    { "from": "/infra/06-gpu-dedup-at-scale", "to": "/01-language-model/00-corpus/dedup-at-scale/" },
-    { "from": "/infra/07-rollout-concurrency", "to": "/01-language-model/04-rl/rollout-concurrency/" }
+    {
+      "from": "/missions/01-language-model-agent",
+      "to": "/01-language-model/"
+    },
+    {
+      "from": "/missions/02-personalized-discovery",
+      "to": "/02-personalized-discovery/"
+    },
+    {
+      "from": "/missions/03-quantitative-research",
+      "to": "/03-quantitative-research/"
+    },
+    {
+      "from": "/missions/04-code-agent",
+      "to": "/04-agentic-platform/"
+    },
+    {
+      "from": "/missions/05-vision-language-model",
+      "to": "/01-language-model/vision/"
+    },
+    {
+      "from": "/missions/06-game-ai",
+      "to": "/05-game-ai/"
+    },
+    {
+      "from": "/missions/07-realtime-voice",
+      "to": "/07-multimodal-generation/voice/"
+    },
+    {
+      "from": "/missions/08-video-generation",
+      "to": "/07-multimodal-generation/video/"
+    },
+    {
+      "from": "/missions/09-bio-pharma-modeling",
+      "to": "/08-bio-pharma-modeling/"
+    },
+    {
+      "from": "/infra/01-networking",
+      "to": "/foundations/04-distributed-training/networking/"
+    },
+    {
+      "from": "/infra/02-storage",
+      "to": "/foundations/04-distributed-training/storage/"
+    },
+    {
+      "from": "/infra/03-orchestration",
+      "to": "/foundations/04-distributed-training/orchestration/"
+    },
+    {
+      "from": "/infra/04-observability",
+      "to": "/01-language-model/05-serve/observability/"
+    },
+    {
+      "from": "/infra/05-gpu-cluster-concepts",
+      "to": "/foundations/04-distributed-training/gpu-cluster-concepts/"
+    },
+    {
+      "from": "/infra/06-gpu-dedup-at-scale",
+      "to": "/01-language-model/00-corpus/dedup-at-scale/"
+    },
+    {
+      "from": "/infra/07-rollout-concurrency",
+      "to": "/01-language-model/04-rl/rollout-concurrency/"
+    },
+    {
+      "from": "/01-language-model/vision/00-image-caption-task/the-collision-that-closed-the-gap",
+      "to": "/01-language-model/corpus/the-collision-that-closed-the-gap"
+    },
+    {
+      "from": "/foundations/04-distributed-training/gpu-cluster-concepts/when-the-topology-costs",
+      "to": "/foundations/distributed-training/when-the-topology-costs"
+    },
+    {
+      "from": "/01-language-model/vision/04-real-photo-vision-fusion/when-the-margin-is-narrow",
+      "to": "/01-language-model/pretrain/when-the-margin-is-narrow"
+    },
+    {
+      "from": "/01-language-model/vision/06-warmup-stability/when-warmup-closed-the-collapse",
+      "to": "/01-language-model/pretrain/when-warmup-closed-the-collapse"
+    },
+    {
+      "from": "/01-language-model/vision/06-warmup-stability/the-collapse-that-warmup-closed",
+      "to": "/01-language-model/pretrain/the-collapse-that-warmup-closed"
+    },
+    {
+      "from": "/foundations/04-distributed-training/orchestration/when-the-scheduler-chooses",
+      "to": "/foundations/distributed-training/when-the-scheduler-chooses"
+    },
+    {
+      "from": "/foundations/04-distributed-training/networking/when-the-ring-beats-the-star",
+      "to": "/foundations/distributed-training/when-the-ring-beats-the-star"
+    },
+    {
+      "from": "/01-language-model/vision/04-real-photo-vision-fusion/the-flipped-variance",
+      "to": "/01-language-model/pretrain/the-flipped-variance"
+    },
+    {
+      "from": "/01-language-model/vision/05-real-photo-report/the-answer-type-shaped-edge",
+      "to": "/01-language-model/eval/the-answer-type-shaped-edge"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/35-verification-replaces-score",
+      "to": "/02-personalized-discovery/verification-replaces-score"
+    },
+    {
+      "from": "/01-language-model/vision/01-vision-fusion/the-fused-attention-anatomy",
+      "to": "/01-language-model/pretrain/the-fused-attention-anatomy"
+    },
+    {
+      "from": "/01-language-model/vision/05-real-photo-report/when-the-api-still-wins",
+      "to": "/01-language-model/eval/when-the-api-still-wins"
+    },
+    {
+      "from": "/01-language-model/vision/03-real-photo-task/the-real-photo-guardrail",
+      "to": "/01-language-model/corpus/the-real-photo-guardrail"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/34-slate-vs-item-evaluation",
+      "to": "/02-personalized-discovery/slate-vs-item-evaluation"
+    },
+    {
+      "from": "/01-language-model/vision/03-real-photo-task/the-id-based-guardrail",
+      "to": "/01-language-model/corpus/the-id-based-guardrail"
+    },
+    {
+      "from": "/01-language-model/vision/01-vision-fusion/where-the-decoder-looks",
+      "to": "/01-language-model/pretrain/where-the-decoder-looks"
+    },
+    {
+      "from": "/01-language-model/vision/02-report/when-the-category-breaks-down",
+      "to": "/01-language-model/eval/when-the-category-breaks-down"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/44-training-serving-consistency",
+      "to": "/02-personalized-discovery/training-serving-consistency"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/60-heavy-tail-objective",
+      "to": "/02-personalized-discovery/heavy-tail-objective"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/32-recommendation-rlhf",
+      "to": "/02-personalized-discovery/recommendation-rlhf"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/56-entire-space-funnel",
+      "to": "/02-personalized-discovery/entire-space-funnel"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/61-multi-task-conflict",
+      "to": "/02-personalized-discovery/multi-task-conflict"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/63-cascade-consistency",
+      "to": "/02-personalized-discovery/cascade-consistency"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/62-funnel-consistency",
+      "to": "/02-personalized-discovery/funnel-consistency"
+    },
+    {
+      "from": "/01-language-model/vision/00-image-caption-task/seed-vs-pixels",
+      "to": "/01-language-model/corpus/seed-vs-pixels"
+    },
+    {
+      "from": "/01-language-model/vision/02-report/the-economics-per-question",
+      "to": "/01-language-model/eval/the-economics-per-question"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/33-multimodal-recall",
+      "to": "/02-personalized-discovery/multimodal-recall"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/58-negative-sampling",
+      "to": "/02-personalized-discovery/negative-sampling"
+    },
+    {
+      "from": "/foundations/04-distributed-training/storage/when-a-node-joins",
+      "to": "/foundations/distributed-training/when-a-node-joins"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/46-retraining-and-staleness",
+      "to": "/02-personalized-discovery/retraining-and-staleness"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/52-trust-and-explainability",
+      "to": "/02-personalized-discovery/trust-and-explainability"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/57-delayed-feedback",
+      "to": "/02-personalized-discovery/delayed-feedback"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/64-auc-label-seesaw",
+      "to": "/02-personalized-discovery/auc-label-seesaw"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/49-throughput-and-capacity",
+      "to": "/02-personalized-discovery/throughput-and-capacity"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/53-fairness-and-allocation",
+      "to": "/02-personalized-discovery/fairness-and-allocation"
+    },
+    {
+      "from": "/02-personalized-discovery/search/37-llm-query-understanding",
+      "to": "/02-personalized-discovery/llm-query-understanding"
+    },
+    {
+      "from": "/02-personalized-discovery/search/38-conversational-surface",
+      "to": "/02-personalized-discovery/conversational-surface"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/01-content-understanding",
+      "to": "/02-personalized-discovery/content-understanding"
+    },
+    {
+      "from": "/02-personalized-discovery/search/36-conversational-search",
+      "to": "/02-personalized-discovery/conversational-search"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/59-exposure-bias",
+      "to": "/02-personalized-discovery/exposure-bias"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/65-sparse-labels",
+      "to": "/02-personalized-discovery/sparse-labels"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/38-interleaving-experiments",
+      "to": "/02-personalized-discovery/interleaving-experiments"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/40-privacy-safe-attribution",
+      "to": "/02-personalized-discovery/privacy-safe-attribution"
+    },
+    {
+      "from": "/07-multimodal-generation/voice/03-real-speech-and-network",
+      "to": "/07-multimodal-generation/real-speech-and-network"
+    },
+    {
+      "from": "/07-multimodal-generation/video/00-synthetic-video-dataset",
+      "to": "/07-multimodal-generation/synthetic-video-dataset"
+    },
+    {
+      "from": "/07-multimodal-generation/video/06-longer-and-multi-object",
+      "to": "/07-multimodal-generation/longer-and-multi-object"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/47-monitoring-and-drift",
+      "to": "/02-personalized-discovery/monitoring-and-drift"
+    },
+    {
+      "from": "/02-personalized-discovery/search/35-generative-retrieval",
+      "to": "/02-personalized-discovery/generative-retrieval"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/41-llm-creative-generation",
+      "to": "/02-personalized-discovery/llm-creative-generation"
+    },
+    {
+      "from": "/07-multimodal-generation/voice/06-which-mechanism-did-it",
+      "to": "/07-multimodal-generation/which-mechanism-did-it"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/48-realtime-user-state",
+      "to": "/02-personalized-discovery/realtime-user-state"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/51-new-user-experience",
+      "to": "/02-personalized-discovery/new-user-experience"
+    },
+    {
+      "from": "/02-personalized-discovery/search/10-query-understanding",
+      "to": "/02-personalized-discovery/query-understanding"
+    },
+    {
+      "from": "/02-personalized-discovery/search/23-personalized-search",
+      "to": "/02-personalized-discovery/personalized-search"
+    },
+    {
+      "from": "/02-personalized-discovery/recommendation/31-llm-ranking",
+      "to": "/02-personalized-discovery/llm-ranking"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/39-first-price-transition",
+      "to": "/02-personalized-discovery/first-price-transition"
+    },
+    {
+      "from": "/08-bio-pharma-modeling/01-descriptor-baseline-and-model",
+      "to": "/08-bio-pharma-modeling/descriptor-baseline-and-model"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/54-online-experiments",
+      "to": "/02-personalized-discovery/online-experiments"
+    },
+    {
+      "from": "/02-personalized-discovery/search/24-search-measurement",
+      "to": "/02-personalized-discovery/search-measurement"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/42-marketplace-economics",
+      "to": "/02-personalized-discovery/marketplace-economics"
+    },
+    {
+      "from": "/02-personalized-discovery/search/13-search-evaluation",
+      "to": "/02-personalized-discovery/search-evaluation"
+    },
+    {
+      "from": "/01-language-model/vision/04-real-photo-vision-fusion",
+      "to": "/01-language-model/pretrain/real-photo-vision-fusion"
+    },
+    {
+      "from": "/02-personalized-discovery/search/11-search-retrieval",
+      "to": "/02-personalized-discovery/search-retrieval"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/43-ads-inside-the-loop",
+      "to": "/02-personalized-discovery/ads-inside-the-loop"
+    },
+    {
+      "from": "/04-agentic-platform/infra-agent-harness-landscape.md",
+      "to": "/04-agentic-platform/agent-loop/infra-agent-harness-landscape.md"
+    },
+    {
+      "from": "/02-personalized-discovery/search/19-query-expansion",
+      "to": "/02-personalized-discovery/query-expansion"
+    },
+    {
+      "from": "/02-personalized-discovery/search/20-dense-retrieval",
+      "to": "/02-personalized-discovery/dense-retrieval"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/26-creative-selection",
+      "to": "/02-personalized-discovery/creative-selection"
+    },
+    {
+      "from": "/03-quantitative-research/03-walk-forward-validation",
+      "to": "/03-quantitative-research/walk-forward-validation"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/45-feedback-loops",
+      "to": "/02-personalized-discovery/feedback-loops"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/50-cost-per-query",
+      "to": "/02-personalized-discovery/cost-per-query"
+    },
+    {
+      "from": "/02-personalized-discovery/search/12-search-ranking",
+      "to": "/02-personalized-discovery/search-ranking"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/25-frequency-capping",
+      "to": "/02-personalized-discovery/frequency-capping"
+    },
+    {
+      "from": "/07-multimodal-generation/voice/01-streaming-decode",
+      "to": "/07-multimodal-generation/streaming-decode"
+    },
+    {
+      "from": "/07-multimodal-generation/video/02-generation-model",
+      "to": "/07-multimodal-generation/generation-model"
+    },
+    {
+      "from": "/07-multimodal-generation/video/04-longer-sequences",
+      "to": "/07-multimodal-generation/longer-sequences"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/43-feature-store",
+      "to": "/02-personalized-discovery/feature-store"
+    },
+    {
+      "from": "/02-personalized-discovery/search/21-hybrid-fusion",
+      "to": "/02-personalized-discovery/hybrid-fusion"
+    },
+    {
+      "from": "/07-multimodal-generation/video/01-video-tokenizer",
+      "to": "/07-multimodal-generation/video-tokenizer"
+    },
+    {
+      "from": "/08-bio-pharma-modeling/05-cross-endpoint-analysis",
+      "to": "/08-bio-pharma-modeling/cross-endpoint-analysis"
+    },
+    {
+      "from": "/08-bio-pharma-modeling/06-model-or-representation",
+      "to": "/08-bio-pharma-modeling/model-or-representation"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/00-interactions",
+      "to": "/02-personalized-discovery/interactions"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/16-ctr-calibration",
+      "to": "/02-personalized-discovery/ctr-calibration"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/28-auction-revenue",
+      "to": "/02-personalized-discovery/auction-revenue"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/30-ads-measurement",
+      "to": "/02-personalized-discovery/ads-measurement"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/56-advertiser-roas",
+      "to": "/02-personalized-discovery/advertiser-roas"
+    },
+    {
+      "from": "/03-quantitative-research/02-cross-sectional-rank",
+      "to": "/03-quantitative-research/cross-sectional-rank"
+    },
+    {
+      "from": "/04-agentic-platform/harness-effects-landscape.md",
+      "to": "/04-agentic-platform/agent-loop/harness-effects-landscape.md"
+    },
+    {
+      "from": "/07-multimodal-generation/voice/05-codebook-reset",
+      "to": "/07-multimodal-generation/codebook-reset"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/07-rule-engine",
+      "to": "/02-personalized-discovery/rule-engine"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/55-ltv-and-cac",
+      "to": "/02-personalized-discovery/ltv-and-cac"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/18-ad-externality",
+      "to": "/02-personalized-discovery/ad-externality"
+    },
+    {
+      "from": "/07-multimodal-generation/voice/04-multi-speaker",
+      "to": "/07-multimodal-generation/multi-speaker"
+    },
+    {
+      "from": "/01-language-model/pretraining-data-landscape.md",
+      "to": "/01-language-model/corpus/pretraining-data-landscape.md"
+    },
+    {
+      "from": "/01-language-model/post-training-rl-landscape.md",
+      "to": "/01-language-model/rl/post-training-rl-landscape.md"
+    },
+    {
+      "from": "/01-language-model/vision/00-image-caption-task",
+      "to": "/01-language-model/corpus/image-caption-task"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/05-value-tree",
+      "to": "/02-personalized-discovery/value-tree"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/17-budget-pacing",
+      "to": "/02-personalized-discovery/budget-pacing"
+    },
+    {
+      "from": "/07-multimodal-generation/video/05-multi-object",
+      "to": "/07-multimodal-generation/multi-object"
+    },
+    {
+      "from": "/08-bio-pharma-modeling/00-dataset-and-property",
+      "to": "/08-bio-pharma-modeling/dataset-and-property"
+    },
+    {
+      "from": "/01-language-model/vision/05-real-photo-report",
+      "to": "/01-language-model/eval/real-photo-report"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/04-fine-rank",
+      "to": "/02-personalized-discovery/fine-rank"
+    },
+    {
+      "from": "/02-personalized-discovery/search/22-reranking",
+      "to": "/02-personalized-discovery/reranking"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/15-ecpm-ranking",
+      "to": "/02-personalized-discovery/ecpm-ranking"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/27-bid-strategy",
+      "to": "/02-personalized-discovery/bid-strategy"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/29-rtb-pipeline",
+      "to": "/02-personalized-discovery/rtb-pipeline"
+    },
+    {
+      "from": "/03-quantitative-research/04-cost-and-capacity",
+      "to": "/03-quantitative-research/cost-and-capacity"
+    },
+    {
+      "from": "/04-agentic-platform/agent-memory-landscape.md",
+      "to": "/04-agentic-platform/closing-the-loop/agent-memory-landscape.md"
+    },
+    {
+      "from": "/07-multimodal-generation/voice/00-audio-codec",
+      "to": "/07-multimodal-generation/audio-codec"
+    },
+    {
+      "from": "/01-language-model/vision/06-warmup-stability",
+      "to": "/01-language-model/pretrain/warmup-stability"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/03-pre-rank",
+      "to": "/02-personalized-discovery/pre-rank"
+    },
+    {
+      "from": "/09-autonomous-driving/01-perception-baseline",
+      "to": "/09-autonomous-driving/perception-baseline"
+    },
+    {
+      "from": "/01-language-model/vision/03-real-photo-task",
+      "to": "/01-language-model/corpus/real-photo-task"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/08-serving",
+      "to": "/02-personalized-discovery/serving"
+    },
+    {
+      "from": "/02-personalized-discovery/ads/14-ad-auction",
+      "to": "/02-personalized-discovery/ad-auction"
+    },
+    {
+      "from": "/03-quantitative-research/01-signal-research",
+      "to": "/03-quantitative-research/signal-research"
+    },
+    {
+      "from": "/09-autonomous-driving/00-scenario-simulator",
+      "to": "/09-autonomous-driving/scenario-simulator"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/02-recall",
+      "to": "/02-personalized-discovery/recall"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/06-mixing",
+      "to": "/02-personalized-discovery/mixing"
+    },
+    {
+      "from": "/02-personalized-discovery/shared/09-report",
+      "to": "/02-personalized-discovery/report"
+    },
+    {
+      "from": "/01-language-model/vision/01-vision-fusion",
+      "to": "/01-language-model/pretrain/vision-fusion"
+    },
+    {
+      "from": "/04-agentic-platform/03-cheap-or-expensive",
+      "to": "/04-agentic-platform/cheap-or-expensive"
+    },
+    {
+      "from": "/08-bio-pharma-modeling/03-second-endpoint",
+      "to": "/08-bio-pharma-modeling/second-endpoint"
+    },
+    {
+      "from": "/09-autonomous-driving/03-behavior-cloning",
+      "to": "/09-autonomous-driving/behavior-cloning"
+    },
+    {
+      "from": "/09-autonomous-driving/04-closed-loop-eval",
+      "to": "/09-autonomous-driving/closed-loop-eval"
+    },
+    {
+      "from": "/09-autonomous-driving/05-harder-scenarios",
+      "to": "/09-autonomous-driving/harder-scenarios"
+    },
+    {
+      "from": "/07-multimodal-generation/voice/02-report",
+      "to": "/07-multimodal-generation/voice-report"
+    },
+    {
+      "from": "/07-multimodal-generation/video/03-report",
+      "to": "/07-multimodal-generation/video-report"
+    },
+    {
+      "from": "/08-bio-pharma-modeling/04-third-endpoint",
+      "to": "/08-bio-pharma-modeling/third-endpoint"
+    },
+    {
+      "from": "/03-quantitative-research/00-market-data",
+      "to": "/03-quantitative-research/market-data"
+    },
+    {
+      "from": "/04-agentic-platform/06-closing-the-loop",
+      "to": "/04-agentic-platform/closing-the-loop"
+    },
+    {
+      "from": "/09-autonomous-driving/02-expert-policy",
+      "to": "/09-autonomous-driving/expert-policy"
+    },
+    {
+      "from": "/foundations/05-is-the-difference-real",
+      "to": "/foundations/is-the-difference-real"
+    },
+    {
+      "from": "/04-agentic-platform/04-how-it-fails",
+      "to": "/04-agentic-platform/how-it-fails"
+    },
+    {
+      "from": "/foundations/04-distributed-training",
+      "to": "/foundations/distributed-training"
+    },
+    {
+      "from": "/01-language-model/vision/02-report",
+      "to": "/01-language-model/eval/vision-report"
+    },
+    {
+      "from": "/03-quantitative-research/05-report",
+      "to": "/03-quantitative-research/report"
+    },
+    {
+      "from": "/foundations/01-first-training-loop",
+      "to": "/foundations/first-training-loop"
+    },
+    {
+      "from": "/04-agentic-platform/01-no-harness",
+      "to": "/04-agentic-platform/no-harness"
+    },
+    {
+      "from": "/04-agentic-platform/02-agent-loop",
+      "to": "/04-agentic-platform/agent-loop"
+    },
+    {
+      "from": "/05-game-ai/00-gridworld-baselines",
+      "to": "/05-game-ai/baselines"
+    },
+    {
+      "from": "/08-bio-pharma-modeling/02-report",
+      "to": "/08-bio-pharma-modeling/report"
+    },
+    {
+      "from": "/04-agentic-platform/00-task-set",
+      "to": "/04-agentic-platform/task-set"
+    },
+    {
+      "from": "/09-autonomous-driving/06-report",
+      "to": "/09-autonomous-driving/report"
+    },
+    {
+      "from": "/01-language-model/01-tokenizer",
+      "to": "/01-language-model/tokenizer"
+    },
+    {
+      "from": "/foundations/03-backpropagation",
+      "to": "/foundations/backpropagation"
+    },
+    {
+      "from": "/01-language-model/02-pretrain",
+      "to": "/01-language-model/pretrain"
+    },
+    {
+      "from": "/04-agentic-platform/05-report",
+      "to": "/04-agentic-platform/report"
+    },
+    {
+      "from": "/05-game-ai/03-fixing-collapse",
+      "to": "/05-game-ai/fixing-collapse"
+    },
+    {
+      "from": "/01-language-model/00-corpus",
+      "to": "/01-language-model/corpus"
+    },
+    {
+      "from": "/foundations/02-optimization",
+      "to": "/foundations/optimization"
+    },
+    {
+      "from": "/foundations/06-significance",
+      "to": "/foundations/significance"
+    },
+    {
+      "from": "/01-language-model/05-serve",
+      "to": "/01-language-model/serve"
+    },
+    {
+      "from": "/01-language-model/06-agent",
+      "to": "/01-language-model/agent-harness"
+    },
+    {
+      "from": "/01-language-model/07-eval",
+      "to": "/01-language-model/eval"
+    },
+    {
+      "from": "/05-game-ai/06-tool-use-rl",
+      "to": "/05-game-ai/tool-use-rl"
+    },
+    {
+      "from": "/01-language-model/03-sft",
+      "to": "/01-language-model/sft"
+    },
+    {
+      "from": "/foundations/00-attention",
+      "to": "/foundations/attention"
+    },
+    {
+      "from": "/01-language-model/04-rl",
+      "to": "/01-language-model/rl"
+    },
+    {
+      "from": "/05-game-ai/04-minigrid",
+      "to": "/05-game-ai/minigrid"
+    },
+    {
+      "from": "/05-game-ai/02-report",
+      "to": "/05-game-ai/verdict-baselines"
+    },
+    {
+      "from": "/05-game-ai/05-report",
+      "to": "/05-game-ai/verdict-cold-start"
+    },
+    {
+      "from": "/05-game-ai/01-grpo",
+      "to": "/05-game-ai/grpo"
+    },
+    {
+      "from": "/foundations/07-moe",
+      "to": "/foundations/moe"
+    },
+    {
+      "from": "/01-language-model/pretraining-data-landscape",
+      "to": "/01-language-model/corpus/pretraining-data-landscape"
+    },
+    {
+      "from": "/01-language-model/post-training-rl-landscape",
+      "to": "/01-language-model/rl/post-training-rl-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/harness-effects-landscape",
+      "to": "/04-agentic-platform/agent-loop/harness-effects-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/infra-agent-harness-landscape",
+      "to": "/04-agentic-platform/agent-loop/infra-agent-harness-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/agent-memory-landscape",
+      "to": "/04-agentic-platform/closing-the-loop/agent-memory-landscape"
+    }
   ],
   "redirects": [
     {
@@ -41,19 +765,19 @@
     },
     {
       "from": "/infra",
-      "to": "/foundations/04-distributed-training/"
+      "to": "/foundations/distributed-training/"
     },
     {
       "from": "/infra/local-4090",
-      "to": "/reference/local-4090/"
+      "to": "/reference/local-4090"
     },
     {
       "from": "/infra/modal",
-      "to": "/reference/modal/"
+      "to": "/reference/modal"
     },
     {
       "from": "/infra/tracking",
-      "to": "/reference/tracking/"
+      "to": "/reference/tracking"
     },
     {
       "from": "/capabilities",
@@ -61,111 +785,111 @@
     },
     {
       "from": "/capabilities/act-coordinate",
-      "to": "/01-language-model/06-agent/"
+      "to": "/01-language-model/agent-harness/"
     },
     {
       "from": "/capabilities/act-coordinate/LANDSCAPE",
-      "to": "/01-language-model/06-agent/LANDSCAPE/"
+      "to": "/01-language-model/agent-harness/LANDSCAPE"
     },
     {
       "from": "/capabilities/act-coordinate/01-multi-agent",
-      "to": "/01-language-model/06-agent/would-a-second-agent-help/"
+      "to": "/01-language-model/agent-harness/would-a-second-agent-help/"
     },
     {
       "from": "/capabilities/act-coordinate/01-multi-agent/prod",
-      "to": "/01-language-model/06-agent/would-a-second-agent-help/prod/"
+      "to": "/01-language-model/agent-harness/would-a-second-agent-help/prod/"
     },
     {
       "from": "/platform/serving",
-      "to": "/01-language-model/05-serve/"
+      "to": "/01-language-model/serve/"
     },
     {
       "from": "/platform/serving/LANDSCAPE",
-      "to": "/01-language-model/05-serve/LANDSCAPE/"
+      "to": "/01-language-model/serve/LANDSCAPE"
     },
     {
       "from": "/platform/serving/01-graph-execution",
-      "to": "/01-language-model/05-serve/graph-execution/"
+      "to": "/01-language-model/serve/graph-execution/"
     },
     {
       "from": "/platform/serving/02-quantization",
-      "to": "/01-language-model/05-serve/quantization/"
+      "to": "/01-language-model/serve/quantization/"
     },
     {
       "from": "/platform/serving/03-speculative-decoding",
-      "to": "/01-language-model/05-serve/speculative-decoding/"
+      "to": "/01-language-model/serve/speculative-decoding/"
     },
     {
       "from": "/platform/adaptation",
-      "to": "/01-language-model/03-sft/"
+      "to": "/01-language-model/sft/"
     },
     {
       "from": "/platform/adaptation/post-training",
-      "to": "/01-language-model/03-sft/"
+      "to": "/01-language-model/sft/"
     },
     {
       "from": "/platform/adaptation/post-training/LANDSCAPE",
-      "to": "/01-language-model/03-sft/LANDSCAPE/"
+      "to": "/01-language-model/sft/LANDSCAPE"
     },
     {
       "from": "/platform/adaptation/reinforcement-learning",
-      "to": "/01-language-model/04-rl/"
+      "to": "/01-language-model/rl/"
     },
     {
       "from": "/platform/adaptation/reinforcement-learning/LANDSCAPE",
-      "to": "/01-language-model/04-rl/LANDSCAPE/"
+      "to": "/01-language-model/rl/LANDSCAPE"
     },
     {
       "from": "/platform/adaptation/mid-training",
-      "to": "/01-language-model/02-pretrain/mid-training/"
+      "to": "/01-language-model/pretrain/mid-training/"
     },
     {
       "from": "/platform/adaptation/distillation",
-      "to": "/01-language-model/03-sft/distillation/"
+      "to": "/01-language-model/sft/distillation/"
     },
     {
       "from": "/platform/adaptation/distillation/which-teacher-changes-what",
-      "to": "/01-language-model/03-sft/distillation/which-teacher-changes-what/"
+      "to": "/01-language-model/sft/distillation/which-teacher-changes-what/"
     },
     {
       "from": "/platform/adaptation/distillation/what-path-two-requires",
-      "to": "/01-language-model/03-sft/distillation/what-path-two-requires/"
+      "to": "/01-language-model/sft/distillation/what-path-two-requires/"
     },
     {
       "from": "/platform/training",
-      "to": "/01-language-model/02-pretrain/"
+      "to": "/01-language-model/pretrain/"
     },
     {
       "from": "/platform/training/LANDSCAPE",
-      "to": "/01-language-model/02-pretrain/LANDSCAPE/"
+      "to": "/01-language-model/pretrain/LANDSCAPE"
     },
     {
       "from": "/platform/training/01-distributed",
-      "to": "/foundations/04-distributed-training/"
+      "to": "/foundations/distributed-training/"
     },
     {
       "from": "/platform/training/02-architecture-ablations",
-      "to": "/01-language-model/02-pretrain/architecture-ablations/"
+      "to": "/01-language-model/pretrain/architecture-ablations/"
     },
     {
       "from": "/platform/training/02-architecture-ablations/the-rung-that-flipped",
-      "to": "/01-language-model/02-pretrain/architecture-ablations/the-rung-that-flipped/"
+      "to": "/01-language-model/pretrain/architecture-ablations/the-rung-that-flipped/"
     },
     {
       "from": "/platform/training/03-throughput",
-      "to": "/01-language-model/02-pretrain/throughput/"
+      "to": "/01-language-model/pretrain/throughput/"
     },
     {
       "from": "/platform/training/04-latent-reasoning",
-      "to": "/01-language-model/02-pretrain/latent-reasoning/"
+      "to": "/01-language-model/pretrain/latent-reasoning/"
     },
     {
       "from": "/platform/training/05-upcycling",
-      "to": "/01-language-model/02-pretrain/upcycling/"
+      "to": "/01-language-model/pretrain/upcycling/"
     },
     {
       "from": "/platform/training/05-upcycling/does-it-pay-off",
-      "to": "/01-language-model/02-pretrain/upcycling/does-it-pay-off/"
+      "to": "/01-language-model/pretrain/upcycling/does-it-pay-off/"
     },
     {
       "from": "/platform",
@@ -173,51 +897,51 @@
     },
     {
       "from": "/platform/data",
-      "to": "/01-language-model/00-corpus/"
+      "to": "/01-language-model/corpus/"
     },
     {
       "from": "/platform/data/LANDSCAPE",
-      "to": "/01-language-model/00-corpus/LANDSCAPE/"
+      "to": "/01-language-model/corpus/LANDSCAPE"
     },
     {
       "from": "/platform/data/01-ablation-harness",
-      "to": "/foundations/05-is-the-difference-real/"
+      "to": "/foundations/is-the-difference-real/"
     },
     {
       "from": "/platform/data/01-ablation-harness/the-two-confounds",
-      "to": "/foundations/05-is-the-difference-real/the-two-confounds/"
+      "to": "/foundations/is-the-difference-real/the-two-confounds/"
     },
     {
       "from": "/platform/evaluation-observability",
-      "to": "/01-language-model/07-eval/"
+      "to": "/01-language-model/eval/"
     },
     {
       "from": "/platform/evaluation-observability/LANDSCAPE",
-      "to": "/01-language-model/07-eval/LANDSCAPE/"
+      "to": "/01-language-model/eval/LANDSCAPE"
     },
     {
       "from": "/platform/evaluation-observability/01-metric-gaming",
-      "to": "/01-language-model/07-eval/metric-gaming/"
+      "to": "/01-language-model/eval/metric-gaming/"
     },
     {
       "from": "/platform/evaluation-observability/02-statistical-significance",
-      "to": "/foundations/06-significance/"
+      "to": "/foundations/significance/"
     },
     {
       "from": "/platform/safety-governance",
-      "to": "/01-language-model/07-eval/who-decides-to-ship/"
+      "to": "/01-language-model/eval/who-decides-to-ship/"
     },
     {
       "from": "/platform/safety-governance/01-eval-gates",
-      "to": "/01-language-model/07-eval/eval-gates/"
+      "to": "/01-language-model/eval/eval-gates/"
     },
     {
       "from": "/platform/safety-governance/02-red-teaming",
-      "to": "/01-language-model/07-eval/red-teaming/"
+      "to": "/01-language-model/eval/red-teaming/"
     },
     {
       "from": "/reference/research/mid-training",
-      "to": "/01-language-model/02-pretrain/mid-training/"
+      "to": "/01-language-model/pretrain/mid-training/"
     }
   ]
 }

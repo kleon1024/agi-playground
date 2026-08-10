@@ -148,7 +148,7 @@ single-pass clips, up to 50 reference inputs, 4K output -- see
 compare against them) -- extends the same diffusion-transformer recipe with
 more compute and training data, not a new mechanism.
 
-[Stage 00](00-synthetic-video-dataset/) extends [the vision path under topic 01](../../01-language-model/vision/)'s
+[Stage 00](00-synthetic-video-dataset/) extends [the vision path under topic 01](../../01-language-model/)'s
 synthetic image generator along a time axis, reusing its drawing primitives
 unmodified and adding only the temporal part: a shape moving in one of 8
 fixed directions at constant speed, bounded so it stays on-canvas for all 8
