@@ -78,8 +78,9 @@ def test_chapter_order_comes_from_the_manifest_not_the_directory_name():
 
 def test_every_listed_chapter_exists():
     for path in SYNC_DOCS.CHAPTER_ORDER:
-        assert (ROOT / path / "README.md").is_file(), (
-            f"{path} is listed in reference/standards/curriculum-order.txt but has no README.md"
+        assert (ROOT / path / "README.md").is_file() or (ROOT / f"{path}.md").is_file(), (
+            f"{path} is listed in the content graph but has neither a README.md "
+            "nor a loose page"
         )
 
 

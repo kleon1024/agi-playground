@@ -112,11 +112,15 @@ FILE_OVERRIDES = {
     "tracking.md": ("Compute lane: run tracking", 93),
 }
 
-# Chapter order comes from one file, never from the headings. See the comment
-# at the top of that file for why. Sub-lessons inside a chapter still sort by
-# their directory's numeric prefix (`01-distributed`), which is stable because
-# it is also the URL.
+# Chapter order comes from the content graph, never from the headings. The
+# graph is generated from the repository tree plus `curriculum-order.txt` and
+# then committed (`reference/standards/content-graph.json`); renaming a chapter
+# is a one-entry data change there. Every internal link is resolved through the
+# graph's `renames` table, so stale references keep resolving until the source
+# is edited, and `tests/test_content_graph.py` fails on a link that resolves to
+# neither a real file nor a rename target.
 ORDER_FILE = ROOT / "reference" / "standards" / "curriculum-order.txt"
+GRAPH_FILE = ROOT / "reference" / "standards" / "content-graph.json"
 DIR_NUM_RE = re.compile(r"^(\d+)[-_]")
 DEFAULT_POSITION = 50
 
@@ -134,6 +138,30 @@ def load_chapter_order() -> dict[str, int]:
 
 
 CHAPTER_ORDER = load_chapter_order()
+
+
+def load_content_graph() -> dict:
+    if not GRAPH_FILE.exists():
+        return {"chapters": [], "renames": {}}
+    return json.loads(GRAPH_FILE.read_text())
+
+
+CONTENT_GRAPH = load_content_graph()
+GRAPH_BY_PATH = {c["path"]: c for c in CONTENT_GRAPH.get("chapters", [])}
+RENAMES = CONTENT_GRAPH.get("renames", {})
+
+# The graph is the single source for order now; the curriculum file is its
+# human-readable projection and the two are kept consistent by a test.
+if GRAPH_BY_PATH:
+    CHAPTER_ORDER = {path: c["order"] for path, c in GRAPH_BY_PATH.items()}
+
+
+def apply_renames(path: str) -> str:
+    """Map a chapter path through the graph's rename table, longest prefix first."""
+    for old in sorted(RENAMES, key=len, reverse=True):
+        if path == old or path.startswith(old + "/"):
+            return RENAMES[old] + path[len(old):]
+    return path
 
 
 def title_from(path: Path, body: str) -> str:
@@ -170,13 +198,17 @@ def is_lesson(chapter_dir: Path) -> bool:
 
 
 def order_from(path: Path) -> int:
-    """Sidebar position for one page.
-
-    A chapter takes its number from the curriculum spine. Anything below a
-    chapter sorts by its directory's numeric prefix, which is stable because
-    renaming it is a real URL change rather than a silent renumbering.
-    """
+    """Sidebar position for one page, taken from the content graph."""
     rel = path.relative_to(ROOT) if path.is_absolute() else path
+    if rel.name == "README.md":
+        chapter = rel.parent.as_posix()
+    else:
+        chapter = rel.with_suffix("").as_posix() if rel.suffix == ".md" else rel.as_posix()
+    entry = GRAPH_BY_PATH.get(chapter)
+    if entry is not None:
+        return entry["order"]
+    # Fallback for anything the graph has not caught yet: keep the historical
+    # behaviour so a missing entry degrades instead of reordering the site.
     if rel.name == "README.md":
         position = CHAPTER_ORDER.get(rel.parent.as_posix())
         if position is not None:
@@ -205,13 +237,16 @@ def rewrite_links(text: str, src_rel: Path) -> str:
             return m.group(0)
         if target.endswith(CODE_SUFFIXES + ASSET_SUFFIXES):
             resolved = (ROOT / src_rel.parent / target).resolve().relative_to(ROOT)
+            resolved = Path(apply_renames(resolved.as_posix()))
             return f"[{label}]({REPO}/{resolved.as_posix()}{anchor})"
         # A bare `runs/` directory has no page — only the files inside it do.
         # Point those at GitHub, where the directory listing exists.
         if target.rstrip("/").endswith("runs"):
             resolved = (ROOT / src_rel.parent / target).resolve().relative_to(ROOT)
+            resolved = Path(apply_renames(resolved.as_posix()))
             return f"[{label}]({REPO.replace('/blob/', '/tree/')}/{resolved.as_posix()}{anchor})"
         resolved = (ROOT / src_rel.parent / target).resolve().relative_to(ROOT)
+        resolved = Path(apply_renames(resolved.as_posix()))
         if resolved.name == "README.md":
             resolved = resolved.parent
         elif resolved.suffix == ".md":

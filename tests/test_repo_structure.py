@@ -1,3 +1,4 @@
+import json
 import os
 import re
 from pathlib import Path
@@ -68,18 +69,6 @@ TOPIC_CONTRACT_FIELDS = [
     "proves",
     "does_not_prove",
 ]
-
-TOPIC_01_STAGES = [
-    "00-corpus",
-    "01-tokenizer",
-    "02-pretrain",
-    "03-sft",
-    "04-rl",
-    "05-serve",
-    "06-agent",
-    "07-eval",
-]
-
 
 def test_foundations_lessons_exist():
     for name in FOUNDATIONS:
@@ -223,9 +212,24 @@ def test_topics_declare_a_contract():
 
 
 def test_topic_01_stages_exist():
-    for name in TOPIC_01_STAGES:
-        readme = ROOT / "01-language-model" / name / "README.md"
-        assert readme.is_file(), f"missing {readme}"
+    """The stage list is data, not a hard-coded tuple.
+
+    Renaming a stage used to mean editing this tuple and every link that named
+    the old directory. The content graph owns the stage list now; this test
+    just checks that the graph's own entries still point at real files, which
+    `tests/test_content_graph.py` already does for every section.
+    """
+    graph = json.loads(
+        (ROOT / "reference" / "standards" / "content-graph.json").read_text()
+    )
+    stages = [
+        c["path"]
+        for c in graph["chapters"]
+        if c["kind"] == "stage" and c["path"].startswith("01-language-model/")
+    ]
+    assert len(stages) >= 8, f"content graph lost topic 01 stages: {stages}"
+    for stage in stages:
+        assert (ROOT / stage / "README.md").is_file(), f"missing {stage}/README.md"
 
 
 # Trees where a lesson trains, adapts, serves, or evaluates a model, and must
