@@ -76,6 +76,37 @@ Each entry names the section, the stage range, and the status. A section is
 `pending`, `in progress`, or `done`; `done` means every stage in it satisfies
 the audit contract above.
 
+### Cross-cutting — legacy stage-number prose
+
+**Status: pending (opened 2026-08-11 after the curriculum flattened to three
+levels and directories lost their numeric prefixes).**
+
+The directory tree is de-numbered, but chapter prose still refers to stages by
+their old numeric positions in roughly 2,700 files ("stage 00", "stage 02",
+"00-synthetic-video-dataset", and bare relative links like `../00-corpus/`).
+The numbers are per-topic, so a blind global replace is wrong: "stage 00" in
+`07-multimodal-generation` means that topic's own synthetic-video-dataset, not
+topic 01's corpus. Each topic must be re-read and the prose rewritten to the
+de-numbered names. Links already resolve through the content graph's `renames`
+table, so this is a prose pass, not a link fix. It should be worked per topic,
+one section at a time, like any other audit entry.
+
+### Personalized discovery — recommendation surface mainline
+
+**Status: pending (opened 2026-08-11).**
+
+The shared spine (interactions through report) is audited and done. What the
+recommendation *surface* still lacks is its own decision mainline as a
+reader-facing skeleton: recall, coarse pre-rank, fine rank, value tree, and
+mixing as one continuous argument with the shared stages as the substrate,
+plus the failure-mode detours that sit on top of it (delayed feedback,
+negative sampling, exposure bias, heavy-tail objectives, multi-task conflict,
+funnel consistency, cascade consistency, AUC-label seesaw, sparse labels).
+The stages and detours exist and are individually audited; the gap is the
+spine that names their order and the decision each one resolves before the
+next is reachable. This is a content-writing entry, not a link or structure
+fix.
+
 ### Personalized discovery — recommendation 56-63
 
 **Status: done (first audit increment, 2026-08-07; structural re-check
