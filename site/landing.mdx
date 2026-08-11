@@ -24,8 +24,8 @@ import {
     and what evidence is required before making a claim.</strong>
   </div>
   <div className="playground-hero__actions">
-    <a className="playground-hero__primary" href="/playground/01-language-model/00-corpus/">
-      Start at stage 00 — the corpus
+    <a className="playground-hero__primary" href="/playground/01-language-model/corpus/">
+      Start at the corpus
     </a>
     <a className="playground-hero__secondary" href="#the-language-model-build-path">
       See the language-model path
@@ -89,3 +89,18 @@ but its declared path is not yet evidenced.
 Business outcomes cannot be executed on a GPU. Topics therefore declare a
 reproducible proxy, guardrails, and what the result does *not* establish before
 the build begins.
+
+## What this course does and does not cover
+
+Every chapter is one of four kinds, and says which: a mechanism demo run from
+scratch on the local lane, a historical reproduction of a published result, a
+failure mode a production system actually hits, or a dated survey of frontier
+work. A local run is evidence for a mechanism, never a stand-in for a scaled
+result; a frontier claim rests on the dated external source, not on anything
+trained here.
+
+The course does not cover image and video diffusion at production scale, speech
+recognition, world models, embodied systems, or frontier-scale RL training.
+Those need data and compute this lane cannot provide. Where a decision depends
+on them, the chapter links dated external sources instead of running a reduced
+version and presenting it as the real thing.

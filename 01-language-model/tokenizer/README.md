@@ -5,7 +5,7 @@ base: none
 verified: 2026-07-26
 ---
 
-> **[Read this online](https://rehearse.maestro.onl/playground/01-language-model/01-tokenizer)** — type text into the tokenizer and watch these merges fire in order.
+> **[Read this online](https://rehearse.maestro.onl/playground/01-language-model/tokenizer)** — type text into the tokenizer and watch these merges fire in order.
 
 # How does text become the numbers a model sees?
 
