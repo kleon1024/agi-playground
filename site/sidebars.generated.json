@@ -27,23 +27,23 @@
         "items": [
           {
             "type": "doc",
-            "id": "01-language-model/corpus/image-caption-task/index",
-            "label": "The image-caption task"
-          },
-          {
-            "type": "doc",
-            "id": "01-language-model/corpus/real-photo-task/index",
-            "label": "The real-photo task"
-          },
-          {
-            "type": "doc",
             "id": "01-language-model/corpus/what-a-release-needs/index",
             "label": "What a release needs"
           },
           {
             "type": "doc",
+            "id": "01-language-model/corpus/the-funnel-shape/index",
+            "label": "The funnel shape"
+          },
+          {
+            "type": "doc",
             "id": "01-language-model/corpus/when-the-benchmark-is-in-the-train-set/index",
             "label": "Benchmark contamination"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/corpus/when-the-filter-eats-the-signal/index",
+            "label": "When the filter eats the signal"
           },
           {
             "type": "category",
@@ -62,8 +62,8 @@
           },
           {
             "type": "doc",
-            "id": "01-language-model/corpus/pretraining-data-landscape",
-            "label": "Pretraining data landscape"
+            "id": "01-language-model/corpus/image-caption-task/index",
+            "label": "The image-caption task"
           },
           {
             "type": "doc",
@@ -72,18 +72,13 @@
           },
           {
             "type": "doc",
-            "id": "01-language-model/corpus/the-id-based-guardrail/index",
-            "label": "The ID-based guardrail"
-          },
-          {
-            "type": "doc",
             "id": "01-language-model/corpus/the-collision-that-closed-the-gap/index",
             "label": "The collision that closed the gap"
           },
           {
             "type": "doc",
-            "id": "01-language-model/corpus/the-funnel-shape/index",
-            "label": "The funnel shape"
+            "id": "01-language-model/corpus/real-photo-task/index",
+            "label": "The real-photo task"
           },
           {
             "type": "doc",
@@ -92,8 +87,13 @@
           },
           {
             "type": "doc",
-            "id": "01-language-model/corpus/when-the-filter-eats-the-signal/index",
-            "label": "When the filter eats the signal"
+            "id": "01-language-model/corpus/the-id-based-guardrail/index",
+            "label": "The ID-based guardrail"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/corpus/pretraining-data-landscape",
+            "label": "Pretraining data landscape"
           },
           {
             "type": "doc",
@@ -147,13 +147,13 @@
         "items": [
           {
             "type": "doc",
-            "id": "01-language-model/pretrain/vision-fusion/index",
-            "label": "Vision-token fusion"
+            "id": "01-language-model/pretrain/verifying-the-run/index",
+            "label": "Verifying the run"
           },
           {
             "type": "doc",
-            "id": "01-language-model/pretrain/real-photo-vision-fusion/index",
-            "label": "Real-photo vision fusion"
+            "id": "01-language-model/pretrain/throughput/index",
+            "label": "Throughput"
           },
           {
             "type": "doc",
@@ -162,8 +162,13 @@
           },
           {
             "type": "doc",
-            "id": "01-language-model/pretrain/verifying-the-run/index",
-            "label": "Verifying the run"
+            "id": "01-language-model/pretrain/when-warmup-closed-the-collapse/index",
+            "label": "When warmup closed the collapse"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/pretrain/the-collapse-that-warmup-closed/index",
+            "label": "The collapse that warmup closed"
           },
           {
             "type": "category",
@@ -182,8 +187,13 @@
           },
           {
             "type": "doc",
-            "id": "01-language-model/pretrain/throughput/index",
-            "label": "Throughput"
+            "id": "01-language-model/pretrain/the-gate-that-beats-relu/index",
+            "label": "The gate that beats ReLU"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/pretrain/attention-variants/index",
+            "label": "Attention variants"
           },
           {
             "type": "category",
@@ -211,11 +221,6 @@
             "label": "Latent reasoning"
           },
           {
-            "type": "doc",
-            "id": "01-language-model/pretrain/attention-variants/index",
-            "label": "Attention variants"
-          },
-          {
             "type": "category",
             "label": "Mid-training",
             "link": {
@@ -232,13 +237,13 @@
           },
           {
             "type": "doc",
-            "id": "01-language-model/pretrain/the-collapse-that-warmup-closed/index",
-            "label": "The collapse that warmup closed"
+            "id": "01-language-model/pretrain/vision-fusion/index",
+            "label": "Vision-token fusion"
           },
           {
             "type": "doc",
-            "id": "01-language-model/pretrain/the-flipped-variance/index",
-            "label": "The flipped variance"
+            "id": "01-language-model/pretrain/where-the-decoder-looks/index",
+            "label": "Where the decoder looks"
           },
           {
             "type": "doc",
@@ -247,8 +252,8 @@
           },
           {
             "type": "doc",
-            "id": "01-language-model/pretrain/the-gate-that-beats-relu/index",
-            "label": "The gate that beats ReLU"
+            "id": "01-language-model/pretrain/real-photo-vision-fusion/index",
+            "label": "Real-photo vision fusion"
           },
           {
             "type": "doc",
@@ -257,13 +262,8 @@
           },
           {
             "type": "doc",
-            "id": "01-language-model/pretrain/when-warmup-closed-the-collapse/index",
-            "label": "When warmup closed the collapse"
-          },
-          {
-            "type": "doc",
-            "id": "01-language-model/pretrain/where-the-decoder-looks/index",
-            "label": "Where the decoder looks"
+            "id": "01-language-model/pretrain/the-flipped-variance/index",
+            "label": "The flipped variance"
           },
           {
             "type": "doc",
@@ -517,16 +517,6 @@
         "items": [
           {
             "type": "doc",
-            "id": "01-language-model/eval/vision-report/index",
-            "label": "Outcome report"
-          },
-          {
-            "type": "doc",
-            "id": "01-language-model/eval/real-photo-report/index",
-            "label": "Real-photo outcome report"
-          },
-          {
-            "type": "doc",
             "id": "01-language-model/eval/whose-harness/index",
             "label": "Whose harness produced it"
           },
@@ -537,13 +527,13 @@
           },
           {
             "type": "doc",
-            "id": "01-language-model/eval/metric-gaming/index",
-            "label": "Metric gaming"
+            "id": "01-language-model/eval/who-decides-to-ship/index",
+            "label": "Who decides to ship"
           },
           {
             "type": "doc",
-            "id": "01-language-model/eval/who-decides-to-ship/index",
-            "label": "Who decides to ship"
+            "id": "01-language-model/eval/metric-gaming/index",
+            "label": "Metric gaming"
           },
           {
             "type": "doc",
@@ -557,8 +547,8 @@
           },
           {
             "type": "doc",
-            "id": "01-language-model/eval/the-answer-type-shaped-edge/index",
-            "label": "The answer-type-shaped edge"
+            "id": "01-language-model/eval/vision-report/index",
+            "label": "Outcome report"
           },
           {
             "type": "doc",
@@ -567,13 +557,23 @@
           },
           {
             "type": "doc",
+            "id": "01-language-model/eval/when-the-category-breaks-down/index",
+            "label": "When the category breaks down"
+          },
+          {
+            "type": "doc",
+            "id": "01-language-model/eval/real-photo-report/index",
+            "label": "Real-photo outcome report"
+          },
+          {
+            "type": "doc",
             "id": "01-language-model/eval/when-the-api-still-wins/index",
             "label": "When the API still wins"
           },
           {
             "type": "doc",
-            "id": "01-language-model/eval/when-the-category-breaks-down/index",
-            "label": "When the category breaks down"
+            "id": "01-language-model/eval/the-answer-type-shaped-edge/index",
+            "label": "The answer-type-shaped edge"
           },
           {
             "type": "doc",

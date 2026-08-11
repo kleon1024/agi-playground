@@ -4,13 +4,13 @@
     {
       "path": "01-language-model/corpus",
       "kind": "stage",
-      "order": 0,
+      "order": 1,
       "title": "What has to be true of text before you train on it?"
     },
     {
       "path": "01-language-model/corpus/image-caption-task",
       "kind": "stage",
-      "order": 0,
+      "order": 8,
       "title": "What makes a synthetic image+question pair actually require looking at the image?"
     },
     {
@@ -40,13 +40,13 @@
     {
       "path": "07-multimodal-generation/synthetic-video-dataset",
       "kind": "stage",
-      "order": 0,
+      "order": 1,
       "title": "What makes a short clip scoreable without a single frame of real footage?"
     },
     {
       "path": "07-multimodal-generation/audio-codec",
       "kind": "stage",
-      "order": 0,
+      "order": 1,
       "title": "How does a waveform become a discrete token sequence at all?"
     },
     {
@@ -70,13 +70,13 @@
     {
       "path": "01-language-model/tokenizer",
       "kind": "stage",
-      "order": 1,
+      "order": 2,
       "title": "How does text become the numbers a model sees?"
     },
     {
       "path": "01-language-model/pretrain/vision-fusion",
       "kind": "stage",
-      "order": 1,
+      "order": 17,
       "title": "Does a decoder that can see the image actually use it?"
     },
     {
@@ -106,13 +106,13 @@
     {
       "path": "07-multimodal-generation/video-tokenizer",
       "kind": "stage",
-      "order": 1,
+      "order": 2,
       "title": "How do frames become a token sequence a decoder can attend over?"
     },
     {
       "path": "07-multimodal-generation/streaming-decode",
       "kind": "stage",
-      "order": 1,
+      "order": 2,
       "title": "Does the KV cache built for text work unchanged for audio tokens?"
     },
     {
@@ -142,13 +142,13 @@
     {
       "path": "01-language-model/pretrain",
       "kind": "stage",
-      "order": 2,
+      "order": 3,
       "title": "What are you actually training?"
     },
     {
       "path": "01-language-model/eval/vision-report",
       "kind": "stage",
-      "order": 2,
+      "order": 8,
       "title": "Did building the vision pathway pay for itself?"
     },
     {
@@ -178,13 +178,13 @@
     {
       "path": "07-multimodal-generation/generation-model",
       "kind": "stage",
-      "order": 2,
+      "order": 3,
       "title": "Is a video tokenizer plus a small sequence model even buildable here?"
     },
     {
       "path": "07-multimodal-generation/voice-report",
       "kind": "stage",
-      "order": 2,
+      "order": 7,
       "title": "Does the serving mechanism built for text transfer to audio, cleanly?"
     },
     {
@@ -208,13 +208,13 @@
     {
       "path": "01-language-model/sft",
       "kind": "stage",
-      "order": 3,
+      "order": 4,
       "title": "How does a text predictor learn to answer?"
     },
     {
       "path": "01-language-model/corpus/real-photo-task",
       "kind": "stage",
-      "order": 3,
+      "order": 11,
       "title": "Does the leakage discipline that worked on synthetic shapes survive real photographs?"
     },
     {
@@ -244,7 +244,7 @@
     {
       "path": "07-multimodal-generation/video-report",
       "kind": "stage",
-      "order": 3,
+      "order": 7,
       "title": "Does a video tokenizer plus a small sequence model clear this repository's own bar?"
     },
     {
@@ -280,13 +280,13 @@
     {
       "path": "01-language-model/rl",
       "kind": "stage",
-      "order": 4,
+      "order": 5,
       "title": "How do you improve a model with no correct answer to copy?"
     },
     {
       "path": "01-language-model/pretrain/real-photo-vision-fusion",
       "kind": "stage",
-      "order": 4,
+      "order": 20,
       "title": "Does the same vision pathway, unchanged, still separate from a text-only guess on real photographs?"
     },
     {
@@ -352,13 +352,13 @@
     {
       "path": "01-language-model/serve",
       "kind": "stage",
-      "order": 5,
+      "order": 6,
       "title": "What is the model actually doing between tokens?"
     },
     {
       "path": "01-language-model/eval/real-photo-report",
       "kind": "stage",
-      "order": 5,
+      "order": 11,
       "title": "Does the real-photo vision pathway hold up against a hosted VLM, not just a text-only guess?"
     },
     {
@@ -424,13 +424,13 @@
     {
       "path": "01-language-model/agent-harness",
       "kind": "stage",
-      "order": 6,
+      "order": 7,
       "title": "What turns a model into something that acts?"
     },
     {
       "path": "01-language-model/pretrain/warmup-stability",
       "kind": "stage",
-      "order": 6,
+      "order": 4,
       "title": "Does a learning-rate warmup close the seed-2 collapse?"
     },
     {
@@ -490,7 +490,7 @@
     {
       "path": "01-language-model/eval",
       "kind": "stage",
-      "order": 7,
+      "order": 8,
       "title": "How would you know if any of this worked?"
     },
     {
@@ -568,7 +568,7 @@
     {
       "path": "01-language-model/corpus/what-a-release-needs",
       "kind": "sub",
-      "order": 12,
+      "order": 2,
       "title": "You have the text. What decides whether anyone can trust it?"
     },
     {
@@ -580,7 +580,7 @@
     {
       "path": "01-language-model/pretrain/verifying-the-run",
       "kind": "sub",
-      "order": 13,
+      "order": 2,
       "title": "How do you know a five-hour run is working?"
     },
     {
@@ -592,7 +592,7 @@
     {
       "path": "01-language-model/pretrain/architecture-ablations",
       "kind": "sub",
-      "order": 14,
+      "order": 7,
       "title": "Architecture ablations: the budget you hold equal"
     },
     {
@@ -604,7 +604,7 @@
     {
       "path": "01-language-model/pretrain/architecture-ablations/the-rung-that-flipped",
       "kind": "page",
-      "order": 15,
+      "order": 8,
       "title": "What happens when the budget definition decides the winner?"
     },
     {
@@ -616,7 +616,7 @@
     {
       "path": "01-language-model/pretrain/throughput",
       "kind": "sub",
-      "order": 16,
+      "order": 3,
       "title": "Your run will take ten hours. Should it?"
     },
     {
@@ -628,7 +628,7 @@
     {
       "path": "01-language-model/pretrain/upcycling",
       "kind": "sub",
-      "order": 17,
+      "order": 11,
       "title": "Can you keep the weights and change the architecture?"
     },
     {
@@ -640,7 +640,7 @@
     {
       "path": "01-language-model/pretrain/upcycling/does-it-pay-off",
       "kind": "page",
-      "order": 18,
+      "order": 12,
       "title": "Does the extra capacity earn back what it cost?"
     },
     {
@@ -652,7 +652,7 @@
     {
       "path": "01-language-model/pretrain/when-the-curve-goes-wrong",
       "kind": "sub",
-      "order": 19,
+      "order": 13,
       "title": "The loss curve looks wrong. Which subsystem owns it?"
     },
     {
@@ -664,7 +664,7 @@
     {
       "path": "01-language-model/pretrain/latent-reasoning",
       "kind": "sub",
-      "order": 20,
+      "order": 14,
       "title": "What if the model could think without choosing words?"
     },
     {
@@ -814,7 +814,7 @@
     {
       "path": "02-personalized-discovery/llm-ranking",
       "kind": "stage",
-      "order": 31,
+      "order": 2,
       "title": "The LLM reorders the list it can afford to see"
     },
     {
@@ -826,43 +826,43 @@
     {
       "path": "02-personalized-discovery/recommendation-rlhf",
       "kind": "stage",
-      "order": 32,
+      "order": 3,
       "title": "The ranker learns which item the user preferred"
     },
     {
       "path": "01-language-model/eval/whose-harness",
       "kind": "sub",
-      "order": 33,
+      "order": 2,
       "title": "Which part of a score belongs to the model?"
     },
     {
       "path": "02-personalized-discovery/multimodal-recall",
       "kind": "stage",
-      "order": 33,
+      "order": 1,
       "title": "Content vectors make the cold item reachable"
     },
     {
       "path": "01-language-model/eval/why-believe-the-number",
       "kind": "sub",
-      "order": 34,
+      "order": 3,
       "title": "The report is correct. Why should anyone believe it?"
     },
     {
       "path": "02-personalized-discovery/slate-vs-item-evaluation",
       "kind": "stage",
-      "order": 34,
+      "order": 4,
       "title": "The user experiences the slate, not the item"
     },
     {
       "path": "01-language-model/eval/metric-gaming",
       "kind": "sub",
-      "order": 35,
+      "order": 5,
       "title": "The score went up. Did the thing you actually wanted?"
     },
     {
       "path": "02-personalized-discovery/verification-replaces-score",
       "kind": "stage",
-      "order": 35,
+      "order": 5,
       "title": "What replaces the score?"
     },
     {
@@ -874,7 +874,7 @@
     {
       "path": "01-language-model/eval/who-decides-to-ship",
       "kind": "sub",
-      "order": 36,
+      "order": 4,
       "title": "The report is in. What has to be true before it ships?"
     },
     {
@@ -886,7 +886,7 @@
     {
       "path": "01-language-model/eval/eval-gates",
       "kind": "sub",
-      "order": 37,
+      "order": 6,
       "title": "How does a release get blocked before a person has to eyeball it?"
     },
     {
@@ -898,7 +898,7 @@
     {
       "path": "01-language-model/eval/red-teaming",
       "kind": "sub",
-      "order": 38,
+      "order": 7,
       "title": "Where do the test cases that make a gate meaningful actually come from?"
     },
     {
@@ -1012,37 +1012,37 @@
     {
       "path": "01-language-model/corpus/LANDSCAPE",
       "kind": "page",
-      "order": 50,
+      "order": 15,
       "title": ""
     },
     {
       "path": "01-language-model/corpus/dedup-at-scale",
       "kind": "sub",
-      "order": 50,
+      "order": 6,
       "title": "Why does dedup reach for a GPU once the corpus gets big enough?"
     },
     {
       "path": "01-language-model/corpus/dedup-at-scale/when-verification-goes-quadratic",
       "kind": "page",
-      "order": 50,
+      "order": 7,
       "title": "Hashing scales linearly; verification scales quadratically"
     },
     {
       "path": "01-language-model/corpus/the-funnel-shape",
       "kind": "sub",
-      "order": 50,
+      "order": 3,
       "title": "18.3% of the raw web survives — and that is the point"
     },
     {
       "path": "01-language-model/corpus/when-the-benchmark-is-in-the-train-set",
       "kind": "sub",
-      "order": 50,
+      "order": 4,
       "title": "The benchmark item is already in the training set"
     },
     {
       "path": "01-language-model/corpus/when-the-filter-eats-the-signal",
       "kind": "sub",
-      "order": 50,
+      "order": 5,
       "title": "When the wash eats the signal"
     },
     {
@@ -1072,31 +1072,31 @@
     {
       "path": "01-language-model/pretrain/LANDSCAPE",
       "kind": "page",
-      "order": 50,
+      "order": 23,
       "title": ""
     },
     {
       "path": "01-language-model/pretrain/attention-variants",
       "kind": "sub",
-      "order": 50,
+      "order": 10,
       "title": "Why is the KV cache the architecture's tax?"
     },
     {
       "path": "01-language-model/pretrain/mid-training",
       "kind": "sub",
-      "order": 50,
+      "order": 15,
       "title": "Where does a base model learn to call a tool?"
     },
     {
       "path": "01-language-model/pretrain/mid-training/when-the-annealed-slice-moves-the-evals",
       "kind": "page",
-      "order": 50,
+      "order": 16,
       "title": "When the annealed slice moves the evals"
     },
     {
       "path": "01-language-model/pretrain/the-gate-that-beats-relu",
       "kind": "sub",
-      "order": 50,
+      "order": 9,
       "title": "The gate that beats ReLU"
     },
     {
@@ -1210,7 +1210,7 @@
     {
       "path": "01-language-model/eval/LANDSCAPE",
       "kind": "page",
-      "order": 50,
+      "order": 14,
       "title": ""
     },
     {
@@ -1228,91 +1228,91 @@
     {
       "path": "01-language-model/corpus/pretraining-data-landscape",
       "kind": "page",
-      "order": 50,
+      "order": 14,
       "title": ""
     },
     {
       "path": "01-language-model/corpus/seed-vs-pixels",
       "kind": "sub",
-      "order": 50,
+      "order": 9,
       "title": "Why does a leakage guardrail need to check pixels, not seeds?"
     },
     {
       "path": "01-language-model/corpus/the-collision-that-closed-the-gap",
       "kind": "sub",
-      "order": 50,
+      "order": 10,
       "title": "Disjoint seeds are not disjoint images"
     },
     {
       "path": "01-language-model/pretrain/the-fused-attention-anatomy",
       "kind": "sub",
-      "order": 50,
+      "order": 19,
       "title": "There is no cross-attention module"
     },
     {
       "path": "01-language-model/pretrain/where-the-decoder-looks",
       "kind": "sub",
-      "order": 50,
+      "order": 18,
       "title": "Where does the decoder look when the image matters?"
     },
     {
       "path": "01-language-model/eval/the-economics-per-question",
       "kind": "sub",
-      "order": 50,
+      "order": 9,
       "title": "The \\$0.00128/question that decides build-vs-buy"
     },
     {
       "path": "01-language-model/eval/when-the-category-breaks-down",
       "kind": "sub",
-      "order": 50,
+      "order": 10,
       "title": "Where the NOT MET verdict hides the pathway's real signal"
     },
     {
       "path": "01-language-model/corpus/the-id-based-guardrail",
       "kind": "sub",
-      "order": 50,
+      "order": 13,
       "title": "Why real photos are checked by ID, not by pixel"
     },
     {
       "path": "01-language-model/corpus/the-real-photo-guardrail",
       "kind": "sub",
-      "order": 50,
+      "order": 12,
       "title": "The real-photo guardrail: why image ID, not pixel hash"
     },
     {
       "path": "01-language-model/pretrain/the-flipped-variance",
       "kind": "sub",
-      "order": 50,
+      "order": 22,
       "title": "The noise changed sides"
     },
     {
       "path": "01-language-model/pretrain/when-the-margin-is-narrow",
       "kind": "sub",
-      "order": 50,
+      "order": 21,
       "title": "The margin is narrow, real, and noisy on the control side"
     },
     {
       "path": "01-language-model/eval/the-answer-type-shaped-edge",
       "kind": "sub",
-      "order": 50,
+      "order": 13,
       "title": "The API's edge is shaped like the answer type"
     },
     {
       "path": "01-language-model/eval/when-the-api-still-wins",
       "kind": "sub",
-      "order": 50,
+      "order": 12,
       "title": "The build-vs-buy verdict, on real photos"
     },
     {
       "path": "01-language-model/pretrain/the-collapse-that-warmup-closed",
       "kind": "sub",
-      "order": 50,
+      "order": 6,
       "title": "The seed-2 outlier, closed by a training-dynamics fix"
     },
     {
       "path": "01-language-model/pretrain/when-warmup-closed-the-collapse",
       "kind": "sub",
-      "order": 50,
+      "order": 5,
       "title": "What the warmup changed, and what it did not"
     },
     {
@@ -3370,31 +3370,31 @@
     {
       "path": "02-personalized-discovery/entire-space-funnel",
       "kind": "stage",
-      "order": 56,
+      "order": 6,
       "title": "The sparse target is learned on the wrong population"
     },
     {
       "path": "02-personalized-discovery/delayed-feedback",
       "kind": "stage",
-      "order": 57,
+      "order": 7,
       "title": "A conversion that happens tomorrow is labeled a negative today"
     },
     {
       "path": "02-personalized-discovery/negative-sampling",
       "kind": "stage",
-      "order": 58,
+      "order": 8,
       "title": "Downsampling negatives breaks calibration, not ranking"
     },
     {
       "path": "02-personalized-discovery/exposure-bias",
       "kind": "stage",
-      "order": 59,
+      "order": 9,
       "title": "The model only ever sees what the old model showed"
     },
     {
       "path": "02-personalized-discovery/heavy-tail-objective",
       "kind": "stage",
-      "order": 60,
+      "order": 10,
       "title": "The whale owns a fifth of the gradient"
     },
     {
@@ -3406,31 +3406,31 @@
     {
       "path": "02-personalized-discovery/multi-task-conflict",
       "kind": "stage",
-      "order": 61,
+      "order": 11,
       "title": "The abundant task shapes the shared trunk"
     },
     {
       "path": "02-personalized-discovery/funnel-consistency",
       "kind": "stage",
-      "order": 62,
+      "order": 12,
       "title": "A probability that cannot exist, served to the next stage"
     },
     {
       "path": "02-personalized-discovery/cascade-consistency",
       "kind": "stage",
-      "order": 63,
+      "order": 13,
       "title": "The cut that ejects what the final ranker would have chosen"
     },
     {
       "path": "02-personalized-discovery/auc-label-seesaw",
       "kind": "stage",
-      "order": 64,
+      "order": 14,
       "title": "Two objectives moved in opposite directions. What do you ship?"
     },
     {
       "path": "02-personalized-discovery/sparse-labels",
       "kind": "stage",
-      "order": 65,
+      "order": 15,
       "title": "The aggregate AUC is a dense-slice number"
     },
     {
