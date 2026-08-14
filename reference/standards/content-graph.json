@@ -3792,6 +3792,126 @@
       "kind": "sub",
       "order": 50,
       "title": "The decision rule: deterministic skeleton, LLM cells"
+    },
+    {
+      "path": "04-agentic-platform/real-tasks/data-engineering-migration",
+      "kind": "sub",
+      "order": 50,
+      "title": "90,000 tables, 600PB, a 100,000-node DAG: the agent-shaped migration"
+    },
+    {
+      "path": "04-agentic-platform/real-tasks/large-project-refactor",
+      "kind": "sub",
+      "order": 50,
+      "title": "When the artifact is a codebase, not a function"
+    },
+    {
+      "path": "04-agentic-platform/real-tasks/trt-deployment-modernization",
+      "kind": "sub",
+      "order": 50,
+      "title": "The deployment rewrite as an agent task"
+    },
+    {
+      "path": "04-agentic-platform/autonomy-and-orchestration/autonomy-levels-0-to-5",
+      "kind": "sub",
+      "order": 50,
+      "title": "The autonomy spectrum, and where production value concentrates"
+    },
+    {
+      "path": "04-agentic-platform/autonomy-and-orchestration/production-trace-evals",
+      "kind": "sub",
+      "order": 50,
+      "title": "The eval that feeds the next decision, not the next dashboard"
+    },
+    {
+      "path": "04-agentic-platform/autonomy-and-orchestration/the-human-in-the-loop-economy",
+      "kind": "sub",
+      "order": 50,
+      "title": "What human time is actually for now"
+    },
+    {
+      "path": "04-agentic-platform/autonomy-and-orchestration/when-the-agent-runs-itself",
+      "kind": "sub",
+      "order": 50,
+      "title": "Meta-agents, self-extension, and the governance line"
+    },
+    {
+      "path": "04-agentic-platform/intent-to-plan/spec-driven-development",
+      "kind": "sub",
+      "order": 50,
+      "title": "The spec is the first artifact, and the agent executes against it"
+    },
+    {
+      "path": "04-agentic-platform/intent-to-plan/the-plan-as-contract",
+      "kind": "sub",
+      "order": 50,
+      "title": "The approval gate between plan and execution"
+    },
+    {
+      "path": "04-agentic-platform/intent-to-plan/when-the-request-is-vague",
+      "kind": "sub",
+      "order": 50,
+      "title": "One ambiguous ticket, priced"
+    },
+    {
+      "path": "04-agentic-platform/verification-and-evals/ai-code-quality-deficit",
+      "kind": "sub",
+      "order": 50,
+      "title": "The quantified defect record, read against this mission's runs"
+    },
+    {
+      "path": "04-agentic-platform/verification-and-evals/llm-as-judge-reliability",
+      "kind": "sub",
+      "order": 50,
+      "title": "When a judge can be trusted, and when it is part of the problem"
+    },
+    {
+      "path": "04-agentic-platform/verification-and-evals/the-delivery-pipeline",
+      "kind": "sub",
+      "order": 50,
+      "title": "The PR is the delivery unit, and the pipeline has to hold"
+    },
+    {
+      "path": "04-agentic-platform/verification-and-evals/the-evidence-contract",
+      "kind": "sub",
+      "order": 50,
+      "title": "Behavioral evidence, risk scoring, and the merge policy"
+    },
+    {
+      "path": "04-agentic-platform/industry-impact/finance-and-regulated",
+      "kind": "sub",
+      "order": 50,
+      "title": "The audit infrastructure is the unlock"
+    },
+    {
+      "path": "04-agentic-platform/industry-impact/healthcare-and-legal",
+      "kind": "sub",
+      "order": 50,
+      "title": "The human-signoff boundary in high-stakes professions"
+    },
+    {
+      "path": "04-agentic-platform/industry-impact/retail-and-operations",
+      "kind": "sub",
+      "order": 50,
+      "title": "Where the outcome is measurable enough to automate"
+    },
+    {
+      "path": "04-agentic-platform/industry-impact/software-itself",
+      "kind": "sub",
+      "order": 50,
+      "title": "The industry the platform came from, measured"
+    },
+    {
+      "path": "04-agentic-platform/industry-impact/the-adoption-matrix",
+      "kind": "sub",
+      "order": 50,
+      "title": "Three variables decide whether an industry can stand an agent"
+    },
+    {
+      "path": "04-agentic-platform/industry-impact/where-agents-cannot-go-yet",
+      "kind": "sub",
+      "order": 50,
+      "title": "The honest cells of the adoption matrix"
     }
   ],
   "renames": {

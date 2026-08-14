@@ -36,15 +36,15 @@ the real task, against the same no-harness baseline from stage 01.
 
 ## Planned chapters
 
-- **data-engineering-migration** — the reference cases: OpenAI's migration
+- **[data-engineering-migration](data-engineering-migration/)** — the reference cases: OpenAI's migration
   of 90,000 tables / ~600PB across clouds on a ~100,000-node dependency
   DAG, and Spotify's Honk migrating ~1,800 downstream pipelines with
   LLM-as-judge verification; what made them agents-shaped and what stayed
   human.
-- **large-project-refactor** — codebase-level work: the 90-file monorepo
+- **[large-project-refactor](large-project-refactor/)** — codebase-level work: the 90-file monorepo
   refactor cases, why retrieval quality decides success, and what an
   architect-agent layer changes.
-- **trt-deployment-modernization** — deployment work as an agent task:
+- **[trt-deployment-modernization](trt-deployment-modernization/)** — deployment work as an agent task:
   TensorRT-LLM AutoDeploy converting PyTorch models to TensorRT-LLM
   automatically (sharding, quantization, KV-cache, fusion passes) — a
   modern example of "the model deployment" real task the mission could run

@@ -37,25 +37,25 @@ level — the industry-level version of the authorization matrix in
 
 ## Planned chapters
 
-- **the-adoption-matrix** — outcome measurability, failure cost, and audit
+- **[the-adoption-matrix](the-adoption-matrix/)** — outcome measurability, failure cost, and audit
   readiness as the three variables; which industries score high on each,
   and why regulated sectors lead on trust infrastructure.
-- **software-itself** — the industry the platform came from: AI-assisted
+- **[software-itself](software-itself/)** — the industry the platform came from: AI-assisted
   commits at ~25% of all commits, the GitClear maintainability deficit
   (duplication up ~81%, reuse down ~70%, legacy refactoring down ~74%,
   error masking up ~47%), DORA's instability findings, and how the
   authorization matrix is the direct response.
-- **finance-and-regulated** — banking, insurance, payments: agent
+- **[finance-and-regulated](finance-and-regulated/)** — banking, insurance, payments: agent
   registries and lineage as regulatory exposure (MAS-style oversight),
   Ramp's finance agent, Bank of America's Erica at 90% employee adoption;
   why audit infrastructure is the unlock.
-- **healthcare-and-legal** — clinical documentation agents, ABA claim
+- **[healthcare-and-legal](healthcare-and-legal/)** — clinical documentation agents, ABA claim
   denials held below 2%, A&O Shearman's agentic multi-step legal workflows;
   the human-signoff boundary in each.
-- **retail-and-operations** — inventory, supply chain, customer service;
+- **[retail-and-operations](retail-and-operations/)** — inventory, supply chain, customer service;
   where the outcome is measurable enough for auto-merge-style autonomy, and
   where it is not.
-- **where-agents-cannot-go-yet** — the honest cells: domains with
+- **[where-agents-cannot-go-yet](where-agents-cannot-go-yet/)** — the honest cells: domains with
   unmeasurable outcomes, catastrophic failure cost, or no audit trail; what
   has to change for them to enter the matrix.
 

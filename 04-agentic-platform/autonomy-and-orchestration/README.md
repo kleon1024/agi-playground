@@ -35,7 +35,7 @@ review the PR) is where most real productivity lives.
 
 ## Planned chapters
 
-- **autonomy-levels-0-to-5** — the autonomy spectrum from assistive to
+- **[autonomy-levels-0-to-5](autonomy-levels-0-to-5/)** — the autonomy spectrum from assistive to
   agentic avalanche; where production value concentrates (Level 3) and the
   Level-5 trap; the Anthropic ~400K-session empirical grounding.
 - **[the-authorization-matrix](the-authorization-matrix/)** — grant autonomy by task type: dependency
@@ -43,14 +43,14 @@ review the PR) is where most real productivity lives.
   the three control properties (reversibility, approval gates, review
   artifact) and the risk-scored auto-merge pattern (Cursor's 30–40%
   unreviewed merges on low-risk evidence-complete PRs).
-- **when-the-agent-runs-itself** — meta-agents and self-extension: agents
+- **[when-the-agent-runs-itself](when-the-agent-runs-itself/)** — meta-agents and self-extension: agents
   that write their own skills, orchestration scripts, or subagents; where
   self-modification stops being a demo and becomes a governance problem.
-- **the-human-in-the-loop-economy** — what human time is actually for now:
+- **[the-human-in-the-loop-economy](the-human-in-the-loop-economy/)** — what human time is actually for now:
   writing specs, designing gates, reviewing evidence — the "Navy SEAL
   model" of a smaller senior core, and how to measure review load as a
   first-class metric.
-- **production-trace-evals** — the control loop that tunes the matrix:
+- **[production-trace-evals](production-trace-evals/)** — the control loop that tunes the matrix:
   offline eval, CI gates, and production trace evaluation (OTel spans,
   gen_ai.evaluation.score); eval failure triggering diagnosis, not just
   dashboards.

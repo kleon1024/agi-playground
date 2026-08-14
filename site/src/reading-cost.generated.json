@@ -1567,9 +1567,25 @@
     "level": "frontier",
     "minutes": 3
   },
+  "04-agentic-platform/autonomy-and-orchestration/autonomy-levels-0-to-5": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/autonomy-and-orchestration/production-trace-evals": {
+    "level": "reference",
+    "minutes": 1
+  },
   "04-agentic-platform/autonomy-and-orchestration/the-authorization-matrix": {
     "level": "frontier",
     "minutes": 2
+  },
+  "04-agentic-platform/autonomy-and-orchestration/the-human-in-the-loop-economy": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/autonomy-and-orchestration/when-the-agent-runs-itself": {
+    "level": "reference",
+    "minutes": 1
   },
   "04-agentic-platform/cheap-or-expensive": {
     "level": "frontier",
@@ -1703,6 +1719,30 @@
     "level": "frontier",
     "minutes": 3
   },
+  "04-agentic-platform/industry-impact/finance-and-regulated": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/industry-impact/healthcare-and-legal": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/industry-impact/retail-and-operations": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/industry-impact/software-itself": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/industry-impact/the-adoption-matrix": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/industry-impact/where-agents-cannot-go-yet": {
+    "level": "reference",
+    "minutes": 1
+  },
   "04-agentic-platform/intent-to-plan": {
     "level": "frontier",
     "minutes": 3
@@ -1710,6 +1750,18 @@
   "04-agentic-platform/intent-to-plan/a-minimal-planner": {
     "level": "applied",
     "minutes": 2
+  },
+  "04-agentic-platform/intent-to-plan/spec-driven-development": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/intent-to-plan/the-plan-as-contract": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/intent-to-plan/when-the-request-is-vague": {
+    "level": "reference",
+    "minutes": 1
   },
   "04-agentic-platform/no-harness": {
     "level": "applied",
@@ -1751,9 +1803,21 @@
     "level": "frontier",
     "minutes": 2
   },
+  "04-agentic-platform/real-tasks/data-engineering-migration": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/real-tasks/large-project-refactor": {
+    "level": "reference",
+    "minutes": 1
+  },
   "04-agentic-platform/real-tasks/run-a-real-task": {
     "level": "applied",
     "minutes": 2
+  },
+  "04-agentic-platform/real-tasks/trt-deployment-modernization": {
+    "level": "reference",
+    "minutes": 1
   },
   "04-agentic-platform/report": {
     "level": "applied",
@@ -1831,9 +1895,17 @@
     "level": "applied",
     "minutes": 2
   },
+  "04-agentic-platform/verification-and-evals/ai-code-quality-deficit": {
+    "level": "reference",
+    "minutes": 1
+  },
   "04-agentic-platform/verification-and-evals/control-plane-governance": {
     "level": "frontier",
     "minutes": 8
+  },
+  "04-agentic-platform/verification-and-evals/llm-as-judge-reliability": {
+    "level": "reference",
+    "minutes": 1
   },
   "04-agentic-platform/verification-and-evals/static-vs-live-eval": {
     "level": "reference",
@@ -1846,6 +1918,14 @@
   "04-agentic-platform/verification-and-evals/the-agent-is-the-action": {
     "level": "frontier",
     "minutes": 6
+  },
+  "04-agentic-platform/verification-and-evals/the-delivery-pipeline": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/verification-and-evals/the-evidence-contract": {
+    "level": "reference",
+    "minutes": 1
   },
   "04-agentic-platform/verification-and-evals/the-zero-failure-taxonomy": {
     "level": "applied",

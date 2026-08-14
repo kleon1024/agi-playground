@@ -63,18 +63,18 @@ risk, route the change to auto-merge or a human reviewer.
 
 ## The frontier extensions (dated surveys)
 
-- **ai-code-quality-deficit** — the industry's quantified defect data
+- **[ai-code-quality-deficit](ai-code-quality-deficit/)** — the industry's quantified defect data
   (GitClear's 623M-change analysis: duplication up ~81%, reuse down ~70%,
   error masking up ~47%; DORA's instability finding) read against the
   mission's own recorded quality signals.
-- **the-evidence-contract** — behavioral artifacts as units of trust
+- **[the-evidence-contract](the-evidence-contract/)** — behavioral artifacts as units of trust
   (Cursor's demo-as-evidence), CI and security checks, risk scoring, and
   the four-phase SDLC (plan, human review, implement + demo, ship +
   retrospective).
-- **the-delivery-pipeline** — the PR as the delivery unit: approval gates,
+- **[the-delivery-pipeline](the-delivery-pipeline/)** — the PR as the delivery unit: approval gates,
   self-driving PRs (agent repairs its own CI), and cross-repo orchestration
   as an engineering problem rather than a model problem.
-- **llm-as-judge-reliability** — when a judge can be trusted: RuVerBench,
+- **[llm-as-judge-reliability](llm-as-judge-reliability/)** — when a judge can be trusted: RuVerBench,
   gaming the judge, and Spotify Honk's LLM-as-judge verification loop.
 - **[static-vs-live-eval](static-vs-live-eval/)** — the benchmark honesty gap: SWE-bench Verified
   at 43.20% for state-of-the-art systems versus SWE-bench-Live at 19.25%,

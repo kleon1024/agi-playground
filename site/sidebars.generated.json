@@ -2525,6 +2525,21 @@
                 "type": "doc",
                 "id": "04-agentic-platform/intent-to-plan/a-minimal-planner/index",
                 "label": "A minimal planner"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/intent-to-plan/spec-driven-development/index",
+                "label": "Spec-driven development"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/intent-to-plan/the-plan-as-contract/index",
+                "label": "The plan as contract"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/intent-to-plan/when-the-request-is-vague/index",
+                "label": "When the request is vague"
               }
             ]
           }
@@ -2921,8 +2936,18 @@
               },
               {
                 "type": "doc",
+                "id": "04-agentic-platform/verification-and-evals/ai-code-quality-deficit/index",
+                "label": "AI code quality deficit"
+              },
+              {
+                "type": "doc",
                 "id": "04-agentic-platform/verification-and-evals/control-plane-governance/index",
                 "label": "Control-plane governance"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/verification-and-evals/llm-as-judge-reliability/index",
+                "label": "LLM-as-judge reliability"
               },
               {
                 "type": "doc",
@@ -2938,6 +2963,16 @@
                 "type": "doc",
                 "id": "04-agentic-platform/verification-and-evals/the-agent-is-the-action/index",
                 "label": "The agent is the action"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/verification-and-evals/the-delivery-pipeline/index",
+                "label": "The delivery pipeline"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/verification-and-evals/the-evidence-contract/index",
+                "label": "The evidence contract"
               },
               {
                 "type": "doc",
@@ -2961,8 +2996,28 @@
             "items": [
               {
                 "type": "doc",
+                "id": "04-agentic-platform/autonomy-and-orchestration/autonomy-levels-0-to-5/index",
+                "label": "Autonomy levels 0 to 5"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/autonomy-and-orchestration/production-trace-evals/index",
+                "label": "Production trace evals"
+              },
+              {
+                "type": "doc",
                 "id": "04-agentic-platform/autonomy-and-orchestration/the-authorization-matrix/index",
                 "label": "The authorization matrix"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/autonomy-and-orchestration/the-human-in-the-loop-economy/index",
+                "label": "The human-in-the-loop economy"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/autonomy-and-orchestration/when-the-agent-runs-itself/index",
+                "label": "When the agent runs itself"
               }
             ]
           }
@@ -2973,9 +3028,44 @@
         "label": "Impact and production",
         "items": [
           {
-            "type": "doc",
-            "id": "04-agentic-platform/industry-impact/index",
-            "label": "Industry impact"
+            "type": "category",
+            "label": "Industry impact",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/industry-impact/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/industry-impact/finance-and-regulated/index",
+                "label": "Finance and regulated sectors"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/industry-impact/healthcare-and-legal/index",
+                "label": "Healthcare and legal"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/industry-impact/retail-and-operations/index",
+                "label": "Retail and operations"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/industry-impact/software-itself/index",
+                "label": "Software itself"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/industry-impact/the-adoption-matrix/index",
+                "label": "The adoption matrix"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/industry-impact/where-agents-cannot-go-yet/index",
+                "label": "Where agents cannot go yet"
+              }
+            ]
           },
           {
             "type": "category",
@@ -2987,8 +3077,23 @@
             "items": [
               {
                 "type": "doc",
+                "id": "04-agentic-platform/real-tasks/data-engineering-migration/index",
+                "label": "Data engineering migration"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/real-tasks/large-project-refactor/index",
+                "label": "Large project refactor"
+              },
+              {
+                "type": "doc",
                 "id": "04-agentic-platform/real-tasks/run-a-real-task/index",
                 "label": "Run a real task"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/real-tasks/trt-deployment-modernization/index",
+                "label": "TRT deployment modernization"
               }
             ]
           },

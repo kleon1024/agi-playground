@@ -38,14 +38,14 @@ measures resolve rate on tasks nobody actually asked for.
 
 ## Planned chapters
 
-- **when-the-request-is-vague** — what one ambiguous ticket costs when an
+- **[when-the-request-is-vague](when-the-request-is-vague/)** — what one ambiguous ticket costs when an
   agent executes it, and how production flows (Codex plan mode's grounding
   rule "discover facts, not by asking the user", Jules's clone-then-plan)
   force intent into a checkable form before any edit.
-- **spec-driven-development** — GitHub Spec Kit (2026, open source, 30+
+- **[spec-driven-development](spec-driven-development/)** — GitHub Spec Kit (2026, open source, 30+
   compatible agents) and the 8-phase pipeline; why spec-first became the
   industry answer to "vague tickets produce vague output".
-- **the-plan-as-contract** — plan-only outputs (exact file paths, exact
+- **[the-plan-as-contract](the-plan-as-contract/)** — plan-only outputs (exact file paths, exact
   structures), TL;DR checkpoints, and the approval gate as the unit of
   human control; the plan as the artifact the agent is later scored against.
 - **[a-minimal-planner](a-minimal-planner/)** (local mechanism demo) — a 200-line planner that
