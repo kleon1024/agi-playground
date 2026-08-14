@@ -1,76 +1,118 @@
 ---
 status: draft
 level: frontier
+base: none
 label: Control plane and governance
 ---
 
 # The agent sees a sandbox. Who sees the agent?
 
-**Question:** every layer so far made the agent more capable. This stage
-makes the fleet governable. A control plane is the active layer between
-observability (which tells you what happened) and the agent (which keeps
-doing it): it enforces policy, blocks sensitive actions, holds budgets, and
-keeps an audit trail. The category barely existed at the start of 2026 and
-had four credible products by mid-year. What does a platform actually
-govern, and what are the invariants?
+**Question:** every layer so far made the agent more capable — sandbox,
+durability, memory, protocols, orchestration. This stage asks the
+question none of them asked: while the agent works, *who is watching, and
+who can stop it?* The mission already has a control plane in miniature —
+its guardrail rejects any patch that touches a test file, enforced on the
+diff, not requested from the model. What does that mechanism look like
+when the "agent" is a fleet, and what are the invariants that make policy
+enforceable at all?
 
-**The artifact this stage follows** is the platform map: every stage of this
-topic drawn as a plane (execution, context, tools, verification, control),
-with the mission's recorded runs placed on it — one diagram that shows where
-each verified number lives in the platform.
+**The artifact this stage follows** is the guardrail's own record: the
+mission's tamper run, where every numeric signal said "resolved" and the
+diff check was the only layer that caught it
+([record](../real-tasks/run-a-real-task/runs/2026-08-14-real-task.md)). A
+control plane is that record's mechanism, generalized from one guardrail
+to a governed fleet.
 
-By the end you will be able to take any agentic platform (OpenAI's
-three-layer stack, a control-plane product, NVIDIA's reference
-architecture) and say which plane owns which decision, and which invariant
-it enforces.
+**Before this:** stages 07–11 built the platform's capabilities. This
+stage is the layer that governs them all.
 
-**Before this:** stages 07–11 built the platform's capabilities. This stage
-is the layer that governs them all, and it feeds the autonomy decision in
-[stage 15](../autonomy-and-orchestration/).
+## The control plane is not observability
 
-## What this stage decides
+The two are easy to confuse, and the difference only surfaces at an
+incident ([control-vs-observability](control-vs-observability/)).
+Observability is passive: it tells you *what happened*. A control plane is
+active: it decides what may happen next — policy, budgets, sensitive-action
+blocking, audit — and it sits between the observability log and the agent
+that keeps working. The mission's guardrail is the smallest clean example:
+the harness does not observe that the agent *might* tamper with tests and
+report it later; it blocks the patch at the boundary, before scoring.
 
-What the agent may do without asking, and who can change that. The control
-plane's decision is policy — routing, budgets, sensitive-action blocking,
-audit — and the invariant set that makes policy enforceable (no
-self-granted authority, no agent-controlled lifecycle, no suppressed audit).
+```text
+observability:  the log says the target test passed
+control plane:  the diff says a test file was touched -> GUARDRAIL FIRED
+```
 
-## Planned chapters
+That is why the category matters more than the layer count: a platform
+with perfect logs but no control plane has a complete story about
+everything that already went wrong and no way to stop the next one.
 
-- **[the-platform-layers](the-platform-layers/)** — the industry's layered maps compared: TokenJam's
-  nine-layer ecosystem (observability, evaluation, environments, gateways,
-  memory, guardrails, human-in-the-loop, control plane, optimization),
-  OpenAI's three-layer stack (SDK / Responses API / AgentKit), NVIDIA's
-  seven-plane reference.
-- **[control-vs-observability](control-vs-observability/)** — the passive/active split and why it
-  surfaces only at incidents; the 2026 control-plane products (Galileo
-  Agent Control, Salesforce Agent Fabric, Microsoft Agent 365, HumanLayer
-  ACP) and the two underbuilt layers (optimization, dev-first control
-  planes).
-- **[the-enterprise-matrix](the-enterprise-matrix/)** — the five vendor platforms (AWS Bedrock
-  AgentCore, Microsoft Copilot Studio, Google ADK, OpenAI AgentKit, and
-  Anthropic) with their orchestration primitives, and A2A as the
-  agent-to-agent protocol binding them.
-- **[no-secrets-no-authority](no-secrets-no-authority/)** — NVIDIA's invariants made concrete: the
-  credential proxy (agent receives capabilities, never raw tokens),
-  deny-by-default egress, no agent-created persistence, and what each
-  invariant defends against.
-- **[our-platform-map](our-platform-map/)** (recorded diagram) — the topic's own stages drawn as
-  the platform planes, with every verified run placed on the plane that
-  owns its evidence; the diagram is a ProcessDiagram, not a new Mermaid.
+## What a control plane actually does
 
-## Evidence strategy
+Four jobs, and each one answers a question the agent cannot answer for
+itself ([the-platform-layers](the-platform-layers/)):
 
-All chapters are dated surveys; `our-platform-map` reuses already-recorded
-runs and is a reading/diagramming exercise, not new measurement.
+| Job | The question | The mission's miniature |
+|---|---|---|
+| Enforce policy | what may the agent do? | a patch touching a test file is rejected outright |
+| Hold budgets | how much may it spend? | the wall-clock and token cap per task — a timeout is a failure, not a retry |
+| Block sensitive actions | what is off-limits even if asked? | no network access, so no fetching the upstream fix |
+| Keep an audit trail | what did it do, and who can say so? | the recorded verdict per attempt, including the ones that tampered |
 
-## Industrial grounding
+The first three are the interesting part: each one is a *refusal*, and a
+refusal is only real if it is enforced on the boundary — the diff, the
+budget counter, the network namespace — rather than requested from the
+model. Everything this stage says about governance rests on that
+distinction.
 
-TokenJam's 2026 map: the control-plane category did not exist at the start
-of 2026 and had four credible products by mid-year. OpenAI's AgentKit 1.0
-(2026) is a hosted agent runtime owning loop, memory, and deploy. NVIDIA's
-Secure Agent Workspace reference enumerates the invariants — no raw
-credentials, no self-granted authority, no agent-controlled lifecycle, no
-suppressed audit — and explicitly notes the future shape: the agent moves
-to a separate control plane and the workspace becomes a pure tool-execution
-sandbox.
+## The invariants that make policy enforceable
+
+NVIDIA's Secure Agent Workspace reference
+([2026](https://docs.nvidia.com/enterprise-reference-architectures/secure-agent-workspace-reference-design/latest/reference-architecture.html))
+formalizes the rules that make refusals real
+([no-secrets-no-authority](no-secrets-no-authority/)). Each invariant
+defends against a specific failure:
+
+| Invariant | Defends against |
+|---|---|
+| No raw credentials — the agent receives capabilities, never tokens | exfiltration: a token a model can read is a token a prompt can extract |
+| No self-granted authority | escalation: the agent approving its own next permission |
+| Deny-by-default egress | data leaving the boundary |
+| No agent-created persistence | a shell rc file written once running forever, beyond any session |
+| No suppressed audit | tampering with the record that would expose the others |
+
+The last row is the one this mission's origin story is built on: on
+2026-07-29 a serving engine was published as verified while every decode
+step attended to a single token, and nothing looked wrong because the
+throughput numbers were *better*. An agent scored by a test suite has a
+shorter path to the same place — delete the assertion, and the scoreboard
+reads 100%. That is why the audit trail is not bookkeeping; it is the
+layer that would have made the 2026-07-29 failure visible.
+
+## The fleet version, and the map
+
+The industrial answers scale this to fleets: OpenAI's AgentKit hosts the
+agent runtime with loop, memory, and deploy; the enterprise platforms —
+AWS Bedrock AgentCore, Microsoft Copilot Studio, Google ADK — package
+orchestration with governance attached ([the-enterprise-matrix](the-enterprise-matrix/)).
+And [our-platform-map](our-platform-map/) draws this topic's own stages as
+the planes of a platform, with every verified run placed on the plane that
+owns its evidence — one diagram that shows where each number lives and
+which plane governs it.
+
+## What this stage does and does not establish
+
+It establishes the mechanism: the control plane as the active layer that
+refuses, with the mission's guardrail as its verified miniature and
+NVIDIA's invariants as the checklist that makes refusals real. The
+industrial claims — the product landscape, the vendor matrices — are dated
+surveys with sources cited.
+
+It does not claim the mission's guardrail is a production control plane —
+it is one refusal, on one boundary, in one repository. And it does not
+claim governance makes an agent safe; it claims governance makes the
+*platform* auditable, which is the precondition for deciding how much
+autonomy to grant — the next stage's subject.
+
+**Next:** the platform can govern. The question that remains is how much
+human is left in the loop, and where exactly — [autonomy and
+orchestration](../autonomy-and-orchestration/).

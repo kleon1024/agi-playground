@@ -1541,7 +1541,7 @@
   },
   "04-agentic-platform/agentic-infrastructure": {
     "level": "frontier",
-    "minutes": 3
+    "minutes": 4
   },
   "04-agentic-platform/agentic-infrastructure/agentic-devops": {
     "level": "reference",
@@ -1649,7 +1649,7 @@
   },
   "04-agentic-platform/control-plane-and-governance": {
     "level": "frontier",
-    "minutes": 3
+    "minutes": 4
   },
   "04-agentic-platform/control-plane-and-governance/control-vs-observability": {
     "level": "reference",
@@ -1785,7 +1785,7 @@
   },
   "04-agentic-platform/orchestration-and-workflows": {
     "level": "frontier",
-    "minutes": 3
+    "minutes": 4
   },
   "04-agentic-platform/orchestration-and-workflows/a-minimal-orchestrator": {
     "level": "applied",
