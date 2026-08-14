@@ -2514,9 +2514,19 @@
         "label": "Intent",
         "items": [
           {
-            "type": "doc",
-            "id": "04-agentic-platform/intent-to-plan/index",
-            "label": "Intent to plan"
+            "type": "category",
+            "label": "Intent to plan",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/intent-to-plan/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/intent-to-plan/a-minimal-planner/index",
+                "label": "A minimal planner"
+              }
+            ]
           }
         ]
       },
@@ -2636,9 +2646,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "04-agentic-platform/runtime-and-durability/index",
-            "label": "Runtime and durability"
+            "type": "category",
+            "label": "Runtime and durability",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/runtime-and-durability/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/runtime-and-durability/a-minimal-checkpointer/index",
+                "label": "A minimal checkpointer"
+              }
+            ]
           },
           {
             "type": "category",
@@ -2661,9 +2681,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "04-agentic-platform/tools-and-protocols/index",
-            "label": "Tools and protocols"
+            "type": "category",
+            "label": "Tools and protocols",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/tools-and-protocols/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/tools-and-protocols/a-minimal-tool-protocol/index",
+                "label": "A minimal tool protocol"
+              }
+            ]
           }
         ]
       },
@@ -2679,6 +2709,11 @@
               "id": "04-agentic-platform/orchestration-and-workflows/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/orchestration-and-workflows/a-minimal-orchestrator/index",
+                "label": "A minimal orchestrator"
+              },
               {
                 "type": "doc",
                 "id": "04-agentic-platform/orchestration-and-workflows/why-multi-agent-fails/index",
@@ -2704,6 +2739,11 @@
               "id": "04-agentic-platform/verification-and-evals/index"
             },
             "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/verification-and-evals/a-minimal-judge/index",
+                "label": "A minimal judge"
+              },
               {
                 "type": "doc",
                 "id": "04-agentic-platform/verification-and-evals/control-plane-governance/index",
@@ -2763,9 +2803,19 @@
             "label": "Industry impact"
           },
           {
-            "type": "doc",
-            "id": "04-agentic-platform/real-tasks/index",
-            "label": "Real tasks"
+            "type": "category",
+            "label": "Real tasks",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/real-tasks/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/real-tasks/run-a-real-task/index",
+                "label": "Run a real task"
+              }
+            ]
           },
           {
             "type": "category",

@@ -48,7 +48,7 @@ measures resolve rate on tasks nobody actually asked for.
 - **the-plan-as-contract** — plan-only outputs (exact file paths, exact
   structures), TL;DR checkpoints, and the approval gate as the unit of
   human control; the plan as the artifact the agent is later scored against.
-- **a-minimal-planner** (local mechanism demo) — a 200-line planner that
+- **[a-minimal-planner](a-minimal-planner/)** (local mechanism demo) — a 200-line planner that
   takes the mission's six real tasks, forces a plan-only step, and records
   what changes in resolve rate when the plan is reviewed before execution.
 

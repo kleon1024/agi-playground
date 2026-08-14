@@ -51,7 +51,7 @@ distinction operational.
   OpenAI's Symphony (an open spec for many Codex agents driven by Linear),
   spec-in/PR-out as an organizational redesign, and the "ticket quality is a
   productivity input" finding.
-- **a-minimal-orchestrator** (local mechanism demo) — an orchestrator that
+- **[a-minimal-orchestrator](a-minimal-orchestrator/)** (local mechanism demo) — an orchestrator that
   dispatches the six real tasks to workers under a deterministic skeleton,
   records per-task results, and reports what the skeleton cost versus a
   free-loop baseline.

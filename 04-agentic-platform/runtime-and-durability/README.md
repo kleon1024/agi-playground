@@ -44,7 +44,7 @@ corrupting its own progress.
 - **checkpoint-and-resume** — the lightweight version: checkpointing a
   harness's state to disk or SQLite; where a checkpoint is enough and where
   you need a real durable execution engine.
-- **a-minimal-checkpointer** (local mechanism demo) — add checkpoint/resume
+- **[a-minimal-checkpointer](a-minimal-checkpointer/)** (local mechanism demo) — add checkpoint/resume
   to the stage 03 loop, kill the process mid-task, and record the resume in
   `runs/`.
 

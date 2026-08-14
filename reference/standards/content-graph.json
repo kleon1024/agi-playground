@@ -3558,6 +3558,42 @@
       "kind": "sub",
       "order": 50,
       "title": "43.20% on the frozen set, 19.25% on the live one"
+    },
+    {
+      "path": "04-agentic-platform/real-tasks/run-a-real-task",
+      "kind": "sub",
+      "order": 50,
+      "title": "The platform on a real task, with the guardrail live"
+    },
+    {
+      "path": "04-agentic-platform/runtime-and-durability/a-minimal-checkpointer",
+      "kind": "sub",
+      "order": 50,
+      "title": "The task survives the crash, step by step"
+    },
+    {
+      "path": "04-agentic-platform/tools-and-protocols/a-minimal-tool-protocol",
+      "kind": "sub",
+      "order": 50,
+      "title": "Discover, invoke, error: a tool protocol in its smallest honest form"
+    },
+    {
+      "path": "04-agentic-platform/intent-to-plan/a-minimal-planner",
+      "kind": "sub",
+      "order": 50,
+      "title": "The plan as a contract, generated from the mission's real tasks"
+    },
+    {
+      "path": "04-agentic-platform/orchestration-and-workflows/a-minimal-orchestrator",
+      "kind": "sub",
+      "order": 50,
+      "title": "The skeleton first, the model second"
+    },
+    {
+      "path": "04-agentic-platform/verification-and-evals/a-minimal-judge",
+      "kind": "sub",
+      "order": 50,
+      "title": "The diff says tampered. The numbers say resolved. Who do you trust?"
     }
   ],
   "renames": {

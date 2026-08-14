@@ -34,7 +34,7 @@ make them fast and private.
 
 ## Planned chapters
 
-- **a-minimal-tool-protocol** (local mechanism demo) — build the three-tool
+- **[a-minimal-tool-protocol](a-minimal-tool-protocol/)** (local mechanism demo) — build the three-tool
   JSON-RPC server, wire it to the harness, and record a run that exercises
   discovery, invocation, and error return.
 - **from-function-calling-to-mcp** — the evolution: schema-based function

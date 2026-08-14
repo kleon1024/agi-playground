@@ -1611,6 +1611,10 @@
     "level": "frontier",
     "minutes": 3
   },
+  "04-agentic-platform/intent-to-plan/a-minimal-planner": {
+    "level": "applied",
+    "minutes": 2
+  },
   "04-agentic-platform/no-harness": {
     "level": "applied",
     "minutes": 8
@@ -1627,12 +1631,20 @@
     "level": "frontier",
     "minutes": 2
   },
+  "04-agentic-platform/orchestration-and-workflows/a-minimal-orchestrator": {
+    "level": "applied",
+    "minutes": 1
+  },
   "04-agentic-platform/orchestration-and-workflows/why-multi-agent-fails": {
     "level": "reference",
     "minutes": 2
   },
   "04-agentic-platform/real-tasks": {
     "level": "frontier",
+    "minutes": 2
+  },
+  "04-agentic-platform/real-tasks/run-a-real-task": {
+    "level": "applied",
     "minutes": 2
   },
   "04-agentic-platform/report": {
@@ -1655,6 +1667,10 @@
     "level": "frontier",
     "minutes": 2
   },
+  "04-agentic-platform/runtime-and-durability/a-minimal-checkpointer": {
+    "level": "applied",
+    "minutes": 2
+  },
   "04-agentic-platform/task-set": {
     "level": "applied",
     "minutes": 10
@@ -1671,9 +1687,17 @@
     "level": "frontier",
     "minutes": 2
   },
+  "04-agentic-platform/tools-and-protocols/a-minimal-tool-protocol": {
+    "level": "applied",
+    "minutes": 1
+  },
   "04-agentic-platform/verification-and-evals": {
     "level": "applied",
     "minutes": 4
+  },
+  "04-agentic-platform/verification-and-evals/a-minimal-judge": {
+    "level": "applied",
+    "minutes": 2
   },
   "04-agentic-platform/verification-and-evals/control-plane-governance": {
     "level": "frontier",

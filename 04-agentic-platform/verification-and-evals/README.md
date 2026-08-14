@@ -79,7 +79,7 @@ risk, route the change to auto-merge or a human reviewer.
 - **[static-vs-live-eval](static-vs-live-eval/)** — the benchmark honesty gap: SWE-bench Verified
   at 43.20% for state-of-the-art systems versus SWE-bench-Live at 19.25%,
   and why a live task set changes what a score means.
-- **a-minimal-judge** (local mechanism demo) — a rule-based verifier versus
+- **[a-minimal-judge](a-minimal-judge/)** (local mechanism demo) — a rule-based verifier versus
   an LLM judge replayed over the mission's recorded runs, recording where
   they agree and where the judge is fooled.
 

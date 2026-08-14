@@ -49,7 +49,7 @@ the real task, against the same no-harness baseline from stage 01.
   automatically (sharding, quantization, KV-cache, fusion passes) — a
   modern example of "the model deployment" real task the mission could run
   on hardware that fits.
-- **run-a-real-task** (capstone, recorded) — a genuine task from this
+- **[run-a-real-task](run-a-real-task/)** (capstone, recorded) — a genuine task from this
   repository's history executed under the full platform, with the same
   evidence contract as every other run.
 

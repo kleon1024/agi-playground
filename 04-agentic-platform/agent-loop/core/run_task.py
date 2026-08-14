@@ -45,7 +45,7 @@ from pathlib import Path
 
 import scoring
 
-REPO = Path(__file__).resolve().parents[4]
+REPO = Path(__file__).resolve().parents[3]
 AGENT_CORE = REPO / "01-language-model/agent-harness/core"
 MINER_PATH = REPO / "04-agentic-platform/task-set/core/mine_history.py"
 PUBLIC_MINER_PATH = REPO / "04-agentic-platform/task-set/core/mine_public.py"

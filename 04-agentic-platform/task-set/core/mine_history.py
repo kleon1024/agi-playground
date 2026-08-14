@@ -50,7 +50,7 @@ import tempfile
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parents[4]
+REPO = Path(__file__).resolve().parents[3]
 TASKS = REPO / "04-agentic-platform/tasks"
 CANDIDATES_PATH = TASKS / "candidates.jsonl"  # what `mine` produces: unverified
 VERIFIED_PATH = TASKS / "private.jsonl"  # what `verify --write` produces
