@@ -2876,6 +2876,11 @@
               },
               {
                 "type": "doc",
+                "id": "04-agentic-platform/control-plane-and-governance/our-platform-map/index",
+                "label": "Our platform map"
+              },
+              {
+                "type": "doc",
                 "id": "04-agentic-platform/control-plane-and-governance/the-enterprise-matrix/index",
                 "label": "The enterprise matrix"
               },

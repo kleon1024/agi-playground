@@ -3912,6 +3912,12 @@
       "kind": "sub",
       "order": 50,
       "title": "The honest cells of the adoption matrix"
+    },
+    {
+      "path": "04-agentic-platform/control-plane-and-governance/our-platform-map",
+      "kind": "sub",
+      "order": 50,
+      "title": "The whole topic, drawn as the platform it builds"
     }
   ],
   "renames": {

@@ -441,6 +441,7 @@
 04-agentic-platform/context-and-memory/when-rag-belongs-in-an-agent
 04-agentic-platform/control-plane-and-governance/control-vs-observability
 04-agentic-platform/control-plane-and-governance/no-secrets-no-authority
+04-agentic-platform/control-plane-and-governance/our-platform-map
 04-agentic-platform/control-plane-and-governance/the-enterprise-matrix
 04-agentic-platform/control-plane-and-governance/the-platform-layers
 04-agentic-platform/execution-environment/a-minimal-sandbox

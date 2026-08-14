@@ -55,7 +55,7 @@ self-granted authority, no agent-controlled lifecycle, no suppressed audit).
   credential proxy (agent receives capabilities, never raw tokens),
   deny-by-default egress, no agent-created persistence, and what each
   invariant defends against.
-- **our-platform-map** (recorded diagram) — the topic's own stages drawn as
+- **[our-platform-map](our-platform-map/)** (recorded diagram) — the topic's own stages drawn as
   the platform planes, with every verified run placed on the plane that
   owns its evidence; the diagram is a ProcessDiagram, not a new Mermaid.
 
