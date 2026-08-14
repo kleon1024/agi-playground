@@ -1,80 +1,117 @@
 ---
 status: draft
 level: frontier
+base: none
 label: Context and memory
 ---
 
-# What does the agent remember, and how does it get what it forgot?
+# Every session starts from zero. What does the agent carry in?
 
-**Question:** the mission's closing-the-loop stage showed that feeding a
-model the real outcome of its own failure changes the next attempt. That is
-memory in its smallest form. Production agents need three more: a
-repository's instructions that survive every session, a record of prior
-sessions the agent wrote itself, and retrieval (RAG in its modern form) for
-knowledge that never fits the context window. How do the tiers fit
-together, and what does each one forget?
+**Question:** [stage 06](../closing-the-loop/) showed the smallest form of
+memory: feed a model the real outcome of its own failed attempt, and the
+next attempt changes. But every new session starts from zero — the model
+has no idea what the previous session learned, and a repository's
+conventions are not in its weights. Production agents solve this with
+three memory layers. What does each one hold, what does each one forget,
+and how do you know which layer a failure came from?
 
-**The artifact this stage follows** is a memory map: the instruction layer,
-the generated-summary layer, and the retrieval layer, drawn over the
-mission's own closing-the-loop run so every tier has a real anchor.
+**The artifact this stage follows** is [a-sqlite-memory](a-sqlite-memory/),
+a real store seeded with six lessons this mission actually measured
+([record](a-sqlite-memory/runs/2026-08-14-sqlite-memory.json)). Two
+questions are asked against it, and the promotion that follows the second
+recall is the stage's spine: every production memory stack below is that
+store, at scale.
 
-By the end you will be able to read any production memory setup (Claude
-Code's CLAUDE.md scopes + auto memory, Codex's AGENTS.md + rolling
-summaries, a Mem0/Letta/Zep stack) as the same tiers, and say which tier a
-given failure — stale instruction, forgotten session, wrong retrieval — came
-from.
+**Before this:** stage 06's one-loop feedback. This stage scales the loop
+across sessions and codebases.
 
-**Before this:** [stage 06](../closing-the-loop/) showed one-loop feedback.
-This stage scales that loop across sessions and codebases.
+## The three layers, and what each one forgets
 
-## What this stage decides
+Memory is not one thing. It is three layers with different lifetimes and
+different failure modes ([file-based-memory](file-based-memory/),
+[memory-tiers](memory-tiers/)):
 
-What is allowed to influence the agent's next run. Memory is not free:
-every instruction competes for context, every auto-summary can be stale,
-every retrieval can miss. The decision is which tier owns which fact, and
-when a fact is promoted, demoted, or deleted.
+| Layer | What it holds | What it forgets |
+|---|---|---|
+| Instruction | the repository's static rules — AGENTS.md / CLAUDE.md, read at every session start | nothing silently, but everything when unpruned: an instruction file that never shrinks becomes noise |
+| Generated | what the agent itself learned — session summaries the agent wrote | freshness: a summary can be stale, and it can drift from what the session actually established |
+| Retrieval | knowledge that never fits the context window — RAG, codebase indexes | coverage: retrieval misses, and a miss is silent — the agent does not know it does not know |
 
-## Planned chapters
+The first layer is static and survives every session by design. Codex
+separates AGENTS.md from auto-generated Memories; Claude Code reads four
+CLAUDE.md scopes at session start and auto-captures learnings. The third
+layer exists because the second one has a hard ceiling: a summary cannot
+carry a whole repository, and a repository too large for the context
+window needs a way to be *asked* rather than carried.
 
-- **[from-rag-to-agentic-rag](from-rag-to-agentic-rag/)** — how retrieval evolved from corpus search to
-  a tool an agent calls mid-task; when RAG belongs in an agent and when it
-  is the wrong layer (industry: hybrid retrieval moving buyer-intent
-  signals, and the "RAG is not memory" distinction).
-- **[when-rag-belongs-in-an-agent](when-rag-belongs-in-an-agent/)** — the
-  decision rule for placing retrieval in the loop: open-world tasks call
-  for a retrieval tool; stable small facts belong in context.
-- **[file-based-memory](file-based-memory/)** — the two-layer file system memory that dominates
-  coding agents: the static instruction layer (AGENTS.md / CLAUDE.md, now a
-  Linux Foundation standard across 20+ tools) and the generated layer
-  (Codex rolling summaries, Claude auto memory), plus memory hygiene —
-  promotion rules, audits, and the cost of an unpruned instruction file.
-- **[memory-tiers](memory-tiers/)** — working / episodic / semantic memory and the
-  production stack (SQLite-first local, vector for retrieval, graph when
-  entity relationships matter); the measured costs of selective memory
-  (Mem0's paper: ~90% token reduction).
-- **[codebase-retrieval](codebase-retrieval/)** — the agent's view of a large repository: repo
-  maps, AST and symbol indexes, code intelligence graphs (Sourcegraph),
-  and why "monorepo blind spots" are the dominant failure in large-project
-  agent work.
-- **[a-sqlite-memory](a-sqlite-memory/)** (local mechanism demo) — a minimal SQLite memory
-  store + retrieval on top of the mission's recorded runs, showing a
-  promoted lesson changing a later attempt.
-- **[agentfs-and-persistent-workspace](agentfs-and-persistent-workspace/)** — filesystem-backed agent state
-  beyond the context window: AgentFS, BranchFS workspaces, and the
-  persistent-session pattern.
+## The mechanism: promotion follows use, not sentiment
 
-## Evidence strategy
+The demo's finding is the mechanism. The store holds six lessons, each
+seeded from a real `runs/` record — haiku's 0/6 blind-call resolve, the
+guardrail that fires only on the diff, the 18/18 harness resolve, the
+0/12-to-2/12 feedback result. Two questions are recalled against them:
 
-`a-sqlite-memory` runs locally against the mission's recorded JSONL. The
-rest are dated surveys; the Mem0 token-reduction figure and the
-observational-memory benchmark results are attributed to their papers.
+```text
+question 1: "which tier should resolve it; what does the blind-call say?"
+  recalled: lessons 1, 3, 4          -> promoted: none
+question 2: "is the resolve rate still believable when nothing failed?"
+  recalled: lessons 1, 4              -> promoted: 1 and 4 durable
+```
 
-## Industrial grounding
+Lesson 1 is recalled by both questions and becomes durable. Lesson 2 — the
+guardrail claim — is recalled by neither, because neither question mentions
+guardrails. That is the point: **the store does not decide what matters,
+recall does**. A fact that is never recalled stays ephemeral, and an
+unpruned instruction file is exactly a store where everything is durable
+because nothing is ever filtered.
 
-Codex separates AGENTS.md (static instructions) from Memories
-(auto-generated session summaries); Claude Code reads four CLAUDE.md scopes
-at session start and auto-captures learnings. Mem0's paper reports
-selective fact-based memory cutting token cost by over 90% and p95 latency
-by 91% versus full-history prompting. Sourcegraph's 2026 guide names
-monorepo blind spots — searches limited to the current directory — as the
-dominant large-codebase failure.
+## The bottleneck is recall, not storage
+
+The same demo shows where production memory actually spends its complexity.
+`LIKE` keyword matching is visibly too weak for an open-ended question —
+"is the resolve rate still believable" only matched lessons whose keywords
+happened to co-occur. Storage was never the hard part; getting the right
+fact in front of the agent at the right moment is. That is why the industry
+layers above this store exist: Mem0's paper reports selective fact-based
+memory cutting token cost by over 90% versus full-history prompting, and
+Zep's temporal graphs track how facts change over time. Both are recall
+engines, not storage engines.
+
+## Retrieval: when RAG belongs in the loop, and when it does not
+
+The third layer has its own decision rule
+([when-rag-belongs-in-an-agent](when-rag-belongs-in-an-agent/),
+[from-rag-to-agentic-rag](from-rag-to-agentic-rag/)). RAG belongs in an
+agent when the task is open-world — the answer is not in context and not in
+weights, and a retrieval *tool* the agent calls mid-task beats retrieval
+pasted into the prompt. It does not belong when the fact is small, stable,
+and known — that is what the instruction layer is for. The distinction
+matters because a retrieval miss is silent: an agent that searched and
+found nothing cannot tell "nothing exists" from "I searched wrong."
+
+The same reasoning applies to codebases
+([codebase-retrieval](codebase-retrieval/)): repo maps, symbol indexes, and
+code-intelligence graphs exist because "monorepo blind spots" — searches
+limited to the current directory — are the dominant failure in large-
+project agent work. And a newer shape, filesystem-backed state
+([agentfs-and-persistent-workspace](agentfs-and-persistent-workspace/)),
+exposes agent memory as files, so the agent's most reliable capability —
+file I/O — reaches state that otherwise needs a proprietary API.
+
+## What this stage does and does not establish
+
+It establishes the mechanism: three layers with distinct lifetimes, the
+promotion-follows-use rule, and the recall-not-storage bottleneck, anchored
+to the mission's own measured facts. The mechanism is verified by the
+recorded store; the production claims are dated surveys with sources cited.
+
+It does not claim memory improves resolve rate. The mission's own
+closing-the-loop stage measured that question in its smallest form (0/12
+to 2/12), and scaling it across sessions is a survey claim, not a number
+this stage produces. It also does not claim the three layers are enough —
+the point of naming each layer's forgetting is that every failure is
+diagnosable: stale instruction, stale summary, or silent miss.
+
+**Next:** the agent remembers. The next thing it needs is a way to agree
+with the outside world on what a tool call means —
+[tools and protocols](../tools-and-protocols/).
