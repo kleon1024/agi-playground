@@ -15,6 +15,28 @@ costs — and neither is what an agent reports about itself.
 where a test fails, and a patch that has to make it pass. Everything below is
 about what it takes to believe the word "pass".
 
+## Follow one real run
+
+Before the mechanism, the thing itself. This is a real agent run on one of
+the mission's tasks — `private-354c352`, a bug that escaped angle brackets
+inside inline code. It ran on 2026-08-14 through the mission harness with a
+haiku-tier model, and it resolved: 12 trace steps, 7 turns, \$0.44
+([full record](agent-loop/runs/2026-08-14-trace-354c352.md)).
+
+<!-- interactive: TraceStepper -->
+
+Watch the rhythm, because the whole topic is this rhythm at different sizes:
+the model *decides*, *acts* through a tool, and *observes* the result before
+deciding again. The first half of the trace is investigation — read the test,
+read the implementation, reproduce the failure. The middle is the edit. The
+last four steps are the reason the topic exists: it does not stop at a green
+target test, it re-runs the whole file to prove nothing else broke.
+
+That rhythm is what [the blind call](no-harness/) lacks, what
+[the loop](agent-loop/) adds, and what [the harness](agent-loop/harness-anatomy/)
+protects. Step through it once here; the stages below build it one layer at a
+time.
+
 ## Why this topic exists
 
 On 2026-07-29 this repository published a serving engine as `status: verified`.

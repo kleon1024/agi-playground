@@ -1521,7 +1521,7 @@
   },
   "04-agentic-platform": {
     "level": "applied",
-    "minutes": 10
+    "minutes": 11
   },
   "04-agentic-platform/agent-loop": {
     "level": "applied",
