@@ -26,12 +26,6 @@
       "title": "What did you actually know on the decision date?"
     },
     {
-      "path": "04-agentic-platform/task-set",
-      "kind": "stage",
-      "order": 0,
-      "title": "What makes a bug report into a task an agent can be scored on?"
-    },
-    {
       "path": "05-game-ai/baselines",
       "kind": "stage",
       "order": 0,
@@ -90,12 +84,6 @@
       "kind": "stage",
       "order": 1,
       "title": "How many ideas may you try before the winner means nothing?"
-    },
-    {
-      "path": "04-agentic-platform/no-harness",
-      "kind": "stage",
-      "order": 1,
-      "title": "Is the loop worth anything over one blind call?"
     },
     {
       "path": "05-game-ai/grpo",
@@ -164,12 +152,6 @@
       "title": "What turns a score into a portfolio?"
     },
     {
-      "path": "04-agentic-platform/agent-loop",
-      "kind": "stage",
-      "order": 2,
-      "title": "The agent says it fixed the bug. What would change your mind?"
-    },
-    {
       "path": "05-game-ai/verdict-baselines",
       "kind": "stage",
       "order": 2,
@@ -228,12 +210,6 @@
       "kind": "stage",
       "order": 3,
       "title": "What Sharpe would survive an honest split?"
-    },
-    {
-      "path": "04-agentic-platform/cheap-or-expensive",
-      "kind": "stage",
-      "order": 3,
-      "title": "The cheap model resolved everything. Should you use it?"
     },
     {
       "path": "05-game-ai/fixing-collapse",
@@ -302,12 +278,6 @@
       "title": "How much can the paper return actually carry?"
     },
     {
-      "path": "04-agentic-platform/how-it-fails",
-      "kind": "stage",
-      "order": 4,
-      "title": "How does it fail, and does it cheat?"
-    },
-    {
       "path": "05-game-ai/minigrid",
       "kind": "stage",
       "order": 4,
@@ -374,12 +344,6 @@
       "title": "Can this mission claim anything at all?"
     },
     {
-      "path": "04-agentic-platform/report",
-      "kind": "stage",
-      "order": 5,
-      "title": "What did this mission actually establish?"
-    },
-    {
       "path": "05-game-ai/verdict-cold-start",
       "kind": "stage",
       "order": 5,
@@ -438,12 +402,6 @@
       "kind": "stage",
       "order": 6,
       "title": "Why is the best slate not the top ten items?"
-    },
-    {
-      "path": "04-agentic-platform/closing-the-loop",
-      "kind": "stage",
-      "order": 6,
-      "title": "Does showing a model the real outcome of its own failed attempt help it fix the bug?"
     },
     {
       "path": "05-game-ai/tool-use-rl",
@@ -2612,150 +2570,6 @@
       "title": ""
     },
     {
-      "path": "04-agentic-platform/task-set/the-two-of-six-yield",
-      "kind": "sub",
-      "order": 50,
-      "title": "The yield is the finding"
-    },
-    {
-      "path": "04-agentic-platform/task-set/what-the-task-set-contains",
-      "kind": "sub",
-      "order": 50,
-      "title": "What does the mined task set actually contain?"
-    },
-    {
-      "path": "04-agentic-platform/no-harness/when-the-blind-call-fails",
-      "kind": "sub",
-      "order": 50,
-      "title": "The blind call, read: what one attempt without a loop costs"
-    },
-    {
-      "path": "04-agentic-platform/no-harness/when-the-patch-does-not-apply",
-      "kind": "sub",
-      "order": 50,
-      "title": "The first gate a blind call must pass"
-    },
-    {
-      "path": "04-agentic-platform/agent-loop/harness-anatomy",
-      "kind": "sub",
-      "order": 50,
-      "title": "What does the software around the model own?"
-    },
-    {
-      "path": "04-agentic-platform/agent-loop/the-loop-that-scores-a-patch",
-      "kind": "sub",
-      "order": 50,
-      "title": "The harness, drawn as its steps and checks"
-    },
-    {
-      "path": "04-agentic-platform/agent-loop/when-the-guardrail-refuses",
-      "kind": "sub",
-      "order": 50,
-      "title": "When does the test-file guardrail refuse a patch?"
-    },
-    {
-      "path": "04-agentic-platform/cheap-or-expensive/the-cost-quality-knee",
-      "kind": "sub",
-      "order": 50,
-      "title": "The expensive tier is not the fastest"
-    },
-    {
-      "path": "04-agentic-platform/cheap-or-expensive/the-tier-that-won",
-      "kind": "sub",
-      "order": 50,
-      "title": "When every tier resolves everything, which tier won?"
-    },
-    {
-      "path": "04-agentic-platform/cheap-or-expensive/what-a-reasonable-agentic-product-is",
-      "kind": "sub",
-      "order": 50,
-      "title": "When should the agent act, and when should a human sign it?"
-    },
-    {
-      "path": "04-agentic-platform/how-it-fails/control-plane-governance",
-      "kind": "sub",
-      "order": 50,
-      "title": "What does a governed agent actually do?"
-    },
-    {
-      "path": "04-agentic-platform/how-it-fails/the-adversary-that-adapts",
-      "kind": "sub",
-      "order": 50,
-      "title": "What does the adversary that adapts change?"
-    },
-    {
-      "path": "04-agentic-platform/how-it-fails/the-agent-is-the-action",
-      "kind": "sub",
-      "order": 50,
-      "title": "When is the agent the action?"
-    },
-    {
-      "path": "04-agentic-platform/how-it-fails/the-zero-failure-taxonomy",
-      "kind": "sub",
-      "order": 50,
-      "title": "Zero failures is a real result, not a gap"
-    },
-    {
-      "path": "04-agentic-platform/how-it-fails/when-the-patch-cannot-apply",
-      "kind": "sub",
-      "order": 50,
-      "title": "When the patch cannot even be applied, what is the loop buying?"
-    },
-    {
-      "path": "04-agentic-platform/report/intent-to-delivery",
-      "kind": "sub",
-      "order": 50,
-      "title": "Where does intent stop being delivered?"
-    },
-    {
-      "path": "04-agentic-platform/report/the-public-set-control",
-      "kind": "sub",
-      "order": 50,
-      "title": "The 6/6 that says nothing about the 18/18"
-    },
-    {
-      "path": "04-agentic-platform/report/when-the-partial-verdict",
-      "kind": "sub",
-      "order": 50,
-      "title": "The PARTIAL, read bullet by bullet"
-    },
-    {
-      "path": "04-agentic-platform/closing-the-loop/does-feedback-help",
-      "kind": "sub",
-      "order": 50,
-      "title": "Does seeing the real outcome help — with still no tools?"
-    },
-    {
-      "path": "04-agentic-platform/closing-the-loop/the-bimodal-retry",
-      "kind": "sub",
-      "order": 50,
-      "title": "Feedback fixed the fix, not the apply"
-    },
-    {
-      "path": "04-agentic-platform/closing-the-loop/agent-memory-landscape",
-      "kind": "page",
-      "order": 50,
-      "title": ""
-    },
-    {
-      "path": "04-agentic-platform/agent-loop/harness-effects-landscape",
-      "kind": "page",
-      "order": 50,
-      "title": ""
-    },
-    {
-      "path": "04-agentic-platform/agent-loop/infra-agent-harness-landscape",
-      "kind": "page",
-      "order": 50,
-      "title": ""
-    },
-    {
-      "path": "04-agentic-platform/lineage",
-      "kind": "page",
-      "order": 50,
-      "title": ""
-    },
-    {
       "path": "05-game-ai",
       "kind": "section",
       "order": 50,
@@ -3456,6 +3270,264 @@
       "kind": "section",
       "order": 100,
       "title": "Reference"
+    },
+    {
+      "path": "04-agentic-platform/task-set",
+      "kind": "stage",
+      "order": 0,
+      "title": "What makes a bug report into a task an agent can be scored on?"
+    },
+    {
+      "path": "04-agentic-platform/no-harness",
+      "kind": "stage",
+      "order": 1,
+      "title": "Is the loop worth anything over one blind call?"
+    },
+    {
+      "path": "04-agentic-platform/intent-to-plan",
+      "kind": "stage",
+      "order": 2,
+      "title": "A bug report is not a task. What has to happen between them?"
+    },
+    {
+      "path": "04-agentic-platform/agent-loop",
+      "kind": "stage",
+      "order": 3,
+      "title": "The agent says it fixed the bug. What would change your mind?"
+    },
+    {
+      "path": "04-agentic-platform/harness-comparison",
+      "kind": "stage",
+      "order": 4,
+      "title": "Every production harness is the same five decisions. Where do they differ?"
+    },
+    {
+      "path": "04-agentic-platform/cheap-or-expensive",
+      "kind": "stage",
+      "order": 5,
+      "title": "The cheap model resolved everything. Should you use it?"
+    },
+    {
+      "path": "04-agentic-platform/closing-the-loop",
+      "kind": "stage",
+      "order": 6,
+      "title": "Does showing a model the real outcome of its own failed attempt help it fix the bug?"
+    },
+    {
+      "path": "04-agentic-platform/execution-environment",
+      "kind": "stage",
+      "order": 7,
+      "title": "Where does the agent actually run, and what can that place do to it?"
+    },
+    {
+      "path": "04-agentic-platform/runtime-and-durability",
+      "kind": "stage",
+      "order": 8,
+      "title": "What happens to the task when the machine dies?"
+    },
+    {
+      "path": "04-agentic-platform/context-and-memory",
+      "kind": "stage",
+      "order": 9,
+      "title": "What does the agent remember, and how does it get what it forgot?"
+    },
+    {
+      "path": "04-agentic-platform/tools-and-protocols",
+      "kind": "stage",
+      "order": 10,
+      "title": "How do an agent and a tool agree on a contract?"
+    },
+    {
+      "path": "04-agentic-platform/orchestration-and-workflows",
+      "kind": "stage",
+      "order": 11,
+      "title": "One agent fixed one bug. How do you organize a task that needs twenty?"
+    },
+    {
+      "path": "04-agentic-platform/control-plane-and-governance",
+      "kind": "stage",
+      "order": 12,
+      "title": "The agent sees a sandbox. Who sees the agent?"
+    },
+    {
+      "path": "04-agentic-platform/agentic-infrastructure",
+      "kind": "stage",
+      "order": 13,
+      "title": "Under the platform, what does the machine room look like?"
+    },
+    {
+      "path": "04-agentic-platform/verification-and-evals",
+      "kind": "stage",
+      "order": 14,
+      "title": "The agent says it fixed the bug. What would change your mind?"
+    },
+    {
+      "path": "04-agentic-platform/autonomy-and-orchestration",
+      "kind": "stage",
+      "order": 15,
+      "title": "How much human is left in the loop, and where exactly?"
+    },
+    {
+      "path": "04-agentic-platform/industry-impact",
+      "kind": "stage",
+      "order": 16,
+      "title": "The platform works in this repo. Does it work in your industry?"
+    },
+    {
+      "path": "04-agentic-platform/real-tasks",
+      "kind": "stage",
+      "order": 17,
+      "title": "The platform passed its own tests. What happens on real work?"
+    },
+    {
+      "path": "04-agentic-platform/report",
+      "kind": "stage",
+      "order": 18,
+      "title": "What did this mission actually establish?"
+    },
+    {
+      "path": "04-agentic-platform/task-set/the-two-of-six-yield",
+      "kind": "sub",
+      "order": 50,
+      "title": "The yield is the finding"
+    },
+    {
+      "path": "04-agentic-platform/task-set/what-the-task-set-contains",
+      "kind": "sub",
+      "order": 50,
+      "title": "What does the mined task set actually contain?"
+    },
+    {
+      "path": "04-agentic-platform/no-harness/when-the-blind-call-fails",
+      "kind": "sub",
+      "order": 50,
+      "title": "The blind call, read: what one attempt without a loop costs"
+    },
+    {
+      "path": "04-agentic-platform/no-harness/when-the-patch-does-not-apply",
+      "kind": "sub",
+      "order": 50,
+      "title": "The first gate a blind call must pass"
+    },
+    {
+      "path": "04-agentic-platform/agent-loop/harness-anatomy",
+      "kind": "sub",
+      "order": 50,
+      "title": "What does the software around the model own?"
+    },
+    {
+      "path": "04-agentic-platform/agent-loop/the-loop-that-scores-a-patch",
+      "kind": "sub",
+      "order": 50,
+      "title": "The harness, drawn as its steps and checks"
+    },
+    {
+      "path": "04-agentic-platform/agent-loop/when-the-guardrail-refuses",
+      "kind": "sub",
+      "order": 50,
+      "title": "When does the test-file guardrail refuse a patch?"
+    },
+    {
+      "path": "04-agentic-platform/cheap-or-expensive/the-cost-quality-knee",
+      "kind": "sub",
+      "order": 50,
+      "title": "The expensive tier is not the fastest"
+    },
+    {
+      "path": "04-agentic-platform/cheap-or-expensive/the-tier-that-won",
+      "kind": "sub",
+      "order": 50,
+      "title": "When every tier resolves everything, which tier won?"
+    },
+    {
+      "path": "04-agentic-platform/cheap-or-expensive/what-a-reasonable-agentic-product-is",
+      "kind": "sub",
+      "order": 50,
+      "title": "When should the agent act, and when should a human sign it?"
+    },
+    {
+      "path": "04-agentic-platform/closing-the-loop/does-feedback-help",
+      "kind": "sub",
+      "order": 50,
+      "title": "Does seeing the real outcome help — with still no tools?"
+    },
+    {
+      "path": "04-agentic-platform/closing-the-loop/the-bimodal-retry",
+      "kind": "sub",
+      "order": 50,
+      "title": "Feedback fixed the fix, not the apply"
+    },
+    {
+      "path": "04-agentic-platform/verification-and-evals/control-plane-governance",
+      "kind": "sub",
+      "order": 50,
+      "title": "What does a governed agent actually do?"
+    },
+    {
+      "path": "04-agentic-platform/verification-and-evals/the-adversary-that-adapts",
+      "kind": "sub",
+      "order": 50,
+      "title": "What does the adversary that adapts change?"
+    },
+    {
+      "path": "04-agentic-platform/verification-and-evals/the-agent-is-the-action",
+      "kind": "sub",
+      "order": 50,
+      "title": "When is the agent the action?"
+    },
+    {
+      "path": "04-agentic-platform/verification-and-evals/the-zero-failure-taxonomy",
+      "kind": "sub",
+      "order": 50,
+      "title": "Zero failures is a real result, not a gap"
+    },
+    {
+      "path": "04-agentic-platform/verification-and-evals/when-the-patch-cannot-apply",
+      "kind": "sub",
+      "order": 50,
+      "title": "When the patch cannot even be applied, what is the loop buying?"
+    },
+    {
+      "path": "04-agentic-platform/report/intent-to-delivery",
+      "kind": "sub",
+      "order": 50,
+      "title": "Where does intent stop being delivered?"
+    },
+    {
+      "path": "04-agentic-platform/report/the-public-set-control",
+      "kind": "sub",
+      "order": 50,
+      "title": "The 6/6 that says nothing about the 18/18"
+    },
+    {
+      "path": "04-agentic-platform/report/when-the-partial-verdict",
+      "kind": "sub",
+      "order": 50,
+      "title": "The PARTIAL, read bullet by bullet"
+    },
+    {
+      "path": "04-agentic-platform/harness-comparison/harness-effects-landscape",
+      "kind": "page",
+      "order": 50,
+      "title": ""
+    },
+    {
+      "path": "04-agentic-platform/execution-environment/infra-agent-harness-landscape",
+      "kind": "page",
+      "order": 50,
+      "title": ""
+    },
+    {
+      "path": "04-agentic-platform/context-and-memory/agent-memory-landscape",
+      "kind": "page",
+      "order": 50,
+      "title": ""
+    },
+    {
+      "path": "04-agentic-platform/lineage",
+      "kind": "page",
+      "order": 50,
+      "title": ""
     }
   ],
   "renames": {
@@ -3523,7 +3595,7 @@
     "01-language-model/vision/04-real-photo-vision-fusion": "01-language-model/pretrain/real-photo-vision-fusion",
     "02-personalized-discovery/search/11-search-retrieval": "02-personalized-discovery/search-retrieval",
     "02-personalized-discovery/ads/43-ads-inside-the-loop": "02-personalized-discovery/ads-inside-the-loop",
-    "04-agentic-platform/infra-agent-harness-landscape.md": "04-agentic-platform/agent-loop/infra-agent-harness-landscape.md",
+    "04-agentic-platform/infra-agent-harness-landscape.md": "04-agentic-platform/execution-environment/infra-agent-harness-landscape.md",
     "02-personalized-discovery/search/19-query-expansion": "02-personalized-discovery/query-expansion",
     "02-personalized-discovery/search/20-dense-retrieval": "02-personalized-discovery/dense-retrieval",
     "02-personalized-discovery/ads/26-creative-selection": "02-personalized-discovery/creative-selection",
@@ -3546,7 +3618,7 @@
     "02-personalized-discovery/ads/30-ads-measurement": "02-personalized-discovery/ads-measurement",
     "02-personalized-discovery/ads/56-advertiser-roas": "02-personalized-discovery/advertiser-roas",
     "03-quantitative-research/02-cross-sectional-rank": "03-quantitative-research/cross-sectional-rank",
-    "04-agentic-platform/harness-effects-landscape.md": "04-agentic-platform/agent-loop/harness-effects-landscape.md",
+    "04-agentic-platform/harness-effects-landscape.md": "04-agentic-platform/harness-comparison/harness-effects-landscape.md",
     "07-multimodal-generation/voice/05-codebook-reset": "07-multimodal-generation/codebook-reset",
     "02-personalized-discovery/shared/07-rule-engine": "02-personalized-discovery/rule-engine",
     "02-personalized-discovery/shared/55-ltv-and-cac": "02-personalized-discovery/ltv-and-cac",
@@ -3566,7 +3638,7 @@
     "02-personalized-discovery/ads/27-bid-strategy": "02-personalized-discovery/bid-strategy",
     "02-personalized-discovery/ads/29-rtb-pipeline": "02-personalized-discovery/rtb-pipeline",
     "03-quantitative-research/04-cost-and-capacity": "03-quantitative-research/cost-and-capacity",
-    "04-agentic-platform/agent-memory-landscape.md": "04-agentic-platform/closing-the-loop/agent-memory-landscape.md",
+    "04-agentic-platform/agent-memory-landscape.md": "04-agentic-platform/context-and-memory/agent-memory-landscape.md",
     "07-multimodal-generation/voice/00-audio-codec": "07-multimodal-generation/audio-codec",
     "01-language-model/vision/06-warmup-stability": "01-language-model/pretrain/warmup-stability",
     "02-personalized-discovery/shared/03-pre-rank": "02-personalized-discovery/pre-rank",
@@ -3592,7 +3664,7 @@
     "04-agentic-platform/06-closing-the-loop": "04-agentic-platform/closing-the-loop",
     "09-autonomous-driving/02-expert-policy": "09-autonomous-driving/expert-policy",
     "foundations/05-is-the-difference-real": "foundations/is-the-difference-real",
-    "04-agentic-platform/04-how-it-fails": "04-agentic-platform/how-it-fails",
+    "04-agentic-platform/04-how-it-fails": "04-agentic-platform/verification-and-evals",
     "foundations/04-distributed-training": "foundations/distributed-training",
     "01-language-model/vision/02-report": "01-language-model/eval/vision-report",
     "03-quantitative-research/05-report": "03-quantitative-research/report",
@@ -3625,9 +3697,28 @@
     "foundations/07-moe": "foundations/moe",
     "01-language-model/pretraining-data-landscape": "01-language-model/corpus/pretraining-data-landscape",
     "01-language-model/post-training-rl-landscape": "01-language-model/rl/post-training-rl-landscape",
-    "04-agentic-platform/harness-effects-landscape": "04-agentic-platform/agent-loop/harness-effects-landscape",
-    "04-agentic-platform/infra-agent-harness-landscape": "04-agentic-platform/agent-loop/infra-agent-harness-landscape",
-    "04-agentic-platform/agent-memory-landscape": "04-agentic-platform/closing-the-loop/agent-memory-landscape"
+    "04-agentic-platform/harness-effects-landscape": "04-agentic-platform/harness-comparison/harness-effects-landscape",
+    "04-agentic-platform/infra-agent-harness-landscape": "04-agentic-platform/execution-environment/infra-agent-harness-landscape",
+    "04-agentic-platform/agent-memory-landscape": "04-agentic-platform/context-and-memory/agent-memory-landscape",
+    "04-agentic-platform/how-it-fails/control-plane-governance": "04-agentic-platform/verification-and-evals/control-plane-governance",
+    "04-agentic-platform/how-it-fails/the-adversary-that-adapts": "04-agentic-platform/verification-and-evals/the-adversary-that-adapts",
+    "04-agentic-platform/how-it-fails/the-agent-is-the-action": "04-agentic-platform/verification-and-evals/the-agent-is-the-action",
+    "04-agentic-platform/how-it-fails/the-zero-failure-taxonomy": "04-agentic-platform/verification-and-evals/the-zero-failure-taxonomy",
+    "04-agentic-platform/how-it-fails/when-the-patch-cannot-apply": "04-agentic-platform/verification-and-evals/when-the-patch-cannot-apply",
+    "04-agentic-platform/agent-loop/harness-effects-landscape": "04-agentic-platform/harness-comparison/harness-effects-landscape",
+    "04-agentic-platform/agent-loop/infra-agent-harness-landscape": "04-agentic-platform/execution-environment/infra-agent-harness-landscape",
+    "04-agentic-platform/closing-the-loop/agent-memory-landscape": "04-agentic-platform/context-and-memory/agent-memory-landscape",
+    "04-agentic-platform/04-how-it-fails/control-plane-governance": "04-agentic-platform/verification-and-evals/control-plane-governance",
+    "04-agentic-platform/04-how-it-fails/the-adversary-that-adapts": "04-agentic-platform/verification-and-evals/the-adversary-that-adapts",
+    "04-agentic-platform/04-how-it-fails/the-agent-is-the-action": "04-agentic-platform/verification-and-evals/the-agent-is-the-action",
+    "04-agentic-platform/04-how-it-fails/the-zero-failure-taxonomy": "04-agentic-platform/verification-and-evals/the-zero-failure-taxonomy",
+    "04-agentic-platform/04-how-it-fails/when-the-patch-cannot-apply": "04-agentic-platform/verification-and-evals/when-the-patch-cannot-apply",
+    "04-agentic-platform/04-agent-loop/harness-effects-landscape": "04-agentic-platform/harness-comparison/harness-effects-landscape",
+    "04-agentic-platform/04-agent-loop/infra-agent-harness-landscape": "04-agentic-platform/execution-environment/infra-agent-harness-landscape",
+    "04-agentic-platform/04-closing-the-loop/agent-memory-landscape": "04-agentic-platform/context-and-memory/agent-memory-landscape",
+    "04-agentic-platform/04-agent-memory-landscape": "04-agentic-platform/context-and-memory/agent-memory-landscape",
+    "04-agentic-platform/04-harness-effects-landscape": "04-agentic-platform/harness-comparison/harness-effects-landscape",
+    "04-agentic-platform/04-infra-agent-harness-landscape": "04-agentic-platform/execution-environment/infra-agent-harness-landscape"
   },
   "groups": {
     "02-personalized-discovery": [
@@ -3757,6 +3848,57 @@
           "07-multimodal-generation/longer-and-multi-object"
         ],
         "overview": "07-multimodal-generation/video"
+      }
+    ],
+    "04-agentic-platform": [
+      {
+        "label": "Call",
+        "stages": [
+          "04-agentic-platform/task-set",
+          "04-agentic-platform/no-harness"
+        ]
+      },
+      {
+        "label": "Intent",
+        "stages": [
+          "04-agentic-platform/intent-to-plan"
+        ]
+      },
+      {
+        "label": "Harness",
+        "stages": [
+          "04-agentic-platform/agent-loop",
+          "04-agentic-platform/harness-comparison",
+          "04-agentic-platform/cheap-or-expensive",
+          "04-agentic-platform/closing-the-loop"
+        ]
+      },
+      {
+        "label": "Platform capabilities",
+        "stages": [
+          "04-agentic-platform/execution-environment",
+          "04-agentic-platform/runtime-and-durability",
+          "04-agentic-platform/context-and-memory",
+          "04-agentic-platform/tools-and-protocols"
+        ]
+      },
+      {
+        "label": "Platform organization",
+        "stages": [
+          "04-agentic-platform/orchestration-and-workflows",
+          "04-agentic-platform/control-plane-and-governance",
+          "04-agentic-platform/agentic-infrastructure",
+          "04-agentic-platform/verification-and-evals",
+          "04-agentic-platform/autonomy-and-orchestration"
+        ]
+      },
+      {
+        "label": "Impact and production",
+        "stages": [
+          "04-agentic-platform/industry-impact",
+          "04-agentic-platform/real-tasks",
+          "04-agentic-platform/report"
+        ]
       }
     ]
   }

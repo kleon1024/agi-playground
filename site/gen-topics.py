@@ -46,8 +46,8 @@ RISK_GOVERNANCE = [
     "01-language-model/eval/who-decides-to-ship",
     "02-personalized-discovery/fairness-and-allocation",
     "02-personalized-discovery/privacy-safe-attribution",
-    "04-agentic-platform/how-it-fails/control-plane-governance",
-    "04-agentic-platform/how-it-fails/the-adversary-that-adapts",
+    "04-agentic-platform/verification-and-evals/control-plane-governance",
+    "04-agentic-platform/verification-and-evals/the-adversary-that-adapts",
 ]
 
 

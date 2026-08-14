@@ -16,48 +16,48 @@ from the same content graph that orders the sidebar, so it cannot drift.
 ### Pretraining
 
 - [What has to be true of text before you train on it?](/playground/01-language-model/corpus)
-- [What makes a synthetic image+question pair actually require looking at the image?](/playground/01-language-model/corpus/image-caption-task)
-- [Does the leakage discipline that worked on synthetic shapes survive real photographs?](/playground/01-language-model/corpus/real-photo-task)
 - [You have the text. What decides whether anyone can trust it?](/playground/01-language-model/corpus/what-a-release-needs)
-- [Landscape](/playground/01-language-model/corpus/LANDSCAPE)
-- [Why does dedup reach for a GPU once the corpus gets big enough?](/playground/01-language-model/corpus/dedup-at-scale)
-- [Hashing scales linearly; verification scales quadratically](/playground/01-language-model/corpus/dedup-at-scale/when-verification-goes-quadratic)
-- [Pretraining Data Landscape](/playground/01-language-model/corpus/pretraining-data-landscape)
-- [Why does a leakage guardrail need to check pixels, not seeds?](/playground/01-language-model/corpus/seed-vs-pixels)
-- [Disjoint seeds are not disjoint images](/playground/01-language-model/corpus/the-collision-that-closed-the-gap)
 - [18.3% of the raw web survives — and that is the point](/playground/01-language-model/corpus/the-funnel-shape)
-- [Why real photos are checked by ID, not by pixel](/playground/01-language-model/corpus/the-id-based-guardrail)
-- [The real-photo guardrail: why image ID, not pixel hash](/playground/01-language-model/corpus/the-real-photo-guardrail)
 - [The benchmark item is already in the training set](/playground/01-language-model/corpus/when-the-benchmark-is-in-the-train-set)
 - [When the wash eats the signal](/playground/01-language-model/corpus/when-the-filter-eats-the-signal)
+- [Why does dedup reach for a GPU once the corpus gets big enough?](/playground/01-language-model/corpus/dedup-at-scale)
+- [Hashing scales linearly; verification scales quadratically](/playground/01-language-model/corpus/dedup-at-scale/when-verification-goes-quadratic)
+- [What makes a synthetic image+question pair actually require looking at the image?](/playground/01-language-model/corpus/image-caption-task)
+- [Why does a leakage guardrail need to check pixels, not seeds?](/playground/01-language-model/corpus/seed-vs-pixels)
+- [Disjoint seeds are not disjoint images](/playground/01-language-model/corpus/the-collision-that-closed-the-gap)
+- [Does the leakage discipline that worked on synthetic shapes survive real photographs?](/playground/01-language-model/corpus/real-photo-task)
+- [The real-photo guardrail: why image ID, not pixel hash](/playground/01-language-model/corpus/the-real-photo-guardrail)
+- [Why real photos are checked by ID, not by pixel](/playground/01-language-model/corpus/the-id-based-guardrail)
+- [Pretraining Data Landscape](/playground/01-language-model/corpus/pretraining-data-landscape)
+- [Landscape](/playground/01-language-model/corpus/LANDSCAPE)
 - [How does text become the numbers a model sees?](/playground/01-language-model/tokenizer)
 - [How do you know the fast version learned the same vocabulary?](/playground/01-language-model/tokenizer/is-it-the-same-tokenizer)
 - [The same corpus, the same rule — why two vocabularies?](/playground/01-language-model/tokenizer/is-it-the-same-tokenizer/when-the-tie-break-matters)
 - [Some text costs an order of magnitude more](/playground/01-language-model/tokenizer/the-characters-that-cost-the-most)
 - [The merge sequence IS the tokenizer's logic](/playground/01-language-model/tokenizer/the-merges-that-build-the-vocab)
 - [What are you actually training?](/playground/01-language-model/pretrain)
-- [Does a decoder that can see the image actually use it?](/playground/01-language-model/pretrain/vision-fusion)
-- [Does the same vision pathway, unchanged, still separate from a text-only guess on real photographs?](/playground/01-language-model/pretrain/real-photo-vision-fusion)
-- [Does a learning-rate warmup close the seed-2 collapse?](/playground/01-language-model/pretrain/warmup-stability)
 - [How do you know a five-hour run is working?](/playground/01-language-model/pretrain/verifying-the-run)
+- [Your run will take ten hours. Should it?](/playground/01-language-model/pretrain/throughput)
+- [Does a learning-rate warmup close the seed-2 collapse?](/playground/01-language-model/pretrain/warmup-stability)
+- [What the warmup changed, and what it did not](/playground/01-language-model/pretrain/when-warmup-closed-the-collapse)
+- [The seed-2 outlier, closed by a training-dynamics fix](/playground/01-language-model/pretrain/the-collapse-that-warmup-closed)
 - [Architecture ablations: the budget you hold equal](/playground/01-language-model/pretrain/architecture-ablations)
 - [What happens when the budget definition decides the winner?](/playground/01-language-model/pretrain/architecture-ablations/the-rung-that-flipped)
-- [Your run will take ten hours. Should it?](/playground/01-language-model/pretrain/throughput)
+- [The gate that beats ReLU](/playground/01-language-model/pretrain/the-gate-that-beats-relu)
+- [Why is the KV cache the architecture's tax?](/playground/01-language-model/pretrain/attention-variants)
 - [Can you keep the weights and change the architecture?](/playground/01-language-model/pretrain/upcycling)
 - [Does the extra capacity earn back what it cost?](/playground/01-language-model/pretrain/upcycling/does-it-pay-off)
 - [The loss curve looks wrong. Which subsystem owns it?](/playground/01-language-model/pretrain/when-the-curve-goes-wrong)
 - [What if the model could think without choosing words?](/playground/01-language-model/pretrain/latent-reasoning)
-- [Landscape](/playground/01-language-model/pretrain/LANDSCAPE)
-- [Why is the KV cache the architecture's tax?](/playground/01-language-model/pretrain/attention-variants)
 - [Where does a base model learn to call a tool?](/playground/01-language-model/pretrain/mid-training)
 - [When the annealed slice moves the evals](/playground/01-language-model/pretrain/mid-training/when-the-annealed-slice-moves-the-evals)
-- [The seed-2 outlier, closed by a training-dynamics fix](/playground/01-language-model/pretrain/the-collapse-that-warmup-closed)
-- [The noise changed sides](/playground/01-language-model/pretrain/the-flipped-variance)
-- [There is no cross-attention module](/playground/01-language-model/pretrain/the-fused-attention-anatomy)
-- [The gate that beats ReLU](/playground/01-language-model/pretrain/the-gate-that-beats-relu)
-- [The margin is narrow, real, and noisy on the control side](/playground/01-language-model/pretrain/when-the-margin-is-narrow)
-- [What the warmup changed, and what it did not](/playground/01-language-model/pretrain/when-warmup-closed-the-collapse)
+- [Does a decoder that can see the image actually use it?](/playground/01-language-model/pretrain/vision-fusion)
 - [Where does the decoder look when the image matters?](/playground/01-language-model/pretrain/where-the-decoder-looks)
+- [There is no cross-attention module](/playground/01-language-model/pretrain/the-fused-attention-anatomy)
+- [Does the same vision pathway, unchanged, still separate from a text-only guess on real photographs?](/playground/01-language-model/pretrain/real-photo-vision-fusion)
+- [The margin is narrow, real, and noisy on the control side](/playground/01-language-model/pretrain/when-the-margin-is-narrow)
+- [The noise changed sides](/playground/01-language-model/pretrain/the-flipped-variance)
+- [Landscape](/playground/01-language-model/pretrain/LANDSCAPE)
 
 ### Post Training
 
@@ -103,19 +103,19 @@ from the same content graph that orders the sidebar, so it cannot drift.
 - [Landscape](/playground/01-language-model/agent-harness/LANDSCAPE)
 - [When the tool errors, who teaches the recovery turn?](/playground/01-language-model/agent-harness/when-the-tool-errors)
 - [How would you know if any of this worked?](/playground/01-language-model/eval)
-- [Did building the vision pathway pay for itself?](/playground/01-language-model/eval/vision-report)
-- [Does the real-photo vision pathway hold up against a hosted VLM, not just a text-only guess?](/playground/01-language-model/eval/real-photo-report)
 - [Which part of a score belongs to the model?](/playground/01-language-model/eval/whose-harness)
 - [The report is correct. Why should anyone believe it?](/playground/01-language-model/eval/why-believe-the-number)
-- [The score went up. Did the thing you actually wanted?](/playground/01-language-model/eval/metric-gaming)
 - [The report is in. What has to be true before it ships?](/playground/01-language-model/eval/who-decides-to-ship)
+- [The score went up. Did the thing you actually wanted?](/playground/01-language-model/eval/metric-gaming)
 - [How does a release get blocked before a person has to eyeball it?](/playground/01-language-model/eval/eval-gates)
 - [Where do the test cases that make a gate meaningful actually come from?](/playground/01-language-model/eval/red-teaming)
-- [Landscape](/playground/01-language-model/eval/LANDSCAPE)
-- [The API's edge is shaped like the answer type](/playground/01-language-model/eval/the-answer-type-shaped-edge)
+- [Did building the vision pathway pay for itself?](/playground/01-language-model/eval/vision-report)
 - [The \$0.00128/question that decides build-vs-buy](/playground/01-language-model/eval/the-economics-per-question)
-- [The build-vs-buy verdict, on real photos](/playground/01-language-model/eval/when-the-api-still-wins)
 - [Where the NOT MET verdict hides the pathway's real signal](/playground/01-language-model/eval/when-the-category-breaks-down)
+- [Does the real-photo vision pathway hold up against a hosted VLM, not just a text-only guess?](/playground/01-language-model/eval/real-photo-report)
+- [The build-vs-buy verdict, on real photos](/playground/01-language-model/eval/when-the-api-still-wins)
+- [The API's edge is shaped like the answer type](/playground/01-language-model/eval/the-answer-type-shaped-edge)
+- [Landscape](/playground/01-language-model/eval/LANDSCAPE)
 
 - [Lineage](/playground/01-language-model/lineage)
 
@@ -433,36 +433,66 @@ from the same content graph that orders the sidebar, so it cannot drift.
 
 ## When an agent says it fixed the bug, what makes that true?
 
+### Call
+
 - [What makes a bug report into a task an agent can be scored on?](/playground/04-agentic-platform/task-set)
 - [The yield is the finding](/playground/04-agentic-platform/task-set/the-two-of-six-yield)
 - [What does the mined task set actually contain?](/playground/04-agentic-platform/task-set/what-the-task-set-contains)
 - [Is the loop worth anything over one blind call?](/playground/04-agentic-platform/no-harness)
 - [The blind call, read: what one attempt without a loop costs](/playground/04-agentic-platform/no-harness/when-the-blind-call-fails)
 - [The first gate a blind call must pass](/playground/04-agentic-platform/no-harness/when-the-patch-does-not-apply)
+
+### Intent
+
+- [A bug report is not a task. What has to happen between them?](/playground/04-agentic-platform/intent-to-plan)
+
+### Harness
+
 - [The agent says it fixed the bug. What would change your mind?](/playground/04-agentic-platform/agent-loop)
 - [What does the software around the model own?](/playground/04-agentic-platform/agent-loop/harness-anatomy)
-- [Harness Effects Landscape](/playground/04-agentic-platform/agent-loop/harness-effects-landscape)
-- [Infra Agent Harness Landscape](/playground/04-agentic-platform/agent-loop/infra-agent-harness-landscape)
 - [The harness, drawn as its steps and checks](/playground/04-agentic-platform/agent-loop/the-loop-that-scores-a-patch)
 - [When does the test-file guardrail refuse a patch?](/playground/04-agentic-platform/agent-loop/when-the-guardrail-refuses)
+- [Every production harness is the same five decisions. Where do they differ?](/playground/04-agentic-platform/harness-comparison)
+- [Harness Effects Landscape](/playground/04-agentic-platform/harness-comparison/harness-effects-landscape)
 - [The cheap model resolved everything. Should you use it?](/playground/04-agentic-platform/cheap-or-expensive)
 - [The expensive tier is not the fastest](/playground/04-agentic-platform/cheap-or-expensive/the-cost-quality-knee)
 - [When every tier resolves everything, which tier won?](/playground/04-agentic-platform/cheap-or-expensive/the-tier-that-won)
 - [When should the agent act, and when should a human sign it?](/playground/04-agentic-platform/cheap-or-expensive/what-a-reasonable-agentic-product-is)
-- [How does it fail, and does it cheat?](/playground/04-agentic-platform/how-it-fails)
-- [What does a governed agent actually do?](/playground/04-agentic-platform/how-it-fails/control-plane-governance)
-- [What does the adversary that adapts change?](/playground/04-agentic-platform/how-it-fails/the-adversary-that-adapts)
-- [When is the agent the action?](/playground/04-agentic-platform/how-it-fails/the-agent-is-the-action)
-- [Zero failures is a real result, not a gap](/playground/04-agentic-platform/how-it-fails/the-zero-failure-taxonomy)
-- [When the patch cannot even be applied, what is the loop buying?](/playground/04-agentic-platform/how-it-fails/when-the-patch-cannot-apply)
+- [Does showing a model the real outcome of its own failed attempt help it fix the bug?](/playground/04-agentic-platform/closing-the-loop)
+- [Does seeing the real outcome help — with still no tools?](/playground/04-agentic-platform/closing-the-loop/does-feedback-help)
+- [Feedback fixed the fix, not the apply](/playground/04-agentic-platform/closing-the-loop/the-bimodal-retry)
+
+### Platform capabilities
+
+- [Where does the agent actually run, and what can that place do to it?](/playground/04-agentic-platform/execution-environment)
+- [Infra Agent Harness Landscape](/playground/04-agentic-platform/execution-environment/infra-agent-harness-landscape)
+- [What happens to the task when the machine dies?](/playground/04-agentic-platform/runtime-and-durability)
+- [What does the agent remember, and how does it get what it forgot?](/playground/04-agentic-platform/context-and-memory)
+- [Agent Memory Landscape](/playground/04-agentic-platform/context-and-memory/agent-memory-landscape)
+- [How do an agent and a tool agree on a contract?](/playground/04-agentic-platform/tools-and-protocols)
+
+### Platform organization
+
+- [One agent fixed one bug. How do you organize a task that needs twenty?](/playground/04-agentic-platform/orchestration-and-workflows)
+- [The agent sees a sandbox. Who sees the agent?](/playground/04-agentic-platform/control-plane-and-governance)
+- [Under the platform, what does the machine room look like?](/playground/04-agentic-platform/agentic-infrastructure)
+- [The agent says it fixed the bug. What would change your mind?](/playground/04-agentic-platform/verification-and-evals)
+- [What does a governed agent actually do?](/playground/04-agentic-platform/verification-and-evals/control-plane-governance)
+- [What does the adversary that adapts change?](/playground/04-agentic-platform/verification-and-evals/the-adversary-that-adapts)
+- [When is the agent the action?](/playground/04-agentic-platform/verification-and-evals/the-agent-is-the-action)
+- [Zero failures is a real result, not a gap](/playground/04-agentic-platform/verification-and-evals/the-zero-failure-taxonomy)
+- [When the patch cannot even be applied, what is the loop buying?](/playground/04-agentic-platform/verification-and-evals/when-the-patch-cannot-apply)
+- [How much human is left in the loop, and where exactly?](/playground/04-agentic-platform/autonomy-and-orchestration)
+
+### Impact and production
+
+- [The platform works in this repo. Does it work in your industry?](/playground/04-agentic-platform/industry-impact)
+- [The platform passed its own tests. What happens on real work?](/playground/04-agentic-platform/real-tasks)
 - [What did this mission actually establish?](/playground/04-agentic-platform/report)
 - [Where does intent stop being delivered?](/playground/04-agentic-platform/report/intent-to-delivery)
 - [The 6/6 that says nothing about the 18/18](/playground/04-agentic-platform/report/the-public-set-control)
 - [The PARTIAL, read bullet by bullet](/playground/04-agentic-platform/report/when-the-partial-verdict)
-- [Does showing a model the real outcome of its own failed attempt help it fix the bug?](/playground/04-agentic-platform/closing-the-loop)
-- [Agent Memory Landscape](/playground/04-agentic-platform/closing-the-loop/agent-memory-landscape)
-- [Does seeing the real outcome help — with still no tools?](/playground/04-agentic-platform/closing-the-loop/does-feedback-help)
-- [Feedback fixed the fix, not the apply](/playground/04-agentic-platform/closing-the-loop/the-bimodal-retry)
+
 - [Lineage](/playground/04-agentic-platform/lineage)
 
 ## Does RL sharpen a policy that already wins sometimes, or does nothing happen?
@@ -648,8 +678,8 @@ attribution, and governing an agent that acts.
 - [The report is in. What has to be true before it ships?](/playground/01-language-model/eval/who-decides-to-ship)
 - [Exposure is a budget the ranker allocates](/playground/02-personalized-discovery/fairness-and-allocation)
 - [The noise flips the order that spends the budget](/playground/02-personalized-discovery/privacy-safe-attribution)
-- [What does a governed agent actually do?](/playground/04-agentic-platform/how-it-fails/control-plane-governance)
-- [What does the adversary that adapts change?](/playground/04-agentic-platform/how-it-fails/the-adversary-that-adapts)
+- [What does a governed agent actually do?](/playground/04-agentic-platform/verification-and-evals/control-plane-governance)
+- [What does the adversary that adapts change?](/playground/04-agentic-platform/verification-and-evals/the-adversary-that-adapts)
 
 ## Or start from the stakeholder problem
 

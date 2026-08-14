@@ -1539,6 +1539,14 @@
     "level": "applied",
     "minutes": 4
   },
+  "04-agentic-platform/agentic-infrastructure": {
+    "level": "frontier",
+    "minutes": 3
+  },
+  "04-agentic-platform/autonomy-and-orchestration": {
+    "level": "frontier",
+    "minutes": 3
+  },
   "04-agentic-platform/cheap-or-expensive": {
     "level": "frontier",
     "minutes": 10
@@ -1567,29 +1575,29 @@
     "level": "applied",
     "minutes": 3
   },
-  "04-agentic-platform/how-it-fails": {
-    "level": "applied",
-    "minutes": 8
-  },
-  "04-agentic-platform/how-it-fails/control-plane-governance": {
+  "04-agentic-platform/context-and-memory": {
     "level": "frontier",
-    "minutes": 8
-  },
-  "04-agentic-platform/how-it-fails/the-adversary-that-adapts": {
-    "level": "frontier",
-    "minutes": 7
-  },
-  "04-agentic-platform/how-it-fails/the-agent-is-the-action": {
-    "level": "frontier",
-    "minutes": 6
-  },
-  "04-agentic-platform/how-it-fails/the-zero-failure-taxonomy": {
-    "level": "applied",
     "minutes": 3
   },
-  "04-agentic-platform/how-it-fails/when-the-patch-cannot-apply": {
-    "level": "applied",
-    "minutes": 4
+  "04-agentic-platform/control-plane-and-governance": {
+    "level": "frontier",
+    "minutes": 2
+  },
+  "04-agentic-platform/execution-environment": {
+    "level": "frontier",
+    "minutes": 2
+  },
+  "04-agentic-platform/harness-comparison": {
+    "level": "frontier",
+    "minutes": 2
+  },
+  "04-agentic-platform/industry-impact": {
+    "level": "frontier",
+    "minutes": 3
+  },
+  "04-agentic-platform/intent-to-plan": {
+    "level": "frontier",
+    "minutes": 3
   },
   "04-agentic-platform/no-harness": {
     "level": "applied",
@@ -1602,6 +1610,14 @@
   "04-agentic-platform/no-harness/when-the-patch-does-not-apply": {
     "level": "applied",
     "minutes": 3
+  },
+  "04-agentic-platform/orchestration-and-workflows": {
+    "level": "frontier",
+    "minutes": 2
+  },
+  "04-agentic-platform/real-tasks": {
+    "level": "frontier",
+    "minutes": 2
   },
   "04-agentic-platform/report": {
     "level": "applied",
@@ -1619,6 +1635,10 @@
     "level": "applied",
     "minutes": 3
   },
+  "04-agentic-platform/runtime-and-durability": {
+    "level": "frontier",
+    "minutes": 2
+  },
   "04-agentic-platform/task-set": {
     "level": "applied",
     "minutes": 10
@@ -1628,6 +1648,34 @@
     "minutes": 3
   },
   "04-agentic-platform/task-set/what-the-task-set-contains": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "04-agentic-platform/tools-and-protocols": {
+    "level": "frontier",
+    "minutes": 2
+  },
+  "04-agentic-platform/verification-and-evals": {
+    "level": "applied",
+    "minutes": 4
+  },
+  "04-agentic-platform/verification-and-evals/control-plane-governance": {
+    "level": "frontier",
+    "minutes": 8
+  },
+  "04-agentic-platform/verification-and-evals/the-adversary-that-adapts": {
+    "level": "frontier",
+    "minutes": 7
+  },
+  "04-agentic-platform/verification-and-evals/the-agent-is-the-action": {
+    "level": "frontier",
+    "minutes": 6
+  },
+  "04-agentic-platform/verification-and-evals/the-zero-failure-taxonomy": {
+    "level": "applied",
+    "minutes": 3
+  },
+  "04-agentic-platform/verification-and-evals/when-the-patch-cannot-apply": {
     "level": "applied",
     "minutes": 4
   },

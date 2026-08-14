@@ -2465,186 +2465,297 @@
     "items": [
       {
         "type": "category",
-        "label": "The task set",
-        "link": {
-          "type": "doc",
-          "id": "04-agentic-platform/task-set/index"
-        },
+        "label": "Call",
         "items": [
           {
-            "type": "doc",
-            "id": "04-agentic-platform/task-set/the-two-of-six-yield/index",
-            "label": "The two-of-six yield"
+            "type": "category",
+            "label": "The task set",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/task-set/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/task-set/the-two-of-six-yield/index",
+                "label": "The two-of-six yield"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/task-set/what-the-task-set-contains/index",
+                "label": "What the task set contains"
+              }
+            ]
           },
           {
-            "type": "doc",
-            "id": "04-agentic-platform/task-set/what-the-task-set-contains/index",
-            "label": "What the task set contains"
+            "type": "category",
+            "label": "No harness",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/no-harness/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/no-harness/when-the-blind-call-fails/index",
+                "label": "When the blind call fails"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/no-harness/when-the-patch-does-not-apply/index",
+                "label": "When the patch does not apply"
+              }
+            ]
           }
         ]
       },
       {
         "type": "category",
-        "label": "No harness",
-        "link": {
-          "type": "doc",
-          "id": "04-agentic-platform/no-harness/index"
-        },
+        "label": "Intent",
         "items": [
           {
             "type": "doc",
-            "id": "04-agentic-platform/no-harness/when-the-blind-call-fails/index",
-            "label": "When the blind call fails"
-          },
-          {
-            "type": "doc",
-            "id": "04-agentic-platform/no-harness/when-the-patch-does-not-apply/index",
-            "label": "When the patch does not apply"
+            "id": "04-agentic-platform/intent-to-plan/index",
+            "label": "Intent to plan"
           }
         ]
       },
       {
         "type": "category",
-        "label": "Scoring the attempt",
-        "link": {
-          "type": "doc",
-          "id": "04-agentic-platform/agent-loop/index"
-        },
+        "label": "Harness",
         "items": [
           {
-            "type": "doc",
-            "id": "04-agentic-platform/agent-loop/harness-anatomy/index",
-            "label": "Harness anatomy"
+            "type": "category",
+            "label": "Scoring the attempt",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/agent-loop/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/agent-loop/harness-anatomy/index",
+                "label": "Harness anatomy"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/agent-loop/the-loop-that-scores-a-patch/index",
+                "label": "The loop that scores a patch"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/agent-loop/when-the-guardrail-refuses/index",
+                "label": "When the guardrail refuses"
+              }
+            ]
           },
           {
-            "type": "doc",
-            "id": "04-agentic-platform/agent-loop/harness-effects-landscape",
-            "label": "Harness effects landscape"
+            "type": "category",
+            "label": "Harness comparison",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/harness-comparison/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/harness-comparison/harness-effects-landscape",
+                "label": "Harness effects landscape"
+              }
+            ]
           },
           {
-            "type": "doc",
-            "id": "04-agentic-platform/agent-loop/infra-agent-harness-landscape",
-            "label": "Infra agent harness landscape"
+            "type": "category",
+            "label": "Cheap or expensive",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/cheap-or-expensive/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/cheap-or-expensive/what-a-reasonable-agentic-product-is/index",
+                "label": "A reasonable agentic product"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/cheap-or-expensive/the-cost-quality-knee/index",
+                "label": "The cost-quality knee"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/cheap-or-expensive/the-tier-that-won/index",
+                "label": "The tier that won"
+              }
+            ]
           },
           {
-            "type": "doc",
-            "id": "04-agentic-platform/agent-loop/the-loop-that-scores-a-patch/index",
-            "label": "The loop that scores a patch"
-          },
-          {
-            "type": "doc",
-            "id": "04-agentic-platform/agent-loop/when-the-guardrail-refuses/index",
-            "label": "When the guardrail refuses"
+            "type": "category",
+            "label": "Closing the loop",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/closing-the-loop/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/closing-the-loop/does-feedback-help/index",
+                "label": "Does feedback help"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/closing-the-loop/the-bimodal-retry/index",
+                "label": "The bimodal retry"
+              }
+            ]
           }
         ]
       },
       {
         "type": "category",
-        "label": "Cheap or expensive",
-        "link": {
-          "type": "doc",
-          "id": "04-agentic-platform/cheap-or-expensive/index"
-        },
+        "label": "Platform capabilities",
         "items": [
           {
-            "type": "doc",
-            "id": "04-agentic-platform/cheap-or-expensive/what-a-reasonable-agentic-product-is/index",
-            "label": "A reasonable agentic product"
+            "type": "category",
+            "label": "Execution environment",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/execution-environment/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/execution-environment/infra-agent-harness-landscape",
+                "label": "Infra agent harness landscape"
+              }
+            ]
           },
           {
             "type": "doc",
-            "id": "04-agentic-platform/cheap-or-expensive/the-cost-quality-knee/index",
-            "label": "The cost-quality knee"
+            "id": "04-agentic-platform/runtime-and-durability/index",
+            "label": "Runtime and durability"
+          },
+          {
+            "type": "category",
+            "label": "Context and memory",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/context-and-memory/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/context-and-memory/agent-memory-landscape",
+                "label": "Agent memory landscape"
+              }
+            ]
           },
           {
             "type": "doc",
-            "id": "04-agentic-platform/cheap-or-expensive/the-tier-that-won/index",
-            "label": "The tier that won"
+            "id": "04-agentic-platform/tools-and-protocols/index",
+            "label": "Tools and protocols"
           }
         ]
       },
       {
         "type": "category",
-        "label": "How it fails",
-        "link": {
-          "type": "doc",
-          "id": "04-agentic-platform/how-it-fails/index"
-        },
+        "label": "Platform organization",
         "items": [
           {
             "type": "doc",
-            "id": "04-agentic-platform/how-it-fails/control-plane-governance/index",
-            "label": "Control-plane governance"
+            "id": "04-agentic-platform/orchestration-and-workflows/index",
+            "label": "Orchestration and workflows"
           },
           {
             "type": "doc",
-            "id": "04-agentic-platform/how-it-fails/the-adversary-that-adapts/index",
-            "label": "The adversary that adapts"
+            "id": "04-agentic-platform/control-plane-and-governance/index",
+            "label": "Control plane and governance"
           },
           {
             "type": "doc",
-            "id": "04-agentic-platform/how-it-fails/the-agent-is-the-action/index",
-            "label": "The agent is the action"
+            "id": "04-agentic-platform/agentic-infrastructure/index",
+            "label": "Agentic infrastructure"
+          },
+          {
+            "type": "category",
+            "label": "Verification and evals",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/verification-and-evals/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/verification-and-evals/control-plane-governance/index",
+                "label": "Control-plane governance"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/verification-and-evals/the-adversary-that-adapts/index",
+                "label": "The adversary that adapts"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/verification-and-evals/the-agent-is-the-action/index",
+                "label": "The agent is the action"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/verification-and-evals/the-zero-failure-taxonomy/index",
+                "label": "The zero-failure taxonomy"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/verification-and-evals/when-the-patch-cannot-apply/index",
+                "label": "When the patch cannot apply"
+              }
+            ]
           },
           {
             "type": "doc",
-            "id": "04-agentic-platform/how-it-fails/the-zero-failure-taxonomy/index",
-            "label": "The zero-failure taxonomy"
-          },
-          {
-            "type": "doc",
-            "id": "04-agentic-platform/how-it-fails/when-the-patch-cannot-apply/index",
-            "label": "When the patch cannot apply"
+            "id": "04-agentic-platform/autonomy-and-orchestration/index",
+            "label": "Autonomy and orchestration"
           }
         ]
       },
       {
         "type": "category",
-        "label": "The report",
-        "link": {
-          "type": "doc",
-          "id": "04-agentic-platform/report/index"
-        },
+        "label": "Impact and production",
         "items": [
           {
             "type": "doc",
-            "id": "04-agentic-platform/report/intent-to-delivery/index",
-            "label": "Intent to delivery"
+            "id": "04-agentic-platform/industry-impact/index",
+            "label": "Industry impact"
           },
           {
             "type": "doc",
-            "id": "04-agentic-platform/report/the-public-set-control/index",
-            "label": "The public-set control"
+            "id": "04-agentic-platform/real-tasks/index",
+            "label": "Real tasks"
           },
           {
-            "type": "doc",
-            "id": "04-agentic-platform/report/when-the-partial-verdict/index",
-            "label": "When the verdict is partial"
-          }
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Closing the loop",
-        "link": {
-          "type": "doc",
-          "id": "04-agentic-platform/closing-the-loop/index"
-        },
-        "items": [
-          {
-            "type": "doc",
-            "id": "04-agentic-platform/closing-the-loop/agent-memory-landscape",
-            "label": "Agent memory landscape"
-          },
-          {
-            "type": "doc",
-            "id": "04-agentic-platform/closing-the-loop/does-feedback-help/index",
-            "label": "Does feedback help"
-          },
-          {
-            "type": "doc",
-            "id": "04-agentic-platform/closing-the-loop/the-bimodal-retry/index",
-            "label": "The bimodal retry"
+            "type": "category",
+            "label": "The report",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/report/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/report/intent-to-delivery/index",
+                "label": "Intent to delivery"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/report/the-public-set-control/index",
+                "label": "The public-set control"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/report/when-the-partial-verdict/index",
+                "label": "When the verdict is partial"
+              }
+            ]
           }
         ]
       },

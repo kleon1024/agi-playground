@@ -83,15 +83,60 @@ traces both.
 
 ## Stages
 
+The topic reads as one spine — model call, harness, platform, production —
+with the stages grouped by the plane they build. The recorded runs from the
+original bug-fixing mission are the empirical anchors; the platform stages
+that extend them are dated surveys plus mechanism demos unless a stage says
+otherwise.
+
+### Call
+
 | Stage | Question | Status |
 |---|---|---|
-| [00 — The task set](00-task-set/) | what makes a bug report into a scoreable task? | verified |
-| [01 — No harness](01-no-harness/) | is the loop worth anything over one blind call? | verified |
-| [02 — Scoring the attempt](02-agent-loop/) | what would change your mind about "it passed"? | verified |
-| [03 — Cheap or expensive](03-cheap-or-expensive/) | the cheap model resolved everything; should you use it? | verified |
-| [04 — How it fails](04-how-it-fails/) | how does it fail, and does it cheat? | verified |
-| [05 — The report](05-report/) | what did we actually establish? | verified |
-| [06 — Closing the loop](06-closing-the-loop/) | does seeing your own attempt's real outcome help, with still no tools? | verified |
+| [The task set](task-set/) | what makes a bug report into a scoreable task? | verified |
+| [No harness](no-harness/) | is the loop worth anything over one blind call? | verified |
+
+### Intent
+
+| Stage | Question | Status |
+|---|---|---|
+| [Intent to plan](intent-to-plan/) | a bug report is not a task; what has to happen between them? | draft |
+
+### Harness
+
+| Stage | Question | Status |
+|---|---|---|
+| [The agent loop](agent-loop/) | what would change your mind about "it passed"? | verified |
+| [Harness comparison](harness-comparison/) | every production harness is the same five decisions; where do they differ? | draft |
+| [Cheap or expensive](cheap-or-expensive/) | the cheap model resolved everything; should you use it? | verified |
+| [Closing the loop](closing-the-loop/) | does seeing your own attempt's real outcome help, with still no tools? | verified |
+
+### Platform capabilities
+
+| Stage | Question | Status |
+|---|---|---|
+| [Execution environment](execution-environment/) | where does the agent actually run, and what can that place do to it? | draft |
+| [Runtime and durability](runtime-and-durability/) | what happens to the task when the machine dies? | draft |
+| [Context and memory](context-and-memory/) | what does the agent remember, and how does it get what it forgot? | draft |
+| [Tools and protocols](tools-and-protocols/) | how do an agent and a tool agree on a contract? | draft |
+
+### Platform organization
+
+| Stage | Question | Status |
+|---|---|---|
+| [Orchestration and workflows](orchestration-and-workflows/) | one agent fixed one bug; how do you organize a task that needs twenty? | draft |
+| [Control plane and governance](control-plane-and-governance/) | the agent sees a sandbox; who sees the agent? | draft |
+| [Agentic infrastructure](agentic-infrastructure/) | under the platform, what does the machine room look like? | draft |
+| [Verification and evals](verification-and-evals/) | how does it fail, does it cheat, and what counts as done? | verified |
+| [Autonomy and orchestration](autonomy-and-orchestration/) | how much human is left in the loop, and where exactly? | draft |
+
+### Impact and production
+
+| Stage | Question | Status |
+|---|---|---|
+| [Industry impact](industry-impact/) | the platform works in this repo; does it work in your industry? | draft |
+| [Real tasks](real-tasks/) | the platform passed its own tests; what happens on real work? | draft |
+| [The report](report/) | what did we actually establish? | verified |
 
 [Stage 00](00-task-set/) has run. It mined this repository's 100 commits down to
 4 candidates and admitted **2**, because a task is admitted only if its test

@@ -138,7 +138,7 @@ least two missions use the same input/output contract, and no mission here uses
 persistent memory at all — mission 01's agent and mission 04's code agent both
 start cold on every run.
 
-[Mission 04]() is the natural first consumer, because
+[Mission 04](../README.md) is the natural first consumer, because
 it already has the baseline the question needs: eighteen attempts across three
 model tiers, every one starting from nothing, at \$0.16 to \$0.82 per resolved
 task. "Does memory carried between attempts change resolve rate or cost per
