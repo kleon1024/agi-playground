@@ -35,7 +35,7 @@ separate class of exploit.
 
 ## Planned chapters
 
-- **a-minimal-sandbox** (local mechanism demo) — extend the stage 03
+- **[a-minimal-sandbox](a-minimal-sandbox/)** (local mechanism demo) — extend the stage 03
   harness with a subprocess sandbox: read-only filesystem outside a writable
   workdir, an allowlist-checked command gate, and a recorded run showing a
   deliberately destructive tool call being refused.

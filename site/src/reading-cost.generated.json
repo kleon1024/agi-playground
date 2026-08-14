@@ -1547,6 +1547,10 @@
     "level": "frontier",
     "minutes": 3
   },
+  "04-agentic-platform/autonomy-and-orchestration/the-authorization-matrix": {
+    "level": "frontier",
+    "minutes": 2
+  },
   "04-agentic-platform/cheap-or-expensive": {
     "level": "frontier",
     "minutes": 10
@@ -1579,13 +1583,21 @@
     "level": "frontier",
     "minutes": 3
   },
+  "04-agentic-platform/context-and-memory/a-sqlite-memory": {
+    "level": "applied",
+    "minutes": 2
+  },
   "04-agentic-platform/control-plane-and-governance": {
     "level": "frontier",
     "minutes": 2
   },
   "04-agentic-platform/execution-environment": {
     "level": "frontier",
-    "minutes": 2
+    "minutes": 3
+  },
+  "04-agentic-platform/execution-environment/a-minimal-sandbox": {
+    "level": "applied",
+    "minutes": 3
   },
   "04-agentic-platform/harness-comparison": {
     "level": "frontier",
@@ -1613,6 +1625,10 @@
   },
   "04-agentic-platform/orchestration-and-workflows": {
     "level": "frontier",
+    "minutes": 2
+  },
+  "04-agentic-platform/orchestration-and-workflows/why-multi-agent-fails": {
+    "level": "reference",
     "minutes": 2
   },
   "04-agentic-platform/real-tasks": {
@@ -1662,6 +1678,10 @@
   "04-agentic-platform/verification-and-evals/control-plane-governance": {
     "level": "frontier",
     "minutes": 8
+  },
+  "04-agentic-platform/verification-and-evals/static-vs-live-eval": {
+    "level": "reference",
+    "minutes": 3
   },
   "04-agentic-platform/verification-and-evals/the-adversary-that-adapts": {
     "level": "frontier",

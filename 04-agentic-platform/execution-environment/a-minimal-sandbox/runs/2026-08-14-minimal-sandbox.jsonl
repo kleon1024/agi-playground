@@ -1,0 +1,6 @@
+{"command": "python3 -c 'print('\"'\"'hello from sandbox'\"'\"')'", "layer": "allowed", "allowed": true, "wall_clock_s": 0.031, "exit_code": 0, "stdout": "hello from sandbox\n", "stderr": "", "notes": []}
+{"command": "curl http://example.com", "layer": "network", "allowed": false, "wall_clock_s": 0.0, "exit_code": null, "stdout": "", "stderr": "", "notes": ["network command blocked: curl"]}
+{"command": "rm -rf /tmp", "layer": "filesystem", "allowed": false, "wall_clock_s": 0.0, "exit_code": null, "stdout": "", "stderr": "", "notes": ["path outside workdir: /tmp"]}
+{"command": "python3 -c 'open('\"'\"'/tmp/pwn.txt'\"'\"','\"'\"'w'\"'\"').write('\"'\"'x'\"'\"')'", "layer": "allowed", "allowed": true, "wall_clock_s": 0.031, "exit_code": 0, "stdout": "", "stderr": "", "notes": []}
+{"command": "python3 -c 'print('\"'\"'approved'\"'\"')'", "layer": "allowed", "allowed": true, "wall_clock_s": 0.03, "exit_code": 0, "stdout": "approved\n", "stderr": "", "notes": []}
+{"command": "python3 -c 'print('\"'\"'escape attempt: '\"'\"'+open('\"'\"'/etc/hostname'\"'\"').read())'", "layer": "allowed", "allowed": true, "wall_clock_s": 0.029, "exit_code": 1, "stdout": "", "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nFileNotFoundError: [Errno 2] No such file or directory: '/etc/hostname'\n", "notes": []}

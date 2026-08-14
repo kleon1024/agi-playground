@@ -76,7 +76,7 @@ risk, route the change to auto-merge or a human reviewer.
   as an engineering problem rather than a model problem.
 - **llm-as-judge-reliability** — when a judge can be trusted: RuVerBench,
   gaming the judge, and Spotify Honk's LLM-as-judge verification loop.
-- **static-vs-live-eval** — the benchmark honesty gap: SWE-bench Verified
+- **[static-vs-live-eval](static-vs-live-eval/)** — the benchmark honesty gap: SWE-bench Verified
   at 43.20% for state-of-the-art systems versus SWE-bench-Live at 19.25%,
   and why a live task set changes what a score means.
 - **a-minimal-judge** (local mechanism demo) — a rule-based verifier versus

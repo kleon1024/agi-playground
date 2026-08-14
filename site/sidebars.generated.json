@@ -2625,6 +2625,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "04-agentic-platform/execution-environment/a-minimal-sandbox/index",
+                "label": "A minimal sandbox"
+              },
+              {
+                "type": "doc",
                 "id": "04-agentic-platform/execution-environment/infra-agent-harness-landscape",
                 "label": "Infra agent harness landscape"
               }
@@ -2645,6 +2650,11 @@
             "items": [
               {
                 "type": "doc",
+                "id": "04-agentic-platform/context-and-memory/a-sqlite-memory/index",
+                "label": "A SQLite memory"
+              },
+              {
+                "type": "doc",
                 "id": "04-agentic-platform/context-and-memory/agent-memory-landscape",
                 "label": "Agent memory landscape"
               }
@@ -2662,9 +2672,19 @@
         "label": "Platform organization",
         "items": [
           {
-            "type": "doc",
-            "id": "04-agentic-platform/orchestration-and-workflows/index",
-            "label": "Orchestration and workflows"
+            "type": "category",
+            "label": "Orchestration and workflows",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/orchestration-and-workflows/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/orchestration-and-workflows/why-multi-agent-fails/index",
+                "label": "Why multi-agent fails"
+              }
+            ]
           },
           {
             "type": "doc",
@@ -2691,6 +2711,11 @@
               },
               {
                 "type": "doc",
+                "id": "04-agentic-platform/verification-and-evals/static-vs-live-eval/index",
+                "label": "Static vs live eval"
+              },
+              {
+                "type": "doc",
                 "id": "04-agentic-platform/verification-and-evals/the-adversary-that-adapts/index",
                 "label": "The adversary that adapts"
               },
@@ -2712,9 +2737,19 @@
             ]
           },
           {
-            "type": "doc",
-            "id": "04-agentic-platform/autonomy-and-orchestration/index",
-            "label": "Autonomy and orchestration"
+            "type": "category",
+            "label": "Autonomy and orchestration",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/autonomy-and-orchestration/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/autonomy-and-orchestration/the-authorization-matrix/index",
+                "label": "The authorization matrix"
+              }
+            ]
           }
         ]
       },

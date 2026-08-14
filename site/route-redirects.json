@@ -614,10 +614,6 @@
       "to": "/foundations/is-the-difference-real"
     },
     {
-      "from": "/04-agentic-platform/04-how-it-fails",
-      "to": "/04-agentic-platform/how-it-fails"
-    },
-    {
       "from": "/foundations/04-distributed-training",
       "to": "/foundations/distributed-training"
     },
@@ -746,38 +742,6 @@
       "to": "/01-language-model/rl/post-training-rl-landscape"
     },
     {
-      "from": "/04-agentic-platform/harness-effects-landscape",
-      "to": "/04-agentic-platform/agent-loop/harness-effects-landscape"
-    },
-    {
-      "from": "/04-agentic-platform/infra-agent-harness-landscape",
-      "to": "/04-agentic-platform/agent-loop/infra-agent-harness-landscape"
-    },
-    {
-      "from": "/04-agentic-platform/agent-memory-landscape",
-      "to": "/04-agentic-platform/closing-the-loop/agent-memory-landscape"
-    },
-    {
-      "from": "/04-agentic-platform/how-it-fails/control-plane-governance",
-      "to": "/04-agentic-platform/verification-and-evals/control-plane-governance"
-    },
-    {
-      "from": "/04-agentic-platform/how-it-fails/the-adversary-that-adapts",
-      "to": "/04-agentic-platform/verification-and-evals/the-adversary-that-adapts"
-    },
-    {
-      "from": "/04-agentic-platform/how-it-fails/the-agent-is-the-action",
-      "to": "/04-agentic-platform/verification-and-evals/the-agent-is-the-action"
-    },
-    {
-      "from": "/04-agentic-platform/how-it-fails/the-zero-failure-taxonomy",
-      "to": "/04-agentic-platform/verification-and-evals/the-zero-failure-taxonomy"
-    },
-    {
-      "from": "/04-agentic-platform/how-it-fails/when-the-patch-cannot-apply",
-      "to": "/04-agentic-platform/verification-and-evals/when-the-patch-cannot-apply"
-    },
-    {
       "from": "/04-agentic-platform/agent-loop/harness-effects-landscape",
       "to": "/04-agentic-platform/harness-comparison/harness-effects-landscape"
     },
@@ -788,6 +752,62 @@
     {
       "from": "/04-agentic-platform/closing-the-loop/agent-memory-landscape",
       "to": "/04-agentic-platform/context-and-memory/agent-memory-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/infra-agent-harness-landscape.md",
+      "to": "/04-agentic-platform/execution-environment/infra-agent-harness-landscape.md"
+    },
+    {
+      "from": "/04-agentic-platform/harness-effects-landscape.md",
+      "to": "/04-agentic-platform/harness-comparison/harness-effects-landscape.md"
+    },
+    {
+      "from": "/04-agentic-platform/agent-memory-landscape.md",
+      "to": "/04-agentic-platform/context-and-memory/agent-memory-landscape.md"
+    },
+    {
+      "from": "/04-agentic-platform/04-how-it-fails",
+      "to": "/04-agentic-platform/verification-and-evals"
+    },
+    {
+      "from": "/04-agentic-platform/harness-effects-landscape",
+      "to": "/04-agentic-platform/harness-comparison/harness-effects-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/infra-agent-harness-landscape",
+      "to": "/04-agentic-platform/execution-environment/infra-agent-harness-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/agent-memory-landscape",
+      "to": "/04-agentic-platform/context-and-memory/agent-memory-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/04-agent-loop/harness-effects-landscape",
+      "to": "/04-agentic-platform/harness-comparison/harness-effects-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/04-agent-loop/infra-agent-harness-landscape",
+      "to": "/04-agentic-platform/execution-environment/infra-agent-harness-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/04-closing-the-loop/agent-memory-landscape",
+      "to": "/04-agentic-platform/context-and-memory/agent-memory-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/04-agent-memory-landscape",
+      "to": "/04-agentic-platform/context-and-memory/agent-memory-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/04-harness-effects-landscape",
+      "to": "/04-agentic-platform/harness-comparison/harness-effects-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/04-infra-agent-harness-landscape",
+      "to": "/04-agentic-platform/execution-environment/infra-agent-harness-landscape"
+    },
+    {
+      "from": "/04-agentic-platform/how-it-fails",
+      "to": "/04-agentic-platform/verification-and-evals"
     }
   ],
   "redirects": [

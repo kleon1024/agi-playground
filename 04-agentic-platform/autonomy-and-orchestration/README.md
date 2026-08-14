@@ -38,7 +38,7 @@ review the PR) is where most real productivity lives.
 - **autonomy-levels-0-to-5** — the autonomy spectrum from assistive to
   agentic avalanche; where production value concentrates (Level 3) and the
   Level-5 trap; the Anthropic ~400K-session empirical grounding.
-- **the-authorization-matrix** — grant autonomy by task type: dependency
+- **[the-authorization-matrix](the-authorization-matrix/)** — grant autonomy by task type: dependency
   bumps and docs run free, auth/payments/migrations need explicit approval;
   the three control properties (reversibility, approval gates, review
   artifact) and the risk-scored auto-merge pattern (Cursor's 30–40%

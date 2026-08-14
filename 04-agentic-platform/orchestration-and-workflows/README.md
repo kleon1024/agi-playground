@@ -43,7 +43,7 @@ distinction operational.
 - **when-to-orchestrate** — the decision rule: deterministic skeleton with
   LLM cells for mission-critical work, free agent for exploration; what
   changes at each point of the spectrum.
-- **why-multi-agent-fails** — the production record: AutoGen's
+- **[why-multi-agent-fails](why-multi-agent-fails/)** — the production record: AutoGen's
   non-terminating conversations as its most frequent failure mode, command
   races and state hallucination across CrewAI/AutoGen/LangGraph, and the
   fixes (aggressive termination, durable state) the industry converged on.

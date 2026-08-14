@@ -53,7 +53,7 @@ when a fact is promoted, demoted, or deleted.
   maps, AST and symbol indexes, code intelligence graphs (Sourcegraph),
   and why "monorepo blind spots" are the dominant failure in large-project
   agent work.
-- **a-sqlite-memory** (local mechanism demo) — a minimal SQLite memory
+- **[a-sqlite-memory](a-sqlite-memory/)** (local mechanism demo) — a minimal SQLite memory
   store + retrieval on top of the mission's recorded runs, showing a
   promoted lesson changing a later attempt.
 - **agentfs-and-persistent-workspace** — filesystem-backed agent state
