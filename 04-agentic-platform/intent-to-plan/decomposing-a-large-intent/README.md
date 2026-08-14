@@ -6,250 +6,175 @@ label: Decomposing a large intent
 verified: 2026-08-14
 ---
 
-# A large intent is not a bigger leaf. How does it become a tree of verifiable work?
+# A large task arrives as a sentence. How do you turn it into work agents can run?
 
-**Question:** [stage 02](../) converts a sentence into one task record — one
-leaf with one test that decides done. But real work arrives as *"the site's
-docs pipeline is broken, the serving engine is wrong, and fix the ordering
-too"*: several leaves plus the decision of how they relate. What separates a
-large intent from a leaf, and how does a harness turn it into a tree of work
-it can actually run?
+**Question:** [stage 02](../) turned one sentence into one task record — a
+leaf with one test that decides done. Real reports hold several tasks at
+once: *"the site docs pipeline is broken, and the serving engine is wrong"*.
+If you fan one agent out per clause, they collide on the same files. If you
+serialize everything, you leave parallelism unused. Before any agent runs,
+how do you decide which parts can run in parallel and which must wait?
 
-**The artifact this chapter follows** is the output of
-[a rule-based decomposer](core/decomposer.py) run on this mission's real task
-records — the tree, the DAG, and the coupling warnings it produces ([record](runs/2026-08-14-decomposer.md)).
-The demo is the chapter's spine: every claim below is a line it prints.
+**The artifact this chapter follows** is one composite intent built from this
+mission's real history — *"make the repository's correctness signals green
+again"* — and what [a rule-based decomposer](core/decomposer.py) does with it
+([run record](runs/2026-08-14-decomposer.md)). No model is called. The point
+is that a correct decomposition is decided by the code, not by the model and
+not by the sentence.
 
-**Before this:** [stage 02's constraint-set model](../) — intent as a set of
-constraints, of which a task record carries the checkable ones. A large
-intent is that model at one level up: the constraint set now spans several
-leaves, and satisfying it requires deciding *how they relate*.
+**Before this:** [stage 02's constraint-set model](../). This chapter takes
+the step from one leaf to many.
 
-## What "large" adds: subgoals and dependencies
+## Why "one agent per clause" collides
 
-A leaf is a constraint set with one done condition. The mission's mined
-records are leaves by construction — each carries `source_files`, a
-`target_tests` file, and a `test_command` that decides done. Nothing about a
-large intent is different in kind; two things appear that a single leaf never
-has:
-
-| | Leaf | Large intent |
-|---|---|---|
-| Done condition | one test command | a set of test commands **plus** a topology |
-| Units | none — one task | subgoals (who owns what) |
-| Ordering | none — one task | dependencies (what waits for what) |
-| Failure | one task fails | tasks conflict, duplicate, or omit work |
-
-The last row is the point. A large intent fails in ways a leaf cannot: two
-agents editing the same file, two leaves covering the same requirement, a
-requirement covered by no leaf. The decomposition exists to make those three
-failures *visible before execution* — which is the same job the plan did for
-one leaf, one level up.
-
-## The shape: a tree of ownership over a DAG of dependencies
-
-Two structures appear when an intent grows, and they answer different
-questions. The **tree** is ownership: the root is the intent, each subtree is
-a subgoal, each leaf is a task with a done condition. The **DAG** is
-ordering: an edge says "this must wait for that". A flat list hides both —
-it states neither who owns what nor what must wait for what.
-
-The same four sentences from this mission's history read three different ways,
-and only one is executable:
+The composite intent is not invented. It is the sentence behind four commits
+that really exist in this repository's history — one fixing the serving
+engine, three fixing the site's docs pipeline:
 
 ```text
-The ticket list (what the requester wrote)
-  1. fix the serving engine
-  2. stop escaping angle brackets in docs
-  3. restore the dropped sidebar pages
-  4. drop generated numbers from titles
+INTENT: Make the repository's correctness signals green again
 
-Naive fan-out (what a greedy planner might produce)     Coupling-aware DAG (what the code allows)
-                                                       ┌──────────────────────────────┐
-  4 agents fan out:                                    │ Lane 1 (independent):        │
-  agent A -> engine.py                                   │   b81c414  engine.py         │
-  agent B -> sync-docs.py  ── collision ──┐             └──────────────┬───────────────┘
-  agent C -> sync-docs.py  ── collision ──┼── same file               │ width 2
-  agent D -> sync-docs.py  ── collision ──┘             ┌──────────────┴───────────────┐
-                                                       │ Lane 2 (coupled, serial):     │
-  Result: three agents write the same file              │ 354c352 → 642074a → be65ef6  │
-  in an order nobody chose.                             │ all three touch sync-docs.py │
-                                                       └──────────────────────────────┘
+clause 1 -> private-b81c414   fix the serving engine's cached decode step
+clause 2 -> private-354c352   stop escaping angle brackets in docs
+clause 3 -> private-642074a   restore the pages the sidebar dropped
+clause 4 -> private-be65ef6   drop generated numbers from titles
 ```
 
-The decomposition's job is to find the width: how many agents can work
-without contending on a file. It is a property of the code, not of the
-intent's size — a six-sentence intent can have width 1, and a four-sentence
-one can have width 2. This mission's own history shows both extremes, which
-is what the demo's runs measure.
+The naive move is to give each clause its own agent and run all four at
+once. That is where it breaks. Clauses 2, 3, and 4 all change the same file,
+`site/sync-docs.py` — three agents writing one file in an order nobody
+chose. Whoever runs second overwrites the first.
 
-## The four invariants
+This is not a hypothetical. The marcus project measured the same failure:
+it split "movement" and "food collection" into separate tasks, both lived in
+the same function, and one of the two agents wrote 100% of the product code
+while the other produced nothing ([marcus #267](https://github.com/lwgray/marcus/issues/267)).
+The sentence is a noun-level view of the work; the file is the ground truth
+agents actually write. Split by the sentence, and the collision is invisible
+until it happens.
 
-Research and production practice converge on the same four properties a
-decomposition must have. Each is checkable, and three of the four are
-checkable mechanically:
+## What a large intent actually adds
 
-| Invariant | The question it answers | Mechanical check | In this mission |
-|---|---|---|---|
-| 1. Leaves independently verifiable | Can a leaf be scored alone? | every leaf has a test + command | satisfied by the mining rule — only fail-at-base/pass-at-gold tasks were admitted |
-| 2. Dependencies explicit | Can the runner know the order? | shared files and tests become edges | the decomposer's lanes and coupling flags |
-| 3. Collective sufficiency | Does the tree cover the intent? | every intent constraint maps to a leaf and vice versa | needs a constraint list; reviewer's call — the demo says so |
-| 4. QA separated from completion | Who checks the split? | the decomposer is not the executor | the demo assigns no lane order and claims no correctness |
+Stage 02's model still holds: a leaf is a constraint set with one done
+condition. A large intent is the same model at one level up — the constraint
+set now spans several leaves, and satisfying it requires deciding *how the
+leaves relate*.
 
-Invariant 1 is the 15-minute unit rule from agent-engineering practice: each
-unit independently verifiable, a single dominant risk, a clear done condition
-([agentic-engineering](https://github.com/marshall0524/everythingclaudecode/blob/main/skills/agentic-engineering/SKILL.md)).
-It is also the first thing the mission's mining rule enforces, which is why
-every task in [the task set](../../task-set/) passes it by construction.
+Two structures appear, and a flat list hides both:
 
-Invariant 2 is what turns a list into a DAG. Tools that take it seriously
-recompute state from the edges: a card in plandeck auto-promotes to *Ready*
-only when every `depends_on` card is done, and a dependency cycle is never
-marked Ready — it is flagged instead
-([plandeck](https://github.com/OthmanAdi/plandeck)). The mission's records do
-not carry explicit `depends_on`, so the decomposer derives candidate edges
-from the only ground truth it has: file and test overlap.
+```text
+The tree (who owns what)              The DAG (what waits for what)
 
-Invariant 4 is the discipline that production decomposers actually enforce.
-The task-decomposer agent in the claude-code-workflows collection is defined
-as a *mechanical handoff*: it converts an approved plan into task files,
-preserving dependencies, rollback boundaries, and verification "unchanged",
-and is explicitly forbidden from introducing new requirements or design
-decisions ([task-decomposer](https://github.com/shinpr/claude-code-workflows/blob/main/agents/task-decomposer.md)).
-The senacor dev-lead agent goes further: the coordinator is *forbidden from
-writing code* — "Parallelism is where the rule is hardest to keep"
-([senacor, 2026](https://senacor.blog/introducing-a-dev-lead-agent-a-coordinator-forbidden-from-writing-code-and-why-it-has-to-be/)).
-The decomposer and the executor are different roles because a decomposer that
-also executes grades its own decomposition.
+intent                                  b81c414 (serve)       ─┐
+ ├── serve correctness                 └──────────┬──────────┤ width 2
+ │    └── b81c414                                   │         │
+ └── site docs pipeline               354c352 → 642074a → be65ef6
+      ├── 354c352                      (three tasks, one file:
+      ├── 642074a                       serial lane, order not yet known)
+      └── be65ef6
+```
 
-## The three failure directions, with the cases that prove them
+The tree is ownership — which subgoal each task belongs to. The DAG is
+ordering — what must wait for what. The decomposition's job is to find both,
+and the second one is the hard one.
 
-Decompositions fail in three directions, and the failure cases are now
-documented with numbers.
+## Shared files are the ground truth
 
-**Under-decomposition: a leaf with no done condition.** The unit is too big
-to verify — "fix the thing that broke last night" with no test, no budget, no
-comparison. The agent then verifies by assertion instead of by test, which is
-the failure the mission's guardrails exist to catch. The fix is invariant 1:
-refuse the leaf until it carries a machine-checkable done condition.
+The sentence says "fix escaping, fix the sidebar, fix ordering" — three
+nouns. The code says "all three touch `site/sync-docs.py`" — one file. The
+file wins, because it is what agents actually write.
 
-**Over-decomposition: coordination tax.** Splitting has a real cost — every
-spawned agent carries context, prompt, and merge overhead — and it is easy to
-pay without earning any parallelism. A single Claude Code workflow invocation
-spawned 46 subagents consuming ~3M tokens in ~18 minutes, with the fan-out
-cost invisible until it was complete
-([claude-code #66023](https://github.com/anthropics/claude-code/issues/66023)).
-The counter-example is the marcus snake-game audit: two agents were
-configured, one wrote 100% of the product code, and the other produced zero —
-the split cost was paid and no parallelism was earned
-([marcus #267](https://github.com/lwgray/marcus/issues/267)).
+The mechanism is a file-overlap check. Two tasks that share a source file
+cannot be independent parallel agents — whoever runs second contends with the
+first writer. So: draw an edge between every pair of tasks that share a
+file, and the connected components are *lanes*. A lane whose members all
+share files must run serially. This is marcus's topology check
+([#267](https://github.com/lwgray/marcus/issues/267)) made mechanical: his
+team proposed the file-overlap matrix to decide between feature-based and
+layer-based splits; the demo runs that matrix on every pair.
 
-**Wrong-axis decomposition: splitting by intent nouns when the code is
-coupled.** This is the most instructive failure, because the cause is
-measurable. Marcus split "movement" and "food collection" into separate
-tasks; at the code level both live in the same function, `tick()` in
-`gameLogic.ts`. One agent did everything. The proposed fix is a *topology
-check*: predict each task's files, build a file-overlap matrix, and when any
-pair overlaps at least 30%, switch from feature-based to layer-based
-decomposition or merge the tasks. The lesson is that the decomposition axis
-is decided by the code's coupling, not by the intent's nouns.
+## Run it, and read what the code says
 
-This mission's own data reproduces the finding. The demo run on
-`candidates.jsonl` ([record](runs/2026-08-14-decomposer.md)) shows the three
-site tasks — "stop escaping angle brackets", "restore dropped sidebar pages",
-"drop generated numbers" — all touching `site/sync-docs.py` and all targeting
-`tests/test_sync_docs.py`. A noun-based split would fan three agents onto one
-file, the snake-game failure exactly. The overlap matrix flags it:
+The decomposer ([core/decomposer.py](core/decomposer.py)) needs no model and
+no API key. It reads this mission's task records and prints the lanes:
 
-| Pair | Overlap | Shared file |
-|---|---:|---|
-| `354c352` ↔ `642074a` | 0.50 | `site/sync-docs.py` |
-| `354c352` ↔ `be65ef6` | 0.50 | `site/sync-docs.py` |
-| `642074a` ↔ `be65ef6` | 0.33 | `site/sync-docs.py` |
+```bash
+cd 04-agentic-platform/intent-to-plan/decomposing-a-large-intent/core
+python3 decomposer.py --tasks ../../../tasks/candidates.jsonl \
+    --intent "Make the repository's correctness signals green again"
+```
 
-And the public candidate set is the extreme case: all six tasks touch
-`more_itertools/more.py` (pairwise overlap 1.00), so "harden the itertools
-library" decomposes to width 1 — one serial lane, not a tree. A large intent
-is not a license to fan out; the topology decides.
+The output is the artifact this chapter promised:
 
-**Interface drift — the failure that appears only at integration.** Parallel
-builders can each finish against their own assumption of an interface, and
-the pieces then refuse to integrate. Senacor's dev-lead run hit exactly this
-in a multi-repo product: "each builder finishes against its own assumption
-of the API and the pieces refuse to integrate". Their fix is contract-first:
-the interface contract is authored as part of the plan, committed first to
-the contract's repository, and owned by the lead; builders are dispatched in
-parallel only against the frozen contract, and a builder that needs to
-deviate reports back so the lead updates the contract
-([senacor, 2026](https://senacor.blog/introducing-a-dev-lead-agent-a-coordinator-forbidden-from-writing-code-and-why-it-has-to-be/)).
-Interface drift is the reason invariant 4 (QA separation) is not a style
-choice: the coordinator that owns the contract cannot also be one of the
-builders, because then nobody owns the contract.
+```text
+Lane 1 · touches missions/01-language-model-agent/05-serve/core/engine.py (1 leaf) · independent
+└── private-b81c414  fix(serve): attend past the first token in every cached decode step  [done: tests/test_decode_correctness.py]
 
-## Where the decomposition lives: prompt, or control logic?
+Lane 2 · shares site/sync-docs.py (3 leaves) · coupled -> serial
+├── private-354c352  fix(site): stop escaping angle brackets inside inline code  [done: tests/test_sync_docs.py]
+├── private-642074a  fix(site): restore the pages the explicit sidebar dropped  [done: tests/test_sync_docs.py]
+└── private-be65ef6  fix(site): drop generated numbers from titles and order indexes correctly  [done: tests/test_sync_docs.py]
 
-The deepest structural question is not *how* to decompose but *where* the
-decomposition lives. A 2026 study ran three configurations of the same
-agentic coding workloads — monolithic prompt, static decomposition with
-fixed subtasks, and runtime-structured decomposition where execution flow is
-managed by executable control logic and the model is used only for focused
-judgment ([arXiv:2605.15425](https://arxiv.org/abs/2605.15425)):
+DAG width (parallel lanes): 2
+```
 
-| Configuration | Retry cost, root-cause analysis | Retry cost, debugging |
-|---|---:|---:|
-| Monolithic prompt | 904 ± 17 tokens | 703 tokens |
-| Static decomposition | 1,632 ± 145 tokens | 933 tokens |
-| Runtime-structured | 436 ± 132 tokens | 460 tokens |
+Two results, both worth stopping on.
 
-The middle row is the lesson: decomposition alone made retry cost *worse*,
-because a failure in one subtask forced reruns of downstream subtasks. The
-runtime-structured version reran only the failed subtask, cutting retry cost
-by up to 51.7% versus monolithic and 73.2% versus static. The decomposition
-must be an executable artifact — task files, a DAG, checkpoints — that the
-runner can resume, not prose in a prompt that the model has to re-derive on
-every retry. ReAcTree (AAMAS 2026) makes the same separation at the planning
-layer: agent nodes reason, act, and expand the tree, while *control-flow
-nodes* coordinate execution strategies; on the WAH-NL benchmark it roughly
-doubled goal success versus ReAct (61% vs 31% with Qwen 2.5 72B)
-([ReAcTree](https://arxiv.org/abs/2511.02424)).
+First, the width is 2, not 4 and not 1. Only the serve task can run
+independently; the three site tasks form one serial lane. So at most two
+agents can work without contending — and that number comes from the files,
+not from the sentence.
 
-## How production packages it
+Second, the lane gives no order. The decomposer prints `354c352 → 642074a →
+be65ef6` as a lane but refuses to order it, because the records contain no
+design doc saying which fix comes first. Deciding that order is a design
+decision, which is exactly why production decomposers are built as separate
+roles: the task-decomposer in the claude-code-workflows collection is defined
+as a mechanical handoff that preserves dependencies and verification but is
+forbidden from introducing new design decisions
+([task-decomposer](https://github.com/shinpr/claude-code-workflows/blob/main/agents/task-decomposer.md)),
+and the senacor dev-lead agent is *forbidden from writing code* so it cannot
+grade its own plan ([senacor, 2026](https://senacor.blog/introducing-a-dev-lead-agent-a-coordinator-forbidden-from-writing-code-and-why-it-has-to-be/)).
 
-The invariants appear in every serious multi-agent setup, packaged
-differently:
+Run the same decomposer on the mission's public candidate set and you get the
+other extreme: six tasks, every one touching `more_itertools/more.py`, all
+pairwise overlap 1.00 — width 1. "Harden the itertools library" sounds like
+six parallel jobs and is one serial lane. The width of a decomposition is a
+property of the code, not of the intent's size.
 
-| System | What it owns | How the invariants appear |
-|---|---|---|
-| Supervisor pattern | bounded task tree | the default shape: one lead owns decomposition, workers get scoped leaves (invariant 4) |
-| task-decomposer | plan → task files | mechanical handoff, 1–5 files per task, one task = one commit (invariants 1, 4) |
-| k-sdd / cc-sdd | spec → long-running implementation | discovery → requirements → design → tasks, each task independently reviewed (invariants 1, 4) |
-| mtix | micro issue manager | hierarchical decomposition with context chains, per-task microVM with default-deny network (invariant 2 at the execution boundary) |
-| worktree isolation | per-task checkouts | a worktree per task, not per agent spawn, so coupled lanes fail loudly instead of silently (marcus #302) |
-| dev-lead | contract-first orchestration | interface contract committed first, builders against the frozen contract (drift, invariant 4) |
+## What the tree does not decide
 
-Sources: [Anthropic's multi-agent lead-worker setup](https://www.anthropic.com/engineering/built-multi-agent-research-system),
-[task-decomposer](https://github.com/shinpr/claude-code-workflows/blob/main/agents/task-decomposer.md),
-[k-sdd](https://www.npmjs.com/package/k-sdd),
-[mtix](https://github.com/hyper-swe/mtix),
-[marcus #302](https://github.com/lwgray/marcus/issues/302),
-[senacor](https://senacor.blog/introducing-a-dev-lead-agent-a-coordinator-forbidden-from-writing-code-and-why-it-has-to-be/).
+The demo's honest boundary is printed in its own output: it checks that every
+leaf has a done condition, it finds the lanes, and then it stops. Three
+things remain outside it, and each one is where the frontier actually is.
 
-The common thread is that none of them lets the decomposer execute its own
-decomposition, and all of them make the DAG an artifact the runner can
-resume — the two moves the failure cases above actually need.
+**Order inside a lane.** Who runs first in the site trio needs the design
+doc, not the overlap matrix. The decomposer says so instead of guessing.
 
-## What the demo establishes, and what it does not
+**Coverage.** Does the tree cover everything the intent meant? The demo
+cannot check this without a constraint list for the sentence — it declares
+the question the reviewer's job, and LLM-based decomposition-quality evals
+exist to measure exactly this
+([AgentEval](https://github.com/AgentEvalHQ/AgentEval)).
 
-[decomposer.py](core/decomposer.py) makes three of the four invariants
-mechanically checkable on the mission's real records, and its findings are
-real: the site trio is one serial lane (width 2 total), and the public set
-is width 1. It deliberately does not assign order inside a lane, and it
-prints its own boundary — invariant 3 is declared "not mechanically checkable
-without a constraint list for the intent", which is the reviewer's job.
+**Where the decomposition lives.** The deepest question is not how to split
+but whether the split is an artifact the runner can resume. A 2026 study ran
+three configurations of the same agentic workloads: a monolithic prompt, a
+static decomposition with fixed subtasks, and a runtime-structured version
+where the flow is executable control logic. Static decomposition made retry
+cost *worse* — 1,632 ± 145 tokens versus 904 ± 17 monolithic on root-cause
+analysis — because a failure in one subtask forced reruns of the downstream
+ones. The runtime-structured version reran only the failed subtask: 436 ± 132
+tokens, up to 51.7% lower than monolithic and 73.2% lower than static
+([arXiv:2605.15425](https://arxiv.org/abs/2605.15425)). The decomposition
+has to be a DAG the runner can checkpoint, not prose the model re-derives on
+every retry.
 
-What the demo does not establish is the frontier claim: *how good* a
-decomposition is. That question needs a measure — the LLM-based
-decomposition-quality eval that checks sub-goal coverage and granularity
-([AgentEval](https://github.com/AgentEvalHQ/AgentEval)) — and a human review
-of sufficiency. This chapter proves the shape is checkable and the topology
-is decisive; it does not claim the split it produces is the correct one.
+## Where this leads
+
+The tree answered one question: *what can run in parallel*. The next question
+is what happens when you actually let it — parallel workers editing the same
+repository need worktrees, contracts, and a coordinator, which is the
+[orchestration stage](../../orchestration-and-workflows/)'s subject. The
+decomposition is what makes that coordination possible in the first place:
+it is the map that says where the parallel lanes are and where they are not.
