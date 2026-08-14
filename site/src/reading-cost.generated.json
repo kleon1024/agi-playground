@@ -1565,7 +1565,7 @@
   },
   "04-agentic-platform/autonomy-and-orchestration": {
     "level": "frontier",
-    "minutes": 3
+    "minutes": 4
   },
   "04-agentic-platform/autonomy-and-orchestration/autonomy-levels-0-to-5": {
     "level": "reference",
@@ -1721,7 +1721,7 @@
   },
   "04-agentic-platform/industry-impact": {
     "level": "frontier",
-    "minutes": 3
+    "minutes": 4
   },
   "04-agentic-platform/industry-impact/finance-and-regulated": {
     "level": "reference",
@@ -1809,7 +1809,7 @@
   },
   "04-agentic-platform/real-tasks": {
     "level": "frontier",
-    "minutes": 2
+    "minutes": 3
   },
   "04-agentic-platform/real-tasks/data-engineering-migration": {
     "level": "reference",
