@@ -1673,7 +1673,7 @@
   },
   "04-agentic-platform/execution-environment": {
     "level": "frontier",
-    "minutes": 3
+    "minutes": 5
   },
   "04-agentic-platform/execution-environment/a-minimal-sandbox": {
     "level": "applied",
