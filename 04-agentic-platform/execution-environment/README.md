@@ -39,17 +39,17 @@ separate class of exploit.
   harness with a subprocess sandbox: read-only filesystem outside a writable
   workdir, an allowlist-checked command gate, and a recorded run showing a
   deliberately destructive tool call being refused.
-- **the-sandbox-layers** — process isolation, network policy, approval
+- **[the-sandbox-layers](the-sandbox-layers/)** — process isolation, network policy, approval
   routing as three independent layers; Claude Code's sandbox (SOCKS5 proxy,
   domain allowlist) and Codex's three-layer model read side by side.
-- **microvm-vs-container-vs-process** — E2B's Firecracker microVMs
+- **[microvm-vs-container-vs-process](microvm-vs-container-vs-process/)** — E2B's Firecracker microVMs
   (150–200 ms create, ~\$0.05/vCPU-hour) vs gVisor/Kata vs a bare subprocess:
   what each buys and costs, and where the industry lands per threat model.
-- **fuse-and-the-filesystem-interface** — the filesystem as an agent
+- **[fuse-and-the-filesystem-interface](fuse-and-the-filesystem-interface/)** — the filesystem as an agent
   interface: BranchFS copy-on-write branches for agentic exploration,
   AgentFS mapping agent state to a POSIX tree, and why a filesystem that
   snapshots and commits is a natural fit for an agent that must explore.
-- **when-the-sandbox-leaks** — the failure cases industry actually hits:
+- **[when-the-sandbox-leaks](when-the-sandbox-leaks/)** — the failure cases industry actually hits:
   SOCKS5 bypass, allowlist gaps, missing network policy, agent-created
   persistence (shell rc files) — and the NVIDIA reference architecture's
   invariant list that exists precisely to close them.

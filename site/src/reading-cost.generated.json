@@ -1543,6 +1543,26 @@
     "level": "frontier",
     "minutes": 3
   },
+  "04-agentic-platform/agentic-infrastructure/agentic-devops": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/agentic-infrastructure/model-gateways": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/agentic-infrastructure/sandbox-farms": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/agentic-infrastructure/the-compute-reality": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/agentic-infrastructure/the-six-layers": {
+    "level": "reference",
+    "minutes": 1
+  },
   "04-agentic-platform/autonomy-and-orchestration": {
     "level": "frontier",
     "minutes": 3
@@ -1587,9 +1607,49 @@
     "level": "applied",
     "minutes": 2
   },
+  "04-agentic-platform/context-and-memory/agentfs-and-persistent-workspace": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/context-and-memory/codebase-retrieval": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/context-and-memory/file-based-memory": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/context-and-memory/from-rag-to-agentic-rag": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/context-and-memory/memory-tiers": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/context-and-memory/when-rag-belongs-in-an-agent": {
+    "level": "reference",
+    "minutes": 1
+  },
   "04-agentic-platform/control-plane-and-governance": {
     "level": "frontier",
-    "minutes": 2
+    "minutes": 3
+  },
+  "04-agentic-platform/control-plane-and-governance/control-vs-observability": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/control-plane-and-governance/no-secrets-no-authority": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/control-plane-and-governance/the-enterprise-matrix": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/control-plane-and-governance/the-platform-layers": {
+    "level": "reference",
+    "minutes": 1
   },
   "04-agentic-platform/execution-environment": {
     "level": "frontier",
@@ -1599,8 +1659,44 @@
     "level": "applied",
     "minutes": 3
   },
+  "04-agentic-platform/execution-environment/fuse-and-the-filesystem-interface": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/execution-environment/microvm-vs-container-vs-process": {
+    "level": "reference",
+    "minutes": 2
+  },
+  "04-agentic-platform/execution-environment/the-sandbox-layers": {
+    "level": "reference",
+    "minutes": 2
+  },
+  "04-agentic-platform/execution-environment/when-the-sandbox-leaks": {
+    "level": "reference",
+    "minutes": 2
+  },
   "04-agentic-platform/harness-comparison": {
     "level": "frontier",
+    "minutes": 3
+  },
+  "04-agentic-platform/harness-comparison/pi-and-the-agent-sdks": {
+    "level": "reference",
+    "minutes": 2
+  },
+  "04-agentic-platform/harness-comparison/reading-claude-code": {
+    "level": "reference",
+    "minutes": 2
+  },
+  "04-agentic-platform/harness-comparison/reading-codex": {
+    "level": "reference",
+    "minutes": 2
+  },
+  "04-agentic-platform/harness-comparison/reading-cursor-and-open-source-harnesses": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/harness-comparison/when-the-harness-moved-the-score": {
+    "level": "reference",
     "minutes": 2
   },
   "04-agentic-platform/industry-impact": {
@@ -1629,10 +1725,22 @@
   },
   "04-agentic-platform/orchestration-and-workflows": {
     "level": "frontier",
-    "minutes": 2
+    "minutes": 3
   },
   "04-agentic-platform/orchestration-and-workflows/a-minimal-orchestrator": {
     "level": "applied",
+    "minutes": 1
+  },
+  "04-agentic-platform/orchestration-and-workflows/spec-driven-orchestration": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/orchestration-and-workflows/the-workflow-taxonomy": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/orchestration-and-workflows/when-to-orchestrate": {
+    "level": "reference",
     "minutes": 1
   },
   "04-agentic-platform/orchestration-and-workflows/why-multi-agent-fails": {
@@ -1671,6 +1779,18 @@
     "level": "applied",
     "minutes": 2
   },
+  "04-agentic-platform/runtime-and-durability/checkpoint-and-resume": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/runtime-and-durability/durable-execution": {
+    "level": "reference",
+    "minutes": 2
+  },
+  "04-agentic-platform/runtime-and-durability/when-the-task-dies": {
+    "level": "reference",
+    "minutes": 1
+  },
   "04-agentic-platform/task-set": {
     "level": "applied",
     "minutes": 10
@@ -1689,6 +1809,18 @@
   },
   "04-agentic-platform/tools-and-protocols/a-minimal-tool-protocol": {
     "level": "applied",
+    "minutes": 1
+  },
+  "04-agentic-platform/tools-and-protocols/agent-sdk-composition": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/tools-and-protocols/from-function-calling-to-mcp": {
+    "level": "reference",
+    "minutes": 1
+  },
+  "04-agentic-platform/tools-and-protocols/mcp-in-production": {
+    "level": "reference",
     "minutes": 1
   },
   "04-agentic-platform/verification-and-evals": {

@@ -2571,6 +2571,31 @@
                 "type": "doc",
                 "id": "04-agentic-platform/harness-comparison/harness-effects-landscape",
                 "label": "Harness effects landscape"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/harness-comparison/pi-and-the-agent-sdks/index",
+                "label": "Pi and the agent SDKs"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/harness-comparison/reading-claude-code/index",
+                "label": "Reading Claude Code"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/harness-comparison/reading-codex/index",
+                "label": "Reading Codex"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/harness-comparison/reading-cursor-and-open-source-harnesses/index",
+                "label": "Reading Cursor and open harnesses"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/harness-comparison/when-the-harness-moved-the-score/index",
+                "label": "When the harness moved the score"
               }
             ]
           },
@@ -2640,8 +2665,28 @@
               },
               {
                 "type": "doc",
+                "id": "04-agentic-platform/execution-environment/fuse-and-the-filesystem-interface/index",
+                "label": "FUSE and the filesystem interface"
+              },
+              {
+                "type": "doc",
                 "id": "04-agentic-platform/execution-environment/infra-agent-harness-landscape",
                 "label": "Infra agent harness landscape"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/execution-environment/microvm-vs-container-vs-process/index",
+                "label": "MicroVM vs container vs process"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/execution-environment/the-sandbox-layers/index",
+                "label": "The sandbox layers"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/execution-environment/when-the-sandbox-leaks/index",
+                "label": "When the sandbox leaks"
               }
             ]
           },
@@ -2657,6 +2702,21 @@
                 "type": "doc",
                 "id": "04-agentic-platform/runtime-and-durability/a-minimal-checkpointer/index",
                 "label": "A minimal checkpointer"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/runtime-and-durability/checkpoint-and-resume/index",
+                "label": "Checkpoint and resume"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/runtime-and-durability/durable-execution/index",
+                "label": "Durable execution"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/runtime-and-durability/when-the-task-dies/index",
+                "label": "When the task dies"
               }
             ]
           },
@@ -2677,6 +2737,36 @@
                 "type": "doc",
                 "id": "04-agentic-platform/context-and-memory/agent-memory-landscape",
                 "label": "Agent memory landscape"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/context-and-memory/agentfs-and-persistent-workspace/index",
+                "label": "AgentFS and persistent workspaces"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/context-and-memory/codebase-retrieval/index",
+                "label": "Codebase retrieval"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/context-and-memory/file-based-memory/index",
+                "label": "File-based memory"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/context-and-memory/from-rag-to-agentic-rag/index",
+                "label": "From RAG to agentic RAG"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/context-and-memory/memory-tiers/index",
+                "label": "Memory tiers"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/context-and-memory/when-rag-belongs-in-an-agent/index",
+                "label": "When RAG belongs in an agent"
               }
             ]
           },
@@ -2692,6 +2782,21 @@
                 "type": "doc",
                 "id": "04-agentic-platform/tools-and-protocols/a-minimal-tool-protocol/index",
                 "label": "A minimal tool protocol"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/tools-and-protocols/agent-sdk-composition/index",
+                "label": "Agent SDK composition"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/tools-and-protocols/from-function-calling-to-mcp/index",
+                "label": "From function calling to MCP"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/tools-and-protocols/mcp-in-production/index",
+                "label": "MCP in production"
               }
             ]
           }
@@ -2716,20 +2821,90 @@
               },
               {
                 "type": "doc",
+                "id": "04-agentic-platform/orchestration-and-workflows/spec-driven-orchestration/index",
+                "label": "Spec-driven orchestration"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/orchestration-and-workflows/the-workflow-taxonomy/index",
+                "label": "The workflow taxonomy"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/orchestration-and-workflows/when-to-orchestrate/index",
+                "label": "When to orchestrate"
+              },
+              {
+                "type": "doc",
                 "id": "04-agentic-platform/orchestration-and-workflows/why-multi-agent-fails/index",
                 "label": "Why multi-agent fails"
               }
             ]
           },
           {
-            "type": "doc",
-            "id": "04-agentic-platform/control-plane-and-governance/index",
-            "label": "Control plane and governance"
+            "type": "category",
+            "label": "Control plane and governance",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/control-plane-and-governance/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/control-plane-and-governance/control-vs-observability/index",
+                "label": "Control vs observability"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/control-plane-and-governance/no-secrets-no-authority/index",
+                "label": "No secrets, no authority"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/control-plane-and-governance/the-enterprise-matrix/index",
+                "label": "The enterprise matrix"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/control-plane-and-governance/the-platform-layers/index",
+                "label": "The platform layers"
+              }
+            ]
           },
           {
-            "type": "doc",
-            "id": "04-agentic-platform/agentic-infrastructure/index",
-            "label": "Agentic infrastructure"
+            "type": "category",
+            "label": "Agentic infrastructure",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/agentic-infrastructure/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/agentic-infrastructure/agentic-devops/index",
+                "label": "Agentic DevOps"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/agentic-infrastructure/model-gateways/index",
+                "label": "Model gateways"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/agentic-infrastructure/sandbox-farms/index",
+                "label": "Sandbox farms"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/agentic-infrastructure/the-compute-reality/index",
+                "label": "The compute reality"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/agentic-infrastructure/the-six-layers/index",
+                "label": "The six layers"
+              }
+            ]
           },
           {
             "type": "category",

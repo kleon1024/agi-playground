@@ -3594,6 +3594,204 @@
       "kind": "sub",
       "order": 50,
       "title": "The diff says tampered. The numbers say resolved. Who do you trust?"
+    },
+    {
+      "path": "04-agentic-platform/execution-environment/fuse-and-the-filesystem-interface",
+      "kind": "sub",
+      "order": 50,
+      "title": "The filesystem as an agent's interface"
+    },
+    {
+      "path": "04-agentic-platform/execution-environment/microvm-vs-container-vs-process",
+      "kind": "sub",
+      "order": 50,
+      "title": "Where the isolation boundary sits, and what it costs"
+    },
+    {
+      "path": "04-agentic-platform/execution-environment/the-sandbox-layers",
+      "kind": "sub",
+      "order": 50,
+      "title": "Process isolation, network policy, approval routing"
+    },
+    {
+      "path": "04-agentic-platform/execution-environment/when-the-sandbox-leaks",
+      "kind": "sub",
+      "order": 50,
+      "title": "The failure cases industry actually hits"
+    },
+    {
+      "path": "04-agentic-platform/runtime-and-durability/checkpoint-and-resume",
+      "kind": "sub",
+      "order": 50,
+      "title": "Where a file checkpoint is enough, and where it is not"
+    },
+    {
+      "path": "04-agentic-platform/runtime-and-durability/durable-execution",
+      "kind": "sub",
+      "order": 50,
+      "title": "Journal replay, idempotency, and the engines that do it"
+    },
+    {
+      "path": "04-agentic-platform/runtime-and-durability/when-the-task-dies",
+      "kind": "sub",
+      "order": 50,
+      "title": "Crash, preemption, session loss: what state is at stake"
+    },
+    {
+      "path": "04-agentic-platform/context-and-memory/agentfs-and-persistent-workspace",
+      "kind": "sub",
+      "order": 50,
+      "title": "State that lives beyond the context window"
+    },
+    {
+      "path": "04-agentic-platform/context-and-memory/codebase-retrieval",
+      "kind": "sub",
+      "order": 50,
+      "title": "The agent's view of a large repository"
+    },
+    {
+      "path": "04-agentic-platform/context-and-memory/file-based-memory",
+      "kind": "sub",
+      "order": 50,
+      "title": "AGENTS.md, CLAUDE.md, and the memory file that runs the repo"
+    },
+    {
+      "path": "04-agentic-platform/context-and-memory/from-rag-to-agentic-rag",
+      "kind": "sub",
+      "order": 50,
+      "title": "Retrieval stopped being a pre-step and became a tool"
+    },
+    {
+      "path": "04-agentic-platform/context-and-memory/memory-tiers",
+      "kind": "sub",
+      "order": 50,
+      "title": "Working, episodic, semantic: the three-tier production stack"
+    },
+    {
+      "path": "04-agentic-platform/context-and-memory/when-rag-belongs-in-an-agent",
+      "kind": "sub",
+      "order": 50,
+      "title": "The decision is \"when to retrieve\", not \"whether to retrieve\""
+    },
+    {
+      "path": "04-agentic-platform/tools-and-protocols/agent-sdk-composition",
+      "kind": "sub",
+      "order": 50,
+      "title": "The loop as a library: what an SDK owns and what it leaves you"
+    },
+    {
+      "path": "04-agentic-platform/tools-and-protocols/from-function-calling-to-mcp",
+      "kind": "sub",
+      "order": 50,
+      "title": "One schema per model, or one protocol for everything"
+    },
+    {
+      "path": "04-agentic-platform/tools-and-protocols/mcp-in-production",
+      "kind": "sub",
+      "order": 50,
+      "title": "The reference split: sandbox executes, MCP discovers"
+    },
+    {
+      "path": "04-agentic-platform/harness-comparison/pi-and-the-agent-sdks",
+      "kind": "sub",
+      "order": 50,
+      "title": "The harness you import instead of build"
+    },
+    {
+      "path": "04-agentic-platform/harness-comparison/reading-claude-code",
+      "kind": "sub",
+      "order": 50,
+      "title": "The terminal harness, read as five decisions"
+    },
+    {
+      "path": "04-agentic-platform/harness-comparison/reading-codex",
+      "kind": "sub",
+      "order": 50,
+      "title": "The CLI and cloud harness, read as five decisions"
+    },
+    {
+      "path": "04-agentic-platform/harness-comparison/reading-cursor-and-open-source-harnesses",
+      "kind": "sub",
+      "order": 50,
+      "title": "Editor-first and open harnesses, read as five decisions"
+    },
+    {
+      "path": "04-agentic-platform/harness-comparison/when-the-harness-moved-the-score",
+      "kind": "sub",
+      "order": 50,
+      "title": "Two settings, three times the score"
+    },
+    {
+      "path": "04-agentic-platform/control-plane-and-governance/control-vs-observability",
+      "kind": "sub",
+      "order": 50,
+      "title": "Watching is not the same as stopping"
+    },
+    {
+      "path": "04-agentic-platform/control-plane-and-governance/no-secrets-no-authority",
+      "kind": "sub",
+      "order": 50,
+      "title": "NVIDIA's six invariants, made concrete"
+    },
+    {
+      "path": "04-agentic-platform/control-plane-and-governance/the-enterprise-matrix",
+      "kind": "sub",
+      "order": 50,
+      "title": "Five vendor platforms, one table"
+    },
+    {
+      "path": "04-agentic-platform/control-plane-and-governance/the-platform-layers",
+      "kind": "sub",
+      "order": 50,
+      "title": "Three maps of the agentic platform"
+    },
+    {
+      "path": "04-agentic-platform/agentic-infrastructure/agentic-devops",
+      "kind": "sub",
+      "order": 50,
+      "title": "Running the machine room: rollout, canary, incident response for agents"
+    },
+    {
+      "path": "04-agentic-platform/agentic-infrastructure/model-gateways",
+      "kind": "sub",
+      "order": 50,
+      "title": "Routing, fallback, caching: the layer where model choice becomes config"
+    },
+    {
+      "path": "04-agentic-platform/agentic-infrastructure/sandbox-farms",
+      "kind": "sub",
+      "order": 50,
+      "title": "Provisioning isolation at scale: cold start is the throughput variable"
+    },
+    {
+      "path": "04-agentic-platform/agentic-infrastructure/the-compute-reality",
+      "kind": "sub",
+      "order": 50,
+      "title": "What a 24GB card can and cannot run"
+    },
+    {
+      "path": "04-agentic-platform/agentic-infrastructure/the-six-layers",
+      "kind": "sub",
+      "order": 50,
+      "title": "What actually sits under a production agent"
+    },
+    {
+      "path": "04-agentic-platform/orchestration-and-workflows/spec-driven-orchestration",
+      "kind": "sub",
+      "order": 50,
+      "title": "The issue tracker becomes the skeleton"
+    },
+    {
+      "path": "04-agentic-platform/orchestration-and-workflows/the-workflow-taxonomy",
+      "kind": "sub",
+      "order": 50,
+      "title": "Chains, routing, parallelization, orchestrator-workers, evaluator-optimizer"
+    },
+    {
+      "path": "04-agentic-platform/orchestration-and-workflows/when-to-orchestrate",
+      "kind": "sub",
+      "order": 50,
+      "title": "The decision rule: deterministic skeleton, LLM cells"
     }
   ],
   "renames": {

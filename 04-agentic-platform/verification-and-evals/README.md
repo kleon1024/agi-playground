@@ -46,18 +46,18 @@ risk, route the change to auto-merge or a human reviewer.
 
 ## The verified core (recorded runs)
 
-- **control-plane-governance** — what a governed agent actually does: the
+- **[control-plane-governance](control-plane-governance/)** — what a governed agent actually does: the
   policy layer read off the mission's own runs, with the governance-gates
   run (2026-08-08).
-- **the-adversary-that-adapts** — an adversarial arm that changes strategy
+- **[the-adversary-that-adapts](the-adversary-that-adapts/)** — an adversarial arm that changes strategy
   mid-run, and what adaptivity does to the guardrail's hit rate
   (2026-08-08).
-- **the-agent-is-the-action** — when the agent itself is the action, and
+- **[the-agent-is-the-action](the-agent-is-the-action/)** — when the agent itself is the action, and
   the risk-agent read of the recorded attempts (2026-08-08).
-- **the-zero-failure-taxonomy** — the recorded catalogue read: the harness
+- **[the-zero-failure-taxonomy](the-zero-failure-taxonomy/)** — the recorded catalogue read: the harness
   arm is 0/18 in every failure category; the no-harness arm is where
   failures live (12/18 target_still_failing) (2026-08-06).
-- **when-the-patch-cannot-apply** — the same logs, second cut: 11 of 12
+- **[when-the-patch-cannot-apply](when-the-patch-cannot-apply/)** — the same logs, second cut: 11 of 12
   no-harness failures never produced an applicable patch, and the harness
   is cheaper per resolved task than the blind call (2026-08-06).
 

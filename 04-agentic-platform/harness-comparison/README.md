@@ -36,19 +36,19 @@ reading skill.
 
 ## Planned chapters
 
-- **when-the-harness-moved-the-score** — the recorded external case where
+- **[when-the-harness-moved-the-score](when-the-harness-moved-the-score/)** — the recorded external case where
   changing harness settings alone moved a benchmark 3x (OpenAI's ARC-AGI-3
   post); moved from the old `harness-effects-landscape` reference.
-- **reading-claude-code** — the terminal harness read as five decisions:
+- **[reading-claude-code](reading-claude-code/)** — the terminal harness read as five decisions:
   its loop, subagents, sandbox (v2.1+, filesystem + SOCKS5 network policy),
   CLAUDE.md context scopes, and permission ladder.
-- **reading-codex** — the CLI and cloud harness: plan mode, approval
+- **[reading-codex](reading-codex/)** — the CLI and cloud harness: plan mode, approval
   policy (untrusted / on-request / never), sandbox layers (process
   isolation, network policy, approval routing), AGENTS.md + rolling memory.
-- **reading-cursor-and-open-source-harnesses** — editor-first agents,
+- **[reading-cursor-and-open-source-harnesses](reading-cursor-and-open-source-harnesses/)** — editor-first agents,
   background agents, and the open harnesses (OpenHands, SWE-agent) as the
   same five decisions with different defaults.
-- **pi-and-the-agent-sdks** — the composition layer: pi's unified API and
+- **[pi-and-the-agent-sdks](pi-and-the-agent-sdks/)** — the composition layer: pi's unified API and
   agent loop, OpenAI Agents SDK's built-in Runner, guardrails, handoffs,
   and subagents, Claude Agent SDK's query/receive-response cycle.
 

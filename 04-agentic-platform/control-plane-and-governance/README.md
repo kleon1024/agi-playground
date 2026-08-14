@@ -37,21 +37,21 @@ self-granted authority, no agent-controlled lifecycle, no suppressed audit).
 
 ## Planned chapters
 
-- **the-platform-layers** — the industry's layered maps compared: TokenJam's
+- **[the-platform-layers](the-platform-layers/)** — the industry's layered maps compared: TokenJam's
   nine-layer ecosystem (observability, evaluation, environments, gateways,
   memory, guardrails, human-in-the-loop, control plane, optimization),
   OpenAI's three-layer stack (SDK / Responses API / AgentKit), NVIDIA's
   seven-plane reference.
-- **control-vs-observability** — the passive/active split and why it
+- **[control-vs-observability](control-vs-observability/)** — the passive/active split and why it
   surfaces only at incidents; the 2026 control-plane products (Galileo
   Agent Control, Salesforce Agent Fabric, Microsoft Agent 365, HumanLayer
   ACP) and the two underbuilt layers (optimization, dev-first control
   planes).
-- **the-enterprise-matrix** — the five vendor platforms (AWS Bedrock
+- **[the-enterprise-matrix](the-enterprise-matrix/)** — the five vendor platforms (AWS Bedrock
   AgentCore, Microsoft Copilot Studio, Google ADK, OpenAI AgentKit, and
   Anthropic) with their orchestration primitives, and A2A as the
   agent-to-agent protocol binding them.
-- **no-secrets-no-authority** — NVIDIA's invariants made concrete: the
+- **[no-secrets-no-authority](no-secrets-no-authority/)** — NVIDIA's invariants made concrete: the
   credential proxy (agent receives capabilities, never raw tokens),
   deny-by-default egress, no agent-created persistence, and what each
   invariant defends against.

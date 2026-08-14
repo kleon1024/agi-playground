@@ -37,13 +37,13 @@ make them fast and private.
 - **[a-minimal-tool-protocol](a-minimal-tool-protocol/)** (local mechanism demo) — build the three-tool
   JSON-RPC server, wire it to the harness, and record a run that exercises
   discovery, invocation, and error return.
-- **from-function-calling-to-mcp** — the evolution: schema-based function
+- **[from-function-calling-to-mcp](from-function-calling-to-mcp/)** — the evolution: schema-based function
   calling, then MCP's tools/resources/prompts primitives on JSON-RPC 2.0;
   what a standard protocol changes for tool ecosystems.
-- **mcp-in-production** — transports, auth, and the reference split where
+- **[mcp-in-production](mcp-in-production/)** — transports, auth, and the reference split where
   the sandbox is the execution plane and MCP is the tool-discovery layer;
   Claude Managed Agents' headless sandbox + MCP tunnel pattern.
-- **agent-sdk-composition** — OpenAI Agents SDK (built-in Runner loop,
+- **[agent-sdk-composition](agent-sdk-composition/)** — OpenAI Agents SDK (built-in Runner loop,
   guardrails, handoffs, subagents), Claude Agent SDK
   (query/receive-response), and pi — the SDK as a harness you import instead
   of build.

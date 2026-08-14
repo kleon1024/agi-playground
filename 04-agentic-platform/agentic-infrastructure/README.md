@@ -37,21 +37,21 @@ speed becomes the throughput bottleneck on parallel agents.
 
 ## Planned chapters
 
-- **the-six-layers** — inference (vLLM/SGLang serving), sandbox execution
+- **[the-six-layers](the-six-layers/)** — inference (vLLM/SGLang serving), sandbox execution
   (E2B, Modal, Firecracker farms), data and memory stores (vector DBs,
   SQLite-first memory, Databricks/Snowflake repositioned as memory
   systems), tool registries and MCP servers, observability (OTel GenAI,
   Langfuse, LangSmith), evaluation — one map, six questions.
-- **sandbox-farms** — provisioning at scale: cold-start latency as the
+- **[sandbox-farms](sandbox-farms/)** — provisioning at scale: cold-start latency as the
   throughput variable (E2B 150–200 ms, microVM pools), self-hosted vs
   managed break-even, and the 100k-concurrent-sandbox scale claims.
-- **model-gateways** — routing, fallback, caching, and key management; the
+- **[model-gateways](model-gateways/)** — routing, fallback, caching, and key management; the
   gateway as the layer where model choice becomes a config change, and the
   convergence with observability.
-- **the-compute-reality** — what a 24GB card can and cannot run; when to
+- **[the-compute-reality](the-compute-reality/)** — what a 24GB card can and cannot run; when to
   train locally and when the honest move is a dated external source — the
   same boundary the whole repository enforces.
-- **agentic-devops** — running the machine room: rollout, canary, and
+- **[agentic-devops](agentic-devops/)** — running the machine room: rollout, canary, and
   incident response for agents that run unattended; observability-to-action
   loops (eval failure triggers a diagnosis run).
 

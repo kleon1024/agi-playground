@@ -37,17 +37,17 @@ distinction operational.
 
 ## Planned chapters
 
-- **the-workflow-taxonomy** — Anthropic's patterns (prompt chains, routing,
+- **[the-workflow-taxonomy](the-workflow-taxonomy/)** — Anthropic's patterns (prompt chains, routing,
   parallelization, orchestrator-workers, evaluator-optimizer) and the 2026
   coordination extensions (agent teams, message bus, shared state).
-- **when-to-orchestrate** — the decision rule: deterministic skeleton with
+- **[when-to-orchestrate](when-to-orchestrate/)** — the decision rule: deterministic skeleton with
   LLM cells for mission-critical work, free agent for exploration; what
   changes at each point of the spectrum.
 - **[why-multi-agent-fails](why-multi-agent-fails/)** — the production record: AutoGen's
   non-terminating conversations as its most frequent failure mode, command
   races and state hallucination across CrewAI/AutoGen/LangGraph, and the
   fixes (aggressive termination, durable state) the industry converged on.
-- **spec-driven-orchestration** — orchestrating from an issue tracker:
+- **[spec-driven-orchestration](spec-driven-orchestration/)** — orchestrating from an issue tracker:
   OpenAI's Symphony (an open spec for many Codex agents driven by Linear),
   spec-in/PR-out as an organizational redesign, and the "ticket quality is a
   productivity input" finding.

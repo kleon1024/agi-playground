@@ -34,14 +34,14 @@ corrupting its own progress.
 
 ## Planned chapters
 
-- **when-the-task-dies** — the failure taxonomy of long-running agents:
+- **[when-the-task-dies](when-the-task-dies/)** — the failure taxonomy of long-running agents:
   crash, preemption, session loss, timeout; what state exists at each point
   and what "restart" means when the state is a conversation.
-- **durable-execution** — Temporal, Restate, and Durable Objects as the
+- **[durable-execution](durable-execution/)** — Temporal, Restate, and Durable Objects as the
   three production answers; journal replay, idempotency keys, and why
   Thoughtworks' radar lists "ignoring durability in agent workflows" as a
   trap.
-- **checkpoint-and-resume** — the lightweight version: checkpointing a
+- **[checkpoint-and-resume](checkpoint-and-resume/)** — the lightweight version: checkpointing a
   harness's state to disk or SQLite; where a checkpoint is enough and where
   you need a real durable execution engine.
 - **[a-minimal-checkpointer](a-minimal-checkpointer/)** (local mechanism demo) — add checkpoint/resume

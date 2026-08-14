@@ -36,27 +36,30 @@ when a fact is promoted, demoted, or deleted.
 
 ## Planned chapters
 
-- **from-rag-to-agentic-rag** — how retrieval evolved from corpus search to
+- **[from-rag-to-agentic-rag](from-rag-to-agentic-rag/)** — how retrieval evolved from corpus search to
   a tool an agent calls mid-task; when RAG belongs in an agent and when it
   is the wrong layer (industry: hybrid retrieval moving buyer-intent
   signals, and the "RAG is not memory" distinction).
-- **file-based-memory** — the two-layer file system memory that dominates
+- **[when-rag-belongs-in-an-agent](when-rag-belongs-in-an-agent/)** — the
+  decision rule for placing retrieval in the loop: open-world tasks call
+  for a retrieval tool; stable small facts belong in context.
+- **[file-based-memory](file-based-memory/)** — the two-layer file system memory that dominates
   coding agents: the static instruction layer (AGENTS.md / CLAUDE.md, now a
   Linux Foundation standard across 20+ tools) and the generated layer
   (Codex rolling summaries, Claude auto memory), plus memory hygiene —
   promotion rules, audits, and the cost of an unpruned instruction file.
-- **memory-tiers** — working / episodic / semantic memory and the
+- **[memory-tiers](memory-tiers/)** — working / episodic / semantic memory and the
   production stack (SQLite-first local, vector for retrieval, graph when
   entity relationships matter); the measured costs of selective memory
   (Mem0's paper: ~90% token reduction).
-- **codebase-retrieval** — the agent's view of a large repository: repo
+- **[codebase-retrieval](codebase-retrieval/)** — the agent's view of a large repository: repo
   maps, AST and symbol indexes, code intelligence graphs (Sourcegraph),
   and why "monorepo blind spots" are the dominant failure in large-project
   agent work.
 - **[a-sqlite-memory](a-sqlite-memory/)** (local mechanism demo) — a minimal SQLite memory
   store + retrieval on top of the mission's recorded runs, showing a
   promoted lesson changing a later attempt.
-- **agentfs-and-persistent-workspace** — filesystem-backed agent state
+- **[agentfs-and-persistent-workspace](agentfs-and-persistent-workspace/)** — filesystem-backed agent state
   beyond the context window: AgentFS, BranchFS workspaces, and the
   persistent-session pattern.
 
