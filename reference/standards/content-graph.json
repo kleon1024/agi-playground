@@ -3584,6 +3584,12 @@
       "title": "The plan as a contract, generated from the mission's real tasks"
     },
     {
+      "path": "04-agentic-platform/intent-to-plan/decomposing-a-large-intent",
+      "kind": "sub",
+      "order": 50,
+      "title": "A large intent is not a bigger leaf. How does it become a tree of verifiable work?"
+    },
+    {
       "path": "04-agentic-platform/orchestration-and-workflows/a-minimal-orchestrator",
       "kind": "sub",
       "order": 50,

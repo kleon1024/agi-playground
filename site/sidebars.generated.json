@@ -2528,6 +2528,11 @@
               },
               {
                 "type": "doc",
+                "id": "04-agentic-platform/intent-to-plan/decomposing-a-large-intent/index",
+                "label": "Decomposing a large intent"
+              },
+              {
+                "type": "doc",
                 "id": "04-agentic-platform/intent-to-plan/spec-driven-development/index",
                 "label": "Spec-driven development"
               },

@@ -463,6 +463,7 @@
 04-agentic-platform/industry-impact/the-adoption-matrix
 04-agentic-platform/industry-impact/where-agents-cannot-go-yet
 04-agentic-platform/intent-to-plan/a-minimal-planner
+04-agentic-platform/intent-to-plan/decomposing-a-large-intent
 04-agentic-platform/intent-to-plan/spec-driven-development
 04-agentic-platform/intent-to-plan/the-plan-as-contract
 04-agentic-platform/intent-to-plan/when-the-request-is-vague

@@ -199,3 +199,8 @@ the stage says so instead of pretending.
 - **[a-minimal-planner](a-minimal-planner/)** (verified demo) — the
   constraint extractor that produced the artifact above, run on the
   mission's real tasks.
+- **[decomposing-a-large-intent](decomposing-a-large-intent/)** (verified
+  demo) — how an intent that spans several leaves becomes a tree of
+  verifiable work: the four decomposition invariants, the failure directions
+  that break them, and the topology-derived decomposer run on the mission's
+  real task sets.

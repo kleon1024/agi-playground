@@ -1749,23 +1749,27 @@
   },
   "04-agentic-platform/intent-to-plan": {
     "level": "frontier",
-    "minutes": 3
+    "minutes": 6
   },
   "04-agentic-platform/intent-to-plan/a-minimal-planner": {
     "level": "applied",
     "minutes": 2
   },
+  "04-agentic-platform/intent-to-plan/decomposing-a-large-intent": {
+    "level": "frontier",
+    "minutes": 9
+  },
   "04-agentic-platform/intent-to-plan/spec-driven-development": {
-    "level": "reference",
-    "minutes": 1
+    "level": "frontier",
+    "minutes": 2
   },
   "04-agentic-platform/intent-to-plan/the-plan-as-contract": {
-    "level": "reference",
-    "minutes": 1
+    "level": "frontier",
+    "minutes": 2
   },
   "04-agentic-platform/intent-to-plan/when-the-request-is-vague": {
-    "level": "reference",
-    "minutes": 1
+    "level": "frontier",
+    "minutes": 4
   },
   "04-agentic-platform/no-harness": {
     "level": "applied",
