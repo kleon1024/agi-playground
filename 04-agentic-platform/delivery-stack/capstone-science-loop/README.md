@@ -19,7 +19,7 @@ is: a proxy for truth.
 
 **The artifact this chapter follows** is the science loop itself, drawn as
 its handoffs, anchored to this repository's own computational-science
-stage — [molecular property prediction](../../08-bio-pharma-modeling/),
+stage — [molecular property prediction](../../../08-bio-pharma-modeling/),
 where a small model predicts whether a compound is toxic and a dataset
 decides whether the model is believed.
 
@@ -84,7 +84,7 @@ Labs, Recursion's drug-discovery loop) spend most of their engineering:
 None of these is a LangGraph node. They are the same seven objects,
 installed in a laboratory instead of a repository. The tutorial's honest
 position: a 24GB card can run computational screening
-([the molecular-property stage](../../08-bio-pharma-modeling/) is exactly
+([the molecular-property stage](../../../08-bio-pharma-modeling/) is exactly
 that), and it cannot run the physical loop, which is why the capstone
 names the boundary instead of blurring it.
 
@@ -119,6 +119,6 @@ plays for the software half.
 
 **Next:** the six objects and two capstones are mapped. The remaining
 agenda is the same audit applied to the other topics — the
-[language-model](../../01-language-model/) and
-[discovery](../../02-personalized-discovery/) spines still carry
+[language-model](../../../01-language-model/) and
+[discovery](../../../02-personalized-discovery/) spines still carry
 survey-mode chapters that need the tutorial treatment.
