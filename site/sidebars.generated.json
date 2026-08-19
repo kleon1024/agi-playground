@@ -3135,6 +3135,62 @@
         ]
       },
       {
+        "type": "category",
+        "label": "Delivery",
+        "items": [
+          {
+            "type": "category",
+            "label": "Delivery stack",
+            "link": {
+              "type": "doc",
+              "id": "04-agentic-platform/delivery-stack/index"
+            },
+            "items": [
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/delivery-stack/bounded-improvement/index",
+                "label": "Bounded improvement"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/delivery-stack/capstone-software-delivery/index",
+                "label": "Capstone A \u2014 software delivery"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/delivery-stack/capstone-science-loop/index",
+                "label": "Capstone B \u2014 the science loop"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/delivery-stack/domain-and-system-of-record/index",
+                "label": "Domain model and system of record"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/delivery-stack/economics-of-autonomy/index",
+                "label": "Economics of autonomy"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/delivery-stack/objective-and-decision-rights/index",
+                "label": "Objective and decision rights"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/delivery-stack/side-effect-semantics/index",
+                "label": "Side-effect semantics"
+              },
+              {
+                "type": "doc",
+                "id": "04-agentic-platform/delivery-stack/trust-boundaries/index",
+                "label": "Trust boundaries"
+              }
+            ]
+          }
+        ]
+      },
+      {
         "type": "doc",
         "id": "04-agentic-platform/lineage",
         "label": "Lineage"
