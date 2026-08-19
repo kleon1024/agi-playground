@@ -65,10 +65,16 @@ The task record is the same constraint set in a lossless-enough form:
 The last two rows are the point. *What must not break* is a constraint in
 every real intent, and the record does not carry it — the harness had to
 re-derive it as a regression check. *Why this matters* (the intent's
-reason) is dropped entirely, and the record is correct to drop it: the
-reason does not change what the tests check. Intent formalization is
-exactly this — deciding which constraints the executable form must carry
-and which it can discard.
+reason) is dropped from the record — and whether that is correct depends
+on the horizon. On a single mined task, the reason does not change what
+the tests check, so dropping it costs nothing. On a multi-week delivery
+it is the utility function replanning runs on: when the environment
+changes, the plan fails, or two constraints conflict, "why" is what
+decides whether to change approach, which constraint wins, whether to
+abandon, or whether to renegotiate the goal. Intent formalization is
+exactly this — deciding which constraints the executable form must carry,
+which it can discard, and which must survive as non-executable context
+for the decisions that come later.
 
 ## Intent has three levels, and agents get them confused
 
@@ -105,26 +111,42 @@ thought → conversation → ticket → spec/plan → code → passing test
 | thought → conversation | tacit knowledge, context the speaker assumes | grounding (discover the repo, don't ask) |
 | conversation → ticket | the conversation's clarifications | ticket hygiene — or the loss is accepted |
 | ticket → spec/plan | constraints never stated | plan review by a human who knows the domain |
-| spec/plan → code | the plan's exactness | tests — the only lossless surface |
+| spec/plan → code | the plan's exactness | tests — deterministic but bounded evidence |
 | code → passing test | the test's blind spots | regression and generality checks ([stage 14](../verification-and-evals/)) |
 
-Only the last surface is lossless: a passing test is a machine-checkable
-fact. Everything upstream of it leaks, which is why the industry's answer
+A passing test is not a lossless surface. It is deterministic but bounded
+evidence: within the input space the test covers, some predicate holds —
+and this mission's own record shows the bound. The harness resolved 18/18
+target tests across tiers, and a separate generality probe found only 6/9
+patches sound; the cheapest tier's three patches all carried defects
+outside the tested input space ([stage 05](../cheap-or-expensive/)). A
+test passing means the predicate holds *on the cases it checks*; the
+original intent is not losslessly represented, and the generality gap is
+exactly what the regression and generality checks exist to price.
+Everything upstream of the test leaks, which is why the industry's answer
 is not "write better" — it is to make each surface's loss *detectable*.
 The plan makes the ticket's loss visible before execution; the test makes
-the code's loss visible after.
+the code's loss visible after, and the generality check makes the test's
+own bounds visible.
 
 ## The three moves, as loss control
 
 This reframing makes the three production moves mechanical instead of
 advisory:
 
-**Grounding controls the thought → conversation → ticket losses.** Codex's
-plan mode rule — *"eliminate unknowns in the prompt by discovering facts,
-not by asking the user"* ([openai/codex](https://github.com/openai/codex/pull/10195))
-— is a loss-control rule: the tacit context the requester assumed is
-recovered from the repository instead of being re-negotiated. Jules does
-the same mechanically: clone, inspect, then plan.
+**Grounding controls the thought → conversation → ticket losses, for the
+unknowns that can be discovered.** Codex's plan mode rule — *"eliminate
+unknowns in the prompt by discovering facts, not by asking the user"*
+([openai/codex](https://github.com/openai/codex/pull/10195)) — is a
+loss-control rule, and its reach has a boundary: it works for unknowns
+that are *descriptive* (where the file is, what the interface is, which
+test fails), because those live in the repository. It does not work for
+unknowns no search can answer: *normative* preferences (speed over
+reliability, which customers may be affected), *predictive* judgments
+(what a three-month delay costs), and *authorization* decisions (who owns
+the final call). Grounding those from the repository would dress the
+agent's guess as a requirement. Jules does the same mechanically: clone,
+inspect, then plan — and, where the fact is not in the repository, asks.
 
 **Exactness controls the ticket → plan loss.** A plan-only output — exact
 file paths, exact structures, exact signatures, nothing else — is a

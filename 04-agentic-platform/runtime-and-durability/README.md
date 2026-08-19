@@ -89,10 +89,21 @@ resumed agent has a filesystem it does not understand.
 
 That is what durable execution engines formalize
 ([durable-execution](durable-execution/)): Temporal, Restate, and
-Cloudflare's Durable Objects journal *every step and every tool call*, and
-replay the journal with idempotency keys — the same "completed work, not
-position" rule the demo implements in 100 lines, generalized so a call
-that succeeded once is never made twice. The industry signal is blunt:
+Cloudflare's Durable Objects journal the workflow's steps and replay them
+deterministically — the same "completed work, not position" rule the demo
+implements in 100 lines. But the journal's determinism has a boundary the
+demo does not hit: a journaled workflow replays *its own* steps exactly
+once, while the external effects it triggered are at-least-once by
+default. Temporal's Activity semantics are the sharpest case — an
+Activity that ran and produced an external side effect can be retried
+after a crash before its success was journaled, so the side effect can
+happen twice. Durable execution therefore requires the distributed
+systems discipline the journal alone does not supply: idempotency keys
+on the external call, a transactional outbox so the side effect and its
+record commit together, or Saga compensation so a duplicate or partial
+effect is undone. Temporal's own docs put the rule plainly: an Activity
+must be idempotent, or retries must be disabled and at-most-once accepted.
+The industry signal is blunt:
 Thoughtworks' 2026 radar flags *ignoring durability in agent workflows* as
 a technique to avoid, which is the same sentence as "let the process die
 with the state."

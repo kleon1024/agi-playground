@@ -60,10 +60,18 @@ question 2: "is the resolve rate still believable when nothing failed?"
 
 Lesson 1 is recalled by both questions and becomes durable. Lesson 2 — the
 guardrail claim — is recalled by neither, because neither question mentions
-guardrails. That is the point: **the store does not decide what matters,
-recall does**. A fact that is never recalled stays ephemeral, and an
-unpruned instruction file is exactly a store where everything is durable
-because nothing is ever filtered.
+guardrails. That is the point, with a boundary: **the store does not
+decide what matters, recall does** — but recall frequency is a signal of
+*salience*, not *correctness*. A lesson promoted because it keeps being
+recalled is a lesson that keeps being useful, and a lesson that was wrong
+when stored would compound the same error into every future session. The
+demo sidesteps this because every seeded lesson names the `runs/` file that
+measured it; a production memory record needs that provenance made
+explicit — the evidence reference, confidence, and temporal validity
+beside the fact itself — so a promotion is always traceable to the run it
+rests on, and a fact whose evidence decays can be demoted. An unpruned
+instruction file is exactly a store where everything is durable because
+nothing is ever filtered.
 
 ## The bottleneck is recall, not storage
 

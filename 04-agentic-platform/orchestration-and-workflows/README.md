@@ -102,15 +102,24 @@ from a vague spec fails the same way a free conversation does. This is the
 skeleton is the plan, and the plan is a contract each worker executes
 against.
 
-## When the skeleton is the wrong shape
+## Beyond the binary: typed skeleton plus constrained replanning
 
-The boundary cuts both ways. If the task has no known shape — "explore
-this codebase and tell me what is worth knowing" — a fixed skeleton forces
-cells onto a problem that does not have them, and a free agent is the
-honest tool. The decision rule is not "always orchestrate": it is
-*structured work gets a skeleton, exploration gets a leash*. The mission's
-own work sits firmly on the skeleton side — every task arrives as a test
-to satisfy, which is a shape someone already defined.
+The two-way split — fixed skeleton versus free agents — is the right
+starting contrast and the wrong endpoint. The production shape is not one
+or the other; it is a typed skeleton whose cells can *propose changes to
+the skeleton itself*. A planner agent may suggest adding, removing, or
+reordering nodes; the proposal is validated against dependencies,
+permissions, and budget before it lands; consequential changes require
+approval; and every accepted mutation enters the audit record — dynamic
+but typed and governed, which is exactly what [the intent stage's
+decomposition invariants](../intent-to-plan/decomposing-a-large-intent/)
+become at execution time. What a free conversation cannot supply is the
+governance half: a proposal that can be checked, approved, and reverted.
+Pure exploration still has no shape to type — "explore this codebase and
+tell me what is worth knowing" stays a leashed agent — but the mission's
+own work sits on the typed side: every task arrives as a test to satisfy,
+a shape someone already defined, which is why the deterministic demo is
+the honest anchor for this stage and not the whole story.
 
 ## What this stage does and does not establish
 

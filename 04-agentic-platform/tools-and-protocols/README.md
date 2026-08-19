@@ -37,11 +37,17 @@ tool lives elsewhere, three things break:
 | What does an error mean? | a string, if anything | structured codes — "bad parameter" is not "no such method" |
 | What may not be called? | nothing stops the harness | the protocol is closed — a call outside it fails |
 
-The third row is the one that matters for safety. A raw function call has
-no boundary: whatever is in the process can be invoked. A protocol's
-method set is an auditable surface — `delete_task` fails because it is not
-in the protocol, and that refusal is the same boundary that makes an MCP
-server safe to expose.
+The third row is the one that matters for *accountability*, and the
+distinction is worth being precise about. A raw function call has no
+boundary: whatever is in the process can be invoked. A protocol's method
+set is an enumerable surface — `delete_task` fails because it is not in
+the protocol, so the attack surface is *listable*, which is the
+precondition for auditing it. Enumerability is not safety: a protocol
+that lists a dangerous tool, accepts poisoned tool output, or grants
+excess permissions is still unsafe — the protocol just makes the unsafe
+part inspectable. MCP standardizes discovery and invocation; it does not
+supply tool trustworthiness, least privilege, or side-effect semantics,
+which are the control-plane's job ([stage 12](../control-plane-and-governance/)).
 
 ## The contract, read
 
