@@ -106,10 +106,17 @@ traces both.
 ## Stages
 
 The topic reads as one spine — model call, harness, platform, production —
-with the stages grouped by the plane they build. The recorded runs from the
-original bug-fixing mission are the empirical anchors; the platform stages
-that extend them are dated surveys plus mechanism demos unless a stage says
-otherwise.
+with the stages grouped by the plane they build. The evidence boundary
+between the two halves is deliberate and visible in the status column.
+Stages 00–06 are the *empirical core*: every claim is anchored to recorded
+runs on the mission's task sets, from the blind-call baseline to the
+resolve-rate/generality split. Stages 07–17 are the *design agenda*: dated
+surveys plus mechanism demos that extend the verified core toward a
+bounded autonomous delivery stack, and they are draft by design until a
+run backs them. The topic is not a claim that a general agentic platform
+has been built and validated; it is a verification-first coding harness,
+measured, with the missing layers toward full delivery named and
+sketched.
 
 ### Call
 
@@ -312,3 +319,38 @@ selection that makes the benchmark tractable and also its largest distortion:
 writing the test is usually the hard part of a bug report, and this topic
 hands the agent that work for free. Full boundary in
 [`mission.yaml`](mission.yaml) under `does_not_prove`.
+
+## Toward full delivery: what the verified core does not cover
+
+The verified core (stages 00–06) proves the harness loop and its economics
+on bug-fixing tasks with known answers. Moving from that to *autonomous
+end-to-end delivery* — a signal in, a validated outcome out — requires six
+layers the task set never exercises, and each is a named gap rather than
+an aspiration:
+
+1. **Objective and decision rights** — the intent layer must carry utility,
+   priority, and who owns each call, not just constraints
+   ([intent-to-plan](intent-to-plan/)). "Why" survives as the replanning
+   function.
+2. **Domain model and system of record** — the agent must know what entity
+   the world holds and which store is authoritative, or every action is a
+   guess about state.
+3. **Distributed side-effect semantics** — at-least-once execution demands
+   idempotency keys, outboxes, and compensation
+   ([runtime-and-durability](runtime-and-durability/)).
+4. **Security and trust boundaries** — prompt injection, tool-output
+   poisoning, and provenance, not just a sandbox
+   ([execution-environment](execution-environment/),
+   [control-plane-and-governance](control-plane-and-governance/)).
+5. **Economics of autonomy** — cost per *verified outcome* and human review
+   minutes, not cost per attempt
+   ([cheap-or-expensive](cheap-or-expensive/)).
+6. **Bounded recursive improvement** — the system may propose changes to
+   itself, but evaluation, deployment authority, and rollback must live
+   outside its reach
+   ([closing-the-loop](closing-the-loop/)).
+
+The honest position of this topic: the empirical core proves the loop;
+these six layers are the agenda that would turn the loop into a delivery
+stack. Each is a future stage with its own mission contract, not a claim
+already measured here.

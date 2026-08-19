@@ -1521,7 +1521,7 @@
   },
   "04-agentic-platform": {
     "level": "applied",
-    "minutes": 11
+    "minutes": 12
   },
   "04-agentic-platform/agent-loop": {
     "level": "applied",
@@ -1617,7 +1617,7 @@
   },
   "04-agentic-platform/context-and-memory": {
     "level": "frontier",
-    "minutes": 4
+    "minutes": 5
   },
   "04-agentic-platform/context-and-memory/a-sqlite-memory": {
     "level": "applied",
@@ -1749,7 +1749,7 @@
   },
   "04-agentic-platform/intent-to-plan": {
     "level": "frontier",
-    "minutes": 6
+    "minutes": 7
   },
   "04-agentic-platform/intent-to-plan/a-minimal-planner": {
     "level": "applied",
@@ -1785,7 +1785,7 @@
   },
   "04-agentic-platform/orchestration-and-workflows": {
     "level": "frontier",
-    "minutes": 4
+    "minutes": 5
   },
   "04-agentic-platform/orchestration-and-workflows/a-minimal-orchestrator": {
     "level": "applied",
@@ -1845,7 +1845,7 @@
   },
   "04-agentic-platform/runtime-and-durability": {
     "level": "frontier",
-    "minutes": 4
+    "minutes": 5
   },
   "04-agentic-platform/runtime-and-durability/a-minimal-checkpointer": {
     "level": "applied",
