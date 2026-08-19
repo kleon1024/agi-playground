@@ -87,6 +87,15 @@ boundary, and what the mission already proves about it.
 - **[bounded-improvement](bounded-improvement/)** — what the system may
   change about itself, and who controls the change.
 
+Two capstones close the stage, each running the objects as one system in
+a different domain:
+
+- **[capstone-software-delivery](capstone-software-delivery/)** — a real
+  signal in, a merged, verified, landed change out, with the production
+  gate that separates delivery from fix.
+- **[capstone-science-loop](capstone-science-loop/)** — a hypothesis in, a
+  validated finding out, with measurement as the evaluator.
+
 **Next:** the first and least replaceable object — the objective, its
 utility, and who owns the decisions —
 [objective-and-decision-rights](objective-and-decision-rights/).

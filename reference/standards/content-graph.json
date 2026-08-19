@@ -3966,6 +3966,18 @@
       "kind": "sub",
       "order": 50,
       "title": "What the system may change about itself, and who controls the change"
+    },
+    {
+      "path": "04-agentic-platform/delivery-stack/capstone-software-delivery",
+      "kind": "sub",
+      "order": 50,
+      "title": "A signal in, a merged change out. What does one complete delivery look like?"
+    },
+    {
+      "path": "04-agentic-platform/delivery-stack/capstone-science-loop",
+      "kind": "sub",
+      "order": 50,
+      "title": "A hypothesis in, a validated finding out. What does the science loop need?"
     }
   ],
   "renames": {

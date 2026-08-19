@@ -446,6 +446,8 @@
 04-agentic-platform/control-plane-and-governance/the-enterprise-matrix
 04-agentic-platform/control-plane-and-governance/the-platform-layers
 04-agentic-platform/delivery-stack/bounded-improvement
+04-agentic-platform/delivery-stack/capstone-science-loop
+04-agentic-platform/delivery-stack/capstone-software-delivery
 04-agentic-platform/delivery-stack/domain-and-system-of-record
 04-agentic-platform/delivery-stack/economics-of-autonomy
 04-agentic-platform/delivery-stack/objective-and-decision-rights

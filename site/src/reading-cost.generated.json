@@ -1679,6 +1679,14 @@
     "level": "frontier",
     "minutes": 4
   },
+  "04-agentic-platform/delivery-stack/capstone-science-loop": {
+    "level": "frontier",
+    "minutes": 3
+  },
+  "04-agentic-platform/delivery-stack/capstone-software-delivery": {
+    "level": "frontier",
+    "minutes": 4
+  },
   "04-agentic-platform/delivery-stack/domain-and-system-of-record": {
     "level": "frontier",
     "minutes": 4
