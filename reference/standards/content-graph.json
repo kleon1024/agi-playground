@@ -3936,6 +3936,36 @@
       "kind": "sub",
       "order": 50,
       "title": "The whole topic, drawn as the platform it builds"
+    },
+    {
+      "path": "04-agentic-platform/delivery-stack/domain-and-system-of-record",
+      "kind": "sub",
+      "order": 50,
+      "title": "What the world contains, and which store is authoritative"
+    },
+    {
+      "path": "04-agentic-platform/delivery-stack/side-effect-semantics",
+      "kind": "sub",
+      "order": 50,
+      "title": "What acted means when the machine may act twice"
+    },
+    {
+      "path": "04-agentic-platform/delivery-stack/trust-boundaries",
+      "kind": "sub",
+      "order": 50,
+      "title": "Where trust sits when the agent reads text it does not control"
+    },
+    {
+      "path": "04-agentic-platform/delivery-stack/economics-of-autonomy",
+      "kind": "sub",
+      "order": 50,
+      "title": "What a verified, landed outcome actually cost"
+    },
+    {
+      "path": "04-agentic-platform/delivery-stack/bounded-improvement",
+      "kind": "sub",
+      "order": 50,
+      "title": "What the system may change about itself, and who controls the change"
     }
   ],
   "renames": {

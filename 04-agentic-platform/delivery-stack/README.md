@@ -70,9 +70,22 @@ task set is a static WorkGraph; delivery needs one that evolves under
 governance. The recorded runs are a RunLedger for two task sets; delivery
 needs one that spans deployments.
 
-The next six chapters each take one object and make it concrete, in the
-same tutorial shape as the rest of this topic: a real instance, a
-mechanism, a boundary, and what the mission already proves about it.
+Each sub-chapter takes one object and makes it concrete, in the same
+tutorial shape as the rest of this topic: a real instance, a mechanism, a
+boundary, and what the mission already proves about it.
+
+- **[objective-and-decision-rights](objective-and-decision-rights/)** —
+  what to achieve, how conflicts resolve, and who decides.
+- **[domain-and-system-of-record](domain-and-system-of-record/)** — what
+  the world contains, and which store is authoritative.
+- **[side-effect-semantics](side-effect-semantics/)** — what "acted" means
+  when the machine may act twice.
+- **[trust-boundaries](trust-boundaries/)** — where trust sits when the
+  agent reads text it does not control.
+- **[economics-of-autonomy](economics-of-autonomy/)** — what a verified,
+  landed outcome actually cost.
+- **[bounded-improvement](bounded-improvement/)** — what the system may
+  change about itself, and who controls the change.
 
 **Next:** the first and least replaceable object — the objective, its
 utility, and who owns the decisions —

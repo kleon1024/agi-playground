@@ -1675,7 +1675,27 @@
     "level": "frontier",
     "minutes": 3
   },
+  "04-agentic-platform/delivery-stack/bounded-improvement": {
+    "level": "frontier",
+    "minutes": 4
+  },
+  "04-agentic-platform/delivery-stack/domain-and-system-of-record": {
+    "level": "frontier",
+    "minutes": 4
+  },
+  "04-agentic-platform/delivery-stack/economics-of-autonomy": {
+    "level": "frontier",
+    "minutes": 3
+  },
   "04-agentic-platform/delivery-stack/objective-and-decision-rights": {
+    "level": "frontier",
+    "minutes": 3
+  },
+  "04-agentic-platform/delivery-stack/side-effect-semantics": {
+    "level": "frontier",
+    "minutes": 4
+  },
+  "04-agentic-platform/delivery-stack/trust-boundaries": {
     "level": "frontier",
     "minutes": 3
   },
