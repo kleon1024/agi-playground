@@ -3386,6 +3386,18 @@
       "title": "What did this mission actually establish?"
     },
     {
+      "path": "04-agentic-platform/delivery-stack",
+      "kind": "stage",
+      "order": 19,
+      "title": "Fixing a bug and delivering a result are different systems. What is the second one made of?"
+    },
+    {
+      "path": "04-agentic-platform/delivery-stack/objective-and-decision-rights",
+      "kind": "sub",
+      "order": 50,
+      "title": "Two requests can share every task and still need different decisions. What does the objective have to carry?"
+    },
+    {
       "path": "04-agentic-platform/task-set/the-two-of-six-yield",
       "kind": "sub",
       "order": 50,
@@ -4285,6 +4297,12 @@
           "04-agentic-platform/industry-impact",
           "04-agentic-platform/real-tasks",
           "04-agentic-platform/report"
+        ]
+      },
+      {
+        "label": "Delivery",
+        "stages": [
+          "04-agentic-platform/delivery-stack"
         ]
       }
     ]

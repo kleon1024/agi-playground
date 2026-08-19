@@ -167,6 +167,12 @@ sketched.
 | [Real tasks](real-tasks/) | the platform passed its own tests; what happens on real work? | draft |
 | [The report](report/) | what did we actually establish? | verified |
 
+### Delivery
+
+| Stage | Question | Status |
+|---|---|---|
+| [Delivery stack](delivery-stack/) | fixing a bug and delivering a result are different systems; what is the second one made of? | draft |
+
 [Stage 00](00-task-set/) has run. It mined this repository's 100 commits down to
 4 candidates and admitted **2**, because a task is admitted only if its test
 fails before the fix and passes after it. Half the candidates failed that rule,

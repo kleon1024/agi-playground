@@ -1671,6 +1671,14 @@
     "level": "reference",
     "minutes": 1
   },
+  "04-agentic-platform/delivery-stack": {
+    "level": "frontier",
+    "minutes": 3
+  },
+  "04-agentic-platform/delivery-stack/objective-and-decision-rights": {
+    "level": "frontier",
+    "minutes": 3
+  },
   "04-agentic-platform/execution-environment": {
     "level": "frontier",
     "minutes": 5

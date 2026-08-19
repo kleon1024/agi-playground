@@ -412,6 +412,7 @@
 04-agentic-platform/industry-impact
 04-agentic-platform/real-tasks
 04-agentic-platform/report
+04-agentic-platform/delivery-stack
 04-agentic-platform
 04-agentic-platform/agent-loop/harness-anatomy
 04-agentic-platform/agent-loop/the-loop-that-scores-a-patch
@@ -444,6 +445,7 @@
 04-agentic-platform/control-plane-and-governance/our-platform-map
 04-agentic-platform/control-plane-and-governance/the-enterprise-matrix
 04-agentic-platform/control-plane-and-governance/the-platform-layers
+04-agentic-platform/delivery-stack/objective-and-decision-rights
 04-agentic-platform/execution-environment/a-minimal-sandbox
 04-agentic-platform/execution-environment/fuse-and-the-filesystem-interface
 04-agentic-platform/execution-environment/infra-agent-harness-landscape
